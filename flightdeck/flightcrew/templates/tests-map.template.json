@@ -1,0 +1,74 @@
+{
+  "$schema": "orchestration/schemas/tests-map.schema.json",
+  "schema_version": "<integer, version of this schema>",
+  "name": "<spec name, matches folder>",
+  "version": "<integer, this file is tests-map.v<version>.json>",
+  "status": "<draft | frozen>",
+  "commit": "<hash at freeze, absent while draft>",
+  "reason": "<why this version exists, one line>",
+  "spec": {
+    "name": "<spec name>",
+    "version": "<integer, the frozen spec version this map satisfies>",
+    "commit": "<that spec version's freeze commit>"
+  },
+  "previous_versions": [
+    {
+      "v": "<integer>",
+      "file": "<filename>.json",
+      "date": "<date frozen>",
+      "commit": "<hash>",
+      "reason": "<why that version existed, one line>"
+    }
+  ],
+  "fixture": {
+    "path": "<reference input all checks run against>",
+    "text": "<what it represents; changing it invalidates every baseline and is a map revision>"
+  },
+  "locked_paths": [
+    "<test directories, check scripts, the fixture, and this file; read-only to implementing agents during a run, enforced by hook>"
+  ],
+  "run_all": "<optional; one command for a human sanity pass; machine consumers use per-check commands>",
+  "acceptance": "T1",
+  "checks": [
+    {
+      "id": "T<n>",
+      "status": "<ok|new|changed>",
+      "name": "<optional short human label, no meaning; cross-reference by id only>",
+      "kind": "<acceptance | unit | contract | golden | schema | budget | constraint | boundary | structural>",
+      "covers": [
+        "<spec node ids: B<n>, E<n>, C<n>, I<n>, or 'scope'>"
+      ],
+      "file": "<test file or script path>",
+      "command": "<exact command; exit code is the verdict>",
+      "baseline": {
+        "expect": "<pass | fail: <reason>>",
+        "observed": "<verbatim state at the baseline run>",
+        "note": "<only when observed needs explaining>"
+      },
+      "note": "<reason, only when status not ok, or a caveat the reader needs>"
+    }
+  ],
+  "unverified": [
+    {
+      "ref": "<spec node id with no mapped check>",
+      "reason": "<why it cannot or will not be checked>",
+      "decided_by": "human",
+      "at": "<map version where decided>"
+    }
+  ],
+  "baseline": {
+    "commit": "<code commit the full baseline ran at>",
+    "date": "<date>",
+    "result": "<one line: every check's observed matches its expect, or which do not>"
+  },
+  "retired": [
+    {
+      "id": "T<n>",
+      "at": "<map version where removed>",
+      "covers": [
+        "<spec node ids it covered; each must be remapped or in unverified in the same version>"
+      ],
+      "note": "<why, one line>"
+    }
+  ]
+}

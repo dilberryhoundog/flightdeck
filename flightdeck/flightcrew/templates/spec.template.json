@@ -1,0 +1,93 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": "<integer, version of this schema>",
+  "name": "<spec name, matches folder>",
+  "version": "<integer, this file is spec.v<version>.json>",
+  "status": "<draft | frozen>",
+  "commit": "<hash at freeze, absent while draft>",
+  "reason": "<why this version exists, one line>",
+  "previous_versions": [
+    {
+      "v": "<integer>",
+      "file": "<filename>.json",
+      "date": "<date frozen>",
+      "commit": "<hash>",
+      "reason": "<why that version existed, one line>"
+    }
+  ],
+  "intent": {
+    "id": "INT",
+    "status": "<ok|new|changed; every node is ok in v1>",
+    "text": "<outcome and why>",
+    "note": "<reason, only when status not ok>"
+  },
+  "scope": [
+    {
+      "id": "SC<n>",
+      "status": "<ok|new|changed; every node is ok in v1>",
+      "kind": "<in | out>",
+      "text": "<...>"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C<n>",
+      "status": "<ok|new|changed; every node is ok in v1>",
+      "text": "<non-negotiable about how>"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I<n>",
+      "status": "<ok|new|changed; every node is ok in v1>",
+      "name": "<type/contract name>",
+      "reuse": "<existing path | null>",
+      "text": "<signature or shape>"
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B<n>",
+      "status": "<ok|new|changed; every node is ok in v1>",
+      "text": "<observable behaviour, testable phrasing>"
+    }
+  ],
+  "edges": [
+    {
+      "id": "E<n>",
+      "status": "<ok|new|changed; every node is ok in v1>",
+      "text": "<boundary or failure, with stated outcome>"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D<n>",
+      "status": "<ok|new|changed; every node is ok in v1>",
+      "text": "<decided elsewhere or deliberately deferred>"
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "<ok|new|changed; every node is ok in v1>",
+    "text": "<how this spec expects to be proven, derived behaviour by behaviour: for each numbered behaviour, what goes in and what must be observed coming out; then the end-to-end proof that exercises the whole. A check that can be run beats one that must be judged, but a criterion an agent can decide against is enough — determinism is a preference, not a requirement. Work from the behaviour to the check, never from the tooling backwards.>"
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "<ok|new|changed; every node is ok in v1>",
+    "text": "<the conditions that end the work: which checks hold, what evidence is put in front of the owner, and what the owner confirms. Nothing appears here that the sections above did not feed.>"
+  },
+  "open_questions": [
+    {
+      "id": "Q<n>",
+      "text": "<unresolved>"
+    }
+  ],
+  "retired": [
+    {
+      "id": "<node id>",
+      "at": "<version where removed>",
+      "text": "<the text value of the retired node>",
+      "note": "<why, one line>"
+    }
+  ]
+}

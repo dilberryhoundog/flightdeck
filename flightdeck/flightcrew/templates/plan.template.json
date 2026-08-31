@@ -1,0 +1,58 @@
+{
+  "$schema": "orchestration/schemas/plan.schema.json",
+  "schema_version": "<integer, version of this schema>",
+  "plan_version": "<integer, bumped on every edit or re-plan>",
+  "run": "<run id, matches runs/ folder>",
+  "spec": {
+    "path": "<orchestration/specs/<name>/spec.v<n>.json>",
+    "commit": "<hash the spec was frozen at>",
+    "spec_version": "<integer, must match the spec file's version>"
+  },
+  "kickoff": {
+    "path": "<kickoff file used>",
+    "version": "<integer>"
+  },
+  "status": "<draft | approved>",
+  "approval": {
+    "at": "<datetime, written by the gate page on approve>",
+    "by": "<who approved>",
+    "spec_version": "<integer, spec version visible at approval>",
+    "plan_hash": "<hash of this file minus this block; dispatch and assembly verify it>"
+  },
+  "interfaces": [
+    {
+      "id": "I<n>, carried over from the spec's interface ids where one exists",
+      "spec_ref": "<I<n> in the spec, or null for a seam the plan introduced>",
+      "name": "<type / function / route / schema name as it appears in code>",
+      "kind": "<type | function | schema | route | migration | file-format | event>",
+      "reuse": "<existing:<name> | new>",
+      "path": "<file that carries the seam; joins the protected set at interface-gate approval>",
+      "check": "<contract check name from the test map>",
+      "stub": "<true when declared with a not-implemented body for a unit to finish; false when the declaration is complete in itself>"
+    }
+  ],
+  "units": [
+    {
+      "id": "U<n>, stable, never reused or renumbered",
+      "name": "<short human name>",
+      "spec_refs": ["<B<n> and E<n> ids this unit is accountable for; references only, never copied text>"],
+      "owns": ["<paths this unit may write; its diff boundary; no path in two units>"],
+      "needs": ["<I<n> interfaces consumed, read-only>"],
+      "produces": ["<I<n> stubbed interfaces whose bodies this unit implements>"],
+      "checks": ["<check names that must be green; always includes contract checks of needs and produces; later waves also include earlier waves' behaviour checks>"],
+      "worker": "<agent role from .claude/agents/>",
+      "model": "<tier for the first attempt>",
+      "group": "<parallel group; units sharing a group run concurrently>",
+      "size": "<S | M | L>",
+      "flags": ["<modify-existing | risk | human-decision>"],
+      "decisions": ["<every call made where the spec was silent, one sentence each; presence requires the human-decision flag>"],
+      "ceilings": {
+        "iterations": "<max attempts against this unit's checks before returning failed; defaults from kickoff when absent>"
+      }
+    }
+  ],
+  "order": [
+    ["<group ids dispatched together as wave 1>"],
+    ["<wave 2, starts only when wave 1 has landed>"]
+  ]
+}

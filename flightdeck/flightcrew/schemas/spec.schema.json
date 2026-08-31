@@ -1,0 +1,451 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "orchestration/schemas/spec.schema.json",
+  "title": "Spec",
+  "description": "A spec answers what must be true when the work is done. Instances are produced by filling templates/spec.template.json; this schema is executed against instances by the freeze step, the gate page loader, the plan validator and the render step. Invariants this schema cannot express, checked by validate-spec.mjs: (1) all node ids are unique across every section, including intent, verification and acceptance; (2) each node id carries its section's prefix; (3) when status is frozen, commit is present and open_questions is empty; (4) when status is draft, commit is absent; (5) no live node reuses an id in retired; (6) previous_versions carry ascending v values all lower than version; (7) each edge's text states an outcome, not a concern (judgement — flagged for the attack session, not enforced); (8) in v1 every node is ok and no retired entries exist; (9) a node whose status is not ok carries a note; (10) the filename's v-number matches version; (11) each retired entry's at falls between 2 and version; (12) previous_versions covers every earlier version, 1..version-1; (13) the live ids and the retired ids together form an unbroken 1..N in each prefix, so no id ever used vanishes from the page (Q ids are excluded, an answered question is not a retired node).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "name",
+    "version",
+    "status",
+    "intent",
+    "scope",
+    "constraints",
+    "interfaces",
+    "behaviours",
+    "edges",
+    "decisions",
+    "verification",
+    "acceptance",
+    "open_questions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Matches the folder under orchestration/specs/."
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "This file is spec.v<version>.json."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "frozen"
+      ]
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$",
+      "description": "Hash at freeze. Present iff frozen (coded invariant)."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Why this version exists, one line."
+    },
+    "previous_versions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "v",
+          "file",
+          "date",
+          "commit",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "file": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "commit": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{7,40}$"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "INT"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "new",
+            "changed"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "description": "Reason, only when status is not ok."
+        }
+      }
+    },
+    "scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "kind",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^SC[0-9]+$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "new",
+              "changed"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "in",
+              "out"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^C[0-9]+$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "new",
+              "changed"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "name",
+          "reuse",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^I[0-9]+$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "new",
+              "changed"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "reuse": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Existing path to reuse, or null for new."
+          },
+          "text": {
+            "type": "string",
+            "description": "Signature or shape."
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "behaviours": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^B[0-9]+$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "new",
+              "changed"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "description": "Observable behaviour, testable phrasing."
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^E[0-9]+$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "new",
+              "changed"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "description": "Boundary or failure, with stated outcome."
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^D[0-9]+$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "new",
+              "changed"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "VER"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "new",
+            "changed"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "ACC"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "new",
+            "changed"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^Q[0-9]+$"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "retired": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "at",
+          "text",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "at": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Version where removed."
+          },
+          "text": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

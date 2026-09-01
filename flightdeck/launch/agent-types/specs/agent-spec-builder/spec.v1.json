@@ -1,0 +1,325 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-spec-builder",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, rewritten against the nine domains and the agent-shaped verification addendum",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "An agent that turns a brief provided description or intention into a self contained, precise spec by extracting the provider's tacit knowledge using interview questions. The intentions landscape is probed with everything obvious skipped, instead the focus is questioning the edges, tradeoffs, failure modes and hard parts the provider would not think to volunteer. This vital link in the build chain provided by this agent is what all others, builds, verifies and reviews from."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "kind": "in",
+      "text": "The agent definition file: the interview conduct, the rules for converting answers into template language, the routing of unresolved matters, and the handoff that ends the session."
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "kind": "in",
+      "text": "The harness directory delivered beside the definition: the scenario set, the fixture project, the deterministic check scripts, the rubric and its calibration examples."
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "kind": "out",
+      "text": "Freezing a spec, or judging one ready. The owner's act, and no version of this agent performs it."
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "kind": "out",
+      "text": "Attacking the draft it produced. A fresh context that never saw the interview does that, and this agent never grades its own extraction."
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "kind": "out",
+      "text": "Deriving checks from the behaviours it wrote. That is the test builder's work, and its questions are this agent's defects."
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "kind": "out",
+      "text": "How a run is conducted: how many agents it dispatches, budgets, gates, displays, isolation. The model this role runs on is likewise outside: it is an interactive main session and the human selects the model at launch, so no statement here could bind it."
+    },
+    {
+      "id": "SC7",
+      "status": "ok",
+      "kind": "out",
+      "text": "Editing templates, schemas, validators or project conventions. This agent writes specs against them and reports where one is wrong; amending them because a spec was awkward to write is another party's decision."
+    },
+    {
+      "id": "SC8",
+      "status": "ok",
+      "kind": "out",
+      "text": "Reconciling other roles' definitions when the draft contradicts them. The contradiction is reported; which document moves is the owner's call."
+    },
+    {
+      "id": "SC9",
+      "status": "ok",
+      "kind": "out",
+      "text": "Discovery: searching a repository or the web to find out whether a name exists. The agent states the claim to be checked and delegates the finding to the role whose work that is."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Every statement in the draft traces to something the owner said. Where the agent believes something belongs and the owner has not said it, it is proposed and confirmed before entering the body; an unconfirmed assumption in the body is invisible and wrong, while the same thing in open questions is visible and safe."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "The agent never resolves a matter on the owner's behalf. An unresolved matter is recorded, never decided, because a question left open at freeze is a decision handed to whichever agent hits it first."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Outcomes, never steps. A sequence to follow cannot be tested, only followed, so a verifier reading it has nothing to check."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "The number of questions asked, and of passes made over a draft, is proportionate to the work. No ceiling is stated because the right number for a one-behaviour convention and a forty-behaviour feature differ by an order of magnitude; this is marked unmeasurable deliberately and is judged, not checked."
+    },
+    {
+      "id": "C5",
+      "status": "ok",
+      "text": "The template owns the shape and the agent owns the extraction: the draft is written against the template supplied, not against a structure of the agent's own."
+    },
+    {
+      "id": "C6",
+      "status": "ok",
+      "text": "Tool policy: reads the template, the idea and the material the owner points at; writes only the draft spec and its own working notes; asks the owner structured questions; dispatches discovery rather than searching for itself. No code edits, no check execution beyond the readiness linter on its own draft, no amendment of any document other than the draft."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "name": "invocation",
+      "reuse": null,
+      "text": "Parameters supplied by the invoker: spec_template path, output_path, the idea as one paragraph, project_root, and optional run_log_path. A missing optional parameter changes behaviour only as an edge below states."
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "name": "draft-spec",
+      "reuse": "orchestration/schemas/spec.schema.json",
+      "text": "The output artefact: a spec file at output_path conforming to the project's spec schema, status draft, version 1, all nine domains present, a domain left empty carrying the phrase 'empty by decision' and a reason."
+    },
+    {
+      "id": "I3",
+      "status": "ok",
+      "name": "handoff",
+      "reuse": null,
+      "text": "The closing return, as a structured object: { draft_path: string, behaviour_count: integer, edge_count: integer, open_questions: [ { id: string, text: string } ], unconfirmed_proposals: [ { text: string, domain: string } ], weakest_domains: [ string ] }. weakest_domains draws from the nine domain names. Every field is present on every return; an empty list is written empty, never omitted."
+    },
+    {
+      "id": "I4",
+      "status": "ok",
+      "name": "harness",
+      "reuse": "workspace/filebox/spec/creating-harness-documents-with-agent-runs.md",
+      "text": "Delivered beside the definition, to the inventory in the harness document: harness/scenarios/ (one file per scenario: prompt, fixture notes, N, threshold, the behaviour ids it exercises), harness/fixture/ (the scratch project the definition is installed into), harness/rubric.md with harness/calibration/ (the pre-graded examples), harness/checks/ (scripts reading records, exit 0 or 1), harness/run.sh, harness/judge.sh, harness/records/. The scenario set includes at least one control scenario per judged behaviour. Locked against the agent's builder for the duration of a run."
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "[deterministic] The spec template is read, and the run log when one is supplied, before the first question is asked. The transcript shows both reads preceding any question to the owner."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "[property] Questions concentrate where specs fail: edge cases, failure modes, scope boundaries, interface reuse, unvoiced tradeoffs, prior decisions, and the end-to-end proof. A question whose answer the idea already gives is not asked."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "[property] The body of the interview reaches the owner as an instrument they can edit and return in one pass, rather than as prose they must compose a reply to."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "[property] A question whose answer is a choice between alternatives reaches the owner as a structured choice with the alternatives named, rather than as an open question."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "[judged] Given an answer that is vague, the agent reflects it back as two concrete alternatives and asks the owner to choose, rather than recording the vague answer or resolving it."
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "[deterministic] Given an answer that opens a case the owner had not considered, the interview instrument at the next turn differs from the one before it: a follow-up covering that case has been added, and no question the answer settled is asked again."
+    },
+    {
+      "id": "B7",
+      "status": "ok",
+      "text": "[property] Each accepted answer that states a behaviour appears in the draft as a numbered statement a stranger could write a check from."
+    },
+    {
+      "id": "B8",
+      "status": "ok",
+      "text": "[property] Each accepted answer that bounds the work appears in the draft's scope as an explicit in or out entry."
+    },
+    {
+      "id": "B9",
+      "status": "ok",
+      "text": "[property] Each accepted answer that fixes a condition on the result appears in the draft's constraints as a checkable condition, or marked unmeasurable with a reason."
+    },
+    {
+      "id": "B10",
+      "status": "ok",
+      "text": "[property] Each accepted answer naming a seam appears in the draft's interfaces by the name that already exists, where one does."
+    },
+    {
+      "id": "B11",
+      "status": "ok",
+      "text": "[deterministic] Every file path, type, function, command and interface name written into the draft has been checked by a delegated discovery pass. A name that came back unresolved is written as unchecked, naming what could not be found."
+    },
+    {
+      "id": "B12",
+      "status": "ok",
+      "text": "[deterministic] A matter the owner defers, cannot answer, or asks the agent to decide appears in open_questions, phrased so that answering it closes the gap, and appears resolved nowhere in the body."
+    },
+    {
+      "id": "B13",
+      "status": "ok",
+      "text": "[deterministic] Where the draft declares its product agent-shaped, every behaviour in it carries exactly one check class tag drawn from deterministic, property, statistical and judged."
+    },
+    {
+      "id": "B14",
+      "status": "ok",
+      "text": "[deterministic] The draft contains no run-conduct content: no tool grants, agent counts, model choices, budgets, gates or displays."
+    },
+    {
+      "id": "B15",
+      "status": "ok",
+      "text": "[deterministic] The complete draft is written to output_path with status draft, all nine domains present, and every empty domain carrying the phrase 'empty by decision' with a reason."
+    },
+    {
+      "id": "B16",
+      "status": "ok",
+      "text": "[property] The session closes with the return of I3, whose text states that the draft must survive an attack and reach zero open questions before anyone may freeze it."
+    },
+    {
+      "id": "B17",
+      "status": "ok",
+      "text": "[deterministic] The readiness linter runs over the finished draft before the handoff, and its result — clean, or the failing checks by name — appears in the return."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "The idea is two ideas: the agent says so and asks the owner to split it before continuing. It does not interview for both."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "A later answer contradicts an earlier one: both are put back to the owner with the question of which stands. Neither is silently kept."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "run_log_path is absent or unreadable: the interview proceeds and the handoff names the absence, so nobody mistakes an unshaped interview for one informed by known failure modes."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "No spec_template is supplied: the agent names the shape it is using and says why, and the handoff records that the owner supplied none."
+    },
+    {
+      "id": "E5",
+      "status": "ok",
+      "text": "project_root is absent or unreadable: the interview proceeds, every reuse claim in the draft is written as unchecked, and the handoff names them so the attacker knows which claims nobody verified."
+    },
+    {
+      "id": "E6",
+      "status": "ok",
+      "text": "Reference material the owner supplies contradicts itself: the contradiction and the location of each side are reported to the owner. The agent does not reconcile other people's documents."
+    },
+    {
+      "id": "E7",
+      "status": "ok",
+      "text": "The owner becomes unavailable mid-interview: the agent stops, writes the partial draft, and hands over with every unanswered question listed as an open question."
+    },
+    {
+      "id": "E8",
+      "status": "ok",
+      "text": "The owner asks the agent to decide a matter: the agent proposes with the alternatives named, marks the proposal unconfirmed in the handoff, and leaves it out of the body until the owner answers."
+    },
+    {
+      "id": "E9",
+      "status": "ok",
+      "text": "The idea already answers most domains: the agent asks only what remains unanswered, and the handoff names which domains were taken from the idea rather than from the interview, so nobody mistakes a thin interview for a thin spec."
+    },
+    {
+      "id": "E10",
+      "status": "ok",
+      "text": "The readiness linter cannot run: the draft is handed over unlinted rather than held, and the return names the linter as unrun with the reason, so the attacker knows the structural pass has not happened."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "Templates and paths are supplied by the invoker at session start; the agent embeds nothing project-specific."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Open questions belong to this agent and the owner. The attacker returns findings and never writes into them; a finding becomes an open question only when this agent promotes it."
+    },
+    {
+      "id": "D3",
+      "status": "ok",
+      "text": "Claims are checked by delegation: the agent states the claim to be checked, dispatches it, and records what comes back against the name in the draft. A reuse claim written on the owner's belief rather than a check has been found contradicting itself across three artefacts, so the check happens — the delegation decides who performs it, not whether."
+    },
+    {
+      "id": "D4",
+      "status": "ok",
+      "text": "The draft is visible to the owner during the interview rather than written only at the end, because an owner who cannot see what has been captured cannot tell what is missing."
+    },
+    {
+      "id": "D5",
+      "status": "ok",
+      "text": "Verification of this agent is built per check class rather than as red or green tests throughout. Demanding a deterministic test of every behaviour of a model-produced result deforms the specification, and a behaviour is never reworded to qualify for a cheaper class."
+    },
+    {
+      "id": "D6",
+      "status": "ok",
+      "text": "Harness-failure handling — hook failures, tool crashes, permission misconfiguration — is deferred to a later version, because every such failure is a property of the harness this role runs on rather than of the role, and specifying it here would fix behaviour against a harness that is still changing."
+    },
+    {
+      "id": "D7",
+      "status": "ok",
+      "text": "Linting one's own draft is not the agent grading its own work: the linter is a script with fixed rules and no judgement, so running it costs a second and saves the attacker a whole pass on defects a script already names."
+    },
+    {
+      "id": "D8",
+      "status": "ok",
+      "text": "This role runs as an interactive main session, not as a dispatched subagent. That is why it carries no model constraint: the human selects the model when launching the session, and a definition cannot choose what it does not dispatch."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Agent-shaped, so verification is built per check class over records the run manufactures rather than finds. Fixture: a minimal scratch project with the definition installed, a scripted idea, and a scripted owner whose answers include one vague answer, one contradiction with an earlier answer, one deferral, one request that the agent decide, and one reuse claim naming something absent from the project. At least one control scenario supplies an idea whose edges are already fully stated, where B5's reflect-back must not fire. Deterministic, read from captured transcripts and the produced draft as exit codes: the template and run log were read before the first question (B1); the instrument at turn n+1 differs from turn n by an added follow-up and asks nothing the previous answer settled (B6); every name written into the draft resolves at project_root or is marked unchecked (B11); the deferral and the decide-request appear in open_questions and nowhere in the body (B12); every behaviour carries exactly one class tag (B13); the draft holds no run-conduct content (B14); the draft validates against the spec schema with all nine domains present and status draft (B15); no file outside the draft and the agent's notes was written; the linter ran over the finished draft and its result appears in the return (B17). Property, as exit codes naming the missing property: the questions asked cover the domains B2 names and omit what the idea already answers; the interview body arrived as a returnable instrument (B3) and each fork as a structured choice with its alternatives named (B4); accepted answers reach the draft in the per-domain forms of B7, B8, B9 and B10; the closing return carries every field of I3 and its stated freeze precondition (B16). Statistical, as a ratio against a threshold declared in the scenario set: B5 is stochastic and is run N times per scenario, holding in at least k, with a single passing run treated as a sample and not a proof. Judged, last and only for meaning: a rubric derived from B5 decomposes it into binary questions, and a judge in a fresh context reads the transcripts — never the agent's account of them — returning a verdict sheet whose every answer quotes the lines it rests on. The rubric is calibrated against three to five transcripts a human has already graded, at least one of them a failure, and the calibration record is current before any verdict is trusted. A human reads one full probe transcript, chosen by the reviewer and not by the producer, against a walkthrough rubric covering the same behaviours; this is the check the classes above do not remove the value of. Edges are checked on their own scenarios, each named in the scenario set. Deterministic, from the produced artefacts and the return: with run_log_path absent the return names the absence (E3); with no spec_template supplied the return records that and the transcript names the shape used (E4); with project_root unreadable every reuse claim is marked unchecked and the return lists them (E5); with the owner going silent mid-interview a partial draft exists and every unanswered question appears in open_questions (E7); with the owner asking the agent to decide, the proposal appears in the return as unconfirmed and not in the body (E8). with an idea that already answers most domains, only the remainder is asked and the handoff names which domains came from the idea (E9); with the linter unrunnable, the draft is handed over and the return names it unrun with the reason (E10). Property, from the transcript: an idea carrying two ideas is named as two and the interview does not proceed for both (E1); a scripted answer contradicting an earlier one puts both back to the owner rather than keeping either (E2); self-contradicting reference material is reported with the location of each side and is not reconciled (E6). The scenario set, the checks, the rubric and its calibration examples are authored before the definition and locked against it. The end-to-end proof is the next stage: the test builder is given the draft alone and derives a check for every behaviour, and any question it must ask the owner is a defect in the draft."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Every deterministic and property check green as exit codes. Every statistical threshold met on the versioned scenario set as ratios. Every judged rubric passed as verdict sheets with cited evidence, against a current calibration record. The harness delivered beside the definition, complete to its inventory, and green in the run that built it. The change touches only orchestration/crew/spec-builder.md and the harness/ directory delivered beside it; no template, schema, validator or other role's definition is modified. One full probe transcript, chosen at the gate and not by the builder, read by a human, with the transcript's identifier and the reader recorded in the run record. And the whole standard the rest assembles toward: a standalone spec that a test builder, planner, implementer or reviewer can act on with no gap, no double path, and no need to return to the owner with a question — settled by the test builder's tests map covering every behaviour and edge, with no owner question raised in producing it."
+  },
+  "open_questions": [],
+  "retired": []
+}

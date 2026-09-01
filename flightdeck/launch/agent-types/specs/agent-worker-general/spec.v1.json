@@ -1,0 +1,182 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-worker-general",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A worktree-isolated subagent that implements one plan unit to its mapped checks and returns a structured result, so that parallel production is accountable vertically to the orchestrator and horizontally to nobody."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: the iterate-to-green loop, root-cause discipline, boundary obedience, contradiction and blocked returns, commit and return conduct.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "Any path outside the unit's owns; any test, interface or spec edit; any second unit.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Standard model tier (sonnet-class at time of writing); well-scoped production against a fixed target."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Worktree isolation; merge is the orchestrator's act."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "The mapped checks are the definition of done and are never negotiated with: no loosened assertions, no suppressed errors, no mocking around the hard part."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Tool policy: read files, write non-test source within owns, run checks; denied: test edits, interface edits, spec edits, paths outside owns, spawning agents."
+    },
+    {
+      "id": "C5",
+      "status": "ok",
+      "text": "The iteration ceiling from the plan or kickoff is absolute."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: unit id, spec_refs, interface files (read-only), mapped check names and commands, iteration ceiling, worker prompt template.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "Return contract per crew convention: unit, spec_refs, status (complete | blocked | contradiction-found | over-budget), artefacts, checks with command and exit and summary line, notes of at most three sentences. Schema-validated at the handoff.",
+      "name": "return",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "The agent iterates implement-run-read-fix against the mapped checks until all are green or the ceiling is reached."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "Failures are fixed at cause: the diff never weakens an assertion, suppresses an error signal, or replaces a hard dependency with a mock to pass a check."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "All writes fall within the unit's owns paths; a needed file outside them produces a blocked return, not a wider diff."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "A mapped check that can only pass by weakening it, or that contradicts a spec_ref, or two spec_refs in conflict, halts work immediately with a contradiction-found return quoting both texts."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "The landed unit is committed atomically with the unit id in the message."
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "The return reports every mapped check with its actual command, exit code and output line, including any that never went green."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "The ceiling is reached with checks still red: over-budget return carrying the closest-to-green state and the outputs; no ceiling extension is requested."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "An interface consumed by the unit behaves differently from its declaration: contradiction-found naming the interface id; the agent does not adapt around it."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "A check is flaky across identical runs: returned in notes as flaky with both outcomes; the agent does not retry-until-green as a strategy."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "owns is empty or missing: blocked return before any write."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "The worker never negotiates with its own target; every non-complete outcome routes to the orchestrator untouched."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Root-cause discipline is behaviourally specified here and additionally enforced by harness locks that are out of scope."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures in a small repository: a completable unit; a unit whose check contradicts its spec_ref; a unit requiring an out-of-owns file; a two-iteration ceiling against an uncompletable check. Deterministic assertions: return schema-valid in all four with the correct status; diff confined to owns; test directory hash unchanged; commit message carries the unit id; the contradiction return quotes both texts."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; the four fixture runs return complete, contradiction-found, blocked and over-budget respectively, each with the asserted properties, and the completable unit's checks are green with verbatim output in the return."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Should the return include a machine-readable iteration count so the orchestrator can tune ceilings from report data?"
+    },
+    {
+      "id": "Q2",
+      "text": "May a worker refactor within owns beyond what its checks require, or is opportunistic cleanup out of scope even inside the boundary?"
+    }
+  ],
+  "retired": []
+}

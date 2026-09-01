@@ -1,0 +1,199 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-test-builder",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A session agent that derives the run's executable targets from a frozen spec: one named check per behaviour and edge, the end-to-end acceptance script, the tests map and the diff-boundary list, proven by a baseline in which every target fails for the right reason, so that any spec is made deterministically testable or is sent back as untestable-as-written."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: derivation rules, check-shape selection, naming, baseline conduct, escalation of untestable behaviours.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Production of the tests map and the diff-boundary path list.",
+      "kind": "in"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Standard model tier; production against a fixed unambiguous spec, with ambiguity escalated rather than resolved."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Fresh context; the agent must not see any plan, any implementation of the specified feature, or the sessions that produced the spec."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "The agent works only from the spec's words; interpretation is prohibited and its necessity is itself a returnable finding."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Tool policy: read files, write test files and the map and boundary list, run checks; no edits to non-test source or to the spec."
+    },
+    {
+      "id": "C5",
+      "status": "ok",
+      "text": "Commits are limited to the test directory, the map and the boundary list."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: spec_path (frozen), tests_map_template, test_directory, reference_fixture, and the project's check-command conventions.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "The map: every B and E id with its checks and a status of mapped, deliberately-unverified (with the spec's stated reason), or untestable-as-written.",
+      "name": "tests-map",
+      "reuse": "orchestration/schemas/tests-map (project artefact)"
+    },
+    {
+      "id": "I3",
+      "status": "ok",
+      "text": "The closing return: counts and ids per map status, each untestable id with the interpretations that block a deterministic test, and a summary of the baseline run.",
+      "name": "return",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Every behaviour and edge id receives at least one check, or a deliberately-unverified entry citing the spec, or an untestable-as-written escalation; no id is silently absent from the map."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "Every check is named after the ids it covers, so the mapping is auditable without reading test code."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "Check shape follows the behaviour: unit for local logic, contract for every interface the spec names, artefact comparison for generated output, property checks where the spec states an invariant over a wide input space."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "The acceptance script exercises the feature as the spec's verification node describes the proof, exits nonzero on failure, and is terse on success and specific on failure."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "The diff-boundary path list is derived from the spec's scope entries and written alongside the map."
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "The baseline runs on the reference fixture and demonstrates: structural checks green, behaviour checks and the acceptance script failing because the feature does not exist; the output is captured."
+    },
+    {
+      "id": "B7",
+      "status": "ok",
+      "text": "A check that passes before implementation is treated as defective and is fixed or flagged before the baseline is accepted."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "A behaviour needs interpretation to test: the agent writes no test for it and returns it as untestable-as-written with the readings it can see; it never guesses."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "The spec is not frozen: the agent refuses and returns that targets are derived only from frozen specs."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "The reference fixture is missing or inadequate for a behaviour: the agent returns the gap as blocking that behaviour's baseline rather than fabricating fixture data silently."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "Two behaviours demand contradictory outcomes: returned as a spec contradiction; no test is written for either."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "Untestable-as-written items are spec findings routed back to the human, not test problems; this is the deterministic-testability guarantee."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Locking tests against implementing agents is enforced by the harness, not by this agent; this spec only requires the map to record that checks are lock-intended."
+    },
+    {
+      "id": "D3",
+      "status": "ok",
+      "text": "Grading-by-rubric checks are out of scope for v1; every emitted check must be machine-scorable."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixture: a small frozen spec containing one cleanly testable behaviour, one deliberately ambiguous behaviour and one interface. Deterministic assertions: the map validates and covers every id; the ambiguous behaviour appears as untestable-as-written and has no test file; check names contain the ids they cover; the baseline output shows the expected failure pattern; no file outside the permitted paths changed."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; the fixture run yields a complete map, a correct escalation of the ambiguous behaviour, a failing-for-the-right-reason baseline, and a boundary list matching the spec's scope; the unfrozen-spec fixture is refused."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Should the acceptance script live under the test directory's lock, or remain editable so the human can extend the proof between runs?"
+    },
+    {
+      "id": "Q2",
+      "text": "When a spec names performance constraints, does this agent own the benchmark harness or only the threshold check?"
+    }
+  ],
+  "retired": []
+}

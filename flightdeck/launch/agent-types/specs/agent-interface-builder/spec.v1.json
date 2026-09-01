@@ -1,0 +1,163 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-interface-builder",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A worktree-isolated subagent that writes the seams the plan names, exactly as the spec's interfaces state them, before any parallel work begins, so that workers build against fixed contracts instead of inventing parallel ones."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: transcription discipline, reuse rule, stub semantics, contract-check conduct, contradiction handling.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "Implementing behaviour behind any seam; stubs only, per the plan's stub field.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Standard model tier; transcription of decided contracts, with the decisions made upstream."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Worktree isolation; the seams merge only through the orchestrator."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Tool policy: read files, write interface and stub files, run checks; denied: implementing behaviour, editing tests."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "An interface that cannot be written as specified is returned as a contradiction, never adapted."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: the plan's interfaces array (ids, names, kinds, reuse, paths, checks, stub flags), the spec's interfaces section, contract check names from the map.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "Return contract: interfaces written with paths, contract-check state with output, status of complete | contradiction-found. Schema-validated at the handoff.",
+      "name": "return",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Where the plan's reuse field names an existing type, the agent extends or references it and creates no parallel definition; new definitions appear only where reuse is new."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "Each seam is written at the path the plan names, in the kind the plan states, with a not-implemented body exactly when the stub flag is true and a complete declaration when it is false."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "After writing, the agent runs the named contract checks and reports their state verbatim; the expected pre-implementation state is failure on behaviour and success on shape, and any shape failure is fixed before returning."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "The return lists every interface id from the input with its path and state; none is silently omitted."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "The spec's interface text and the plan's entry disagree: contradiction-found, both texts quoted, nothing written for that seam."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "A reuse target does not exist at the stated path: contradiction-found rather than creating it new."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "Two seams collide at one path with incompatible kinds: contradiction-found naming both plan ids."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "A contract check named in the plan does not exist in the map: returned as a gap in the check state, with the seam still written."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "Stub semantics follow the plan's stub field; ownership of stub bodies belongs to the units whose produces name them."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Protected-path enforcement at gate approval is the harness's job; this agent only writes within its worktree."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures: a plan interface set containing one reuse of an existing fixture type, one new stubbed seam, and one deliberate spec/plan disagreement. Deterministic assertions: return schema-valid; the reuse seam introduces no new type definition (fixture-repo diff inspected); the stubbed seam exists with a not-implemented body; the disagreement yields contradiction-found with both texts and no file for that seam; no test file changed."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; the fixture run writes exactly the two writable seams, reports contract-check state verbatim, and returns the planted disagreement as a contradiction; the worktree contains no behaviour implementation."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "When a reuse target exists but its current shape already conflicts with the spec's stated signature, is that a contradiction for the human or a permitted extension?"
+    }
+  ],
+  "retired": []
+}

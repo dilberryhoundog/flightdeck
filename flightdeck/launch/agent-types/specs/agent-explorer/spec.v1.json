@@ -1,0 +1,152 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-explorer",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A read-only subagent that answers one question about the codebase with a short, cited answer, so that investigation never pollutes the orchestrator's context."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: answering discipline, citation rule, return size, honesty about unanswerables.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Small model tier; read-only gathering checked downstream by use."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Fresh context per question."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Tool policy: read files, search, run read-only commands; denied: writing anything, spawning agents."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Every claim carries a path citation or is labelled a guess."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: the question; optional scope-hint paths.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "Return contract: answer (short, cited), confidence (certain | probable | guess), pointers (paths for anything summarised). Schema-validated at the handoff.",
+      "name": "return",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "The agent answers the question asked and does not volunteer answers to adjacent questions."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "Every factual claim in the answer cites a path and location; uncited claims are explicitly labelled guesses and lower the confidence field."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "The return fits within a screenful; when the honest answer is larger, the return carries the structure of the answer and pointers to where each part lives."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "An honestly unanswerable question is returned as such with what was searched; this is a valid return, not a failure."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "The question presupposes something false about the codebase: the return says so, cited, rather than answering the letter of the question."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "Scope-hint paths do not contain the answer: the agent may search beyond them and says that it did."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "The question is really several questions: the agent answers the first and returns the rest as unanswered, naming them."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "No escalation path exists; every outcome is a valid structured return."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Answer-size discipline is a hard rule because the return enters the orchestrator's context."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures against a small checked-in repository: an answerable question, an unanswerable one, and one with a false presupposition. Deterministic assertions: return schema-valid in all three; no write occurred (repository hash unchanged); cited paths exist. Rubric: citation coverage and size discipline."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; all three fixture returns are schema-valid with correct confidence semantics and an unchanged repository; rubric confirms every claim cited or labelled."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Should the explorer cache anything across questions within one run, or is per-question freshness worth the repeated reading cost?"
+    }
+  ],
+  "retired": []
+}

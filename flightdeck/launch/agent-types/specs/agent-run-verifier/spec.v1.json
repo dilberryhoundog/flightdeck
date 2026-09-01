@@ -1,0 +1,163 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-run-verifier",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A fresh-context subagent that attempts to refute the final green: with every check passing, it audits the map, hunts the false green, and confirms the target and the fence held, so that not-refuted becomes earned evidence rather than absence of doubt."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: the audit checklist, probing conduct, integrity confirmations, verdict semantics.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "Judging intent or scope quality; that is the reviewer's reading.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Standard model tier; systematic refutation against known false-green causes."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Fresh context; must not see any implementer or orchestrator reasoning."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Tool policy: read files, run checks and additional probing commands; denied: writing anything."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Failed refutations are reported alongside successful ones; they are what make the green credible."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: spec_path, tests_map_path, the merged branch, all check outputs, the diff-boundary result, the test-file change list.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "Return contract: refutations as a list of what was tried, what happened, and severity where it succeeded; audit covering map coverage, target integrity and boundary integrity; verdict of refuted | not-refuted with the standing caveat that not-refuted is evidence, not proof.",
+      "name": "return",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Map audit first: every behaviour and edge id is matched to a passing check or an unverified listing; any id in neither state is a finding before any probe runs."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "The false-green hunt exercises the feature end to end in at least one way the acceptance script did not, and probes spec-named edges with inputs the tests did not use."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "Target integrity: the test-file change list is empty or every change is accounted for, and no check was skipped, quarantined or weakened during the run."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "Boundary integrity: the diff-boundary result is clean or every excursion appears in the run's ledger inputs."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "The return reports every probe attempted, including those that failed to refute."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "A probe crashes rather than failing cleanly: reported as a successful refutation of severity high, since the green did not survive contact."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "The map lists many deliberately-unverified ids: the audit reports their proportion; a mostly-unverified green is returned as not-refuted with a prominent caveat, not as refuted."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "Probing commands are unavailable in the environment: the affected probes are returned as not-run, distinguishing them from failed refutations."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "A successful refutation reopens the verify phase and does not merge into the review; the two readings stay independent."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Probe depth beyond one novel end-to-end path and the named edges is left to the invoker's budget."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures: a genuinely sound merged fixture; one with a planted unmapped behaviour; one with a weakened test recorded in the change list. Deterministic assertions: return schema-valid; the unmapped id is found in the audit before probes; the weakened test is flagged under target integrity; the sound fixture returns not-refuted with failed refutations listed; no write occurred."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; the three fixtures produce the specified audits and verdicts, probes are reported exhaustively, and the merged branch is unchanged by the verification."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Should the novel end-to-end probe be recorded as a candidate addition to the acceptance script, closing the loop back into the targets?"
+    }
+  ],
+  "retired": []
+}

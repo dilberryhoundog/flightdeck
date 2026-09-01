@@ -1,0 +1,158 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-worker-strong",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A worktree-isolated subagent that retries a unit failed by worker-general, on a stronger model with the failure evidence and a clean start, under unchanged rules, so that genuinely hard units get one escalation before the failure becomes setup evidence."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: clean-start rule, evidence inheritance, diagnosis-first conduct, unchanged worker rules, second-failure semantics.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "Any relaxation of worker-general's rules; strength changes the model, not the licence.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Strong model tier (opus-class at time of writing); one escalation step, cheaper than a failed run."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Worktree isolation, in a fresh worktree cut from the pre-attempt state, never from the failed diff."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "The agent inherits the previous attempt's evidence (check outputs, return contract) and must not receive its transcript or reasoning."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "All worker-general constraints apply unchanged, including the contradiction rule and the ceiling."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: everything worker-general receives, plus the failed attempt's check outputs and return, plus a fresh worktree reference at the pre-attempt state.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "Return contract: worker-general's contract plus diagnosis, one sentence on why the prior attempt likely failed; on a second failure the diagnosis states what the failure teaches about the unit: too large, under-specified, or genuinely hard.",
+      "name": "return",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Work begins from the pre-attempt state; no line of the failed diff is reused except by independent rederivation."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "Before implementing, the agent states its one-sentence diagnosis of the prior failure, and the approach demonstrably differs where the diagnosis says the prior approach failed."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "All worker-general behaviours B1 through B6 hold unchanged under this agent's identity."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "On any non-complete outcome the return's diagnosis field routes the human's next decision with one of the three taught lessons."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "The prior failure was a contradiction mislabelled as a check failure: the agent returns contradiction-found rather than attempting harder."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "The failing evidence is missing from the invocation: blocked return; a strong retry without evidence is just an expensive first attempt."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "The fresh worktree is not at the pre-attempt state: blocked return before any write."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "This role ends attempts on the unit for the run; there is no third tier by design."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Model naming lives in the crew file's tier examples; this spec binds tier, not vendor model."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures: the same uncompletable-unit fixture as worker-general with its failed attempt's evidence attached, and a completable-on-diagnosis fixture where the planted prior failure points at a wrong approach. Deterministic assertions: the worktree starts at the pre-attempt hash; the return carries a non-empty diagnosis; worker-general's four status behaviours reproduce; on the completable fixture the diff differs structurally from the failed diff."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; the fixture retries begin clean, diagnose first, obey all worker rules, and return the diagnosis semantics on both success and second failure."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Should the diagnosis be returned before implementation begins, as a separate early signal the orchestrator could act on, or only in the final return as specified?"
+    }
+  ],
+  "retired": []
+}

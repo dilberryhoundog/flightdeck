@@ -1,0 +1,208 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-spec-attacker",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, written against the orchestrator-pattern guides",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A subagent that attacks a draft spec from a fresh context under an adversarial mandate and returns every finding as a decision for the human. So an important early failed run prevention actor is not absent in anthropics best practices based agent orchestration workflow"
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "kind": "in",
+      "text": "The agent definition: the mandate, what it sees and must not see, the defect classes and readiness conditions it applies, and the finding format it returns."
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "kind": "out",
+      "text": "How a run is conducted: how many attackers are dispatched, which model a given run selects, budgets, gates, isolation, displays. These belong in the kickoff. The model the definition declares as its own default is part of the definition and stays in scope; what a particular run overrides it with does not."
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "kind": "out",
+      "text": "Resolving findings, editing the spec, and deciding what becomes an open question. Those belong to the owner and the spec builder."
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "kind": "out",
+      "text": "Structural and schema validation of the draft, including template conformance and identifier hygiene. The invoking session runs validators for those."
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "kind": "out",
+      "text": "Style, formatting, wording preference, and critique of the idea's ambition. The attacker judges the document's precision, never its worth."
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "kind": "out",
+      "text": "Judging finished work against a frozen spec. That is the diff reviewer's job, and it runs inside a run rather than before one."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Fresh context, for a stated reason: it sees the draft spec and the project the spec describes, and never the interview that produced the draft, a prior attack, a plan or an implementation. Reading the words without the author's intent behind them is the whole source of its value; a spec that only makes sense with the interview attached is the defect it exists to catch."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Structurally unable to fix: read-only tools, no write or edit grant, no scripts. A critic that can edit will edit, and then it is a second author rather than an independent reader."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Adversarial mandate, bounded: it assumes the document can be misread and goes looking for the reading that breaks it, while findings are confined to precision and correctness. An unbounded critic reports style and produces over-engineering."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Findings are returned to the invoking session, never written into the spec, and are phrased as questions with the decision the owner must make. The human resolves."
+    },
+    {
+      "id": "C5",
+      "status": "ok",
+      "text": "A return carrying no findings is valid and complete, never a failed attack. An adversarial mandate paired with a quota manufactures findings, and a manufactured finding costs an owner-round and teaches the chain to ignore the critic."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "name": "invocation",
+      "reuse": null,
+      "text": "Invoked as a subagent by the session holding the draft, with the path to that draft. Read access to the project the spec describes, for one purpose: checking the spec's claims about what exists."
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "name": "finding",
+      "reuse": "the run report's review section format",
+      "text": "finding id · severity · spec ref · description · state. Severity is blocking or non-blocking; spec ref is the node or section concerned; the description names the defect in one line, both readings where there are two, and ends in the question whose answer closes the gap; state is open on return. Reused unchanged from the diff reviewer's format so a pattern across the two is readable on one display."
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "A behaviour, constraint or term that could be implemented two different ways becomes a finding naming both readings."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "A behaviour or edge a test builder could not write a check from without interpreting becomes a finding naming the interpretations."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "An edge or failure stating a concern rather than an outcome becomes a finding."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "A tempting expansion or neighbouring change the out-of-scope list does not fence becomes a finding naming the expansion."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "A name, type, format or contract introduced where an existing one should be reused becomes a finding; and a reuse claim the spec asserts is checked against the project, with a claim that does not hold becoming a finding."
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "Steps to follow where conditions to satisfy should be, and run mechanics that belong in the kickoff, each become findings."
+    },
+    {
+      "id": "B7",
+      "status": "ok",
+      "text": "A behaviour no shape of check could cover as written, a verification section with no end-to-end proof of the whole, two statements that cannot both hold, and a dependency the spec assumes but states nowhere, each become findings."
+    },
+    {
+      "id": "B8",
+      "status": "ok",
+      "text": "The draft is held against the readiness conditions before the pass ends, and any condition that fails becomes a finding: every behaviour testable by someone who did not write the spec; the out-of-scope list naming the tempting expansions; interfaces reusing existing names; every edge stating an outcome; verification naming what would be observed and against which input; an end-to-end proof that exercises the whole. The return names which conditions held and which failed. Open questions are not among them: an unresolved question stops the attack at E3 rather than producing a finding inside it."
+    },
+    {
+      "id": "B9",
+      "status": "ok",
+      "text": "Findings are returned in the shared finding format, ordered by consequence, with those whose answers would change the shape of the work first and wording precision last; the spec is unchanged by the pass."
+    },
+    {
+      "id": "B10",
+      "status": "ok",
+      "text": "A pass that produces no finding clearing the bar returns that plainly, stating that from this angle the spec is ready to freeze, rather than producing a finding to justify the pass."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "The draft is a plan in disguise, steps rather than conditions throughout: one finding says so and the pass stops, because a rewrite is cheaper than a line-by-line attack."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "The spec is already frozen: the attack is declined and the return says so. After the freeze, questioning the spec is a human decision that halts a run, not a finding."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "The draft still carries unresolved open questions: the return says it is not ready to be attacked and nothing is attacked, because open questions are resolved before an attack so that every finding concerns settled text."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "The draft is missing or cannot be read: the return names the input that failed and nothing is attacked, so a broken input is never reported as a sound spec."
+    },
+    {
+      "id": "E5",
+      "status": "ok",
+      "text": "The attacker is asked to attack the spec against work already built: it declines, because judging work against a spec is the diff reviewer's job and mixing the two reopens frozen decisions mid-run."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "Findings are returned, not filed. The spec's open questions belong to the interviewer and the owner; a finding becomes an open question only when the builder promotes it."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "One attacker, one pass per revision. Layering critics yields diminishing returns and spends budget that is better put into verification."
+    },
+    {
+      "id": "D3",
+      "status": "ok",
+      "text": "The attacker and the diff reviewer share the critic pattern but not a definition. Their inputs, mandates, timing and relationship to the spec all differ, and a shared definition produces a reviewer that re-litigates the spec mid-run, which is the decision-reopening the freeze exists to prevent."
+    },
+    {
+      "id": "D4",
+      "status": "ok",
+      "text": "The attacker is not verified before it is trusted. Trust is structural: read-only tools, an isolated context, and a definition that carries no slot for the interview."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Each behaviour is proven by a draft that carries its defect and a return that names it; the whole is proven by one attack on a real draft, read by the owner. Nothing here needs to be a script, but a check that can be run is better than one that must be judged. Per behaviour: B1 through B4, B6 and B7 each take a draft carrying that defect deliberately — a behaviour two implementations satisfy, an adjective where a condition belongs, an edge stating a concern, an out-of-scope list missing an obvious neighbour, a numbered procedure, two statements that cannot both hold, an artefact assumed but never named — and the return must carry a finding naming the node, with both readings named for B1. B5 takes two shapes: a new type introduced where an existing one sits in the project, and a reuse claim naming something that is not there; the second is observable only with the project grant live, so it proves I1 at the same time. B8 needs no prepared draft: the return either names which readiness conditions held and which failed, or it does not. B9 is observable on any return — the fields match the finding format, blocking findings precede non-blocking, and the draft's hash is identical before and after the pass. B10 is the one that requires a sound draft, and passes when the return states plainly that it found nothing. Overall: a single pass against a draft carrying several of these defects at once, whose return is read end to end by the owner. The pass of 2026-08-28 against this spec's own draft demonstrated B1 through B5, B7 and B8; B6 only partially; B9's hash clause was not observed because no hash was taken beforehand; and B10 remains undemonstrated, since no sound draft has yet been put to it. Beyond that the agent is not verified before it is trusted, and its later failures surface in the run log on the context axis: when the diff reviewer repeatedly reports gaps that were ambiguities this agent should have caught, the entry points here, and the fix is a sharper mandate in the definition or a stronger readiness condition."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "The definition declares read-only tools with no write or edit grant, its own model default, the context it must not see, the defect classes and readiness conditions, and the finding format; the canonical definition and its installed copy carry the same body. Every behaviour has been demonstrated at least once by a return naming the defect its draft carried, with B10 shown against a sound draft and B9's hash clause shown against a hash taken beforehand. On its most recent pass the draft's hash was unchanged, the findings matched the format, and blocking preceded non-blocking. Reading one such return whole, the owner judges the pass worth the tokens it cost."
+  },
+  "open_questions": [],
+  "retired": []
+}

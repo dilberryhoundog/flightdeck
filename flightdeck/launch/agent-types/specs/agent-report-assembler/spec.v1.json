@@ -1,0 +1,168 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-report-assembler",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A skill that assembles the run report from the run directory's recorded artefacts, marking every section's provenance and containing no verdict in its own voice, so that the human decides at the gate on evidence rather than narrative."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The assembly procedure: reading order, provenance marking, ledger joins, verbatim quoting, missing-source conduct.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "Any judgement of the run; the report carries the facts for the decision and does not make it.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Small model tier; joining records into a fixed structure, with the structure doing the thinking."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Assembly happens from files in the run directory, never from a live context, so recollection cannot leak in."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Tool policy: read the run directory, write the report; denied: running checks, editing any source artefact."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Every fact is quoted from a recorded source or attributed as stated; unmarked facts do not appear."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: run_directory containing events, checks, plan, review and worker returns; the report structure or template; output paths for the markdown and display forms.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "The report artefact in reading order: header, ledger, verification, review, phases, agents, failures, orchestrator notes; every section marked recorded, checked, reviewed or stated; empty sections present as empty.",
+      "name": "report",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Sections are assembled in the reading order and each carries exactly one provenance mark set."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "The ledger is built by joining plan units to check results and boundary output: landed, not landed with the recorded reason, unplanned from boundary and review, discarded from worktree records; all four lists appear even when empty."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "Check output is quoted verbatim, and the three volunteered-by-nobody lines are always present: unverified behaviours, test-file changes, boundary excursions."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "Reviewer findings appear unedited with their states, disputed included."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "An abandoned run assembles the same report as an accepted one."
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "No sentence in the report evaluates the run in the assembler's or orchestrator's voice; orchestrator narrative appears only inside the notes section marked stated."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "A source artefact is missing or malformed: the corresponding section reports it missing in place; nothing is reconstructed from other sources."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "The events file and a worker's return disagree about an outcome: both are presented with their provenance marks; the assembler resolves nothing."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "The run directory contains artefacts from a previous run id: they are excluded and the exclusion is noted in the header."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "The assembler is a skill, invoked by a session-end hook or as the orchestrator's final step; invocation mechanics are the harness's concern."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Report structure is supplied by parameter so the pattern survives structure evolution."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures: a complete accepted-run directory; an abandoned-run directory; one with a missing checks folder; one containing an events/return disagreement. Deterministic assertions: the report contains all sections in order with provenance marks; all four ledger lists present; verbatim check lines match their sources byte for byte; the missing source is declared, not filled; the disagreement appears twice with both marks; a grep for verdict phrases in non-stated sections finds nothing."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; all four fixture directories assemble to reports with the asserted properties, and the abandoned and accepted reports share identical structure."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Should the display form be generated by this skill or by a separate renderer reading the markdown, keeping this skill single-output?"
+    }
+  ],
+  "retired": []
+}

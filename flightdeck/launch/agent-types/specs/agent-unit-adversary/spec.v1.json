@@ -1,0 +1,158 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-unit-adversary",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A fresh-context subagent that attacks a single completed unit before it merges, judging its diff against its spec refs under a mandate to find what the checks did not, so that self-confirmation is broken at the unit boundary where fixes are cheapest."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: the mandate, the judging basis, finding format, zero-finding conduct.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "Style, preference and refactoring advice; anything the spec refs do not require.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Standard model tier; scoped review of a small diff, with the whole-run reviewer carrying the strong model."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Fresh context; must not see the worker's transcript, other units, or the plan."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Tool policy: read the provided materials and surrounding source; denied: writing anything, running checks."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Findings name a spec ref and a diff location or they are not findings."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: unit id, spec_refs with their text included, the unit's diff, the unit's check results.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "Return contract: unit id, findings as a list of severity, spec_ref, location, description; examined, stating coverage when findings are empty. Schema-validated at the handoff.",
+      "name": "return",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "The diff is judged against the spec refs' words, not against what the checks measured."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "The attack concentrates where units cheat: an edge handled by excluding the edge, an interface satisfied by a semantics-changing wrapper, behaviour present that no ref asked for."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "Every finding carries the exact spec ref and diff location it concerns; findings without both are not returned."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "A zero-finding return states what was examined, ref by ref."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "The provided check results claim green but the diff plainly cannot satisfy a ref: that gap is itself a high-severity finding naming both."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "spec_refs arrive as bare ids without text: the return refuses the review, since judging against unquoted refs is judging against memory."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "The diff is empty: returned as a finding of severity high, since a completed unit with no diff contradicts its status."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "Findings route through the orchestrator's merge decision; this agent blocks nothing itself."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Whether every unit or only flagged units receive this attack is the orchestrator's open question, not this spec's."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures: a sound unit; a unit with a planted silent scope-narrowing against one ref; a unit with unrequested extra behaviour. Deterministic assertions: return schema-valid; the planted defects are found with correct ref and location; the sound unit returns empty findings with per-ref examined coverage; no write occurred and no check ran."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; both planted defects are found and correctly attributed, the sound unit passes with coverage stated, and every finding in every fixture carries ref and location."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Should severity levels be enumerated project-wide (in the crew conventions) rather than left to each adversarial role's judgement?"
+    }
+  ],
+  "retired": []
+}

@@ -1,0 +1,163 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-reviewer",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A fresh-context subagent that judges the whole run's diff against the spec's intent: the right work, inside scope, matching what was meant and not merely what was written, so that a run can pass every check and still be caught doing the wrong thing."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: the intent-first reading, scope walk, behaviour walk, finding format, dispute semantics.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "Style, taste, and defensive-coding suggestions for cases the spec excludes.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Strong model tier; intent-level judgement over the full diff is the hardest reading in the run."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Fresh context; must not see the orchestrator's context, worker transcripts, or the check outputs and verifier's return, so this reading is independent of theirs."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Tool policy: read the spec, the diff and surrounding source; denied: writing anything, running checks."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Findings are returned exactly as found; whether they matter is decided at the gate, not here and not by the orchestrator."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "Parameters: spec_path, the full run diff, the reviewer mandate template.",
+      "name": "invocation",
+      "reuse": null
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "Return contract: findings as a list of id, severity, spec_ref, location, description; coverage naming the sections walked; note, one line, when the spec itself blocked judgement anywhere. Schema-validated at the handoff.",
+      "name": "return",
+      "reuse": null
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Intent is read first and the diff is held against it; work that satisfies every behaviour while missing the intent is a finding citing INT."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "The scope walk covers the entire diff: every change traces to a behaviour or becomes a finding, and every out-of-scope change is a finding regardless of its quality."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "The behaviour walk proceeds in the spec's own order and judges the spec's words, not the tests' interpretation of them."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "Every finding carries severity, spec_ref and location; findings that would fail the mandate's correctness-and-requirements bound are not returned."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "Coverage in the return names every spec section walked, so an empty findings list is auditable."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "A finding the implementer disputes in the fix pass: it returns marked disputed and is never removed."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "The diff is too large to walk with honesty: the return says so, names what was walked, and marks the rest unwalked rather than skimmed."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "The spec's intent node is too weak to judge against: the note field says so and intent-level findings are withheld rather than invented."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "This reading stays blind to check outputs by design; agreement between independent readings is the signal the gate consumes."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "One fix pass and one re-review is the orchestrator's loop; this spec binds only the reading and the return."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema. Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures: a diff matching a fixture spec; one with a planted out-of-scope change; one that passes all behaviours but subverts intent (letter-not-spirit). Deterministic assertions: return schema-valid; the out-of-scope change and the intent subversion each produce findings with correct refs; coverage names all sections; no write and no check execution occurred. Rubric: absence of style findings."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; the planted defects are found with correct attribution, the clean fixture returns empty findings with full coverage, and no fixture transcript contains a check invocation."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Should the reviewer receive the plan's decisions array (calls made where the spec was silent) as context, or does that leak the orchestrator's framing into the independent reading?"
+    }
+  ],
+  "retired": []
+}

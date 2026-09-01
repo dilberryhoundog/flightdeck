@@ -1,0 +1,47 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-sample",
+  "version": 1,
+  "status": "draft",
+  "reason": "golden fixture: the smallest spec that satisfies every coded invariant",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A fixture spec that exercises every section the validator inspects, so a regression in any invariant has something to fail against."
+  },
+  "scope": [
+    { "id": "SC1", "status": "ok", "kind": "in", "text": "One node in every section, with the shapes the schema requires." },
+    { "id": "SC2", "status": "ok", "kind": "out", "text": "Any resemblance to a real crew role; this fixture is structural only." }
+  ],
+  "constraints": [
+    { "id": "C1", "status": "ok", "text": "Stays warning-free so a test can assert on a clean run." }
+  ],
+  "interfaces": [
+    { "id": "I1", "status": "ok", "name": "validate-spec", "reuse": "validate-spec.mjs", "text": "validate-spec.mjs <file> [--schema <f>] [--for-freeze] -> exit 0 | 2" },
+    { "id": "I2", "status": "ok", "name": "fixture-tree", "reuse": null, "text": "test/fixtures/<name>/spec.v<n>.json" }
+  ],
+  "behaviours": [
+    { "id": "B1", "status": "ok", "text": "Validating this file unmodified exits 0 with no warnings." },
+    { "id": "B2", "status": "ok", "text": "Mutating one field of this file raises the invariant that field belongs to, and no other." }
+  ],
+  "edges": [
+    { "id": "E1", "status": "ok", "text": "The schema file is missing or unreadable: the validator exits non-zero rather than reporting the spec valid." },
+    { "id": "E2", "status": "ok", "text": "A section is absent entirely: the schema's required list rejects the file before any invariant runs." }
+  ],
+  "decisions": [
+    { "id": "D1", "status": "ok", "text": "Fixtures are mutated in a temp directory rather than stored one-per-case, so a case is a diff and not a duplicate file." }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "node test/run.mjs exits 0 with every case reported pass."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Every coded invariant in validate-spec.mjs has at least one case that fails without it."
+  },
+  "open_questions": []
+}

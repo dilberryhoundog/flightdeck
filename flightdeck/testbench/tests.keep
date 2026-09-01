@@ -1,0 +1,4 @@
+Test harnesses. reusable across the git branch. save to `main` to access globably.
+merge protect this folder.
+do not store launch test results here. they belong to each launch.
+runs/ is the result of local test runs.

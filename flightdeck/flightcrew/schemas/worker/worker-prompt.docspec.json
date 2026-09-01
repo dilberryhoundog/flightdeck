@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "changelog": [{ "v": 1, "reason": "shape of templates/worker.md and its rendered instances" }],
+  "sections": [
+    { "heading": "Accountable for", "required": true },
+    { "heading": "Interfaces you consume", "required": true },
+    { "heading": "Interfaces you implement", "required": true },
+    { "heading": "Your fence", "required": true },
+    { "heading": "Definition of done", "required": true, "must_match": ["```", "Iteration ceiling"] },
+    { "heading": "^Rules$", "required": true, "must_match": ["blocked"] }
+  ],
+  "ordered": true,
+  "allow_extra_sections": true,
+  "placeholders": ["{{[^}]+}}"]
+}

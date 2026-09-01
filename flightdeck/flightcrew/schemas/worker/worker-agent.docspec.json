@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "changelog": [{ "v": 1, "reason": "shape of .claude/agents/worker.md and its variants" }],
+  "frontmatter": {
+    "required": true,
+    "schema": {
+      "type": "object",
+      "required": ["name", "description", "tools", "model", "isolation"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "pattern": "^worker(-[a-z]+)?$" },
+        "description": { "type": "string" },
+        "tools": { "type": "string", "pattern": "Read" },
+        "model": { "type": "string", "enum": ["haiku", "sonnet", "opus"] },
+        "isolation": { "type": "string", "enum": ["worktree"] }
+      }
+    }
+  },
+  "sections": [
+    { "heading": "^What you receive$", "depth": 2, "required": true, "min_words": 30 },
+    { "heading": "^Operating rules$", "depth": 2, "required": true, "min_words": 120,
+      "must_match": ["blocked", "iteration ceiling", "atomic", "owns"] },
+    { "heading": "^Return shape$", "depth": 2, "required": true,
+      "must_match": ["```json", "\"status\":", "returned \\| blocked \\| failed"] }
+  ],
+  "ordered": true,
+  "allow_extra_sections": true,
+  "placeholders": ["{{[^}]+}}"],
+  "must_not_match": ["TODO", "TBD"]
+}

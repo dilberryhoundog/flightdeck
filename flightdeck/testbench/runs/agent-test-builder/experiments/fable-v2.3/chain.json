@@ -1,0 +1,178 @@
+{
+  "spec": "agent-test-builder",
+  "model_requested": "fable",
+  "rubric_version": "2.3",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "runs/agent-test-builder/experiments/spec.v1.start.json (filebox/crew/specs/agent-test-builder/spec.v1.json as of 2026-08-30)",
+  "linter_run0": "returned unjudged: 2 open questions; every B and E unclaimed by verification; no path boundary; unresolved names. Judged anyway to test part two on an untuned draft.",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-test-builder/experiments/fable-v2.3/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": "none; discovery on an untuned spec",
+  "stop_rule": "stop the chain if a question flips on unchanged text twice",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chain.",
+  "runs": [
+    {
+      "run": 0,
+      "note": "pre-lint draft; sheet at verdict-run0-prelint.md; not absorbed",
+      "verdict": "returned",
+      "findings": [
+        "QCON.1 C1 C3",
+        "QIFC.1 x5",
+        "QBEH.2 B4 B6",
+        "QPRI.1 D2 D3",
+        "QDOD.1 ACC unfrozen fixture"
+      ],
+      "duration_ms": 115257,
+      "tokens": 22109
+    },
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH",
+        "PRI",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C1 unambiguous",
+          "disposition": "absorbed: C1 conditions on status frozen and empty open_questions"
+        },
+        {
+          "id": "QCON.2",
+          "text": "C1 escalated clause",
+          "disposition": "absorbed: clause removed; E1 carries it"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "I1, I3 prose; boundary list, acceptance script, baseline output unshaped",
+          "disposition": "absorbed: I1, I3 shaped; I4, I5, I6 added"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B3 four rules; B4 three properties",
+          "disposition": "absorbed: B3 -> B3, B8-B10; B4 -> B4, B11, B12"
+        },
+        {
+          "id": "QPRI.1",
+          "text": "D2 lock-intended field; D3 machine-scorable",
+          "disposition": "absorbed: I2 lock_intended; C6; D2 and D3 given reasons"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "unfrozen fixture absent from VER",
+          "disposition": "absorbed: VER names the unfrozen fixture"
+        }
+      ],
+      "scored": {
+        "note": "no expected set; vs pre-lint run 0: B6 dropped (act-with-record exempt), B3 and QCON.2 C1 added"
+      },
+      "advisory": [
+        "QEDG.3 B2, B4, B5, B7",
+        "QPRI.2 D3"
+      ],
+      "duration_ms": 102772,
+      "tokens": 22362
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "I3 no shape for E2/E3/E4/B7 returns",
+          "disposition": "absorbed: status union and detail on I3"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B6 capture as second artefact",
+          "disposition": "absorbed: B6 split; capture -> B13. FLIP: run 1 exempted it as the act's record"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "ACC boundary paths have no antecedent",
+          "disposition": "absorbed: SC1 names the body paths; VER names the harness path. Introduced by the lint fix."
+        }
+      ],
+      "scored": {
+        "note": "flip on B6 (act-with-record vs second artefact); the lint-added boundary created a QDOD.1 orphan"
+      },
+      "advisory": [
+        "QGEN.3 B12/I5",
+        "QEDG.3 ten behaviours"
+      ],
+      "duration_ms": 109467,
+      "tokens": 23258
+    },
+    {
+      "run": 3,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "check-name format (opus run 1)",
+          "disposition": "absorbed: I7"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B5 content plus placement",
+          "disposition": "absorbed: split; VER reads the content"
+        }
+      ],
+      "scored": {
+        "note": "check-name format: opus run 1, fable run 3"
+      },
+      "advisory": [
+        "QGEN.3 B11/I5, B12/I5, B13/I6",
+        "QEDG.3 nine behaviours"
+      ],
+      "duration_ms": 103487,
+      "tokens": 23467
+    },
+    {
+      "run": 4,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QBEH.2",
+          "text": "B1 citing clause; B6 green vs failing",
+          "disposition": "unabsorbed (cap)"
+        }
+      ],
+      "scored": {
+        "note": "B6 split matches opus run 2; converged on everything but QBEH.2 residue"
+      },
+      "advisory": [
+        "QGEN.3 I5/B11, I4/B5",
+        "QEDG.3 twelve behaviours"
+      ],
+      "duration_ms": 91931,
+      "tokens": 23669
+    }
+  ],
+  "model_observed": "claude-fable-5",
+  "run_cap": 4,
+  "cap_note": "provider cap: fable 4 runs, opus 3; the final run is recorded, not absorbed",
+  "result": "cap reached at 4 runs, not ready; last sheet two QBEH.2 findings, all other blocks pass. 92-115s per run."
+}

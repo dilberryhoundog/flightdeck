@@ -1,0 +1,90 @@
+{
+  "model_requested": "sonnet",
+  "rubric_version": 2,
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/sonnet-v2/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": [
+    "QDOD.1",
+    "QDOD.2",
+    "QIFC.1 (I1; I6-I8 In; return ids)",
+    "QCON.1 (C11)",
+    "QCON.2 (C2)",
+    "QBEH.2 (B4, B6, B11, B13, B14, B16, B23 per fable-v2 run 1)"
+  ],
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QCON.2",
+          "text": "C2 sequences the work",
+          "disposition": "absorbed: C2 as condition"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B4, B6, B11, B13, B15, B23",
+          "disposition": "absorbed: split; B24-B29, C14"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe orphaned",
+          "disposition": "absorbed: VER probe; ACC probe.txt"
+        }
+      ],
+      "advisory": [
+        "QINT.3 yes (first)",
+        "QDOD.3"
+      ],
+      "note": "Missed QCON.1 (C11), QIFC.1 (all three instances; called I1 typed inputs) and QDOD.2, which sonnet found on sight twice under v1. QBEH.2 set: five of fable's seven plus B15 (fable run 3).",
+      "duration_ms": 354546,
+      "tokens": 31017
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "GEN",
+        "CON",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QGEN.1",
+          "text": "VER probe sentence names who acts at the gate; read as conduct",
+          "disposition": "unabsorbed (chain stopped); fable and opus noted doubt and passed the same sentence"
+        },
+        {
+          "id": "QCON.1",
+          "text": "C11 encoded in the body",
+          "disposition": "unabsorbed (chain stopped); found one run after fable and opus"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B16 wave then re-ask",
+          "disposition": "unabsorbed (chain stopped)"
+        }
+      ],
+      "advisory": [
+        "QINT.3"
+      ],
+      "note": "Stopped after run 2 at the provider's instruction to tune the rubric.",
+      "duration_ms": 366520,
+      "tokens": 31788
+    }
+  ],
+  "model_observed": "claude-sonnet-5 (transcript)",
+  "result": "stopped after 2 runs, not ready; 3 absorbed, 3 unabsorbed. Sonnet under v2: slowest (355-367s), missed QIFC.1 and QDOD.2 entirely, found QCON.1 one run late, raised the probe sentence under QGEN.1 alone."
+}

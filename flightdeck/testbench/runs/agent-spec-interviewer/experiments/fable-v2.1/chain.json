@@ -1,0 +1,141 @@
+{
+  "model_requested": "fable",
+  "rubric_version": "2.1",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/fable-v2.1/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": [
+    "QDOD.1",
+    "QDOD.2",
+    "QIFC.1 (I1; I6-I8 In; return ids)",
+    "QCON.1 (C11)",
+    "QCON.2 (C2)",
+    "QBEH.2 (B3, B4, B6, B9, B11, B13, B14, B15, B16, B23)"
+  ],
+  "pass_criterion": "all three chains raise the expected set on run 1 and read ready on run 2",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C11",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QCON.2",
+          "text": "C2",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "I1; I6, I7, I8 In; return id",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B3, B4, B6, B9, B11, B13, B14, B15, B16, B23",
+          "disposition": "absorbed: all ten split"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QDOD.2",
+          "text": "SC12 via C6",
+          "disposition": "absorbed"
+        }
+      ],
+      "scored": {
+        "hit": [
+          "QCON.1",
+          "QCON.2",
+          "QIFC.1 x5",
+          "QBEH.2 x10",
+          "QDOD.1",
+          "QDOD.2"
+        ],
+        "missed": [],
+        "extra": []
+      },
+      "advisory": [
+        "QGEN.3 B4/C8",
+        "QINT.3"
+      ],
+      "note": "Exact match to expected_run1 in one pass.",
+      "duration_ms": 89379,
+      "tokens": 30763
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "I10 fields untyped, schema new",
+          "disposition": "absorbed: I10 typed"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B3 window as two clauses; B14 status plus commit",
+          "disposition": "absorbed by rewording to one clause each; flagged as over-split under the v2.1 check test"
+        }
+      ],
+      "scored": {
+        "hit": [],
+        "missed": [],
+        "extra": [
+          "QIFC.1 I10 (real, new)",
+          "QBEH.2 B3, B14 (over-split)"
+        ]
+      },
+      "advisory": [
+        "QGEN.3 B4/C8",
+        "QINT.3"
+      ],
+      "note": "v2.1 QBEH.2 test over-splits: \"if verification checks only one clause\" fires on a single window condition and on a freeze-equals-commit pair. Candidate v2.2 wording: a window (after X and before Y) is one condition; an act and its record (frozen with a commit) are one result.",
+      "duration_ms": 101251,
+      "tokens": 32050
+    },
+    {
+      "run": 3,
+      "sample": "all",
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "scored": {
+        "hit": [],
+        "missed": [],
+        "extra": []
+      },
+      "advisory": [
+        "QINT.3",
+        "doubts: E10/I9 dispatch record, I6 stage enum vs B8, D7 vs C10"
+      ],
+      "note": "Ready. 33 B / 14 C.",
+      "duration_ms": 108554,
+      "tokens": 32105
+    }
+  ],
+  "model_observed": "claude-fable-5",
+  "result": "ready to freeze after 3 runs; run 1 exact match to expected set; run 2 one real new IFC instance plus two over-splits from the v2.1 check test."
+}

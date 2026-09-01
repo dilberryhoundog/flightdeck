@@ -1,0 +1,118 @@
+{
+  "spec": "agent-test-builder",
+  "model_requested": "opus",
+  "rubric_version": "2.3",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "runs/agent-test-builder/experiments/spec.v1.start.json (filebox/crew/specs/agent-test-builder/spec.v1.json as of 2026-08-30)",
+  "linter_run0": "returned unjudged: 2 open questions; every B and E unclaimed by verification; no path boundary; unresolved names. Judged anyway to test part two on an untuned draft.",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-test-builder/experiments/opus-v2.3/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": "none; discovery on an untuned spec",
+  "stop_rule": "stop the chain if a question flips on unchanged text twice",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chain.",
+  "runs": [
+    {
+      "run": 0,
+      "note": "pre-lint draft; sheet at verdict-run0-prelint.md; not absorbed. Overlap with fable: QIFC.1 I1/I3, QBEH.2 B4, QPRI.1 D2. Opus alone: QIFC.2, QBEH.3 impression words. Fable alone: QCON.1, QDOD.1, QBEH.2 B6, QPRI.1 D3.",
+      "verdict": "returned",
+      "findings": [
+        "QIFC.1 x4",
+        "QIFC.2 x2",
+        "QBEH.2 B3 B4",
+        "QBEH.3 B4 B3",
+        "QPRI.1 D2"
+      ],
+      "duration_ms": 226835,
+      "tokens": 22060
+    },
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH",
+        "PRI"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "I1, I3, check-name format, boundary list",
+          "disposition": "absorbed: I1, I3 shaped; I4, I5 added"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B3, B4, B6",
+          "disposition": "absorbed: split into B8, B9, B10, B11, B12, B13"
+        },
+        {
+          "id": "QPRI.1",
+          "text": "D2, D3",
+          "disposition": "absorbed: I2 lock_intended; C6; reasons"
+        }
+      ],
+      "scored": {
+        "note": "vs pre-lint run 0: dropped QIFC.2 and QBEH.3 on unchanged text (two opus flips); added B6 (opus splits the capture; fable exempts it as the act's record). Passed QCON.1 C1 and QDOD.1 where fable failed."
+      },
+      "advisory": [
+        "QGEN.3 I2/B1",
+        "QBEH.4 B4",
+        "QEDG.3 B2, B3, B4, B5, B7"
+      ],
+      "duration_ms": 221676,
+      "tokens": 22326
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "acceptance script has no interface node",
+          "disposition": "absorbed: I6"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B6 structural green vs behaviour failing",
+          "disposition": "absorbed: split; VER reads both"
+        }
+      ],
+      "scored": {
+        "note": "CON, PRI, DOD pass; no flips this run"
+      },
+      "advisory": [
+        "QEDG.3 nine behaviours"
+      ],
+      "duration_ms": 269922,
+      "tokens": 23164
+    },
+    {
+      "run": 3,
+      "sample": "all",
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "scored": {
+        "note": "ready at cap; B5 (fable split it in its run 3) passed as act-with-record"
+      },
+      "advisory": [
+        "QGEN.3",
+        "QEDG.3 ten",
+        "QDOD.3"
+      ],
+      "duration_ms": 301527,
+      "tokens": 23372
+    }
+  ],
+  "model_observed": "claude-opus-5",
+  "run_cap": 3,
+  "cap_note": "provider cap: fable 4 runs, opus 3; the final run is recorded, not absorbed",
+  "result": "ready to freeze on run 3 (cap); 3 absorbing runs; 222-302s per run."
+}

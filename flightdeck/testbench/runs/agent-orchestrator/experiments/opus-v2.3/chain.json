@@ -1,0 +1,143 @@
+{
+  "spec": "agent-orchestrator",
+  "model_requested": "opus",
+  "rubric_version": "2.3",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "runs/agent-orchestrator/experiments/spec.v1.start.json (filebox/crew/specs/agent-orchestrator/spec.v1.json as of 2026-08-30)",
+  "linter_run0": "returned unjudged: 2 open questions; every B and E unclaimed by verification; no path boundary; unresolved names. Judged anyway to test part two on an untuned draft.",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-orchestrator/experiments/opus-v2.3/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": "none; discovery on an untuned spec",
+  "stop_rule": "stop the chain if a question flips on unchanged text twice",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chain.",
+  "runs": [
+    {
+      "run": 0,
+      "note": "pre-lint draft; sheet at verdict-run0-prelint.md; not absorbed. QBEH.2 set identical to fable; opus passed QCON.2 C4, QBEH.1 B9, QPRI.1 D1, QVER.3 where fable failed; opus alone raised QIFC.2.",
+      "verdict": "returned",
+      "findings": [
+        "QIFC.1 x4",
+        "QIFC.2 I1",
+        "QBEH.2 B1 B2 B3 B4 B5 B6 B8",
+        "QDOD.2 no boundary"
+      ],
+      "duration_ms": 217550,
+      "tokens": 22867
+    },
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "I1, I3 both sides, I4, plan_hash",
+          "disposition": "absorbed: shaped; I5 added"
+        },
+        {
+          "id": "QIFC.2",
+          "text": "I1, I3, VER crew schema",
+          "disposition": "absorbed: reuse named"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B1, B2, B3, B4, B5, B6, B8",
+          "disposition": "absorbed: split into B10, B11, B12, B13, B14, B15, B16, B17, B18, B19"
+        }
+      ],
+      "scored": {
+        "note": "identical to pre-lint run 0 minus QDOD.2 (boundary now present). Differs from fable by QCON.1 C1, QCON.2 C4, QPRI.1 D1/D3, all read as reason/state/settled."
+      },
+      "advisory": [
+        "QGEN.3 I2/B1",
+        "QEDG.3 B3, B6, B7, B8",
+        "QPRI.2 D1",
+        "QDOD.3"
+      ],
+      "duration_ms": 192818,
+      "tokens": 23174
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C4 stall rule undefined",
+          "disposition": "absorbed: ceilings named in I1, stall_turns defined"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "dispatch seams B3, B5, B10, B18; findings, run directory, wrapper, ceiling names",
+          "disposition": "absorbed: I6, I7, I8; B8, B9 reference them"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B1, B4, B6, B10, B16, B18, B19",
+          "disposition": "absorbed: split into B20, B21, B22, B23, B24, B25, B26, B27, B28, B29, B30"
+        }
+      ],
+      "scored": {
+        "note": "same layer as fable run 2, almost line for line; ceilings filed under QCON.1 by opus, QIFC.1 by fable"
+      },
+      "advisory": [
+        "QGEN.3",
+        "QBEH.4 B9",
+        "QEDG.3 ten",
+        "QPRI.2 D1, D3",
+        "QDOD.3"
+      ],
+      "duration_ms": 333695,
+      "tokens": 24131
+    },
+    {
+      "run": 3,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "check id format; protected set",
+          "disposition": "unabsorbed (cap)"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B9 completeness plus exit.json",
+          "disposition": "unabsorbed (cap)"
+        }
+      ],
+      "scored": {
+        "note": "B9 finding identical to fable run 4 on the absorber's rewrite; protected set was in fable's run-2 set, absorbed there, not here"
+      },
+      "advisory": [
+        "QGEN.3",
+        "QBEH.4 B20",
+        "QEDG.3 twenty-four",
+        "QPRI.2 D1",
+        "QDOD.3"
+      ],
+      "duration_ms": 306767,
+      "tokens": 25486
+    }
+  ],
+  "model_observed": "claude-opus-5",
+  "run_cap": 3,
+  "cap_note": "provider cap: fable 4 runs, opus 3; the final run is recorded, not absorbed",
+  "result": "cap reached at 3 runs, not ready; last sheet two findings, one shared with fable run 4; 193-334s per run."
+}

@@ -1,0 +1,17 @@
+{
+  "spec": "agent-orchestrator",
+  "model_requested": "fable",
+  "rubric_version": "2.3",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "dev/workspace/filebox/spec/spec-description.md",
+    "dev/workspace/filebox/spec/spec-description-verification-addendum.md",
+    "draft"
+  ],
+  "start": "runs/agent-orchestrator/experiments/spec.v1.start.json (linted)",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-orchestrator/experiments/fable-4in-v2.3/spec.v1.json\n- nine-domains description: <project root>/dev/workspace/filebox/spec/spec-description.md\n- verification addendum: <project root>/dev/workspace/filebox/spec/spec-description-verification-addendum.md\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "purpose": "compare fable's run-1 set with the standard in hand against fable-v2.3 run 1 (rubric only) on the same linted start",
+  "run_cap": 1,
+  "runs": [],
+  "result": "refused by the spec-judge body: it opens only the rubric and the draft (two-file rule written in for v2); both dispatches declined the standard and addendum and were stopped. A four-input judge now needs a one-off agent with the four-file rule inlined."
+}

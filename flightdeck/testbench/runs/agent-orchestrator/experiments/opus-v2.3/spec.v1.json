@@ -1,0 +1,366 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-orchestrator",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft, derived from crew.json v1.0",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A session agent that conducts a run as the kickoff describes: plans the decomposition, holds the gates, dispatches and merges workers built from the crew file, drives verification and review, and keeps its own context clean enough to stay sound for the whole run, so that a human's judgement is applied at gates rather than at every turn."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "text": "The agent definition: plan production in the plan schema, gate conduct, dispatch and merge rules, retry policy, ceiling obedience, display upkeep, exit behaviour.",
+      "kind": "in"
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "text": "Construction of subagents from crew role nodes with per-unit slices.",
+      "kind": "in"
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "text": "Handling harness malfunctions (hook failures, tool crashes, permission misconfiguration); deferred by design.",
+      "kind": "out"
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "text": "The content of any template the invoker supplies; templates are project property, referenced by parameter.",
+      "kind": "out"
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "text": "Project-specific paths, commands or frameworks; every concrete value arrives via invocation parameters.",
+      "kind": "out"
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "text": "The behaviour of any other crew role; collaboration contracts appear here only as this agent's own inputs and outputs.",
+      "kind": "out"
+    },
+    {
+      "id": "SC7",
+      "status": "ok",
+      "text": "Writing implementation code, tests, or the spec; the orchestrator conducts and never produces.",
+      "kind": "out"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Strong model tier; every downstream token multiplies this agent's judgement."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "Fresh context at run start; must not see worker transcripts, the reviewer's reasoning beyond findings, or the sessions that produced the spec and tests."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Every verdict the orchestrator records must cite a check, a finding or a recorded event; it never grades its own work."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Ceilings from the kickoff are absolute: max_agents, unit_iterations, spend and stall_turns (turns without a unit landing) as I1.ceilings names them; hitting one is an exit, not an obstacle."
+    },
+    {
+      "id": "C5",
+      "status": "ok",
+      "text": "Reviewer findings pass through unfiltered."
+    },
+    {
+      "id": "C6",
+      "status": "ok",
+      "text": "Tool policy: read files, spawn subagents by crew role id, merge worktrees and commit, run checks, maintain the display; denied: implementation edits, test edits, spec edits."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "text": "{ kickoff_path: path, spec_path: path, tests_map_path: path, crew_file: path, run_directory: path, prior_reports?: [path], ceilings: { tokens: integer, turns: integer, wall_seconds: integer, max_agents: integer, unit_iterations: integer, spend: number, stall_turns: integer } (copied from the kickoff) }.",
+      "name": "invocation",
+      "reuse": "spec.schema.json for spec_path; the tests-map schema for tests_map_path; crew.json for crew_file; the kickoff document's ceilings block by field name"
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "text": "The plan artefact: schema-valid, spec and kickoff blocks filled, interfaces carried from the spec's I ids, units with stable U ids, spec_refs as references only, disjoint owns paths, checks always including the contract checks of needs and produces, decisions present only with the human-decision flag, and waves in order.",
+      "name": "plan",
+      "reuse": "orchestration/schemas/plan.schema.json"
+    },
+    {
+      "id": "I3",
+      "status": "ok",
+      "text": "Dispatch In: { unit_id: string (U<n>), spec_refs: [string] (ids from the spec), interfaces: [string] (I ids from the spec), checks: [path] (from the tests map), template: path, ceilings: I1.ceilings }. Return: { unit_id: string, status: complete | failed | blocked | contradiction-found, checks: [ { id: string, exit: integer } ], blocked_path?: path, contradiction?: { a: string, b: string } }.",
+      "name": "worker-dispatch",
+      "reuse": "crew.json role nodes by role name; spec ids and I ids by reference to the spec; check paths from the tests map"
+    },
+    {
+      "id": "I4",
+      "status": "ok",
+      "text": "<run_directory>/display.json: { units: [ { unit_id: string, checks: [ { id: string, exit: integer } ], unverified: [string] } ], cost: { tokens: integer, turns: integer, wall_seconds: integer, ceilings: I1.ceilings }, gates: [ { name: plan | interfaces | merge | verify, state: open | approved | exited } ] }.",
+      "name": "display",
+      "reuse": null
+    },
+    {
+      "id": "I5",
+      "status": "ok",
+      "name": "approval block",
+      "reuse": null,
+      "text": "In the plan: { gate: string, plan_hash: string (sha256 of the plan file at approval), approved_at: iso-8601, by: human }."
+    },
+    {
+      "id": "I6",
+      "status": "ok",
+      "name": "role dispatches",
+      "reuse": "crew.json role nodes, by role name",
+      "text": "interface-builder In: { interfaces: [string] (I ids), spec_path: path } Return: { paths: [path], contract_checks: [ { id: string, exit: integer } ] }. unit-adversary In: { unit_id: string, worktree: path, checks: [path] } Return: { unit_id: string, verdict: pass | findings, findings: [ { id: string, text: string } ] }. run-verifier In: { run_directory: path } Return: verifier.md lines `id · verdict · source`. reviewer In: { run_directory: path, spec_path: path } Return: reviewer.md lines `finding id · spec ref · text`. explorer In: { question: string, scope_paths?: [path] } Return: { answer: string, pointers: [path] }."
+    },
+    {
+      "id": "I7",
+      "status": "ok",
+      "name": "check wrapper",
+      "reuse": null,
+      "text": "Invocation: `node checks/run.mjs <check path>`; exit is the check's exit; stdout is `<id> · <exit> · <first line of the check's output>`."
+    },
+    {
+      "id": "I8",
+      "status": "ok",
+      "name": "run directory",
+      "reuse": null,
+      "text": "<run_directory>/: plan.json, display.json, dispatches/<unit_id>.json (I3 In and Return), checks/<id>.txt (wrapper stdout), verifier.md, reviewer.md, exit.json?: { reason: string, evidence: [path] }."
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Planning produces a plan that validates against the plan schema."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "No work proceeds past a gate without recorded approval in the plan's approval block (I5)."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "When the spec names interfaces, the interface-builder is dispatched before any worker."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "The first dispatch for every unit goes to worker-general."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "On a complete return the unit goes to the unit-adversary before merge."
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "A failed unit is re-dispatched once to worker-strong."
+    },
+    {
+      "id": "B7",
+      "status": "ok",
+      "text": "A contradiction-found return from any role halts the run for a human decision, always and immediately."
+    },
+    {
+      "id": "B8",
+      "status": "ok",
+      "text": "After the last merge every mapped check runs through the wrapper (I7)."
+    },
+    {
+      "id": "B9",
+      "status": "ok",
+      "text": "At every exit, including abandonment, the run directory holds every entry I8 names, with exit.json present when the exit was not a normal stop."
+    },
+    {
+      "id": "B10",
+      "status": "ok",
+      "text": "Codebase questions during planning are answered by explorer subagents (I6)."
+    },
+    {
+      "id": "B11",
+      "status": "ok",
+      "text": "The approval block's plan_hash equals the sha256 of the plan file at every dispatch."
+    },
+    {
+      "id": "B12",
+      "status": "ok",
+      "text": "Every contract check fails on behaviour and never on shape before workers are dispatched."
+    },
+    {
+      "id": "B13",
+      "status": "ok",
+      "text": "Interface paths join the protected set at gate approval."
+    },
+    {
+      "id": "B14",
+      "status": "ok",
+      "text": "Every worker runs in its own worktree."
+    },
+    {
+      "id": "B15",
+      "status": "ok",
+      "text": "A wave starts only when every unit of the prior wave has landed."
+    },
+    {
+      "id": "B16",
+      "status": "ok",
+      "text": "A merge is atomic to the run branch."
+    },
+    {
+      "id": "B17",
+      "status": "ok",
+      "text": "A second failure records the unit as not landed."
+    },
+    {
+      "id": "B18",
+      "status": "ok",
+      "text": "After the checks run, the run-verifier is dispatched to refute the green."
+    },
+    {
+      "id": "B19",
+      "status": "ok",
+      "text": "Findings from the verifier and reviewer are applied in one fix pass."
+    },
+    {
+      "id": "B20",
+      "status": "ok",
+      "text": "Every spec behaviour and edge id appears in exactly the plan units accountable for it."
+    },
+    {
+      "id": "B21",
+      "status": "ok",
+      "text": "A plan unit's spec_ref is null only for setup or glue units."
+    },
+    {
+      "id": "B22",
+      "status": "ok",
+      "text": "No owns path appears in two plan units."
+    },
+    {
+      "id": "B23",
+      "status": "ok",
+      "text": "Each unit has exactly one worker at a time."
+    },
+    {
+      "id": "B24",
+      "status": "ok",
+      "text": "A re-dispatch carries the failing check outputs in its I3 In."
+    },
+    {
+      "id": "B25",
+      "status": "ok",
+      "text": "A re-dispatch runs in a fresh worktree from the pre-attempt state."
+    },
+    {
+      "id": "B26",
+      "status": "ok",
+      "text": "Raw file contents from exploration never appear in the orchestrator's context."
+    },
+    {
+      "id": "B27",
+      "status": "ok",
+      "text": "A merge commit's message carries the unit id."
+    },
+    {
+      "id": "B28",
+      "status": "ok",
+      "text": "After the run-verifier returns, the reviewer is dispatched."
+    },
+    {
+      "id": "B29",
+      "status": "ok",
+      "text": "After the fix pass, every mapped check is re-run once."
+    },
+    {
+      "id": "B30",
+      "status": "ok",
+      "text": "After the re-run the run stops."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "A ceiling is hit mid-wave: dispatch stops, in-flight workers are allowed to return, the exit is surfaced with where the budget went, and the report remains assemblable."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "A gate is not approved: the orchestrator ends the phase and waits; it never proceeds on silence."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "Two workers' returns conflict over a path despite disjoint owns: treated as a plan defect, both units held from merge, exit to the human."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "The kickoff and the spec disagree about anything: the disagreement is presented and the run does not start."
+    },
+    {
+      "id": "E5",
+      "status": "ok",
+      "text": "A worker returns blocked citing a needed path outside its owns: not granted; the unit is held and the plan defect surfaced."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "The orchestrator abandons or restarts nothing on its own authority; all exits go to the human with the evidence that triggered them."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Dynamic-workflow execution of the implement phase is an invoker choice; this spec binds behaviour, not the execution substrate."
+    },
+    {
+      "id": "D3",
+      "status": "ok",
+      "text": "The plan's decisions array is the only place the orchestrator records calls made where the spec was silent, and each requires the human-decision flag."
+    },
+    {
+      "id": "D4",
+      "status": "ok",
+      "text": "Deferred to the next version, unanswered at this draft: May the orchestrator edit its own plan between waves when evidence shows a unit split is needed, provided it returns to the plan gate, or is any plan change a full exit?"
+    },
+    {
+      "id": "D5",
+      "status": "ok",
+      "text": "Deferred to the next version, unanswered at this draft: Does the unit-adversary gate every unit, or only units flagged risk or modify-existing, with the rest sampled?"
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Three layers, in order of trust. Structural: the definition file parses, declares the role's purpose, model tier, isolation, context receives/must-not-see lists, tool allow/deny lists, and an ending that produces the outputs; checked deterministically by a lint script against the crew schema (crew.json, reused by path). Scenario: the agent is dry-run against checked-in fixture inputs and its artefacts and returns are asserted deterministically (schema validation, file presence and absence, path boundaries, required fields). Rubric: judgement behaviours that cannot be asserted mechanically are graded from the scenario transcript against this spec's B ids by a fresh grading context. Fixtures and assertions are written before the agent body and locked during runs. Scenario fixtures run against stub subagents with scripted returns: a clean two-wave run; a run containing one failed unit (exercising the single-escalation retry); a contradiction-found return; a ceiling breach. Deterministic assertions: plan schema-validity and cross-checks (id stability, disjoint owns, spec_refs as references, plan_hash verified at dispatch); no dispatch before recorded approval; halt on contradiction; run directory completeness at every exit. Checks by id: B1 checks/b1.mjs; B2 checks/b2.mjs; B3 checks/b3.mjs; B4 checks/b4.mjs; B5 checks/b5.mjs; B6 checks/b6.mjs; B7 checks/b7.mjs; B8 checks/b8.mjs; B9 checks/b9.mjs; E1 checks/e1.mjs; E2 checks/e2.mjs; E3 checks/e3.mjs; E4 checks/e4.mjs; E5 checks/e5.mjs. B10 checks/b10.mjs; B11 checks/b11.mjs; B12 checks/b12.mjs; B13 checks/b13.mjs; B14 checks/b14.mjs; B15 checks/b15.mjs; B16 checks/b16.mjs; B17 checks/b17.mjs; B18 checks/b18.mjs; B19 checks/b19.mjs. B20 checks/b20.mjs; B21 checks/b21.mjs; B22 checks/b22.mjs; B23 checks/b23.mjs; B24 checks/b24.mjs; B25 checks/b25.mjs; B26 checks/b26.mjs; B27 checks/b27.mjs; B28 checks/b28.mjs; B29 checks/b29.mjs; B30 checks/b30.mjs."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Structural checks pass; all four fixture runs produce the specified conduct with schema-valid artefacts; the clean run ends with checks green, verifier and reviewer dispatched, one fix pass, and a report-ready run directory; no verdict in any transcript lacks a cited source. The paths touched are only dev/orchestration/crew/orchestrator.md, .claude/agents/orchestrator.md and dev/orchestration/harness/orchestrator/."
+  },
+  "open_questions": [],
+  "retired": []
+}

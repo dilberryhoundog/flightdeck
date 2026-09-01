@@ -1,0 +1,68 @@
+{
+  "model": "opus",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json (HEAD e632408 plus I8 reuse pointer corrected; the state judged by run 3 of the four-input chain)",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/opus/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nOpen only these two files. Every answer quotes its evidence from the draft.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": [
+        "B1",
+        "B6",
+        "B10",
+        "B11",
+        "B16",
+        "B23"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QDOD.1",
+          "text": "probe transcript appears first at the gate, no antecedent in VER",
+          "disposition": "absorbed: VER probe sentence; ACC records/probe.txt (QDOD.3 advisory resolved by the same edit)"
+        }
+      ],
+      "advisory": [
+        "QGEN.3 C6/B19 and C4/B20",
+        "QINT.3 mechanism",
+        "QEDG.3 B16 via D18",
+        "QDOD.3 has been read is an activity"
+      ],
+      "note": "QBEH.2 passed on B6/B16/B23 as faces of one rule; the four-input run 3 on the same draft failed QBEH.2 on B6 and QBEH.1 on B1 and QGEN.1 on I6-I8",
+      "duration_ms": 201120,
+      "tokens": 29867
+    },
+    {
+      "run": 2,
+      "sample": [
+        "B1",
+        "B23",
+        "B6",
+        "B10",
+        "B11",
+        "B16"
+      ],
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "advisory": [
+        "QGEN.3 C6/B19; C10 model value vs D7 binds no model",
+        "QINT.3 mechanism",
+        "QEDG.3 B16 via D18"
+      ],
+      "note": "Passed with B6, B11, B23 unsplit; QBEH.2 reasoning: trailing negative clauses restate the rule. New advisory: C10/D7 model collision, not raised by any other judge.",
+      "duration_ms": 214978,
+      "tokens": 29457
+    }
+  ],
+  "model_requested": "opus",
+  "model_observed": "claude-opus-5 (verified in the session transcript's API request records; the 'fable 5 high' label seen in the UI was the parent session's model, not the subagent's)",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "result": "ready to freeze after 2 runs; 1 finding absorbed in total (QDOD.1)"
+}

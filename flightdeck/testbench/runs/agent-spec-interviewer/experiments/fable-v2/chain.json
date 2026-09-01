@@ -1,0 +1,160 @@
+{
+  "model_requested": "fable",
+  "rubric_version": 2,
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/fable-v2/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": [
+    "QDOD.1",
+    "QDOD.2",
+    "QIFC.1 (I1; I6-I8 In; return ids)",
+    "QCON.1 (C11)",
+    "QCON.2 (C2)",
+    "QBEH.2 (B6, B23)"
+  ],
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C11 mixed clauses",
+          "disposition": "absorbed: C11 restated; c11 check covers both clauses"
+        },
+        {
+          "id": "QCON.2",
+          "text": "C2 sequences the work",
+          "disposition": "absorbed: C2 as a condition on the judged draft"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "I1; I6, I7, I8 In sides; explorer return id",
+          "disposition": "absorbed: shapes on I1, I6-I8 In; id on I6 Out; I5 closed_by and I9 ref tagged shapes"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B4, B6, B11, B13, B14, B16, B23",
+          "disposition": "absorbed: each split; B24-B30, C14; edges and VER updated"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe orphaned",
+          "disposition": "absorbed: VER probe sentence; ACC records/probe.txt"
+        },
+        {
+          "id": "QDOD.2",
+          "text": "SC12 via C6 covers the boundary",
+          "disposition": "absorbed: SC12 reworded"
+        }
+      ],
+      "advisory": [
+        "QGEN.3 SC15/C5, C9/D1",
+        "QINT.3",
+        "QDOD.3"
+      ],
+      "note": "Every expected finding present in one pass with every instance; QBEH.2 applied the new test to five further behaviours consistently.",
+      "duration_ms": 104334,
+      "tokens": 30771
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "I9 has no dispatch record shape (E10); I10 unchecked_names element format (B9, E6)",
+          "disposition": "absorbed: I9 gains dispatches; I10 element typed"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B9 two state changes on the unchecked branch",
+          "disposition": "absorbed: B9 split into B9, B31; E6; VER"
+        }
+      ],
+      "advisory": [
+        "QGEN.3 SC15/C5/D2",
+        "QINT.3"
+      ],
+      "note": "New layers, not flips: both findings are on text run 1 read and passed only because the run-1 findings were larger. Both real.",
+      "duration_ms": 134994,
+      "tokens": 31314
+    },
+    {
+      "run": 3,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QBEH.2",
+          "text": "B15 result plus separately prohibited action (frozen file unchanged)",
+          "disposition": "absorbed: B15 split into B15, B32; E12; VER"
+        }
+      ],
+      "advisory": [
+        "QGEN.3",
+        "QINT.3"
+      ],
+      "note": "Flip: B15 passed in runs 1 and 2 (run 2 noted doubt). The v2 test does not settle whether a clause about a different artefact than the result is a qualifier or a second decision; B9 (run 2) and B15 share that shape. Candidate v2.1 sentence: a clause about a different artefact than the result is a second decision.",
+      "duration_ms": 110126,
+      "tokens": 31498
+    },
+    {
+      "run": 4,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QBEH.2",
+          "text": "B3 timing plus content invariant; VER checks only the first",
+          "disposition": "absorbed: B3 split into B3, B33; E17; VER"
+        }
+      ],
+      "advisory": [
+        "QGEN.3",
+        "QINT.3"
+      ],
+      "note": "Flip: B3 passed runs 1-3. Same seam as B9 and B15: a clause that is neither a form qualifier nor a state change. Candidate v2.1 test from the judge's own reason: two decisions when the clauses need different checks or verification covers only one.",
+      "duration_ms": 92236,
+      "tokens": 31588
+    },
+    {
+      "run": 5,
+      "sample": "all",
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "advisory": [
+        "QGEN.3 SC15/C5",
+        "QINT.3"
+      ],
+      "note": "Ready. 33 B / 14 C.",
+      "duration_ms": 88893,
+      "tokens": 31691
+    }
+  ],
+  "model_observed": "claude-fable-5 (transcript)",
+  "result": "ready to freeze after 5 runs; 11 findings absorbed (run 1: 6 questions, every expected instance; runs 2-4: QIFC.1 x2 new layers, QBEH.2 on B9, B15, B3 of which B15 and B3 were flips)"
+}

@@ -1,0 +1,83 @@
+{
+  "model_requested": "opus",
+  "rubric_version": 2,
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/opus-v2/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": [
+    "QDOD.1",
+    "QDOD.2",
+    "QIFC.1 (I1; I6-I8 In; return ids)",
+    "QCON.1 (C11)",
+    "QCON.2 (C2)",
+    "QBEH.2 (B4, B6, B11, B13, B14, B16, B23 per fable-v2 run 1)"
+  ],
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C11 mixed clauses",
+          "disposition": "absorbed: C11 restated"
+        },
+        {
+          "id": "QCON.2",
+          "text": "C2 sequences the work",
+          "disposition": "absorbed: C2 as condition"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "explorer return id unshaped",
+          "disposition": "absorbed: I6 Out id; I5 closed_by shape"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B4, B6, B11, B16, B23",
+          "disposition": "absorbed: split; B24-B28, C14"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe orphaned",
+          "disposition": "absorbed: VER probe; ACC probe.txt"
+        }
+      ],
+      "advisory": [
+        "QGEN.3 three pairs",
+        "QINT.3",
+        "QDOD.3"
+      ],
+      "note": "Against fable-v2 run 1: same questions except QDOD.2 (opus passed SC12/C6 a fourth time) and QIFC.1 partial (return id found; I1 and I6-I8 In prose lists not). QBEH.2 named five of fable's seven (not B13, B14).",
+      "duration_ms": 276170,
+      "tokens": 30294
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "advisory": [
+        "QGEN.3 SC15/C5/D2, C8/B4",
+        "QINT.3"
+      ],
+      "note": "Ready with I6 In prose (\"one question, the stage it serves\") quoted as a shape, and SC12 unchanged from the start state; passed B13, B14, B15 as qualifiers where fable and sonnet split them. 28 B / 14 C.",
+      "duration_ms": 202094,
+      "tokens": 31059
+    }
+  ],
+  "model_observed": "claude-opus-5 (transcript)",
+  "result": "ready to freeze after 2 runs; 5 findings absorbed. Passed on text fable (I1/I6-I8 In, SC12, B13, B14, B15, B3, B9) and sonnet (B13, B15) failed."
+}

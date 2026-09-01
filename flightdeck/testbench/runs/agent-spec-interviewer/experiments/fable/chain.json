@@ -1,0 +1,87 @@
+{
+  "model_requested": "fable",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/fable/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nOpen only these two files. Every answer quotes its evidence from the draft.",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": [
+        "B1",
+        "B23",
+        "B6",
+        "B10",
+        "B11",
+        "B16"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "GEN",
+        "IFC",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QGEN.1",
+          "text": "C10 tools/model; I6, I7 tiers; contradicts SC10, D7",
+          "disposition": "absorbed: tiers stripped from I6, I7 and I8 (same defect, I8 not named); C10 restated as set at install"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "I1 and I6 In are prose lists, not shapes",
+          "disposition": "absorbed: I1 and I6 In given field shapes"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B16 and B23 each two outcomes",
+          "disposition": "absorbed: B16 split into B16, B24; B23 into B23, B25; D18; E7; VER"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe orphaned",
+          "disposition": "absorbed: VER probe sentence; ACC records/probe.txt"
+        },
+        {
+          "id": "QDOD.2",
+          "text": "SC12 via C6 covers every boundary path",
+          "disposition": "absorbed: SC12 reworded"
+        }
+      ],
+      "advisory": [
+        "QGEN.3 C6/B19, C4/B20",
+        "QINT.3 mechanism"
+      ],
+      "note": "QIFC.1 raised for the first time in fourteen dispatches. Passed B6 (which sonnet failed twice) and failed B16, B23. Named the C10/D7 contradiction as a gating reason, where opus had it as advisory. Fastest run so far.",
+      "duration_ms": 110809,
+      "tokens": 29644
+    },
+    {
+      "run": 2,
+      "sample": [
+        "B1",
+        "B25",
+        "B6",
+        "B10",
+        "B11"
+      ],
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "advisory": [
+        "QGEN.3 B19/C6, B20/C4",
+        "QINT.3 mechanism",
+        "QPRI.2 D13 rejection without reason (first raised)"
+      ],
+      "note": "Passed B6 and B11 unsplit with stated readings. New advisory QPRI.2 on D13.",
+      "duration_ms": 99313,
+      "tokens": 29905
+    }
+  ],
+  "model_observed": "claude-fable-5 (transcript)",
+  "result": "ready to freeze after 2 runs; 5 findings absorbed (QGEN.1, QIFC.1, QBEH.2 on B16 and B23, QDOD.1, QDOD.2)"
+}

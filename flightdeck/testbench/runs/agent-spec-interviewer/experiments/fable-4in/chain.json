@@ -1,0 +1,222 @@
+{
+  "model_requested": "fable",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "dev/workspace/filebox/spec/spec-description.md",
+    "dev/workspace/filebox/spec/spec-description-verification-addendum.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/fable-4in/spec.v1.json\n- nine-domains description: <project root>/dev/workspace/filebox/spec/spec-description.md\n- verification addendum (product is agent-shaped): <project root>/dev/workspace/filebox/spec/spec-description-verification-addendum.md\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": [
+        "B1",
+        "B23",
+        "B6",
+        "B10",
+        "B11"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "I1 has no stated form",
+          "disposition": "absorbed: I1 given a field shape"
+        },
+        {
+          "id": "QDOD.2",
+          "text": "SC12 via C6 covers the whole DoD boundary",
+          "disposition": "absorbed: SC12 reworded"
+        }
+      ],
+      "advisory": [
+        "QGEN.3 C6/B19",
+        "QINT.3 mechanism"
+      ],
+      "note": "With the standard: QGEN.1 passed (two-input fable failed it), QBEH.2 passed citing the standard's exemplar (two-input fable split B16, B23), QDOD.1 passed citing the addendum (two-input fable failed it). QIFC.1 and QDOD.2 held across both fable chains.",
+      "duration_ms": 126850,
+      "tokens": 36952
+    },
+    {
+      "run": 2,
+      "sample": [
+        "B1",
+        "B6",
+        "B10",
+        "B11",
+        "B16",
+        "B23"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "I6, I7, I8 In sides are prose lists",
+          "disposition": "absorbed: In shapes for I6, I7, I8"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe transcript first appears at the gate",
+          "disposition": "absorbed: VER probe sentence; ACC records/probe.txt"
+        }
+      ],
+      "advisory": [
+        "QGEN.3",
+        "QINT.3",
+        "QEDG.3 B16 via D18"
+      ],
+      "note": "QDOD.1 flipped: run 1 passed the identical sentence citing the addendum as antecedent; run 2 failed it saying the addendum requires it but the draft never names it. Same model, same inputs, same text. QIFC.1 surfaced one layer at a time: I1 in run 1, I6-I8 In sides in run 2.",
+      "duration_ms": 126844,
+      "tokens": 37009
+    },
+    {
+      "run": 3,
+      "sample": [
+        "B1",
+        "B23",
+        "B6",
+        "B10",
+        "B16"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C11 \"encoded in the body\" not checkable",
+          "disposition": "absorbed: C11 restated as headed sections present plus no standards read; c11 check renamed to cover both clauses"
+        }
+      ],
+      "advisory": [
+        "QGEN.3",
+        "QINT.3",
+        "QEDG.3 B16 via D18"
+      ],
+      "note": "QCON.1 raised for the first time in twenty dispatches; C11 is unchanged in every chain that passed.",
+      "duration_ms": 101025,
+      "tokens": 37099
+    },
+    {
+      "run": 4,
+      "sample": [
+        "B1",
+        "B23",
+        "B6",
+        "B10",
+        "B16"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QBEH.2",
+          "text": "B6 no-approval clause is a separate decision",
+          "disposition": "absorbed: clause moved to C14; B6 keeps node and close; E2; VER"
+        }
+      ],
+      "advisory": [
+        "QGEN.3",
+        "QINT.3",
+        "QEDG.3 B16 via D18"
+      ],
+      "note": "B6 was in the sample and passed QBEH.2 in runs 1, 2 and 3 of this chain (run 2: \"facets of that transition, matching the standard's own example\"); run 4 failed it on the same text. Second within-chain flip (QDOD.1 flipped between runs 1 and 2).",
+      "duration_ms": 107172,
+      "tokens": 37128
+    },
+    {
+      "run": 5,
+      "sample": [
+        "B1",
+        "B23",
+        "B10",
+        "B11",
+        "B16"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "explorer returns have no id; I5 closed_by and I9 ref unions unshaped",
+          "disposition": "absorbed: I6 Out gains id; I5 closed_by and I9 ref given tagged shapes"
+        }
+      ],
+      "advisory": [
+        "QGEN.3",
+        "QINT.3",
+        "QEDG.3 B16 via D18"
+      ],
+      "note": "Third QIFC.1 instance in this chain (I1; I6-I8 In; return ids). Each is real and each was passed by every other chain. Findings surface one per run.",
+      "duration_ms": 104054,
+      "tokens": 37207
+    },
+    {
+      "run": 6,
+      "sample": [
+        "B1",
+        "B10",
+        "B11",
+        "B16",
+        "B23"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QBEH.2",
+          "text": "B16, B23 two outcomes; B11 couples ledger and disposition",
+          "disposition": "absorbed: split into B16/B24, B23/B25, B11/B26; D18; E7; E15; VER"
+        }
+      ],
+      "advisory": [
+        "QGEN.3",
+        "QINT.3",
+        "QEDG.3"
+      ],
+      "note": "Third within-chain flip on QBEH.2: B16 and B23 sampled and passed in runs 1-5, failed in run 6 on unchanged text.",
+      "duration_ms": 111291,
+      "tokens": 37248
+    },
+    {
+      "run": 7,
+      "sample": [
+        "B1",
+        "B26",
+        "B10",
+        "B3",
+        "B12"
+      ],
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "advisory": [
+        "QGEN.3",
+        "QINT.3"
+      ],
+      "note": "Sample fell on B3, B12, B26 after the run-6 splits; B3 passed QBEH.2 as properties of one artefact, the reading sonnet rejected twice.",
+      "duration_ms": 110463,
+      "tokens": 37592
+    }
+  ],
+  "model_observed": "claude-fable-5 (transcript)",
+  "result": "ready to freeze after 7 runs; 8 findings absorbed (QIFC.1 x3, QDOD.2, QDOD.1, QCON.1, QBEH.2 x2). Provider stopped the chain after run 6; run 7 was already dispatched and is kept."
+}

@@ -1,0 +1,125 @@
+{
+  "model_requested": "sonnet",
+  "rubric_version": "2.1",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/sonnet-v2.1/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": [
+    "QDOD.1",
+    "QDOD.2",
+    "QIFC.1 (I1; I6-I8 In; return ids)",
+    "QCON.1 (C11)",
+    "QCON.2 (C2)",
+    "QBEH.2 (B3, B4, B6, B9, B11, B13, B14, B15, B16, B23)"
+  ],
+  "pass_criterion": "all three chains raise the expected set on run 1 and read ready on run 2",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QCON.2",
+          "text": "C2",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "I1; I6, I7, I8 In",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B3, B4, B6, B9, B11, B13, B14, B15, B16, B23",
+          "disposition": "absorbed: all ten split"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QDOD.2",
+          "text": "SC12 via C6",
+          "disposition": "absorbed"
+        }
+      ],
+      "scored": {
+        "hit": [
+          "QCON.2",
+          "QIFC.1 x4",
+          "QBEH.2 x10",
+          "QDOD.1",
+          "QDOD.2"
+        ],
+        "missed": [
+          "QCON.1 C11",
+          "QIFC.1 return id"
+        ],
+        "extra": []
+      },
+      "advisory": [
+        "QINT.3"
+      ],
+      "note": "QDOD.2 caught with the v2.1 resolution step quoted; QBEH.2 exact. Slowest run of the set.",
+      "duration_ms": 423265,
+      "tokens": 31453
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C11; C10 override clause",
+          "disposition": "unabsorbed (check ended)"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "I7 Out prose; I5/I9 node id format; I10 untyped",
+          "disposition": "unabsorbed (check ended)"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B14 status plus commit",
+          "disposition": "unabsorbed (check ended)"
+        }
+      ],
+      "scored": {
+        "hit": [],
+        "missed": [],
+        "extra": [
+          "QCON.1 C11 (late), C10 override",
+          "QIFC.1 I7 Out, node id format, I10 (I10 matches fable run 2)",
+          "QBEH.2 B14 (matches fable run 2 over-split)"
+        ]
+      },
+      "advisory": [
+        "QINT.3",
+        "QEDG.3 closed by D18"
+      ],
+      "note": "Not ready on run 2; criterion not met for sonnet. Two of its three findings match fable's run-2 extras; the third is C11 arriving a run late.",
+      "duration_ms": 428842,
+      "tokens": 32661
+    }
+  ],
+  "model_observed": "claude-sonnet-5",
+  "result": "agreement check ended after 2 runs, not ready; run 1 missed C11 and return id; run 2 raised I10, B14 (as fable) plus C11 late and C10 override."
+}

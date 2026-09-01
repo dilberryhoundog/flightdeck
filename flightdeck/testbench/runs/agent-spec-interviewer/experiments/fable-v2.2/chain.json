@@ -1,0 +1,132 @@
+{
+  "model_requested": "fable",
+  "rubric_version": "2.2",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/fable-v2.2/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": [
+    "QDOD.1",
+    "QDOD.2",
+    "QIFC.1 (I1; I6-I8 In; return ids)",
+    "QCON.1 (C11)",
+    "QCON.2 (C2)",
+    "QBEH.2 (B4, B6, B9, B11, B13, B15, B16, B23; B3 and B14 exempt under v2.2)"
+  ],
+  "pass_criterion": "fable and opus raise the same set on run 1 and read ready on run 2",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C11",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QCON.2",
+          "text": "C2",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "I1; I6, I7, I8 In; I10 untyped; return id",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B3, B4, B6, B9, B11, B13, B15, B16, B23",
+          "disposition": "absorbed: nine split"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe",
+          "disposition": "absorbed"
+        },
+        {
+          "id": "QDOD.2",
+          "text": "SC12 via C6",
+          "disposition": "absorbed"
+        }
+      ],
+      "scored": {
+        "hit": [
+          "all expected"
+        ],
+        "missed": [],
+        "extra": [
+          "QIFC.1 I10 (real; run 1 this time)",
+          "QBEH.2 B3 content clause (correct under v2.2)"
+        ]
+      },
+      "advisory": [
+        "QINT.3"
+      ],
+      "note": "B14 correctly exempt; B3 correctly split on its content clause. Every instance in one pass including I10.",
+      "duration_ms": 122812,
+      "tokens": 31077
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QBEH.2",
+          "text": "B14 tail clause: commit contains only the spec file",
+          "disposition": "absorbed: B14 split"
+        }
+      ],
+      "scored": {
+        "hit": [],
+        "missed": [],
+        "extra": [
+          "QBEH.2 B14 tail clause (real; run 1 skipped B14 once the exemption covered its front half)"
+        ]
+      },
+      "advisory": [
+        "QINT.3",
+        "doubt C10 override"
+      ],
+      "note": "Not a flip: run 1 did not read B14 at all under the new exemption; run 2 found the genuine second clause behind it.",
+      "duration_ms": 113111,
+      "tokens": 32362
+    },
+    {
+      "run": 3,
+      "sample": "all",
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "scored": {
+        "hit": [],
+        "missed": [],
+        "extra": []
+      },
+      "advisory": [
+        "QINT.3",
+        "doubts: C11 count vs check; E10/I9 dispatch record"
+      ],
+      "note": "Ready. No flips in this chain: run 2 was the genuine B14 tail clause.",
+      "duration_ms": 120598,
+      "tokens": 32426
+    }
+  ],
+  "model_observed": "claude-fable-5",
+  "expected_run1_corrected": "B3 stays in the set: the window is exempt but its content clause is a second property; B14 exempt.",
+  "result": "ready to freeze after 3 runs; run 1 full expected set plus I10 and B3 content clause (both correct); run 2 B14 tail clause (real); no flips. Times 123s, 113s, 121s."
+}

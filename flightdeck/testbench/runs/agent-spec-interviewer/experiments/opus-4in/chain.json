@@ -1,0 +1,36 @@
+{
+  "model_requested": "opus",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "dev/workspace/filebox/spec/spec-description.md",
+    "dev/workspace/filebox/spec/spec-description-verification-addendum.md",
+    "draft"
+  ],
+  "start": "experiments/spec.v1.start.json",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/experiments/opus-4in/spec.v1.json\n- nine-domains description: <project root>/dev/workspace/filebox/spec/spec-description.md\n- verification addendum (product is agent-shaped): <project root>/dev/workspace/filebox/spec/spec-description-verification-addendum.md\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chains.",
+  "runs": [
+    {
+      "run": 1,
+      "sample": [
+        "B1",
+        "B23",
+        "B6",
+        "B10",
+        "B11"
+      ],
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "advisory": [
+        "QGEN.3 C6/B19",
+        "QINT.3 mechanism"
+      ],
+      "note": "Zero findings on the start state. QDOD.1 passed because the addendum names the probe transcript as a gate condition, so the judge treated the standard as the antecedent the draft lacks. Every other judge, including opus two-input, failed QDOD.1 on this draft.",
+      "duration_ms": 182128,
+      "tokens": 36980
+    }
+  ],
+  "model_observed": "claude-opus-5 (transcript)",
+  "result": "ready to freeze on run 1; 0 findings"
+}

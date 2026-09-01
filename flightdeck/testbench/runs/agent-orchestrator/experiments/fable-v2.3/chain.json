@@ -1,0 +1,185 @@
+{
+  "spec": "agent-orchestrator",
+  "model_requested": "fable",
+  "rubric_version": "2.3",
+  "inputs": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "draft"
+  ],
+  "start": "runs/agent-orchestrator/experiments/spec.v1.start.json (filebox/crew/specs/agent-orchestrator/spec.v1.json as of 2026-08-30)",
+  "linter_run0": "returned unjudged: 2 open questions; every B and E unclaimed by verification; no path boundary; unresolved names. Judged anyway to test part two on an untuned draft.",
+  "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-orchestrator/experiments/fable-v2.3/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "expected_run1": "none; discovery on an untuned spec",
+  "stop_rule": "stop the chain if a question flips on unchanged text twice",
+  "absorber_note": "The builder absorbs only what each verdict names; nothing carried from the other chain.",
+  "runs": [
+    {
+      "run": 0,
+      "note": "pre-lint draft; sheet at verdict-run0-prelint.md; not absorbed",
+      "verdict": "returned",
+      "findings": [
+        "QCON.2 C4",
+        "QIFC.1 x6",
+        "QBEH.1 B9",
+        "QBEH.2 B1 B2 B3 B4 B5 B6 B8",
+        "QPRI.1 D1",
+        "QVER.3 no tags",
+        "QDOD.2 no boundary"
+      ],
+      "duration_ms": 112243,
+      "tokens": 22913
+    },
+    {
+      "run": 1,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "IFC",
+        "BEH",
+        "PRI"
+      ],
+      "findings": [
+        {
+          "id": "QCON.1",
+          "text": "C1 rationale clause",
+          "disposition": "absorbed: rationale moved to D2"
+        },
+        {
+          "id": "QCON.2",
+          "text": "C4 exit rule",
+          "disposition": "absorbed: clause removed; E1 carries it"
+        },
+        {
+          "id": "QIFC.1",
+          "text": "I1, I3 both sides, I4 prose; plan_hash, wrapper, run directory, explorer returns unshaped",
+          "disposition": "absorbed: I1, I3, I4 shaped; I5-I8 added"
+        },
+        {
+          "id": "QIFC.2",
+          "text": "I1 kickoff, B8 wrapper, VER crew schema reuse open",
+          "disposition": "absorbed: reuse named"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B1, B2, B3, B4, B5, B6, B8",
+          "disposition": "absorbed: split into B10, B11, B12, B13, B14, B15, B16, B17, B18, B19"
+        },
+        {
+          "id": "QPRI.1",
+          "text": "D1, D3 requirements in decision form",
+          "disposition": "absorbed: D1 -> C7 plus reason; D3 -> reason for I2"
+        }
+      ],
+      "scored": {
+        "note": "vs pre-lint run 0: added QCON.1 C1, QIFC.2, QPRI.1 D3; dropped QBEH.1 B9 and QVER.3 (text unchanged: flips, both on judge-read questions)"
+      },
+      "advisory": [
+        "QGEN.3 D3/I2, B1/I2",
+        "QBEH.4 B9",
+        "QEDG.3 B3, B5, B6, B7, B8",
+        "QPRI.2 D1",
+        "QDOD.3"
+      ],
+      "duration_ms": 116531,
+      "tokens": 23205
+    },
+    {
+      "run": 2,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "dispatch seams B3, B5, B18/B19, explorer In; protected set; C4 ceilings vs I1",
+          "disposition": "absorbed: I9 role dispatches, I10 protected set, I1/C4 ceilings aligned"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B1, B4, B6, B10, B16, B18, B19",
+          "disposition": "absorbed: split into B20, B21, B22, B23, B24, B25, B26, B27, B28, B29, B30; five of the seven were run-1 split successors still compound"
+        }
+      ],
+      "scored": {
+        "note": "new layer, not flips; QCON, QPRI now pass; QVER.3 read as not applicable (not declared agent-shaped)"
+      },
+      "advisory": [
+        "QGEN.3 E1/B9",
+        "QEDG.3 fourteen behaviours",
+        "QDOD.3"
+      ],
+      "duration_ms": 119617,
+      "tokens": 24571
+    },
+    {
+      "run": 3,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QBEH.1",
+          "text": "B12 on behaviour/on shape undefined; B9 sufficient undefined",
+          "disposition": "absorbed: B9 defined by I7 entries; B12 by the not-implemented exit. B9 QBEH.1: fail (run 0), pass (runs 1-2), fail (run 3) on unchanged text — stop rule first trigger; one more run allowed."
+        }
+      ],
+      "scored": {
+        "note": "IFC, CON, PRI, DOD all pass; QBEH.2 passes on 30 behaviours"
+      },
+      "advisory": [
+        "QGEN.3 I10/B13, I8/B26",
+        "QEDG.3 twenty-seven behaviours"
+      ],
+      "duration_ms": 119797,
+      "tokens": 25718
+    },
+    {
+      "run": 4,
+      "sample": "all",
+      "verdict": "returned",
+      "failing_blocks": [
+        "IFC",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QIFC.1",
+          "text": "B24 field absent from I3 In; B17 not-landed record",
+          "disposition": "unabsorbed (cap)"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B9 and B12, both the absorber's run-3 rewrites",
+          "disposition": "unabsorbed (cap)"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "report-ready has no antecedent",
+          "disposition": "unabsorbed (cap)"
+        }
+      ],
+      "scored": {
+        "note": "B9 QBEH.1 settled once defined; the three findings are all on text the absorber wrote in runs 2-3"
+      },
+      "advisory": [
+        "QGEN.3 three pairs",
+        "QINT.3",
+        "QEDG.3 twenty-five",
+        "QDOD.3"
+      ],
+      "duration_ms": 105468,
+      "tokens": 25761
+    }
+  ],
+  "model_observed": "claude-fable-5",
+  "run_cap": 4,
+  "cap_note": "provider cap: fable 4 runs, opus 3; the final run is recorded, not absorbed",
+  "result": "cap reached at 4 runs, not ready; last sheet three findings, each on absorber-written text; CON, PRI pass from run 3; 112-120s per run."
+}

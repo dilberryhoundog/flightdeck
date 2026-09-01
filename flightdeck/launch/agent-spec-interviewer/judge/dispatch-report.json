@@ -1,0 +1,252 @@
+{
+  "spec": "agent-spec-interviewer",
+  "draft": "dev/workspace/runs/agent-spec-interviewer/spec.v1.json",
+  "rubric": "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+  "purpose": "Data points for the readiness rubric: one entry per rubric-judge dispatch, the prompt as sent, what the judge loaded, its model tier, and what it found.",
+  "prompt_template": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/spec.v1.json\n- nine-domains description: <project root>/dev/workspace/filebox/spec/spec-description.md\n- verification addendum (product is agent-shaped): <project root>/dev/workspace/filebox/spec/spec-description-verification-addendum.md\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nEvery answer quotes its evidence from the draft.",
+  "loaded_each_run": [
+    "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+    "dev/workspace/filebox/spec/spec-description.md",
+    "dev/workspace/filebox/spec/spec-description-verification-addendum.md",
+    "dev/workspace/runs/agent-spec-interviewer/spec.v1.json"
+  ],
+  "runs": [
+    {
+      "run": 1,
+      "session": "prior",
+      "agent": "spec-judge",
+      "model": "unrecorded (prior session)",
+      "prompt": "unrecorded (prior session); verdict at judge/verdict-v1.md",
+      "loaded": "as loaded_each_run",
+      "draft_state": "21 behaviours, 17 edges, 13 constraints",
+      "sample": [
+        "B1",
+        "B6",
+        "B10",
+        "B21"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "INT",
+        "BEH",
+        "PRI",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QINT.1",
+          "text": "intent names an activity, not an outcome condition",
+          "disposition": "asked (P-intent-outcome); INT rewritten"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B1 and B21 each carry two decisions",
+          "disposition": "absorbed: B1, B21, B22, B23"
+        },
+        {
+          "id": "QPRI.1",
+          "text": "D5 and D17 requirement-shaped",
+          "disposition": "absorbed: D5 removed, D17 reworded"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "byte-identical condition orphaned at the gate",
+          "disposition": "absorbed: C13"
+        },
+        {
+          "id": "QDOD.2",
+          "text": "acceptance boundary includes a schema SC9 excludes",
+          "disposition": "absorbed: SC9"
+        }
+      ],
+      "advisory": [
+        "QINT.3 mechanism in intent (rejected: provider keeps it)",
+        "QGEN.3 -> D15"
+      ]
+    },
+    {
+      "run": 2,
+      "session": "prior",
+      "agent": "spec-judge",
+      "model": "unrecorded",
+      "prompt": "unrecorded",
+      "loaded": "unknown",
+      "verdict": "no return (judge/verdict-v1-run2.md was 0 bytes; discarded)",
+      "findings": []
+    },
+    {
+      "run": 3,
+      "session": "this",
+      "agent": "spec-judge",
+      "model": "sonnet",
+      "prompt": "prompt_template plus: 'Write the full verdict sheet to <run folder>/judge/verdict-v1-run3.md and return the same sheet as your reply.' (judge reported it has no Write tool and returned text only; sheet persisted by the builder)",
+      "loaded": "as loaded_each_run",
+      "draft_state": "23 behaviours, 17 edges, 13 constraints; I8 reuse pointer corrected before dispatch",
+      "sample": [
+        "B1",
+        "B6",
+        "B10",
+        "B11",
+        "B23"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "GEN",
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QGEN.1",
+          "text": "'Model tier: small|standard|inherit' in I6/I7/I8 is run conduct",
+          "disposition": "absorbed by deletion, then reopened by provider as P-dispatch-tier; closed: tier lives in the dispatched agent's frontmatter, I6-I8 'dispatched by name; no model parameter', D7"
+        },
+        {
+          "id": "QBEH.1",
+          "text": "B1 has no identifiable input",
+          "disposition": "absorbed: B1"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B6 bundles node creation, problem state, no re-confirmation",
+          "disposition": "absorbed: B6, B24, C14"
+        },
+        {
+          "id": "QDOD.1",
+          "text": "probe transcript appears first in ACC, not VER",
+          "disposition": "absorbed: VER probe sentence, ACC records/probe.txt"
+        }
+      ],
+      "advisory": [
+        "QINT.3 mechanism in intent",
+        "QDOD.3 'has been read' is an activity (fixed alongside QDOD.1)"
+      ],
+      "duration_ms": 336131,
+      "tokens": 38513
+    },
+    {
+      "run": 4,
+      "session": "this",
+      "agent": "spec-judge",
+      "model": "sonnet",
+      "prompt": "prompt_template verbatim",
+      "loaded": "as loaded_each_run",
+      "draft_state": "24 behaviours, 17 edges, 14 constraints",
+      "sample": [
+        "B1",
+        "B24",
+        "B10",
+        "B16",
+        "B11"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "CON",
+        "BEH"
+      ],
+      "findings": [
+        {
+          "id": "QCON.2",
+          "text": "C2 'exits 0 before any rubric-judge dispatch' is a step; duplicates B10",
+          "disposition": "absorbed: C2 restated as a condition on the draft a verdict sheet names"
+        },
+        {
+          "id": "QBEH.2",
+          "text": "B16 chains explorer wave then re-ask",
+          "disposition": "absorbed: B16 split into B16, B25; D18; VER"
+        }
+      ],
+      "advisory": [
+        "QGEN.3 C6/B19 restate the write boundary",
+        "QINT.3 mechanism in intent",
+        "QEDG.3 B16 no edge (D18)"
+      ],
+      "duration_ms": 298160,
+      "tokens": 38415
+    },
+    {
+      "run": 5,
+      "session": "this",
+      "agent": "spec-judge",
+      "model": "sonnet",
+      "prompt": "prompt_template verbatim",
+      "loaded": "as loaded_each_run",
+      "draft_state": "25 behaviours, 17 edges, 14 constraints",
+      "sample": [
+        "B1",
+        "B25",
+        "B10",
+        "B11",
+        "B3",
+        "B12"
+      ],
+      "verdict": "returned",
+      "failing_blocks": [
+        "BEH",
+        "DOD"
+      ],
+      "findings": [
+        {
+          "id": "QBEH.2",
+          "text": "B3 bundles draft timing and draft completeness",
+          "disposition": "absorbed: B3 split into B3, B26; E17; VER"
+        },
+        {
+          "id": "QDOD.2",
+          "text": "ACC path boundary lies outside C6, which SC12 named as the edit limit; SC12 contradicts SC1",
+          "disposition": "absorbed: SC12 reworded to the DoD's path list"
+        }
+      ],
+      "advisory": [
+        "QGEN.3 C4/B20 restate the read boundary",
+        "QINT.3 mechanism in intent",
+        "QEDG.3 B25 no edge (D18)"
+      ],
+      "duration_ms": 355962,
+      "tokens": 38620
+    },
+    {
+      "run": 6,
+      "session": "this",
+      "agent": "spec-judge",
+      "model": "sonnet",
+      "experiment": "rubric + draft only; standard and addendum withheld",
+      "prompt": "Judge the draft against the rubric and return the verdict sheet as your reply.\n\nInputs:\n- draft: <project root>/dev/workspace/runs/agent-spec-interviewer/spec.v1.json\n- rubric: <project root>/dev/workspace/filebox/spec/spec-readiness-rubric.md\n\nOpen only these two files. Every answer quotes its evidence from the draft.",
+      "loaded": [
+        "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+        "dev/workspace/runs/agent-spec-interviewer/spec.v1.json"
+      ],
+      "draft_state": "26 behaviours, 17 edges, 14 constraints (run-5 findings absorbed before dispatch, so not a clean A/B against run 5)",
+      "sample": [
+        "B1",
+        "B9",
+        "B11",
+        "B14",
+        "B26"
+      ],
+      "verdict": "ready to freeze",
+      "failing_blocks": [],
+      "findings": [],
+      "advisory": [
+        "QINT.3 mechanism in intent (same as every run)",
+        "QGEN.3 yes: C/B pairs not flagged without the standard",
+        "judge disclosed the withheld inputs in its header rather than absorbing the deviation"
+      ],
+      "duration_ms": 205197,
+      "tokens": 31315,
+      "gate_status": "not used as the gate; the standard dispatch carries four inputs, so a four-input run is still owed before the attacker"
+    }
+  ],
+  "observations": [
+    "QBEH.2 fired on four of four completed runs, each time on a different behaviour, because the sample changes as behaviours are split and word counts shift; the rubric never sees the whole set.",
+    "Sampling by 'three longest' tends to pick the successors of the previous run's splits (B24, B25), so each split feeds the next sample.",
+    "QINT.3 (advisory) has fired identically on every run since the provider decided to keep the mechanism in the intent; the rubric has no way to record a rejected advisory.",
+    "QGEN.3 (advisory) flags constraint/behaviour pairs (C4/B20, C6/B19) that the check-claiming rule requires: a constraint and the behaviour that makes it checkable across a session.",
+    "Each sonnet run took roughly five to six minutes and about 38k tokens with four files loaded.",
+    "Run 3's request to write the sheet to a file was declined by the judge (no Write tool); the builder persists sheets.",
+    "Run 6 (rubric + draft only) passed every block including QGEN.3 and QBEH.2; runs 3-5 with the standard and addendum loaded failed QBEH.2 every time. Confounded by the draft having changed between runs, but QBEH.2's run-6 reasoning ('disjunctive outcome phrasing describes one exhaustive result-state, not two decisions') is a reading the standard-loaded judges never took.",
+    "Without the standard, the judge did not flag C/B pairs under QGEN.3; that finding came from the standard's placement rules, not the rubric's question.",
+    "Run 6 cost 205s and 31k tokens against 300-356s and ~38k for four-input runs: about 20% cheaper.",
+    "The judge disclosed the missing inputs in its header unprompted, so a judge given fewer files than its rubric names will say so rather than guess."
+  ]
+}

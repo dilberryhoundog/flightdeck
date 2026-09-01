@@ -1,0 +1,45 @@
+{
+  "marker": "P-dispatch-tier",
+  "domain": "interfaces",
+  "problem": "Judge QGEN.1 (verdict-v1-run3.md): I6/I7/I8 named model tiers. Explorer: tiers already recorded in .claude/agents/*.md frontmatter, dev/orchestration/crew/crew.json { tier, rationale }, and interview-session-conventions.md:62, and they disagree on the attacker (inherit vs strong).",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Where does a dispatched agent's model tier live?",
+      "why": "If the invoker chooses, this body must carry project tier knowledge (against D1) or read crew.json (outside C4). If the definition carries it, the interviewer dispatches by name and passes no model.",
+      "options": [
+        {
+          "value": "A: the dispatched agent's own frontmatter; the interviewer dispatches by name and passes no model. I6-I8 state 'dispatched by name; no model parameter'.",
+          "recommended": true
+        },
+        {
+          "value": "B: the invoker chooses per dispatch; tiers are stated in I6-I8 and the judge's QGEN.1 reading is rejected with reason.",
+          "recommended": false
+        },
+        {
+          "value": "C: the invoker chooses from crew.json; crew.json joins the C4 read list.",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true
+    },
+    {
+      "id": "Q2",
+      "text": "The attacker tier disagrees across frontmatter (inherit), crew.json (strong) and the convention (session's model). Handling?",
+      "why": "SC11: contradictions in other documents are reported, not reconciled here.",
+      "options": [
+        {
+          "value": "A: not this spec's concern; report only.",
+          "recommended": true
+        },
+        {
+          "value": "B: record as an open question on this spec until resolved elsewhere.",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

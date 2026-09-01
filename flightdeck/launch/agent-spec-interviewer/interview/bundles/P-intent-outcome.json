@@ -1,0 +1,41 @@
+{
+  "marker": "P-intent-outcome",
+  "domain": "intent",
+  "problem": "Judge QINT.1/QINT.3: intent phrased as activity naming a mechanism; outcome phrasing possible (verdict-v1.md).",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Rephrase the intent as an outcome?",
+      "why": "QINT.1 asks for a condition that will be true, not what the agent does.",
+      "options": [
+        {
+          "value": "A: 'A brief description or intention has become a self contained, precise spec, carrying the provider's tacit knowledge, that every other role builds, verifies and reviews from without returning to the provider.'",
+          "recommended": true
+        },
+        {
+          "value": "B: keep the current wording; the judge's reading is rejected with reason",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true
+    },
+    {
+      "id": "Q2",
+      "text": "Does the mechanism (interview questions; probing edges, tradeoffs, failure modes, hard parts) stay in the intent?",
+      "why": "QINT.3 advisory: a materially different implementation would not satisfy the intent as worded.",
+      "options": [
+        {
+          "value": "keep it: the mechanism is the identity of this role",
+          "recommended": true
+        },
+        {
+          "value": "move it: mechanism to a decision node, intent states outcome only",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

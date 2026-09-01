@@ -1,0 +1,45 @@
+{
+  "marker": "P-freeze-commit",
+  "domain": "behaviours",
+  "problem": "Finding F3: B14 records a commit hash the freeze commit cannot contain; two readings of which hash commit holds.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Which hash does the frozen header's commit record?",
+      "why": "The versioning rules say 'the commit it was frozen at'; the schema requires a hash; a commit cannot contain its own hash.",
+      "options": [
+        {
+          "value": "A: the HEAD hash at the moment of freezing (the code state the spec describes); the freeze commit that adds the file comes after it",
+          "recommended": true
+        },
+        {
+          "value": "B: the freeze commit's own hash, written by a second commit that amends the header",
+          "recommended": false
+        },
+        {
+          "value": "C: the spec file is committed with commit absent, then a second commit fills it from the first",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true
+    },
+    {
+      "id": "Q2",
+      "text": "What does git show --stat of the freeze commit show?",
+      "why": "B14's check reads it.",
+      "options": [
+        {
+          "value": "the spec file only",
+          "recommended": true
+        },
+        {
+          "value": "the spec file plus the run folder's register, bundles and ledger",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

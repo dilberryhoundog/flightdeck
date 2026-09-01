@@ -1,0 +1,652 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "agent-spec-interviewer",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial draft; owner: Dylan (dilberryhoundog)",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "An agent is available that turns a brief provided description or intention into a self contained, precise spec. It extracts the provider's tacit knowledge using interview questions. The agent probes the intention's landscape with explorer agents and the provider's tacit knowledge with interview questions; obvious additions are automatic, the focus is questioning the edges, tradeoffs, failure modes and hard parts the provider would not think to volunteer. This agent provides a vital link in the build chain that every other role builds, verifies and reviews from."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "kind": "in",
+      "text": "The agent body at dev/orchestration/crew/spec-interviewer.md and its installed copy at .claude/agents/spec-interviewer.md."
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "kind": "in",
+      "text": "The agent-shaped harness at dev/orchestration/harness/spec-interviewer/ that proves the body, complete to the Pattern B inventory."
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "kind": "in",
+      "text": "The dispatch contracts this agent uses toward explorer, spec-judge and spec-attacker, as its own inputs and outputs."
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "kind": "in",
+      "text": "The question-bundle and answer-bundle contract through which any interview surface meets this agent."
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "kind": "in",
+      "text": "Revision of a frozen spec into the next version file, and the freeze mechanics performed on the provider's instruction."
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "kind": "out",
+      "text": "Deciding that a spec is ready, or deciding to freeze it: the provider's act."
+    },
+    {
+      "id": "SC7",
+      "status": "ok",
+      "kind": "out",
+      "text": "Attacking or judging its own draft: the spec-judge and spec-attacker do that from contexts that never saw the interview."
+    },
+    {
+      "id": "SC8",
+      "status": "ok",
+      "kind": "out",
+      "text": "Deriving checks or a tests map from the behaviours it wrote: the test builder's work."
+    },
+    {
+      "id": "SC9",
+      "status": "ok",
+      "kind": "out",
+      "text": "Editing any existing template, schema, validator, linter or convention document; the one new schema this work creates is named in I10."
+    },
+    {
+      "id": "SC10",
+      "status": "ok",
+      "kind": "out",
+      "text": "Writing run conduct into a spec: tools, agent counts, models, budgets, gates, displays."
+    },
+    {
+      "id": "SC11",
+      "status": "ok",
+      "kind": "out",
+      "text": "Reconciling contradictions between other people's documents: the contradiction is reported and the provider decides."
+    },
+    {
+      "id": "SC12",
+      "status": "ok",
+      "kind": "out",
+      "text": "Editing any project code or any file outside the paths the definition of done names; C6 is the boundary of the produced agent at run time, not of this work."
+    },
+    {
+      "id": "SC13",
+      "status": "ok",
+      "kind": "out",
+      "text": "Proposing how the specified thing should be built, or leaning toward a solution."
+    },
+    {
+      "id": "SC14",
+      "status": "ok",
+      "kind": "out",
+      "text": "Writing the kickoff or the plan."
+    },
+    {
+      "id": "SC15",
+      "status": "ok",
+      "kind": "out",
+      "text": "Searching the repository or the web itself: discovery is delegated to explorer agents that return cited answers."
+    },
+    {
+      "id": "SC16",
+      "status": "ok",
+      "kind": "out",
+      "text": "The bodies of the explorer, spec-judge and spec-attacker agents, and any crew manifest: each is its own work; only their dispatch contracts appear here, and a session uses whichever of them exist."
+    },
+    {
+      "id": "SC17",
+      "status": "ok",
+      "kind": "out",
+      "text": "Any interview rendering surface (page, question tool, chat): a surface is its own work and plugs into the bundle contract of I3 and I4."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "node dev/workspace/filebox/validate-spec.mjs <draft> --schema dev/orchestration/schemas/spec.schema.json exits 0 on every draft written."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "node dev/orchestration/checks/spec-readiness-lint.mjs <draft> --repo <project root> exits 0 on the draft that any spec-judge verdict sheet names, with every path named in the draft's own acceptance boundary declared via --deliverable."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "A draft contains no reference to the session, the interview, or who said what."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "The agent reads only: the intention or draft spec, the spec template and schema, the run log when supplied, explorer returns, judge verdict sheets, attacker findings, and its own files under the run folder."
+    },
+    {
+      "id": "C5",
+      "status": "ok",
+      "text": "Every fact about the repository or the world that enters a draft arrives as an explorer return carrying a citation; the agent opens no repository file itself."
+    },
+    {
+      "id": "C6",
+      "status": "ok",
+      "text": "The agent writes only under dev/workspace/runs/<spec-name>/ and, on the provider's freeze instruction, the git commit of the frozen spec file."
+    },
+    {
+      "id": "C7",
+      "status": "ok",
+      "text": "No bundle asks a question whose answer is stated in the intention, the template, or an explorer return already received."
+    },
+    {
+      "id": "C8",
+      "status": "ok",
+      "text": "No question id appears in more than one bundle."
+    },
+    {
+      "id": "C9",
+      "status": "ok",
+      "text": "The body carries frontmatter with exactly name, description, tools and model; its paragraphs are single lines; it names no project-specific path."
+    },
+    {
+      "id": "C10",
+      "status": "ok",
+      "text": "The body's tools value is Read, Write, Edit, Bash, Grep, Glob, Agent, AskUserQuestion and its frontmatter model value is opus."
+    },
+    {
+      "id": "C11",
+      "status": "ok",
+      "text": "The agent reads none of dev/workspace/filebox/spec/spec-description.md, dev/workspace/filebox/spec/spec-conventions.md, dev/workspace/filebox/spec/spec-description-verification-addendum.md or dev/workspace/filebox/spec-versioning.md at session time."
+    },
+    {
+      "id": "C12",
+      "status": "ok",
+      "text": "A bundle carries at most five questions."
+    },
+    {
+      "id": "C13",
+      "status": "ok",
+      "text": "dev/orchestration/crew/spec-interviewer.md and .claude/agents/spec-interviewer.md are byte-identical."
+    },
+    {
+      "id": "C14",
+      "status": "ok",
+      "text": "No bundle asks the provider to approve the text of a node already written."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "name": "session inputs",
+      "reuse": null,
+      "text": "{ intention: string | draft_path: path (a spec whose INT node is the intention), template_path: path, schema_path: path, project_root: path, run_folder: path (dev/workspace/runs/<spec-name>/), owner_name: string, run_log_path?: path }."
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "name": "draft spec",
+      "reuse": "dev/orchestration/schemas/spec.schema.json",
+      "text": "dev/workspace/runs/<spec-name>/spec.v<n>.json, shaped by dev/orchestration/templates/spec.template.json; status draft; header reason line carries the owner's name."
+    },
+    {
+      "id": "I3",
+      "status": "ok",
+      "name": "question bundle",
+      "reuse": null,
+      "text": "dev/workspace/runs/<spec-name>/interview/bundles/<marker>.json: { marker: string (a problem id from I5), domain: string, problem: string, questions: [ { id: string, text: string, why: string, options: [ { value: string, recommended: boolean } ], allow_comment: true } ], allow_bundle_comment: true, state: open | answered (answered once every question id carries an answer other than (unanswered)) }."
+    },
+    {
+      "id": "I4",
+      "status": "ok",
+      "name": "answer bundle",
+      "reuse": null,
+      "text": "Returned by any surface, in chat: a block headed `## <marker>` then per question `### <id>` / `answer: <value | value ...>` or `answer: (unanswered)` / optional `comment: <text>`, then optional `bundle comment: <text>`; several bundles may be returned in one block."
+    },
+    {
+      "id": "I5",
+      "status": "ok",
+      "name": "problem register",
+      "reuse": null,
+      "text": "dev/workspace/runs/<spec-name>/interview/problems.json: [ { id: string, kind: string (any hole in the spec; common kinds gap, dual-path, tradeoff, failure-mode, hard-part), domain: string, text: string, state: open | asked | answered | closed, closed_by: node id | explorer return id (X<n>) | provider | null } ]."
+    },
+    {
+      "id": "I6",
+      "status": "ok",
+      "name": "explorer dispatch",
+      "reuse": null,
+      "text": "In: { question: string, stage: intent | scope | constraints | interfaces | behaviours | verification, scope_paths?: [path] }. Out: { id: string (X<n>, assigned by the interviewer on receipt, unique per session), answer: string, confidence: certain | probable | guess, pointers: [path], candidates: [ { domain: string, text: string } ] }, at most a screenful. Dispatched by agent name; no model parameter is passed."
+    },
+    {
+      "id": "I7",
+      "status": "ok",
+      "name": "spec-judge dispatch",
+      "reuse": "dev/workspace/filebox/spec/spec-readiness-rubric.md",
+      "text": "Agent dispatched: spec-judge (dev/orchestration/crew/spec-judge.md, installed at .claude/agents/spec-judge.md). In: { rubric_path: path, draft_path: path }; the rubric encodes the standard and the addendum. Out: the rubric's verdict sheet (per question id, yes or no, quotation with node id, reason; per block pass or fail; overall ready to freeze | returned). Dispatched by agent name; no model parameter is passed."
+    },
+    {
+      "id": "I8",
+      "status": "ok",
+      "name": "spec-attacker dispatch",
+      "reuse": "dev/orchestration/crew/spec-attacker.md",
+      "text": "Agent dispatched: spec-attacker (dev/orchestration/crew/spec-attacker.md, installed at .claude/agents/spec-attacker.md). In: { draft_path: path, project_root: path }. Out: finding lines `finding id · severity · spec ref · description · state` or the literal `no findings`. Dispatched by agent name; no model parameter is passed."
+    },
+    {
+      "id": "I9",
+      "status": "ok",
+      "name": "findings ledger",
+      "reuse": null,
+      "text": "dev/workspace/runs/<spec-name>/interview/findings.json: { dispatches: [ { n: integer, agent: spec-judge | spec-attacker, draft_sha256: string, result: returned | ready | no findings | findings: integer | no return } ], findings: [ { id: string, source: judge | attacker, dispatch: integer, state: asked | absorbed | rejected, ref: problem id | node id | reason } ] }."
+    },
+    {
+      "id": "I10",
+      "status": "ok",
+      "name": "handoff",
+      "reuse": null,
+      "text": "Final fenced JSON block of the closing message: { draft_path: path, version: integer, counts: { B: integer, E: integer, C: integer }, nodes: { new: [id], changed: [id], retired: [id] }, validator: { exit: integer, errors: [string] }, linter: { exit: integer, failed: [string] }, judge: ready | returned | not run, attacker: no findings | findings: integer | not run, unchecked_names: [string], dispatches: [ { agent: string, stage: string, purpose: string } ], statement: string }; validated by dev/orchestration/schemas/interviewer-handoff.schema.json, a declared new name because no existing schema holds this shape."
+    },
+    {
+      "id": "I11",
+      "status": "ok",
+      "name": "harness",
+      "reuse": "dev/workspace/filebox/spec/creating-harness-documents-with-agent-runs.md",
+      "text": "dev/orchestration/harness/spec-interviewer/ with scenarios/, fixture/, rubric.md, calibration/, checks/, run.sh, judge.sh, records/ exactly as the Pattern B inventory states."
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "[deterministic] Given the required inputs of I1, a wave of explorer dispatches with stage intent completes before any bundle is written."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "[deterministic] Before the first bundle for a domain is written, a wave of explorer dispatches with that domain's stage completes."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "[deterministic] The first draft file is written after the intent wave completes and before the first bundle file exists."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "[deterministic] Every question id appears in exactly one bundle file."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "[property] Every question in a bundle names an edge, a tradeoff, a failure mode or a choice between at least two outcomes."
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "[deterministic] An answer bundle that closes a problem produces the problem's node in the draft in the same turn."
+    },
+    {
+      "id": "B7",
+      "status": "ok",
+      "text": "[deterministic] A problem whose bundle returns (unanswered), or which no explorer return closes, becomes a Q node in open_questions in the same turn and its register state is open."
+    },
+    {
+      "id": "B8",
+      "status": "ok",
+      "text": "[deterministic] A Q node is followed, before any new bundle, by at least one explorer dispatch whose question is the Q text and whose stage is the Q's domain."
+    },
+    {
+      "id": "B9",
+      "status": "ok",
+      "text": "[deterministic] Every name in the draft that dev/orchestration/checks/spec-readiness-lint.mjs check 5 extracts as a path is matched by an explorer return with confidence certain and a pointer, or carries the marker (unchecked)."
+    },
+    {
+      "id": "B10",
+      "status": "ok",
+      "text": "[deterministic] The spec-judge is dispatched in the turn that writes a draft under which the register holds no problem in state open or asked, open_questions is empty, and the linter exits 0, and is not dispatched again until the draft file's content changes."
+    },
+    {
+      "id": "B11",
+      "status": "ok",
+      "text": "[deterministic] Each failing judge question is entered in the findings ledger before the judge is dispatched again."
+    },
+    {
+      "id": "B12",
+      "status": "ok",
+      "text": "[deterministic] The spec-attacker is dispatched in the turn in which a judge verdict of ready to freeze arrives for the current draft with open_questions still empty, without a provider message in between."
+    },
+    {
+      "id": "B13",
+      "status": "ok",
+      "text": "[deterministic] Every attacker finding id appears in the findings ledger with exactly one state."
+    },
+    {
+      "id": "B14",
+      "status": "ok",
+      "text": "[deterministic] The status becomes frozen with a commit only after a provider message instructing the freeze and the C1 command with --for-freeze appended exiting 0; the git commit made for the freeze contains only the spec file."
+    },
+    {
+      "id": "B15",
+      "status": "ok",
+      "text": "[deterministic] Given a frozen version file, new answers or findings produce the next version file that the C1 command accepts and whose previous_versions array ends with the frozen file's header."
+    },
+    {
+      "id": "B16",
+      "status": "ok",
+      "text": "[deterministic] A session that receives a run folder with register problems not closed completes an explorer wave scoped to those problems' domains before any new problem is raised."
+    },
+    {
+      "id": "B17",
+      "status": "ok",
+      "text": "[property] Every behaviour id in the draft appears in at least one edge's text, or a decision node states that the behaviour has no boundary case and why."
+    },
+    {
+      "id": "B18",
+      "status": "ok",
+      "text": "[deterministic] The closing message of a session whose draft the attacker returned `no findings` on ends with the I10 handoff block, validating against its schema."
+    },
+    {
+      "id": "B19",
+      "status": "ok",
+      "text": "[deterministic] Across a session, the files created or modified are only those under dev/workspace/runs/<spec-name>/ and, on instruction, the freeze commit."
+    },
+    {
+      "id": "B20",
+      "status": "ok",
+      "text": "[deterministic] Across a session, every file read by the agent itself is in the C4 list."
+    },
+    {
+      "id": "B21",
+      "status": "ok",
+      "text": "[deterministic] An explorer candidate returned with confidence certain and a pointer is written as a node in its domain in the same turn."
+    },
+    {
+      "id": "B22",
+      "status": "ok",
+      "text": "[deterministic] Every register problem's text names its source: an explorer return id, a sentence of the intention, an answer bundle marker, a verdict question id, or a finding id."
+    },
+    {
+      "id": "B23",
+      "status": "ok",
+      "text": "[deterministic] An explorer candidate returned probable or guess becomes a register problem in state open in the turn of its return, and is asked in the next bundle for its domain."
+    },
+    {
+      "id": "B24",
+      "status": "ok",
+      "text": "[deterministic] An answer bundle that closes a problem sets that problem's state to closed with closed_by naming the node or the provider, in the same turn."
+    },
+    {
+      "id": "B25",
+      "status": "ok",
+      "text": "[deterministic] A session that receives a run folder with register problems not closed re-asks, after the resume wave completes, the bundles of problems the wave did not close, before any new problem is raised."
+    },
+    {
+      "id": "B26",
+      "status": "ok",
+      "text": "[deterministic] The first draft holds, in every domain, at least one node or the phrase 'empty by decision' with a reason."
+    },
+    {
+      "id": "B27",
+      "status": "ok",
+      "text": "[deterministic] Every bundle's marker is the id of a register problem in state asked."
+    },
+    {
+      "id": "B28",
+      "status": "ok",
+      "text": "[deterministic] Every Q node's text contains the id of the register problem it holds."
+    },
+    {
+      "id": "B29",
+      "status": "ok",
+      "text": "[deterministic] Every name carrying the marker (unchecked) appears in the handoff's unchecked_names."
+    },
+    {
+      "id": "B30",
+      "status": "ok",
+      "text": "[deterministic] Each ledger entry from the spec-judge is in state asked with a problem id, absorbed with a node id, or rejected with a reason, before the spec-judge is dispatched again."
+    },
+    {
+      "id": "B31",
+      "status": "ok",
+      "text": "[deterministic] Every ledger entry in state rejected carries a reason."
+    },
+    {
+      "id": "B32",
+      "status": "ok",
+      "text": "[deterministic] After a revision is written, the previously frozen version file is byte-identical to before."
+    },
+    {
+      "id": "B33",
+      "status": "ok",
+      "text": "[deterministic] No probable or guess candidate appears in any node before its register problem is answered."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "The intention describes two pieces of work: a bundle naming both and asking which this spec is precedes the first draft and every other bundle, as the one case in which a bundle precedes the draft (boundary of B3, B4)."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "A later answer contradicts an earlier node: a dual-path problem is registered and its bundle quotes both and asks which holds; the node is unchanged until answered (boundary of B6, B24, C14)."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "A supplied draft fails the validator: the errors are listed in the first message, the first write fixes the structure, and the fixes are listed in the handoff (boundary of B3)."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "The run log is not supplied or unreadable: the session proceeds and the handoff's dispatches list records no run-log question (boundary of B1)."
+    },
+    {
+      "id": "E5",
+      "status": "ok",
+      "text": "A required input from I1 is missing: the first message asks for it and nothing else; no dispatch is made and no draft is written until supplied (boundary of B1, B3)."
+    },
+    {
+      "id": "E6",
+      "status": "ok",
+      "text": "An explorer returns probable, guess, or no pointer for a name: the name is written (unchecked), listed in unchecked_names, and a gap problem asks the provider to confirm it or declare it new (boundary of B9, B29)."
+    },
+    {
+      "id": "E7",
+      "status": "ok",
+      "text": "Two explorer returns contradict each other: a dual-path problem quotes both in one bundle; neither enters a node until answered (boundary of B1, B21, B23, B33)."
+    },
+    {
+      "id": "E8",
+      "status": "ok",
+      "text": "The session ends after an interviewer turn that holds an asked bundle, with no provider turn following: the draft, register and bundles stand as written with each unclosed problem as a Q node; no spec-judge or attacker is dispatched and no handoff block is emitted (boundary of B7, B10, B18, B28)."
+    },
+    {
+      "id": "E9",
+      "status": "ok",
+      "text": "The provider asks the agent to decide: the bundle offers the outcomes with one marked recommended; the problem stays asked until picked (boundary of B5, B6)."
+    },
+    {
+      "id": "E10",
+      "status": "ok",
+      "text": "The attacker returns `no findings`: no problem is registered; the ledger's dispatches gains an entry with result no findings and its findings gain none and the handoff block is emitted (boundary of B12, B13, B18, B31)."
+    },
+    {
+      "id": "E11",
+      "status": "ok",
+      "text": "A freeze is instructed while open_questions is non-empty, a register problem is not closed, or the C1 command with --for-freeze appended exits non-zero: the status is unchanged and the reply lists the blocking ids or errors (boundary of B14)."
+    },
+    {
+      "id": "E12",
+      "status": "ok",
+      "text": "An edit to a frozen file is requested: the frozen file is unchanged; the edit lands in a new version file per B15 and the reply says so (boundary of B15, B32)."
+    },
+    {
+      "id": "E13",
+      "status": "ok",
+      "text": "An answer bundle is partial: ids present are recorded; ids absent stay unanswered and their bundle stays open; a block with no recognisable marker is reported and no node changes (boundary of B4, B6, B24, B27)."
+    },
+    {
+      "id": "E14",
+      "status": "ok",
+      "text": "The run folder does not exist: it is created; a supplied draft whose name field differs from its folder is reported in the first message and the name is written to match the folder (boundary of B3)."
+    },
+    {
+      "id": "E15",
+      "status": "ok",
+      "text": "The judge returns a verdict sheet that fails its own format (a question without a quotation): the sheet is discarded, the judge is dispatched once more, and a second malformed sheet is registered as a failure-mode problem for the provider (boundary of B10, B11, B30)."
+    },
+    {
+      "id": "E16",
+      "status": "ok",
+      "text": "A dispatch returns an error or an empty result: the ledger's dispatches records it with result no return, the handoff's dispatches list carries it with purpose and no result, and the session continues without it (boundary of B1, B2, B8)."
+    },
+    {
+      "id": "E17",
+      "status": "ok",
+      "text": "An explorer wave returns nothing certain for a stage: the draft's nodes for that domain are written from the intention alone and a gap problem per unverified claim is registered (boundary of B2, B21, B22, B26)."
+    },
+    {
+      "id": "E18",
+      "status": "ok",
+      "text": "No explorer agent definition exists in the project: the platform's built-in read-only explorer agent is dispatched with the I6 contract stated in the prompt, and the wave proceeds (boundary of B1, B2)."
+    },
+    {
+      "id": "E19",
+      "status": "ok",
+      "text": "The explorer dispatched for a Q node returns nothing certain: the problem's bundle is re-asked in the next round carrying the explorer's answer and pointers; if it returns (unanswered) again the Q node stands, the register state stays open, and no spec-judge is dispatched (boundary of B7, B8, B10)."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "Project-specific paths, templates and schemas arrive as session inputs; the body embeds none, so one body serves every project."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Discovery is delegated to explorers that return cited answers, never bulk context, because an interviewer that searches for itself dilutes the directives it was given."
+    },
+    {
+      "id": "D3",
+      "status": "ok",
+      "text": "The obvious is written unasked and the hard parts are asked, because a provider's time is spent only where tacit knowledge lives; wrong obvious nodes are corrected by answers, the judge and the attacker."
+    },
+    {
+      "id": "D4",
+      "status": "ok",
+      "text": "Findings from the judge and the attacker are dispensed by this agent through the ledger, because some findings are false positives and the agent holds the domain knowledge to say so."
+    },
+    {
+      "id": "D5",
+      "status": "ok",
+      "text": "Harness-failure handling (hook failures, tool crashes, permission misconfiguration) is deferred to a later version because it belongs to the harness this role runs on, which is still changing."
+    },
+    {
+      "id": "D6",
+      "status": "ok",
+      "text": "Running the linter on its own draft is not self-grading: the linter is a fixed script with no judgement."
+    },
+    {
+      "id": "D7",
+      "status": "ok",
+      "text": "The role runs as an interactive main session whose model the human may pick at launch, overriding the body's frontmatter default; the spec therefore binds the default only, and a dispatch names the agent and passes no model."
+    },
+    {
+      "id": "D8",
+      "status": "ok",
+      "text": "Publishing the interview through an artifact skill as a claude.ai link was rejected: it costs tokens and time and fights editing."
+    },
+    {
+      "id": "D9",
+      "status": "ok",
+      "text": "The interview is a contract of bundles and a problem register rather than a rendering, so a page, the question tool or plain chat can each serve it without the body changing."
+    },
+    {
+      "id": "D10",
+      "status": "ok",
+      "text": "The spec-judge gates the attacker, because attacks on un-judged drafts returned shape findings and style opinions rather than gaps."
+    },
+    {
+      "id": "D11",
+      "status": "ok",
+      "text": "Global assets live under dev/orchestration/ and run assets under dev/workspace/runs/, so a spec's versions, interviews, tests maps and reports sit together."
+    },
+    {
+      "id": "D12",
+      "status": "ok",
+      "text": "Explorer waves precede questions and are staged by domain, because the agent has little context and few permissions and cannot know where the gaps are until its explorers have mapped the landscape."
+    },
+    {
+      "id": "D13",
+      "status": "ok",
+      "text": "A change to a standard reaches the body by revising this spec and running again, not by the body reading standards at session time."
+    },
+    {
+      "id": "D14",
+      "status": "ok",
+      "text": "No provider approval gates the attacker, because the judge's ready verdict is already the gate and a second human step only delayed the attack."
+    },
+    {
+      "id": "D15",
+      "status": "ok",
+      "text": "Earlier drafts under dev/workspace/filebox/crew/specs/ are left in place; they are outside this work."
+    },
+    {
+      "id": "D16",
+      "status": "ok",
+      "text": "Interview questions and open questions are kept in separate places (bundles and the open_questions array) rather than one list, because a question the register can ask and a hole nobody at the table can plug need different handling: the first waits on the provider, the second waits on an explorer or a later session."
+    },
+    {
+      "id": "D17",
+      "status": "ok",
+      "text": "Problem kinds are not a closed list: a kind names whatever hole was found, and the common kinds are suggestions."
+    },
+    {
+      "id": "D18",
+      "status": "ok",
+      "text": "B16, B17, B19, B20 and B25 have no boundary case: each is an invariant over the whole session with no varying input, so no edge interrogates them."
+    },
+    {
+      "id": "D19",
+      "status": "ok",
+      "text": "The four standards — dev/workspace/filebox/spec/spec-description.md, spec-conventions.md, spec-description-verification-addendum.md and dev/workspace/filebox/spec-versioning.md — are encoded in the body by the run that builds it rather than read at session time, because an interviewer that reads them alongside the intention dilutes its directives."
+    },
+    {
+      "id": "D20",
+      "status": "ok",
+      "text": "When no surface is attached, a bundle reaches the provider through the platform's question tool where it can carry the bundle, otherwise as the bundle rendered in chat with its marker and ids, because the bundle file is the contract and every surface must honour it."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "The product is agent-shaped; checks are built per class from records the harness manufactures. Harness: dev/orchestration/harness/spec-interviewer/ per I11, authored before the body and locked against it. Fixture: fixture/ is a scratch project holding the body installed at fixture/.claude/agents/spec-interviewer.md, a scripted intention, a scripted provider whose answer bundles include one (unanswered), one contradiction of an earlier answer, one request that the agent decide, and one partial bundle; scripted explorer, judge and attacker agents whose returns are fixed per scenario, so no other agent body is required. Run: sh dev/orchestration/harness/spec-interviewer/run.sh installs the body into fixture/.claude/agents/ and launches it as the main session with the CLI's --agent flag in headless mode, feeding each scripted provider turn by resuming the same session id, so silence (E8) is a script that ends after the interviewer's turn and a partial bundle (E13) is a scripted turn; it writes one record per scenario per repetition into records/; each record holds the transcript, every dispatch prompt and return, and the run folder's files. Deterministic, each a script under checks/ reading records/ and exiting 0 or 1: B1 checks/b01-intent-wave-first.mjs, first explorer dispatch with stage intent completes before the first bundle file exists; B2 checks/b02-wave-per-domain.mjs; B3 checks/b03-draft-before-bundle.mjs; B26 checks/b26-domains-filled.mjs, the first draft file in the record has no empty domain without the phrase and a reason; B4 checks/b04-bundle-markers.mjs, every bundle marker resolves to a register problem in state asked and every question id is in one bundle; B6 checks/b06-node-same-turn.mjs; B24 checks/b24-problem-closed-same-turn.mjs, every problem whose bundle is answered is closed with closed_by in the turn of the answer; B7 checks/b07-unclosed-to-q.mjs; B8 checks/b08-explorer-per-q.mjs, at least one dispatch per Q id with matching stage; B9 checks/b09-names-cited.mjs; B27 checks/b27-marker-asked.mjs; B28 checks/b28-q-carries-problem-id.mjs; B29 checks/b29-unchecked-listed.mjs, every (unchecked) name in the draft is in the handoff block's unchecked_names; B10 checks/b10-judge-on-clean.mjs; B11 checks/b11-judge-findings-ledger.mjs; B12 checks/b12-attacker-after-ready.mjs; B13 checks/b13-attacker-ledger.mjs; B30 checks/b30-judge-ledger-states.mjs; B31 checks/b31-rejected-reason.mjs; B14 checks/b14-freeze-on-instruction.mjs, including git show --stat of the freeze commit naming one file; B15 checks/b15-revision.mjs, next version file validates and previous_versions gained the frozen header; B32 checks/b32-frozen-unchanged.mjs, sha256 of the frozen file unchanged; B16 checks/b16-resume.mjs; B25 checks/b25-resume-reask.mjs, every unclosed problem's bundle file is rewritten with state open before any new problem id appears; B18 checks/b18-handoff-block.mjs validating against dev/orchestration/schemas/interviewer-handoff.schema.json; B19 checks/b19-write-boundary.mjs, git status of the fixture shows only the run folder; B20 checks/b20-read-list.mjs, every Read in the transcript resolves to a C4 path; B21 checks/b21-certain-candidates.mjs, every certain candidate appears as a node in its domain in the turn of its return; B22 checks/b22-problems-cite.mjs, every register problem text names a return id or quotes the intention; B23 checks/b23-uncertain-registered.mjs, every probable or guess candidate has a register problem in state asked; B33 checks/b33-uncertain-not-written.mjs, no probable or guess candidate appears as a node before its problem is answered; C13 checks/c13-body-identical.mjs, cmp of the two files exits 0; C1 and C2 checks/c01-c02-validate-lint.mjs running node dev/workspace/filebox/validate-spec.mjs and node dev/orchestration/checks/spec-readiness-lint.mjs on the produced draft; C3 checks/c03-no-session-refs.mjs; C8 checks/c08-no-repeat-ids.mjs; C9 and C10 checks/c09-c10-body-frontmatter.mjs on the delivered body; C11 checks/c11-no-standards-read.mjs; C12 checks/c12-bundle-size.mjs; C14 checks/c14-no-approval-questions.mjs, no question text asks for approval of a node id already present in the draft. Property, exit code naming the missing property: B5 checks/b05-questions-dig.mjs, every question has options.length >= 2 or its text contains an edge, tradeoff or failure term from the scenario's term list; B17 checks/b17-edges-cover.mjs; C7 checks/c07-no-obvious.mjs, no question text overlaps a sentence of the intention or an explorer return above the scenario's declared threshold. Statistical: B5 and C7 additionally run N=5 per scenario, holding in at least 4; scenario set declares N and k. Judged, rubric.md derived from B5 and D3 as binary questions, judge in a fresh context reading records/ only, every verdict quoting the transcript lines, calibrated against three records graded by the provider with at least one failure, the first drawn from the verdict sheets recorded in dev/workspace/history/85d743ee_crew-agent-specs-readiness-linting.txt and the rest manufactured by the harness: did each question ask for something the provider would not have volunteered; did the draft written before the first bundle state the obvious correctly for the scripted intention. Edges, one scenario each named in scenarios/: E1 checks/e01-two-ideas.mjs; E2 checks/e02-contradiction.mjs; E3 checks/e03-invalid-draft.mjs; E4 checks/e04-no-run-log.mjs; E5 checks/e05-missing-input.mjs; E6 checks/e06-uncertain-name.mjs; E7 checks/e07-explorers-disagree.mjs; E8 checks/e08-provider-silent.mjs, no judge dispatch and no handoff block in the record; E9 checks/e09-decide-request.mjs; E10 checks/e10-no-findings.mjs; E11 checks/e11-freeze-blocked.mjs; E12 checks/e12-frozen-edit.mjs; E13 checks/e13-partial-bundle.mjs; E14 checks/e14-folder-name.mjs; E15 checks/e15-malformed-sheet.mjs; E16 checks/e16-agent-no-return.mjs; E17 checks/e17-empty-wave.mjs; E18 checks/e18-no-explorer-definition.mjs, a wave completes with the built-in explorer when no definition is installed; E19 checks/e19-q-explorer-uncertain.mjs, the bundle is re-asked with the explorer's answer and the Q node stands. Control scenario: an intention whose edges are fully stated, where B7 must produce no Q node and B5's judged question must not fire. End-to-end proof: with the body installed in fixture/, the provider plays themselves for one full session on a real intention through to an attacker return of no findings, using whichever explorer, judge and attacker agents exist at the time; the produced draft is handed, alone, to the test builder, which derives a tests map covering every B and E without asking the provider a question. Probe: at the gate the provider, not the builder, chooses one record from records/ and reads it; the record identifier is written to dev/orchestration/harness/spec-interviewer/records/probe.txt. Checks pre-exist and are locked against the body's builder for the duration of the run; sh dev/orchestration/harness/spec-interviewer/judge.sh produces the verdict sheet."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Every deterministic and property check under dev/orchestration/harness/spec-interviewer/checks/ exits 0 on the records of the run that built the body. Every statistical scenario meets its declared k of N. The judged rubric passes with a calibration record present. The end-to-end proof's tests map covers every B and E with zero provider questions. The paths touched are only dev/orchestration/crew/spec-interviewer.md, .claude/agents/spec-interviewer.md, dev/orchestration/harness/spec-interviewer/, dev/orchestration/schemas/interviewer-handoff.schema.json, and the body and its installed copy are byte-identical. dev/orchestration/harness/spec-interviewer/records/probe.txt exists and names one record identifier present in records/."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Attacker F3 on B14: the header's commit is a hash and the freeze commit contains the spec file, so the freeze commit cannot contain its own hash. Which hash does commit record — the HEAD the spec was frozen against before the freeze commit, or the freeze commit itself via a second commit or amend — and what does git show --stat of the freeze commit show?"
+    }
+  ],
+  "retired": []
+}

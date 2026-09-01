@@ -1,0 +1,304 @@
+{
+  "dispatches": [
+    {
+      "n": 7,
+      "agent": "spec-judge",
+      "draft_sha256": "see judge/verdict-v1-run7.md",
+      "result": "returned"
+    },
+    {
+      "n": 8,
+      "agent": "spec-judge",
+      "draft_sha256": "see judge/verdict-v1-run8.md",
+      "result": "ready"
+    },
+    {
+      "n": 9,
+      "agent": "spec-attacker",
+      "draft_sha256": "see attacker/findings-v1-run1.md",
+      "result": "findings: 22"
+    }
+  ],
+  "findings": [
+    {
+      "id": "QINT.1",
+      "source": "judge",
+      "state": "asked",
+      "ref": "P-intent-outcome",
+      "dispatch": 0
+    },
+    {
+      "id": "QINT.3",
+      "source": "judge",
+      "state": "asked",
+      "ref": "P-intent-outcome",
+      "dispatch": 0
+    },
+    {
+      "id": "QBEH.2",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "B1, B21, B22, B23",
+      "dispatch": 0
+    },
+    {
+      "id": "QPRI.1",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "D5 removed (duplicates the addendum invariant); D17 reworded",
+      "dispatch": 0
+    },
+    {
+      "id": "QDOD.1",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "C13",
+      "dispatch": 0
+    },
+    {
+      "id": "QDOD.2",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "SC9",
+      "dispatch": 0
+    },
+    {
+      "id": "QGEN.3",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "D15",
+      "dispatch": 0
+    },
+    {
+      "id": "QGEN.1",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "I6, I7, I8, D7 via P-dispatch-tier",
+      "dispatch": 0
+    },
+    {
+      "id": "QBEH.1",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "B1",
+      "dispatch": 0
+    },
+    {
+      "id": "QBEH.2",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "B6 split into B6, B24, C14",
+      "dispatch": 0
+    },
+    {
+      "id": "QDOD.1",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "VER probe sentence; ACC records/probe.txt",
+      "dispatch": 0
+    },
+    {
+      "id": "QCON.2",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "C2",
+      "dispatch": 0
+    },
+    {
+      "id": "QBEH.2",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "B16 split into B16, B25; D18; VER",
+      "dispatch": 0
+    },
+    {
+      "id": "QBEH.2",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "B3 split into B3, B26; E17; VER",
+      "dispatch": 0
+    },
+    {
+      "id": "QDOD.2",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "SC12",
+      "dispatch": 0
+    },
+    {
+      "id": "QCON.1",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "C11 split; D19 (run 7)",
+      "dispatch": 0
+    },
+    {
+      "id": "QIFC.1",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "I1, I5, I6, I7, I8, I10 shaped (run 7)",
+      "dispatch": 0
+    },
+    {
+      "id": "QBEH.2",
+      "source": "judge",
+      "state": "absorbed",
+      "ref": "B4/B27, B7/B28, B9/B29, B11/B30, B13/B31, B15/B32, B23/B33 (run 7)",
+      "dispatch": 0
+    },
+    {
+      "id": "F1",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "I7, I8, SC16, VER renamed to spec-judge"
+    },
+    {
+      "id": "F2",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B14, E11"
+    },
+    {
+      "id": "F4",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "C11, D19, B15"
+    },
+    {
+      "id": "F5",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "E18, I6"
+    },
+    {
+      "id": "F6",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B10"
+    },
+    {
+      "id": "F7",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B30"
+    },
+    {
+      "id": "F8",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B22"
+    },
+    {
+      "id": "F9",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B7, E19"
+    },
+    {
+      "id": "F10",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "E1"
+    },
+    {
+      "id": "F11",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "D20"
+    },
+    {
+      "id": "F12",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "VER run.sh"
+    },
+    {
+      "id": "F13",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "E8"
+    },
+    {
+      "id": "F14",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "C2"
+    },
+    {
+      "id": "F15",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B25"
+    },
+    {
+      "id": "F16",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "I3"
+    },
+    {
+      "id": "F17",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B9"
+    },
+    {
+      "id": "F18",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "I1"
+    },
+    {
+      "id": "F19",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "C10, D7"
+    },
+    {
+      "id": "F20",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "I9, E10"
+    },
+    {
+      "id": "F21",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B23"
+    },
+    {
+      "id": "F22",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "E16"
+    },
+    {
+      "id": "F3",
+      "source": "attacker",
+      "dispatch": 9,
+      "state": "asked",
+      "ref": "P-freeze-commit"
+    }
+  ]
+}

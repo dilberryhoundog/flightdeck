@@ -1,0 +1,26 @@
+[
+  {
+    "id": "P-intent-outcome",
+    "kind": "dual-path",
+    "domain": "intent",
+    "text": "Judge QINT.1/QINT.3: intent phrased as activity naming a mechanism; outcome phrasing possible (verdict-v1.md).",
+    "state": "closed",
+    "closed_by": "provider (INT rewritten)"
+  },
+  {
+    "id": "P-dispatch-tier",
+    "kind": "dual-path",
+    "domain": "interfaces",
+    "text": "Judge QGEN.1 (verdict-v1-run3.md): dispatch interfaces I6/I7/I8 named model tiers; provider says the tiers tell this agent what to invoke, not how the run is conducted. Two homes: the dispatched agent's own frontmatter, or the invoker's dispatch.",
+    "state": "closed",
+    "closed_by": "provider (I6, I7, I8, D7)"
+  },
+  {
+    "id": "P-freeze-commit",
+    "kind": "dual-path",
+    "domain": "behaviours",
+    "text": "Finding F3: B14 records a commit hash the freeze commit cannot contain; two readings of which hash commit holds.",
+    "state": "asked",
+    "closed_by": null
+  }
+]

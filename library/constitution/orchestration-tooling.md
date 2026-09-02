@@ -17,15 +17,15 @@ Each entry states which human function it replaces, what it must do to be an ade
 
 The spec replaces the human's memory of what they were trying to build and every clarification they would have given when asked. It is the single standalone statement of the outcome: anything a run needs to know about what to build is in it, and anything not in it is not a requirement. It is extracted from the human by questioning, attacked for defects, and then judged ready; from that point it is frozen, and no agent edits it. A change to a frozen spec is a new freeze, and a new run. The spec has nine sections, each with one job:
 
-- Intention: the outcome pursued and why it is worth having. Short enough to hold in mind whole, because it is the tiebreaker whenever the other sections are silent.
-- Scope: the perimeter. What the work changes and what it must leave untouched, with both sides of the line stated, because an exclusion left unstated reads as an invitation.
-- Constraints: conditions the result must satisfy however it is reached. They are imported from the surrounding world, such as platform, policy or compatibility, and are not negotiable inside the work.
-- Interfaces and contracts: the exact seams where the work meets everything around it. Fixing these is what makes parallel work possible, since two workers can only build toward a seam that already exists.
-- Behaviours: numbered, testable statements of what the result observably does. One decision per entry, so that each can pass or fail alone; the count of entries is the size of the work.
-- Edges and failure modes: decided outcomes at the boundaries and when the world does not cooperate. Authored adversarially, by asking how the result breaks rather than what it does.
-- Decisions: judgements already made and improvements deliberately not pursued, written down so that settled ground cannot be re-argued by accident mid-run.
-- Verification: how each numbered claim will be proven, as an unarguable pass or fail. The only executable section, consisting of commands and artefacts rather than statements.
-- Acceptance: the short final gate, stating the conditions under which the result is accepted. Assembled purely from the sections above and forbidden from introducing anything new.
+- **Intention**: the outcome pursued and why it is worth having. Short enough to hold in mind whole, because it is the tiebreaker whenever the other sections are silent.
+- **Scope**: the perimeter. What the work changes and what it must leave untouched, with both sides of the line stated, because an exclusion left unstated reads as an invitation.
+- **Constraints**: conditions the result must satisfy however it is reached. They are imported from the surrounding world, such as platform, policy or compatibility, and are not negotiable inside the work.
+- **Interfaces and contracts**: the exact seams where the work meets everything around it. Fixing these is what makes parallel work possible, since two workers can only build toward a seam that already exists.
+- **Behaviours**: numbered, testable statements of what the result observably does. One decision per entry, so that each can pass or fail alone; the count of entries is the size of the work.
+- **Edges and failure modes**: decided outcomes at the boundaries and when the world does not cooperate. Authored adversarially, by asking how the result breaks rather than what it does.
+- **Decisions**: judgements already made and improvements deliberately not pursued, written down so that settled ground cannot be re-argued by accident mid-run.
+- **Verification**: how each numbered claim will be proven, as an unarguable pass or fail. The only executable section, consisting of commands and artefacts rather than statements.
+- **Acceptance**: the short final gate, stating the conditions under which the result is accepted. Assembled purely from the sections above and forbidden from introducing anything new.
 
 Implemented as a markdown file at the repository root, produced by the spec interviewer and read by every other role.
 
@@ -33,19 +33,19 @@ Implemented as a markdown file at the repository root, produced by the spec inte
 
 The roles replace the human's several hats: questioner, sceptic, planner, implementer, tester, reviewer, and clerk. Under attended work one person wore all of them in turn, carrying the same context between them; here each is a separate agent with a context of its own, so that the assumptions of one hat cannot leak into another. Each role is one markdown file whose body is the role's instructions and whose frontmatter is its permissions. A unit, referred to throughout, is one build unit cut from the plan, mapped to its checks and implemented by exactly one worker. In the order they act:
 
-- Spec interviewer: extracts the spec from the human by asking and never by drafting, one question at a time. Any answer the human defers is written into an Open Questions section verbatim, not paraphrased.
-- Spec attacker: reads the draft in a fresh context with the mandate to assume it is defective. Every finding is filed as an Open Question for the human to resolve; the attacker surfaces and never decides.
-- Spec judge: reads the attacked spec and rules on whether it is ready to freeze. A ruling of not ready returns it to the human with the reasons.
-- Test builder: derives the executable targets from the frozen spec, one check per behaviour and per edge. Before any work starts it runs the baseline and proves that every check fails, and fails for the right reason rather than from a missing import or a typo.
-- Main orchestrator: plans the run, holds each gate, dispatches workers and merges their results. It never writes code, never edits a test, and never grades its own work.
-- Explorer: answers one codebase question with a short, cited return. Its purpose is to keep the raw investigation, the files read and searches run, out of the orchestrator's context.
-- Interface builder: writes the seams exactly as the spec states them, before any parallel work begins. Signatures and stubs only, no behaviour; a contradiction between the spec and the codebase halts the run rather than being adapted around.
-- Worker (general): implements one unit to its mapped checks in an isolated worktree. It fixes causes and never symptoms, and stops the run for a human if it meets a contradiction.
-- Worker (strong): makes one escalation retry on a unit the general worker failed, on a stronger model, from a clean state, with the failure evidence in hand. It inherits the evidence and not the approach; a second failure ends attempts on that unit.
-- Adversary (build unit): attacks a completed unit before merge, asking what the checks missed. It looks where units cheat: scope quietly narrowed, edges weakened, behaviour added that nobody asked for.
-- Run verifier: refutes the final green. It assumes done is wrong and goes looking for the proof; its failure to find any is what makes the green credible.
-- Reviewer: judges the full diff against the spec's intent from a fresh context. It exists to catch the work that passes every check and is still the wrong work.
-- Report assembler: joins the recorded artefacts into the report with the provenance of each marked and no verdict of its own. An abandoned run's report is assembled exactly as an accepted run's would be.
+- **Spec interviewer**: extracts the spec from the human by asking and never by drafting, one question at a time. Any answer the human defers is written into an Open Questions section verbatim, not paraphrased.
+- **Spec attacker**: reads the draft in a fresh context with the mandate to assume it is defective. Every finding is filed as an Open Question for the human to resolve; the attacker surfaces and never decides.
+- **Spec judge**: reads the attacked spec and rules on whether it is ready to freeze. A ruling of not ready returns it to the human with the reasons.
+- **Test builder**: derives the executable targets from the frozen spec, one check per behaviour and per edge. Before any work starts it runs the baseline and proves that every check fails, and fails for the right reason rather than from a missing import or a typo.
+- **Main orchestrator**: plans the run, holds each gate, dispatches workers and merges their results. It never writes code, never edits a test, and never grades its own work.
+- **Explorer**: answers one codebase question with a short, cited return. Its purpose is to keep the raw investigation, the files read and searches run, out of the orchestrator's context.
+- **Interface builder**: writes the seams exactly as the spec states them, before any parallel work begins. Signatures and stubs only, no behaviour; a contradiction between the spec and the codebase halts the run rather than being adapted around.
+- **Worker (general)**: implements one unit to its mapped checks in an isolated worktree. It fixes causes and never symptoms, and stops the run for a human if it meets a contradiction.
+- **Worker (strong)**: makes one escalation retry on a unit the general worker failed, on a stronger model, from a clean state, with the failure evidence in hand. It inherits the evidence and not the approach; a second failure ends attempts on that unit.
+- **Adversary (build unit)**: attacks a completed unit before merge, asking what the checks missed. It looks where units cheat: scope quietly narrowed, edges weakened, behaviour added that nobody asked for.
+- **Run verifier**: refutes the final green. It assumes done is wrong and goes looking for the proof; its failure to find any is what makes the green credible.
+- **Reviewer**: judges the full diff against the spec's intent from a fresh context. It exists to catch the work that passes every check and is still the wrong work.
+- **Report assembler**: joins the recorded artefacts into the report with the provenance of each marked and no verdict of its own. An abandoned run's report is assembled exactly as an accepted run's would be.
 
 Implemented as one subagent definition per role under the project's agents directory.
 

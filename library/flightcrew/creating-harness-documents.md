@@ -6,13 +6,6 @@ The principle that resolves this is that an invocation record is not a place but
 
 ## Invariants
 
-
-
-
-
-
-
-
 - Harness contents derive from the specification and are authored before, or in isolation from, the artefact itself.
 - Scenarios, rubric and calibration examples are locked against the artefact's builder for the duration of the run.
 - Probes run on the model the artefact will actually serve; a cheaper probe model tests a different artefact.
@@ -21,12 +14,6 @@ The principle that resolves this is that an invocation record is not a place but
 - The gate reads only exit codes, ratios and verdict sheets; a harness that cannot produce those three has not finished being built.
 
 ## Shared inventory
-
-
-
-
-
-
 
 Both patterns are assembled from the same pieces; they differ only in who executes them.
 
@@ -41,10 +28,6 @@ Both patterns are assembled from the same pieces; they differ only in who execut
 Standard pieces, present as always and needing no elaboration: the frozen spec at a named commit, worktree isolation for every building worker, a lock hook over the harness paths, the evidence display the gate's signals land on, and a run log entry at the end.
 
 ## Pattern A — probe stages in the workflow script
-
-
-
-
 
 **What it looks like.** The orchestration script gains stages after the build, and the runtime's own agent-spawning does the probing:
 
@@ -73,12 +56,6 @@ gate     accept       exit codes green, ratios over threshold, sheet passes
 - Per-scenario **N and concurrency caps** declared in the script, and model routing per stage so probes and judge run on their declared models.
 
 ## Pattern B — the self-contained headless harness
-
-
-
-
-
-
 
 **What it looks like.** A directory delivered beside the artefact, executable by anyone with the CLI:
 
@@ -110,10 +87,6 @@ harness/
 The caveat: headless probes are nested invocations, and an isolated worker's permissions, sandbox or network may not allow them. When they do not, the run gates itself with pattern A and still builds and delivers pattern B unexecuted-in-run — verified once by the first human or CI invocation outside the isolation.
 
 ## Choosing, and not choosing
-
-
-
-
 
 The two patterns are complements with one shared inventory: A is how the run verifies itself at scale while isolated, B is the durable form the verification takes afterwards. The default is therefore not a choice but a composition — deliver B always, gate with whichever of the two the environment lets execute, and where both can run, let A's probe stage simply invoke B's runner so there is one harness with two callers rather than two harnesses.
 

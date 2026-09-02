@@ -1,0 +1,18 @@
+{
+  "marker": "P4",
+  "problem": "P4",
+  "questions": [
+    {
+      "id": "P4-1",
+      "question": "Where do the three lenses live inside the six-field entry shape?",
+      "explanation": "The mission fixes six fields (key terms, power statement, what, why, types and examples, how) and three lenses (orchestration pattern; single experienced HITL user on a max 20x plan; Anthropic official best practice). The primer separately requires an orchestration-reading field and an unresolved field. The draft (I1) currently merges them as one 'Orchestration reading' section appended to the six fields. The fork: one merged section, three named lens sections, or lenses woven through every field.",
+      "options": [
+        "One 'Orchestration reading' section after the six fields, covering all three lenses; plus an 'Unresolved' section (as drafted)",
+        "Three named lens sections (Orchestration pattern / Solo HITL on 20x / Official guidance) after the six fields, plus Unresolved",
+        "Lenses woven through the six fields — every field is written through the lenses, with no separate lens section; Unresolved at the end"
+      ],
+      "recommendation": "One merged Orchestration reading section — the third lens (official guidance) is already the citation discipline of the whole entry, and the 20x-solo lens is a facet of the orchestration reading, not a parallel essay.",
+      "comment": ""
+    }
+  ]
+}

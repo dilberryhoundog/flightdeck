@@ -1,0 +1,32 @@
+{
+  "marker": "P1",
+  "problem": "P1",
+  "questions": [
+    {
+      "id": "P1-1",
+      "question": "What is the topic perimeter of the library?",
+      "explanation": "The intention says 'every concept and tool has an entry'. The repo's own inventory is large: 13 crew.json roles plus its conventions, the deck vocabulary and folders in STRUCTURE.md, three terms.md groups, the nine spec domains, the seven check classes, the four verification check classes, the harness inventory, and the schema/template/validator/bench assets. The primer allows grouping where practices are inseparable and phasing deliverables.",
+      "options": [
+        "Concept-level union: every concept and role gets an entry; concrete assets (individual scripts, schemas, templates) are grouped under the concept they serve",
+        "Full union: every inventoried concept, role and asset gets its own entry",
+        "Curated core: roles and cross-cutting concepts only, chosen by the provider from the inventory",
+        "Phased: a named core list ships in this run, the remainder is a deferred deliverable"
+      ],
+      "recommendation": "Concept-level union — it honours 'every concept and tool has an entry' without one entry per file, and the primer's 'grouped where practices are inseparable' licenses it.",
+      "comment": ""
+    },
+    {
+      "id": "P1-2",
+      "question": "Which grouping axis orders the topic list and index?",
+      "explanation": "Two taxonomies already exist: crew.json's stage field (idea-to-spec, spec-to-targets, run, run-end, throughout) and STRUCTURE.md's deck folders; terms.md groups by Testing/Spec/Rubric. Reusing one avoids inventing a second taxonomy.",
+      "options": [
+        "crew.json stages (idea-to-spec, spec-to-targets, run, run-end, throughout)",
+        "Deck folders per STRUCTURE.md",
+        "terms.md domains (Testing, Spec, Rubric, extended as needed)",
+        "Flat alphabetical, no grouping"
+      ],
+      "recommendation": "crew.json stages — it is the repo's stated grouping of the orchestrated-run pattern itself, which is the library's subject.",
+      "comment": ""
+    }
+  ]
+}

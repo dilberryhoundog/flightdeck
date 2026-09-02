@@ -1,0 +1,18 @@
+{
+  "marker": "P2",
+  "problem": "P2",
+  "questions": [
+    {
+      "id": "P2-1",
+      "question": "Where do the entries, register and index live, and does the deck carry them?",
+      "explanation": "STRUCTURE.md fixes library/ at repo root as the home for human-facing documents that persist over time, and states it does not travel with an installed deck. The intention names agents among the readers, and the point of the library is that orchestration assets get shaped by it — which happens at this repo, where the assets are authored.",
+      "options": [
+        "library/<subfolder>/ at repo root; agents that need it are pointed at it here, nothing ships with the deck",
+        "Inside flightdeck/ so an installed deck carries the library",
+        "Built in library/, with the deck carrying only the index as a pointer"
+      ],
+      "recommendation": "library/<subfolder>/ at repo root — asset authoring happens here, and STRUCTURE.md already defines library/ as exactly this kind of document.",
+      "comment": ""
+    }
+  ]
+}

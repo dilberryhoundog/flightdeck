@@ -1,0 +1,18 @@
+{
+  "marker": "P5",
+  "problem": "P5",
+  "questions": [
+    {
+      "id": "P5-1",
+      "question": "Do concepts without an implementation get entries?",
+      "explanation": "spec-interviewer.md is deliberately empty ('what the next launch builds', STRUCTURE.md) and 7 of 13 crew.json roles exist only as manifest nodes (orchestrator, explorer, interface-builder, worker-strong, unit-adversary, run-verifier, report-assembler). The library documents best practice for the pattern; whether an entry needs a local implementation to point at is undecided. The byte-identical duplication between .claude/agents/ and flightdeck/flightcrew/crew/ is a related documentation question.",
+      "options": [
+        "Yes — an entry covers the concept's practice regardless of local implementation; missing implementations are noted in the entry's unresolved field",
+        "No — only implemented components get entries; the rest wait",
+        "Stub entries: listed in the index with key terms and power statement only, completed when implemented"
+      ],
+      "recommendation": "Yes — the library records practice, not repo state; the practice for an orchestrator exists in the sources whether or not orchestrator.md does.",
+      "comment": ""
+    }
+  ]
+}

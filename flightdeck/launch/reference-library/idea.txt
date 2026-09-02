@@ -1,0 +1,12 @@
+Build a "claude code" reference library that displays the official best-practices of every concept and tooling component of the agent orchestration pattern.
+
+These references record how to view each component and concept through the orchestration lens: wich is - how the practice changes when a human is no longer present on every turn, to judge and decide.
+
+The library is for humans and agents who maintain the system, so that all the claude code orchestration assets are shaped by cited practice rather than by whatever a model recalls at the time.
+
+Without it, massive token cost of failed runs, frustrating mismatch between the agent & human and "ai slop" poisons the humans experience.
+
+Success is a library where every concept and tool has a folder, The reader then gains qualified knowledge that works, when building and operating agent orchestration runs.
+
+The library should be built in a few phases.
+phase 1:

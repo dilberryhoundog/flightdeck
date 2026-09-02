@@ -1,0 +1,30 @@
+{
+  "marker": "P3",
+  "problem": "P3",
+  "questions": [
+    {
+      "id": "P3-1",
+      "question": "Which source kinds are admissible, and what is the paywall/login rule?",
+      "explanation": "The mission lens says 'Anthropic official best practice'. The line needs drawing: Anthropic docs (docs.claude.com), Anthropic engineering blog and cookbook, Claude Code release notes and repo, conference talks by Anthropic staff, and then the wider world — community posts, third-party writeups. And a source behind a login or paywall needs a decided outcome before research hits one.",
+      "options": [
+        "Anthropic-published only (docs, engineering blog, cookbook, official repos, release notes); paywalled/login sources excluded",
+        "Anthropic-published primary, plus talks and interviews given by Anthropic staff; paywalled sources cited but marked unresolved",
+        "Anthropic-published preferred, reputable secondary admitted when no primary source exists for a topic, recorded as secondary in the register"
+      ],
+      "recommendation": "Anthropic-published primary plus staff talks — several concept topics (abandoning failed runs, dynamic workflows) live in talks and long-form posts rather than docs pages.",
+      "comment": ""
+    },
+    {
+      "id": "P3-2",
+      "question": "What are the numbers: recency cutoff, per-topic source budget, and the time-box that defines a stalled search?",
+      "explanation": "The primer requires each constraint to carry a number or a test. Claude Code guidance moves fast; old advice about agents is often inverted by newer models. A per-topic budget and time-box define when research stops and the gap is recorded in the unresolved field (edge E1).",
+      "options": [
+        "Cutoff: nothing older than 2024; budget: 3-7 sources per topic; stalled after 2 focused search passes with no admissible source",
+        "Cutoff: nothing older than mid-2023 (Claude Code era only for tooling topics, looser for concepts); budget: up to 5 sources; stalled after 1 pass",
+        "No hard cutoff, but every source older than 12 months carries a note that it predates the current model generation; budget and time-box as the run's orchestrator sets them"
+      ],
+      "recommendation": "Option 1 — hard, checkable numbers; 2024+ covers the whole public life of Claude Code and the agent-orchestration guidance wave.",
+      "comment": ""
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "problems": [
+    {
+      "id": "P1",
+      "kind": "gap",
+      "domain": "scope",
+      "status": "closed",
+      "statement": "The topic perimeter is unnamed: is the topic list the union of the repo's own inventory (13 crew.json roles and conventions, STRUCTURE.md vocabulary and deck folders, terms.md groups, nine spec domains, seven check classes, four verification check classes, harness inventory, schema/template/validator/bench assets) or a curated subset — and which grouping axis orders it?",
+      "evidence": "Explorer (component inventory): crew.json states 'a manifest of every role in the orchestrated-run pattern' with a stage field; STRUCTURE.md and library/terms.md state two further groupings. Intention: 'every concept and tool has an entry'.",
+      "bundle": "P1",
+      "closed_by": "Provider supplied the topic list at flightdeck/launch/reference-library/orchestration-concepts-tools.md: 12 concepts and 14 tooling topics, grouped Concepts/Tooling. Written as SC1 and SC8."
+    },
+    {
+      "id": "P2",
+      "kind": "tradeoff",
+      "domain": "constraints",
+      "status": "asked",
+      "statement": "Placement and shipping: library/ at repo root is the stated home for human-facing persistent documents but does not travel with an installed deck (flightdeck/STRUCTURE.md), while the intention names agents among the readers. Where do entries, register and index live, and does the deck carry them?",
+      "evidence": "Explorer (library map): STRUCTURE.md:10,18; manuals/documentation.keep. Intention: 'for humans and agents who maintain the system'.",
+      "bundle": "P2"
+    },
+    {
+      "id": "P3",
+      "kind": "gap",
+      "domain": "constraints",
+      "status": "asked",
+      "statement": "Source policy is unnumbered: which source kinds are admissible (Anthropic docs, Anthropic engineering blog, Claude Code release notes, community material), the recency cutoff, the paywall/login rule, the per-topic source budget and time-box, and the citation format beyond src-<nn>.",
+      "evidence": "Primer: 'a limit carries a number, a rule carries the test that enforces it' (reference-library.spec.template.md, Constraints). Mission lens: 'Anthropic official best practice' (flightcrew-library.md).",
+      "bundle": null
+    },
+    {
+      "id": "P4",
+      "kind": "dual-path",
+      "domain": "interfaces",
+      "status": "asked",
+      "statement": "Entry shape fork: the mission fixes three lenses and six fields; the primer requires an orchestration-reading field and an unresolved field. Do the lenses live as one 'Orchestration reading' section (as drafted in I1), as three named lens sections, or woven through the six fields? And is it one file per topic?",
+      "evidence": "flightdeck/missions/flightcrew-library.md (lenses, fields); reference-library.spec.template.md (orchestration reading, unresolved).",
+      "bundle": null
+    },
+    {
+      "id": "P5",
+      "kind": "gap",
+      "domain": "edges",
+      "status": "closed",
+      "statement": "Concepts without implementation: spec-interviewer.md is deliberately empty ('what the next launch builds', STRUCTURE.md) and 7 of 13 crew.json roles exist only as manifest nodes. Do they get full entries, stubs, or wait? Related: .claude/agents/ and flightdeck/flightcrew/crew/ hold byte-identical copies — is the duplication itself a documented pattern component?",
+      "evidence": "Explorer (component inventory): crew.json vs .claude/agents/ file census; STRUCTURE.md on spec-interviewer.",
+      "bundle": "P5",
+      "closed_by": "Mooted by the provider's topic list (orchestration-concepts-tools.md): topics are pattern concepts and tooling practices, not repo files, so no topic depends on a local implementation existing."
+    },
+    {
+      "id": "P6",
+      "kind": "failure-mode",
+      "domain": "edges",
+      "status": "open",
+      "statement": "A topic that turns out to be two mid-research: the primer demands a decided outcome before anyone hits it, and a split changes the topic count against a frozen scope. What is the return?",
+      "evidence": "reference-library.spec.template.md, Edge cases.",
+      "bundle": null
+    },
+    {
+      "id": "P7",
+      "kind": "gap",
+      "domain": "verification",
+      "status": "open",
+      "statement": "The sampled source walkthrough (B9) has no sample size and no named judge; the primer requires both stated.",
+      "evidence": "reference-library.spec.template.md, Verification.",
+      "bundle": null
+    }
+  ]
+}

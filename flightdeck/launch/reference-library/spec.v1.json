@@ -1,0 +1,208 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "reference-library",
+  "version": 1,
+  "status": "draft",
+  "reason": "First draft from the intention at flightdeck/launch/reference-library/idea.txt.",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A reference library exists in which every concept and tooling component of the Claude Code agent orchestration pattern has an entry recording its official best practice, read through the orchestration lens: how the practice changes when a human is no longer present on every turn to judge and decide. The library is consulted by the humans and agents who maintain the orchestration assets, so those assets are shaped by cited practice rather than by whatever a model recalls at the time. Without it, failed runs burn tokens, the human and the agent mis-match, and uncited output degrades the system. Success: any named concept resolves, from the index alone, to its entry, its sources and its orchestration reading."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "kind": "in",
+      "text": "Every topic on the topic list has exactly one entry, covering the practice as it bears on orchestrated runs. The concept topics: context engineering; observability; verification; independent review; abandoning failed runs; repeatable and restartable runs; deterministic tools; decomposition; user checkpoints; isolation and recoverability; budgets and stop conditions; permissions and blast radius."
+    },
+    {
+      "id": "SC8",
+      "status": "ok",
+      "kind": "in",
+      "text": "The tooling topics: spec; test harness; agent roles; CLAUDE.md; kickoff prompt; run log; hooks and check runners; dynamic workflows; worktrees with atomic commits and run branches; handoffs; plan; final review; run outputs (events, reports, test results, tests map); frontmatter permissions (allowlists and sandboxing). A grouped topic (such as worktrees with atomic commits and run branches) is one entry; its parts are inseparable practices."
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "kind": "in",
+      "text": "A source register holding one canonical record per source cited anywhere in the library."
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "kind": "in",
+      "text": "An index listing every topic on the topic list and pointing each topic to its entry."
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "kind": "out",
+      "text": "The architecture-shapes library claimed by flightdeck/missions/shape-library.md."
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "kind": "out",
+      "text": "The flightcrew adviser and its Help files claimed by flightdeck/missions/flightcrew-adviser.md."
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "kind": "out",
+      "text": "Restating rules that live in flightdeck/manuals/; the manuals remain the crew-facing standard and win on any overlap."
+    },
+    {
+      "id": "SC7",
+      "status": "ok",
+      "kind": "out",
+      "text": "The general, non-orchestration treatment of any practice."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Every claim about a practice carries a register id; a claim that cannot be cited is recorded in the entry's unresolved field and is never presented as a finding."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "A source's metadata lives only in the register; entries cite by register id and repeat no source metadata."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "name": "entry template",
+      "reuse": null,
+      "text": "One markdown file per topic with the headings, in order: Key terms; Power statement; What it is; Why it matters; Types and examples; How it is done; Orchestration reading; Unresolved. Claims carry inline register ids in the form [src-<nn>]."
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "name": "source register",
+      "reuse": null,
+      "text": "One record per source: { id: \"src-<nn>\", title, author, url, date_published, date_checked }. The id form src-<nn> is the citation token entries use."
+    },
+    {
+      "id": "I3",
+      "status": "ok",
+      "name": "index",
+      "reuse": null,
+      "text": "One row per topic: topic name, entry path, one-line power statement."
+    },
+    {
+      "id": "I4",
+      "status": "ok",
+      "name": "entry docspec check",
+      "reuse": "flightdeck/flightcrew/checks/validators/validate-md.mjs",
+      "text": "The entry template (I1) expressed as entry.docspec.json and executed against every entry by the existing markdown validator."
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Every entry file passes the entry docspec check (I4). (check class: deterministic)"
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "Every register id cited in an entry resolves to exactly one register record. (check class: deterministic)"
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "Every register record is cited by at least one entry, and no source holds two records. (check class: deterministic)"
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "Every register url resolves with a successful response on the record's date_checked. (check class: deterministic)"
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "The index lists every topic on the topic list, lists nothing else, and every index row points to an entry file that exists. (check class: deterministic)"
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "Every entry's orchestration reading states what the practice replaces from human-on-every-turn work and what run failure it guards against. (check class: judged)"
+    },
+    {
+      "id": "B7",
+      "status": "ok",
+      "text": "Every entry names the practice's origin with a register citation. (check class: judged)"
+    },
+    {
+      "id": "B8",
+      "status": "ok",
+      "text": "Every key term in an entry either matches its definition in library/terms.md or adds a new definition there; no entry restates a term with a differing definition. (check class: deterministic)"
+    },
+    {
+      "id": "B9",
+      "status": "ok",
+      "text": "A sampled cited source states what the citing entry claims it states. (check class: statistical)"
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "A topic with no admissible source found within the per-topic budget ships its entry with the search recorded in the unresolved field; the topic stays in the index."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "Two sources that contradict each other are both cited, and the contradiction is recorded in the unresolved field with both register ids; the entry adjudicates nothing."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "A source that still resolves but no longer states what was cited has that claim moved to the unresolved field with its register id and a refreshed date_checked."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "A practice with no orchestration delta carries an orchestration reading stating that the absence of a per-turn human changes nothing for it, and why."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "The library records practice; it does not evaluate, rank or recommend between practices and is not a tutorial, so entries stay citable and stable (flightdeck/flightcrew/templates/spec/reference-library.spec.template.md)."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Entry lenses and fields were fixed at intention: three lenses — the orchestration pattern; a single experienced human-in-the-loop user on a max 20x plan; Anthropic official best practice — and the fields key terms, power statement, what, why, types and examples, how (flightdeck/missions/flightcrew-library.md)."
+    },
+    {
+      "id": "D3",
+      "status": "ok",
+      "text": "flightdeck/manuals/ is what the crew reads to do its job and library content persists for humans; on overlap the manuals win, so each rule has one source of truth (flightdeck/STRUCTURE.md, flightdeck/manuals/documentation.keep)."
+    },
+    {
+      "id": "D4",
+      "status": "ok",
+      "text": "The shapes library and the flightcrew adviser are separately claimed missions and are not folded into this scope (flightdeck/missions/shape-library.md, flightdeck/missions/flightcrew-adviser.md)."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "B1: the entry docspec check runs over every entry via the existing markdown validator (flightdeck/flightcrew/checks/validators/validate-md.mjs); pass is zero violations. B2, B3: a citation cross-check over register and entries; pass is every cited id resolving to exactly one record, every record cited at least once, and no duplicate source. B4: a url check over the register; pass is every url returning success on its date_checked. B5: an index cross-check; pass is set equality between index topics and the topic list, with an existing entry file per row. B6, B7: judged against a rubric of binary questions quoting the entry; pass is yes on every question for every entry. B8: a term cross-check against library/terms.md; pass is every key term defined there exactly once. B9: a sampled walkthrough by a human, sample size and rubric fixed before freeze; pass is every sampled claim supported by its cited source. End-to-end proof: starting from the index alone, a reader resolves a named concept to its entry, its sources and its orchestration reading."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "Every named check in Verification has run and passed with its output presented; the sampled walkthrough passed at its rubric; every topic on the topic list has an entry and each entry's unresolved count is reported; the entries, register and index are delivered at the locations the constraints fix and nothing outside them was written; the owner confirms the end-to-end resolution of one named concept from the index alone."
+  },
+  "open_questions": []
+}

@@ -1,0 +1,400 @@
+Session: e7fec369-5f05-445e-bc61-c6a1d904c18f
+Date: 2026-09-01 12:26
+Branch: constitution-research
+CWD: ~/Projects/flightdeck
+
+============================================================
+[SUMMARY]
+>>>
+Spec-builder session for the reference-library launch run: a Claude Code reference library where every orchestration concept and tool gets a cited best-practice entry read through the orchestration lens.
+Three explorer waves mapped the landscape (manuals-vs-library split in STRUCTURE.md, prior decisions in flightcrew-library.md fixing three lenses and six entry fields, and the repo's component inventory).
+Wrote spec.v1.json (validator-clean) at flightdeck/launch/reference-library/ plus the interview register, bundles and findings ledger.
+The provider-supplied topic list (orchestration-concepts-tools.md, 12 concepts + 14 tooling topics) closed the perimeter (P1) and mooted the unimplemented-components question (P5).
+Remaining asked/open problems: placement and deck shipping (P2), source policy kinds and numbers (P3), lens placement in the entry shape (P4), topic-split edge (P6), walkthrough sample size and judge (P7); the AUQ bundle for P2/P3/P4 was interrupted before answers.
+
+<<<
+------------------------------------------------------------
+[✨ NEW CONVERSATION BRANCH]
+[USER]    💭: none
+here is my idea for a new launch run
+
+------------------------------------------------------------
+[✨ NEW CONVERSATION BRANCH]
+[USER]    💭: none
+here is my idea for a new launch run @flightdeck/launch/reference-library/idea.txt
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+I have the intention — a reference library of Claude Code orchestration best practice, one cited entry per concept and tool, so downstream assets are shaped by cited practice rather than model recall. That reads as one piece of work, so no split question.
+
+Before I do anything — no explorer wave, no draft — I need the rest of the session inputs:
+
+- **Spec template path** — I can see `flightdeck/flightcrew/templates/spec/reference-library.spec.template.md` staged on this branch; confirm that is the one, or give another.
+- **Spec schema path** — the JSON schema the validator runs against.
+- **Project root** — I'll assume `~/Projects/flightdeck` unless you say otherwise.
+- **Run folder** — `dev/workspace/runs/<spec-name>/`; confirm the spec name (e.g. `reference-library`) so I know where the draft, register, bundles and ledger live.
+- **Run log path** — optional; supply it if one exists for this run.
+
+Once those arrive, the first move is the intention wave: explorers mapping what already exists that this library touches (the templates, the flightcrew library, prior missions like `flightcrew-library.md` and `shape-library.md`), the conventions that already apply, and any prior decisions that bear on it — then the first draft, then the hard questions.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+you are in the run folder "launch" (airplane, rocket themed)
+- reference-library.spec.template.md is a primer for how to spec up a reference library.
+- flightdeck/flightcrew/schemas and flightdeck/flightcrew/templates/spec.template.json for the template
+- yes that is root.
+- no previous runs yet.
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Inputs are complete: intention at `flightdeck/launch/reference-library/idea.txt`, run folder `flightdeck/launch/reference-library/`, template `flightdeck/flightcrew/templates/spec.template.json`, schemas under `flightdeck/flightcrew/schemas`, root `~/Projects/flightdeck`, no run log. Starting the heartbeat: intention wave first, then the obvious draft.
+
+------------------------------------------------------------
+
+[READ TOOL]
+File: ~/Projects/flightdeck/flightdeck/flightcrew/templates/spec.template.json
+
+------------------------------------------------------------
+
+[READ TOOL]
+File: ~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/reference-library.spec.template.md
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: ls ~/Projects/flightdeck/flightdeck/flightcrew/schemas
+Description: List spec schema files
+
+------------------------------------------------------------
+
+[READ TOOL]
+File: ~/Projects/flightdeck/flightdeck/flightcrew/schemas/spec.schema.json
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Template, primer and schema are read. The schema notes the validator (`validate-spec.mjs`) invariants, so I know what the linter/validator will demand at freeze — including the unbroken-ID rule and empty open questions.
+
+The intention wave is out: three explorers mapping (1) the documents this library would sit beside or duplicate, (2) prior decisions in the missions and archives that already settle parts of this, and (3) the inventory of orchestration concepts and components — the candidate topic list, which is the perimeter of scope. When they return I'll write the obvious draft (`spec.v1.json` in the launch run folder), register the holes, and bring you the first bundle. Nothing to answer yet.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+<task-notification>
+<task-id>a66e73267adeff330</task-id>
+<tool-use-id>toolu_01Py64sBtVHdWd3BxMkCAxvF</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-dylangraham-Projects-flightdeck/e7fec369-5f05-445e-bc61-c6a1d904c18f/tasks/a66e73267adeff330.output</output-file>
+<status>completed</status>
+<summary>Agent "Map existing flightcrew library" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>```json
+{
+  "answer": "The repo already carries two distinct doc families, and the split is itself a convention the new library must respect: ~/Projects/flightdeck/flightdeck/manuals/ is 'what the crew reads to do its job' while ~/Projects/flightdeck/library/ is 'information and records that persist over time, written for humans' (both lines stated in ~/Projects/flightdeck/flightdeck/STRUCTURE.md and ~/Projects/flightdeck/flightdeck/manuals/documentation.keep). STRUCTURE.md further states library/ sits beside flightdeck/ at repo root and does not travel with an installed deck. library/ is the natural home for a Claude Code reference library and already has topic subfolders (flightcrew/, spec/, rubrics/) plus a shared glossary. Crucially, a spec template for exactly this artefact already exists at ~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/reference-library.spec.template.md, and a mission brief at ~/Projects/flightdeck/flightdeck/missions/flightcrew-library.md already names the lenses (orchestration pattern, single experienced HITL user on max 20x, Anthropic official best practice) — so the intention is partly pre-specified, not greenfield. Duplication risk is highest against library/flightcrew/creating-harness-documents.md and library/rubrics/rubric-guide.md, which already hold orchestration best-practice prose in library/'s voice.",
+  "confidence": "certain",
+  "pointers": [
+    "~/Projects/flightdeck/library/terms.md",
+    "~/Projects/flightdeck/library/flightcrew/creating-harness-documents.md",
+    "~/Projects/flightdeck/library/spec/interview-session-conventions.md",
+    "~/Projects/flightdeck/library/rubrics/rubric-guide.md",
+    "~/Projects/flightdeck/flightdeck/STRUCTURE.md",
+    "~/Projects/flightdeck/flightdeck/manuals/documentation.keep",
+    "~/Projects/flightdeck/flightdeck/manuals/spec/spec-conventions.md",
+    "~/Projects/flightdeck/flightdeck/manuals/spec/spec-description.md",
+    "~/Projects/flightdeck/flightdeck/manuals/spec/verification-addendum.md",
+    "~/Projects/flightdeck/flightdeck/manuals/testing/testing-conventions.md",
+    "~/Projects/flightdeck/flightdeck/manuals/testing/testing-description.md",
+    "~/Projects/flightdeck/flightdeck/manuals/versioning/spec-versioning.md",
+    "~/Projects/flightdeck/flightdeck/manuals/versioning/tests-map-versioning.md",
+    "~/Projects/flightdeck/flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md",
+    "~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/reference-library.spec.template.md",
+    "~/Projects/flightdeck/flightdeck/missions/flightcrew-library.md",
+    "~/Projects/flightdeck/flightdeck/missions/shape-library.md",
+    "~/Projects/flightdeck/flightdeck/flightcrew/crew/",
+    "~/Projects/flightdeck/flightdeck/flightcrew/schemas/spec.schema.json"
+  ],
+  "candidates": [
+    { "domain": "Scope", "text": "library/terms.md is the existing project glossary (Testing / Spec / Rubric term lists); a Claude Code reference library's 'key terms' field must extend it rather than restate it." },
+    { "domain": "Scope", "text": "library/flightcrew/creating-harness-documents.md already covers one orchestration best-practice topic (harnesses, probes, fixtures, judged verification) in long-form prose — the closest existing thing to an entry, and the strongest duplication risk." },
+    { "domain": "Scope", "text": "library/rubrics/rubric-guide.md covers rubric anatomy and question-writing for judged checks; another candidate topic already written." },
+    { "domain": "Scope", "text": "library/spec/interview-session-conventions.md covers how an interview session (interviewer, explorers, judge, attacker) turns intention into spec — orchestration practice already codified." },
+    { "domain": "Interfaces and contracts", "text": "flightdeck/flightcrew/templates/spec/reference-library.spec.template.md already prescribes the three seams for this exact artefact: entry template, source register schema (id/title/author/url/date published/date checked), and index." },
+    { "domain": "Constraints", "text": "flightdeck/STRUCTURE.md fixes placement: library/ lives at repo root, not inside the deck, and folders describe themselves via permanent &lt;task&gt;.keep files." },
+    { "domain": "Constraints", "text": "flightdeck/manuals/ holds the crew-facing standards (spec-conventions, spec-description, verification-addendum, testing-conventions, testing-description, spec-versioning, tests-map-versioning, spec-readiness-rubric); a human-facing reference library must not restate these as rules." },
+    { "domain": "Prior decisions and non-goals", "text": "flightdeck/missions/flightcrew-library.md pre-states the intention (reference per concept/tool, three lenses, key terms) and flightdeck/missions/shape-library.md is an adjacent sibling library idea to keep out of scope." },
+    { "domain": "Constraints", "text": "House style across every existing doc: a short prose preamble then a bulleted 'Invariants'/'Conventions' section of one-line, yes/no-checkable rules — e.g. spec-conventions.md, creating-harness-documents.md, STRUCTURE.md." },
+    { "domain": "Verification", "text": "Existing docs are machine-checked by flightdeck/flightcrew/checks/validators/validate-md.mjs and validate-all.mjs; a new library format may need to satisfy or extend these." }
+  ]
+}
+```</result>
+<usage><subagent_tokens>25009</subagent_tokens><tool_uses>7</tool_uses><duration_ms>49199</duration_ms></usage>
+</task-notification>
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+First explorer is back, certain and cited: the split between `flightdeck/manuals/` (crew-facing standards) and root `library/` (human-facing, persists over time) is a standing convention from `flightdeck/STRUCTURE.md`; `library/` already holds three near-entries (`creating-harness-documents.md`, `rubric-guide.md`, `interview-session-conventions.md`) plus `terms.md`; and `flightdeck/missions/flightcrew-library.md` pre-states lenses for this work, so the intention is partly pre-specified. Duplication against the manuals and those three documents is the first hole worth registering.
+
+Two explorers still out — prior decisions and the component inventory. The draft waits on them.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+<task-notification>
+<task-id>a9d370d347d041fc5</task-id>
+<tool-use-id>toolu_016TMtY3vQySeaCaFd34dXso</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-dylangraham-Projects-flightdeck/e7fec369-5f05-445e-bc61-c6a1d904c18f/tasks/a9d370d347d041fc5.output</output-file>
+<status>completed</status>
+<summary>Agent "Find prior library decisions" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>```json
+{
+  "answer": "Substantial prior decisions already constrain this library, and one of them nearly pre-specifies it. (1) A nine-domain spec template for exactly this artefact class already exists and is staged, not committed: ~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/reference-library.spec.template.md — it fixes three seams before any topic is researched (entry template with an orchestration-reading field and an unresolved field; a source register schema of id/title/author/url/date-published/date-checked; an index), states the lens is itself a scope statement, and names the checks (every id cited resolves, every record cited at least once, every url resolves, index lists every topic and nothing else) plus a human sampled-source walkthrough. (2) Placement is already decided: library/ sits beside flightdeck/ at the repo root, is written for humans, persists over time, and does NOT travel with an installed deck (~/Projects/flightdeck/flightdeck/STRUCTURE.md:10,18); manuals/ is what the crew reads to work, library/ is durable human-facing information (~/Projects/flightdeck/flightdeck/manuals/documentation.keep). (3) The house style for a library document is already set by three exemplars — a prose doctrine document opening with a power statement, then an 'Invariants' list of one-line checkable rules, then patterns/anatomy, then a template block (~/Projects/flightdeck/library/flightcrew/creating-harness-documents.md, ~/Projects/flightdeck/library/rubrics/rubric-guide.md, ~/Projects/flightdeck/library/spec/interview-session-conventions.md). (4) A glossary already exists and is grouped by domain, so 'key terms' per entry should resolve into it rather than redefine (~/Projects/flightdeck/library/terms.md). (5) Entry structure was fixed at intention time: three lenses (orchestration pattern; single experienced HITL user on max 20x; official Anthropic guidance) and six fields — key terms, power statement, what, why, types and examples, how (~/Projects/flightdeck/flightdeck/missions/flightcrew-library.md). (6) The idea file already states audience, lens definition, cost of absence and success criterion (~/Projects/flightdeck/flightdeck/launch/reference-library/idea.txt). (7) Citation discipline is a standing rule: a fact without a citation is a guess and is written as unchecked, and context arrives only as cited explorer screenfuls, never bulk reads (~/Projects/flightdeck/library/spec/interview-session-conventions.md:17-19). (8) Two sibling libraries are already claimed as separate missions — a shapes library and an adviser — which bound this one's scope (~/Projects/flightdeck/flightdeck/missions/shape-library.md, flightcrew-adviser.md). No dev/branches/ archive exists in this repo.",
+  "confidence": "certain",
+  "pointers": [
+    "~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/reference-library.spec.template.md",
+    "~/Projects/flightdeck/flightdeck/launch/reference-library/idea.txt",
+    "~/Projects/flightdeck/flightdeck/missions/flightcrew-library.md",
+    "~/Projects/flightdeck/flightdeck/missions/shape-library.md",
+    "~/Projects/flightdeck/flightdeck/missions/flightcrew-adviser.md",
+    "~/Projects/flightdeck/flightdeck/missions/extra-crew-members.md",
+    "~/Projects/flightdeck/flightdeck/STRUCTURE.md",
+    "~/Projects/flightdeck/flightdeck/manuals/documentation.keep",
+    "~/Projects/flightdeck/library/flightcrew/creating-harness-documents.md",
+    "~/Projects/flightdeck/library/rubrics/rubric-guide.md",
+    "~/Projects/flightdeck/library/spec/interview-session-conventions.md",
+    "~/Projects/flightdeck/library/terms.md",
+    "~/Projects/flightdeck/flightdeck/manuals/spec/spec-conventions.md",
+    "~/Projects/flightdeck/flightdeck/manuals/spec/spec-description.md",
+    "~/Projects/flightdeck/flightdeck/manuals/spec/verification-addendum.md",
+    "~/Projects/flightdeck/flightdeck/flightcrew/crew/crew.json",
+    "~/Projects/flightdeck/flightdeck/flightcrew/crew/spec-builder.md",
+    "~/Projects/flightdeck/flightdeck/launch/runs.keep",
+    "~/Projects/flightdeck/flightdeck/manuals/rubrics/spec/deprecated"
+  ],
+  "candidates": [
+    {"domain": "Prior decisions", "text": "A reference-library spec template already exists and fixes entry template, source register schema and index as seams fixed before research begins — ~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/reference-library.spec.template.md:19"},
+    {"domain": "Prior decisions", "text": "The library does not evaluate, rank or recommend between practices and does not become a tutorial — ~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/reference-library.spec.template.md:31"},
+    {"domain": "Constraints", "text": "library/ lives beside flightdeck/ at the repo root, is not part of the installed scaffold, and does not travel with a deck — ~/Projects/flightdeck/flightdeck/STRUCTURE.md:10"},
+    {"domain": "Scope", "text": "manuals/ = what the crew reads to do its job; library/ = information and records that persist, written for humans — ~/Projects/flightdeck/flightdeck/STRUCTURE.md:18 and ~/Projects/flightdeck/flightdeck/manuals/documentation.keep"},
+    {"domain": "Interfaces and contracts", "text": "Existing library documents establish the shape: power statement, then a one-line-per-rule Invariants block, then patterns and a template — ~/Projects/flightdeck/library/flightcrew/creating-harness-documents.md:3-15"},
+    {"domain": "Interfaces and contracts", "text": "A domain-grouped glossary already exists (Testing, Spec, Rubric); entry key-terms should cite it rather than redefine — ~/Projects/flightdeck/library/terms.md"},
+    {"domain": "Behaviours", "text": "Every entry carries three lenses and six fields: key terms, power statement, what, why, types and examples, how — ~/Projects/flightdeck/flightdeck/missions/flightcrew-library.md:3-13"},
+    {"domain": "Intent", "text": "Audience is humans and agents maintaining the orchestration system; failure cost is token burn from failed runs and AI slop — ~/Projects/flightdeck/flightdeck/launch/reference-library/idea.txt"},
+    {"domain": "Constraints", "text": "A fact without a citation is a guess and is written as unchecked; only a certain return with a pointer verifies a name — ~/Projects/flightdeck/library/spec/interview-session-conventions.md:17-19"},
+    {"domain": "Constraints", "text": "Spec is nine domains in canonical order, IDs issued once for life, freeze with zero open questions, only a human changes status — ~/Projects/flightdeck/flightdeck/manuals/spec/spec-conventions.md:9-30"},
+    {"domain": "Verification", "text": "Agent-shaped artefacts are verified by manufactured probe records, and the harness is part of the deliverable, not scaffolding — ~/Projects/flightdeck/library/flightcrew/creating-harness-documents.md:5"},
+    {"domain": "Verification", "text": "Judged checks require a rubric of binary quotable questions with a kept calibration record; a rubric edited without recalibration has unknown meaning — ~/Projects/flightdeck/library/rubrics/rubric-guide.md"},
+    {"domain": "Scope", "text": "Sibling libraries are separately claimed: an architecture-shapes library and a flightcrew adviser producing Help files — ~/Projects/flightdeck/flightdeck/missions/shape-library.md, ~/Projects/flightdeck/flightdeck/missions/flightcrew-adviser.md"},
+    {"domain": "Scope", "text": "A flightdeck-manager agent is already proposed to capture launch-produced assets and reorganise misplaced ones — ~/Projects/flightdeck/flightdeck/missions/extra-crew-members.md"},
+    {"domain": "Prior decisions", "text": "Best-practice content is kept project-agnostic, with concrete paths and commands supplied only via parameters at build time — ~/Projects/flightdeck/flightdeck/flightcrew/crew/crew.json (description, conventions.reading_this_file)"},
+    {"domain": "Constraints", "text": "Superseded versions of a standing document are retained under a deprecated/ subfolder rather than overwritten — ~/Projects/flightdeck/flightdeck/manuals/rubrics/spec/deprecated/"},
+    {"domain": "Scope", "text": "The work is already scaffolded as a self-contained launch with its own specs and checks — ~/Projects/flightdeck/flightdeck/launch/reference-library/ and ~/Projects/flightdeck/flightdeck/launch/runs.keep"},
+    {"domain": "Verification", "text": "Eight named anti-patterns (including the uncited verdict and grading the self-report) are findings against any draft that pursues them — ~/Projects/flightdeck/flightdeck/manuals/spec/verification-addendum.md:59"}
+  ]
+}
+```</result>
+<usage><subagent_tokens>38411</subagent_tokens><tool_uses>19</tool_uses><duration_ms>102555</duration_ms></usage>
+</task-notification>
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Second explorer is back, also certain and cited. Beyond confirming placement and house style, it surfaced hard prior decisions: entry structure was fixed at intention time — three lenses (orchestration pattern; single experienced HITL user on max 20x; official Anthropic guidance) and six fields (key terms, power statement, what, why, types and examples, how) per `flightdeck/missions/flightcrew-library.md`; the primer fixes the three seams (entry template, source register, index) and the non-goals (no ranking, no tutorial); siblings `shape-library` and `flightcrew-adviser` are separately claimed and bound this scope; and `library/terms.md` is the glossary entries should cite, not restate.
+
+One explorer still out — the inventory of orchestration concepts and components, which is the candidate topic list. Once it lands I write `spec.v1.json` and the problem register, then bring you the first bundle.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+<task-notification>
+<task-id>a4cf7a449b0c5b91e</task-id>
+<tool-use-id>toolu_01D2U8kQb4pfZj45LxR96dCf</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-dylangraham-Projects-flightdeck/e7fec369-5f05-445e-bc61-c6a1d904c18f/tasks/a4cf7a449b0c5b91e.output</output-file>
+<status>completed</status>
+<summary>Agent "Inventory orchestration components" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>```json
+{
+  "answer": "FlightDeck's orchestration pattern is inventoried in three places that already state groupings: (1) flightdeck/flightcrew/crew/crew.json — 'A manifest of every role in the orchestrated-run pattern', 13 roles grouped by a `stage` field: idea-to-spec (spec-interviewer, spec-attacker), spec-to-targets (test-builder), run (orchestrator, explorer, interface-builder, worker-general, worker-strong, unit-adversary, run-verifier, reviewer), run-end (report-assembler), throughout (human); each role also carries `kind` (session | subagent | skill | human), `model.tier` (strong/standard/small, defined in conventions.model_tiers), `isolation` (fresh | worktree), tools, context.receives/must_not_see, outputs, return_contract, escalation, stop_conditions. crew.json conventions add four cross-cutting concepts: reading_this_file, model_tiers, context_hygiene, evidence, worker_return_contract. The human role additionally names the five GATES: spec-freeze, targets, plan, interfaces, final. (2) flightdeck/STRUCTURE.md — 'Vocabulary' section defines FlightDeck, keep file, deck, launch, manuals vs library, and the directory tree groups the deck into blackbox/archive, flightcrew/orchestration, hangar/workspace, launch/runs, manuals/documentation, missions/ideas, radar/visuals, testbench/tests (each folder's default task is stated by its &lt;task&gt;.keep file). (3) library/terms.md — grouped glossary: Testing (check, target, gate, class, verdict, probe, record, fixture, check class, scenario, judge), Spec (ID, domain, freeze), Rubric (rubric, verdict sheet, critical question).\n\nCONCRETE ASSETS.\nAgent definitions (7, duplicated verbatim between .claude/agents/ and flightdeck/flightcrew/crew/): reviewer.md, spec-attacker.md, spec-builder.md, spec-interviewer.md (deliberately EMPTY — STRUCTURE.md: 'It is what the next launch builds'), spec-judge.md, test-builder.md, worker.md. Frontmatter fields that are themselves pattern components: name, description, tools allowlist, model (fable/sonnet), isolation: worktree. Note crew.json lists 13 roles but only 7 have .md definitions — orchestrator, explorer, interface-builder, worker-strong, unit-adversary, run-verifier, report-assembler exist only as manifest nodes; and spec-builder.md exists as a file but is not a crew.json role id.\nSchemas (flightdeck/flightcrew/schemas/): spec.schema.json (nine domains + status/commit/previous_versions/retired/open_questions), plan.schema.json (interfaces, units, order, kickoff, approval.plan_hash, 8 cross-reference invariants), tests-map.schema.json (checks, fixture, locked_paths, run_all, acceptance, unverified, baseline), plus markdown docspecs worker/worker-agent.docspec.json and worker/worker-prompt.docspec.json (frontmatter schema + section rules + placeholders).\nTemplates (flightdeck/flightcrew/templates/): spec.template.json, plan.template.json, tests-map.template.json, worker.template.md (mustache unit prompt), and three spec ARCHETYPES under templates/spec/: agent-harness.spec.template.md, decision-research.spec.template.md, reference-library.spec.template.md (the archetype for this very spec).\nChecks / validators (flightdeck/flightcrew/checks/): spec-readiness-lint.mjs (part one of the rubric — deterministic + property checks; only a linter-clean draft reaches the judge), validators/schema-lib.mjs (zero-dep JSON Schema subset interpreter), validate-spec.mjs, validate-plan.mjs, validate-tests-map.mjs, validate-all.mjs, validate-md.mjs (parse-then-judge markdown against a docspec).\nLaunch/run machinery: flightdeck/flightcrew/bin/worker/render-worker-prompt.mjs (deterministically renders worker prompts from plan.json + spec.vN.json + tests-map.json via worker.template.md); flightdeck/launch/ holds self-contained runs (launch/runs.keep), with launch/reference-library/idea.txt the current intention; flightdeck/hangar/ the main-loop working directory; flightdeck/blackbox/ the archive.\nTestbench (flightdeck/testbench/benches/): rubrics/spec/ — HARNESS.md (Rubric Bench: start state, chains, runner, records, collector, renderer), collect.mjs, render.mjs, absorb.mjs, two-spec-bench.md, rubric-v2-proposal.md; validator-suite/ — run.mjs, cases.mjs, README.md, fixtures/agent-sample/spec.v1.json + spec.v2.json (golden draft and frozen revision).\nManuals (crew-facing, flightdeck/manuals/): spec/spec-description.md 'The Nine Domains of a Spec' (Intent, Scope, Constraints, Interfaces and contracts, Behaviours, Edge cases and failure modes, Prior decisions and non-goals, Verification, Definition of done); spec/spec-conventions.md; spec/verification-addendum.md 'The four check classes' (Deterministic, Property, Statistical, Judged) + trajectory checks; testing/testing-description.md 'The Seven Classes of Check' (Structural, Behavioural, Artefact, Invariant, Project rules, Statistical, Judged) + the three verdicts, the gating ladder, the four placements; testing/testing-conventions.md; versioning/spec-versioning.md and versioning/tests-map-versioning.md; rubrics/spec/spec-readiness-rubric.md v2.2 with question blocks GEN/INT/SCO/CON/IFC/BEH/EDG/PRI/VER/DOD, verdict sheet format and calibration record (+ four deprecated versions).\nLibrary (human-facing, library/): flightcrew/creating-harness-documents.md — names the harness inventory (artefact under test, fixture project, scenario set, rubric + calibration examples, deterministic check scripts, verdict sheet schema, records directory) and the two harness patterns A (probe stages in the workflow script) and B (self-contained headless harness); rubrics/rubric-guide.md (anatomy, questions, calibration, verdict sheet, anti-patterns); spec/interview-session-conventions.md (explorers, obvious vs hard, bundles, judge and attacker, freeze and revision); terms.md.\nMissions (flightdeck/missions/, the idea backlog): flightcrew-library.md (the lens list for this library: orchestration method/pattern, single experienced HITL user on max 20x plan, Anthropic official best practice; and the per-reference shape: key terms, power statement, what/why/types and examples/how), shape-library.md, flightcrew-adviser.md, extra-crew-members.md (proposed agents: budget-estimator, visibility-helper, sequencer, decomposer, launch-guide, flightcrew-improver, flightdeck-manager).\nOut of pattern scope but present: dev/ (dev-workspace, the system FlightDeck is 'intended to eventually replace' per STRUCTURE.md) and .claude/rules/ (context.md, dev-workspace_guide.md, dev-workspace_commands.md).",
+  "confidence": "certain",
+  "pointers": [
+    "~/Projects/flightdeck/flightdeck/flightcrew/crew/crew.json",
+    "~/Projects/flightdeck/flightdeck/STRUCTURE.md",
+    "~/Projects/flightdeck/library/terms.md",
+    "~/Projects/flightdeck/library/flightcrew/creating-harness-documents.md",
+    "~/Projects/flightdeck/library/rubrics/rubric-guide.md",
+    "~/Projects/flightdeck/library/spec/interview-session-conventions.md",
+    "~/Projects/flightdeck/.claude/agents/spec-builder.md",
+    "~/Projects/flightdeck/.claude/agents/spec-judge.md",
+    "~/Projects/flightdeck/.claude/agents/spec-attacker.md",
+    "~/Projects/flightdeck/.claude/agents/test-builder.md",
+    "~/Projects/flightdeck/.claude/agents/reviewer.md",
+    "~/Projects/flightdeck/.claude/agents/worker.md",
+    "~/Projects/flightdeck/.claude/agents/spec-interviewer.md",
+    "~/Projects/flightdeck/flightdeck/flightcrew/schemas/spec.schema.json",
+    "~/Projects/flightdeck/flightdeck/flightcrew/schemas/plan.schema.json",
+    "~/Projects/flightdeck/flightdeck/flightcrew/schemas/tests-map.schema.json",
+    "~/Projects/flightdeck/flightdeck/flightcrew/schemas/worker/worker-agent.docspec.json",
+    "~/Projects/flightdeck/flightdeck/flightcrew/schemas/worker/worker-prompt.docspec.json",
+    "~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/reference-library.spec.template.md",
+    "~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/agent-harness.spec.template.md",
+    "~/Projects/flightdeck/flightdeck/flightcrew/templates/spec/decision-research.spec.template.md",
+    "~/Projects/flightdeck/flightdeck/flightcrew/templates/worker.template.md",
+    "~/Projects/flightdeck/flightdeck/flightcrew/checks/spec-readiness-lint.mjs",
+    "~/Projects/flightdeck/flightdeck/flightcrew/checks/validators/validate-spec.mjs",
+    "~/Projects/flightdeck/flightdeck/flightcrew/checks/validators/validate-plan.mjs",
+    "~/Projects/flightdeck/flightdeck/flightcrew/checks/validators/validate-tests-map.mjs",
+    "~/Projects/flightdeck/flightdeck/flightcrew/checks/validators/validate-md.mjs",
+    "~/Projects/flightdeck/flightdeck/flightcrew/checks/validators/schema-lib.mjs",
+    "~/Projects/flightdeck/flightdeck/flightcrew/bin/worker/render-worker-prompt.mjs",
+    "~/Projects/flightdeck/flightdeck/testbench/benches/rubrics/spec/HARNESS.md",
+    "~/Projects/flightdeck/flightdeck/testbench/benches/validator-suite/README.md",
+    "~/Projects/flightdeck/flightdeck/manuals/spec/spec-description.md",
+    "~/Projects/flightdeck/flightdeck/manuals/testing/testing-description.md",
+    "~/Projects/flightdeck/flightdeck/manuals/spec/verification-addendum.md",
+    "~/Projects/flightdeck/flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md",
+    "~/Projects/flightdeck/flightdeck/missions/flightcrew-library.md",
+    "~/Projects/flightdeck/flightdeck/launch/reference-library/idea.txt"
+  ],
+  "candidates": [
+    {"domain": "scope", "text": "The topic perimeter has a stated source of truth already in-repo: crew.json's 13 roles + conventions, STRUCTURE.md's vocabulary and 11 keep-file folder tasks, terms.md's 3 term groups, the nine spec domains, the seven check classes, the four verification check classes, the harness inventory, and the schema/template/validator/bench assets. Decide whether the library's topic list IS this union or a curated subset."},
+    {"domain": "scope", "text": "Grouping is already stated by crew.json's per-role `stage` field (idea-to-spec, spec-to-targets, run, run-end, throughout) and `kind` (session, subagent, skill, human). Reusing these avoids inventing a second taxonomy; STRUCTURE.md's deck folders give an orthogonal second axis."},
+    {"domain": "edges", "text": "Two components are gaps, not assets: .claude/agents/spec-interviewer.md and flightcrew/crew/spec-interviewer.md are zero bytes ('what the next launch builds', STRUCTURE.md), and 7 of 13 crew.json roles have no .md definition. Decide whether a concept with no implementation still gets an entry."},
+    {"domain": "constraints", "text": "flightdeck/missions/flightcrew-library.md fixes both the lenses (orchestration pattern; single experienced HITL user on a max 20x plan; Anthropic official guidance) and the per-entry shape (key terms, power statement, what is it, why do it, types and examples, how to do it) — this is a stronger prior than the generic template's fields."},
+    {"domain": "prior", "text": ".claude/agents/ and flightdeck/flightcrew/crew/ hold byte-identical copies of the same 7 agent files. Whether the library documents one location, both, or the duplication itself as a pattern component is unsettled."},
+    {"domain": "interfaces", "text": "The repo already has a validator for markdown-against-docspec (validate-md.mjs) and a docspec pattern (worker-agent.docspec.json). An entry template plus an entry.docspec.json would make 'every entry validates against the template' mechanically checkable with existing machinery rather than new code."}
+  ]
+}
+```</result>
+<usage><subagent_tokens>48807</subagent_tokens><tool_uses>19</tool_uses><duration_ms>116421</duration_ms></usage>
+</task-notification>
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+All three explorers are home, all certain with pointers. The perimeter question is now sharp: the repo itself states its inventory (13 crew roles in `crew.json` with a `stage` grouping, the deck vocabulary in `STRUCTURE.md`, the terms groups, nine spec domains, seven check classes, the harness inventory, and the schema/template/validator assets) — and two components are gaps, not assets (the deliberately empty `spec-interviewer`, and 7 of 13 roles that exist only as manifest nodes). There is also reusable verification machinery: `validate-md.mjs` executes docspecs against markdown, which makes "every entry validates against the template" mechanical.
+
+Writing the obvious draft and the register now.
+
+------------------------------------------------------------
+
+[WRITE TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/spec.v1.json
+
+------------------------------------------------------------
+
+[WRITE TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/problems.json
+
+------------------------------------------------------------
+
+[WRITE TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/findings.json
+
+------------------------------------------------------------
+
+[WRITE TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/bundles/P1.json
+
+------------------------------------------------------------
+
+[WRITE TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/bundles/P2.json
+
+------------------------------------------------------------
+
+[WRITE TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/bundles/P5.json
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: node ~/Projects/flightdeck/flightdeck/flightcrew/checks/validators/validate-spec.mjs ~/Projects/flightdeck/flightdeck/launch/reference-library/spec.v1.json; echo "exit: $?"
+Description: Validate spec.v1.json draft
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+The user has handed me the topic list — that may close most of P1. Reading it, and checking how the validator resolves its schema path.
+
+------------------------------------------------------------
+
+[READ TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/orchestration-concepts-tools.md
+
+------------------------------------------------------------
+
+[READ TOOL]
+File: ~/Projects/flightdeck/flightdeck/flightcrew/checks/validators/validate-spec.mjs
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: node ~/Projects/flightdeck/flightdeck/flightcrew/checks/validators/validate-spec.mjs ~/Projects/flightdeck/flightdeck/launch/reference-library/spec.v1.json --schema ~/Projects/flightdeck/flightdeck/flightcrew/schemas/spec.schema.json; echo "exit: $?"
+Description: Validate draft against spec schema
+
+------------------------------------------------------------
+
+[EDIT TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/spec.v1.json
+
+------------------------------------------------------------
+
+[EDIT TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/problems.json
+
+------------------------------------------------------------
+
+[EDIT TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/problems.json
+
+------------------------------------------------------------
+
+[EDIT TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/problems.json
+
+------------------------------------------------------------
+
+[EDIT TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/problems.json
+
+------------------------------------------------------------
+
+[WRITE TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/bundles/P3.json
+
+------------------------------------------------------------
+
+[WRITE TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/bundles/P4.json
+
+------------------------------------------------------------
+
+[EDIT TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/problems.json
+
+------------------------------------------------------------
+
+[EDIT TOOL]
+File: ~/Projects/flightdeck/flightdeck/launch/reference-library/interview/problems.json
+
+------------------------------------------------------------
+
+[USER] [SLASH COMMAND]
+/reload-plugins unknown
+
+------------------------------------------------------------
+
+[USER] [SLASH COMMAND]
+/dev-workspace:conversation-capture unknown
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: ruby ~/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture/scripts/conversation-capture e7fec369-5f05-445e-bc61-c6a1d904c18f
+Description: Extract session transcript via conversation-capture script
+
+------------------------------------------------------------

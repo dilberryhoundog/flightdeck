@@ -1,0 +1,149 @@
+{
+  "version": 4,
+  "state": {
+    "task": {
+      "text": "Build an end to end orchestration system. based upon Claude code orchestration best practices and principles.\nDiscover the current directory structure and fit the whole system into the framework provided.\nThis is for a single user on a max subscription."
+    },
+    "problem": {
+      "text": "As a Human in the loop (HITL) I'm needed for each quality decision turn by turn. building larger projects has become tedious as conversation limits are hit. context is spoiled. time is wasted. one shot is all I get."
+    },
+    "context": {
+      "text": "You have permission to search across anthropic web sources. best practices, blogs, tutorials etc,  to get context for this.\nBelow is a local source of guides and manuals for orchestration patterns",
+      "files": [
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/orchestrator-review.html",
+          "b": "Orchestration overview."
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/piecing-it-together.html",
+          "b": "The orchestration steps"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/verification-guide.html",
+          "b": "Verification guide"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/spec-guide.html",
+          "b": "Writing a spec"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/agents-guide.html",
+          "b": "The crew"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/planning-guide.html",
+          "b": "Planning guide"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/kickoff-guide.html",
+          "b": "liftoff prompt"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/review-guide.html",
+          "b": "review guide"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/endings-guide.html",
+          "b": "ending a run"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/run-log-guide.html",
+          "b": "run logs"
+        },
+        {
+          "a": "/Users/dylangraham/Library/CloudStorage/Dropbox/pages/agents/orchestrator-pattern/run-report-guide.html",
+          "b": "run reports"
+        }
+      ]
+    },
+    "goals": {
+      "items": [
+        "Context engineering",
+        "Verification",
+        "Observability",
+        "Review",
+        "Decomposition",
+        "Isolation and recoverability",
+        "Budgets & Stop conditions",
+        "Permissions & Blast Radius",
+        "Abandon failed runs",
+        "Repeatable",
+        "Deterministic Tools",
+        "Checkpoints",
+        "Outcome dicovery",
+        "Adversarial critic"
+      ]
+    },
+    "features": {
+      "items": [
+        {
+          "a": "",
+          "b": ""
+        }
+      ]
+    },
+    "references": {
+      "items": []
+    },
+    "scope": {
+      "inside": [
+        "`flightdeck/flightcrew/` global orchestration location",
+        "`flightdeck/launch/` run specific folder",
+        "`flightdeck/testbench/` global test and check harnesses and benches",
+        "`flightdeck/manuals/` Agent facing usage documents",
+        "`flightcrew/` is a distribution location for harness assets like /agents and /hooks"
+      ],
+      "outside": [
+        "`flightdeck/blackbox/`, `flightdeck/hangar/`, `flightdeck/missions/`, `flightdeck/radar/`,",
+        "./library/, dev/, .claude/, User facing locations only. "
+      ]
+    },
+    "constraints": {
+      "text": "New git branch `flightcrew-buildout-v1` PR the outcome back to current run branch `flightcrew-buildout` \n",
+      "picked": []
+    },
+    "verify": {
+      "criteria": [
+        ""
+      ],
+      "gates": [],
+      "items": [
+        ""
+      ]
+    },
+    "guardrails": {
+      "text": "",
+      "picked": []
+    },
+    "architecture": {
+      "language": [],
+      "framework": [],
+      "storage": [],
+      "patterns": [],
+      "infra": [],
+      "text": ""
+    },
+    "output": {
+      "deliverable": [],
+      "depth": ""
+    },
+    "tone": {
+      "pick": "",
+      "text": ""
+    },
+    "process": {
+      "stages": []
+    },
+    "skills": {
+      "picked": [],
+      "other": []
+    },
+    "exec": {
+      "strategy": "",
+      "economy": "",
+      "roster": [],
+      "text": ""
+    }
+  },
+  "recipes": []
+}

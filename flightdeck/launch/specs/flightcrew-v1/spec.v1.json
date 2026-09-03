@@ -3,7 +3,8 @@
   "schema_version": 1,
   "name": "flightcrew-v1",
   "version": 1,
-  "status": "draft",
+  "status": "frozen",
+  "commit": "5f69a94",
   "reason": "initial: the end-to-end orchestration system for flightdeck, derived from the build brief and the orchestration guides",
   "previous_versions": [],
   "intent": {
@@ -12,144 +13,693 @@
     "text": "A single developer can hand a frozen spec to an orchestrated run and leave the room: the run plans, builds in isolated units, proves itself with locked checks, is judged by a fresh critic, records everything it did with provenance, and ends cleanly at one of three endings, so that large builds no longer depend on the developer being present for every turn."
   },
   "scope": [
-    { "id": "SC1", "status": "ok", "kind": "in", "text": "flightdeck/flightcrew/: the fc command-line runner and its command modules, the universal check harnesses (libraries, validators, gates), the crew definitions, the hook scripts and settings fragment, the schemas, the templates and kickoff library, the dynamic workflow scripts, and MANIFEST.txt." },
-    { "id": "SC2", "status": "ok", "kind": "in", "text": "flightdeck/launch/: the canonical spec folders under launch/specs/, the launch folder anatomy, the run log file, and this build's own launch folder flightcrew-buildout produced by the fc commands as the first run." },
-    { "id": "SC3", "status": "ok", "kind": "in", "text": "flightdeck/testbench/: the suite runner, one regression suite per T id below, fixtures (a sample project, a sample spec, a sample launch), and an end-to-end suite." },
-    { "id": "SC4", "status": "ok", "kind": "in", "text": "flightdeck/manuals/: an index, the orchestration manuals (journey, planning, kickoff, review, endings, run log, run report, crew), the harness manuals (hooks, permissions, workflows), and the launch anatomy manual." },
-    { "id": "SC5", "status": "ok", "kind": "out", "text": "flightdeck/blackbox/, flightdeck/hangar/, flightdeck/missions/, flightdeck/radar/, library/, dev/, .claude/ and the dev-workspace skill: never read, never written; fc distribute writes into a target directory only when a human passes --apply." },
-    { "id": "SC6", "status": "ok", "kind": "out", "text": "Changing the spec schema, the spec template, the readiness rubric, the rubric bench, the existing spec, testing and versioning manuals, spec-judge.md or spec-attacker.md in any byte, or spec-builder.md beyond the run-folder path and the three added session inputs named in D4." },
-    { "id": "SC7", "status": "ok", "kind": "out", "text": "A judge runner for statistical or judged checks, a verdict-sheet JSON schema for the spec judge, an HTML display served by a process, telemetry beyond the events file, and any npm package." },
-    { "id": "SC8", "status": "ok", "kind": "out", "text": "Installing anything: no global commands, no package.json, no symlinks into the home directory; fc is invoked by path." },
-    { "id": "SC9", "status": "ok", "kind": "out", "text": "Rewriting the $id or $schema strings of the spec schema, template or any spec (validators locate schemas beside themselves and treat $schema as informational); editing the repository .gitignore; copying a spec's interview/ folder into a launch." }
+    {
+      "id": "SC1",
+      "status": "ok",
+      "kind": "in",
+      "text": "flightdeck/flightcrew/: the fc command-line runner and its command modules, the universal check harnesses (libraries, validators, gates), the crew definitions, the hook scripts and settings fragment, the schemas, the templates and kickoff library, the dynamic workflow scripts, and MANIFEST.txt."
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "kind": "in",
+      "text": "flightdeck/launch/: the canonical spec folders under launch/specs/, the launch folder anatomy, the run log file, and this build's own launch folder flightcrew-buildout produced by the fc commands as the first run."
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "kind": "in",
+      "text": "flightdeck/testbench/: the suite runner, one regression suite per T id below, fixtures (a sample project, a sample spec, a sample launch), and an end-to-end suite."
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "kind": "in",
+      "text": "flightdeck/manuals/: an index, the orchestration manuals (journey, planning, kickoff, review, endings, run log, run report, crew), the harness manuals (hooks, permissions, workflows), and the launch anatomy manual."
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "kind": "out",
+      "text": "flightdeck/blackbox/, flightdeck/hangar/, flightdeck/missions/, flightdeck/radar/, library/, dev/, .claude/ and the dev-workspace skill: never read, never written; fc distribute writes into a target directory only when a human passes --apply."
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "kind": "out",
+      "text": "Changing the spec schema, the spec template, the readiness rubric, the rubric bench, the existing spec, testing and versioning manuals, spec-judge.md or spec-attacker.md in any byte, or spec-builder.md beyond the run-folder path and the three added session inputs named in D4."
+    },
+    {
+      "id": "SC7",
+      "status": "ok",
+      "kind": "out",
+      "text": "A judge runner for statistical or judged checks, a verdict-sheet JSON schema for the spec judge, an HTML display served by a process, telemetry beyond the events file, and any npm package."
+    },
+    {
+      "id": "SC8",
+      "status": "ok",
+      "kind": "out",
+      "text": "Installing anything: no global commands, no package.json, no symlinks into the home directory; fc is invoked by path."
+    },
+    {
+      "id": "SC9",
+      "status": "ok",
+      "kind": "out",
+      "text": "Rewriting the $id or $schema strings of the spec schema, template or any spec (validators locate schemas beside themselves and treat $schema as informational); editing the repository .gitignore; copying a spec's interview/ folder into a launch."
+    }
   ],
   "constraints": [
-    { "id": "C1", "status": "ok", "text": "Every import specifier in every script under the four in-scope directories is either a node: built-in or a relative path resolving inside flightdeck/flightcrew or flightdeck/testbench; no bare package specifiers exist; no package.json, node_modules or lock file exists under the four directories." },
-    { "id": "C2", "status": "ok", "text": "No script or hook writes outside the four in-scope directories, os.tmpdir(), and (for fc distribute --apply only) the target directory given on the command line." },
-    { "id": "C3", "status": "ok", "text": "Every script exits 0 on success, 1 on a usage or environment error, and 2 on a failed check or a blocking decision; on success it prints at most one line, except commands whose purpose is a document or listing (launch status, events summary, runlog show, worker render, critic render, verifier render, distribute without --apply, validate all, doctor, and every suite run.mjs), and except when --json is passed." },
-    { "id": "C4", "status": "ok", "text": "Each hook, spawned with a minimal envelope for its event against an active copy of the sample launch, exits within 2000 ms wall-clock from spawn to exit taking the best of three runs; stop-gate declares timeout 600 in the settings fragment." },
-    { "id": "C5", "status": "ok", "text": "Every markdown file under flightcrew/crew, flightcrew/templates, flightcrew/hooks, flightcrew/workflows, flightcrew/README.md, launch/README.md, testbench/README.md and manuals/ contains none of the phrases 'this session', 'we decided', 'as discussed', 'earlier today', 'the user asked'." },
-    { "id": "C6", "status": "ok", "text": "No script or hook imports node:http, node:https, node:net, node:dgram or node:tls, and none calls fetch." },
-    { "id": "C7", "status": "ok", "text": "Running node flightdeck/testbench/run-all.mjs leaves the set of entry names directly under os.tmpdir() unchanged and adds no git status line outside flightdeck/testbench/runs/." },
-    { "id": "C8", "status": "ok", "text": "Every hook, with no active launch, or with $CLAUDE_PROJECT_DIR unset, or with $CLAUDE_PROJECT_DIR pointing at a directory without flightdeck/launch, exits 0 and writes nothing to stdout." },
-    { "id": "C9", "status": "ok", "text": "Every file under manuals/orchestration, manuals/harness and manuals/launch is at most 150 lines." }
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Every import specifier in every script under the four in-scope directories is either a node: built-in or a relative path resolving inside flightdeck/flightcrew or flightdeck/testbench; no bare package specifiers exist; no package.json, node_modules or lock file exists under the four directories."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "No script or hook writes outside the four in-scope directories, os.tmpdir(), and (for fc distribute --apply only) the target directory given on the command line."
+    },
+    {
+      "id": "C3",
+      "status": "ok",
+      "text": "Every script exits 0 on success, 1 on a usage or environment error, and 2 on a failed check or a blocking decision; on success it prints at most one line, except commands whose purpose is a document or listing (launch status, events summary, runlog show, worker render, critic render, verifier render, distribute without --apply, validate all, doctor, and every suite run.mjs), and except when --json is passed."
+    },
+    {
+      "id": "C4",
+      "status": "ok",
+      "text": "Each hook, spawned with a minimal envelope for its event against an active copy of the sample launch, exits within 2000 ms wall-clock from spawn to exit taking the best of three runs; stop-gate declares timeout 600 in the settings fragment."
+    },
+    {
+      "id": "C5",
+      "status": "ok",
+      "text": "Every markdown file under flightcrew/crew, flightcrew/templates, flightcrew/hooks, flightcrew/workflows, flightcrew/README.md, launch/README.md, testbench/README.md and manuals/ contains none of the phrases 'this session', 'we decided', 'as discussed', 'earlier today', 'the user asked'."
+    },
+    {
+      "id": "C6",
+      "status": "ok",
+      "text": "No script or hook imports node:http, node:https, node:net, node:dgram or node:tls, and none calls fetch."
+    },
+    {
+      "id": "C7",
+      "status": "ok",
+      "text": "Running node flightdeck/testbench/run-all.mjs leaves the set of entry names directly under os.tmpdir() unchanged and adds no git status line outside flightdeck/testbench/runs/."
+    },
+    {
+      "id": "C8",
+      "status": "ok",
+      "text": "Every hook, with no active launch, or with $CLAUDE_PROJECT_DIR unset, or with $CLAUDE_PROJECT_DIR pointing at a directory without flightdeck/launch, exits 0 and writes nothing to stdout."
+    },
+    {
+      "id": "C9",
+      "status": "ok",
+      "text": "Every file under manuals/orchestration, manuals/harness and manuals/launch is at most 150 lines."
+    }
   ],
   "interfaces": [
-    { "id": "I1", "status": "ok", "name": "fc", "reuse": null, "text": "flightdeck/flightcrew/bin/fc <command> [sub] [args] [--launch <name>] [--json]; exit 0 | 1 | 2. fc resolves its assets from its own location and the launch root as $FLIGHTCREW_ROOT, else $CLAUDE_PROJECT_DIR, else the git toplevel of cwd, else the repository containing fc; launches live at <root>/flightdeck/launch/. Commands and flags: launch new <spec-path> [--name N] [--kickoff base+shape-<s>+task-<t>] [--branch B] [--allow <glob>]... (N defaults to <spec.name>-<n>, kickoff to base+shape-session+task-feature, branch to run/<N>); launch activate <N> [--allow-draft]; launch status; launch phase <p> [--force]; launch gate <G1|G2|G3> <approve|exit> [--note <text>] [--force]; launch end <accepted|accepted-with-reservations|abandoned|partial> [--at <stage>] [--units U,...]; launch pin tests-map <path> [--allow-draft]; launch kickoff [--parts base+shape-<s>+task-<t>]; launch escalate <spec-gap|wrong-check|blocked|trigger|budget|halt> --detail <text>; launch note <text>; launch land --commit <sha> [--pr <url>] [--evidence-commit <sha>]; check [all|T...] [--baseline <map>] [--cwd <dir>]; verify; boundary [--base <commit>]; locked [--base <commit>]; budget; events append <json> [--stated]; events usage <json>; events summary; evidence; report; runlog stub; runlog show [--spec S]; plan write <json-path|--stdin>; plan render; validate <spec|tests-map|plan|launch|kickoff|return|all> [path] [--kind K] [--for-freeze] [--strict] [--resolve-commits]; lint spec <path> [--repo <root>] [--deliverable <path>]...; worker render <unit>; worker merge <unit>; worker return <unit> <file> (alias of return worker); critic render [--pass n]; verifier render [--pass n]; return <worker|explorer|verifier|critic> <file> [--unit U | --id X | --pass n] [--agent id] [--resolve F --commit <sha> [--dispute <text>]]; distribute [--apply] [--target <dir>] [--force]; doctor [--target <dir>]." },
-    { "id": "I2", "status": "ok", "name": "launch.json", "reuse": null, "text": "flightdeck/flightcrew/schemas/launch.schema.json: { schema_version: 1, name: string, status: draft|active|accepted|accepted-with-reservations|abandoned|partial, phase: targets|plan|contracts|implement|verify|review|report|ended, created: date, spec: {name, version, commit: hex|null, file_commit: hex|null, path}, tests_map: {version, commit: hex|null, path} | null, kickoff: {path, version}, base_commit: hex, lock_commit: hex|null, branch: string, previous_launch: string|null, allow_draft: boolean, paths: {allowed: [glob], locked: [glob], enforce_boundary: boolean}, acceptance: string, structural: {<ext>: <command containing \"{file}\">}, ceilings: {agents: int, implementers_concurrent: int, turns_per_agent: int, gate_iterations: int, stop_blocks: int (at most 8), critic_passes: int, minutes: int, tokens: int|null, expected_tokens: int|null}, gates: {G1|G2|G3: {status: pending|approved|exited, at: iso|null, note?: string}}, outcome: string|null, ended: iso|null, accepted_units?: [id], abandoned_units?: [id], landed?: {commit: hex, pr: string|null, integration_check: string|null} }." },
-    { "id": "I3", "status": "ok", "name": "tests-map.vN.json", "reuse": null, "text": "flightdeck/flightcrew/schemas/tests-map.schema.json: { schema_version: 1, name, version, status: draft|frozen, commit?: hex, reason, spec: {name, version, commit}, previous_versions: [{v, file, date, commit, reason, spec: {name, version, commit}}] newest first, acceptance: 'T1', fixture: string, allowed_paths: [glob], locked_paths: [glob], run_all?: string, baseline: {commit, date, note}, checks: [{ id: T<n>, status: ok|new|changed, kind: structural|behavioural|artefact|invariant|project-rule|statistical|judged, class?: deterministic|property|statistical|judged, name?, covers: [id|'scope'], command: string, gate_only?: boolean, baseline: {expect: string, observed: string}, note? }], quarantined: [{id, since, reason}], unverified: [{id, reason, decided_by: 'human'}], retired: [{id, at, covers, note}] }; the schema description lists tm-invariant-1 to tm-invariant-13 and the coverage rule." },
-    { "id": "I4", "status": "ok", "name": "plan.json", "reuse": null, "text": "flightdeck/flightcrew/schemas/plan.schema.json: { schema_version: 1, launch, spec: {name, version, commit}, kickoff_version, shape: session|workflow|sessions, expected_cost: {agents: int, minutes: int, tokens?: int}, models: {explore, unit, critic}, approach: string, waves: [{id, mode: serial|parallel, units: [id]}], units: [{id, name, kind: contracts|feature|integration|proof, spec_refs: [id], checks: [T<n>], owner: string, budget_turns: int, paths: [glob], depends_on: [id], pilot?: boolean}], risks: [{text, reaction: mitigate|watch|abandon, source}], gates: {G1, G2, G3: string}, abandon_triggers: [{trigger, observable_by}], no_contracts?: {reason} }." },
-    { "id": "I5", "status": "ok", "name": "event line", "reuse": null, "text": "flightdeck/flightcrew/schemas/event.schema.json, one JSON object per line of launch/<L>/events.jsonl: { ts: iso, event: string, launch: string, phase: string, source: hook|fc|stated, session_id?: string, agent_id?: string, agent_type?: string, detail: object }. Recorded hook events: SessionStart, SessionEnd, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, PostToolUseFailure, PermissionDenied, PreCompact, PostCompact, Stop, WorktreeRemove. Allowed detail keys for hook events: tool_name, file_path, command (first 200 characters), error, tool_error_code, permission_denial_reason, stop_reason, trigger, task_id, task_title, reason, mode, prompt (first 200 characters), transcript_path, worktree_path. Synthetic events: gate, phase, stop_block, stop_release, stall, trigger, escalation, lock_denied, boundary_denied, check_run, return, unit_merged, usage, launch_end. launch/<L>/hooks.log lines are '<iso ts> <hook name> <message>'." },
-    { "id": "I6", "status": "ok", "name": "check result", "reuse": null, "text": "flightdeck/flightcrew/schemas/check-result.schema.json, launch/<L>/evidence/<T>.json: { id: T<n>, command, cwd, exit: int|null, verdict: pass|fail|error|skipped, stdout_tail: [string], stderr_tail: [string], duration_ms: int, ran_at: iso, commit: hex, covers: [id], phase: string }. Each check runs as /bin/sh -c <command> with cwd = the launch root (or --cwd), the parent environment plus FLIGHTCREW_LAUNCH=<name>, a 300 second limit, serially in map order; a command that cannot spawn or times out has verdict error and a stderr_tail naming the command and the cause. evidence/summary.json: { ran_at, commit, counts: {pass, fail, error, skipped}, checks: [{id, verdict, covers}], unverified: [id], quarantined: [id], uncovered: [id] }." },
-    { "id": "I7", "status": "ok", "name": "hook stdin and decision", "reuse": "https://code.claude.com/docs/en/hooks", "text": "Hooks read the Claude Code stdin envelope { session_id, transcript_path, cwd, permission_mode, hook_event_name, agent_id?, agent_type?, tool_name?, tool_input?, stop_hook_active?, ... }; the target of an Edit, Write or NotebookEdit is tool_input.file_path or tool_input.notebook_path, absolutised against cwd and made relative to the git toplevel of its directory (the worktree root inside a worktree). A hook emits nothing, or on stdout { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny'|'ask', permissionDecisionReason: string } } or { systemMessage: string }, or exits 2 with the reason on stderr. Hooks find the launch root as $CLAUDE_PROJECT_DIR first, then as fc does." },
-    { "id": "I8", "status": "ok", "name": "returns", "reuse": null, "text": "flightdeck/flightcrew/schemas/{explorer-return,worker-return,verifier-verdict,critic-findings}.schema.json: explorer { id: X<n>, question, stage: intent|scope|constraints|interfaces|behaviours|verification|planning, answer, confidence: certain|probable|guess, pointers: [string], candidates: [{domain, text}] }; worker { unit, status: green|red|halt, branch: string, worktree: string, spec_refs: [id], checks: [{id, exit}], artefacts: [path], commits: [sha], iterations: int, halt: null | {kind: test-contradicts-spec|unsatisfiable|blocked|budget|boundary, detail}, notes: string }; verifier { refuted: boolean, checks_rerun: [{id, exit}], reasons: [string], unverified: [id], test_file_changes: [path], outside_boundary: [path] }; critic { verdict: 'no gaps'|'gaps', pass: int, findings: [{ id: F<n>, kind: correctness-gap|scope-violation|spec-conflict|observation, severity: blocking|non-blocking, spec_ref, file, line, text, state: open|resolved|disputed, resolved_commit: sha|null, dispute: string|null }] }. Stored at returns/<unit>.json, returns/explore-<id>.json, returns/verify-<n>.json, review/pass-<n>.json; state changes at review/resolutions.json." },
-    { "id": "I9", "status": "ok", "name": "suite protocol", "reuse": null, "text": "flightdeck/testbench/suites/<name>/run.mjs: no arguments required; prints one line per case as 'pass  <case>' or 'FAIL  <case>' and a final '<n>/<m> passed'; exit 0 when all pass, 2 otherwise; flightdeck/testbench/run-all.mjs runs every suite in name order, prints one line per suite, and exits 2 if any suite exits non-zero." },
-    { "id": "I10", "status": "ok", "name": "crew frontmatter", "reuse": "https://code.claude.com/docs/en/sub-agents", "text": "Each flightdeck/flightcrew/crew/<role>.md starts with YAML frontmatter carrying name, description, tools (comma list) and model; maxTurns is present on every role except orchestrator, spec-builder, spec-judge and spec-attacker; implementer carries isolation: worktree and permissionMode: acceptEdits; test-builder carries permissionMode: acceptEdits; orchestrator carries initialPrompt; the body of each of explorer, test-builder, planner, orchestrator, implementer, verifier and critic ends with a fenced JSON block showing its return shape." },
-    { "id": "I11", "status": "ok", "name": "kickoff.md", "reuse": null, "text": "launch/<L>/kickoff.md = a header block (launch path; spec path @ commit or 'draft'; tests-map path @ commit or '(none)'; kickoff version; read first: flightdeck/launch/RUNLOG.md; prior reports: the launch/*/report.md paths whose launch.json.spec.name matches, or 'none'; write plan with: fc plan write; evidence path) followed by flightdeck/flightcrew/templates/kickoff/base.md, one shape-*.md and one task-*.md in that order; each part's first line is '<!-- version: N -->'; kickoff version is the '+'-joined list of part@version; agent names under the Roles heading are backticked." },
-    { "id": "I12", "status": "ok", "name": "report.md", "reuse": null, "text": "launch/<L>/report.md with headings in order: '# Run report · <spec> · <launch>', '## Ledger [checked · reviewed · stated]', '## Verification [checked]', '## Review [reviewed]', '## Phases [recorded · stated]', '## Agents [recorded · stated]', '## Failures and interventions [recorded]', '## Orchestrator notes [stated]'; the header lines under the title carry spec, kickoff, started, ended, outcome, cost, agents, phases marked [recorded], plus allow_draft, landed, accepted and abandoned units when set." },
-    { "id": "I13", "status": "ok", "name": "MANIFEST.txt", "reuse": null, "text": "flightdeck/flightcrew/MANIFEST.txt: one repository-relative path per line for every file SC1, SC2 (excluding launch folders other than launch/specs and the buildout), SC3 and SC4 name; lines starting with # are comments." },
-    { "id": "I14", "status": "ok", "name": "settings.fragment.json", "reuse": "https://code.claude.com/docs/en/settings", "text": "flightdeck/flightcrew/hooks/settings.fragment.json: { hooks: { <Event>: [{ matcher?, hooks: [{ type: 'command', command: 'node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/<name>.mjs', timeout? }] }] }, worktree: { baseRef: 'head' }, permissions: { allow: [ 'Bash(node flightdeck/flightcrew/bin/fc *)', 'Bash(flightdeck/flightcrew/bin/fc *)', 'Bash(./flightdeck/flightcrew/bin/fc *)', 'Bash(git status *)', 'Bash(git diff *)', 'Bash(git log *)', 'Bash(git rev-parse *)', 'Bash(git add *)', 'Bash(git commit *)', 'Bash(git switch *)', 'Bash(git worktree list *)', 'Agent(<each crew name>)', 'Workflow(fc-implement)', 'Workflow(fc-review)', 'Workflow(fc-explore)' ], deny: [ 'Edit(flightdeck/launch/*/specs/**)', 'Edit(flightdeck/launch/specs/**)' ] }, _sandbox_example: { filesystem: { deny: [ '<locked paths>' ] } } }; the Stop hook entry carries timeout 600." }
+    {
+      "id": "I1",
+      "status": "ok",
+      "name": "fc",
+      "reuse": null,
+      "text": "flightdeck/flightcrew/bin/fc <command> [sub] [args] [--launch <name>] [--json]; exit 0 | 1 | 2. fc resolves its assets from its own location and the launch root as $FLIGHTCREW_ROOT, else $CLAUDE_PROJECT_DIR, else the git toplevel of cwd, else the repository containing fc; launches live at <root>/flightdeck/launch/. Commands and flags: launch new <spec-path> [--name N] [--kickoff base+shape-<s>+task-<t>] [--branch B] [--allow <glob>]... (N defaults to <spec.name>-<n>, kickoff to base+shape-session+task-feature, branch to run/<N>); launch activate <N> [--allow-draft]; launch status; launch phase <p> [--force]; launch gate <G1|G2|G3> <approve|exit> [--note <text>] [--force]; launch end <accepted|accepted-with-reservations|abandoned|partial> [--at <stage>] [--units U,...]; launch pin tests-map <path> [--allow-draft]; launch kickoff [--parts base+shape-<s>+task-<t>]; launch escalate <spec-gap|wrong-check|blocked|trigger|budget|halt> --detail <text>; launch note <text>; launch land --commit <sha> [--pr <url>] [--evidence-commit <sha>]; check [all|T...] [--baseline <map>] [--cwd <dir>]; verify; boundary [--base <commit>]; locked [--base <commit>]; budget; events append <json> [--stated]; events usage <json>; events summary; evidence; report; runlog stub; runlog show [--spec S]; plan write <json-path|--stdin>; plan render; validate <spec|tests-map|plan|launch|kickoff|return|all> [path] [--kind K] [--for-freeze] [--strict] [--resolve-commits]; lint spec <path> [--repo <root>] [--deliverable <path>]...; worker render <unit>; worker merge <unit>; worker return <unit> <file> (alias of return worker); critic render [--pass n]; verifier render [--pass n]; return <worker|explorer|verifier|critic> <file> [--unit U | --id X | --pass n] [--agent id] [--resolve F --commit <sha> [--dispute <text>]]; distribute [--apply] [--target <dir>] [--force]; doctor [--target <dir>]."
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "name": "launch.json",
+      "reuse": null,
+      "text": "flightdeck/flightcrew/schemas/launch.schema.json: { schema_version: 1, name: string, status: draft|active|accepted|accepted-with-reservations|abandoned|partial, phase: targets|plan|contracts|implement|verify|review|report|ended, created: date, spec: {name, version, commit: hex|null, file_commit: hex|null, path}, tests_map: {version, commit: hex|null, path} | null, kickoff: {path, version}, base_commit: hex, lock_commit: hex|null, branch: string, previous_launch: string|null, allow_draft: boolean, paths: {allowed: [glob], locked: [glob], enforce_boundary: boolean}, acceptance: string, structural: {<ext>: <command containing \"{file}\">}, ceilings: {agents: int, implementers_concurrent: int, turns_per_agent: int, gate_iterations: int, stop_blocks: int (at most 8), critic_passes: int, minutes: int, tokens: int|null, expected_tokens: int|null}, gates: {G1|G2|G3: {status: pending|approved|exited, at: iso|null, note?: string}}, outcome: string|null, ended: iso|null, accepted_units?: [id], abandoned_units?: [id], landed?: {commit: hex, pr: string|null, integration_check: string|null} }."
+    },
+    {
+      "id": "I3",
+      "status": "ok",
+      "name": "tests-map.vN.json",
+      "reuse": null,
+      "text": "flightdeck/flightcrew/schemas/tests-map.schema.json: { schema_version: 1, name, version, status: draft|frozen, commit?: hex, reason, spec: {name, version, commit}, previous_versions: [{v, file, date, commit, reason, spec: {name, version, commit}}] newest first, acceptance: 'T1', fixture: string, allowed_paths: [glob], locked_paths: [glob], run_all?: string, baseline: {commit, date, note}, checks: [{ id: T<n>, status: ok|new|changed, kind: structural|behavioural|artefact|invariant|project-rule|statistical|judged, class?: deterministic|property|statistical|judged, name?, covers: [id|'scope'], command: string, gate_only?: boolean, baseline: {expect: string, observed: string}, note? }], quarantined: [{id, since, reason}], unverified: [{id, reason, decided_by: 'human'}], retired: [{id, at, covers, note}] }; the schema description lists tm-invariant-1 to tm-invariant-13 and the coverage rule."
+    },
+    {
+      "id": "I4",
+      "status": "ok",
+      "name": "plan.json",
+      "reuse": null,
+      "text": "flightdeck/flightcrew/schemas/plan.schema.json: { schema_version: 1, launch, spec: {name, version, commit}, kickoff_version, shape: session|workflow|sessions, expected_cost: {agents: int, minutes: int, tokens?: int}, models: {explore, unit, critic}, approach: string, waves: [{id, mode: serial|parallel, units: [id]}], units: [{id, name, kind: contracts|feature|integration|proof, spec_refs: [id], checks: [T<n>], owner: string, budget_turns: int, paths: [glob], depends_on: [id], pilot?: boolean}], risks: [{text, reaction: mitigate|watch|abandon, source}], gates: {G1, G2, G3: string}, abandon_triggers: [{trigger, observable_by}], no_contracts?: {reason} }."
+    },
+    {
+      "id": "I5",
+      "status": "ok",
+      "name": "event line",
+      "reuse": null,
+      "text": "flightdeck/flightcrew/schemas/event.schema.json, one JSON object per line of launch/<L>/events.jsonl: { ts: iso, event: string, launch: string, phase: string, source: hook|fc|stated, session_id?: string, agent_id?: string, agent_type?: string, detail: object }. Recorded hook events: SessionStart, SessionEnd, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, PostToolUseFailure, PermissionDenied, PreCompact, PostCompact, Stop, WorktreeRemove. Allowed detail keys for hook events: tool_name, file_path, command (first 200 characters), error, tool_error_code, permission_denial_reason, stop_reason, trigger, task_id, task_title, reason, mode, prompt (first 200 characters), transcript_path, worktree_path. Synthetic events: gate, phase, stop_block, stop_release, stall, trigger, escalation, lock_denied, boundary_denied, check_run, return, unit_merged, usage, launch_end. launch/<L>/hooks.log lines are '<iso ts> <hook name> <message>'."
+    },
+    {
+      "id": "I6",
+      "status": "ok",
+      "name": "check result",
+      "reuse": null,
+      "text": "flightdeck/flightcrew/schemas/check-result.schema.json, launch/<L>/evidence/<T>.json: { id: T<n>, command, cwd, exit: int|null, verdict: pass|fail|error|skipped, stdout_tail: [string], stderr_tail: [string], duration_ms: int, ran_at: iso, commit: hex, covers: [id], phase: string }. Each check runs as /bin/sh -c <command> with cwd = the launch root (or --cwd), the parent environment plus FLIGHTCREW_LAUNCH=<name>, a 300 second limit, serially in map order; a command that cannot spawn or times out has verdict error and a stderr_tail naming the command and the cause. evidence/summary.json: { ran_at, commit, counts: {pass, fail, error, skipped}, checks: [{id, verdict, covers}], unverified: [id], quarantined: [id], uncovered: [id] }."
+    },
+    {
+      "id": "I7",
+      "status": "ok",
+      "name": "hook stdin and decision",
+      "reuse": "https://code.claude.com/docs/en/hooks",
+      "text": "Hooks read the Claude Code stdin envelope { session_id, transcript_path, cwd, permission_mode, hook_event_name, agent_id?, agent_type?, tool_name?, tool_input?, stop_hook_active?, ... }; the target of an Edit, Write or NotebookEdit is tool_input.file_path or tool_input.notebook_path, absolutised against cwd and made relative to the git toplevel of its directory (the worktree root inside a worktree). A hook emits nothing, or on stdout { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny'|'ask', permissionDecisionReason: string } } or { systemMessage: string }, or exits 2 with the reason on stderr. Hooks find the launch root as $CLAUDE_PROJECT_DIR first, then as fc does."
+    },
+    {
+      "id": "I8",
+      "status": "ok",
+      "name": "returns",
+      "reuse": null,
+      "text": "flightdeck/flightcrew/schemas/{explorer-return,worker-return,verifier-verdict,critic-findings}.schema.json: explorer { id: X<n>, question, stage: intent|scope|constraints|interfaces|behaviours|verification|planning, answer, confidence: certain|probable|guess, pointers: [string], candidates: [{domain, text}] }; worker { unit, status: green|red|halt, branch: string, worktree: string, spec_refs: [id], checks: [{id, exit}], artefacts: [path], commits: [sha], iterations: int, halt: null | {kind: test-contradicts-spec|unsatisfiable|blocked|budget|boundary, detail}, notes: string }; verifier { refuted: boolean, checks_rerun: [{id, exit}], reasons: [string], unverified: [id], test_file_changes: [path], outside_boundary: [path] }; critic { verdict: 'no gaps'|'gaps', pass: int, findings: [{ id: F<n>, kind: correctness-gap|scope-violation|spec-conflict|observation, severity: blocking|non-blocking, spec_ref, file, line, text, state: open|resolved|disputed, resolved_commit: sha|null, dispute: string|null }] }. Stored at returns/<unit>.json, returns/explore-<id>.json, returns/verify-<n>.json, review/pass-<n>.json; state changes at review/resolutions.json."
+    },
+    {
+      "id": "I9",
+      "status": "ok",
+      "name": "suite protocol",
+      "reuse": null,
+      "text": "flightdeck/testbench/suites/<name>/run.mjs: no arguments required; prints one line per case as 'pass  <case>' or 'FAIL  <case>' and a final '<n>/<m> passed'; exit 0 when all pass, 2 otherwise; flightdeck/testbench/run-all.mjs runs every suite in name order, prints one line per suite, and exits 2 if any suite exits non-zero."
+    },
+    {
+      "id": "I10",
+      "status": "ok",
+      "name": "crew frontmatter",
+      "reuse": "https://code.claude.com/docs/en/sub-agents",
+      "text": "Each flightdeck/flightcrew/crew/<role>.md starts with YAML frontmatter carrying name, description, tools (comma list) and model; maxTurns is present on every role except orchestrator, spec-builder, spec-judge and spec-attacker; implementer carries isolation: worktree and permissionMode: acceptEdits; test-builder carries permissionMode: acceptEdits; orchestrator carries initialPrompt; the body of each of explorer, test-builder, planner, orchestrator, implementer, verifier and critic ends with a fenced JSON block showing its return shape."
+    },
+    {
+      "id": "I11",
+      "status": "ok",
+      "name": "kickoff.md",
+      "reuse": null,
+      "text": "launch/<L>/kickoff.md = a header block (launch path; spec path @ commit or 'draft'; tests-map path @ commit or '(none)'; kickoff version; read first: flightdeck/launch/RUNLOG.md; prior reports: the launch/*/report.md paths whose launch.json.spec.name matches, or 'none'; write plan with: fc plan write; evidence path) followed by flightdeck/flightcrew/templates/kickoff/base.md, one shape-*.md and one task-*.md in that order; each part's first line is '<!-- version: N -->'; kickoff version is the '+'-joined list of part@version; agent names under the Roles heading are backticked."
+    },
+    {
+      "id": "I12",
+      "status": "ok",
+      "name": "report.md",
+      "reuse": null,
+      "text": "launch/<L>/report.md with headings in order: '# Run report · <spec> · <launch>', '## Ledger [checked · reviewed · stated]', '## Verification [checked]', '## Review [reviewed]', '## Phases [recorded · stated]', '## Agents [recorded · stated]', '## Failures and interventions [recorded]', '## Orchestrator notes [stated]'; the header lines under the title carry spec, kickoff, started, ended, outcome, cost, agents, phases marked [recorded], plus allow_draft, landed, accepted and abandoned units when set."
+    },
+    {
+      "id": "I13",
+      "status": "ok",
+      "name": "MANIFEST.txt",
+      "reuse": null,
+      "text": "flightdeck/flightcrew/MANIFEST.txt: one repository-relative path per line for every file SC1, SC2 (excluding launch folders other than launch/specs and the buildout), SC3 and SC4 name; lines starting with # are comments."
+    },
+    {
+      "id": "I14",
+      "status": "ok",
+      "name": "settings.fragment.json",
+      "reuse": "https://code.claude.com/docs/en/settings",
+      "text": "flightdeck/flightcrew/hooks/settings.fragment.json: { hooks: { <Event>: [{ matcher?, hooks: [{ type: 'command', command: 'node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/<name>.mjs', timeout? }] }] }, worktree: { baseRef: 'head' }, permissions: { allow: [ 'Bash(node flightdeck/flightcrew/bin/fc *)', 'Bash(flightdeck/flightcrew/bin/fc *)', 'Bash(./flightdeck/flightcrew/bin/fc *)', 'Bash(git status *)', 'Bash(git diff *)', 'Bash(git log *)', 'Bash(git rev-parse *)', 'Bash(git add *)', 'Bash(git commit *)', 'Bash(git switch *)', 'Bash(git worktree list *)', 'Agent(<each crew name>)', 'Workflow(fc-implement)', 'Workflow(fc-review)', 'Workflow(fc-explore)' ], deny: [ 'Edit(flightdeck/launch/*/specs/**)', 'Edit(flightdeck/launch/specs/**)' ] }, _sandbox_example: { filesystem: { deny: [ '<locked paths>' ] } } }; the Stop hook entry carries timeout 600."
+    }
   ],
   "behaviours": [
-    { "id": "B1", "status": "ok", "text": "Given a repository holding launch/specs/<S>/spec.vN.json, fc launch new <that path> creates launch/<name>/ containing launch.json (status draft, phase targets), kickoff.md whose header reads 'tests-map: (none)', an empty events.jsonl, the directories evidence, returns and review, and specs/<S>/spec.vN.json copied from the named file only." },
-    { "id": "B2", "status": "ok", "text": "fc launch new records in launch.json.spec.commit the spec file's own commit field (null while the file is draft), in spec.file_commit the hash from git log -1 for the file (null when untracked), in base_commit the current HEAD, and in previous_launch the newest other launch whose spec.name matches or null." },
-    { "id": "B3", "status": "ok", "text": "fc launch activate <name> sets launch.json.status to active when no other launch is active, and exits 1 naming the active launch when one is." },
-    { "id": "B4", "status": "ok", "text": "Given no active launch, each hook script invoked with a valid stdin envelope exits 0 and prints nothing to stdout." },
-    { "id": "B5", "status": "ok", "text": "Given an active launch, event-log appends exactly one line to events.jsonl per invocation for each recorded hook event, carrying ts, event, launch, phase, source 'hook', session_id and a detail object whose keys are limited to the allowed detail keys, and appends nothing for an unlisted hook_event_name." },
-    { "id": "B6", "status": "ok", "text": "Given an active launch in any phase other than targets, lock-guard prints a PreToolUse deny decision for an Edit, Write or NotebookEdit whose target (file_path or notebook_path, made relative to its git toplevel) matches a locked path, appends a lock_denied event, and prints nothing in phase targets or for a target that is not locked." },
-    { "id": "B7", "status": "ok", "text": "Given an active launch with enforce_boundary true, boundary-guard prints a PreToolUse deny decision for an Edit, Write or NotebookEdit whose target is outside the allowed paths and the launch folder in phases contracts, implement, verify and review, or outside the locked paths, the launch folder and launch/specs/<S>/ in phase targets, and prints nothing for a target inside the permitted set." },
-    { "id": "B8", "status": "ok", "text": "structural-check runs the structural command configured for the edited file's extension through /bin/sh -c with {file} replaced by the shell-quoted absolute path and cwd set to the git toplevel of the envelope cwd; on non-zero exit it prints the last 20 combined output lines to stderr and exits 2, and on zero exit it exits 0 printing nothing." },
-    { "id": "B9", "status": "ok", "text": "Given an active launch in phase verify whose acceptance check exits non-zero, stop-gate exits 2 with the check id, its exit code and its last 20 output lines on stderr and appends a stop_block event carrying the count." },
-    { "id": "B10", "status": "ok", "text": "Given consecutive stop_block events since the newest passing check_run, escalation, gate or phase event numbering one less than min(ceilings.stop_blocks, 8), a further red acceptance run makes stop-gate append a stall event and a trigger event and exit 0." },
-    { "id": "B11", "status": "ok", "text": "Given an active launch in a phase other than contracts or verify, stop-gate exits 0 without running any check and without appending an event." },
-    { "id": "B12", "status": "ok", "text": "fc check all runs every check in the pinned tests map that is not quarantined, including gate_only checks, writes evidence/<T>.json for each, records verdict skipped for quarantined ids, rebuilds evidence/summary.json from every evidence file present, and exits 2 when any verdict is fail or error and 0 otherwise; a skipped verdict never affects the exit code." },
-    { "id": "B13", "status": "ok", "text": "Each evidence/<T>.json written by fc check validates against check-result.schema.json and carries the check's exact command, exit code, the last forty lines of stdout and of stderr, the commit it ran against, the phase, and the spec ids it covers." },
-    { "id": "B14", "status": "ok", "text": "fc boundary writes evidence/boundary.json listing as changed every file in commits after lock_commit (falling back to base_commit, or --base) together with staged, unstaged and untracked-not-ignored files, excluding .claude/worktrees/** and flightdeck/testbench/runs/**, marks those outside allowed paths, locked paths and the launch folder as outside, and exits 2 when outside is non-empty and 0 otherwise." },
-    { "id": "B15", "status": "ok", "text": "fc locked writes evidence/locked.json listing the changed files (same changed set as B14) that match a locked path and exits 2 when the list is non-empty and 0 otherwise." },
-    { "id": "B16", "status": "ok", "text": "fc budget writes evidence/budget.json with counts of agents spawned, stop blocks, consecutive stop blocks, critic passes, minutes, tokens (or 'unobserved'), tool failures, permission denials and compactions, each beside its ceiling or null, exits 2 and appends a trigger event when any count exceeds a non-null ceiling, and exits 0 otherwise." },
-    { "id": "B17", "status": "ok", "text": "fc report writes report.md with the eight headings of I12 in order, the ledger's four lists each present (with '—' when empty), and under Verification the lines 'unverified:', 'quarantined:', 'test-file changes:' and 'diff boundary:' each present; with no evidence/summary.json the Verification section reads 'not run' under its counts line, with no review pass file the Review section reads 'not run', with no plan.json the ledger shows 'plan: none', and with no events.jsonl the Phases, Agents and Failures sections read 'no events recorded'." },
-    { "id": "B18", "status": "ok", "text": "report.md written by fc report contains none of the strings 'ready to merge', 'should be accepted', 'accept this run' outside quoted check output." },
-    { "id": "B19", "status": "ok", "text": "fc evidence writes evidence.html containing no script, link, iframe, object or form element, no src, href, srcset or action attribute whose value starts with http:, https: or //, and no url( or @import in its styles." },
-    { "id": "B20", "status": "ok", "text": "fc runlog stub inserts after the first heading of launch/RUNLOG.md (creating the file with '# Run log' when absent) an entry headed '## <ended date> · <spec name> · <launch name>' whose spec, kickoff, outcome and cost lines are filled from launch.json and evidence; for accepted outcomes the entry carries kept and reservation lines reading '<fill>', for abandoned or partial outcomes it carries a symptom line pre-filled from the ending event and seen on, cause, fixed on, change and watch lines reading '<fill>', and for partial outcomes landed and abandoned lines listing the units." },
-    { "id": "B21", "status": "ok", "text": "fc plan render validates plan.json and writes plan.md with the headings '# Plan: <spec> · <launch>', '## Approach', '## Waves and units' (one table row per unit), '## Risks', '## Gates', '## Abandon triggers' in that order; rendering the same plan.json twice produces byte-identical plan.md, and an invalid plan exits 2 without writing." },
-    { "id": "B22", "status": "ok", "text": "validate-spec prints one 'error: <message> — [<rule>]' line per violation and exits 2 for each case in the validator case table, prints 'warn:  <message>' lines for the warning cases, and exits 0 with no warnings on both golden fixtures." },
-    { "id": "B23", "status": "ok", "text": "validate-tests-map exits 2 naming the rule id for each of tm-invariant-1 to tm-invariant-13 and the coverage rule when a mutated copy of the sample map violates it, and exits 0 on the sample map." },
-    { "id": "B24", "status": "ok", "text": "validate-plan exits 2 naming the rule for a plan whose unit names a check id absent from the pinned map, or a spec ref absent from the pinned spec, or whose abandon_triggers is empty, or whose parallel wave holds more units than implementers_concurrent, or whose unit budget_turns exceeds turns_per_agent or the implementer's maxTurns, or whose expected_cost.agents exceeds ceilings.agents, or whose unit has no checks, or whose shape differs from the kickoff shape part; and exits 0 on the sample plan." },
-    { "id": "B25", "status": "ok", "text": "validate-launch exits 2 for a launch.json with a status or phase outside its enumeration, a spec path that does not exist, a spec.commit that differs from the pinned file's commit header, stop_blocks above 8, or a phase past targets with enforce_boundary true and no lock_commit or empty allowed paths; checks hash shape only unless --resolve-commits is passed; and exits 0 on the sample launch." },
-    { "id": "B26", "status": "ok", "text": "spec-readiness-lint exits 2 naming the failed rule id (lint-domains, lint-open-questions, lint-sequential, lint-out-list, lint-artefacts, lint-commands-run, lint-claimed, lint-boundary, lint-class-tags) for a spec violating that rule, prints warn-impression and warn-length warnings without failing, and exits 0 on the sample spec with --repo pointing at the sample project." },
-    { "id": "B27", "status": "ok", "text": "fc worker render <unit> prints a dispatch prompt whose first line is 'unit: <id>' and which contains the intent text, every scope, constraint, interface and decision text, the text of every B and E node in the unit's spec_refs, each of the unit's checks as its T id with its covers and the instruction 'run fc check <T...>' (gate-only checks marked), and the unit's paths; and contains no text of a B or E node absent from spec_refs and no check command text." },
-    { "id": "B28", "status": "ok", "text": "fc return <kind> <file> exits 2 when the file does not validate against that kind's schema, and otherwise stores it at the fixed path for its kind and identifier and appends a return event carrying kind and status; fc worker return <unit> <file> behaves as fc return worker <file> --unit <unit>." },
-    { "id": "B29", "status": "ok", "text": "fc distribute without --apply prints the planned copies and writes nothing; with --apply --target <dir> it copies every crew file carrying frontmatter to <dir>/agents/flightcrew/ and every workflow script to <dir>/workflows/, copies no hook, and prints the settings fragment with the absolute node path substituted, the .claude/worktrees/ gitignore line and the constitution fragment." },
-    { "id": "B30", "status": "ok", "text": "fc doctor exits 0 on the built repository: node is 22 or newer, git is on PATH, at most one launch is active, every crew file parses with name, description, tools and model, every bin, checks and hooks script passes node --check, every schema parses, the sample launch validates without --resolve-commits, and every MANIFEST.txt path exists; with --target <dir> it also checks agents are byte-equal to crew/, every fragment hook command is present in <dir>/settings.json, worktree.baseRef is head, and no other agent under <dir>/agents/** carries a crew name." },
-    { "id": "B31", "status": "ok", "text": "Every crew file satisfies I10; explorer, verifier and critic list neither Write nor Edit in tools; the critic body contains the presumption sentence, the four-item ordered checklist, the bound, the four finding kinds and the literal exit 'no gaps'; the orchestrator's initialPrompt names fc launch status and kickoff.md; every new role's body contains the sentence 'Your inputs are only those named in the dispatch'." },
-    { "id": "B32", "status": "ok", "text": "fc launch new assembles kickoff.md per I11 from the header block, base.md, the named shape part and the named task part in that order, and validate-kickoff exits 0 on it while tests_map is null." },
-    { "id": "B33", "status": "ok", "text": "testbench/run-all.mjs runs every suites/*/run.mjs, prints one line per suite, and exits 2 when any suite exits non-zero and 0 when all exit zero." },
-    { "id": "B34", "status": "ok", "text": "On a temporary git repository containing the sample project, the sample spec and a draft map, the sequence fc launch new, fc launch activate --allow-draft, fc check all --baseline <map>, fc launch pin tests-map --allow-draft, fc launch phase plan, fc plan write <sample plan>, fc launch gate G1 approve, fc launch gate G2 approve, fc launch phase verify, fc verify, fc launch phase review, fc launch phase report, fc launch end accepted completes with the exit codes each command documents and leaves launch.json, plan.md, evidence/summary.json, report.md, evidence.html and a RUNLOG.md entry in place." },
-    { "id": "B35", "status": "ok", "text": "fc launch gate G1 approve moves the phase from plan to contracts and G2 approve from contracts to implement; G2 approve exits 2 while any check of the W0 unit has verdict error or has not run since lock_commit; a gate decision does not depend on any other gate's recorded state." },
-    { "id": "B36", "status": "ok", "text": "fc check all --baseline <map-path> runs every check of the named draft map without a pin, writes each check's baseline.observed as '<pass|fail|error>: <first non-empty output line>' and the file-level baseline commit and date into that map, writes no evidence files, and exits 0 when every command could be spawned and 2 otherwise." },
-    { "id": "B37", "status": "ok", "text": "evidence.html written by fc evidence holds, for every evidence/<T>.json, a pre element with the command, the exit code and every stdout_tail and stderr_tail line verbatim, and sections headed Unverified, Quarantined, Test-file changes, Boundary, Changed since lock (each changed path with added and removed line counts), Findings, Phases, Agents and Failures, each showing '—' when empty, with a header naming the phase and the timestamp of the last event." },
-    { "id": "B38", "status": "ok", "text": "Every path listed in flightcrew/MANIFEST.txt exists and is non-empty." },
-    { "id": "B39", "status": "ok", "text": "Every flightcrew/workflows/*.js passes node --experimental-default-type=module --check, begins with an export const meta whose name equals the filename, contains none of Date.now, new Date and Math.random, and every schema literal it passes to agent() equals the matching flightcrew/schemas/*.json." },
-    { "id": "B40", "status": "ok", "text": "Given an active launch in phase contracts, stop-gate runs the checks of the plan unit with kind contracts (or T1 under no_contracts) and fc boundary, exits 2 with the failing ids when a check has verdict error, or fails while its baseline expect starts with 'pass', or the boundary exits 2, and appends check_run on green." },
-    { "id": "B41", "status": "ok", "text": "fc launch escalate <kind> --detail <text> writes escalation.json and appends an escalation event; while the file exists stop-gate exits 0 and appends stop_release; fc launch gate, fc launch phase and fc launch end remove the file." },
-    { "id": "B42", "status": "ok", "text": "While the newest trigger event is later than the newest gate, escalation or launch_end event, lock-guard and boundary-guard deny every Edit, Write and NotebookEdit with a reason naming the trigger, and fc worker render, fc worker merge and fc launch phase (except to ended) exit 2." },
-    { "id": "B43", "status": "ok", "text": "fc worker merge <unit>, given a green return whose branch exists, the current branch equal to launch.json.branch and every depends_on unit already merged, merges the unit branch with --no-ff, runs the unit's checks, commits on green, appends unit_merged, and removes the worktree and branch; on a red check or a conflict it aborts the merge and exits 2 naming the failing ids or conflicting paths." },
-    { "id": "B44", "status": "ok", "text": "fc launch end partial --units <list> writes accepted_units and abandoned_units to launch.json and exits 2 naming the unit and reason when a listed unit depends on a unit outside the list and the contracts unit, has no green return or unit_merged event, or has an open blocking finding under its paths." },
-    { "id": "B45", "status": "ok", "text": "fc launch end <accepted|accepted-with-reservations|partial> exits 2 naming both commits when evidence/summary.json.commit differs from HEAD, and otherwise sets outcome, status, ended and phase ended, renders report.md and evidence.html, inserts the RUNLOG stub, appends launch_end, and prints the worktree and branch cleanup lines and the report path." },
-    { "id": "B46", "status": "ok", "text": "fc verify runs check all, boundary, locked and budget in that order, writes their evidence files, and exits 2 when any of them exits 2 and 0 otherwise." },
-    { "id": "B47", "status": "ok", "text": "fc launch phase <p> accepts only the immediately next phase in the order targets, plan, contracts, implement, verify, review, report, ended; phase plan is refused while the spec or map pin is draft without allow_draft, while any check's baseline observed word differs from its expect word, or while validate-launch or validate-kickoff exits non-zero; phase review is refused while evidence/summary.json is absent, older than HEAD, or has non-zero fail or error counts, or boundary or locked evidence is non-clean; each accepted change appends a phase event." },
-    { "id": "B48", "status": "ok", "text": "fc critic render writes review/pass-<n>.prompt.md containing the pinned spec text, the diff since lock_commit excluding the launch folder, evidence/summary.json and the locked-path change list, and containing no text from plan.json, kickoff.md or any file under returns/; it exits 1 when phase is not review or summary.json is older than HEAD." },
-    { "id": "B49", "status": "ok", "text": "fc launch kickoff re-renders kickoff.md from the library parts and the current pins, and fc launch pin tests-map calls it so the header's tests-map line carries the map path and commit and the prior reports line lists every launch/*/report.md whose launch.json.spec.name matches." },
-    { "id": "B50", "status": "ok", "text": "fc launch land --commit <sha> writes landed {commit, pr, integration_check} to launch.json and exits 2 when no evidence at that commit (or --evidence-commit) has zero fail and error counts." },
-    { "id": "B51", "status": "ok", "text": "fc events usage <json> appends a usage event, and fc events summary prints counts by event, per agent, and a line 'unparseable: <n>'." },
-    { "id": "B52", "status": "ok", "text": "Given an active launch, event-log on SessionStart prints a systemMessage naming the launch and phase; given FLIGHTCREW_LAUNCH=none, every hook exits 0 printing nothing and every fc command needing a launch exits 1 with 'no active launch'." },
-    { "id": "B53", "status": "ok", "text": "Given two launches with status active and FLIGHTCREW_LAUNCH unset, or a resolved launch.json that fails to parse, lock-guard and boundary-guard print an ask decision naming the cause, and event-log exits 0 printing nothing." },
-    { "id": "B54", "status": "ok", "text": "fc plan write <json> validates the plan, stores plan.json, renders plan.md and exits 2 without writing when validation fails; fc launch note <text> appends the text to notes.md and fc report prints notes.md under Orchestrator notes." }
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "Given a repository holding launch/specs/<S>/spec.vN.json, fc launch new <that path> creates launch/<name>/ containing launch.json (status draft, phase targets), kickoff.md whose header reads 'tests-map: (none)', an empty events.jsonl, the directories evidence, returns and review, and specs/<S>/spec.vN.json copied from the named file only."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "fc launch new records in launch.json.spec.commit the spec file's own commit field (null while the file is draft), in spec.file_commit the hash from git log -1 for the file (null when untracked), in base_commit the current HEAD, and in previous_launch the newest other launch whose spec.name matches or null."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "fc launch activate <name> sets launch.json.status to active when no other launch is active, and exits 1 naming the active launch when one is."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "Given no active launch, each hook script invoked with a valid stdin envelope exits 0 and prints nothing to stdout."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "Given an active launch, event-log appends exactly one line to events.jsonl per invocation for each recorded hook event, carrying ts, event, launch, phase, source 'hook', session_id and a detail object whose keys are limited to the allowed detail keys, and appends nothing for an unlisted hook_event_name."
+    },
+    {
+      "id": "B6",
+      "status": "ok",
+      "text": "Given an active launch in any phase other than targets, lock-guard prints a PreToolUse deny decision for an Edit, Write or NotebookEdit whose target (file_path or notebook_path, made relative to its git toplevel) matches a locked path, appends a lock_denied event, and prints nothing in phase targets or for a target that is not locked."
+    },
+    {
+      "id": "B7",
+      "status": "ok",
+      "text": "Given an active launch with enforce_boundary true, boundary-guard prints a PreToolUse deny decision for an Edit, Write or NotebookEdit whose target is outside the allowed paths and the launch folder in phases contracts, implement, verify and review, or outside the locked paths, the launch folder and launch/specs/<S>/ in phase targets, and prints nothing for a target inside the permitted set."
+    },
+    {
+      "id": "B8",
+      "status": "ok",
+      "text": "structural-check runs the structural command configured for the edited file's extension through /bin/sh -c with {file} replaced by the shell-quoted absolute path and cwd set to the git toplevel of the envelope cwd; on non-zero exit it prints the last 20 combined output lines to stderr and exits 2, and on zero exit it exits 0 printing nothing."
+    },
+    {
+      "id": "B9",
+      "status": "ok",
+      "text": "Given an active launch in phase verify whose acceptance check exits non-zero, stop-gate exits 2 with the check id, its exit code and its last 20 output lines on stderr and appends a stop_block event carrying the count."
+    },
+    {
+      "id": "B10",
+      "status": "ok",
+      "text": "Given consecutive stop_block events since the newest passing check_run, escalation, gate or phase event numbering one less than min(ceilings.stop_blocks, 8), a further red acceptance run makes stop-gate append a stall event and a trigger event and exit 0."
+    },
+    {
+      "id": "B11",
+      "status": "ok",
+      "text": "Given an active launch in a phase other than contracts or verify, stop-gate exits 0 without running any check and without appending an event."
+    },
+    {
+      "id": "B12",
+      "status": "ok",
+      "text": "fc check all runs every check in the pinned tests map that is not quarantined, including gate_only checks, writes evidence/<T>.json for each, records verdict skipped for quarantined ids, rebuilds evidence/summary.json from every evidence file present, and exits 2 when any verdict is fail or error and 0 otherwise; a skipped verdict never affects the exit code."
+    },
+    {
+      "id": "B13",
+      "status": "ok",
+      "text": "Each evidence/<T>.json written by fc check validates against check-result.schema.json and carries the check's exact command, exit code, the last forty lines of stdout and of stderr, the commit it ran against, the phase, and the spec ids it covers."
+    },
+    {
+      "id": "B14",
+      "status": "ok",
+      "text": "fc boundary writes evidence/boundary.json listing as changed every file in commits after lock_commit (falling back to base_commit, or --base) together with staged, unstaged and untracked-not-ignored files, excluding .claude/worktrees/** and flightdeck/testbench/runs/**, marks those outside allowed paths, locked paths and the launch folder as outside, and exits 2 when outside is non-empty and 0 otherwise."
+    },
+    {
+      "id": "B15",
+      "status": "ok",
+      "text": "fc locked writes evidence/locked.json listing the changed files (same changed set as B14) that match a locked path and exits 2 when the list is non-empty and 0 otherwise."
+    },
+    {
+      "id": "B16",
+      "status": "ok",
+      "text": "fc budget writes evidence/budget.json with counts of agents spawned, stop blocks, consecutive stop blocks, critic passes, minutes, tokens (or 'unobserved'), tool failures, permission denials and compactions, each beside its ceiling or null, exits 2 and appends a trigger event when any count exceeds a non-null ceiling, and exits 0 otherwise."
+    },
+    {
+      "id": "B17",
+      "status": "ok",
+      "text": "fc report writes report.md with the eight headings of I12 in order, the ledger's four lists each present (with '—' when empty), and under Verification the lines 'unverified:', 'quarantined:', 'test-file changes:' and 'diff boundary:' each present; with no evidence/summary.json the Verification section reads 'not run' under its counts line, with no review pass file the Review section reads 'not run', with no plan.json the ledger shows 'plan: none', and with no events.jsonl the Phases, Agents and Failures sections read 'no events recorded'."
+    },
+    {
+      "id": "B18",
+      "status": "ok",
+      "text": "report.md written by fc report contains none of the strings 'ready to merge', 'should be accepted', 'accept this run' outside quoted check output."
+    },
+    {
+      "id": "B19",
+      "status": "ok",
+      "text": "fc evidence writes evidence.html containing no script, link, iframe, object or form element, no src, href, srcset or action attribute whose value starts with http:, https: or //, and no url( or @import in its styles."
+    },
+    {
+      "id": "B20",
+      "status": "ok",
+      "text": "fc runlog stub inserts after the first heading of launch/RUNLOG.md (creating the file with '# Run log' when absent) an entry headed '## <ended date> · <spec name> · <launch name>' whose spec, kickoff, outcome and cost lines are filled from launch.json and evidence; for accepted outcomes the entry carries kept and reservation lines reading '<fill>', for abandoned or partial outcomes it carries a symptom line pre-filled from the ending event and seen on, cause, fixed on, change and watch lines reading '<fill>', and for partial outcomes landed and abandoned lines listing the units."
+    },
+    {
+      "id": "B21",
+      "status": "ok",
+      "text": "fc plan render validates plan.json and writes plan.md with the headings '# Plan: <spec> · <launch>', '## Approach', '## Waves and units' (one table row per unit), '## Risks', '## Gates', '## Abandon triggers' in that order; rendering the same plan.json twice produces byte-identical plan.md, and an invalid plan exits 2 without writing."
+    },
+    {
+      "id": "B22",
+      "status": "ok",
+      "text": "validate-spec prints one 'error: <message> — [<rule>]' line per violation and exits 2 for each case in the validator case table, prints 'warn:  <message>' lines for the warning cases, and exits 0 with no warnings on both golden fixtures."
+    },
+    {
+      "id": "B23",
+      "status": "ok",
+      "text": "validate-tests-map exits 2 naming the rule id for each of tm-invariant-1 to tm-invariant-13 and the coverage rule when a mutated copy of the sample map violates it, and exits 0 on the sample map."
+    },
+    {
+      "id": "B24",
+      "status": "ok",
+      "text": "validate-plan exits 2 naming the rule for a plan whose unit names a check id absent from the pinned map, or a spec ref absent from the pinned spec, or whose abandon_triggers is empty, or whose parallel wave holds more units than implementers_concurrent, or whose unit budget_turns exceeds turns_per_agent or the implementer's maxTurns, or whose expected_cost.agents exceeds ceilings.agents, or whose unit has no checks, or whose shape differs from the kickoff shape part; and exits 0 on the sample plan."
+    },
+    {
+      "id": "B25",
+      "status": "ok",
+      "text": "validate-launch exits 2 for a launch.json with a status or phase outside its enumeration, a spec path that does not exist, a spec.commit that differs from the pinned file's commit header, stop_blocks above 8, or a phase past targets with enforce_boundary true and no lock_commit or empty allowed paths; checks hash shape only unless --resolve-commits is passed; and exits 0 on the sample launch."
+    },
+    {
+      "id": "B26",
+      "status": "ok",
+      "text": "spec-readiness-lint exits 2 naming the failed rule id (lint-domains, lint-open-questions, lint-sequential, lint-out-list, lint-artefacts, lint-commands-run, lint-claimed, lint-boundary, lint-class-tags) for a spec violating that rule, prints warn-impression and warn-length warnings without failing, and exits 0 on the sample spec with --repo pointing at the sample project."
+    },
+    {
+      "id": "B27",
+      "status": "ok",
+      "text": "fc worker render <unit> prints a dispatch prompt whose first line is 'unit: <id>' and which contains the intent text, every scope, constraint, interface and decision text, the text of every B and E node in the unit's spec_refs, each of the unit's checks as its T id with its covers and the instruction 'run fc check <T...>' (gate-only checks marked), and the unit's paths; and contains no text of a B or E node absent from spec_refs and no check command text."
+    },
+    {
+      "id": "B28",
+      "status": "ok",
+      "text": "fc return <kind> <file> exits 2 when the file does not validate against that kind's schema, and otherwise stores it at the fixed path for its kind and identifier and appends a return event carrying kind and status; fc worker return <unit> <file> behaves as fc return worker <file> --unit <unit>."
+    },
+    {
+      "id": "B29",
+      "status": "ok",
+      "text": "fc distribute without --apply prints the planned copies and writes nothing; with --apply --target <dir> it copies every crew file carrying frontmatter to <dir>/agents/flightcrew/ and every workflow script to <dir>/workflows/, copies no hook, and prints the settings fragment with the absolute node path substituted, the .claude/worktrees/ gitignore line and the constitution fragment."
+    },
+    {
+      "id": "B30",
+      "status": "ok",
+      "text": "fc doctor exits 0 on the built repository: node is 22 or newer, git is on PATH, at most one launch is active, every crew file parses with name, description, tools and model, every bin, checks and hooks script passes node --check, every schema parses, the sample launch validates without --resolve-commits, and every MANIFEST.txt path exists; with --target <dir> it also checks agents are byte-equal to crew/, every fragment hook command is present in <dir>/settings.json, worktree.baseRef is head, and no other agent under <dir>/agents/** carries a crew name."
+    },
+    {
+      "id": "B31",
+      "status": "ok",
+      "text": "Every crew file satisfies I10; explorer, verifier and critic list neither Write nor Edit in tools; the critic body contains the presumption sentence, the four-item ordered checklist, the bound, the four finding kinds and the literal exit 'no gaps'; the orchestrator's initialPrompt names fc launch status and kickoff.md; every new role's body contains the sentence 'Your inputs are only those named in the dispatch'."
+    },
+    {
+      "id": "B32",
+      "status": "ok",
+      "text": "fc launch new assembles kickoff.md per I11 from the header block, base.md, the named shape part and the named task part in that order, and validate-kickoff exits 0 on it while tests_map is null."
+    },
+    {
+      "id": "B33",
+      "status": "ok",
+      "text": "testbench/run-all.mjs runs every suites/*/run.mjs, prints one line per suite, and exits 2 when any suite exits non-zero and 0 when all exit zero."
+    },
+    {
+      "id": "B34",
+      "status": "ok",
+      "text": "On a temporary git repository containing the sample project, the sample spec and a draft map, the sequence fc launch new, fc launch activate --allow-draft, fc check all --baseline <map>, fc launch pin tests-map --allow-draft, fc launch phase plan, fc plan write <sample plan>, fc launch gate G1 approve, fc launch gate G2 approve, fc launch phase verify, fc verify, fc launch phase review, fc launch phase report, fc launch end accepted completes with the exit codes each command documents and leaves launch.json, plan.md, evidence/summary.json, report.md, evidence.html and a RUNLOG.md entry in place."
+    },
+    {
+      "id": "B35",
+      "status": "ok",
+      "text": "fc launch gate G1 approve moves the phase from plan to contracts and G2 approve from contracts to implement; G2 approve exits 2 while any check of the W0 unit has verdict error or has not run since lock_commit; a gate decision does not depend on any other gate's recorded state."
+    },
+    {
+      "id": "B36",
+      "status": "ok",
+      "text": "fc check all --baseline <map-path> runs every check of the named draft map without a pin, writes each check's baseline.observed as '<pass|fail|error>: <first non-empty output line>' and the file-level baseline commit and date into that map, writes no evidence files, and exits 0 when every command could be spawned and 2 otherwise."
+    },
+    {
+      "id": "B37",
+      "status": "ok",
+      "text": "evidence.html written by fc evidence holds, for every evidence/<T>.json, a pre element with the command, the exit code and every stdout_tail and stderr_tail line verbatim, and sections headed Unverified, Quarantined, Test-file changes, Boundary, Changed since lock (each changed path with added and removed line counts), Findings, Phases, Agents and Failures, each showing '—' when empty, with a header naming the phase and the timestamp of the last event."
+    },
+    {
+      "id": "B38",
+      "status": "ok",
+      "text": "Every path listed in flightcrew/MANIFEST.txt exists and is non-empty."
+    },
+    {
+      "id": "B39",
+      "status": "ok",
+      "text": "Every flightcrew/workflows/*.js passes node --experimental-default-type=module --check, begins with an export const meta whose name equals the filename, contains none of Date.now, new Date and Math.random, and every schema literal it passes to agent() equals the matching flightcrew/schemas/*.json."
+    },
+    {
+      "id": "B40",
+      "status": "ok",
+      "text": "Given an active launch in phase contracts, stop-gate runs the checks of the plan unit with kind contracts (or T1 under no_contracts) and fc boundary, exits 2 with the failing ids when a check has verdict error, or fails while its baseline expect starts with 'pass', or the boundary exits 2, and appends check_run on green."
+    },
+    {
+      "id": "B41",
+      "status": "ok",
+      "text": "fc launch escalate <kind> --detail <text> writes escalation.json and appends an escalation event; while the file exists stop-gate exits 0 and appends stop_release; fc launch gate, fc launch phase and fc launch end remove the file."
+    },
+    {
+      "id": "B42",
+      "status": "ok",
+      "text": "While the newest trigger event is later than the newest gate, escalation or launch_end event, lock-guard and boundary-guard deny every Edit, Write and NotebookEdit with a reason naming the trigger, and fc worker render, fc worker merge and fc launch phase (except to ended) exit 2."
+    },
+    {
+      "id": "B43",
+      "status": "ok",
+      "text": "fc worker merge <unit>, given a green return whose branch exists, the current branch equal to launch.json.branch and every depends_on unit already merged, merges the unit branch with --no-ff, runs the unit's checks, commits on green, appends unit_merged, and removes the worktree and branch; on a red check or a conflict it aborts the merge and exits 2 naming the failing ids or conflicting paths."
+    },
+    {
+      "id": "B44",
+      "status": "ok",
+      "text": "fc launch end partial --units <list> writes accepted_units and abandoned_units to launch.json and exits 2 naming the unit and reason when a listed unit depends on a unit outside the list and the contracts unit, has no green return or unit_merged event, or has an open blocking finding under its paths."
+    },
+    {
+      "id": "B45",
+      "status": "ok",
+      "text": "fc launch end <accepted|accepted-with-reservations|partial> exits 2 naming both commits when evidence/summary.json.commit differs from HEAD, and otherwise sets outcome, status, ended and phase ended, renders report.md and evidence.html, inserts the RUNLOG stub, appends launch_end, and prints the worktree and branch cleanup lines and the report path."
+    },
+    {
+      "id": "B46",
+      "status": "ok",
+      "text": "fc verify runs check all, boundary, locked and budget in that order, writes their evidence files, and exits 2 when any of them exits 2 and 0 otherwise."
+    },
+    {
+      "id": "B47",
+      "status": "ok",
+      "text": "fc launch phase <p> accepts only the immediately next phase in the order targets, plan, contracts, implement, verify, review, report, ended; phase plan is refused while the spec or map pin is draft without allow_draft, while any check's baseline observed word differs from its expect word, or while validate-launch or validate-kickoff exits non-zero; phase review is refused while evidence/summary.json is absent, older than HEAD, or has non-zero fail or error counts, or boundary or locked evidence is non-clean; each accepted change appends a phase event."
+    },
+    {
+      "id": "B48",
+      "status": "ok",
+      "text": "fc critic render writes review/pass-<n>.prompt.md containing the pinned spec text, the diff since lock_commit excluding the launch folder, evidence/summary.json and the locked-path change list, and containing no text from plan.json, kickoff.md or any file under returns/; it exits 1 when phase is not review or summary.json is older than HEAD."
+    },
+    {
+      "id": "B49",
+      "status": "ok",
+      "text": "fc launch kickoff re-renders kickoff.md from the library parts and the current pins, and fc launch pin tests-map calls it so the header's tests-map line carries the map path and commit and the prior reports line lists every launch/*/report.md whose launch.json.spec.name matches."
+    },
+    {
+      "id": "B50",
+      "status": "ok",
+      "text": "fc launch land --commit <sha> writes landed {commit, pr, integration_check} to launch.json and exits 2 when no evidence at that commit (or --evidence-commit) has zero fail and error counts."
+    },
+    {
+      "id": "B51",
+      "status": "ok",
+      "text": "fc events usage <json> appends a usage event, and fc events summary prints counts by event, per agent, and a line 'unparseable: <n>'."
+    },
+    {
+      "id": "B52",
+      "status": "ok",
+      "text": "Given an active launch, event-log on SessionStart prints a systemMessage naming the launch and phase; given FLIGHTCREW_LAUNCH=none, every hook exits 0 printing nothing and every fc command needing a launch exits 1 with 'no active launch'."
+    },
+    {
+      "id": "B53",
+      "status": "ok",
+      "text": "Given two launches with status active and FLIGHTCREW_LAUNCH unset, or a resolved launch.json that fails to parse, lock-guard and boundary-guard print an ask decision naming the cause, and event-log exits 0 printing nothing."
+    },
+    {
+      "id": "B54",
+      "status": "ok",
+      "text": "fc plan write <json> validates the plan, stores plan.json, renders plan.md and exits 2 without writing when validation fails; fc launch note <text> appends the text to notes.md and fc report prints notes.md under Orchestrator notes."
+    }
   ],
   "edges": [
-    { "id": "E1", "status": "ok", "text": "An fc command that needs a launch is run with no active launch and no FLIGHTCREW_LAUNCH: it exits 1 with the line 'no active launch'." },
-    { "id": "E2", "status": "ok", "text": "A check's command names a binary that does not exist: its verdict is error, its stderr_tail names the command, the remaining checks still run, and fc check exits 2." },
-    { "id": "E3", "status": "ok", "text": "FLIGHTCREW_LAUNCH names a launch folder that does not exist: fc exits 1 naming the folder, and every hook exits 0 with no stdout." },
-    { "id": "E4", "status": "ok", "text": "events.jsonl contains a line that is not valid JSON: fc events summary and fc report skip it, count it as unparseable (shown as 'unparseable: <n>' in the summary and as the first row of the report's Failures section), and exit 0." },
-    { "id": "E5", "status": "ok", "text": "A hook receives stdin that is not a JSON object: it exits 0, prints nothing to stdout, and appends one line to launch/<L>/hooks.log when a launch is active." },
-    { "id": "E6", "status": "ok", "text": "Two launch folders both have status active and FLIGHTCREW_LAUNCH is unset: fc exits 1 naming both, recording hooks exit 0 with no stdout, and the guards print an ask decision." },
-    { "id": "E7", "status": "ok", "text": "fc launch activate is run on a launch whose pinned spec file has status draft, or whose pinned map is draft, and --allow-draft was not passed: it exits 1 with 'spec not frozen' or 'tests map not frozen'; with the flag it proceeds and records allow_draft true." },
-    { "id": "E8", "status": "ok", "text": "The pinned tests map's spec pin differs from launch.json.spec in name, version or commit: fc check exits 1 with 'pin mismatch' and runs nothing." },
-    { "id": "E9", "status": "ok", "text": "structural-check runs for a file whose extension has no configured command: it exits 0 and prints nothing." },
-    { "id": "E10", "status": "ok", "text": "fc distribute --apply finds an existing target file with different content: it lists the conflicting paths, copies nothing, and exits 2 unless --force is passed." },
-    { "id": "E11", "status": "ok", "text": "fc check is run in a launch whose tests map is not pinned: it exits 1 with 'no tests map pinned'." },
-    { "id": "E12", "status": "ok", "text": "fc launch gate is run for a gate already approved or exited: it exits 1 naming the gate's recorded state unless --force is passed." },
-    { "id": "E13", "status": "ok", "text": "No launch root resolves, or <root>/flightdeck/launch is absent: fc exits 1 with 'no flightdeck root', and every hook exits 0 with no stdout." },
-    { "id": "E14", "status": "ok", "text": "stop-gate cannot run its gate because no map is pinned or the launch is unreadable: it exits 0, prints nothing, and appends one hooks.log line." },
-    { "id": "E15", "status": "ok", "text": "fc launch pin tests-map is given a map with status draft and --allow-draft was not passed: it exits 1 with 'tests map not frozen'." },
-    { "id": "E16", "status": "ok", "text": "validate-kickoff finds a header path that does not exist, a spec commit that is neither a 7 to 40 character hex hash nor 'draft' under allow_draft, a prior-reports path that does not resolve, or a backticked name under Roles with no flightcrew/crew/<name>.md: it exits 2 naming the pointer; 'tests-map: (none)' is accepted while tests_map is null." },
-    { "id": "E17", "status": "ok", "text": "fc check T99 names an id absent from the pinned map: it exits 1 naming the id and runs nothing." },
-    { "id": "E18", "status": "ok", "text": "fc launch new is run with a name whose folder already exists: it exits 1 with 'launch exists'." },
-    { "id": "E19", "status": "ok", "text": "fc worker render is run for an unknown unit or with no plan.json: it exits 1 naming the unit or the file." },
-    { "id": "E20", "status": "ok", "text": "fc launch activate is run on a launch whose status is not draft: it exits 1 naming the status." },
-    { "id": "E21", "status": "ok", "text": "events.jsonl is absent: fc events summary, fc budget and fc report treat it as empty and exit 0." },
-    { "id": "E22", "status": "ok", "text": "fc launch phase is asked for a phase that is not the immediately next one: it exits 1 with 'illegal phase change' unless --force is passed, in which case the phase event's detail records forced true." },
-    { "id": "E23", "status": "ok", "text": "fc worker merge finds the unit's return missing, not green, or a dependency unmerged: it exits 2 naming the condition and changes nothing." },
-    { "id": "E24", "status": "ok", "text": "fc launch end accepted is run with uncommitted changes under the allowed paths: it exits 2 with 'working tree not clean under allowed paths'." }
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "An fc command that needs a launch is run with no active launch and no FLIGHTCREW_LAUNCH: it exits 1 with the line 'no active launch'."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "A check's command names a binary that does not exist: its verdict is error, its stderr_tail names the command, the remaining checks still run, and fc check exits 2."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "FLIGHTCREW_LAUNCH names a launch folder that does not exist: fc exits 1 naming the folder, and every hook exits 0 with no stdout."
+    },
+    {
+      "id": "E4",
+      "status": "ok",
+      "text": "events.jsonl contains a line that is not valid JSON: fc events summary and fc report skip it, count it as unparseable (shown as 'unparseable: <n>' in the summary and as the first row of the report's Failures section), and exit 0."
+    },
+    {
+      "id": "E5",
+      "status": "ok",
+      "text": "A hook receives stdin that is not a JSON object: it exits 0, prints nothing to stdout, and appends one line to launch/<L>/hooks.log when a launch is active."
+    },
+    {
+      "id": "E6",
+      "status": "ok",
+      "text": "Two launch folders both have status active and FLIGHTCREW_LAUNCH is unset: fc exits 1 naming both, recording hooks exit 0 with no stdout, and the guards print an ask decision."
+    },
+    {
+      "id": "E7",
+      "status": "ok",
+      "text": "fc launch activate is run on a launch whose pinned spec file has status draft, or whose pinned map is draft, and --allow-draft was not passed: it exits 1 with 'spec not frozen' or 'tests map not frozen'; with the flag it proceeds and records allow_draft true."
+    },
+    {
+      "id": "E8",
+      "status": "ok",
+      "text": "The pinned tests map's spec pin differs from launch.json.spec in name, version or commit: fc check exits 1 with 'pin mismatch' and runs nothing."
+    },
+    {
+      "id": "E9",
+      "status": "ok",
+      "text": "structural-check runs for a file whose extension has no configured command: it exits 0 and prints nothing."
+    },
+    {
+      "id": "E10",
+      "status": "ok",
+      "text": "fc distribute --apply finds an existing target file with different content: it lists the conflicting paths, copies nothing, and exits 2 unless --force is passed."
+    },
+    {
+      "id": "E11",
+      "status": "ok",
+      "text": "fc check is run in a launch whose tests map is not pinned: it exits 1 with 'no tests map pinned'."
+    },
+    {
+      "id": "E12",
+      "status": "ok",
+      "text": "fc launch gate is run for a gate already approved or exited: it exits 1 naming the gate's recorded state unless --force is passed."
+    },
+    {
+      "id": "E13",
+      "status": "ok",
+      "text": "No launch root resolves, or <root>/flightdeck/launch is absent: fc exits 1 with 'no flightdeck root', and every hook exits 0 with no stdout."
+    },
+    {
+      "id": "E14",
+      "status": "ok",
+      "text": "stop-gate cannot run its gate because no map is pinned or the launch is unreadable: it exits 0, prints nothing, and appends one hooks.log line."
+    },
+    {
+      "id": "E15",
+      "status": "ok",
+      "text": "fc launch pin tests-map is given a map with status draft and --allow-draft was not passed: it exits 1 with 'tests map not frozen'."
+    },
+    {
+      "id": "E16",
+      "status": "ok",
+      "text": "validate-kickoff finds a header path that does not exist, a spec commit that is neither a 7 to 40 character hex hash nor 'draft' under allow_draft, a prior-reports path that does not resolve, or a backticked name under Roles with no flightcrew/crew/<name>.md: it exits 2 naming the pointer; 'tests-map: (none)' is accepted while tests_map is null."
+    },
+    {
+      "id": "E17",
+      "status": "ok",
+      "text": "fc check T99 names an id absent from the pinned map: it exits 1 naming the id and runs nothing."
+    },
+    {
+      "id": "E18",
+      "status": "ok",
+      "text": "fc launch new is run with a name whose folder already exists: it exits 1 with 'launch exists'."
+    },
+    {
+      "id": "E19",
+      "status": "ok",
+      "text": "fc worker render is run for an unknown unit or with no plan.json: it exits 1 naming the unit or the file."
+    },
+    {
+      "id": "E20",
+      "status": "ok",
+      "text": "fc launch activate is run on a launch whose status is not draft: it exits 1 naming the status."
+    },
+    {
+      "id": "E21",
+      "status": "ok",
+      "text": "events.jsonl is absent: fc events summary, fc budget and fc report treat it as empty and exit 0."
+    },
+    {
+      "id": "E22",
+      "status": "ok",
+      "text": "fc launch phase is asked for a phase that is not the immediately next one: it exits 1 with 'illegal phase change' unless --force is passed, in which case the phase event's detail records forced true."
+    },
+    {
+      "id": "E23",
+      "status": "ok",
+      "text": "fc worker merge finds the unit's return missing, not green, or a dependency unmerged: it exits 2 naming the condition and changes nothing."
+    },
+    {
+      "id": "E24",
+      "status": "ok",
+      "text": "fc launch end accepted is run with uncommitted changes under the allowed paths: it exits 2 with 'working tree not clean under allowed paths'."
+    }
   ],
   "decisions": [
-    { "id": "D1", "status": "ok", "text": "Node ES modules with zero dependencies and no package.json, because the harness must run identically on any machine with Node 22 and git; hooks are Node too so one test harness covers scripts and hooks." },
-    { "id": "D2", "status": "ok", "text": "One fc entry point with a module per command, invoked by path, because a single user needs one surface to remember and nothing to install." },
-    { "id": "D3", "status": "ok", "text": "The active launch is discovered by status in launch.json with the FLIGHTCREW_LAUNCH override, not by a pointer file, because state then lives in exactly one place per launch and tests can select a launch without touching shared files." },
-    { "id": "D4", "status": "ok", "text": "The existing spec-stage agents, spec schema and template, readiness rubric, rubric bench and existing manuals are kept byte-unchanged because they carry calibration evidence this build cannot reproduce; spec-builder.md changes only its run-folder path to flightdeck/launch/specs/<spec-name>/ and gains 'the validator path; the linter path; the rubric path' in its Required session inputs." },
-    { "id": "D5", "status": "ok", "text": "plan.json is the source of truth and plan.md and kickoff.md are rendered from their sources, because hand-edited copies drift and machine consumers need the structured form." },
-    { "id": "D6", "status": "ok", "text": "Worktree isolation is set on the implementer only, and the settings fragment sets worktree.baseRef to head, because a worker branched from main would never see the run branch; workers land through fc worker merge in wave order." },
-    { "id": "D7", "status": "ok", "text": "WorktreeCreate is not hooked because a WorktreeCreate command hook replaces Claude Code's own worktree creation and its stdout is read as the directory path; WorktreeRemove is recorded." },
-    { "id": "D8", "status": "ok", "text": "The report never carries a verdict on acceptance; fc launch end is the single ending and records the human's outcome, because a report that judges itself must be re-verified in full." },
-    { "id": "D9", "status": "ok", "text": "The stop-gate cap is min(ceilings.stop_blocks, 8) because Claude Code overrides a Stop hook after eight consecutive blocks; the gate runs in phases verify and contracts only, because a gate on the acceptance check during implement would block every escalation." },
-    { "id": "D10", "status": "ok", "text": "Statistical and judged checks are representable in the tests map but no judge runner is built; their commands must emit the ratio or verdict-sheet path themselves. Deferred to a later version." },
-    { "id": "D11", "status": "ok", "text": "The kickoff is assembled from markdown parts with a version comment each, because the kickoff guide's library-not-monolith rule needs versions that diff cleanly." },
-    { "id": "D12", "status": "ok", "text": "The validator case table and goldens from the earlier validator suite are moved under testbench/suites/validate-spec and kept as the validator's regression test, because they encode the thirteen invariants as executable cases." },
-    { "id": "D13", "status": "ok", "text": "A launch may run against a draft spec or map only when a human passes --allow-draft; the choice is recorded as allow_draft in launch.json and printed in the report header, because the testbench needs it and a silent draft run would make every later comparison fiction." },
-    { "id": "D14", "status": "ok", "text": "Hooks run in place from flightdeck/flightcrew/hooks/ through $CLAUDE_PROJECT_DIR and are never copied, because a copied hook loses its relative imports and a second copy drifts." },
-    { "id": "D15", "status": "ok", "text": "The orchestrator holds no Write or Edit tool and writes only through fc plan write, fc launch note and fc return, because the agents guide makes the orchestrator touch nothing." },
-    { "id": "D16", "status": "ok", "text": "There is no scribe role: report and evidence assembly are commands and a SessionEnd hook, because a second way to produce the same file is drift." },
-    { "id": "D17", "status": "ok", "text": "Escalation is a command that releases the stop gate and a fired abandon trigger is enforced by the guards and by fc, because the kickoff guide requires every prohibition to have an enforcement twin." },
-    { "id": "D18", "status": "ok", "text": "Each spec has one canonical home under launch/specs/<name>/ and every launch holds pinned copies, because spec versions span runs and a run folder must stay self-contained." }
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "Node ES modules with zero dependencies and no package.json, because the harness must run identically on any machine with Node 22 and git; hooks are Node too so one test harness covers scripts and hooks."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "One fc entry point with a module per command, invoked by path, because a single user needs one surface to remember and nothing to install."
+    },
+    {
+      "id": "D3",
+      "status": "ok",
+      "text": "The active launch is discovered by status in launch.json with the FLIGHTCREW_LAUNCH override, not by a pointer file, because state then lives in exactly one place per launch and tests can select a launch without touching shared files."
+    },
+    {
+      "id": "D4",
+      "status": "ok",
+      "text": "The existing spec-stage agents, spec schema and template, readiness rubric, rubric bench and existing manuals are kept byte-unchanged because they carry calibration evidence this build cannot reproduce; spec-builder.md changes only its run-folder path to flightdeck/launch/specs/<spec-name>/ and gains 'the validator path; the linter path; the rubric path' in its Required session inputs."
+    },
+    {
+      "id": "D5",
+      "status": "ok",
+      "text": "plan.json is the source of truth and plan.md and kickoff.md are rendered from their sources, because hand-edited copies drift and machine consumers need the structured form."
+    },
+    {
+      "id": "D6",
+      "status": "ok",
+      "text": "Worktree isolation is set on the implementer only, and the settings fragment sets worktree.baseRef to head, because a worker branched from main would never see the run branch; workers land through fc worker merge in wave order."
+    },
+    {
+      "id": "D7",
+      "status": "ok",
+      "text": "WorktreeCreate is not hooked because a WorktreeCreate command hook replaces Claude Code's own worktree creation and its stdout is read as the directory path; WorktreeRemove is recorded."
+    },
+    {
+      "id": "D8",
+      "status": "ok",
+      "text": "The report never carries a verdict on acceptance; fc launch end is the single ending and records the human's outcome, because a report that judges itself must be re-verified in full."
+    },
+    {
+      "id": "D9",
+      "status": "ok",
+      "text": "The stop-gate cap is min(ceilings.stop_blocks, 8) because Claude Code overrides a Stop hook after eight consecutive blocks; the gate runs in phases verify and contracts only, because a gate on the acceptance check during implement would block every escalation."
+    },
+    {
+      "id": "D10",
+      "status": "ok",
+      "text": "Statistical and judged checks are representable in the tests map but no judge runner is built; their commands must emit the ratio or verdict-sheet path themselves. Deferred to a later version."
+    },
+    {
+      "id": "D11",
+      "status": "ok",
+      "text": "The kickoff is assembled from markdown parts with a version comment each, because the kickoff guide's library-not-monolith rule needs versions that diff cleanly."
+    },
+    {
+      "id": "D12",
+      "status": "ok",
+      "text": "The validator case table and goldens from the earlier validator suite are moved under testbench/suites/validate-spec and kept as the validator's regression test, because they encode the thirteen invariants as executable cases."
+    },
+    {
+      "id": "D13",
+      "status": "ok",
+      "text": "A launch may run against a draft spec or map only when a human passes --allow-draft; the choice is recorded as allow_draft in launch.json and printed in the report header, because the testbench needs it and a silent draft run would make every later comparison fiction."
+    },
+    {
+      "id": "D14",
+      "status": "ok",
+      "text": "Hooks run in place from flightdeck/flightcrew/hooks/ through $CLAUDE_PROJECT_DIR and are never copied, because a copied hook loses its relative imports and a second copy drifts."
+    },
+    {
+      "id": "D15",
+      "status": "ok",
+      "text": "The orchestrator holds no Write or Edit tool and writes only through fc plan write, fc launch note and fc return, because the agents guide makes the orchestrator touch nothing."
+    },
+    {
+      "id": "D16",
+      "status": "ok",
+      "text": "There is no scribe role: report and evidence assembly are commands and a SessionEnd hook, because a second way to produce the same file is drift."
+    },
+    {
+      "id": "D17",
+      "status": "ok",
+      "text": "Escalation is a command that releases the stop gate and a fired abandon trigger is enforced by the guards and by fc, because the kickoff guide requires every prohibition to have an enforcement twin."
+    },
+    {
+      "id": "D18",
+      "status": "ok",
+      "text": "Each spec has one canonical home under launch/specs/<name>/ and every launch holds pinned copies, because spec versions span runs and a run folder must stay self-contained."
+    }
   ],
   "verification": {
     "id": "VER",

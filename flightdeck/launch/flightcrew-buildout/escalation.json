@@ -1,7 +1,0 @@
-{
-  "at": "2026-09-03T22:10:00.410Z",
-  "kind": "wrong-check",
-  "detail": "Two locked suite cases cannot be satisfied by any faithful implementation. Suite bin-evidence (T11), case changed-since-lock-lists-each-path-with-added-and-removed-counts: the case appends a leading newline and two comment lines to a fixture that already ends in a newline, so git reports 3 added lines for that path under numstat, -w, -b and --ignore-blank-lines alike, while the case requires the rendered row to carry a 2. Suite constraints (T24), case C1-imports-are-node-builtins-or-relative-inside-scope: the scanner keeps string literals, so the literal '@import \"x\"' inside the hostile-content fixture of suite bin-evidence reads as a bare import specifier; no script in the four in-scope directories imports one. Both files are locked targets. A third finding is not a check: fc boundary reports .claude/workflows/flightcrew-build.js outside the allowed paths; it was written by the session that drove this build and needs a decision before the boundary can be clean.",
-  "phase": "verify",
-  "launch": "flightcrew-buildout"
-}

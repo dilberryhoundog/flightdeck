@@ -1,0 +1,44 @@
+{
+  "ran_at": "2026-09-03T22:50:21.683Z",
+  "launch": "flightcrew-buildout-2",
+  "phase": "verify",
+  "counts": {
+    "agents": {
+      "count": 0,
+      "ceiling": 12
+    },
+    "stop_blocks": {
+      "count": 0,
+      "ceiling": 8
+    },
+    "consecutive_stop_blocks": {
+      "count": 0,
+      "ceiling": 3
+    },
+    "critic_passes": {
+      "count": 0,
+      "ceiling": 2
+    },
+    "minutes": {
+      "count": 0,
+      "ceiling": 240
+    },
+    "tokens": {
+      "count": "unobserved",
+      "ceiling": null
+    },
+    "tool_failures": {
+      "count": 0,
+      "ceiling": null
+    },
+    "permission_denials": {
+      "count": 0,
+      "ceiling": null
+    },
+    "compactions": {
+      "count": 0,
+      "ceiling": null
+    }
+  },
+  "exceeded": []
+}

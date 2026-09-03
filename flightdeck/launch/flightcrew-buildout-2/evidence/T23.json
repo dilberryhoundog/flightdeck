@@ -1,0 +1,24 @@
+{
+  "id": "T23",
+  "command": "node flightdeck/testbench/suites/run-all/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  runs-every-suite-in-name-order-one-line-each-exit-0",
+    "pass  exits-2-when-a-suite-exits-2",
+    "pass  exits-2-when-a-suite-crashes",
+    "pass  a-real-suite-follows-the-protocol",
+    "covers: B33 I9",
+    "4/4 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 2207,
+  "ran_at": "2026-09-03T22:49:50.137Z",
+  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "covers": [
+    "B33",
+    "I9"
+  ],
+  "phase": "verify"
+}

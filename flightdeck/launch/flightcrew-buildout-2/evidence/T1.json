@@ -1,0 +1,37 @@
+{
+  "id": "T1",
+  "command": "node flightdeck/testbench/suites/e2e/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  setup-temporary-repository",
+    "pass  launch-new",
+    "pass  launch-activate",
+    "pass  check-all-baseline",
+    "pass  launch-pin-tests-map",
+    "pass  launch-phase-plan",
+    "pass  plan-write",
+    "pass  launch-gate-g1-approve",
+    "pass  check-all-in-contracts",
+    "pass  launch-gate-g2-approve",
+    "pass  launch-phase-verify",
+    "pass  verify",
+    "pass  launch-phase-review",
+    "pass  launch-phase-report",
+    "pass  locked-reports-no-change",
+    "pass  launch-end-accepted",
+    "pass  artefacts-left-in-place",
+    "pass  report-headings-and-ledger",
+    "covers: B34",
+    "18/18 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 4666,
+  "ran_at": "2026-09-03T22:44:47.269Z",
+  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "covers": [
+    "B34"
+  ],
+  "phase": "verify"
+}

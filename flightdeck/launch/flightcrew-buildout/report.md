@@ -1,7 +1,7 @@
 # Run report · flightcrew-v1 · flightcrew-buildout
 spec: flightcrew-v1 v1 @ 5f69a94    kickoff: base@1+shape-workflow@1+task-feature@1
-started: 2026-09-03T21:58:43.709Z    ended: —    outcome: —
-cost: 9 agents · 0 stop blocks · 11 minutes · not recorded
+started: 2026-09-03T21:58:43.709Z    ended: 2026-09-03T22:43:49.716Z    outcome: abandoned
+cost: 9 agents · 0 stop blocks · 45 minutes · not recorded
 agents: 9    phases: targets → plan → contracts → implement → verify [recorded]
 
 ## Ledger [checked · reviewed · stated]
@@ -36,14 +36,15 @@ not run
 
 ## Phases [recorded · stated]
 
-| when                     | event | detail                 | provenance |
-| ------------------------ | ----- | ---------------------- | ---------- |
-| 2026-09-03T21:58:43.709Z | phase | targets to plan        | recorded   |
-| 2026-09-03T21:58:50.007Z | gate  | G1 approve             | recorded   |
-| 2026-09-03T21:58:50.007Z | phase | plan to contracts      | recorded   |
-| 2026-09-03T21:59:04.143Z | gate  | G2 approve             | recorded   |
-| 2026-09-03T21:59:04.143Z | phase | contracts to implement | recorded   |
-| 2026-09-03T22:05:15.436Z | phase | implement to verify    | recorded   |
+| when                     | event      | detail                 | provenance |
+| ------------------------ | ---------- | ---------------------- | ---------- |
+| 2026-09-03T21:58:43.709Z | phase      | targets to plan        | recorded   |
+| 2026-09-03T21:58:50.007Z | gate       | G1 approve             | recorded   |
+| 2026-09-03T21:58:50.007Z | phase      | plan to contracts      | recorded   |
+| 2026-09-03T21:59:04.143Z | gate       | G2 approve             | recorded   |
+| 2026-09-03T21:59:04.143Z | phase      | contracts to implement | recorded   |
+| 2026-09-03T22:05:15.436Z | phase      | implement to verify    | recorded   |
+| 2026-09-03T22:43:49.717Z | launch_end | abandoned              | recorded   |
 
 ## Agents [recorded · stated]
 

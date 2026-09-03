@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "launch": "flightcrew-buildout-2",
+  "spec": {
+    "name": "flightcrew-v1",
+    "version": 1,
+    "commit": "5f69a94"
+  },
+  "kickoff_version": "base@1+shape-workflow@1+task-feature@1",
+  "shape": "workflow",
+  "expected_cost": {
+    "agents": 12,
+    "minutes": 150
+  },
+  "models": {
+    "explore": "haiku",
+    "unit": "opus",
+    "critic": "fable"
+  },
+  "approach": "Retry of flightcrew-buildout after its wrong-check escalation. The implementation from run 1 stands at the build commit and is not rebuilt. This run carries the surviving work: verification against tests-map v2, a fresh critic pass with one fix pass, the run report, and the ending.",
+  "waves": [
+    {
+      "id": "W1",
+      "mode": "serial",
+      "units": [
+        "U8"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "U8",
+      "name": "proof",
+      "kind": "proof",
+      "spec_refs": [
+        "B33",
+        "B34"
+      ],
+      "checks": [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T8",
+        "T9",
+        "T10",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15",
+        "T16",
+        "T17",
+        "T18",
+        "T19",
+        "T20",
+        "T21",
+        "T22",
+        "T23",
+        "T24",
+        "T25",
+        "T26",
+        "T27",
+        "T28",
+        "T29"
+      ],
+      "owner": "verifier",
+      "budget_turns": 15,
+      "paths": [
+        "flightdeck/**"
+      ],
+      "depends_on": []
+    }
+  ],
+  "risks": [
+    {
+      "text": "run 1 was abandoned at verify because two locked cases asserted wrong values; tests-map v2 corrects them",
+      "reaction": "watch",
+      "source": "runlog"
+    },
+    {
+      "text": "a saved workflow file under .claude/workflows/ sits outside the allowed paths and is not part of this build",
+      "reaction": "watch",
+      "source": "explore"
+    }
+  ],
+  "gates": {
+    "G1": "this document",
+    "G2": "no contracts wave: T1 green since the lock commit",
+    "G3": "evidence display, critic findings, the three unverified lines, cost"
+  },
+  "abandon_triggers": [
+    {
+      "trigger": "any suite red at verify after tests-map v2",
+      "observable_by": "evidence/summary.json counts"
+    },
+    {
+      "trigger": "critic pass 2 still holds a blocking finding",
+      "observable_by": "review/pass-2.json"
+    }
+  ],
+  "no_contracts": {
+    "reason": "the contracts unit landed and was verified in flightcrew-buildout at the build commit; nothing is rebuilt in this run"
+  }
+}

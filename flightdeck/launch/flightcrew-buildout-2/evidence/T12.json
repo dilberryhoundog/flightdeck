@@ -1,0 +1,24 @@
+{
+  "id": "T12",
+  "command": "node flightdeck/testbench/suites/bin-runlog/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  stub-creates-run-log-with-accepted-entry",
+    "pass  stub-inserts-after-first-heading-newest-first",
+    "pass  stub-abandoned-carries-diagnosis-fields",
+    "pass  stub-partial-lists-landed-and-abandoned-units",
+    "pass  end-accepted-inserts-accepted-entry",
+    "covers: B20",
+    "5/5 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 5347,
+  "ran_at": "2026-09-03T22:48:24.474Z",
+  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "covers": [
+    "B20"
+  ],
+  "phase": "verify"
+}

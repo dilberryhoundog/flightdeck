@@ -1,0 +1,226 @@
+{
+  "base": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "changed": [
+    {
+      "path": ".claude/workflows/flightcrew-build.js",
+      "added": 128,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/RUNLOG.md",
+      "added": 14,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/events.jsonl",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence.html",
+      "added": 90,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T1.json",
+      "added": 37,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T10.json",
+      "added": 31,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T11.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T12.json",
+      "added": 24,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T13.json",
+      "added": 24,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T14.json",
+      "added": 50,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T15.json",
+      "added": 44,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T16.json",
+      "added": 34,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T17.json",
+      "added": 32,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T18.json",
+      "added": 35,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T19.json",
+      "added": 39,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T2.json",
+      "added": 80,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T20.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T21.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T22.json",
+      "added": 29,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T23.json",
+      "added": 24,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T24.json",
+      "added": 35,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T25.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T26.json",
+      "added": 63,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T27.json",
+      "added": 33,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T28.json",
+      "added": 25,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T29.json",
+      "added": 23,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T3.json",
+      "added": 62,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T4.json",
+      "added": 47,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T5.json",
+      "added": 49,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T6.json",
+      "added": 33,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T7.json",
+      "added": 46,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T8.json",
+      "added": 44,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/T9.json",
+      "added": 34,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/boundary.json",
+      "added": 223,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/summary.json",
+      "added": 295,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/kickoff.md",
+      "added": 46,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/launch.json",
+      "added": 118,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/plan.json",
+      "added": 108,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/plan.md",
+      "added": 27,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/escalation.json",
+      "added": 0,
+      "removed": 7
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/events.jsonl",
+      "added": 1,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence.html",
+      "added": 3,
+      "removed": 2
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/launch.json",
+      "added": 4,
+      "removed": 4
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/report.md",
+      "added": 11,
+      "removed": 10
+    }
+  ],
+  "locked": []
+}

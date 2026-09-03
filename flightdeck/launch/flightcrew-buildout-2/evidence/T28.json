@@ -1,0 +1,25 @@
+{
+  "id": "T28",
+  "command": "node flightdeck/testbench/suites/manifest/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  manifest-exists-with-path-lines",
+    "pass  every-path-exists-and-is-non-empty",
+    "pass  paths-are-repository-relative-under-flightdeck",
+    "pass  lists-every-file-the-scope-names",
+    "pass  no-launch-folder-other-than-specs-and-the-buildout",
+    "covers: B38 I13",
+    "5/5 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 47,
+  "ran_at": "2026-09-03T22:50:20.946Z",
+  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "covers": [
+    "B38",
+    "I13"
+  ],
+  "phase": "verify"
+}

@@ -95,7 +95,9 @@
       ],
       "outside": [
         "`flightdeck/blackbox/`, `flightdeck/hangar/`, `flightdeck/missions/`, `flightdeck/radar/`,",
-        "./library/, dev/, .claude/, User facing locations only. "
+        "./library/, dev/, .claude/, User facing locations only. ",
+        "dev-workspace skill",
+        "commit history or former files. this is a clean install. you have the approved references"
       ]
     },
     "constraints": {
@@ -139,7 +141,7 @@
       "other": []
     },
     "exec": {
-      "strategy": "",
+      "strategy": "Workflow — custom",
       "economy": "",
       "roster": [],
       "text": ""

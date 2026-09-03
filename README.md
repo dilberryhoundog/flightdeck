@@ -1,3 +1,3 @@
 # FlightDeck
 
-A toolkit for agentic software building. Human in the loop (controltower), and orchestrated runs (flightcrew) 
+A toolkit for agentic software building. Human in the loop (hangar), and orchestrated runs (flightcrew, launch) 

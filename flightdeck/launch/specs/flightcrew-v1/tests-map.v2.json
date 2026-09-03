@@ -2,7 +2,8 @@
   "schema_version": 1,
   "name": "flightcrew-v1",
   "version": 2,
-  "status": "draft",
+  "status": "frozen",
+  "commit": "5cad9b9",
   "reason": "two locked cases asserted wrong values (T11 expected 2 added lines where git numstat reports 3; T24 import scanner matched a string literal); the cases are corrected and every check is re-baselined against the built tree",
   "spec": {
     "name": "flightcrew-v1",

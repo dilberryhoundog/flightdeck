@@ -1,0 +1,323 @@
+# Liftoff — how this run is conducted.
+#
+# The spec says what the result is. This file says how the run that produces
+# it will be run. The orchestrator reads it first and treats every active
+# value as an instruction; commented values are alternatives, not suggestions.
+# Uncomment one alternative and comment the current default to change an
+# option. Never leave two values active for the same key.
+#
+# Every path is relative to the repository root unless stated otherwise.
+
+# ---------------------------------------------------------------------------
+# Identity
+# ---------------------------------------------------------------------------
+run:
+  id: run-0001                      # unique per run; also the run branch and run directory name
+  title: ""                         # short human title, appears in the report header
+  attempt: 1                        # increments per attempt at the same spec version; names the version branch
+  purpose: build                    # the run builds a new result from the spec
+  # purpose: improve                # the run revises an existing result against a revised spec
+  # purpose: dry                    # the run plans and holds the plan gate, then stops; no workers dispatched
+
+# ---------------------------------------------------------------------------
+# References — the documents the orchestrator is given and nothing else
+# ---------------------------------------------------------------------------
+references:
+  spec: specs/<name>.md             # must be status: frozen with zero open questions
+  spec_id: ""                       # short id used in branch names, e.g. orchestration-v1
+  spec_version: ""                  # the frozen version, e.g. spec-v3; a re-frozen spec is a new version
+  crew: flightdeck/crew.json        # role manifest; agents are built from it by id
+  constitution: CLAUDE.md           # the repository's standing rules
+  run_log: flightdeck/run-log.md    # read for known failure modes; the run appends nothing to it, the human does
+  tests_map: ""                     # path to the tests map when targets were built before the run; empty means none exists
+  prior_reports: []                 # reports from earlier runs against the same spec, oldest first
+  templates:
+    worker_prompt: flightdeck/templates/worker.md
+    reviewer_mandate: flightdeck/templates/reviewer.md
+    report: flightdeck/templates/report.md
+    plan: flightdeck/templates/plan.md
+
+# ---------------------------------------------------------------------------
+# Directory setup — where run artefacts land
+# ---------------------------------------------------------------------------
+directories:
+  run_root: flightdeck/runs/${run.id}   # everything the run records goes under here
+  events: ${directories.run_root}/events.jsonl
+  checks: ${directories.run_root}/checks/      # one file per check run, named by check id and attempt
+  returns: ${directories.run_root}/returns/    # one file per worker return
+  plan: ${directories.run_root}/plan.md
+  review: ${directories.run_root}/review.md
+  report: ${directories.run_root}/report.md
+  display: ${directories.run_root}/display.md  # the live status file the human watches during the run
+  worktrees: .worktrees/${run.id}/             # one subdirectory per dispatched agent
+
+# ---------------------------------------------------------------------------
+# Git — branches, worktrees, commits
+# ---------------------------------------------------------------------------
+git:
+  base_branch: main                 # never touched by the run
+  run_branch: run/${references.spec_id}                     # one per spec; receives a version branch only through the final-gate PR
+  version_branch: ${git.run_branch}/${references.spec_version}-a${run.attempt}   # one per attempt; everything the run does lands here
+  isolation: worktree               # every writing agent gets its own worktree on a branch cut from the version branch
+  # isolation: branch               # own branch, shared tree (agents can see each other's files)
+  # isolation: none                 # shared tree (single-worker dry runs only)
+  commit_policy: atomic-per-unit    # one commit per unit, unit id in the message
+  # commit_policy: atomic-per-check # one commit per check turned green within a unit
+  merge_policy: fast-forward-only   # a unit that cannot fast-forward is rebased in its worktree by the same worker, then re-checked
+  # merge_policy: merge-commit      # merge commits allowed; conflicts resolved by the orchestrator
+  # merge_policy: squash            # loses per-check history
+  on_merge_conflict: return-to-worker
+  # on_merge_conflict: orchestrator-resolves
+  # on_merge_conflict: halt
+  prune_worktrees_on_exit: false    # keep worktrees for inspection; the human prunes after the run log entry
+  # prune_worktrees_on_exit: true
+
+# ---------------------------------------------------------------------------
+# Pull request — the final gate, as a single PR from version branch to run branch
+# ---------------------------------------------------------------------------
+# There is exactly one PR per attempt. It is opened when the run exits, on
+# every exit: accepted, halted, ceiling, abandoned. It contains every unit,
+# every commit, every failure. The human reads it as the final gate. Merging
+# it is acceptance. Leaving it is abandonment; the next attempt is a new
+# version branch and a new PR, and the old one stays as the record.
+pull_request:
+  from: ${git.version_branch}
+  to: ${git.run_branch}
+  # to: ${git.base_branch}          # skip the run branch (single-attempt specs only)
+  opened_by: orchestrator           # opened as the last act before the report is assembled
+  # opened_by: report-assembler     # opened by the assembler from the run directory alone
+  # opened_by: human                # the orchestrator leaves the branch; the human opens the PR
+  opened_on: every-exit             # accepted, halted, ceiling hit, abandoned: all produce the PR
+  # opened_on: accept-only
+  state: ready                      # the PR is the gate; it opens ready for the human to read
+  # state: draft
+  merge: human-only                 # nothing in the run merges this PR
+  auto_merge: never
+  delete_branch_on_merge: false     # cleanup is a separate step (see git.cleanup) because worktrees must go first
+  title_format: "${run.id} · ${references.spec_id} ${references.spec_version} · attempt ${run.attempt} · ${run.exit_reason}"
+  labels: [flightdeck, "${references.spec_id}", "${run.exit_reason}"]
+  # labels: []
+  body_source: report               # the PR body is the report, verbatim, in the report's reading order; nothing written freehand
+  # body_source: report-summary     # ledger and volunteered-by-nobody lines only, with a link to the full report
+  body_must_include:
+    - the ledger: every unit as landed, not landed with the recorded reason, unplanned, or discarded
+    - every check with command, exit code and summary line, verbatim, including failures
+    - the run-verifier's refutations and its verdict, or "not run" with the reason
+    - reviewer findings unedited, with states, including disputed
+    - unverified behaviours, test-file changes, boundary excursions
+    - agents dispatched, iterations per unit, ceilings hit, elapsed time
+    - the exit reason and the event that triggered it
+    - the orchestrator's notes, last, marked as stated
+    - path to the run directory and to the report
+  commits: all                      # every commit on the version branch is in the PR, including failed units and marker commits
+  reviewers: []                     # platform reviewers to request; the human is the reviewer of record
+  footer_flags:                     # machine-readable trailer lines at the end of the body
+    - "flightdeck-run: ${run.id}"
+    - "flightdeck-spec: ${references.spec_id} ${references.spec_version}"
+    - "flightdeck-attempt: ${run.attempt}"
+    - "flightdeck-exit: ${run.exit_reason}"
+    - "flightdeck-verifier: ${run.verifier_verdict}"
+    - "flightdeck-units: ${run.units_landed}/${run.units_planned}"
+
+# ---------------------------------------------------------------------------
+# Planning — the first thing the orchestrator does
+# ---------------------------------------------------------------------------
+planning:
+  mode: plan-first                  # decompose fully before any dispatch
+  # mode: rolling                   # plan the first wave, dispatch, plan the next wave from results
+  unit_size: small                  # one to three behaviours per unit; prefer more units to bigger ones
+  # unit_size: medium               # four to eight behaviours per unit
+  # unit_size: by-interface         # one unit per interface named in the spec, behaviours grouped under it
+  exploration: explorer-agents      # codebase questions go to explorer subagents; raw exploration never enters the orchestrator's context
+  # exploration: orchestrator-reads # the orchestrator reads the codebase itself (small repositories only)
+  # exploration: none               # the plan is written from the spec and references alone
+  max_explorer_calls: 12
+  plan_must_include:
+    - unit id and title
+    - spec refs (behaviour and edge-case ids) per unit
+    - mapped check ids per unit, or "unverified" with the spec's stated reason
+    - interfaces each unit consumes and produces
+    - assigned role id from the crew file
+    - paths the unit may write
+    - dispatch order and which units run in parallel
+
+# ---------------------------------------------------------------------------
+# Gates — where the run stops for the human
+# ---------------------------------------------------------------------------
+gates:
+  plan:
+    enabled: true                   # stop after planning; proceed only on approval
+    # enabled: false                # auto-approve the plan (dry runs and trusted setups only)
+    on_reject: exit                 # exit to the human; the run does not replan on its own
+    # on_reject: replan-once        # one replan with the human's edits, then a second plan gate
+  interfaces:
+    enabled: true                   # stop after the interface builder; human reads the interface diff and contract-check state
+    # enabled: false
+  unit_merge:
+    enabled: false                  # no gate per unit; unit-adversary findings route through the orchestrator's merge decision
+    # enabled: true                 # stop before every merge (slow; useful in early runs)
+    # enabled: on-findings          # stop only when the unit adversary returns findings
+  final:
+    enabled: true                   # always; the final gate IS the pull request (see pull_request): the human reads it, ledger first, and merges to accept or leaves it to abandon
+  approval_channel: interactive     # the orchestrator asks in-session and waits
+  # approval_channel: file          # the orchestrator writes a gate file and polls for an approval file
+  gate_timeout_minutes: 0           # 0 means wait indefinitely
+
+# ---------------------------------------------------------------------------
+# Dispatch — how workers are launched and retried
+# ---------------------------------------------------------------------------
+dispatch:
+  parallelism: 3                    # maximum concurrent workers
+  default_worker: worker-general    # crew role id for first attempt on every unit
+  # default_worker: worker-strong   # start every unit on the strong tier (expensive; for hard specs)
+  retry:
+    policy: escalate-once           # failure on default_worker gets one attempt on worker-strong with failing outputs attached; no third
+    # policy: same-tier-once        # one retry on the same role from the pre-attempt state
+    # policy: none                  # a failed unit is abandoned on first failure
+    from: pre-attempt-state         # retry starts from the worktree state before the failed attempt
+    # from: failed-diff             # retry starts from the failed attempt's diff (inherits the approach; not recommended)
+  unit_adversary: before-merge      # every complete unit is attacked from a fresh context before merge
+  # unit_adversary: on-request      # only when the orchestrator judges the unit risky
+  # unit_adversary: off
+  worker_context: unit-slice        # each worker receives only its unit's spec refs, interfaces, mapped checks and relevant source
+  # worker_context: full-spec       # each worker receives the whole spec (weaker isolation; for very small specs)
+  on_blocked: abandon-unit          # a blocked return after retries is recorded as not landed with the reason
+  # on_blocked: halt
+  on_contradiction: halt            # always; a contradiction-found return stops the run for a human decision
+
+# ---------------------------------------------------------------------------
+# Models — tier per role; the crew file states the tier, this file may override
+# ---------------------------------------------------------------------------
+models:
+  strong: opus                      # orchestrator, reviewer, worker-strong, spec roles
+  standard: sonnet                  # worker-general, interface-builder, test-builder, unit-adversary, run-verifier
+  small: haiku                      # explorer, report-assembler
+  overrides: {}                     # e.g. { unit-adversary: strong } to raise one role for this run
+
+# ---------------------------------------------------------------------------
+# Budgets and stop conditions — ceilings are exits, not obstacles
+# ---------------------------------------------------------------------------
+budgets:
+  max_agents: 20                    # total agents spawned across the run, retries included
+  max_iterations_per_unit: 8        # implement-run-fix cycles a worker may take before returning over-budget
+  max_units_not_landed: 2           # exceeding this halts the run as evidence about the setup
+  wall_clock_minutes: 180
+  spend_ceiling: 0                  # in whatever unit the harness reports; 0 means no spend ceiling (subscription)
+  stall:
+    definition: no-check-state-change
+    # definition: no-commit
+    # definition: no-event
+    window_minutes: 20              # a unit with no change in the defined signal for this long is stalled
+    on_stall: return-over-budget    # stalled worker is stopped and treated as an over-budget return
+    # on_stall: halt
+  on_ceiling: halt-and-report       # stop, assemble the report, surface where the budget went
+
+# ---------------------------------------------------------------------------
+# Verification — the executable definition of done
+# ---------------------------------------------------------------------------
+verification:
+  targets: prebuilt                 # tests map and checks exist before the run and are fixed
+  # targets: build-in-run           # the test-builder role runs first and the human holds a targets gate before planning
+  # targets: none                   # no executable checks; done is judged at the final gate by the human (early dogfood runs)
+  check_wrapper: flightdeck/bin/check   # runs a check by id, records output under directories.checks, exits with the check's code
+  check_commands:                   # how each check shape is invoked; the tests map names the check, this names the command
+    unit: ""
+    contract: ""
+    artefact: ""
+    acceptance: ""
+    lint: ""
+    types: ""
+    build: ""
+  test_files_writable_by: [test-builder]   # any other role changing a test file is a finding
+  diff_boundary:
+    source: spec-scope              # allowed paths derived from the spec's scope section by the test-builder
+    # source: explicit              # use the list below
+    # source: none                  # no boundary enforced (recorded as unverified in the report)
+    allowed_paths: []
+    on_excursion: record            # excursions are recorded in the ledger and reported; the run continues
+    # on_excursion: halt
+  baseline:
+    required: true                  # every behaviour check must fail before implementation for the right reason; a check that passes early is defective
+    # required: false
+  run_verifier: after-final-green   # the run-verifier attempts to refute the green after the last merge
+  # run_verifier: off
+  fix_pass: one                     # one fix pass for reviewer findings, then one re-verification, then stop
+  # fix_pass: none
+
+# ---------------------------------------------------------------------------
+# Review — independent judgement against intent
+# ---------------------------------------------------------------------------
+review:
+  reviewer: fresh-context           # the reviewer receives the spec, the diff and the mandate; never check outputs or the verifier's return
+  # reviewer: off                   # no independent review (recorded as unreviewed in the report)
+  scope: full-diff                  # the whole run branch diff against the whole spec
+  # scope: per-unit-only            # rely on unit adversaries alone
+  findings_filter: none             # the orchestrator never filters or softens findings
+  disputed_findings: mark-disputed  # findings the fix pass disputes are kept and marked, never removed
+
+# ---------------------------------------------------------------------------
+# Observability — what the human can watch
+# ---------------------------------------------------------------------------
+observability:
+  display: file                     # the display file is rewritten on every event
+  # display: terminal               # status is printed to the orchestrator's session
+  # display: both
+  display_contents:
+    - unit ledger with status per unit
+    - check results, latest attempt per check
+    - unverified behaviours
+    - test-file changes
+    - boundary excursions
+    - agents dispatched against max_agents
+    - iterations used per unit against the ceiling
+    - elapsed time against wall_clock_minutes
+  events: jsonl                     # one line per event: dispatch, return, check, merge, gate, halt
+  transcripts: retain-in-worktree   # worker transcripts stay with the worktree and never reach the orchestrator or the report
+  # transcripts: discard
+  notify_on: [gate, halt, ceiling]  # events that should interrupt the human
+  # notify_on: [gate, halt, ceiling, merge, unit-failure]
+
+# ---------------------------------------------------------------------------
+# Permissions — blast radius per role; the harness enforces, this declares
+# ---------------------------------------------------------------------------
+permissions:
+  enforcement: harness              # role allow and deny lists from the crew file are applied as the harness's own permission rules
+  # enforcement: prompt-only        # permissions stated in the agent body only (not enforced; early runs only)
+  network: none                     # no role has network access during the run
+  # network: [explorer]             # roles granted network, by id
+  shell: allow-listed               # only commands named in check_commands and read-only commands are permitted
+  # shell: unrestricted
+  paths:
+    read_denied: [.env, secrets/, flightdeck/runs/]   # no agent reads these; the orchestrator reads the run directory only through the assembler
+    write_denied_for_all: [CLAUDE.md, specs/, flightdeck/crew.json, flightdeck/liftoff*.yaml]
+
+# ---------------------------------------------------------------------------
+# Reporting — assembled from records, never from recollection
+# ---------------------------------------------------------------------------
+reporting:
+  assembler: report-assembler       # crew role id; runs from the run directory only
+  assemble_on: [final-gate, halt, ceiling, abandon]   # the report is assembled on every exit, not only on success
+  sections_order:
+    - header
+    - ledger
+    - verification
+    - review
+    - phases
+    - agents
+    - failures
+    - orchestrator-notes
+  provenance_marks: [recorded, checked, reviewed, stated]   # every section carries one
+  verdict_in_report: never          # the report never judges the run in its own voice
+
+# ---------------------------------------------------------------------------
+# Exit — what happens at the end, whichever end it is
+# ---------------------------------------------------------------------------
+exit:
+  on_any_exit: open-pr-and-report   # every exit opens the final-gate PR and assembles the report; see pull_request
+  on_accept: human-merges-pr        # acceptance is the human merging the PR into the run branch
+  on_abandon: leave-pr-open         # the PR, version branch, worktrees and run directory are all kept; the next attempt is a new version branch
+  # on_abandon: close-pr-keep-branch
+  human_afterwards:
+    - write the run log entry from the report, attributing every failure to one axis
+    - promote recurring findings into rules, templates or checks
+    - remove worktrees, then delete branches, for accepted attempts

@@ -7,6 +7,7 @@ The first half of this document takes the universal agentic principles in their 
 ## Agent Invariants
 
 - What is built is fixed; how it is built is not.
+- Outcomes are discovered, not built. The spec fixes the outcome; the way to it is found by iterating against a check, never by instruction.
 - A rule an agent should follow is a rule it will eventually break. Only a rule it cannot break holds.
 - Every passing result is presumed wrong until a fresh context has tried to break it and failed.
 - No agent grades its own work. The judge sees the result and the criteria, never the reasoning.
@@ -30,10 +31,8 @@ Under attended work the human supplied context one turn at a time: a file here, 
 - Author the context for the entire run, not the first step. Boundaries, exclusions and decided questions are written down before anything starts.
 - Keep the orchestrator's window clean. Workers and explorers return distilled summaries through handoffs; their raw investigation never enters the context that directs the run.
 - Load material where it is needed. Each role reads its own tailored context and nothing belonging to another role.
-
-<!--
-+ template everything, iterate improvements
--->
+- Template every recurring input. The spec, the plan, the tests map, the worker brief and the liftoff prompt are templates with slots, and a brief is rendered from them by a script, never composed freehand by the orchestrator. What is not a slot cannot reach the worker, so the boundary on what a role sees is structural rather than instructed, and the brief a worker was given is a recorded file rather than a recollection.
+- Iterate the templates, not the run. A failure diagnosed on the context axis is fixed in the template it came from, and a rule that recurs across runs is promoted into the template, a hook or the project's standing instructions. The templates are the part of the context that compounds; the run that used them is thrown away.
 
 ### Verification
 
@@ -77,16 +76,17 @@ Under attended work isolation meant not running two sessions on the same files, 
 - One worktree per worker. No two agents share a checkout.
 - One atomic commit per unit. Resumption is a checkout, never an unpicking of half-finished work.
 - Restart the agent, not the run. Completed agents replay from their saved results; only the failed one, and whatever started after it, runs again.
-- Order fan-outs so that cheap work finishes first. A failure part-way through a fan-out reruns everything dispatched after it, so expensive units are dispatched last.
+- Order fan-outs so that expensive work is dispatched first. A failure part-way through a fan-out reruns the failed unit and everything dispatched after it, so the units that cost most to repeat go earliest, where a later failure cannot reach them.
 
 ### Budgets and stop conditions
 
 Under attended work the budget was the human's patience: when a session had gone on too long or cost too much, they stopped it. A run has no patience to run out of, so every limit that was implicit has to be declared. Spend, retries, attempts per unit and the model tier at each stage are all ceilings written before the run starts, and the condition under which the run is stalled is defined as precisely as the condition under which it is done.
 
 - Completion is decided by a separate evaluator reading observable output, never by the working agent's own judgement. The condition names one end state, the check that proves it, the constraints that must hold, and a cap on turns.
-- A stalled state is defined in advance: several consecutive turns with no tool use, or two rounds that produce no new progress, ends the attempt. The harness enforces its own ceiling as well, ending a stop-hook loop after eight consecutive blocks.
+- A stalled state is declared in advance by the author, in the same terms as completion: for example, two rounds that produce no new progress end the attempt. The harness adds two ceilings of its own that need no declaring: a goal loop stops when the agent answers the evaluator for several turns without using a tool, and a stop hook is overridden after it blocks eight times in a row without progress. Neither is a substitute for the declared condition, which is the only one that knows what progress means for this run.
 - Retries are capped per unit, with the escalation path fixed: one stronger attempt from a clean state, then the run stops for a human.
-- Models are named per stage and the run's size is guided per run. The strongest model is reserved for judgement; cheaper models do the iteration.
+
+- Models are named per stage and the run's size is guided per run. Cheaper models do the iteration, and the strongest model is spent where a wrong answer costs the most to discover late: the plan, the interfaces and the final review. The harness's own completion evaluator runs on the small fast model and judges only what has been surfaced in the transcript, so its verdict confirms that a stated condition is visibly met and is not a judgement of the work.
 - The shape is proven on a small slice before the full run is paid for.
 
 ### Permissions and blast radius
@@ -101,7 +101,8 @@ Under attended work permissions were negotiated at the prompt: the agent asked, 
 
 ## Beyond the universal principles
 
-The principles that follow have no counterpart in attended work. The machinery behind most of them existed while a human was present, but it went unused for a sound reason: with someone at the terminal it was always faster to do the thing by hand, or push through, than to build the apparatus. A run removes that option. These six principles are what covers the ground the human used to cover without noticing.
+
+The principles that follow were never needed as principles under attended work. The machinery behind most of them existed while a human was present, but it went unused for a sound reason: with someone at the terminal it was always faster to do the thing by hand, or push through, than to build the apparatus. A run removes that option. These six principles are what covers the ground the human used to cover without noticing.
 
 ### Abandon failed runs
 
@@ -124,9 +125,10 @@ Abandoning runs is only affordable if running again is cheap, and running again 
 An unsupervised agent is only guaranteed to behave when it cannot do otherwise. An instruction that it should not do something is advisory; over enough turns and enough agents, it will be ignored at least once, and once is enough. Every guarantee a run relies on must therefore be enforced by something deterministic, a script or a permission rule that does not consult the agent, and every tool an agent uses must return output terse and unambiguous enough that there is no room for interpretation.
 
 - Enforce with hooks, not instructions. A check that must run, runs from a hook; a file that must not change is blocked by a rule.
-- Keep the toolset minimal and non-overlapping. If it is not obvious which tool applies, the agent will choose wrongly some of the time.
-- Return terse, unambiguous output, paginated or truncated where large, with errors that say what to do next rather than what went wrong internally.
-- Reach external services through command-line tools rather than raw API calls; they are the most context-efficient seam and their behaviour is already well understood.
+
+- Keep the toolset minimal and non-overlapping. Under attended work a wrong tool choice was corrected at the next prompt; in a run it is repeated by every agent that faces the same choice, and nobody is there to notice.
+- Return terse, unambiguous output, paginated or truncated where large, with errors that say what to do next. A worker that misreads a verbose result or an internal error has no one to ask, so the tool has to carry the correction itself.
+- Reach external services through command-line tools rather than raw API calls. Their output is compact and their behaviour is already well understood, which matters most when many agents pay the context cost at once and none can be watched.
 
 ### Checkpoints
 
@@ -137,11 +139,16 @@ Continuous steering is replaced by discrete gates: points at which the run eithe
 3. Each unit before merge. Its checks green and its adversary's findings answered.
 4. Final review. Test results and the reviewer's judgement of the whole, combined into the last gate.
 
-### Expressive freedom
+### Outcome discovery
 
-Expressive freedom is a coined term for a finding that runs against intuition: many agents, adequately managed, produce better work when given freedom of approach than when instructed directly. Direct instruction of many agents is not only too much overhead to write; it also fixes the one thing the agents are better placed to decide than the author, which is how to reach the target from where the code actually is. The working form is a bucket: the orchestrator supplies the objective, the output format and the boundaries, and the worker fills the bucket however it can. Cheaper models iterating against a red-and-green check, free to try approaches until one passes, outperform a single attempt from the strongest model instructed step by step. When they cannot fill the bucket, the response is to re-specify the bucket and go again, not to instruct harder.
+Outcomes are discovered, not built. The spec fixes the outcome; how to get there is discovered.
 
-The freedom is bounded on one side only. How the work is built is unconstrained; what is built is heavily controlled. The outcome, the interfaces, the constraints and the decided questions are fixed by the spec and are not the worker's to reinterpret. Freedom applies to the path and never to the destination, and a worker that widens its freedom into scope, edges or contracts is the case the adversary exists to catch.
+Under attended work the human built outcomes: instruct, watch, correct, and the result was built to the instruction. A run does not build to an instruction at all. It hands a worker the objective, the interfaces, the boundaries and a red-and-green check, then lets it attempt, read the result and attempt again until something passes. The worker discovers the outcome rather than building it, and the loop replaces the instruction. Anthropic's guidance says this from both sides: give the agent a check it can run and the loop closes on its own, and prompt with heuristics rather than rigid rules, because a fixed workflow did worse than no workflow at all.
+
+- The orchestrator supplies the target, never the method: objective, interfaces, boundaries and the check that decides pass or fail. There are no build instructions.
+- Attempts are the unit of steering. A worker gets a capped number of tries at one tier. Exhausting them earns one clean-state retry at a stronger tier, then the run stops for a human.
+- Discovery applies to the path, never to the destination. What is built is fixed by the spec, and a worker that widens its path into scope, edges or contracts is the adversary's target.
+- When the loop does not close, fix the target, not the instructions. A check that cannot be passed or a spec that cannot be met is a defect in the inputs, and the run is abandoned to improve them.
 
 ### Adversarial attack
 
@@ -161,3 +168,5 @@ An adversarial attack is a fresh-context attempt to break an artefact rather tha
 - Orchestrate subagents at scale with dynamic workflows — https://code.claude.com/docs/en/workflows
 - Keep Claude working toward a goal — https://code.claude.com/docs/en/goal
 - Create custom subagents — https://code.claude.com/docs/en/sub-agents
+- Automate actions with hooks — https://code.claude.com/docs/en/hooks-guide
+- Automated Weak-to-Strong Researcher — https://alignment.anthropic.com/2026/automated-w2s-researcher/

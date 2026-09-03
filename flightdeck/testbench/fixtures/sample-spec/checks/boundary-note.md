@@ -1,0 +1,3 @@
+# checks/
+
+This folder is the spec's own home for check scripts that have no natural place in the project: a scan that spans several source trees, a golden comparison, a script the map's commands call by the path `flightdeck/launch/specs/export-html/checks/<name>`. It sits inside `flightdeck/launch/specs/export-html/**`, which the tests map locks, so nothing here changes during a run. The export-html checks all have a project home (`tests/export/` for the behaviour, edge and contract tests, `scripts/` for the smoke and invariants scripts), so this folder holds only this note; a later map revision that needs a cross-tree check puts the script here and names it in the spec's verification text.

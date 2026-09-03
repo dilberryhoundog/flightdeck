@@ -1,0 +1,13 @@
+{
+  "unit": "U0",
+  "status": "green",
+  "branch": "export-html-1/contracts",
+  "worktree": ".claude/worktrees/export-html-1-contracts",
+  "spec_refs": ["I1", "I2"],
+  "checks": [{ "id": "T3", "exit": 0 }],
+  "artefacts": ["src/export/index.mjs"],
+  "commits": ["e5f6071"],
+  "iterations": 2,
+  "halt": null,
+  "notes": "exportProject signature and the warning shape in place; the first contract run failed on the warning key order and the second passed"
+}

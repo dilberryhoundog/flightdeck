@@ -1,0 +1,14 @@
+{
+  "id": "X1",
+  "question": "Where do assets live in the reference project and how do pages reference them?",
+  "stage": "planning",
+  "answer": "Assets are an array on the project object, each with id, path, type and base64 data; image blocks reference an asset by id, so inlining needs only a map from id to asset and no file reads.",
+  "confidence": "certain",
+  "pointers": ["tests/export/fixtures/reference-project.json", "src/export/index.mjs"],
+  "candidates": [
+    {
+      "domain": "risks",
+      "text": "both feature units edit src/export/index.mjs; wave order decides which lands first and the second may conflict"
+    }
+  ]
+}

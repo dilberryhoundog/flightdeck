@@ -1,0 +1,15 @@
+{
+  "ran_at": "2026-08-30T10:45:03Z",
+  "commit": "18293a4",
+  "counts": { "pass": 5, "fail": 0, "error": 0, "skipped": 0 },
+  "checks": [
+    { "id": "T1", "verdict": "pass", "covers": ["B1", "C2", "scope"] },
+    { "id": "T2", "verdict": "pass", "covers": ["B1", "B2", "B3", "B4", "B5"] },
+    { "id": "T3", "verdict": "pass", "covers": ["I1", "I2"] },
+    { "id": "T4", "verdict": "pass", "covers": ["E1", "E2", "E3"] },
+    { "id": "T5", "verdict": "pass", "covers": ["C1", "C2"] }
+  ],
+  "unverified": [],
+  "quarantined": [],
+  "uncovered": []
+}

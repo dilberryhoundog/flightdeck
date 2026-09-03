@@ -1,0 +1,30 @@
+{
+  "verdict": "gaps",
+  "pass": 1,
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "correctness-gap",
+      "severity": "blocking",
+      "spec_ref": "E3",
+      "file": "src/export/index.mjs",
+      "line": 62,
+      "text": "A block with no type field was rendered as an empty paragraph instead of being skipped with an unknown-block warning; E3 covers every type outside text, heading and image, and a missing type is outside that set.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F2",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "B2",
+      "file": "src/export/index.mjs",
+      "line": 41,
+      "text": "Two pages with the same slug produce two sections with the same id; no spec node states the outcome, so this is recorded for the next spec revision rather than fixed here.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    }
+  ]
+}

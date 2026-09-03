@@ -1,0 +1,559 @@
+{
+  "schema_version": 1,
+  "name": "flightcrew-v1",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial targets for the flightcrew-v1 build",
+  "spec": {
+    "name": "flightcrew-v1",
+    "version": 1,
+    "commit": "5f69a94"
+  },
+  "previous_versions": [],
+  "acceptance": "T1",
+  "fixture": "flightdeck/testbench/fixtures/sample-project",
+  "allowed_paths": [
+    "flightdeck/flightcrew/**",
+    "flightdeck/launch/**",
+    "flightdeck/testbench/**",
+    "flightdeck/manuals/**"
+  ],
+  "locked_paths": [
+    "flightdeck/testbench/suites/e2e/**",
+    "flightdeck/testbench/suites/bin-launch/**",
+    "flightdeck/testbench/suites/hooks-noop/**",
+    "flightdeck/testbench/suites/hooks-eventlog/**",
+    "flightdeck/testbench/suites/hooks-guards/**",
+    "flightdeck/testbench/suites/hooks-structural/**",
+    "flightdeck/testbench/suites/hooks-stopgate/**",
+    "flightdeck/testbench/suites/bin-check/**",
+    "flightdeck/testbench/suites/bin-boundary/**",
+    "flightdeck/testbench/suites/bin-report/**",
+    "flightdeck/testbench/suites/bin-evidence/**",
+    "flightdeck/testbench/suites/bin-runlog/**",
+    "flightdeck/testbench/suites/bin-plan/**",
+    "flightdeck/testbench/suites/validate-spec/**",
+    "flightdeck/testbench/suites/validate-tests-map/**",
+    "flightdeck/testbench/suites/validate-plan/**",
+    "flightdeck/testbench/suites/validate-launch/**",
+    "flightdeck/testbench/suites/lint-spec/**",
+    "flightdeck/testbench/suites/bin-dispatch/**",
+    "flightdeck/testbench/suites/bin-distribute/**",
+    "flightdeck/testbench/suites/bin-doctor/**",
+    "flightdeck/testbench/suites/crew/**",
+    "flightdeck/testbench/suites/run-all/**",
+    "flightdeck/testbench/suites/constraints/**",
+    "flightdeck/testbench/suites/hook-timing/**",
+    "flightdeck/testbench/suites/schemas/**",
+    "flightdeck/testbench/suites/templates/**",
+    "flightdeck/testbench/suites/manifest/**",
+    "flightdeck/testbench/suites/workflows/**",
+    "flightdeck/testbench/fixtures/**",
+    "flightdeck/testbench/lib/**",
+    "flightdeck/testbench/run-all.mjs",
+    "flightdeck/launch/specs/flightcrew-v1/**",
+    "flightdeck/manuals/spec/**",
+    "flightdeck/manuals/testing/**",
+    "flightdeck/manuals/versioning/**",
+    "flightdeck/manuals/rubrics/**",
+    "flightdeck/testbench/benches/rubrics/**",
+    "flightdeck/flightcrew/schemas/spec.schema.json",
+    "flightdeck/flightcrew/templates/spec.template.json",
+    "flightdeck/flightcrew/crew/spec-judge.md",
+    "flightdeck/flightcrew/crew/spec-attacker.md"
+  ],
+  "run_all": "node flightdeck/testbench/run-all.mjs",
+  "baseline": {
+    "commit": "88290d0",
+    "date": "2026-09-03",
+    "note": "nothing implemented; every suite except T23 fails for absence of its target; T23 proves the runner itself"
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "e2e",
+      "covers": [
+        "B34"
+      ],
+      "command": "node flightdeck/testbench/suites/e2e/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: pass  setup-temporary-repository"
+      }
+    },
+    {
+      "id": "T2",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-launch",
+      "covers": [
+        "B1",
+        "B2",
+        "B3",
+        "B32",
+        "B35",
+        "B41",
+        "B44",
+        "B45",
+        "B47",
+        "B49",
+        "B50",
+        "B52",
+        "B54",
+        "I1",
+        "E1",
+        "E3",
+        "E6",
+        "E7",
+        "E12",
+        "E15",
+        "E18",
+        "E20",
+        "E22",
+        "E24"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-launch/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  new-creates-launch-folder: fc launch new L1: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T3",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-noop",
+      "covers": [
+        "B4",
+        "C8",
+        "I7",
+        "E5",
+        "E13",
+        "E14"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-noop/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  no-launch-folder-event-log: event-log: exit code: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T4",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-eventlog",
+      "covers": [
+        "B5",
+        "B52",
+        "I5"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-eventlog/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  records-SessionStart: event-log on SessionStart: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T5",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-guards",
+      "covers": [
+        "B6",
+        "B7",
+        "B42",
+        "B53",
+        "I7"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-guards/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  lock-edit-locked-denied: Edit of a locked file: exit code: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T6",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-structural",
+      "covers": [
+        "B8",
+        "E9"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-structural/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  broken-mjs-blocks: broken .mjs: expected exit 2, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T7",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-stopgate",
+      "covers": [
+        "B9",
+        "B10",
+        "B11",
+        "B40",
+        "B41"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-stopgate/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  verify-red-blocks-with-id-code-and-output: first red run: exit code: expected exit 2, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T8",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-check",
+      "covers": [
+        "B12",
+        "B13",
+        "B36",
+        "B46",
+        "I6",
+        "E2",
+        "E8",
+        "E11",
+        "E17"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-check/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  check-all-runs-every-live-check-and-exits-0: fc check all on the ready launch: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T9",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-boundary",
+      "covers": [
+        "B14",
+        "B15",
+        "B16",
+        "B51"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-boundary/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  boundary-lists-changed-marks-outside-excludes-worktrees-and-runs-exits-2: fc boundary with changes outside the allowed paths: expected exit 2, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T10",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-report",
+      "covers": [
+        "B17",
+        "B18",
+        "I12",
+        "E4",
+        "E21"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-report/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  report-has-the-eight-headings-in-order: fc report: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T11",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-evidence",
+      "covers": [
+        "B19",
+        "B37"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-evidence/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  evidence-html-is-self-contained: fc evidence: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T12",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-runlog",
+      "covers": [
+        "B20"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-runlog/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  stub-creates-run-log-with-accepted-entry: fc runlog stub: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T13",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-plan",
+      "covers": [
+        "B21"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-plan/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  render-writes-headings-in-order: fc plan render: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T14",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "validate-spec",
+      "covers": [
+        "B22"
+      ],
+      "command": "node flightdeck/testbench/suites/validate-spec/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  golden-v1-clean: exit 1, expected 0 | output: at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T15",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "validate-tests-map",
+      "covers": [
+        "B23"
+      ],
+      "command": "node flightdeck/testbench/suites/validate-tests-map/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  positive-sample-map: validate-tests-map should exit 0 on the sample launch's pinned map: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T16",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "validate-plan",
+      "covers": [
+        "B24"
+      ],
+      "command": "node flightdeck/testbench/suites/validate-plan/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  positive-sample-plan: validate-plan should exit 0 on the sample plan: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T17",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "validate-launch",
+      "covers": [
+        "B25"
+      ],
+      "command": "node flightdeck/testbench/suites/validate-launch/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  positive-sample-launch: validate-launch should exit 0 on the sample launch without --resolve-commits: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T18",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "lint-spec",
+      "covers": [
+        "B26"
+      ],
+      "command": "node flightdeck/testbench/suites/lint-spec/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  positive-sample-spec: spec-readiness-lint should exit 0 on the sample spec with --repo at the sample project: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T19",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-dispatch",
+      "covers": [
+        "B27",
+        "B28",
+        "B43",
+        "B48",
+        "E19",
+        "E23"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-dispatch/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  worker-render-prompt-first-line-and-always-present-nodes: fc worker render U1: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T20",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-distribute",
+      "covers": [
+        "B29",
+        "E10"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-distribute/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  dry-run-lists-and-writes-nothing: fc distribute (dry run): expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T21",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-doctor",
+      "covers": [
+        "B30"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-doctor/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  doctor-passes-on-the-repository: fc doctor on the built repository: expected exit 0, got 1 | stdout: (empty) | stderr: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) / at node:internal/main/run_main_module:36:49 { / code: 'MODULE_NOT_FOUND', / requireStack: [] / } / Node.js v22.22.3"
+      }
+    },
+    {
+      "id": "T22",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "crew",
+      "covers": [
+        "B31",
+        "I10"
+      ],
+      "command": "node flightdeck/testbench/suites/crew/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  every-crew-file-carries-name-description-tools-model: role file present: \"explorer.md\" not in [\"spec-attacker.md\",\"spec-builder.md\",\"spec-judge.md\"]"
+      }
+    },
+    {
+      "id": "T23",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "run-all",
+      "covers": [
+        "B33",
+        "I9"
+      ],
+      "command": "node flightdeck/testbench/suites/run-all/run.mjs",
+      "baseline": {
+        "expect": "pass: the suite runner is a targets-stage deliverable and exists before implementation",
+        "observed": "pass: pass  runs-every-suite-in-name-order-one-line-each-exit-0"
+      }
+    },
+    {
+      "id": "T24",
+      "status": "ok",
+      "kind": "structural",
+      "name": "constraints",
+      "covers": [
+        "C1",
+        "C2",
+        "C3",
+        "C5",
+        "C6",
+        "C7",
+        "C9"
+      ],
+      "command": "node flightdeck/testbench/suites/constraints/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  C1-imports-are-node-builtins-or-relative-inside-scope: scan covers the spec-named scripts; absent: flightdeck/flightcrew/bin/fc.mjs, flightdeck/flightcrew/hooks/event-log.mjs, flightdeck/flightcrew/hooks/lock-guard.mjs, flightdeck/flightcrew/hooks/boundary-guard.mjs, flightdeck/flightcrew/hooks/structural-check.mjs, flightdeck/flightcrew/hooks/stop-gate.mjs, flightdeck/flightcrew/checks/validators/validate-spec.mjs, flightdeck/flightcrew/checks/validators/validate-tests-map.mjs, flightdeck/flightcrew/checks/validators/validate-plan.mjs, flightdeck/flightcrew/checks/validators/validate-launch.mjs, flightdeck/flightcrew/checks/validators/validate-kickoff.mjs, flightdeck/flightcrew/checks/validators/spec-readiness-lint.mjs, flightdeck/flightcrew/workflows/fc-implement.js, flightdeck/flightcrew/workflows/fc-review.js, flightdeck/flightcrew/workflo …"
+      }
+    },
+    {
+      "id": "T25",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hook-timing",
+      "covers": [
+        "C4"
+      ],
+      "command": "node flightdeck/testbench/suites/hook-timing/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  event-log-under-2000ms: hook script event-log.mjs exists"
+      }
+    },
+    {
+      "id": "T26",
+      "status": "ok",
+      "kind": "structural",
+      "name": "schemas",
+      "covers": [
+        "I2",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I8",
+        "I14"
+      ],
+      "command": "node flightdeck/testbench/suites/schemas/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  launch-schema-parses: /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/schemas/launch.schema.json does not exist"
+      }
+    },
+    {
+      "id": "T27",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "templates",
+      "covers": [
+        "I11",
+        "E16"
+      ],
+      "command": "node flightdeck/testbench/suites/templates/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  kickoff-parts-start-with-version-comment: ENOENT: no such file or directory, scandir '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/templates/kickoff'"
+      }
+    },
+    {
+      "id": "T28",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "manifest",
+      "covers": [
+        "B38",
+        "I13"
+      ],
+      "command": "node flightdeck/testbench/suites/manifest/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  manifest-exists-with-path-lines: flightdeck/flightcrew/MANIFEST.txt exists"
+      }
+    },
+    {
+      "id": "T29",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "workflows",
+      "covers": [
+        "B39"
+      ],
+      "command": "node flightdeck/testbench/suites/workflows/run.mjs",
+      "baseline": {
+        "expect": "fail: not implemented",
+        "observed": "fail: FAIL  passes-node-module-check: flightcrew/workflows exists"
+      }
+    }
+  ],
+  "quarantined": [],
+  "unverified": [],
+  "retired": []
+}

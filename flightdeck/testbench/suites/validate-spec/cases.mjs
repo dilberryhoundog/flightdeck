@@ -121,3 +121,11 @@ cases.push(
   { name: "warn-edge-condition-colon-outcome-is-clean", base: "v1", clean: true,
     mutate: (s) => { s.edges[0].text = "The schema is unreadable: the run halts and the path is named in the summary."; } },
 );
+
+// Invariant 13: the live ids and the retired ids together form an unbroken
+// 1..N in each prefix. Renaming the live B3 of the frozen golden to B4 leaves
+// B3 in neither the live arrays nor the registry, so the sequence has a hole.
+cases.push(
+  { name: "inv13-id-hole", base: "v2", rules: ["invariant-13"],
+    mutate: (s) => { s.behaviours[1].id = "B4"; } },
+);

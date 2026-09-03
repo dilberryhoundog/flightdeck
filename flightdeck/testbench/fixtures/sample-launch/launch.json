@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "name": "export-html-1",
+  "status": "active",
+  "phase": "review",
+  "created": "2026-08-30",
+  "spec": {
+    "name": "export-html",
+    "version": 1,
+    "commit": "a1b2c3d",
+    "file_commit": "a1b2c3d",
+    "path": "specs/export-html/spec.v1.json"
+  },
+  "tests_map": {
+    "version": 1,
+    "commit": "b2c3d4e",
+    "path": "specs/export-html/tests-map.v1.json"
+  },
+  "kickoff": {
+    "path": "kickoff.md",
+    "version": "base@1+shape-session@1+task-feature@1"
+  },
+  "base_commit": "c3d4e5f",
+  "lock_commit": "d4e5f60",
+  "branch": "run/export-html-1",
+  "previous_launch": null,
+  "allow_draft": false,
+  "paths": {
+    "allowed": ["src/export/**", "tests/export/**"],
+    "locked": ["tests/export/**", "flightdeck/launch/specs/export-html/**", "flightdeck/launch/export-html-1/specs/**"],
+    "enforce_boundary": true
+  },
+  "acceptance": "T1",
+  "structural": {
+    ".mjs": "node --check {file}",
+    ".js": "node --experimental-default-type=module --check {file}",
+    ".json": "node -e \"JSON.parse(require('node:fs').readFileSync(process.argv[1], 'utf8'))\" {file}",
+    ".sh": "sh -n {file}"
+  },
+  "ceilings": {
+    "agents": 12,
+    "implementers_concurrent": 4,
+    "turns_per_agent": 25,
+    "gate_iterations": 3,
+    "stop_blocks": 8,
+    "critic_passes": 2,
+    "minutes": 240,
+    "tokens": null,
+    "expected_tokens": null
+  },
+  "gates": {
+    "G1": { "status": "approved", "at": "2026-08-30T09:20:00Z", "note": "plan read against the spec; two parallel units and one proof unit accepted" },
+    "G2": { "status": "approved", "at": "2026-08-30T09:40:00Z", "note": "T3 green since lock; changed since lock confined to src/export/" },
+    "G3": { "status": "pending", "at": null }
+  },
+  "outcome": null,
+  "ended": null
+}

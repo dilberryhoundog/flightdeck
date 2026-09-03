@@ -1,0 +1,36 @@
+{
+  "name": "Field Notes & Sketches",
+  "pages": [
+    {
+      "slug": "welcome",
+      "title": "Welcome",
+      "blocks": [
+        { "type": "text", "text": "Notes from the field: <draft> pages & sketches." },
+        { "type": "image", "asset": "mark", "alt": "Field Notes mark" }
+      ]
+    },
+    {
+      "slug": "map",
+      "title": "Map",
+      "blocks": [
+        { "type": "heading", "text": "Where the notes were taken" },
+        { "type": "text", "text": "Three sites along the river, north to south." }
+      ]
+    },
+    {
+      "slug": "credits",
+      "title": "Credits",
+      "blocks": [
+        { "type": "text", "text": "Written and drawn in the field." }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "mark",
+      "path": "assets/mark.png",
+      "type": "image/png",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+    }
+  ]
+}

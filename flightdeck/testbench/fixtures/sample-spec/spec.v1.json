@@ -1,0 +1,130 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "export-html",
+  "version": 1,
+  "status": "frozen",
+  "commit": "a1b2c3d",
+  "reason": "initial: the export-html feature of the sample project, one self-contained document from one project object",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "A writer hands the exporter a project object and receives one self-contained HTML document that opens offline from a single file, with every problem in the input reported as a warning instead of a crash, so that publishing a project never depends on a network or on hand-fixing the output."
+  },
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "kind": "in",
+      "text": "src/export/: the exporter module and everything it needs to turn a project object into HTML."
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "kind": "in",
+      "text": "tests/export/: the behaviour, edge and contract checks and the reference project fixture they run against."
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "kind": "out",
+      "text": "A command-line binary, an export dialog, PDF or Markdown output, and fetching assets over the network: none of these are built; the exporter is a library function only."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "status": "ok",
+      "text": "Every import in src/export/ is a node: built-in or a relative path inside src/export/; none of node:http, node:https, node:net, node:dgram or node:tls is imported, and fetch is never called."
+    },
+    {
+      "id": "C2",
+      "status": "ok",
+      "text": "The exported document references no external location: no src, href, srcset or action attribute value starts with http:, https: or //, and no style contains url( or @import."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I1",
+      "status": "ok",
+      "name": "exportProject",
+      "reuse": null,
+      "text": "src/export/index.mjs exports exportProject(project, options) where options is {inlineAssets: boolean, default true}; it returns {html: string, warnings: [Warning]} and returns normally for every project object, reporting input problems through warnings."
+    },
+    {
+      "id": "I2",
+      "status": "ok",
+      "name": "Project and Warning",
+      "reuse": "tests/export/fixtures/reference-project.json",
+      "text": "Project = {name: string, pages: [{slug: string, title: string, blocks: [{type: text | heading | image, text?: string, asset?: string, alt?: string}]}], assets: [{id: string, path: string, type: string, data: base64 string}]}, instantiated by tests/export/fixtures/reference-project.json; Warning = {code: missing-asset | no-pages | unknown-block, message: string, page: slug or null}."
+    }
+  ],
+  "behaviours": [
+    {
+      "id": "B1",
+      "status": "ok",
+      "text": "exportProject returns html that starts with <!doctype html> and contains exactly one <title> element whose text is the project name, HTML-escaped."
+    },
+    {
+      "id": "B2",
+      "status": "ok",
+      "text": "Each page in project.pages renders as a <section> whose id attribute is the page slug and whose first child is an <h2> holding the page title, and the sections appear in the order of project.pages."
+    },
+    {
+      "id": "B3",
+      "status": "ok",
+      "text": "With inlineAssets true, an image block whose asset id exists renders as an <img> whose src is a data: URI built from the asset type and its base64 data."
+    },
+    {
+      "id": "B4",
+      "status": "ok",
+      "text": "With inlineAssets false, an image block whose asset id exists renders as an <img> whose src is the asset path unchanged."
+    },
+    {
+      "id": "B5",
+      "status": "ok",
+      "text": "The text of text and heading blocks is HTML-escaped: &, < and > in block text appear in the html as &amp;, &lt; and &gt;, so no block text can open a tag."
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "status": "ok",
+      "text": "An image block names an asset id that no asset carries: the image is omitted from the html, warnings gains an entry with code missing-asset naming the page slug and the asset id, and exportProject returns normally."
+    },
+    {
+      "id": "E2",
+      "status": "ok",
+      "text": "The project has zero pages: the html still carries the doctype, the title and a body with no <section>, and warnings gains one entry with code no-pages."
+    },
+    {
+      "id": "E3",
+      "status": "ok",
+      "text": "A block has a type outside text, heading and image: the block is skipped, warnings gains an entry with code unknown-block naming the page slug and the type, and every other block on the page still renders."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "ok",
+      "text": "One HTML file with inline styles and inline assets by default, because opening offline from a single file is the point; there is no external stylesheet and no asset folder to ship."
+    },
+    {
+      "id": "D2",
+      "status": "ok",
+      "text": "Input problems are returned as warnings and never thrown, because the caller decides whether a missing asset stops a publish; only a project that is not an object is a programming error."
+    }
+  ],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": "Five checks, each run from the repository root. T1 (acceptance): node scripts/export-smoke.mjs exports the reference project with default options and exits 0 only when the html starts with the doctype, references no external location and warnings is empty. T2: node --test tests/export/behaviours.test.mjs proves B1, B2, B3, B4 and B5 with one named test per behaviour. T3: node --test tests/export/contract.test.mjs proves I1 and I2 against the fixture. T4: node --test tests/export/edges.test.mjs proves E1, E2 and E3 with one named test per edge. T5: node scripts/export-invariants.mjs proves C1 and C2 by scanning src/export/ and the exported html; it runs at gates only. The end-to-end proof is T1."
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": "T1 to T5 pass at the frozen map's commit with their raw output on the evidence page, the diff touches only src/export/ and tests/export/, and the owner opens the exported reference project from a single file with no network and sees every page in order."
+  },
+  "open_questions": []
+}

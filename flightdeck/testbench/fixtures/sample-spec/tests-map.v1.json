@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "name": "export-html",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial: one check per verification entry of spec v1, T1 as acceptance; baseline recorded against the complete sample implementation",
+  "spec": { "name": "export-html", "version": 1, "commit": "a1b2c3d" },
+  "previous_versions": [],
+  "acceptance": "T1",
+  "fixture": "tests/export/fixtures/reference-project.json",
+  "allowed_paths": ["src/export/**", "tests/export/**"],
+  "locked_paths": ["tests/export/**", "flightdeck/launch/specs/export-html/**"],
+  "run_all": "node --test tests/export/behaviours.test.mjs tests/export/contract.test.mjs tests/export/edges.test.mjs && node scripts/export-smoke.mjs && node scripts/export-invariants.mjs",
+  "baseline": {
+    "commit": "a1b2c3d",
+    "date": "2026-08-29",
+    "note": "every check passes at baseline because the sample project ships its implementation complete; each observed word agrees with its expect word"
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "status": "ok",
+      "kind": "artefact",
+      "class": "deterministic",
+      "name": "export smoke",
+      "covers": ["B1", "C2", "scope"],
+      "command": "node scripts/export-smoke.mjs",
+      "baseline": {
+        "expect": "pass: the sample implementation is complete",
+        "observed": "pass: export-smoke: ok (3 pages, 1 asset, 0 warnings)"
+      }
+    },
+    {
+      "id": "T2",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "behaviours",
+      "covers": ["B1", "B2", "B3", "B4", "B5"],
+      "command": "node --test tests/export/behaviours.test.mjs",
+      "baseline": {
+        "expect": "pass: the sample implementation is complete",
+        "observed": "pass: TAP version 13"
+      }
+    },
+    {
+      "id": "T3",
+      "status": "ok",
+      "kind": "structural",
+      "class": "deterministic",
+      "name": "contract",
+      "covers": ["I1", "I2"],
+      "command": "node --test tests/export/contract.test.mjs",
+      "baseline": {
+        "expect": "pass: the sample implementation is complete",
+        "observed": "pass: TAP version 13"
+      }
+    },
+    {
+      "id": "T4",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "edges",
+      "covers": ["E1", "E2", "E3"],
+      "command": "node --test tests/export/edges.test.mjs",
+      "baseline": {
+        "expect": "pass: the sample implementation is complete",
+        "observed": "pass: TAP version 13"
+      }
+    },
+    {
+      "id": "T5",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "invariants",
+      "covers": ["C1", "C2"],
+      "command": "node scripts/export-invariants.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "pass: the sample implementation is complete",
+        "observed": "pass: export-invariants: ok (1 source file scanned, 2 exports checked)"
+      },
+      "note": "gate only by decision: it scans every source file and both export modes, which the inner loop does not need on every turn"
+    }
+  ],
+  "quarantined": [],
+  "unverified": [],
+  "retired": []
+}

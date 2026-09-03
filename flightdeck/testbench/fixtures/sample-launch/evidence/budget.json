@@ -1,0 +1,15 @@
+{
+  "ran_at": "2026-08-30T11:50:00Z",
+  "counts": {
+    "agents": { "count": 8, "ceiling": 12 },
+    "stop_blocks": { "count": 1, "ceiling": 8 },
+    "consecutive_stop_blocks": { "count": 0, "ceiling": 3 },
+    "critic_passes": { "count": 1, "ceiling": 2 },
+    "minutes": { "count": 165, "ceiling": 240 },
+    "tokens": { "count": 193350, "ceiling": null },
+    "tool_failures": { "count": 1, "ceiling": null },
+    "permission_denials": { "count": 1, "ceiling": null },
+    "compactions": { "count": 1, "ceiling": null }
+  },
+  "exceeded": []
+}

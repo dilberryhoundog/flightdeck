@@ -1,0 +1,13 @@
+{
+  "unit": "U3",
+  "status": "green",
+  "branch": "export-html-1/proof",
+  "worktree": ".claude/worktrees/export-html-1-proof",
+  "spec_refs": ["B1"],
+  "checks": [{ "id": "T1", "exit": 0 }],
+  "artefacts": ["src/export/index.mjs"],
+  "commits": ["18293a4"],
+  "iterations": 1,
+  "halt": null,
+  "notes": "integration of U1 and U2 verified with the acceptance smoke on the reference project; no source change beyond a comment"
+}

@@ -20,6 +20,8 @@ Use these headings.
 
 ```
 
+Unless instructed. Do NOT read any other files or do web searches.
+
 ## what to do
 Find where the work doesn't meet the criteria, you are only finished when you either hold findings or can account, part by part, for why none exist.
 

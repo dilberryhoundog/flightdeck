@@ -1,0 +1,35 @@
+{
+  "id": "T24",
+  "command": "node flightdeck/testbench/suites/constraints/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 2,
+  "verdict": "fail",
+  "stdout_tail": [
+    "FAIL  C1-imports-are-node-builtins-or-relative-inside-scope: flightdeck/testbench/suites/bin-evidence/run.mjs: bare specifier 'x'",
+    "pass  C1-no-package-json-node-modules-or-lock-files",
+    "pass  C6-no-network-modules-and-no-fetch",
+    "pass  C5-markdown-carries-no-session-phrases",
+    "pass  C9-manuals-at-most-150-lines",
+    "pass  C3-success-prints-at-most-one-line-and-exit-codes",
+    "pass  C2-commands-and-hooks-write-only-inside-their-launch-root",
+    "pass  C7-run-all-leaves-tmpdir-and-git-status-unchanged",
+    "pass  C7-run-all-fails-on-a-tmpdir-leak-or-a-stray-file",
+    "pass  C7-suites-create-temp-dirs-only-with-cleanup",
+    "covers: C1 C2 C3 C5 C6 C7 C9",
+    "9/10 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 6917,
+  "ran_at": "2026-09-03T22:09:16.004Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "C1",
+    "C2",
+    "C3",
+    "C5",
+    "C6",
+    "C7",
+    "C9"
+  ],
+  "phase": "verify"
+}

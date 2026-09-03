@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flightcrew/schemas/worker-return.schema.json",
+  "title": "Worker return",
+  "description": "launch/<L>/returns/<unit>.json: what one implementer did with one unit. status green means every named check passed on the unit branch; red means it did not; halt means the unit stopped and says why. fc worker merge acts on a green return only.",
+  "type": "object",
+  "required": ["unit", "status", "branch", "worktree", "spec_refs", "checks", "artefacts", "commits", "iterations", "halt", "notes"],
+  "additionalProperties": false,
+  "properties": {
+    "unit": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["green", "red", "halt"] },
+    "branch": { "type": "string", "description": "The unit branch, <launch>/<unit name>." },
+    "worktree": { "type": "string", "description": "The worktree the unit was built in." },
+    "spec_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "exit"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^T[0-9]+$" },
+          "exit": { "type": ["integer", "null"] }
+        }
+      }
+    },
+    "artefacts": { "type": "array", "items": { "type": "string", "minLength": 1 }, "description": "Repository-relative paths the unit wrote." },
+    "commits": { "type": "array", "items": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" } },
+    "iterations": { "type": "integer", "minimum": 0 },
+    "halt": {
+      "type": ["object", "null"],
+      "required": ["kind", "detail"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "type": "string", "enum": ["test-contradicts-spec", "unsatisfiable", "blocked", "budget", "boundary"] },
+        "detail": { "type": "string", "minLength": 1 }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

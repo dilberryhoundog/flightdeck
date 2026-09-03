@@ -1,0 +1,65 @@
+{
+  "unit": "U3",
+  "status": "green",
+  "branch": "flightcrew-buildout-v1",
+  "worktree": ".",
+  "spec_refs": [
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8",
+    "B9",
+    "B10",
+    "B11",
+    "B40",
+    "B42",
+    "B52",
+    "B53",
+    "C4",
+    "C8",
+    "I7",
+    "I14"
+  ],
+  "checks": [
+    {
+      "id": "T3",
+      "exit": 0
+    },
+    {
+      "id": "T4",
+      "exit": 0
+    },
+    {
+      "id": "T5",
+      "exit": 0
+    },
+    {
+      "id": "T6",
+      "exit": 0
+    },
+    {
+      "id": "T7",
+      "exit": 0
+    },
+    {
+      "id": "T25",
+      "exit": 0
+    }
+  ],
+  "artefacts": [
+    "flightdeck/flightcrew/hooks/lib.mjs",
+    "flightdeck/flightcrew/hooks/event-log.mjs",
+    "flightdeck/flightcrew/hooks/lock-guard.mjs",
+    "flightdeck/flightcrew/hooks/boundary-guard.mjs",
+    "flightdeck/flightcrew/hooks/structural-check.mjs",
+    "flightdeck/flightcrew/hooks/stop-gate.mjs",
+    "flightdeck/flightcrew/hooks/session-end.mjs",
+    "flightdeck/flightcrew/hooks/settings.fragment.json",
+    "flightdeck/flightcrew/hooks/README.md"
+  ],
+  "commits": [],
+  "iterations": 2,
+  "halt": null,
+  "notes": "The six hooks, the shared hook library and the settings fragment. The stop gate drives the gate modules of U1; the interface was confirmed during integration by running the whole hooks-stopgate suite against the built tree."
+}

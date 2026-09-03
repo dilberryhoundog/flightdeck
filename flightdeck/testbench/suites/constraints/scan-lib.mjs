@@ -115,8 +115,9 @@ export function stripCommentsAndStrings(src) {
 
 const PATTERNS = [
   /\bimport\s*\(\s*(['"])([^'"\n]+)\1/g,
-  /\b(?:import|export)\b[^;'"`]*?\bfrom\s*(['"])([^'"\n]+)\1/g,
-  /\bimport\s*(['"])([^'"\n]+)\1/g,
+  // Statement-anchored so a string literal holding text such as @import "x" or 'export from' is never read as a specifier.
+  /(?:^|[;\n])\s*(?:import|export)\b[^;'"`]*?\bfrom\s*(['"])([^'"\n]+)\1/gm,
+  /(?:^|[;\n])\s*import\s*(['"])([^'"\n]+)\1/gm,
   /\brequire\s*\(\s*(['"])([^'"\n]+)\1/g,
 ];
 

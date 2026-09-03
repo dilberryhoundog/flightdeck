@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flightcrew/schemas/event.schema.json",
+  "title": "Event line",
+  "description": "One JSON object per line of launch/<L>/events.jsonl. Recorded hook events: SessionStart, SessionEnd, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, PostToolUseFailure, PermissionDenied, PreCompact, PostCompact, Stop, WorktreeRemove; any other hook_event_name is ignored rather than recorded. Synthetic events written by fc: gate, phase, stop_block, stop_release, stall, trigger, escalation, lock_denied, boundary_denied, check_run, return, unit_merged, usage, launch_end. Detail keys allowed on a hook event: tool_name, file_path, command (first 200 characters), error, tool_error_code, permission_denial_reason, stop_reason, trigger, task_id, task_title, reason, mode, prompt (first 200 characters), transcript_path, worktree_path. Sibling file launch/<L>/hooks.log carries '<iso ts> <hook name> <message>' lines.",
+  "type": "object",
+  "required": ["ts", "event", "launch", "phase", "source", "detail"],
+  "additionalProperties": false,
+  "properties": {
+    "ts": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" },
+    "event": { "type": "string", "minLength": 1 },
+    "launch": { "type": "string", "minLength": 1 },
+    "phase": { "type": "string", "minLength": 1 },
+    "source": { "type": "string", "enum": ["hook", "fc", "stated"] },
+    "session_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "agent_type": { "type": "string" },
+    "detail": { "type": "object" }
+  }
+}

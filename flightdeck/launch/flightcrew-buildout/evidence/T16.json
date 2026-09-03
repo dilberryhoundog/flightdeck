@@ -1,0 +1,34 @@
+{
+  "id": "T16",
+  "command": "node flightdeck/testbench/suites/validate-plan/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  positive-sample-plan",
+    "pass  check-id-absent-from-map",
+    "pass  spec-ref-absent-from-spec",
+    "pass  abandon-triggers-empty",
+    "pass  parallel-wave-exceeds-implementers-concurrent",
+    "pass  budget-turns-exceeds-turns-per-agent",
+    "pass  budget-turns-exceeds-implementer-maxturns",
+    "pass  expected-agents-exceeds-ceiling",
+    "pass  unit-without-checks",
+    "pass  shape-differs-from-kickoff-part",
+    "pass  depends-on-names-later-wave",
+    "pass  no-contracts-unit-in-w0",
+    "pass  validator-script-accepts-the-sample-plan",
+    "pass  validator-script-refuses-a-check-absent-from-the-map",
+    "pass  first-parallel-wave-without-pilot",
+    "covers: B24",
+    "15/15 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 7245,
+  "ran_at": "2026-09-03T22:08:29.911Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "B24"
+  ],
+  "phase": "verify"
+}

@@ -1,0 +1,6 @@
+<!-- version: 1 -->
+## Shape: workflow
+The orchestrator hands a wave to a dynamic workflow script under flightcrew/workflows/ and keeps the session for the gates and the fc commands. Choose this shape only when a wave holds more units than the implementers_concurrent ceiling, so the fan-out needs a script to hold it; the orchestrator session, the gates, the fc commands and the stored returns are identical to the session shape.
+Dispatch: `/fc-implement` fans the wave's implementers, pilots first and the rest in chunks, and returns every payload; `/fc-review` runs the critic, fix and re-verify loop; `/fc-explore` fans the planning questions. The scripts only dispatch and return payloads: after a workflow completes, the orchestrator persists every payload with `fc return` and lands units with `fc worker merge`, exactly as in the session shape.
+Progress: the workflow's own phase lines while it runs, then the stored returns and the evidence page once it completes; nothing counts as progress until it is stored through fc.
+Stopping: a workflow stops dispatching on the first halt payload and returns it; the orchestrator escalates it. Gates are never inside a script — the script ends and the session halts at the gate.

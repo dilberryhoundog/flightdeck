@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flightcrew/schemas/critic-findings.schema.json",
+  "title": "Critic findings",
+  "description": "launch/<L>/review/pass-<n>.json: one critic pass over the diff since lock_commit against the pinned spec. Pass files are never edited; a later state change to a finding is written to review/resolutions.json by fc return critic --resolve, and the report joins the two.",
+  "type": "object",
+  "required": ["verdict", "pass", "findings"],
+  "additionalProperties": false,
+  "properties": {
+    "verdict": { "type": "string", "enum": ["no gaps", "gaps"] },
+    "pass": { "type": "integer", "minimum": 1 },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "severity", "spec_ref", "file", "line", "text", "state", "resolved_commit", "dispute"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^F[0-9]+$" },
+          "kind": { "type": "string", "enum": ["correctness-gap", "scope-violation", "spec-conflict", "observation"] },
+          "severity": { "type": "string", "enum": ["blocking", "non-blocking"] },
+          "spec_ref": { "type": ["string", "null"], "description": "The spec node the finding is measured against." },
+          "file": { "type": ["string", "null"] },
+          "line": { "type": ["integer", "null"], "minimum": 0 },
+          "text": { "type": "string", "minLength": 1 },
+          "state": { "type": "string", "enum": ["open", "resolved", "disputed"] },
+          "resolved_commit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{7,40}$" },
+          "dispute": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

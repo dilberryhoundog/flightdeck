@@ -1,0 +1,54 @@
+{
+  "$schema": "../schemas/tests-map.schema.json",
+  "schema_version": "<integer, version of this schema>",
+  "name": "<spec name this map verifies>",
+  "version": "<integer, this file is tests-map.v<version>.json>",
+  "status": "<draft | frozen>",
+  "commit": "<hash at freeze, absent while draft>",
+  "reason": "<why this version exists, one line>",
+  "spec": {
+    "name": "<spec name>",
+    "version": "<integer, the spec version this map is pinned to>",
+    "commit": "<hash the spec was frozen at; a draft pin is recorded as allow_draft on the launch>"
+  },
+  "previous_versions": [
+    {
+      "v": "<integer>",
+      "file": "tests-map.v<n>.json",
+      "date": "<date frozen>",
+      "commit": "<hash>",
+      "reason": "<why that version existed, one line>",
+      "spec": { "name": "<spec name>", "version": "<integer>", "commit": "<hash>" }
+    }
+  ],
+  "acceptance": "T1",
+  "fixture": "<path to the fixture the checks run against>",
+  "allowed_paths": ["<glob a unit may write; non-empty when frozen>"],
+  "locked_paths": ["<glob no edit may touch during a run; non-empty when frozen>"],
+  "run_all": "<one command that runs every check, for a human at a terminal>",
+  "baseline": {
+    "commit": "<hash the baseline was recorded at>",
+    "date": "<date the baseline was recorded>",
+    "note": "<what the baseline run showed, one line>"
+  },
+  "checks": [
+    {
+      "id": "T<n>",
+      "status": "<ok | new | changed; every check is ok in v1>",
+      "kind": "<structural | behavioural | artefact | invariant | project-rule | statistical | judged>",
+      "class": "<deterministic | property | statistical | judged; required when the spec is agent-shaped>",
+      "name": "<short name for the check>",
+      "covers": ["<spec node id this check proves, or 'scope'>"],
+      "command": "<command run as /bin/sh -c from the launch root; never shown to a worker>",
+      "gate_only": "<boolean; true runs it under fc check all and the stop gate only>",
+      "baseline": {
+        "expect": "<pass|fail: what this check should do before the work, and why>",
+        "observed": "<pass|fail|error: the first output line of the baseline run; its first word matches expect when frozen>"
+      },
+      "note": "<required when this check is not ok>"
+    }
+  ],
+  "quarantined": [{ "id": "T<n>", "since": "<date>", "reason": "<why it is skipped>" }],
+  "unverified": [{ "id": "<spec node id no check covers>", "reason": "<why it is unverified>", "decided_by": "human" }],
+  "retired": [{ "id": "T<n>", "at": "<integer version this check was retired in>", "covers": ["<node it used to cover>"], "note": "<where its coverage went>" }]
+}

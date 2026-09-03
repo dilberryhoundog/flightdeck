@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flightcrew/schemas/explorer-return.schema.json",
+  "title": "Explorer return",
+  "description": "launch/<L>/returns/explore-<id>.json: one explorer's answer to one question. id echoes the dispatcher's X<n>. This shape is a declared superset of the shape a spec session dispatches an explorer with, so one schema serves both.",
+  "type": "object",
+  "required": ["id", "question", "stage", "answer", "confidence", "pointers", "candidates"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^X[0-9]+$" },
+    "question": { "type": "string", "minLength": 1 },
+    "stage": {
+      "type": "string",
+      "enum": ["intent", "scope", "constraints", "interfaces", "behaviours", "verification", "planning"]
+    },
+    "answer": { "type": "string", "minLength": 1 },
+    "confidence": { "type": "string", "enum": ["certain", "probable", "guess"] },
+    "pointers": { "type": "array", "items": { "type": "string", "minLength": 1 }, "description": "Files or locations the answer was read from." },
+    "candidates": {
+      "type": "array",
+      "description": "Findings the dispatcher may fold into a spec or plan domain.",
+      "items": {
+        "type": "object",
+        "required": ["domain", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "domain": { "type": "string", "minLength": 1 },
+          "text": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "../schemas/launch.schema.json",
+  "schema_version": "<integer, version of this schema>",
+  "name": "<launch folder name, unique under flightdeck/launch/>",
+  "status": "<draft | active | accepted | accepted-with-reservations | abandoned | partial; exactly one launch is active>",
+  "phase": "<targets | plan | contracts | implement | verify | review | report | ended, in that order>",
+  "created": "<date the launch was opened>",
+  "spec": {
+    "name": "<spec name, the folder under launch/specs/>",
+    "version": "<integer, the pinned spec.v<version>.json>",
+    "commit": "<hash the spec was frozen at, null while draft>",
+    "file_commit": "<hash of the last commit touching the spec file, informational, may be null>",
+    "path": "<path to the pinned copy, relative to this launch folder>"
+  },
+  "tests_map": {
+    "version": "<integer, the pinned tests-map.v<version>.json>",
+    "commit": "<hash the map was frozen at, null while draft>",
+    "path": "<path to the pinned copy, relative to this launch folder>"
+  },
+  "kickoff": {
+    "path": "<kickoff.md, relative to this launch folder>",
+    "version": "<base@N+shape-<s>@N+task-<t>@N, the assembled part versions>"
+  },
+  "base_commit": "<hash the launch was opened at>",
+  "lock_commit": "<hash at the tests-map pin; the base for boundary, locked and the critic diff; null until pinned>",
+  "branch": "<integration branch for this run, run/<name> by default>",
+  "previous_launch": "<name of the newest other launch for the same spec, or null>",
+  "allow_draft": "<boolean, true when activation or pinning accepted a draft>",
+  "paths": {
+    "allowed": ["<glob a unit may write, repository-relative>"],
+    "locked": ["<glob no edit may touch while the launch is past phase targets>"],
+    "enforce_boundary": "<boolean, true from the tests-map pin onwards>"
+  },
+  "acceptance": "<the acceptance check id, T1>",
+  "structural": {
+    "<file extension, with the dot>": "<command run after every edit of that extension, containing {file}>"
+  },
+  "ceilings": {
+    "agents": "<integer, subagent starts allowed>",
+    "implementers_concurrent": "<integer, implementers dispatched at once>",
+    "turns_per_agent": "<integer, at most the implementer's own maxTurns>",
+    "gate_iterations": "<integer, consecutive stop blocks allowed at a gate>",
+    "stop_blocks": "<integer, at most 8; the stop gate caps at min(this, 8)>",
+    "critic_passes": "<integer, review passes allowed>",
+    "minutes": "<integer, wall clock from first to last event>",
+    "tokens": "<integer ceiling, or null when tokens are not counted>",
+    "expected_tokens": "<integer the plan expects, or null>"
+  },
+  "gates": {
+    "G1": { "status": "<pending | approved | exited>", "at": "<iso timestamp, null while pending>", "note": "<what the human read, optional>" },
+    "G2": { "status": "<pending | approved | exited>", "at": "<iso timestamp, null while pending>" },
+    "G3": { "status": "<pending | approved | exited>", "at": "<iso timestamp, null while pending>" }
+  },
+  "outcome": "<the outcome given to fc launch end, null until then>",
+  "ended": "<iso timestamp of the ending, null until then>",
+  "accepted_units": ["<unit id kept by a partial ending; absent otherwise>"],
+  "abandoned_units": ["<unit id dropped by a partial ending; absent otherwise>"],
+  "landed": {
+    "commit": "<hash the run landed at>",
+    "pr": "<pull request url, or null>",
+    "integration_check": "<what proved the integration, or null>"
+  }
+}

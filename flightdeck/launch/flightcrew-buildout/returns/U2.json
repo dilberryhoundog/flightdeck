@@ -1,0 +1,97 @@
+{
+  "unit": "U2",
+  "status": "halt",
+  "branch": "flightcrew-buildout-v1",
+  "worktree": ".",
+  "spec_refs": [
+    "B1",
+    "B2",
+    "B3",
+    "B12",
+    "B13",
+    "B14",
+    "B15",
+    "B16",
+    "B17",
+    "B18",
+    "B19",
+    "B20",
+    "B21",
+    "B27",
+    "B28",
+    "B29",
+    "B30",
+    "B32",
+    "B34",
+    "B35",
+    "B36",
+    "B37",
+    "B41",
+    "B43",
+    "B44",
+    "B45",
+    "B46",
+    "B48",
+    "B50",
+    "B51"
+  ],
+  "checks": [
+    {
+      "id": "T1",
+      "exit": 0
+    },
+    {
+      "id": "T2",
+      "exit": 0
+    },
+    {
+      "id": "T8",
+      "exit": 0
+    },
+    {
+      "id": "T9",
+      "exit": 0
+    },
+    {
+      "id": "T10",
+      "exit": 0
+    },
+    {
+      "id": "T11",
+      "exit": 2
+    },
+    {
+      "id": "T12",
+      "exit": 0
+    },
+    {
+      "id": "T13",
+      "exit": 0
+    },
+    {
+      "id": "T19",
+      "exit": 0
+    },
+    {
+      "id": "T20",
+      "exit": 0
+    },
+    {
+      "id": "T21",
+      "exit": 0
+    }
+  ],
+  "artefacts": [
+    "flightdeck/flightcrew/bin/fc",
+    "flightdeck/flightcrew/bin/fc.mjs",
+    "flightdeck/flightcrew/bin/cmd/",
+    "flightdeck/flightcrew/bin/worker/"
+  ],
+  "commits": [],
+  "iterations": 3,
+  "halt": {
+    "kind": "test-contradicts-spec",
+    "detail": "Check T11 (suite bin-evidence), case changed-since-lock-lists-each-path-with-added-and-removed-counts, cannot be satisfied by any faithful reading of B37. The case appends a leading newline and two comment lines to a fixture file that already ends in a newline, so the commit adds three lines; git reports 3 added 0 removed under plain numstat and under -w, -b and --ignore-blank-lines alike. The case then requires the rendered row for that path to contain the number 2. B37 says the section shows each changed path with its added and removed line counts, so the only number the page may print is 3. Every other case of the suite passes. The suite is a locked target, so the unit reports rather than editing it."
+  },
+  "notes": "The fc shim, the entry and the nineteen command modules. Ten of the eleven named checks are green; the eleventh carries the halt above."
+}

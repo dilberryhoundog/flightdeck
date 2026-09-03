@@ -1,0 +1,32 @@
+{
+  "id": "T17",
+  "command": "node flightdeck/testbench/suites/validate-launch/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  positive-sample-launch",
+    "pass  status-outside-enumeration",
+    "pass  phase-outside-enumeration",
+    "pass  spec-path-does-not-exist",
+    "pass  spec-commit-differs-from-pinned-file",
+    "pass  stop-blocks-above-eight",
+    "pass  boundary-enforced-without-lock-commit",
+    "pass  boundary-enforced-with-empty-allowed-paths",
+    "pass  targets-phase-permits-unlocked-launch",
+    "pass  hash-shape-checked-without-resolve-commits",
+    "pass  validator-script-accepts-the-sample-launch",
+    "pass  validator-script-refuses-a-status-outside-the-enumeration",
+    "pass  resolve-commits-rejects-unknown-hashes",
+    "covers: B25",
+    "13/13 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 6395,
+  "ran_at": "2026-09-03T22:08:36.307Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "B25"
+  ],
+  "phase": "verify"
+}

@@ -1,0 +1,42 @@
+{
+  "unit": "U0",
+  "status": "green",
+  "branch": "flightcrew-buildout-v1",
+  "worktree": ".",
+  "spec_refs": [
+    "I2",
+    "I3",
+    "I4",
+    "I5",
+    "I6",
+    "I8"
+  ],
+  "checks": [
+    {
+      "id": "T26",
+      "exit": 0
+    }
+  ],
+  "artefacts": [
+    "flightdeck/flightcrew/schemas/tests-map.schema.json",
+    "flightdeck/flightcrew/schemas/plan.schema.json",
+    "flightdeck/flightcrew/schemas/launch.schema.json",
+    "flightdeck/flightcrew/schemas/event.schema.json",
+    "flightdeck/flightcrew/schemas/check-result.schema.json",
+    "flightdeck/flightcrew/schemas/explorer-return.schema.json",
+    "flightdeck/flightcrew/schemas/worker-return.schema.json",
+    "flightdeck/flightcrew/schemas/verifier-verdict.schema.json",
+    "flightdeck/flightcrew/schemas/critic-findings.schema.json",
+    "flightdeck/flightcrew/checks/lib/schema-lib.mjs",
+    "flightdeck/flightcrew/checks/lib/spec-lib.mjs",
+    "flightdeck/flightcrew/checks/lib/launch-lib.mjs",
+    "flightdeck/flightcrew/checks/lib/git-lib.mjs",
+    "flightdeck/flightcrew/checks/lib/glob-lib.mjs",
+    "flightdeck/flightcrew/checks/lib/output.mjs",
+    "flightdeck/flightcrew/checks/lib/render-lib.mjs"
+  ],
+  "commits": [],
+  "iterations": 1,
+  "halt": null,
+  "notes": "The nine new schemas and the seven check libraries every later unit imports. Units ran in the repository working tree rather than in per-unit worktrees, so the return carries no branch commits."
+}

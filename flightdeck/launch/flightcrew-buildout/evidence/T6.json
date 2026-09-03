@@ -1,0 +1,33 @@
+{
+  "id": "T6",
+  "command": "node flightdeck/testbench/suites/hooks-structural/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  broken-mjs-blocks",
+    "pass  good-mjs-silent",
+    "pass  write-tool-also-checked",
+    "pass  js-uses-configured-module-command",
+    "pass  json-command-runs",
+    "pass  path-with-space-is-shell-quoted",
+    "pass  path-with-quote-and-dollar-is-shell-quoted",
+    "pass  file-placeholder-is-absolute-path",
+    "pass  cwd-is-git-toplevel",
+    "pass  last-twenty-combined-lines-on-stderr",
+    "pass  unconfigured-extension-silent",
+    "pass  unconfigured-extension-when-structural-empty",
+    "pass  runs-in-every-phase",
+    "covers: B8 E9",
+    "13/13 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 7852,
+  "ran_at": "2026-09-03T22:07:14.438Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "B8",
+    "E9"
+  ],
+  "phase": "verify"
+}

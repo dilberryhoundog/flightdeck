@@ -1,0 +1,778 @@
+{
+  "base": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "changed": [
+    {
+      "path": ".claude/workflows/flightcrew-build.js",
+      "added": 128,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/MANIFEST.txt",
+      "added": 260,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/README.md",
+      "added": 35,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/boundary.mjs",
+      "added": 101,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/budget.mjs",
+      "added": 152,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/check.mjs",
+      "added": 406,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/critic.mjs",
+      "added": 56,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/distribute.mjs",
+      "added": 145,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/doctor.mjs",
+      "added": 304,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/events.mjs",
+      "added": 114,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/evidence.mjs",
+      "added": 277,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/launch.mjs",
+      "added": 860,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/lint.mjs",
+      "added": 27,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/locked.mjs",
+      "added": 71,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/plan.mjs",
+      "added": 163,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/report.mjs",
+      "added": 309,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/return.mjs",
+      "added": 123,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/runlog.mjs",
+      "added": 202,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/validate.mjs",
+      "added": 58,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/verifier.mjs",
+      "added": 55,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/verify.mjs",
+      "added": 86,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/worker.mjs",
+      "added": 215,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/fc",
+      "added": 4,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/fc.mjs",
+      "added": 377,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/worker/render.mjs",
+      "added": 398,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/worker/return.mjs",
+      "added": 136,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/gates/acceptance-gate.mjs",
+      "added": 177,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/gates/contracts-gate.mjs",
+      "added": 114,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/gates/structural-gate.mjs",
+      "added": 106,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/lib/git-lib.mjs",
+      "added": 259,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/lib/glob-lib.mjs",
+      "added": 101,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/lib/launch-lib.mjs",
+      "added": 372,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/lib/output.mjs",
+      "added": 112,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/lib/render-lib.mjs",
+      "added": 222,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/lib/schema-lib.mjs",
+      "added": 215,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/lib/spec-lib.mjs",
+      "added": 312,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/validators/spec-readiness-lint.mjs",
+      "added": 330,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/validators/validate-all.mjs",
+      "added": 164,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/validators/validate-kickoff.mjs",
+      "added": 256,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/validators/validate-launch.mjs",
+      "added": 209,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/validators/validate-plan.mjs",
+      "added": 336,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/validators/validate-return.mjs",
+      "added": 139,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/validators/validate-spec.mjs",
+      "added": 106,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/validators/validate-tests-map.mjs",
+      "added": 323,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/README.md",
+      "added": 40,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/critic.md",
+      "added": 53,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/explorer.md",
+      "added": 39,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/implementer.md",
+      "added": 45,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/orchestrator.md",
+      "added": 40,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/planner.md",
+      "added": 44,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/spec-builder.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/test-builder.md",
+      "added": 39,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/verifier.md",
+      "added": 38,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/README.md",
+      "added": 60,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/boundary-guard.mjs",
+      "added": 29,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/event-log.mjs",
+      "added": 74,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/lib.mjs",
+      "added": 264,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/lock-guard.mjs",
+      "added": 14,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/session-end.mjs",
+      "added": 38,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/settings.fragment.json",
+      "added": 107,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/stop-gate.mjs",
+      "added": 145,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/hooks/structural-check.mjs",
+      "added": 40,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/check-result.schema.json",
+      "added": 23,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/critic-findings.schema.json",
+      "added": 33,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/event.schema.json",
+      "added": 20,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/explorer-return.schema.json",
+      "added": 33,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/launch.schema.json",
+      "added": 171,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/plan.schema.json",
+      "added": 139,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/tests-map.schema.json",
+      "added": 161,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/verifier-verdict.schema.json",
+      "added": 28,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/schemas/worker-return.schema.json",
+      "added": 41,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/constitution-fragment.md",
+      "added": 7,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/critic-dispatch.template.md",
+      "added": 30,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/explorer-dispatch.template.md",
+      "added": 14,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/README.md",
+      "added": 24,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/base.md",
+      "added": 27,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/shape-session.md",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/shape-sessions.md",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/shape-workflow.md",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/task-agent.md",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/task-audit.md",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/task-feature.md",
+      "added": 5,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/task-migration.md",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/launch.template.json",
+      "added": 63,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/plan.template.json",
+      "added": 65,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/report.template.md",
+      "added": 58,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/runlog-entry.template.md",
+      "added": 50,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/tests-map.template.json",
+      "added": 54,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/verifier-dispatch.template.md",
+      "added": 31,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/worker-dispatch.template.md",
+      "added": 40,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/workflows/README.md",
+      "added": 37,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/workflows/fc-explore.js",
+      "added": 165,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/workflows/fc-implement.js",
+      "added": 278,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/workflows/fc-review.js",
+      "added": 497,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/README.md",
+      "added": 29,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/RUNLOG.md",
+      "added": 3,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/events.jsonl",
+      "added": 22,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence.html",
+      "added": 123,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T1.json",
+      "added": 37,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T10.json",
+      "added": 31,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T11.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T12.json",
+      "added": 24,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T13.json",
+      "added": 24,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T14.json",
+      "added": 50,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T15.json",
+      "added": 44,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T16.json",
+      "added": 34,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T17.json",
+      "added": 32,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T18.json",
+      "added": 35,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T19.json",
+      "added": 39,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T2.json",
+      "added": 80,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T20.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T21.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T22.json",
+      "added": 29,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T23.json",
+      "added": 24,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T24.json",
+      "added": 35,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T25.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T26.json",
+      "added": 63,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T27.json",
+      "added": 33,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T28.json",
+      "added": 25,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T29.json",
+      "added": 23,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T3.json",
+      "added": 62,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T4.json",
+      "added": 47,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T5.json",
+      "added": 49,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T6.json",
+      "added": 33,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T7.json",
+      "added": 46,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T8.json",
+      "added": 44,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/T9.json",
+      "added": 34,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/evidence/summary.json",
+      "added": 295,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/kickoff.md",
+      "added": 46,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/launch.json",
+      "added": 118,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/notes.md",
+      "added": 3,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/plan.json",
+      "added": 355,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/plan.md",
+      "added": 36,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/returns/U0.json",
+      "added": 42,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/returns/U1.json",
+      "added": 57,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/returns/U2.json",
+      "added": 97,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/returns/U3.json",
+      "added": 65,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/returns/U4.json",
+      "added": 32,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/returns/U5.json",
+      "added": 33,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout/returns/U6.json",
+      "added": 34,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/README.md",
+      "added": 75,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/harness/hooks.md",
+      "added": 63,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/harness/permissions.md",
+      "added": 81,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/harness/workflows.md",
+      "added": 60,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/launch/launch-anatomy.md",
+      "added": 114,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/crew.md",
+      "added": 81,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/endings.md",
+      "added": 100,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/journey.md",
+      "added": 103,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/kickoff.md",
+      "added": 89,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/planning.md",
+      "added": 115,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/review.md",
+      "added": 113,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/run-log.md",
+      "added": 80,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/run-report.md",
+      "added": 95,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/testbench/README.md",
+      "added": 40,
+      "removed": 0
+    }
+  ],
+  "outside": [
+    ".claude/workflows/flightcrew-build.js"
+  ]
+}

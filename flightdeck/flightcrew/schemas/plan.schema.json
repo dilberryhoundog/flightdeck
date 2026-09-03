@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flightcrew/schemas/plan.schema.json",
+  "title": "Plan",
+  "description": "launch/<L>/plan.json: the source of truth for the run's shape; plan.md is rendered from it and never hand-edited. Rules this schema cannot express, checked by validate-plan.mjs: every checks id exists in the pinned map; every spec_refs id is live in the pinned spec; depends_on names units in earlier waves; exactly one unit of kind contracts in the serial wave W0 unless no_contracts is set; at least one pilot in the first parallel wave; each parallel wave holds at most implementers_concurrent units; budget_turns <= turns_per_agent <= the implementer's maxTurns; expected_cost.agents <= ceilings.agents; every unit's checks is non-empty; shape equals the shape part named in the kickoff version.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "launch",
+    "spec",
+    "kickoff_version",
+    "shape",
+    "expected_cost",
+    "models",
+    "approach",
+    "waves",
+    "units",
+    "risks",
+    "gates",
+    "abandon_triggers"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "launch": { "type": "string", "minLength": 1 },
+    "spec": {
+      "type": "object",
+      "required": ["name", "version", "commit"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "integer", "minimum": 1 },
+        "commit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{7,40}$" }
+      }
+    },
+    "kickoff_version": { "type": "string", "minLength": 1, "description": "The '+'-joined list of part@version." },
+    "shape": { "type": "string", "enum": ["session", "workflow", "sessions"] },
+    "expected_cost": {
+      "type": "object",
+      "required": ["agents", "minutes"],
+      "additionalProperties": false,
+      "properties": {
+        "agents": { "type": "integer", "minimum": 0 },
+        "minutes": { "type": "integer", "minimum": 0 },
+        "tokens": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "models": {
+      "type": "object",
+      "required": ["explore", "unit", "critic"],
+      "additionalProperties": false,
+      "properties": {
+        "explore": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "critic": { "type": "string", "minLength": 1 }
+      }
+    },
+    "approach": { "type": "string", "minLength": 1, "description": "How the run is cut into units and why, in prose." },
+    "waves": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "mode", "units"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "mode": { "type": "string", "enum": ["serial", "parallel"] },
+          "units": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "kind", "spec_refs", "checks", "owner", "budget_turns", "paths", "depends_on"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1, "description": "Branch suffix: the unit branch is <launch>/<name>." },
+          "kind": { "type": "string", "enum": ["contracts", "feature", "integration", "proof"] },
+          "spec_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "checks": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^T[0-9]+$" } },
+          "owner": { "type": "string", "minLength": 1, "description": "Crew role name." },
+          "budget_turns": { "type": "integer", "minimum": 1 },
+          "paths": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "depends_on": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "pilot": { "type": "boolean" }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "reaction", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "reaction": { "type": "string", "enum": ["mitigate", "watch", "abandon"] },
+          "source": { "type": "string", "minLength": 1, "description": "Where the risk came from: an explorer id, a RUNLOG heading, the spec." }
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "required": ["G1", "G2", "G3"],
+      "additionalProperties": false,
+      "properties": {
+        "G1": { "type": "string", "minLength": 1 },
+        "G2": { "type": "string", "minLength": 1 },
+        "G3": { "type": "string", "minLength": 1 }
+      }
+    },
+    "abandon_triggers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["trigger", "observable_by"],
+        "additionalProperties": false,
+        "properties": {
+          "trigger": { "type": "string", "minLength": 1 },
+          "observable_by": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "no_contracts": {
+      "type": "object",
+      "required": ["reason"],
+      "additionalProperties": false,
+      "properties": {
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

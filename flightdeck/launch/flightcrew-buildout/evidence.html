@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence · flightcrew-buildout</title>
+<style>
+:root { color-scheme: light dark; --bg: #fbfbfa; --fg: #1b1b1a; --muted: #5f6360; --rule: #dcdcd8; --panel: #f2f2ef; --red: #8c2f24; --green: #1f6b3a; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #16181a; --fg: #e6e6e3; --muted: #9aa0a0; --rule: #2c3033; --panel: #1e2124; --red: #e2857a; --green: #7fc79a; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 1.5rem; background: var(--bg); color: var(--fg); font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; }
+main { max-width: 60rem; margin: 0 auto; }
+h1 { font-size: 1.4rem; margin: 0 0 0.5rem; }
+h2 { font-size: 1.05rem; margin: 2rem 0 0.5rem; padding-bottom: 0.25rem; border-bottom: 1px solid var(--rule); }
+h3 { font-size: 0.95rem; margin: 1.25rem 0 0.35rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+p.meta { margin: 0.2rem 0; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; }
+table { border-collapse: collapse; width: 100%; margin: 0.25rem 0; }
+th, td { text-align: left; padding: 0.25rem 0.6rem 0.25rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; font-size: 0.9rem; }
+th { color: var(--muted); font-weight: 600; }
+td.num { text-align: right; padding-right: 1.2rem; font-variant-numeric: tabular-nums; }
+pre { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 0.6rem 0.8rem; overflow-x: auto; white-space: pre; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82rem; }
+.pass { color: var(--green); }
+.fail, .error { color: var(--red); }
+ul { margin: 0.25rem 0; padding-left: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>Evidence · flightcrew-buildout</h1>
+<p class="meta">launch: flightcrew-buildout · spec: flightcrew-v1 v1 @ 5f69a94 · status: active</p>
+<p class="meta">phase: verify · last event: 2026-09-03T22:10:00.411Z · rendered: 2026-09-03T22:10:00.421Z</p>
+<p class="meta">checks: 27 pass · 2 fail · 0 error · 0 skipped at 49aff47990c6b7df60c2da3f8a57fb20cb366e01</p>
+<h2>Unverified</h2>
+—
+<h2>Quarantined</h2>
+—
+<h2>Test-file changes</h2>
+—
+<h2>Boundary</h2>
+<p class="meta">base: 49aff47990c6b7df60c2da3f8a57fb20cb366e01 · outside: 1 · locked: 0</p>
+<ul>
+  <li>.claude/workflows/flightcrew-build.js</li>
+</ul>
+<table>
+<thead><tr><th>path</th><th>boundary</th><th>lock</th></tr></thead>
+<tbody>
+<tr><td>.claude/workflows/flightcrew-build.js</td><td>outside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/MANIFEST.txt</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/boundary.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/budget.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/check.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/critic.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/distribute.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/doctor.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/events.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/evidence.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/launch.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/lint.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/locked.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/plan.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/report.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/return.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/runlog.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/validate.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/verifier.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/verify.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/worker.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/fc</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/fc.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/worker/render.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/bin/worker/return.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/gates/acceptance-gate.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/gates/contracts-gate.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/gates/structural-gate.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/git-lib.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/glob-lib.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/launch-lib.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/output.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/render-lib.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/schema-lib.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/spec-lib.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/spec-readiness-lint.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-all.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-kickoff.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-launch.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-plan.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-return.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-spec.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-tests-map.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/critic.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/explorer.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/implementer.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/orchestrator.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/planner.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/spec-builder.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/test-builder.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/verifier.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/boundary-guard.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/event-log.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/lib.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/lock-guard.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/session-end.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/settings.fragment.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/stop-gate.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/structural-check.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/check-result.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/critic-findings.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/event.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/explorer-return.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/launch.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/plan.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/tests-map.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/verifier-verdict.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/schemas/worker-return.schema.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/constitution-fragment.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/critic-dispatch.template.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/explorer-dispatch.template.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/base.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-session.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-sessions.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-workflow.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-agent.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-audit.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-feature.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-migration.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/launch.template.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/plan.template.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/report.template.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/runlog-entry.template.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/tests-map.template.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/verifier-dispatch.template.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/worker-dispatch.template.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/workflows/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/workflows/fc-explore.js</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/workflows/fc-implement.js</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/workflows/fc-review.js</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/RUNLOG.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/events.jsonl</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence.html</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T1.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T10.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T11.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T12.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T13.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T14.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T15.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T16.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T17.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T18.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T19.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T2.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T20.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T21.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T22.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T23.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T24.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T25.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T26.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T27.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T28.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T29.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T3.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T4.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T5.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T6.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T7.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T8.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T9.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/summary.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/kickoff.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/launch.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/notes.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/plan.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/plan.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U0.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U1.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U2.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U3.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U4.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U5.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U6.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/harness/hooks.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/harness/permissions.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/harness/workflows.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/launch/launch-anatomy.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/crew.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/endings.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/journey.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/kickoff.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/planning.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/review.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/run-log.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/run-report.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/testbench/README.md</td><td>inside</td><td></td></tr>
+</tbody>
+</table>
+<h2>Changed since lock</h2>
+<table>
+<thead><tr><th>path</th><th>added</th><th>removed</th></tr></thead>
+<tbody>
+<tr><td>.claude/workflows/flightcrew-build.js</td><td class="num">128</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/MANIFEST.txt</td><td class="num">260</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/README.md</td><td class="num">35</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/boundary.mjs</td><td class="num">101</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/budget.mjs</td><td class="num">152</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/check.mjs</td><td class="num">406</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/critic.mjs</td><td class="num">56</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/distribute.mjs</td><td class="num">145</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/doctor.mjs</td><td class="num">304</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/events.mjs</td><td class="num">114</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/evidence.mjs</td><td class="num">277</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/launch.mjs</td><td class="num">860</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/lint.mjs</td><td class="num">27</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/locked.mjs</td><td class="num">71</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/plan.mjs</td><td class="num">163</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/report.mjs</td><td class="num">309</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/return.mjs</td><td class="num">123</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/runlog.mjs</td><td class="num">202</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/validate.mjs</td><td class="num">58</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/verifier.mjs</td><td class="num">55</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/verify.mjs</td><td class="num">86</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/worker.mjs</td><td class="num">215</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/fc</td><td class="num">4</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/fc.mjs</td><td class="num">377</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/worker/render.mjs</td><td class="num">398</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/bin/worker/return.mjs</td><td class="num">136</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/gates/acceptance-gate.mjs</td><td class="num">177</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/gates/contracts-gate.mjs</td><td class="num">114</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/gates/structural-gate.mjs</td><td class="num">106</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/git-lib.mjs</td><td class="num">259</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/glob-lib.mjs</td><td class="num">101</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/launch-lib.mjs</td><td class="num">372</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/output.mjs</td><td class="num">112</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/render-lib.mjs</td><td class="num">222</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/schema-lib.mjs</td><td class="num">215</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/lib/spec-lib.mjs</td><td class="num">312</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/spec-readiness-lint.mjs</td><td class="num">330</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-all.mjs</td><td class="num">164</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-kickoff.mjs</td><td class="num">256</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-launch.mjs</td><td class="num">209</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-plan.mjs</td><td class="num">336</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-return.mjs</td><td class="num">139</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-spec.mjs</td><td class="num">106</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/checks/validators/validate-tests-map.mjs</td><td class="num">323</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/crew/README.md</td><td class="num">40</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/crew/critic.md</td><td class="num">53</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/crew/explorer.md</td><td class="num">39</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/crew/implementer.md</td><td class="num">45</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/crew/orchestrator.md</td><td class="num">40</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/crew/planner.md</td><td class="num">44</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/crew/spec-builder.md</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>flightdeck/flightcrew/crew/test-builder.md</td><td class="num">39</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/crew/verifier.md</td><td class="num">38</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/README.md</td><td class="num">60</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/boundary-guard.mjs</td><td class="num">29</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/event-log.mjs</td><td class="num">74</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/lib.mjs</td><td class="num">264</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/lock-guard.mjs</td><td class="num">14</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/session-end.mjs</td><td class="num">38</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/settings.fragment.json</td><td class="num">107</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/stop-gate.mjs</td><td class="num">145</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/structural-check.mjs</td><td class="num">40</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/check-result.schema.json</td><td class="num">23</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/critic-findings.schema.json</td><td class="num">33</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/event.schema.json</td><td class="num">20</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/explorer-return.schema.json</td><td class="num">33</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/launch.schema.json</td><td class="num">171</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/plan.schema.json</td><td class="num">139</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/tests-map.schema.json</td><td class="num">161</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/verifier-verdict.schema.json</td><td class="num">28</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/schemas/worker-return.schema.json</td><td class="num">41</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/constitution-fragment.md</td><td class="num">7</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/critic-dispatch.template.md</td><td class="num">30</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/explorer-dispatch.template.md</td><td class="num">14</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/README.md</td><td class="num">24</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/base.md</td><td class="num">27</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-session.md</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-sessions.md</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-workflow.md</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-agent.md</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-audit.md</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-feature.md</td><td class="num">5</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-migration.md</td><td class="num">6</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/launch.template.json</td><td class="num">63</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/plan.template.json</td><td class="num">65</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/report.template.md</td><td class="num">58</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/runlog-entry.template.md</td><td class="num">50</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/tests-map.template.json</td><td class="num">54</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/verifier-dispatch.template.md</td><td class="num">31</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/templates/worker-dispatch.template.md</td><td class="num">40</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/workflows/README.md</td><td class="num">37</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/workflows/fc-explore.js</td><td class="num">165</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/workflows/fc-implement.js</td><td class="num">278</td><td class="num">0</td></tr>
+<tr><td>flightdeck/flightcrew/workflows/fc-review.js</td><td class="num">497</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/README.md</td><td class="num">29</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/RUNLOG.md</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/events.jsonl</td><td class="num">22</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence.html</td><td class="num">123</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T1.json</td><td class="num">37</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T10.json</td><td class="num">31</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T11.json</td><td class="num">26</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T12.json</td><td class="num">24</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T13.json</td><td class="num">24</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T14.json</td><td class="num">50</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T15.json</td><td class="num">44</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T16.json</td><td class="num">34</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T17.json</td><td class="num">32</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T18.json</td><td class="num">35</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T19.json</td><td class="num">39</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T2.json</td><td class="num">80</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T20.json</td><td class="num">26</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T21.json</td><td class="num">26</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T22.json</td><td class="num">29</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T23.json</td><td class="num">24</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T24.json</td><td class="num">35</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T25.json</td><td class="num">26</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T26.json</td><td class="num">63</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T27.json</td><td class="num">33</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T28.json</td><td class="num">25</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T29.json</td><td class="num">23</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T3.json</td><td class="num">62</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T4.json</td><td class="num">47</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T5.json</td><td class="num">49</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T6.json</td><td class="num">33</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T7.json</td><td class="num">46</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T8.json</td><td class="num">44</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/T9.json</td><td class="num">34</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/evidence/summary.json</td><td class="num">295</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/kickoff.md</td><td class="num">46</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/launch.json</td><td class="num">118</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/notes.md</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/plan.json</td><td class="num">355</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/plan.md</td><td class="num">36</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U0.json</td><td class="num">42</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U1.json</td><td class="num">57</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U2.json</td><td class="num">97</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U3.json</td><td class="num">65</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U4.json</td><td class="num">32</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U5.json</td><td class="num">33</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout/returns/U6.json</td><td class="num">34</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/README.md</td><td class="num">75</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/harness/hooks.md</td><td class="num">63</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/harness/permissions.md</td><td class="num">81</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/harness/workflows.md</td><td class="num">60</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/launch/launch-anatomy.md</td><td class="num">114</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/orchestration/crew.md</td><td class="num">81</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/orchestration/endings.md</td><td class="num">100</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/orchestration/journey.md</td><td class="num">103</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/orchestration/kickoff.md</td><td class="num">89</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/orchestration/planning.md</td><td class="num">115</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/orchestration/review.md</td><td class="num">113</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/orchestration/run-log.md</td><td class="num">80</td><td class="num">0</td></tr>
+<tr><td>flightdeck/manuals/orchestration/run-report.md</td><td class="num">95</td><td class="num">0</td></tr>
+<tr><td>flightdeck/testbench/README.md</td><td class="num">40</td><td class="num">0</td></tr>
+</tbody>
+</table>
+<h2>Findings</h2>
+—
+<h2>Phases</h2>
+<table>
+<thead><tr><th>when</th><th>event</th><th>detail</th><th>source</th></tr></thead>
+<tbody>
+<tr><td>2026-09-03T21:58:43.709Z</td><td>phase</td><td>targets to plan</td><td>fc</td></tr>
+<tr><td>2026-09-03T21:58:50.007Z</td><td>gate</td><td>G1 approve</td><td>fc</td></tr>
+<tr><td>2026-09-03T21:58:50.007Z</td><td>phase</td><td>plan to contracts</td><td>fc</td></tr>
+<tr><td>2026-09-03T21:59:04.143Z</td><td>gate</td><td>G2 approve</td><td>fc</td></tr>
+<tr><td>2026-09-03T21:59:04.143Z</td><td>phase</td><td>contracts to implement</td><td>fc</td></tr>
+<tr><td>2026-09-03T22:05:15.436Z</td><td>phase</td><td>implement to verify</td><td>fc</td></tr>
+</tbody>
+</table>
+<h2>Agents</h2>
+<table>
+<thead><tr><th>agent</th><th>role</th><th>started</th><th>stopped</th><th>tokens</th></tr></thead>
+<tbody>
+<tr><td>UT</td><td>implementer</td><td>2026-09-03T22:05:01.397Z</td><td></td><td></td></tr>
+<tr><td>U0</td><td>implementer</td><td>2026-09-03T22:05:01.523Z</td><td></td><td></td></tr>
+<tr><td>U1</td><td>implementer</td><td>2026-09-03T22:05:01.607Z</td><td></td><td></td></tr>
+<tr><td>U2</td><td>implementer</td><td>2026-09-03T22:05:01.686Z</td><td></td><td></td></tr>
+<tr><td>U3</td><td>implementer</td><td>2026-09-03T22:05:01.766Z</td><td></td><td></td></tr>
+<tr><td>U4</td><td>implementer</td><td>2026-09-03T22:05:01.846Z</td><td></td><td></td></tr>
+<tr><td>U5</td><td>implementer</td><td>2026-09-03T22:05:01.926Z</td><td></td><td></td></tr>
+<tr><td>U6</td><td>implementer</td><td>2026-09-03T22:05:02.008Z</td><td></td><td></td></tr>
+<tr><td>U7</td><td>implementer</td><td>2026-09-03T22:05:02.086Z</td><td></td><td></td></tr>
+</tbody>
+</table>
+<h2>Failures</h2>
+<table>
+<thead><tr><th>when</th><th>event</th><th>detail</th></tr></thead>
+<tbody>
+<tr><td>2026-09-03T22:10:00.411Z</td><td>escalation</td><td>{&quot;kind&quot;:&quot;wrong-check&quot;,&quot;detail&quot;:&quot;Two locked suite cases cannot be satisfied by any faithful implementation. Suite bin-evidence (T11), case changed-since-lock-lists-each-path-with-added-and-removed-counts: the case appends a leading newline and two comment lines to a fixture that already ends in a newline, so git reports 3 added lines for that path under numstat, -w, -b and --ignore-blank-lines alike, while the case requires the rendered row to carry a 2. Suite constraints (T24), case C1-imports-are-node-builtins-or-relative-inside-scope: the scanner keeps string literals, so the literal &#39;@import \&quot;x\&quot;&#39; inside the hostile-content fixture of suite bin-evidence reads as a bare import specifier; no script in the four in-scope directories imports one. Both files are locked targets. A third finding is not a check: fc boundary reports .claude/workflows/flightcrew-build.js outside the allowed paths; it was written by the session that drove this build and needs a decision before the boundary can be clean.&quot;}</td></tr>
+</tbody>
+</table>
+<h2>Checks</h2>
+<h3>T1 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:05:31.841Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 3816 ms · covers B34</p>
+<pre>$ node flightdeck/testbench/suites/e2e/run.mjs
+exit: 0
+pass  setup-temporary-repository
+pass  launch-new
+pass  launch-activate
+pass  check-all-baseline
+pass  launch-pin-tests-map
+pass  launch-phase-plan
+pass  plan-write
+pass  launch-gate-g1-approve
+pass  check-all-in-contracts
+pass  launch-gate-g2-approve
+pass  launch-phase-verify
+pass  verify
+pass  launch-phase-review
+pass  launch-phase-report
+pass  locked-reports-no-change
+pass  launch-end-accepted
+pass  artefacts-left-in-place
+pass  report-headings-and-ledger
+covers: B34
+18/18 passed</pre>
+<h3>T2 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:06:18.654Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 46812 ms · covers B1, B2, B3, B32, B35, B41, B44, B45, B47, B49, B50, B52, B54, I1, E1, E3, E6, E7, E12, E15, E18, E20, E22, E24</p>
+<pre>$ node flightdeck/testbench/suites/bin-launch/run.mjs
+exit: 0
+pass  launch-override-selects-one-of-two
+pass  fc-shim-runs-by-path
+pass  unknown-command-exits-1
+pass  phase-next-appends-event
+pass  phase-skip-is-illegal-unless-forced
+pass  phase-plan-refused-draft-pin-without-allow-draft
+pass  phase-plan-refused-baseline-disagreement
+pass  phase-plan-refused-invalid-launch
+pass  phase-plan-refused-invalid-kickoff
+pass  phase-review-refused-without-summary
+pass  phase-review-refused-stale-summary
+pass  phase-review-refused-red-counts
+pass  phase-review-accepted-with-green-evidence
+pass  gate-g1-approve-moves-to-contracts
+pass  gate-g2-approve-moves-to-implement
+pass  gate-g2-refused-w0-check-not-run-since-lock
+pass  gate-g2-refused-w0-check-error
+pass  gate-already-decided-exits-1-unless-forced
+pass  gate-exit-records-and-prints-end-hint
+pass  escalate-writes-file-and-event
+pass  escalate-cleared-by-gate-phase-and-end
+pass  escalate-invalid-kind-exits-1
+pass  note-appends-and-report-prints-notes
+pass  plan-write-stores-and-renders
+pass  plan-write-invalid-exits-2-without-writing
+pass  end-partial-writes-units
+pass  end-partial-refuses-dependency-outside-list
+pass  end-partial-refuses-unit-without-green-return-or-merge
+pass  end-partial-refuses-open-blocking-finding
+pass  end-partial-requires-units
+pass  end-accepted-stale-evidence-exits-2
+pass  end-accepted-at-head
+pass  end-accepted-with-reservations-at-head
+pass  end-abandoned-records-and-renders
+pass  end-accepted-dirty-allowed-paths-exits-2
+pass  land-writes-landed
+pass  land-refused-without-green-evidence-at-commit
+pass  land-evidence-commit-flag
+covers: B1 B2 B3 B32 B35 B41 B44 B45 B47 B49 B50 B52 B54 E1 E3 E6 E7 E12 E15 E18 E20 E22 E24 I1
+64/64 passed</pre>
+<h3>T3 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:06:38.654Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 19999 ms · covers B4, C8, I7, E5, E13, E14</p>
+<pre>$ node flightdeck/testbench/suites/hooks-noop/run.mjs
+exit: 0
+pass  project-dir-without-launch-event-log
+pass  project-dir-without-launch-lock-guard
+pass  project-dir-without-launch-boundary-guard
+pass  project-dir-without-launch-structural-check
+pass  project-dir-without-launch-stop-gate
+pass  project-dir-without-launch-session-end
+pass  repo-without-flightdeck-launch-event-log
+pass  repo-without-flightdeck-launch-lock-guard
+pass  repo-without-flightdeck-launch-boundary-guard
+pass  repo-without-flightdeck-launch-structural-check
+pass  repo-without-flightdeck-launch-stop-gate
+pass  repo-without-flightdeck-launch-session-end
+pass  fc-root-without-flightdeck-launch
+pass  fc-no-root-resolves
+pass  flightcrew-launch-none-event-log
+pass  flightcrew-launch-none-lock-guard
+pass  flightcrew-launch-none-boundary-guard
+pass  flightcrew-launch-none-structural-check
+pass  flightcrew-launch-none-stop-gate
+pass  flightcrew-launch-none-session-end
+pass  bad-stdin-active-launch-event-log
+pass  bad-stdin-active-launch-lock-guard
+pass  bad-stdin-active-launch-boundary-guard
+pass  bad-stdin-active-launch-structural-check
+pass  bad-stdin-active-launch-stop-gate
+pass  bad-stdin-active-launch-session-end
+pass  bad-stdin-json-array-event-log
+pass  bad-stdin-empty-lock-guard
+pass  bad-stdin-no-launch-event-log
+pass  bad-stdin-no-launch-lock-guard
+pass  bad-stdin-no-launch-boundary-guard
+pass  bad-stdin-no-launch-structural-check
+pass  bad-stdin-no-launch-stop-gate
+pass  bad-stdin-no-launch-session-end
+pass  envelope-with-agent-fields-no-launch
+pass  stop-gate-no-map-pinned
+pass  stop-gate-map-file-missing
+pass  stop-gate-unreadable-launch
+covers: B4 C8 E5 E13 E14 I7
+56/56 passed</pre>
+<h3>T4 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:06:50.496Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 11842 ms · covers B5, B52, I5</p>
+<pre>$ node flightdeck/testbench/suites/hooks-eventlog/run.mjs
+exit: 0
+pass  records-SessionStart
+pass  records-SessionEnd
+pass  records-SubagentStart
+pass  records-SubagentStop
+pass  records-TaskCreated
+pass  records-TaskCompleted
+pass  records-PostToolUseFailure
+pass  records-PermissionDenied
+pass  records-PreCompact
+pass  records-PostCompact
+pass  records-Stop
+pass  records-WorktreeRemove
+pass  one-line-per-invocation
+pass  phase-follows-launch-json
+pass  detail-keys-hold-under-noisy-envelope
+pass  ignores-PreToolUse
+pass  ignores-PostToolUse
+pass  ignores-UserPromptSubmit
+pass  ignores-Notification
+pass  ignores-WorktreeCreate
+pass  ignores-Setup
+pass  session-start-system-message
+pass  session-start-system-message-names-current-phase
+pass  flightcrew-launch-none-silences-every-hook
+pass  flightcrew-launch-none-fc-needs-launch
+pass  event-line-is-single-line-json
+covers: B5 B52 I5
+26/26 passed</pre>
+<h3>T5 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:07:06.585Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 16089 ms · covers B6, B7, B42, B53, I7</p>
+<pre>$ node flightdeck/testbench/suites/hooks-guards/run.mjs
+exit: 0
+pass  lock-edit-locked-denied
+pass  lock-write-locked-denied
+pass  lock-notebook-locked-denied
+pass  lock-launch-spec-copy-denied
+pass  lock-unlocked-target-silent
+pass  lock-every-phase-except-targets
+pass  lock-phase-targets-silent
+pass  lock-relative-path-absolutised-against-cwd
+pass  lock-worktree-target-relative-to-worktree-root
+pass  boundary-outside-denied
+pass  boundary-inside-silent
+pass  boundary-enforced-phases
+pass  boundary-phase-targets
+pass  boundary-not-enforced-silent
+pass  boundary-worktree-target-relative-to-worktree-root
+pass  two-active-launches-ask
+pass  two-active-launches-env-selects-one
+pass  unreadable-launch-json-ask
+pass  trigger-fired-guards-deny-everything
+pass  trigger-cleared-by-newer-gate-event
+pass  trigger-cleared-by-newer-escalation-or-end
+pass  trigger-older-than-gate-does-not-fire
+pass  trigger-fired-fc-worker-render-exits-2
+pass  trigger-fired-fc-worker-merge-exits-2
+pass  trigger-fired-fc-launch-phase-exits-2
+pass  trigger-fired-fc-launch-phase-ended-allowed
+covers: B6 B7 B42 B53 I7
+26/26 passed</pre>
+<h3>T6 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:07:14.438Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 7852 ms · covers B8, E9</p>
+<pre>$ node flightdeck/testbench/suites/hooks-structural/run.mjs
+exit: 0
+pass  broken-mjs-blocks
+pass  good-mjs-silent
+pass  write-tool-also-checked
+pass  js-uses-configured-module-command
+pass  json-command-runs
+pass  path-with-space-is-shell-quoted
+pass  path-with-quote-and-dollar-is-shell-quoted
+pass  file-placeholder-is-absolute-path
+pass  cwd-is-git-toplevel
+pass  last-twenty-combined-lines-on-stderr
+pass  unconfigured-extension-silent
+pass  unconfigured-extension-when-structural-empty
+pass  runs-in-every-phase
+covers: B8 E9
+13/13 passed</pre>
+<h3>T7 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:07:32.929Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 18491 ms · covers B9, B10, B11, B40, B41</p>
+<pre>$ node flightdeck/testbench/suites/hooks-stopgate/run.mjs
+exit: 0
+pass  verify-red-blocks-with-id-code-and-output
+pass  verify-red-counts-consecutive-blocks
+pass  verify-red-last-twenty-lines
+pass  verify-green-appends-check-run
+pass  verify-green-resets-count
+pass  verify-phase-or-gate-event-resets-count
+pass  verify-runs-only-the-acceptance-check
+pass  stall-at-stop-blocks-ceiling
+pass  stall-at-cap-eight
+pass  other-phases-no-op
+pass  contracts-green-appends-check-run
+pass  contracts-runs-only-w0-checks
+pass  contracts-red-w0-check-blocks
+pass  contracts-error-verdict-blocks
+pass  contracts-expected-failure-does-not-block
+pass  contracts-boundary-red-blocks
+pass  contracts-no-contracts-falls-back-to-t1
+pass  escalation-file-releases-stop-gate
+pass  escalation-file-releases-contracts-gate
+pass  fc-escalate-writes-file-and-event
+pass  fc-gate-removes-escalation
+pass  fc-phase-removes-escalation
+pass  fc-end-removes-escalation
+covers: B9 B10 B11 B40 B41
+23/23 passed</pre>
+<h3>T8 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:07:48.639Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 15710 ms · covers B12, B13, B36, B46, I6, E2, E8, E11, E17</p>
+<pre>$ node flightdeck/testbench/suites/bin-check/run.mjs
+exit: 0
+pass  check-all-runs-every-live-check-and-exits-0
+pass  check-all-exits-2-on-a-failing-verdict
+pass  check-all-records-skipped-for-quarantined-ids-without-affecting-exit
+pass  check-subset-rebuilds-summary-from-the-evidence-files-present
+pass  evidence-file-validates-and-carries-command-exit-commit-phase-covers
+pass  evidence-tails-are-the-last-forty-lines-of-each-stream
+pass  check-runs-with-flightcrew-launch-in-env-and-cwd-launch-root-or-cwd-flag
+pass  checks-run-serially-in-map-order
+pass  missing-binary-is-verdict-error-others-still-run-exit-2
+pass  pin-mismatch-exits-1-and-runs-nothing
+pass  no-tests-map-pinned-exits-1
+pass  unknown-check-id-exits-1-naming-it-and-runs-nothing
+pass  baseline-writes-observed-commit-and-date-into-the-draft-map-and-no-evidence
+pass  baseline-records-fail-and-error-words-and-exits-2-when-a-command-cannot-spawn
+pass  verify-runs-check-boundary-locked-budget-in-order-and-exits-0-when-clean
+pass  verify-exits-2-when-boundary-is-red-and-still-writes-every-file
+pass  verify-exits-2-when-a-check-fails
+covers: B12 B13 B36 B46 E2 E8 E11 E17 I6
+17/17 passed</pre>
+<h3>T9 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:07:55.460Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 6820 ms · covers B14, B15, B16, B51</p>
+<pre>$ node flightdeck/testbench/suites/bin-boundary/run.mjs
+exit: 0
+pass  boundary-lists-changed-marks-outside-excludes-worktrees-and-runs-exits-2
+pass  boundary-exits-0-with-empty-outside-when-every-change-is-inside
+pass  boundary-base-falls-back-to-base-commit-and-honours-the-base-flag
+pass  locked-lists-changes-under-locked-paths-and-exits-2
+pass  locked-exits-0-with-empty-list-when-no-locked-path-changed
+pass  budget-counts-beside-ceilings-and-exits-0-within-them
+pass  budget-exits-2-and-appends-trigger-when-agents-exceed-the-ceiling
+pass  budget-counts-consecutive-stop-blocks-against-gate-iterations
+pass  budget-reports-tokens-unobserved-without-usage-events
+pass  budget-treats-an-absent-events-file-as-empty
+pass  events-usage-appends-a-usage-event
+pass  events-summary-prints-counts-by-event-per-agent-and-unparseable
+covers: B14 B15 B16 B51
+12/12 passed</pre>
+<h3>T10 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:07:59.569Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 4109 ms · covers B17, B18, I12, E4, E21</p>
+<pre>$ node flightdeck/testbench/suites/bin-report/run.mjs
+exit: 0
+pass  report-has-the-eight-headings-in-order
+pass  report-header-carries-spec-kickoff-started-ended-outcome-cost-agents-phases
+pass  report-header-shows-allow-draft-landed-accepted-and-abandoned-when-set
+pass  report-verification-section-carries-the-four-lines-with-evidence-present
+pass  report-placeholders-when-summary-review-plan-and-events-are-absent
+pass  report-carries-no-acceptance-verdict-strings
+pass  malformed-event-line-is-counted-as-unparseable-and-exit-stays-0
+pass  absent-events-file-is-treated-as-empty-by-summary-budget-and-report
+covers: B17 B18 E4 E21 I12
+8/8 passed</pre>
+<h3>T11 <span class="fail">fail</span></h3>
+<p class="meta">ran 2026-09-03T22:08:02.472Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 2902 ms · covers B19, B37</p>
+<pre>$ node flightdeck/testbench/suites/bin-evidence/run.mjs
+exit: 2
+pass  evidence-html-is-self-contained
+pass  hostile-check-output-is-shown-verbatim-and-escaped-never-injected
+pass  one-pre-element-per-evidence-file-with-command-exit-and-tails
+pass  named-sections-present-and-header-names-phase-and-last-event-time
+pass  every-named-section-shows-a-dash-when-empty
+FAIL  changed-since-lock-lists-each-path-with-added-and-removed-counts: index.mjs shows 2 added lines: /\b2\b/ did not match &quot; 3 0 &quot;
+covers: B19 B37
+5/6 passed</pre>
+<h3>T12 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:06.119Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 3647 ms · covers B20</p>
+<pre>$ node flightdeck/testbench/suites/bin-runlog/run.mjs
+exit: 0
+pass  stub-creates-run-log-with-accepted-entry
+pass  stub-inserts-after-first-heading-newest-first
+pass  stub-abandoned-carries-diagnosis-fields
+pass  stub-partial-lists-landed-and-abandoned-units
+pass  end-accepted-inserts-accepted-entry
+covers: B20
+5/5 passed</pre>
+<h3>T13 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:09.096Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 2976 ms · covers B21</p>
+<pre>$ node flightdeck/testbench/suites/bin-plan/run.mjs
+exit: 0
+pass  render-writes-headings-in-order
+pass  render-one-table-row-per-unit
+pass  render-is-deterministic
+pass  render-invalid-plan-exits-2-without-writing
+pass  render-schema-invalid-plan-exits-2
+covers: B21
+5/5 passed</pre>
+<h3>T14 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:10.624Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 1528 ms · covers B22</p>
+<pre>$ node flightdeck/testbench/suites/validate-spec/run.mjs
+exit: 0
+pass  golden-v1-clean
+pass  golden-v2-clean
+pass  schema-missing-required
+pass  schema-unknown-key
+pass  schema-bad-enum
+pass  schema-bad-type
+pass  schema-empty-behaviours
+pass  schema-bad-commit-pattern
+pass  inv1-duplicate-id
+pass  inv2-misplaced-id
+pass  inv3-frozen-without-commit
+pass  inv3-frozen-with-open-question
+pass  inv3-for-freeze-rehearsal
+pass  inv4-draft-carrying-commit
+pass  inv5-retired-id-reused
+pass  inv6-not-ascending
+pass  inv6-entry-not-lower-than-version
+pass  inv6-duplicate-file
+pass  inv8-v1-node-not-ok
+pass  inv8-v1-carries-retired
+pass  inv9-changed-without-note
+pass  inv10-filename-version-mismatch
+pass  inv10-unrecognised-filename
+pass  inv11-retired-at-after-version
+pass  inv11-retired-at-below-two
+pass  inv12-lineage-hole
+pass  warn-edge-states-a-concern
+pass  warn-folder-name-mismatch
+pass  warn-edge-bare-noun-phrase
+pass  warn-edge-condition-colon-outcome-is-clean
+pass  inv13-id-hole
+covers: B22
+31/31 passed</pre>
+<h3>T15 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:22.666Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 12042 ms · covers B23</p>
+<pre>$ node flightdeck/testbench/suites/validate-tests-map/run.mjs
+exit: 0
+pass  positive-sample-map
+pass  tm-invariant-1-id-without-prefix
+pass  tm-invariant-2-duplicate-id
+pass  tm-invariant-3-id-hole
+pass  tm-invariant-4-v1-check-not-ok
+pass  tm-invariant-4-v1-carries-retired
+pass  tm-invariant-5-non-ok-without-note
+pass  tm-invariant-6-frozen-without-commit
+pass  tm-invariant-6-draft-with-commit
+pass  tm-invariant-7-retired-at-above-version
+pass  tm-invariant-7-retired-at-below-two
+pass  tm-invariant-8-retired-covers-not-remapped
+pass  tm-invariant-8-retired-covers-remapped-is-clean
+pass  tm-invariant-9-lineage-missing-earlier-version
+pass  tm-invariant-9-lineage-not-newest-first
+pass  tm-invariant-10-acceptance-not-T1
+pass  tm-invariant-11-observed-word-differs
+pass  tm-invariant-12-spec-pin-not-frozen
+pass  tm-invariant-12-waived-under-allow-draft
+pass  tm-invariant-13-empty-allowed-paths
+pass  tm-invariant-13-empty-locked-paths
+pass  validator-script-accepts-the-pinned-map
+pass  validator-script-names-tm-invariant-1
+pass  coverage-rule-live-node-uncovered
+pass  coverage-rule-satisfied-by-unverified
+covers: B23
+25/25 passed</pre>
+<h3>T16 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:29.911Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 7245 ms · covers B24</p>
+<pre>$ node flightdeck/testbench/suites/validate-plan/run.mjs
+exit: 0
+pass  positive-sample-plan
+pass  check-id-absent-from-map
+pass  spec-ref-absent-from-spec
+pass  abandon-triggers-empty
+pass  parallel-wave-exceeds-implementers-concurrent
+pass  budget-turns-exceeds-turns-per-agent
+pass  budget-turns-exceeds-implementer-maxturns
+pass  expected-agents-exceeds-ceiling
+pass  unit-without-checks
+pass  shape-differs-from-kickoff-part
+pass  depends-on-names-later-wave
+pass  no-contracts-unit-in-w0
+pass  validator-script-accepts-the-sample-plan
+pass  validator-script-refuses-a-check-absent-from-the-map
+pass  first-parallel-wave-without-pilot
+covers: B24
+15/15 passed</pre>
+<h3>T17 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:36.307Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 6395 ms · covers B25</p>
+<pre>$ node flightdeck/testbench/suites/validate-launch/run.mjs
+exit: 0
+pass  positive-sample-launch
+pass  status-outside-enumeration
+pass  phase-outside-enumeration
+pass  spec-path-does-not-exist
+pass  spec-commit-differs-from-pinned-file
+pass  stop-blocks-above-eight
+pass  boundary-enforced-without-lock-commit
+pass  boundary-enforced-with-empty-allowed-paths
+pass  targets-phase-permits-unlocked-launch
+pass  hash-shape-checked-without-resolve-commits
+pass  validator-script-accepts-the-sample-launch
+pass  validator-script-refuses-a-status-outside-the-enumeration
+pass  resolve-commits-rejects-unknown-hashes
+covers: B25
+13/13 passed</pre>
+<h3>T18 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:42.669Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 6362 ms · covers B26</p>
+<pre>$ node flightdeck/testbench/suites/lint-spec/run.mjs
+exit: 0
+pass  positive-sample-spec
+pass  lint-domains-empty-domain-without-decision
+pass  lint-open-questions
+pass  lint-sequential-id-hole
+pass  lint-out-list-no-out-scope
+pass  lint-artefacts-unresolved-path
+pass  lint-artefacts-satisfied-by-deliverable
+pass  lint-commands-run-missing-script
+pass  lint-claimed-behaviour-absent-from-verification
+pass  lint-boundary-acceptance-without-path-token
+pass  lint-class-tags-agent-shaped-without-tags
+pass  lint-class-tags-satisfied-when-tagged
+pass  linter-script-accepts-the-sample-spec
+pass  linter-script-names-lint-open-questions
+pass  warn-impression-does-not-fail
+pass  warn-length-does-not-fail
+covers: B26
+16/16 passed</pre>
+<h3>T19 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:51.717Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 9047 ms · covers B27, B28, B43, B48, E19, E23</p>
+<pre>$ node flightdeck/testbench/suites/bin-dispatch/run.mjs
+exit: 0
+pass  worker-render-prompt-first-line-and-always-present-nodes
+pass  worker-render-carries-only-the-units-b-and-e-nodes
+pass  worker-render-lists-checks-by-id-with-covers-run-line-and-gate-only-mark-never-commands
+pass  worker-render-exits-1-outside-phase-implement
+pass  worker-render-unknown-unit-or-missing-plan-exits-1-naming-it
+pass  return-worker-stores-at-returns-unit-and-appends-a-return-event
+pass  return-rejects-an-invalid-file-with-exit-2-storing-nothing
+pass  return-stores-explorer-verifier-and-critic-at-their-fixed-paths
+pass  worker-return-alias-behaves-as-return-worker-with-unit
+pass  worker-merge-green-path-merges-no-ff-runs-checks-commits-appends-unit-merged-and-cleans-up
+pass  worker-merge-aborts-and-exits-2-naming-the-failing-check
+pass  worker-merge-aborts-and-exits-2-naming-the-conflicting-path
+pass  worker-merge-refuses-a-missing-red-or-unmerged-dependency-return-and-changes-nothing
+pass  critic-render-writes-a-sealed-prompt-with-spec-diff-summary-and-locked-list-only
+pass  critic-render-exits-1-outside-phase-review-or-with-stale-summary
+covers: B27 B28 B43 B48 E19 E23
+15/15 passed</pre>
+<h3>T20 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:08:52.586Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 869 ms · covers B29, E10</p>
+<pre>$ node flightdeck/testbench/suites/bin-distribute/run.mjs
+exit: 0
+pass  dry-run-lists-and-writes-nothing
+pass  apply-copies-crew-and-workflows-only
+pass  apply-prints-fragment-gitignore-and-constitution
+pass  apply-twice-with-identical-content-succeeds
+pass  conflict-lists-paths-copies-nothing-exits-2
+pass  force-overwrites-conflicts
+covers: B29 E10
+6/6 passed</pre>
+<h3>T21 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:09:07.425Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 14839 ms · covers B30</p>
+<pre>$ node flightdeck/testbench/suites/bin-doctor/run.mjs
+exit: 0
+pass  doctor-passes-on-the-repository
+pass  two-active-launches-exit-2
+pass  doctor-passes-on-a-prepared-target
+pass  target-missing-hook-command-exits-2
+pass  target-agent-not-byte-equal-exits-2
+pass  target-baseref-not-head-exits-2
+pass  target-crew-name-collision-exits-2
+covers: B30
+7/7 passed</pre>
+<h3>T22 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:09:07.473Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 48 ms · covers B31, I10</p>
+<pre>$ node flightdeck/testbench/suites/crew/run.mjs
+exit: 0
+pass  every-crew-file-carries-name-description-tools-model
+pass  max-turns-on-every-role-except-the-four-named
+pass  implementer-isolation-and-accept-edits
+pass  orchestrator-initial-prompt-names-launch-status-and-kickoff
+pass  new-roles-end-with-a-fenced-json-return-block
+pass  explorer-verifier-critic-hold-no-write-or-edit
+pass  critic-mandate
+pass  new-roles-state-their-inputs-sentence
+pass  new-roles-match-the-roster
+covers: B31 I10
+9/9 passed</pre>
+<h3>T23 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:09:09.087Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 1613 ms · covers B33, I9</p>
+<pre>$ node flightdeck/testbench/suites/run-all/run.mjs
+exit: 0
+pass  runs-every-suite-in-name-order-one-line-each-exit-0
+pass  exits-2-when-a-suite-exits-2
+pass  exits-2-when-a-suite-crashes
+pass  a-real-suite-follows-the-protocol
+covers: B33 I9
+4/4 passed</pre>
+<h3>T24 <span class="fail">fail</span></h3>
+<p class="meta">ran 2026-09-03T22:09:16.004Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 6917 ms · covers C1, C2, C3, C5, C6, C7, C9</p>
+<pre>$ node flightdeck/testbench/suites/constraints/run.mjs
+exit: 2
+FAIL  C1-imports-are-node-builtins-or-relative-inside-scope: flightdeck/testbench/suites/bin-evidence/run.mjs: bare specifier &#39;x&#39;
+pass  C1-no-package-json-node-modules-or-lock-files
+pass  C6-no-network-modules-and-no-fetch
+pass  C5-markdown-carries-no-session-phrases
+pass  C9-manuals-at-most-150-lines
+pass  C3-success-prints-at-most-one-line-and-exit-codes
+pass  C2-commands-and-hooks-write-only-inside-their-launch-root
+pass  C7-run-all-leaves-tmpdir-and-git-status-unchanged
+pass  C7-run-all-fails-on-a-tmpdir-leak-or-a-stray-file
+pass  C7-suites-create-temp-dirs-only-with-cleanup
+covers: C1 C2 C3 C5 C6 C7 C9
+9/10 passed</pre>
+<h3>T25 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:09:20.418Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 4414 ms · covers C4</p>
+<pre>$ node flightdeck/testbench/suites/hook-timing/run.mjs
+exit: 0
+pass  event-log-under-2000ms
+pass  lock-guard-under-2000ms
+pass  boundary-guard-under-2000ms
+pass  structural-check-under-2000ms
+pass  stop-gate-under-2000ms
+pass  session-end-under-2000ms
+pass  settings-fragment-stop-timeout-600
+covers: C4
+7/7 passed</pre>
+<h3>T26 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:09:24.376Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 3958 ms · covers I2, I3, I4, I5, I6, I8, I14</p>
+<pre>$ node flightdeck/testbench/suites/schemas/run.mjs
+exit: 0
+pass  event-schema-rejects-source-outside-enum
+pass  event-schema-requires-ts
+pass  event-schema-rejects-string-detail
+pass  check-result-sample-T1-validates
+pass  check-result-sample-T2-validates
+pass  check-result-sample-T3-validates
+pass  check-result-sample-T4-validates
+pass  check-result-sample-T5-validates
+pass  check-result-schema-rejects-verdict-outside-enum
+pass  check-result-schema-rejects-string-exit
+pass  check-result-schema-requires-commit
+pass  explorer-return-sample-validates
+pass  worker-return-sample-U0-validates
+pass  worker-return-sample-U1-validates
+pass  worker-return-sample-U2-validates
+pass  worker-return-sample-U3-validates
+pass  verifier-verdict-sample-validates
+pass  critic-findings-sample-validates
+pass  explorer-return-rejects-confidence-outside-enum
+pass  worker-return-rejects-status-outside-enum
+pass  worker-return-rejects-halt-kind-outside-enum
+pass  verifier-verdict-rejects-string-refuted
+pass  critic-findings-rejects-finding-kind-outside-enum
+pass  critic-findings-rejects-severity-outside-enum
+pass  fc-validate-return-accepts-returns-explore-X1-as-explorer
+pass  fc-validate-return-accepts-returns-U0-as-worker
+pass  fc-validate-return-accepts-returns-U1-as-worker
+pass  fc-validate-return-accepts-returns-U2-as-worker
+pass  fc-validate-return-accepts-returns-U3-as-worker
+pass  fc-validate-return-accepts-returns-verify-1-as-verifier
+pass  fc-validate-return-accepts-review-pass-1-as-critic
+pass  fc-validate-return-rejects-by-schema-keyword
+pass  fragment-hook-commands-run-in-place
+pass  fragment-wires-each-hook-to-its-events
+pass  fragment-stop-hook-timeout-600
+pass  fragment-worktree-baseref-head
+pass  fragment-permissions-allow
+pass  fragment-permissions-deny-and-sandbox-example
+covers: I2 I3 I4 I5 I6 I8 I14
+64/64 passed</pre>
+<h3>T27 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:09:31.932Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 7555 ms · covers I11, E16</p>
+<pre>$ node flightdeck/testbench/suites/templates/run.mjs
+exit: 0
+pass  kickoff-parts-start-with-version-comment
+pass  kickoff-equals-header-plus-parts-in-order
+pass  kickoff-version-joins-part-versions
+pass  kickoff-header-draft-spec-reads-draft
+pass  kickoff-prior-reports-lists-same-spec-reports
+pass  roles-names-are-backticked-crew-names
+pass  validate-accepts-fresh-kickoff-with-no-map
+pass  validate-rejects-missing-spec-path
+pass  validate-rejects-missing-tests-map-path
+pass  validate-rejects-bad-spec-commit
+pass  validate-draft-commit-needs-allow-draft
+pass  validate-rejects-unresolved-prior-report
+pass  validate-rejects-unknown-role-name
+covers: E16 I11
+13/13 passed</pre>
+<h3>T28 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:09:31.985Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 52 ms · covers B38, I13</p>
+<pre>$ node flightdeck/testbench/suites/manifest/run.mjs
+exit: 0
+pass  manifest-exists-with-path-lines
+pass  every-path-exists-and-is-non-empty
+pass  paths-are-repository-relative-under-flightdeck
+pass  lists-every-file-the-scope-names
+pass  no-launch-folder-other-than-specs-and-the-buildout
+covers: B38 I13
+5/5 passed</pre>
+<h3>T29 <span class="pass">pass</span></h3>
+<p class="meta">ran 2026-09-03T22:09:32.164Z at 49aff47990c6b7df60c2da3f8a57fb20cb366e01 in phase verify · 179 ms · covers B39</p>
+<pre>$ node flightdeck/testbench/suites/workflows/run.mjs
+exit: 0
+pass  passes-node-module-check
+pass  first-statement-is-export-const-meta-with-name-equal-to-filename
+pass  no-date-now-new-date-or-math-random
+pass  schema-literals-equal-the-schema-files
+covers: B39
+4/4 passed</pre>
+</main>
+</body>
+</html>

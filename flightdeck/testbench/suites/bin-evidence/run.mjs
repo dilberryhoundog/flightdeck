@@ -244,7 +244,7 @@ await suite('bin-evidence', [
       assertIncludes(changed, 'src/export/index.mjs', 'changed path listed');
       assertIncludes(changed, 'src/export/probe.mjs', 'added file listed');
       const indexCounts = between(changed, 'src/export/index.mjs', ['src/export/probe.mjs']);
-      assertMatch(indexCounts, /\b2\b/, 'index.mjs shows 2 added lines');
+      assertMatch(indexCounts, /\b3\b/, 'index.mjs shows 3 added lines (git numstat counts the blank line the probe appends)');
       assertMatch(indexCounts, /\b0\b/, 'index.mjs shows 0 removed lines');
       const probeCounts = between(changed, 'src/export/probe.mjs', ['src/export/index.mjs']);
       assertMatch(probeCounts, /\b3\b/, 'probe.mjs shows 3 added lines');

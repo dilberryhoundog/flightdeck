@@ -1,0 +1,32 @@
+{
+  "unit": "U4",
+  "status": "green",
+  "branch": "flightcrew-buildout-v1",
+  "worktree": ".",
+  "spec_refs": [
+    "B31",
+    "I10",
+    "D4"
+  ],
+  "checks": [
+    {
+      "id": "T22",
+      "exit": 0
+    }
+  ],
+  "artefacts": [
+    "flightdeck/flightcrew/crew/README.md",
+    "flightdeck/flightcrew/crew/explorer.md",
+    "flightdeck/flightcrew/crew/test-builder.md",
+    "flightdeck/flightcrew/crew/planner.md",
+    "flightdeck/flightcrew/crew/orchestrator.md",
+    "flightdeck/flightcrew/crew/implementer.md",
+    "flightdeck/flightcrew/crew/verifier.md",
+    "flightdeck/flightcrew/crew/critic.md",
+    "flightdeck/flightcrew/crew/spec-builder.md"
+  ],
+  "commits": [],
+  "iterations": 1,
+  "halt": null,
+  "notes": "The seven new roles and the crew README. spec-judge.md and spec-attacker.md are byte-unchanged; spec-builder.md changed only on the run-folder path and the three added session inputs of D4."
+}

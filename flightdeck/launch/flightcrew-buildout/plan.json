@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "launch": "flightcrew-buildout",
+  "spec": {
+    "name": "flightcrew-v1",
+    "version": 1,
+    "commit": "5f69a94"
+  },
+  "kickoff_version": "base@1+shape-workflow@1+task-feature@1",
+  "shape": "workflow",
+  "expected_cost": {
+    "agents": 10,
+    "minutes": 240
+  },
+  "models": {
+    "explore": "haiku",
+    "unit": "opus",
+    "critic": "fable"
+  },
+  "approach": "The system is cut along the ownership lines of the design's build-unit table, so that no two units write the same file. Wave 0 lands the contracts every other unit imports: the ten JSON schemas and the seven check libraries. Wave 1 builds the four pillars that only depend on those contracts - the validators and gates, the fc runner and its command modules, the five hooks, and the crew definitions - with the runner as the pilot, because every other unit's checks invoke fc and a broken runner would waste the whole wave. Wave 2 adds the templates, the kickoff library and the workflow scripts alongside the manuals, both of which read the finished interfaces rather than defining them. Wave 3 is a single serial integration unit that writes MANIFEST.txt, produces this launch folder with the real commands, and fixes whatever the cross-unit suites still refuse. Every unit is proved by named suites of the pinned tests map; the suites themselves, the fixtures, the runner and the spec-stage assets are locked for the whole run.",
+  "waves": [
+    {
+      "id": "W0",
+      "mode": "serial",
+      "units": [
+        "U0"
+      ]
+    },
+    {
+      "id": "W1",
+      "mode": "parallel",
+      "units": [
+        "U1",
+        "U2",
+        "U3",
+        "U4"
+      ]
+    },
+    {
+      "id": "W2",
+      "mode": "parallel",
+      "units": [
+        "U5",
+        "U6"
+      ]
+    },
+    {
+      "id": "W3",
+      "mode": "serial",
+      "units": [
+        "U7"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "U0",
+      "name": "contracts",
+      "kind": "contracts",
+      "spec_refs": [
+        "I2",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I8"
+      ],
+      "checks": [
+        "T26"
+      ],
+      "owner": "implementer",
+      "budget_turns": 20,
+      "paths": [
+        "flightdeck/flightcrew/schemas/**",
+        "flightdeck/flightcrew/checks/lib/**"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "U1",
+      "name": "validators",
+      "kind": "feature",
+      "spec_refs": [
+        "B22",
+        "B23",
+        "B24",
+        "B25",
+        "B26",
+        "B47",
+        "B49",
+        "E1",
+        "E11",
+        "E15"
+      ],
+      "checks": [
+        "T14",
+        "T15",
+        "T16",
+        "T17",
+        "T18"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/flightcrew/checks/validators/**",
+        "flightdeck/flightcrew/checks/gates/**"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U2",
+      "name": "runners",
+      "kind": "feature",
+      "spec_refs": [
+        "B1",
+        "B2",
+        "B3",
+        "B12",
+        "B13",
+        "B14",
+        "B15",
+        "B16",
+        "B17",
+        "B18",
+        "B19",
+        "B20",
+        "B21",
+        "B27",
+        "B28",
+        "B29",
+        "B30",
+        "B32",
+        "B34",
+        "B35",
+        "B36",
+        "B37",
+        "B41",
+        "B43",
+        "B44",
+        "B45",
+        "B46",
+        "B48",
+        "B50",
+        "B51"
+      ],
+      "checks": [
+        "T1",
+        "T2",
+        "T8",
+        "T9",
+        "T10",
+        "T11",
+        "T12",
+        "T13",
+        "T19",
+        "T20",
+        "T21"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/flightcrew/bin/**"
+      ],
+      "depends_on": [
+        "U0"
+      ],
+      "pilot": true
+    },
+    {
+      "id": "U3",
+      "name": "hooks",
+      "kind": "feature",
+      "spec_refs": [
+        "B4",
+        "B5",
+        "B6",
+        "B7",
+        "B8",
+        "B9",
+        "B10",
+        "B11",
+        "B40",
+        "B42",
+        "B52",
+        "B53",
+        "C4",
+        "C8",
+        "I7",
+        "I14"
+      ],
+      "checks": [
+        "T3",
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T25"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/flightcrew/hooks/**"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U4",
+      "name": "crew",
+      "kind": "feature",
+      "spec_refs": [
+        "B31",
+        "I10",
+        "D4"
+      ],
+      "checks": [
+        "T22"
+      ],
+      "owner": "implementer",
+      "budget_turns": 15,
+      "paths": [
+        "flightdeck/flightcrew/crew/**"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U5",
+      "name": "templates-workflows",
+      "kind": "feature",
+      "spec_refs": [
+        "B39",
+        "I11",
+        "E16"
+      ],
+      "checks": [
+        "T27",
+        "T29"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/flightcrew/templates/**",
+        "flightdeck/flightcrew/workflows/**"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U6",
+      "name": "manuals",
+      "kind": "feature",
+      "spec_refs": [
+        "C5",
+        "C9",
+        "B54"
+      ],
+      "checks": [
+        "T24"
+      ],
+      "owner": "implementer",
+      "budget_turns": 20,
+      "paths": [
+        "flightdeck/manuals/README.md",
+        "flightdeck/manuals/orchestration/**",
+        "flightdeck/manuals/harness/**",
+        "flightdeck/manuals/launch/**",
+        "flightdeck/launch/README.md",
+        "flightdeck/launch/RUNLOG.md",
+        "flightdeck/flightcrew/README.md",
+        "flightdeck/testbench/README.md"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U7",
+      "name": "integration",
+      "kind": "integration",
+      "spec_refs": [
+        "B33",
+        "B38",
+        "I9",
+        "I13",
+        "C1",
+        "C2",
+        "C3",
+        "C6",
+        "C7"
+      ],
+      "checks": [
+        "T23",
+        "T24",
+        "T28"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/flightcrew/MANIFEST.txt",
+        "flightdeck/launch/flightcrew-buildout/**",
+        "flightdeck/testbench/suites/unit-*/**"
+      ],
+      "depends_on": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6"
+      ]
+    }
+  ],
+  "risks": [
+    {
+      "text": "Six units write into flightcrew/ at once and every one of them calls fc; a runner that does not dispatch would fail every other unit's checks, so the runner is the wave-1 pilot and the rest of the wave only starts once its return is green",
+      "reaction": "mitigate",
+      "source": "the design's build-unit table"
+    },
+    {
+      "text": "The suites are written before the implementation and are locked, so a suite whose assertion no implementation can satisfy stops a unit rather than being edited; the unit halts and reports the case id instead",
+      "reaction": "watch",
+      "source": "spec I9"
+    },
+    {
+      "text": "Units disagree about a shared interface - the gate modules the stop gate imports, the command modules the hooks invoke - and each half passes its own suite while the pair does not work; the integration unit re-runs the whole testbench and reconciles them against the design",
+      "reaction": "mitigate",
+      "source": "spec B33"
+    }
+  ],
+  "gates": {
+    "G1": "plan.md read against the spec: every unit owns files no other unit writes, every unit names checks that exist in the pinned map, the waves respect the contracts-first order, and the abandon triggers are observable",
+    "G2": "the wave-0 schema and library check T26 green since lock_commit, and the changed-since-lock list confined to flightcrew/schemas/ and flightcrew/checks/lib/",
+    "G3": "the evidence page and report.md: the twenty-nine checks with their raw output, the boundary and locked results, the open findings, the three unverified lines and the cost line"
+  },
+  "abandon_triggers": [
+    {
+      "trigger": "a locked suite carries an assertion that contradicts the frozen spec and no implementation can satisfy it",
+      "observable_by": "a worker return with status halt naming the suite and case id; an escalation event of kind wrong-check"
+    },
+    {
+      "trigger": "the acceptance check T1 stays red after the stop gate's cap of consecutive blocks in phase verify",
+      "observable_by": "stall and trigger events in events.jsonl; fc budget consecutive stop blocks"
+    },
+    {
+      "trigger": "any change outside flightdeck/flightcrew/, flightdeck/launch/, flightdeck/testbench/ and flightdeck/manuals/, or any change under a locked path",
+      "observable_by": "boundary_denied or lock_denied events; fc boundary or fc locked exit 2"
+    }
+  ]
+}

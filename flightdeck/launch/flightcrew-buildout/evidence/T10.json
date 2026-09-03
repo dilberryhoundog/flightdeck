@@ -1,0 +1,31 @@
+{
+  "id": "T10",
+  "command": "node flightdeck/testbench/suites/bin-report/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  report-has-the-eight-headings-in-order",
+    "pass  report-header-carries-spec-kickoff-started-ended-outcome-cost-agents-phases",
+    "pass  report-header-shows-allow-draft-landed-accepted-and-abandoned-when-set",
+    "pass  report-verification-section-carries-the-four-lines-with-evidence-present",
+    "pass  report-placeholders-when-summary-review-plan-and-events-are-absent",
+    "pass  report-carries-no-acceptance-verdict-strings",
+    "pass  malformed-event-line-is-counted-as-unparseable-and-exit-stays-0",
+    "pass  absent-events-file-is-treated-as-empty-by-summary-budget-and-report",
+    "covers: B17 B18 E4 E21 I12",
+    "8/8 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 4109,
+  "ran_at": "2026-09-03T22:07:59.569Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "B17",
+    "B18",
+    "I12",
+    "E4",
+    "E21"
+  ],
+  "phase": "verify"
+}

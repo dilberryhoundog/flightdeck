@@ -1,0 +1,6 @@
+<!-- version: 1 -->
+## Task: agent
+The product is itself agent-shaped: prompts, agent definitions, tools or workflows whose output varies between runs. The spec tags every behaviour with the class its check belongs to, and the plan carries the tag through to the unit.
+The four classes and what a unit owes each: `[deterministic]` — an exact check, run once, pass or fail. `[property]` — an invariant that must hold over every generated case, with the generator and its seed pinned in the check. `[statistical]` — a rate over a fixed sample, with the sample, the threshold and the tolerance stated before the run and the observed rate recorded in the evidence. `[judged]` — a rubric a human or a judge applies, with the rubric pinned and the verdict recorded as stated, never as checked.
+Build the deterministic units first: they hold the shape the varying ones are measured inside. A statistical or judged behaviour whose threshold is not written down is unverified, and the plan lists it as unverified rather than pretending a check exists.
+Risks worth naming: a threshold chosen after seeing the result, a sample too small to separate the classes, and a judged behaviour whose rubric drifts between passes.

@@ -2,7 +2,8 @@
   "schema_version": 1,
   "name": "flightcrew-v1",
   "version": 1,
-  "status": "draft",
+  "status": "frozen",
+  "commit": "44aff6b",
   "reason": "initial targets for the flightcrew-v1 build",
   "spec": {
     "name": "flightcrew-v1",

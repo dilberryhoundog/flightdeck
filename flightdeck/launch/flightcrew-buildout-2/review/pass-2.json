@@ -1,0 +1,138 @@
+{
+  "verdict": "gaps",
+  "pass": 2,
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "spec-conflict",
+      "severity": "non-blocking",
+      "spec_ref": "B40",
+      "file": "flightdeck/flightcrew/bin/cmd/worker.mjs",
+      "line": 78,
+      "text": "fc worker render exits 1 in every phase but implement, as the locked T19 case 'worker-render-exits-1-outside-phase-implement' (flightdeck/testbench/suites/bin-dispatch/run.mjs:172-183) requires for contracts, verify and review, yet B35/B40 build the W0 contracts unit in phase contracts (G1 approve moves plan to contracts, the contracts gate runs the W0 checks there, G2 approve needs them run) and the kickoff base.md:5, launch-anatomy.md:91 and journey.md stage 5 all instruct 'fc worker render W0' in that phase — the locked check and the spec-implied flow cannot both hold, so wave 0 cannot be d",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F2",
+      "kind": "correctness-gap",
+      "severity": "non-blocking",
+      "spec_ref": "C3",
+      "file": "flightdeck/flightcrew/bin/cmd/launch.mjs",
+      "line": 454,
+      "text": "C3 allows at most one stdout line on success outside its listed exceptions, but fc launch pin tests-map prints 'tests map pinned…', 'allow these commands…' and one Bash(...) line per check (lines 453-455) on every success, and fc launch phase prints a warn line (line 573) before its ok line when the checked-out branch differs; the constraints suite's C3 case samples nine other commands so neither is caught.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F3",
+      "kind": "scope-violation",
+      "severity": "non-blocking",
+      "spec_ref": "VER",
+      "file": "flightdeck/testbench/suites/bin-evidence/run.mjs",
+      "line": 247,
+      "text": "A locked suite (T11, locked_paths 'flightdeck/testbench/suites/bin-evidence/**') was modified after lock 49aff47 in the build commit 5cad9b9: the changed-since-lock assertion moved from 2 to 3 added lines; the probe appends '\\n// one\\n// two\\n' so git numstat's 3 is the correct value and the human re-pin (tests-map v2, commit 9131265) records the reason, but git diff --name-only 49aff47 shows the locked target changed.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F4",
+      "kind": "scope-violation",
+      "severity": "non-blocking",
+      "spec_ref": "VER",
+      "file": "flightdeck/testbench/suites/constraints/scan-lib.mjs",
+      "line": 118,
+      "text": "A locked suite (T24, 'flightdeck/testbench/suites/constraints/**') was modified after lock 49aff47 in 5cad9b9: the import/export specifier patterns are now anchored at statement start; running the old and new patterns over every script shows the only file whose result differs is the locked bin-evidence suite itself (literal @import \"x\"), so the change was necessary for a locked file's own content and was re-pinned in map v2, but it is a locked-target edit in the reviewed diff.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F5",
+      "kind": "scope-violation",
+      "severity": "non-blocking",
+      "spec_ref": "SC2",
+      "file": "flightdeck/launch/specs/flightcrew-v1/tests-map.v2.json",
+      "line": 81,
+      "text": "The locked spec folder ('flightdeck/launch/specs/flightcrew-v1/**') gained tests-map.v2.json after lock 49aff47 (commit 9131265) as the re-pin for F3/F4; its baseline.commit records 49aff47 with note 'implementation present' while its observed lines were captured on the built tree (5cad9b9), so the recorded baseline commit does not name the tree the observations came from.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F6",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "B14",
+      "file": "flightdeck/flightcrew/checks/lib/git-lib.mjs",
+      "line": 196,
+      "text": "changedSince silently skips the committed diff when the base does not resolve, so a launch whose stored lock_commit fails to resolve makes fc boundary and fc locked report only the working tree and exit 0 as clean; the fix validates a --base argument (boundary.mjs:245, locked.mjs:324) but deliberately leaves the stored lock_commit lenient, which is an error defaulted away rather than surfaced.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F7",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "I8",
+      "file": "flightdeck/flightcrew/bin/cmd/worker.mjs",
+      "line": 101,
+      "text": "fc worker render now writes returns/<unit>.prompt.md beside printing, while I8 lists returns/ as the store for agent returns and B48 says the critic prompt carries no text from any file under returns/; the prompt file carries the same spec node lines the critic prompt carries, so B48's literal wording is unsatisfiable by construction, though every reader (loadLaunchData, validate-all, fc launch end partial) filters on .json so nothing breaks functionally.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F8",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "I1",
+      "file": "flightdeck/flightcrew/bin/cmd/launch.mjs",
+      "line": 440,
+      "text": "fc launch pin tests-map replaces paths.allowed with the map's allowed_paths, discarding any --allow <glob> given to fc launch new (I1), so the flag has no effect once a map is pinned.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F9",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "B18",
+      "file": "flightdeck/flightcrew/bin/cmd/report.mjs",
+      "line": 276,
+      "text": "report.md prints notes.md verbatim under Orchestrator notes, so a note recorded with fc launch note can carry the strings B18 forbids ('ready to merge', 'should be accepted', 'accept this run') into report.md outside quoted check output.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F10",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "B48",
+      "file": "flightdeck/flightcrew/bin/worker/render.mjs",
+      "line": 366,
+      "text": "diffSinceLock runs git diff <base> against the working tree, which omits untracked files, so a new file created but not yet staged after the lock is absent from the critic's sealed prompt while fc boundary counts it as changed.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F11",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "B30",
+      "file": "flightdeck/flightcrew/bin/cmd/doctor.mjs",
+      "line": 262,
+      "text": "The new 'target hook interpreter' check spawns '<first token> --version' for every hook command in settings.json; a hook command whose first token is not an executable on PATH (an environment assignment, a quoted variable, a tool without --version) is reported unresolved and makes fc doctor --target exit 2 even though B30 does not list that condition.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    }
+  ]
+}

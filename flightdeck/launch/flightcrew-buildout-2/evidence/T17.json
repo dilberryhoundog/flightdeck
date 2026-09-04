@@ -22,11 +22,11 @@
     "13/13 passed"
   ],
   "stderr_tail": [],
-  "duration_ms": 9310,
-  "ran_at": "2026-09-03T22:49:07.841Z",
-  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "duration_ms": 9233,
+  "ran_at": "2026-09-04T02:46:35.971Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
   "covers": [
     "B25"
   ],
-  "phase": "verify"
+  "phase": "report"
 }

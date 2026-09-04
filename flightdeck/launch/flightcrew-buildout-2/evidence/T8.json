@@ -26,9 +26,9 @@
     "17/17 passed"
   ],
   "stderr_tail": [],
-  "duration_ms": 20796,
-  "ran_at": "2026-09-03T22:47:58.289Z",
-  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "duration_ms": 21544,
+  "ran_at": "2026-09-04T02:45:24.722Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
   "covers": [
     "B12",
     "B13",
@@ -40,5 +40,5 @@
     "E11",
     "E17"
   ],
-  "phase": "verify"
+  "phase": "report"
 }

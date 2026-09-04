@@ -1,7 +1,7 @@
 {
-  "ran_at": "2026-09-03T22:50:21.683Z",
+  "ran_at": "2026-09-04T02:47:50.333Z",
   "launch": "flightcrew-buildout-2",
-  "phase": "verify",
+  "phase": "report",
   "counts": {
     "agents": {
       "count": 0,
@@ -16,11 +16,11 @@
       "ceiling": 3
     },
     "critic_passes": {
-      "count": 0,
+      "count": 2,
       "ceiling": 2
     },
     "minutes": {
-      "count": 0,
+      "count": 220,
       "ceiling": 240
     },
     "tokens": {

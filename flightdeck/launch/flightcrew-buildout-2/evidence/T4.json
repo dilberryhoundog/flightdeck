@@ -35,13 +35,13 @@
     "26/26 passed"
   ],
   "stderr_tail": [],
-  "duration_ms": 17088,
-  "ran_at": "2026-09-03T22:46:36.807Z",
-  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "duration_ms": 17142,
+  "ran_at": "2026-09-04T02:44:01.220Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
   "covers": [
     "B5",
     "B52",
     "I5"
   ],
-  "phase": "verify"
+  "phase": "report"
 }

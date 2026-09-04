@@ -47,9 +47,9 @@
     "64/64 passed"
   ],
   "stderr_tail": [],
-  "duration_ms": 64159,
-  "ran_at": "2026-09-03T22:45:51.429Z",
-  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "duration_ms": 64094,
+  "ran_at": "2026-09-04T02:43:15.681Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
   "covers": [
     "B1",
     "B2",
@@ -76,5 +76,5 @@
     "E22",
     "E24"
   ],
-  "phase": "verify"
+  "phase": "report"
 }

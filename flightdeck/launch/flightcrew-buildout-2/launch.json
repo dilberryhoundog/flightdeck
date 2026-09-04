@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "name": "flightcrew-buildout-2",
-  "status": "active",
-  "phase": "verify",
+  "status": "accepted-with-reservations",
+  "phase": "ended",
   "created": "2026-09-03",
   "spec": {
     "name": "flightcrew-v1",
@@ -113,6 +113,6 @@
       "at": null
     }
   },
-  "outcome": null,
-  "ended": null
+  "outcome": "accepted-with-reservations",
+  "ended": "2026-09-04T02:47:50.691Z"
 }

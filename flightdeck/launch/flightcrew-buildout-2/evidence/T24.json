@@ -19,9 +19,9 @@
     "10/10 passed"
   ],
   "stderr_tail": [],
-  "duration_ms": 9001,
-  "ran_at": "2026-09-03T22:49:59.138Z",
-  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "duration_ms": 9235,
+  "ran_at": "2026-09-04T02:47:27.773Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
   "covers": [
     "C1",
     "C2",
@@ -31,5 +31,5 @@
     "C7",
     "C9"
   ],
-  "phase": "verify"
+  "phase": "report"
 }

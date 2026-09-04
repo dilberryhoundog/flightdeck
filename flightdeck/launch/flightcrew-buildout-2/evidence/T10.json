@@ -17,9 +17,9 @@
     "8/8 passed"
   ],
   "stderr_tail": [],
-  "duration_ms": 5876,
-  "ran_at": "2026-09-03T22:48:14.786Z",
-  "commit": "9131265aa5b969adf634103f186b73d185a3f3f5",
+  "duration_ms": 6258,
+  "ran_at": "2026-09-04T02:45:42.255Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
   "covers": [
     "B17",
     "B18",
@@ -27,5 +27,5 @@
     "E4",
     "E21"
   ],
-  "phase": "verify"
+  "phase": "report"
 }

@@ -29,9 +29,9 @@ ul { margin: 0.25rem 0; padding-left: 1.2rem; }
 <body>
 <main>
 <h1>Evidence · flightcrew-buildout-2</h1>
-<p class="meta">launch: flightcrew-buildout-2 · spec: flightcrew-v1 v1 @ 5f69a94 · status: active</p>
-<p class="meta">phase: verify · last event: 2026-09-03T22:44:42.442Z · rendered: 2026-09-04T00:50:35.151Z</p>
-<p class="meta">checks: 29 pass · 0 fail · 0 error · 0 skipped at 9131265aa5b969adf634103f186b73d185a3f3f5</p>
+<p class="meta">launch: flightcrew-buildout-2 · spec: flightcrew-v1 v1 @ 5f69a94 · status: accepted-with-reservations</p>
+<p class="meta">phase: ended · last event: 2026-09-04T02:47:50.693Z · rendered: 2026-09-04T02:47:50.697Z</p>
+<p class="meta">checks: 29 pass · 0 fail · 0 error · 0 skipped at c28578e402a927a3049db463859d3efd7b49fe13</p>
 <h2>Unverified</h2>
 —
 <h2>Quarantined</h2>
@@ -39,14 +39,10 @@ ul { margin: 0.25rem 0; padding-left: 1.2rem; }
 <h2>Test-file changes</h2>
 —
 <h2>Boundary</h2>
-<p class="meta">base: 9131265aa5b969adf634103f186b73d185a3f3f5 · outside: 1 · locked: 0</p>
-<ul>
-  <li>.claude/workflows/flightcrew-build.js</li>
-</ul>
+<p class="meta">base: 9131265aa5b969adf634103f186b73d185a3f3f5 · outside: 0 · locked: 0</p>
 <table>
 <thead><tr><th>path</th><th>boundary</th><th>lock</th></tr></thead>
 <tbody>
-<tr><td>.claude/workflows/flightcrew-build.js</td><td>outside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/MANIFEST.txt</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/README.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/bin/cmd/boundary.mjs</td><td>inside</td><td></td></tr>
@@ -60,17 +56,32 @@ ul { margin: 0.25rem 0; padding-left: 1.2rem; }
 <tr><td>flightdeck/flightcrew/bin/worker/render.mjs</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/checks/gates/acceptance-gate.mjs</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/checks/gates/contracts-gate.mjs</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/README.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/crew/critic.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/explorer.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/crew/implementer.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/crew/orchestrator.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/crew/planner.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/test-builder.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/crew/verifier.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/hooks/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/constitution-fragment.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/templates/critic-dispatch.template.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/README.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/templates/kickoff/base.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-session.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-sessions.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-workflow.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-agent.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-audit.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-feature.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-migration.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/templates/runlog-entry.template.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/templates/worker-dispatch.template.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/workflows/README.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/workflows/fc-implement.js</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/flightcrew/workflows/fc-review.js</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/README.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/RUNLOG.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout-2/events.jsonl</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout-2/evidence.html</td><td>inside</td><td></td></tr>
@@ -111,16 +122,29 @@ ul { margin: 0.25rem 0; padding-left: 1.2rem; }
 <tr><td>flightdeck/launch/flightcrew-buildout-2/launch.json</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout-2/plan.json</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout-2/plan.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/report.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/review/pass-1.json</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/review/pass-2.json</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/escalation.json</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/events.jsonl</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/evidence.html</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/launch.json</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/report.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/README.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/harness/claude-code-facts.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/manuals/harness/hooks.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/harness/permissions.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/manuals/harness/workflows.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/launch/launch-anatomy.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/crew.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/endings.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/manuals/orchestration/journey.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/manuals/orchestration/kickoff.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/planning.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/review.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/manuals/orchestration/run-log.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/manuals/orchestration/run-report.md</td><td>inside</td><td></td></tr>
+<tr><td>flightdeck/testbench/README.md</td><td>inside</td><td></td></tr>
 <tr><td>flightdeck/testbench/suites/unit-integration/run.mjs</td><td>inside</td><td></td></tr>
 </tbody>
 </table>
@@ -128,86 +152,129 @@ ul { margin: 0.25rem 0; padding-left: 1.2rem; }
 <table>
 <thead><tr><th>path</th><th>added</th><th>removed</th></tr></thead>
 <tbody>
-<tr><td>.claude/workflows/flightcrew-build.js</td><td class="num">128</td><td class="num">0</td></tr>
 <tr><td>flightdeck/flightcrew/MANIFEST.txt</td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td>flightdeck/flightcrew/README.md</td><td class="num">2</td><td class="num">2</td></tr>
+<tr><td>flightdeck/flightcrew/README.md</td><td class="num">17</td><td class="num">15</td></tr>
 <tr><td>flightdeck/flightcrew/bin/cmd/boundary.mjs</td><td class="num">7</td><td class="num">1</td></tr>
 <tr><td>flightdeck/flightcrew/bin/cmd/check.mjs</td><td class="num">3</td><td class="num">0</td></tr>
 <tr><td>flightdeck/flightcrew/bin/cmd/distribute.mjs</td><td class="num">6</td><td class="num">0</td></tr>
 <tr><td>flightdeck/flightcrew/bin/cmd/doctor.mjs</td><td class="num">15</td><td class="num">0</td></tr>
-<tr><td>flightdeck/flightcrew/bin/cmd/launch.mjs</td><td class="num">37</td><td class="num">13</td></tr>
+<tr><td>flightdeck/flightcrew/bin/cmd/launch.mjs</td><td class="num">41</td><td class="num">14</td></tr>
 <tr><td>flightdeck/flightcrew/bin/cmd/locked.mjs</td><td class="num">7</td><td class="num">0</td></tr>
 <tr><td>flightdeck/flightcrew/bin/cmd/plan.mjs</td><td class="num">15</td><td class="num">5</td></tr>
 <tr><td>flightdeck/flightcrew/bin/cmd/worker.mjs</td><td class="num">21</td><td class="num">2</td></tr>
 <tr><td>flightdeck/flightcrew/bin/worker/render.mjs</td><td class="num">1</td><td class="num">2</td></tr>
 <tr><td>flightdeck/flightcrew/checks/gates/acceptance-gate.mjs</td><td class="num">5</td><td class="num">0</td></tr>
 <tr><td>flightdeck/flightcrew/checks/gates/contracts-gate.mjs</td><td class="num">5</td><td class="num">0</td></tr>
-<tr><td>flightdeck/flightcrew/crew/critic.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/flightcrew/crew/implementer.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/flightcrew/crew/orchestrator.md</td><td class="num">2</td><td class="num">2</td></tr>
-<tr><td>flightdeck/flightcrew/crew/planner.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/flightcrew/templates/critic-dispatch.template.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/flightcrew/templates/kickoff/base.md</td><td class="num">7</td><td class="num">7</td></tr>
+<tr><td>flightdeck/flightcrew/crew/README.md</td><td class="num">31</td><td class="num">24</td></tr>
+<tr><td>flightdeck/flightcrew/crew/critic.md</td><td class="num">8</td><td class="num">7</td></tr>
+<tr><td>flightdeck/flightcrew/crew/explorer.md</td><td class="num">14</td><td class="num">11</td></tr>
+<tr><td>flightdeck/flightcrew/crew/implementer.md</td><td class="num">10</td><td class="num">8</td></tr>
+<tr><td>flightdeck/flightcrew/crew/orchestrator.md</td><td class="num">10</td><td class="num">10</td></tr>
+<tr><td>flightdeck/flightcrew/crew/planner.md</td><td class="num">11</td><td class="num">9</td></tr>
+<tr><td>flightdeck/flightcrew/crew/test-builder.md</td><td class="num">12</td><td class="num">9</td></tr>
+<tr><td>flightdeck/flightcrew/crew/verifier.md</td><td class="num">9</td><td class="num">8</td></tr>
+<tr><td>flightdeck/flightcrew/hooks/README.md</td><td class="num">16</td><td class="num">13</td></tr>
+<tr><td>flightdeck/flightcrew/templates/constitution-fragment.md</td><td class="num">4</td><td class="num">4</td></tr>
+<tr><td>flightdeck/flightcrew/templates/critic-dispatch.template.md</td><td class="num">5</td><td class="num">4</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/README.md</td><td class="num">7</td><td class="num">7</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/base.md</td><td class="num">13</td><td class="num">13</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-session.md</td><td class="num">5</td><td class="num">5</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-sessions.md</td><td class="num">5</td><td class="num">5</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/shape-workflow.md</td><td class="num">5</td><td class="num">5</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-agent.md</td><td class="num">4</td><td class="num">4</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-audit.md</td><td class="num">4</td><td class="num">4</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-feature.md</td><td class="num">4</td><td class="num">4</td></tr>
+<tr><td>flightdeck/flightcrew/templates/kickoff/task-migration.md</td><td class="num">4</td><td class="num">4</td></tr>
 <tr><td>flightdeck/flightcrew/templates/runlog-entry.template.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/flightcrew/templates/worker-dispatch.template.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/flightcrew/workflows/README.md</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>flightdeck/flightcrew/templates/worker-dispatch.template.md</td><td class="num">13</td><td class="num">8</td></tr>
+<tr><td>flightdeck/flightcrew/workflows/README.md</td><td class="num">14</td><td class="num">10</td></tr>
 <tr><td>flightdeck/flightcrew/workflows/fc-implement.js</td><td class="num">1</td><td class="num">1</td></tr>
 <tr><td>flightdeck/flightcrew/workflows/fc-review.js</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>flightdeck/launch/README.md</td><td class="num">6</td><td class="num">6</td></tr>
 <tr><td>flightdeck/launch/RUNLOG.md</td><td class="num">14</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/events.jsonl</td><td class="num">6</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence.html</td><td class="num">791</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T1.json</td><td class="num">37</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T10.json</td><td class="num">31</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T11.json</td><td class="num">26</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T12.json</td><td class="num">24</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T13.json</td><td class="num">24</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T14.json</td><td class="num">50</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T15.json</td><td class="num">44</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T16.json</td><td class="num">34</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T17.json</td><td class="num">32</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T18.json</td><td class="num">35</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T19.json</td><td class="num">39</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T2.json</td><td class="num">80</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T20.json</td><td class="num">26</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T21.json</td><td class="num">26</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T22.json</td><td class="num">29</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T23.json</td><td class="num">24</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T24.json</td><td class="num">35</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T25.json</td><td class="num">26</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T26.json</td><td class="num">63</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T27.json</td><td class="num">33</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T28.json</td><td class="num">25</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T29.json</td><td class="num">23</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T3.json</td><td class="num">62</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T4.json</td><td class="num">47</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T5.json</td><td class="num">49</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T6.json</td><td class="num">33</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T7.json</td><td class="num">46</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T8.json</td><td class="num">44</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T9.json</td><td class="num">34</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/boundary.json</td><td class="num">223</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/budget.json</td><td class="num">44</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/locked.json</td><td class="num">226</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/summary.json</td><td class="num">295</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/events.jsonl</td><td class="num">10</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence.html</td><td class="num">1004</td><td class="num">84</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T1.json</td><td class="num">41</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T10.json</td><td class="num">35</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T11.json</td><td class="num">30</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T12.json</td><td class="num">28</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T13.json</td><td class="num">28</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T14.json</td><td class="num">54</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T15.json</td><td class="num">48</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T16.json</td><td class="num">38</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T17.json</td><td class="num">36</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T18.json</td><td class="num">39</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T19.json</td><td class="num">43</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T2.json</td><td class="num">84</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T20.json</td><td class="num">30</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T21.json</td><td class="num">30</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T22.json</td><td class="num">33</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T23.json</td><td class="num">28</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T24.json</td><td class="num">39</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T25.json</td><td class="num">30</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T26.json</td><td class="num">67</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T27.json</td><td class="num">37</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T28.json</td><td class="num">29</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T29.json</td><td class="num">27</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T3.json</td><td class="num">66</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T4.json</td><td class="num">51</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T5.json</td><td class="num">53</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T6.json</td><td class="num">37</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T7.json</td><td class="num">50</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T8.json</td><td class="num">48</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/T9.json</td><td class="num">38</td><td class="num">4</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/boundary.json</td><td class="num">603</td><td class="num">97</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/budget.json</td><td class="num">45</td><td class="num">1</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/locked.json</td><td class="num">570</td><td class="num">64</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/evidence/summary.json</td><td class="num">297</td><td class="num">2</td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout-2/kickoff.md</td><td class="num">46</td><td class="num">0</td></tr>
-<tr><td>flightdeck/launch/flightcrew-buildout-2/launch.json</td><td class="num">118</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/launch.json</td><td class="num">119</td><td class="num">1</td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout-2/plan.json</td><td class="num">108</td><td class="num">0</td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout-2/plan.md</td><td class="num">27</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/report.md</td><td class="num">83</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/review/pass-1.json</td><td class="num">138</td><td class="num">0</td></tr>
+<tr><td>flightdeck/launch/flightcrew-buildout-2/review/pass-2.json</td><td class="num">138</td><td class="num">0</td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/escalation.json</td><td class="num">0</td><td class="num">7</td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/events.jsonl</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/evidence.html</td><td class="num">3</td><td class="num">2</td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/launch.json</td><td class="num">4</td><td class="num">4</td></tr>
 <tr><td>flightdeck/launch/flightcrew-buildout/report.md</td><td class="num">11</td><td class="num">10</td></tr>
-<tr><td>flightdeck/manuals/harness/hooks.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/manuals/harness/workflows.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/manuals/orchestration/journey.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/manuals/orchestration/kickoff.md</td><td class="num">1</td><td class="num">1</td></tr>
-<tr><td>flightdeck/manuals/orchestration/run-report.md</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td>flightdeck/manuals/README.md</td><td class="num">52</td><td class="num">41</td></tr>
+<tr><td>flightdeck/manuals/harness/claude-code-facts.md</td><td class="num">25</td><td class="num">18</td></tr>
+<tr><td>flightdeck/manuals/harness/hooks.md</td><td class="num">16</td><td class="num">15</td></tr>
+<tr><td>flightdeck/manuals/harness/permissions.md</td><td class="num">24</td><td class="num">20</td></tr>
+<tr><td>flightdeck/manuals/harness/workflows.md</td><td class="num">24</td><td class="num">19</td></tr>
+<tr><td>flightdeck/manuals/launch/launch-anatomy.md</td><td class="num">20</td><td class="num">15</td></tr>
+<tr><td>flightdeck/manuals/orchestration/crew.md</td><td class="num">15</td><td class="num">15</td></tr>
+<tr><td>flightdeck/manuals/orchestration/endings.md</td><td class="num">14</td><td class="num">12</td></tr>
+<tr><td>flightdeck/manuals/orchestration/journey.md</td><td class="num">32</td><td class="num">32</td></tr>
+<tr><td>flightdeck/manuals/orchestration/kickoff.md</td><td class="num">21</td><td class="num">20</td></tr>
+<tr><td>flightdeck/manuals/orchestration/planning.md</td><td class="num">34</td><td class="num">29</td></tr>
+<tr><td>flightdeck/manuals/orchestration/review.md</td><td class="num">12</td><td class="num">10</td></tr>
+<tr><td>flightdeck/manuals/orchestration/run-log.md</td><td class="num">23</td><td class="num">20</td></tr>
+<tr><td>flightdeck/manuals/orchestration/run-report.md</td><td class="num">16</td><td class="num">13</td></tr>
+<tr><td>flightdeck/testbench/README.md</td><td class="num">13</td><td class="num">10</td></tr>
 <tr><td>flightdeck/testbench/suites/unit-integration/run.mjs</td><td class="num">2</td><td class="num">0</td></tr>
 </tbody>
 </table>
 <h2>Findings</h2>
-—
+<p class="meta">pass 2 · verdict gaps</p>
+<table>
+<thead><tr><th>finding</th><th>kind</th><th>severity</th><th>spec</th><th>where</th><th>state</th><th>text</th></tr></thead>
+<tbody>
+<tr><td>F1</td><td>spec-conflict</td><td>non-blocking</td><td>B40</td><td>flightdeck/flightcrew/bin/cmd/worker.mjs:78</td><td>open</td><td>fc worker render exits 1 in every phase but implement, as the locked T19 case &#39;worker-render-exits-1-outside-phase-implement&#39; (flightdeck/testbench/suites/bin-dispatch/run.mjs:172-183) requires for contracts, verify and review, yet B35/B40 build the W0 contracts unit in phase contracts (G1 approve moves plan to contracts, the contracts gate runs the W0 checks there, G2 approve needs them run) and the kickoff base.md:5, launch-anatomy.md:91 and journey.md stage 5 all instruct &#39;fc worker render W0&#39; in that phase — the locked check and the spec-implied flow cannot both hold, so wave 0 cannot be d</td></tr>
+<tr><td>F2</td><td>correctness-gap</td><td>non-blocking</td><td>C3</td><td>flightdeck/flightcrew/bin/cmd/launch.mjs:454</td><td>open</td><td>C3 allows at most one stdout line on success outside its listed exceptions, but fc launch pin tests-map prints &#39;tests map pinned…&#39;, &#39;allow these commands…&#39; and one Bash(...) line per check (lines 453-455) on every success, and fc launch phase prints a warn line (line 573) before its ok line when the checked-out branch differs; the constraints suite&#39;s C3 case samples nine other commands so neither is caught.</td></tr>
+<tr><td>F3</td><td>scope-violation</td><td>non-blocking</td><td>VER</td><td>flightdeck/testbench/suites/bin-evidence/run.mjs:247</td><td>open</td><td>A locked suite (T11, locked_paths &#39;flightdeck/testbench/suites/bin-evidence/**&#39;) was modified after lock 49aff47 in the build commit 5cad9b9: the changed-since-lock assertion moved from 2 to 3 added lines; the probe appends &#39;\n// one\n// two\n&#39; so git numstat&#39;s 3 is the correct value and the human re-pin (tests-map v2, commit 9131265) records the reason, but git diff --name-only 49aff47 shows the locked target changed.</td></tr>
+<tr><td>F4</td><td>scope-violation</td><td>non-blocking</td><td>VER</td><td>flightdeck/testbench/suites/constraints/scan-lib.mjs:118</td><td>open</td><td>A locked suite (T24, &#39;flightdeck/testbench/suites/constraints/**&#39;) was modified after lock 49aff47 in 5cad9b9: the import/export specifier patterns are now anchored at statement start; running the old and new patterns over every script shows the only file whose result differs is the locked bin-evidence suite itself (literal @import &quot;x&quot;), so the change was necessary for a locked file&#39;s own content and was re-pinned in map v2, but it is a locked-target edit in the reviewed diff.</td></tr>
+<tr><td>F5</td><td>scope-violation</td><td>non-blocking</td><td>SC2</td><td>flightdeck/launch/specs/flightcrew-v1/tests-map.v2.json:81</td><td>open</td><td>The locked spec folder (&#39;flightdeck/launch/specs/flightcrew-v1/**&#39;) gained tests-map.v2.json after lock 49aff47 (commit 9131265) as the re-pin for F3/F4; its baseline.commit records 49aff47 with note &#39;implementation present&#39; while its observed lines were captured on the built tree (5cad9b9), so the recorded baseline commit does not name the tree the observations came from.</td></tr>
+<tr><td>F6</td><td>observation</td><td>non-blocking</td><td>B14</td><td>flightdeck/flightcrew/checks/lib/git-lib.mjs:196</td><td>open</td><td>changedSince silently skips the committed diff when the base does not resolve, so a launch whose stored lock_commit fails to resolve makes fc boundary and fc locked report only the working tree and exit 0 as clean; the fix validates a --base argument (boundary.mjs:245, locked.mjs:324) but deliberately leaves the stored lock_commit lenient, which is an error defaulted away rather than surfaced.</td></tr>
+<tr><td>F7</td><td>observation</td><td>non-blocking</td><td>I8</td><td>flightdeck/flightcrew/bin/cmd/worker.mjs:101</td><td>open</td><td>fc worker render now writes returns/&lt;unit&gt;.prompt.md beside printing, while I8 lists returns/ as the store for agent returns and B48 says the critic prompt carries no text from any file under returns/; the prompt file carries the same spec node lines the critic prompt carries, so B48&#39;s literal wording is unsatisfiable by construction, though every reader (loadLaunchData, validate-all, fc launch end partial) filters on .json so nothing breaks functionally.</td></tr>
+<tr><td>F8</td><td>observation</td><td>non-blocking</td><td>I1</td><td>flightdeck/flightcrew/bin/cmd/launch.mjs:440</td><td>open</td><td>fc launch pin tests-map replaces paths.allowed with the map&#39;s allowed_paths, discarding any --allow &lt;glob&gt; given to fc launch new (I1), so the flag has no effect once a map is pinned.</td></tr>
+<tr><td>F9</td><td>observation</td><td>non-blocking</td><td>B18</td><td>flightdeck/flightcrew/bin/cmd/report.mjs:276</td><td>open</td><td>report.md prints notes.md verbatim under Orchestrator notes, so a note recorded with fc launch note can carry the strings B18 forbids (&#39;ready to merge&#39;, &#39;should be accepted&#39;, &#39;accept this run&#39;) into report.md outside quoted check output.</td></tr>
+<tr><td>F10</td><td>observation</td><td>non-blocking</td><td>B48</td><td>flightdeck/flightcrew/bin/worker/render.mjs:366</td><td>open</td><td>diffSinceLock runs git diff &lt;base&gt; against the working tree, which omits untracked files, so a new file created but not yet staged after the lock is absent from the critic&#39;s sealed prompt while fc boundary counts it as changed.</td></tr>
+<tr><td>F11</td><td>observation</td><td>non-blocking</td><td>B30</td><td>flightdeck/flightcrew/bin/cmd/doctor.mjs:262</td><td>open</td><td>The new &#39;target hook interpreter&#39; check spawns &#39;&lt;first token&gt; --version&#39; for every hook command in settings.json; a hook command whose first token is not an executable on PATH (an environment assignment, a quoted variable, a tool without --version) is reported unresolved and makes fc doctor --target exit 2 even though B30 does not list that condition.</td></tr>
+</tbody>
+</table>
 <h2>Phases</h2>
 <table>
 <thead><tr><th>when</th><th>event</th><th>detail</th><th>source</th></tr></thead>
@@ -218,6 +285,9 @@ ul { margin: 0.25rem 0; padding-left: 1.2rem; }
 <tr><td>2026-09-03T22:44:42.283Z</td><td>gate</td><td>G2 approve</td><td>fc</td></tr>
 <tr><td>2026-09-03T22:44:42.283Z</td><td>phase</td><td>contracts to implement</td><td>fc</td></tr>
 <tr><td>2026-09-03T22:44:42.442Z</td><td>phase</td><td>implement to verify</td><td>fc</td></tr>
+<tr><td>2026-09-04T02:25:07.796Z</td><td>phase</td><td>verify to review</td><td>fc</td></tr>
+<tr><td>2026-09-04T02:25:08.252Z</td><td>phase</td><td>review to report</td><td>fc</td></tr>
+<tr><td>2026-09-04T02:47:50.693Z</td><td>launch_end</td><td>accepted-with-reservations</td><td>fc</td></tr>
 </tbody>
 </table>
 <h2>Agents</h2>
@@ -226,7 +296,7 @@ ul { margin: 0.25rem 0; padding-left: 1.2rem; }
 —
 <h2>Checks</h2>
 <h3>T1 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:44:47.269Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 4666 ms · covers B34</p>
+<p class="meta">ran 2026-09-04T02:42:11.586Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 4793 ms · covers B34</p>
 <pre>$ node flightdeck/testbench/suites/e2e/run.mjs
 exit: 0
 pass  setup-temporary-repository
@@ -250,7 +320,7 @@ pass  report-headings-and-ledger
 covers: B34
 18/18 passed</pre>
 <h3>T2 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:45:51.429Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 64159 ms · covers B1, B2, B3, B32, B35, B41, B44, B45, B47, B49, B50, B52, B54, I1, E1, E3, E6, E7, E12, E15, E18, E20, E22, E24</p>
+<p class="meta">ran 2026-09-04T02:43:15.681Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 64094 ms · covers B1, B2, B3, B32, B35, B41, B44, B45, B47, B49, B50, B52, B54, I1, E1, E3, E6, E7, E12, E15, E18, E20, E22, E24</p>
 <pre>$ node flightdeck/testbench/suites/bin-launch/run.mjs
 exit: 0
 pass  launch-override-selects-one-of-two
@@ -294,7 +364,7 @@ pass  land-evidence-commit-flag
 covers: B1 B2 B3 B32 B35 B41 B44 B45 B47 B49 B50 B52 B54 E1 E3 E6 E7 E12 E15 E18 E20 E22 E24 I1
 64/64 passed</pre>
 <h3>T3 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:46:19.717Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 28287 ms · covers B4, C8, I7, E5, E13, E14</p>
+<p class="meta">ran 2026-09-04T02:43:44.077Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 28395 ms · covers B4, C8, I7, E5, E13, E14</p>
 <pre>$ node flightdeck/testbench/suites/hooks-noop/run.mjs
 exit: 0
 pass  project-dir-without-launch-event-log
@@ -338,7 +408,7 @@ pass  stop-gate-unreadable-launch
 covers: B4 C8 E5 E13 E14 I7
 56/56 passed</pre>
 <h3>T4 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:46:36.807Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 17088 ms · covers B5, B52, I5</p>
+<p class="meta">ran 2026-09-04T02:44:01.220Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 17142 ms · covers B5, B52, I5</p>
 <pre>$ node flightdeck/testbench/suites/hooks-eventlog/run.mjs
 exit: 0
 pass  records-SessionStart
@@ -370,7 +440,7 @@ pass  event-line-is-single-line-json
 covers: B5 B52 I5
 26/26 passed</pre>
 <h3>T5 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:46:59.379Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 22572 ms · covers B6, B7, B42, B53, I7</p>
+<p class="meta">ran 2026-09-04T02:44:24.037Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 22816 ms · covers B6, B7, B42, B53, I7</p>
 <pre>$ node flightdeck/testbench/suites/hooks-guards/run.mjs
 exit: 0
 pass  lock-edit-locked-denied
@@ -402,7 +472,7 @@ pass  trigger-fired-fc-launch-phase-ended-allowed
 covers: B6 B7 B42 B53 I7
 26/26 passed</pre>
 <h3>T6 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:47:10.430Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 11051 ms · covers B8, E9</p>
+<p class="meta">ran 2026-09-04T02:44:35.181Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 11142 ms · covers B8, E9</p>
 <pre>$ node flightdeck/testbench/suites/hooks-structural/run.mjs
 exit: 0
 pass  broken-mjs-blocks
@@ -421,7 +491,7 @@ pass  runs-in-every-phase
 covers: B8 E9
 13/13 passed</pre>
 <h3>T7 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:47:37.493Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 27063 ms · covers B9, B10, B11, B40, B41</p>
+<p class="meta">ran 2026-09-04T02:45:03.178Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 27997 ms · covers B9, B10, B11, B40, B41</p>
 <pre>$ node flightdeck/testbench/suites/hooks-stopgate/run.mjs
 exit: 0
 pass  verify-red-blocks-with-id-code-and-output
@@ -450,7 +520,7 @@ pass  fc-end-removes-escalation
 covers: B9 B10 B11 B40 B41
 23/23 passed</pre>
 <h3>T8 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:47:58.289Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 20796 ms · covers B12, B13, B36, B46, I6, E2, E8, E11, E17</p>
+<p class="meta">ran 2026-09-04T02:45:24.722Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 21544 ms · covers B12, B13, B36, B46, I6, E2, E8, E11, E17</p>
 <pre>$ node flightdeck/testbench/suites/bin-check/run.mjs
 exit: 0
 pass  check-all-runs-every-live-check-and-exits-0
@@ -473,7 +543,7 @@ pass  verify-exits-2-when-a-check-fails
 covers: B12 B13 B36 B46 E2 E8 E11 E17 I6
 17/17 passed</pre>
 <h3>T9 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:48:08.909Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 10620 ms · covers B14, B15, B16, B51</p>
+<p class="meta">ran 2026-09-04T02:45:35.995Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 11272 ms · covers B14, B15, B16, B51</p>
 <pre>$ node flightdeck/testbench/suites/bin-boundary/run.mjs
 exit: 0
 pass  boundary-lists-changed-marks-outside-excludes-worktrees-and-runs-exits-2
@@ -491,7 +561,7 @@ pass  events-summary-prints-counts-by-event-per-agent-and-unparseable
 covers: B14 B15 B16 B51
 12/12 passed</pre>
 <h3>T10 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:48:14.786Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 5876 ms · covers B17, B18, I12, E4, E21</p>
+<p class="meta">ran 2026-09-04T02:45:42.255Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 6258 ms · covers B17, B18, I12, E4, E21</p>
 <pre>$ node flightdeck/testbench/suites/bin-report/run.mjs
 exit: 0
 pass  report-has-the-eight-headings-in-order
@@ -505,7 +575,7 @@ pass  absent-events-file-is-treated-as-empty-by-summary-budget-and-report
 covers: B17 B18 E4 E21 I12
 8/8 passed</pre>
 <h3>T11 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:48:19.126Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 4339 ms · covers B19, B37</p>
+<p class="meta">ran 2026-09-04T02:45:46.805Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 4549 ms · covers B19, B37</p>
 <pre>$ node flightdeck/testbench/suites/bin-evidence/run.mjs
 exit: 0
 pass  evidence-html-is-self-contained
@@ -517,7 +587,7 @@ pass  changed-since-lock-lists-each-path-with-added-and-removed-counts
 covers: B19 B37
 6/6 passed</pre>
 <h3>T12 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:48:24.474Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 5347 ms · covers B20</p>
+<p class="meta">ran 2026-09-04T02:45:52.353Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 5547 ms · covers B20</p>
 <pre>$ node flightdeck/testbench/suites/bin-runlog/run.mjs
 exit: 0
 pass  stub-creates-run-log-with-accepted-entry
@@ -528,7 +598,7 @@ pass  end-accepted-inserts-accepted-entry
 covers: B20
 5/5 passed</pre>
 <h3>T13 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:48:28.450Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 3976 ms · covers B21</p>
+<p class="meta">ran 2026-09-04T02:45:56.460Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 4106 ms · covers B21</p>
 <pre>$ node flightdeck/testbench/suites/bin-plan/run.mjs
 exit: 0
 pass  render-writes-headings-in-order
@@ -539,7 +609,7 @@ pass  render-schema-invalid-plan-exits-2
 covers: B21
 5/5 passed</pre>
 <h3>T14 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:48:29.922Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 1471 ms · covers B22</p>
+<p class="meta">ran 2026-09-04T02:45:57.944Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 1483 ms · covers B22</p>
 <pre>$ node flightdeck/testbench/suites/validate-spec/run.mjs
 exit: 0
 pass  golden-v1-clean
@@ -576,7 +646,7 @@ pass  inv13-id-hole
 covers: B22
 31/31 passed</pre>
 <h3>T15 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:48:48.071Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 18149 ms · covers B23</p>
+<p class="meta">ran 2026-09-04T02:46:15.973Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 18028 ms · covers B23</p>
 <pre>$ node flightdeck/testbench/suites/validate-tests-map/run.mjs
 exit: 0
 pass  positive-sample-map
@@ -607,7 +677,7 @@ pass  coverage-rule-satisfied-by-unverified
 covers: B23
 25/25 passed</pre>
 <h3>T16 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:48:58.531Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 10459 ms · covers B24</p>
+<p class="meta">ran 2026-09-04T02:46:26.737Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 10763 ms · covers B24</p>
 <pre>$ node flightdeck/testbench/suites/validate-plan/run.mjs
 exit: 0
 pass  positive-sample-plan
@@ -628,7 +698,7 @@ pass  first-parallel-wave-without-pilot
 covers: B24
 15/15 passed</pre>
 <h3>T17 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:49:07.841Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 9310 ms · covers B25</p>
+<p class="meta">ran 2026-09-04T02:46:35.971Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 9233 ms · covers B25</p>
 <pre>$ node flightdeck/testbench/suites/validate-launch/run.mjs
 exit: 0
 pass  positive-sample-launch
@@ -647,7 +717,7 @@ pass  resolve-commits-rejects-unknown-hashes
 covers: B25
 13/13 passed</pre>
 <h3>T18 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:49:16.447Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 8606 ms · covers B26</p>
+<p class="meta">ran 2026-09-04T02:46:44.486Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 8514 ms · covers B26</p>
 <pre>$ node flightdeck/testbench/suites/lint-spec/run.mjs
 exit: 0
 pass  positive-sample-spec
@@ -669,7 +739,7 @@ pass  warn-length-does-not-fail
 covers: B26
 16/16 passed</pre>
 <h3>T19 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:49:30.673Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 14226 ms · covers B27, B28, B43, B48, E19, E23</p>
+<p class="meta">ran 2026-09-04T02:46:58.737Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 14250 ms · covers B27, B28, B43, B48, E19, E23</p>
 <pre>$ node flightdeck/testbench/suites/bin-dispatch/run.mjs
 exit: 0
 pass  worker-render-prompt-first-line-and-always-present-nodes
@@ -690,7 +760,7 @@ pass  critic-render-exits-1-outside-phase-review-or-with-stale-summary
 covers: B27 B28 B43 B48 E19 E23
 15/15 passed</pre>
 <h3>T20 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:49:31.666Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 993 ms · covers B29, E10</p>
+<p class="meta">ran 2026-09-04T02:46:59.748Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 1010 ms · covers B29, E10</p>
 <pre>$ node flightdeck/testbench/suites/bin-distribute/run.mjs
 exit: 0
 pass  dry-run-lists-and-writes-nothing
@@ -702,7 +772,7 @@ pass  force-overwrites-conflicts
 covers: B29 E10
 6/6 passed</pre>
 <h3>T21 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:49:47.881Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 16215 ms · covers B30</p>
+<p class="meta">ran 2026-09-04T02:47:16.328Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 16579 ms · covers B30</p>
 <pre>$ node flightdeck/testbench/suites/bin-doctor/run.mjs
 exit: 0
 pass  doctor-passes-on-the-repository
@@ -715,7 +785,7 @@ pass  target-crew-name-collision-exits-2
 covers: B30
 7/7 passed</pre>
 <h3>T22 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:49:47.929Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 47 ms · covers B31, I10</p>
+<p class="meta">ran 2026-09-04T02:47:16.381Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 52 ms · covers B31, I10</p>
 <pre>$ node flightdeck/testbench/suites/crew/run.mjs
 exit: 0
 pass  every-crew-file-carries-name-description-tools-model
@@ -730,7 +800,7 @@ pass  new-roles-match-the-roster
 covers: B31 I10
 9/9 passed</pre>
 <h3>T23 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:49:50.137Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 2207 ms · covers B33, I9</p>
+<p class="meta">ran 2026-09-04T02:47:18.538Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 2157 ms · covers B33, I9</p>
 <pre>$ node flightdeck/testbench/suites/run-all/run.mjs
 exit: 0
 pass  runs-every-suite-in-name-order-one-line-each-exit-0
@@ -740,7 +810,7 @@ pass  a-real-suite-follows-the-protocol
 covers: B33 I9
 4/4 passed</pre>
 <h3>T24 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:49:59.138Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 9001 ms · covers C1, C2, C3, C5, C6, C7, C9</p>
+<p class="meta">ran 2026-09-04T02:47:27.773Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 9235 ms · covers C1, C2, C3, C5, C6, C7, C9</p>
 <pre>$ node flightdeck/testbench/suites/constraints/run.mjs
 exit: 0
 pass  C1-imports-are-node-builtins-or-relative-inside-scope
@@ -756,7 +826,7 @@ pass  C7-suites-create-temp-dirs-only-with-cleanup
 covers: C1 C2 C3 C5 C6 C7 C9
 10/10 passed</pre>
 <h3>T25 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:50:05.183Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 6045 ms · covers C4</p>
+<p class="meta">ran 2026-09-04T02:47:33.766Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 5991 ms · covers C4</p>
 <pre>$ node flightdeck/testbench/suites/hook-timing/run.mjs
 exit: 0
 pass  event-log-under-2000ms
@@ -769,7 +839,7 @@ pass  settings-fragment-stop-timeout-600
 covers: C4
 7/7 passed</pre>
 <h3>T26 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:50:10.765Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 5580 ms · covers I2, I3, I4, I5, I6, I8, I14</p>
+<p class="meta">ran 2026-09-04T02:47:39.389Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 5622 ms · covers I2, I3, I4, I5, I6, I8, I14</p>
 <pre>$ node flightdeck/testbench/suites/schemas/run.mjs
 exit: 0
 pass  event-schema-rejects-source-outside-enum
@@ -813,7 +883,7 @@ pass  fragment-permissions-deny-and-sandbox-example
 covers: I2 I3 I4 I5 I6 I8 I14
 64/64 passed</pre>
 <h3>T27 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:50:20.899Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 10134 ms · covers I11, E16</p>
+<p class="meta">ran 2026-09-04T02:47:49.470Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 10080 ms · covers I11, E16</p>
 <pre>$ node flightdeck/testbench/suites/templates/run.mjs
 exit: 0
 pass  kickoff-parts-start-with-version-comment
@@ -832,7 +902,7 @@ pass  validate-rejects-unknown-role-name
 covers: E16 I11
 13/13 passed</pre>
 <h3>T28 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:50:20.946Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 47 ms · covers B38, I13</p>
+<p class="meta">ran 2026-09-04T02:47:49.521Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 50 ms · covers B38, I13</p>
 <pre>$ node flightdeck/testbench/suites/manifest/run.mjs
 exit: 0
 pass  manifest-exists-with-path-lines
@@ -843,7 +913,7 @@ pass  no-launch-folder-other-than-specs-and-the-buildout
 covers: B38 I13
 5/5 passed</pre>
 <h3>T29 <span class="pass">pass</span></h3>
-<p class="meta">ran 2026-09-03T22:50:21.115Z at 9131265aa5b969adf634103f186b73d185a3f3f5 in phase verify · 169 ms · covers B39</p>
+<p class="meta">ran 2026-09-04T02:47:49.694Z at c28578e402a927a3049db463859d3efd7b49fe13 in phase report · 173 ms · covers B39</p>
 <pre>$ node flightdeck/testbench/suites/workflows/run.mjs
 exit: 0
 pass  passes-node-module-check

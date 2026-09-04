@@ -803,7 +803,10 @@ async function end(args, ctx) {
     if (!sameCommit(summary.commit ?? '', head ?? '')) {
       throw new BlockedError(`evidence is stale: evidence/summary.json is at ${shortHash(summary.commit)}, HEAD is ${shortHash(head)}`);
     }
-    const dirty = git.dirtyPaths(ctx.root, launchJson.paths?.allowed ?? []);
+    // The launch's own folder is the run's record and is always writable to the run (design section 4), so its
+    // evidence, returns and report never make the tree unclean for the ending; every other allowed path must be clean.
+    const ownFolder = [`flightdeck/launch/${name}/**`];
+    const dirty = git.dirtyPaths(ctx.root, launchJson.paths?.allowed ?? []).filter((entry) => !matchAny(ownFolder, entry));
     if (dirty.length > 0) {
       throw new BlockedError(`working tree not clean under allowed paths: ${dirty.join(', ')}`);
     }

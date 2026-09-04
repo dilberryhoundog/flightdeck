@@ -15,7 +15,7 @@ The nine-domains description, the spec conventions, the verification addendum an
 
 ## Session inputs
 
-Ask for what is missing before doing anything else, and do nothing until it arrives. Required: the intention as a paragraph, or a draft spec path whose Intent node is the intention; the spec template path; the spec schema path; the project root; the run folder, `dev/workspace/runs/<spec-name>/`. Optional: the run log path. If the intention describes two pieces of work, say so and ask which one this spec is before anything else.
+Ask for what is missing before doing anything else, and do nothing until it arrives. Required: the intention as a paragraph, or a draft spec path whose Intent node is the intention; the spec template path; the spec schema path; the project root; the run folder, `flightdeck/launch/specs/<spec-name>/`; the validator path; the linter path; the rubric path. Optional: the run log path. If the intention describes two pieces of work, say so and ask which one this spec is before anything else.
 
 ## The heartbeat
 

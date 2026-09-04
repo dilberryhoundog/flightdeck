@@ -1,0 +1,138 @@
+{
+  "verdict": "gaps",
+  "pass": 1,
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "scope-violation",
+      "severity": "blocking",
+      "spec_ref": "VER",
+      "file": "flightdeck/testbench/suites/bin-evidence/run.mjs",
+      "line": 247,
+      "text": "The diff 49aff47..9131265 edits two locked suites (bin-evidence/run.mjs:247 changes the asserted count from 2 to 3; constraints/scan-lib.mjs:118-120 narrows the import scanner) and adds tests-map.v2.json under the locked glob flightdeck/launch/specs/flightcrew-v1/**, so VER's 'locked during the build' and ACC's 'fc locked reports no change under the paths the buildout tests map locks' cannot hold against the lock commit (git diff --name-only 49aff47 9131265 lists all three).",
+      "state": "disputed",
+      "resolved_commit": null,
+      "dispute": "The change under the locked path is a tests-map revision made by the human at the targets gate after a wrong-check finding, not a run edit."
+    },
+    {
+      "id": "F2",
+      "kind": "correctness-gap",
+      "severity": "blocking",
+      "spec_ref": "B27",
+      "file": "flightdeck/flightcrew/bin/cmd/worker.mjs",
+      "line": 78,
+      "text": "fc worker render refuses every phase but implement, yet B35/B40 and the shipped kickoff base.md step 3 dispatch the W0 contracts unit with fc worker render while the launch is in phase contracts, so the contracts wave can never be rendered through fc (B27 states no phase precondition).",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F3",
+      "kind": "correctness-gap",
+      "severity": "blocking",
+      "spec_ref": "ACC",
+      "file": "flightdeck/testbench/suites/unit-integration/run.mjs",
+      "line": 17,
+      "text": "The added unit-integration suite requires every launch folder's launch.json, kickoff.md, plan.json and plan.md to be listed in MANIFEST.txt, but I13 excludes launch folders other than launch/specs and the buildout, so any second launch (flightcrew-buildout-2 exists now) makes run-all.mjs exit 2 — observed: 'FAIL unit-integration (3/4)', run-all exit=2, which breaks ACC's 'run-all exits 0'.",
+      "state": "resolved",
+      "resolved_commit": "acafec4",
+      "dispute": null
+    },
+    {
+      "id": "F4",
+      "kind": "spec-conflict",
+      "severity": "non-blocking",
+      "spec_ref": "B37",
+      "file": "flightdeck/testbench/suites/bin-evidence/run.mjs",
+      "line": 247,
+      "text": "Locked case changed-since-lock asserts 2 added lines for a fixture edit that git numstat reports as 3 (verified: numstat and --ignore-blank-lines both give 3 0), so either B37's 'added and removed line counts' means git's counts and the locked suite is wrong, or the suite defines the count as non-blank lines and the implementation (git-lib changedSince numstat) must count differently; the diff chose to edit the locked suite instead of either.",
+      "state": "disputed",
+      "resolved_commit": null,
+      "dispute": "The change under the locked path is a tests-map revision made by the human at the targets gate after a wrong-check finding, not a run edit."
+    },
+    {
+      "id": "F5",
+      "kind": "spec-conflict",
+      "severity": "non-blocking",
+      "spec_ref": "C1",
+      "file": "flightdeck/testbench/suites/constraints/scan-lib.mjs",
+      "line": 118,
+      "text": "The locked scanner at 49aff47 returns the specifier \"x\" from the string literal '@import \"x\"' inside the locked bin-evidence suite (verified by running the original importSpecifiers over it), so the locked T24 case fails on locked input alone: reading A, C1 means real import statements and the scanner is wrong; reading B, the scanner is the definition and no in-scope tree passes; the diff resolved it by rewriting the locked scanner.",
+      "state": "disputed",
+      "resolved_commit": null,
+      "dispute": "The change under the locked path is a tests-map revision made by the human at the targets gate after a wrong-check finding, not a run edit."
+    },
+    {
+      "id": "F6",
+      "kind": "spec-conflict",
+      "severity": "non-blocking",
+      "spec_ref": "B14",
+      "file": "flightdeck/flightcrew/bin/cmd/boundary.mjs",
+      "line": 22,
+      "text": "B14 fixes the changed set's exclusions as .claude/worktrees/** and flightdeck/testbench/runs/** only, but changeSet additionally excludes flightdeck/launch/<L>/specs/** (line 38), because fc launch pin (launch.mjs:439) adds that glob to paths.locked and writes the copies after lock_commit, which under the literal B14/B15/B47 reading would keep fc locked red forever; either the exclusion list in B14 is incomplete or the pinned copies must not be locked, and as built a hand edit to a pinned spec copy is never reported by fc locked.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F7",
+      "kind": "correctness-gap",
+      "severity": "non-blocking",
+      "spec_ref": "I13",
+      "file": "flightdeck/flightcrew/MANIFEST.txt",
+      "line": 126,
+      "text": "MANIFEST.txt omits flightdeck/launch/specs/flightcrew-v1/tests-map.v2.json, a file under the canonical spec folder SC2 names, though I13 requires one line per such file (verified by listing launch/specs against the manifest).",
+      "state": "resolved",
+      "resolved_commit": "acafec4",
+      "dispute": null
+    },
+    {
+      "id": "F8",
+      "kind": "correctness-gap",
+      "severity": "non-blocking",
+      "spec_ref": "C3",
+      "file": "flightdeck/flightcrew/bin/cmd/launch.mjs",
+      "line": 450,
+      "text": "On success fc launch pin tests-map prints a pinned line plus 'allow these commands' plus one Bash(...) line per check, and fc launch phase plan (launch.mjs:499,501) and fc plan write (plan.mjs:95, runValidator with inherited stdio) print the validator's 'ok: ...' line before their own, exceeding C3's one-line success output for commands that are neither documents nor listings.",
+      "state": "resolved",
+      "resolved_commit": "acafec4",
+      "dispute": null
+    },
+    {
+      "id": "F9",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "SC5",
+      "file": "flightdeck/launch/flightcrew-buildout/evidence/boundary.json",
+      "line": 775,
+      "text": "The working tree carries an untracked .claude/workflows/flightcrew-build.js that fc boundary reports outside the allowed paths; it is not in the committed diff, but while it exists fc launch phase review (B47) is refused and SC5's '.claude/ never written' is not honoured by the tree the run was verified in.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    },
+    {
+      "id": "F10",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "C2",
+      "file": "flightdeck/flightcrew/bin/cmd/distribute.mjs",
+      "line": 105,
+      "text": "fc distribute --apply without --target defaults to <root>/.claude, whereas C2 permits writes under --apply only into 'the target directory given on the command line' and SC5 lists .claude/ as never written.",
+      "state": "resolved",
+      "resolved_commit": "acafec4",
+      "dispute": null
+    },
+    {
+      "id": "F11",
+      "kind": "observation",
+      "severity": "non-blocking",
+      "spec_ref": "B30",
+      "file": "flightdeck/flightcrew/bin/cmd/doctor.mjs",
+      "line": 256,
+      "text": "fc doctor --target adds a 'target gitignore' condition (the .gitignore beside the target must contain .claude/worktrees/) that B30 does not list, so doctor can exit 2 while every condition B30 names holds, and SC9 forbids editing the repository .gitignore to satisfy it.",
+      "state": "open",
+      "resolved_commit": null,
+      "dispute": null
+    }
+  ]
+}

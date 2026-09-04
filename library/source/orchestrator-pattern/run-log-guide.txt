@@ -1,0 +1,106 @@
+COMPANION · THE RUN LOG
+What it is
+Three axes
+An entry
+Practice
+Anti-patterns
+← Field review
+THE DOCUMENT THE SETUP IS ITERATED AGAINST
+Abandoning a run only pays off if something remembers why.
+A short guide to the run log: the record that turns expensive failed runs into cheap improvements to the spec template, the kickoff library, the hooks and the project constitution.
+LENGTH OF AN ENTRY
+Ten lines, written at the moment of abandonment
+CONTEXT
+Orchestrating agent teams in Claude Code
+What it is
+Not telemetry, not a transcript, not a diary. A structured memory of what went wrong with a run's setup and what was changed as a result.
+The orchestration economics say: when a run drifts, do not patch it, abandon it and fix the setup. That is only an improvement over patching if the fix is actually made and actually sticks. Left to memory, the same failure recurs three runs later with a different surface, is diagnosed again from scratch, and the setup stays where it was. The run log is the mechanism that makes abandonment compound rather than repeat.
+It is the orchestration form of a practice that engineering already has: the blameless post-incident record, where the question is never who failed but what about the system allowed the failure and what changes so it cannot happen the same way. Here the "system" is the run's setup, and the "incident" is a run that had to be abandoned or that was accepted with reservations.
+Not the transcript
+Session logs are complete and unreadable. The run log is what a person concluded from them.
+Not the evidence display
+Evidence shows what a run proved. The log records what the run taught about the setup.
+Not git history
+Commits record what changed in the code. The log records why the spec template, kickoff or hooks changed.
+Not a diary
+No narrative of the day. One entry per run, one diagnosis, one change.
+The log closes a loop that otherwise stays open:
+RUN
+Drift appears
+The evidence display or the gate shows a run has gone wrong.
+STOP
+Abandon
+The run is stopped at the finding, not patched.
+RECORD
+Diagnose the axis
+One entry: symptom, axis, cause, change.
+FIX
+Change the setup
+The spec template, kickoff, hook set or constitution is edited.
+Next run starts clean, from the improved setup, with the log read first
+The three axes
+Every abandoned run failed on one of three axes. Naming the axis is most of the diagnosis, because each axis points at a different part of the setup.
+Context
+SYMPTOM
+The orchestrator or a worker did not know something a person would have known: a convention, a constraint, a file, what "done" meant, what was out of scope.
+POINTS AT
+The spec (missing behaviour, scope or decision), the kickoff prompt, CLAUDE.md, a skill, a subagent definition.
+Verification
+SYMPTOM
+The run went green and the result was wrong, or the agent iterated on a failing check without converging, or a check was weakened to pass.
+POINTS AT
+A missing or unmapped check, an unlocked test, a false green with no end-to-end proof, a flaky or noisy check, a gate that was not deterministic.
+Tooling
+SYMPTOM
+An agent could not do or see something: a tool gave ambiguous output, permissions blocked a needed action, workers collided on files, a handoff lost structure.
+POINTS AT
+Hooks, allowlists, worktree isolation, schema at handoffs, CLI availability, the workflow script's stage boundaries.
+Most failures present on one axis and are caused on another. A worker that ignored a convention (context) may have done so because a lint hook that would have caught it does not exist (tooling). Record both: the axis where it appeared and the axis where the fix was made. Over several entries the second column is the one that says where to invest.
+"The model was not good enough" is not an axis. It may occasionally be true, but as a diagnosis it produces no change to the setup and so teaches nothing. Force the entry onto one of the three; if it will not go, the run was under-observed and that is the finding.
+ANATOMY
+An entry
+Short enough to write in the moment and to read before the next kickoff. The fields exist so that entries can be scanned for patterns; free prose belongs in the two lines allowed for it. Comments in italics explain each field and are not part of a real entry.
+## 2026-08-26 · export-html · run 3
+spec:     docs/specs/export-html.md @ a1b2c3d     the frozen spec commit
+kickoff:  kickoffs/feature-parallel.md v7        which kickoff, which version
+outcome:  abandoned at gate 2 (interfaces)      accepted | accepted-with-reservations | abandoned at <gate or stage>
+cost:     ~40 min · 6 agents · heavy            enough to compare runs; exact tokens if you have them
+
+symptom:  two workers defined incompatible Warning types; contract test failed 4×
+seen on:  verification                          context | verification | tooling
+cause:    spec named Warning but did not say "reuse existing type"; nothing stopped a redefinition
+fixed on: context                               the axis the change was made on
+change:   spec template: interfaces section now requires "reuse existing type by name" for every referenced type
+watch:    whether the contract test passes first time on run 4  what would confirm the fix
+
+— optional —
+kept:     worker-per-module decomposition worked cleanly; do not change  what worked, so it is not accidentally removed
+promote:  "reuse existing types" → CLAUDE.md if it appears again  a candidate for graduating out of the spec
+An accepted run gets a shorter entry: spec, kickoff, outcome, cost, and a line for what worked and any reservation. Recording successes is what stops a later "improvement" from removing the thing that was carrying the run.
+Practice
+The log is cheap to keep and easy to stop keeping. These rules are what keep it alive and useful.
+	•	Write it at the moment of abandonment. The diagnosis is sharpest when the evidence display is still open. An entry written the next day is a reconstruction.
+	•	One change per run where possible. If three things change between run 3 and run 4, nothing can be attributed. When a failure demands several fixes, make them, but mark which one the next run is testing.
+	•	Attribute to the setup, not to the agent. The agent is not a variable the log can change. The spec template, kickoff, hooks and constitution are.
+	•	Read the log before every kickoff. Its whole value is realised at this moment. A log that is written but never read is a diary.
+	•	Run a pattern pass every few entries. Which axis keeps appearing in the "fixed on" column? That is the pillar to invest in next. Three context fixes in a row means the spec template or the interview process needs work, not the next spec.
+	•	Promote and retire. A rule that appears in two or three entries graduates into CLAUDE.md, a hook, or the spec template. Once promoted, it stops being logged. The log should stay short because its findings keep leaving it for more permanent homes.
+	•	Let the orchestrator draft, and the human diagnose. At the end of a run the orchestrator can fill the mechanical fields from the evidence display: spec commit, kickoff version, outcome, cost, symptom. The axis, the cause and the change are the human's, because they are judgements about the setup that the run could not see.
+Where it lives in a Claude Code project
+A single RUNLOG.md in the repository, newest entry first, or one file per run under docs/runs/ if runs are frequent. Committed with the setup changes it describes, so the history of the log and the history of the kickoff library line up. A Stop or SessionEnd hook can append a stub entry with the mechanical fields filled, leaving the diagnosis fields empty for the human. The log is referenced from the kickoff prompt as required reading for the orchestrator's planning phase, so that known failure modes shape the plan before a single worker is dispatched.
+Official guidance already contains the seed of this practice: after two failed corrections, start clean with a better prompt that incorporates what you learned, and pay attention to what worked when a session goes well. The run log is that advice made durable across runs instead of held in one person's memory.
+Anti-patterns
+Ways a run log stops being one.
+	•	The transcript dump Pasting agent output into the entry. Nobody reads it, and the diagnosis never gets written because the dump feels like one.
+	•	The blame log Entries that record what the agent did wrong rather than what the setup allowed. Produces no change and slowly turns into a case against the method rather than an improvement of it.
+	•	The write-only log Entries accumulate, the kickoff never references them, the pattern pass never happens. The tell is a fix that was already logged two months earlier.
+	•	The unbounded entry Paragraphs where fields should be. Long entries are not scanned, and a log that cannot be scanned cannot reveal a pattern.
+	•	No successes recorded Only failures are logged, so the next round of setup changes removes something that was quietly essential and the log has no record that it mattered.
+	•	Never promoting The same rule logged five times and still living only in the log. The finding should have become a hook or a line in the constitution after the second.
+Sources
+The run log is a synthesis rather than a documented feature; these are the practices it draws on.
+	1	Anthropic, Best practices for Claude Code, "Course-correct early and often" and "Develop your intuition". The advice to start clean with a better prompt after repeated corrections, and to notice what worked when a session goes well, are the per-session form of what the log does across runs.
+	2	Anthropic, Best practices for Claude Code, "Set up hooks" and "Write an effective CLAUDE.md". The promotion targets: rules that must fire every time become hooks; broadly applicable conventions become constitution lines; and the file is pruned of anything Claude already does correctly.
+	3	Blameless post-incident review as practised in site reliability engineering: the record asks what about the system allowed the failure and what changes, never who failed. The run log applies the same stance to a run's setup.
+	4	The field review for the abandon-and-improve economics and the three failure axes; the verification guide for the evidence display the mechanical fields are drawn from.
+Compiled August 2026. Parent document: Orchestrating agent teams in Claude Code. Related: the spec · verification.

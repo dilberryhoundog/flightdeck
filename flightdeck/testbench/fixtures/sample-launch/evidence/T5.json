@@ -1,0 +1,19 @@
+{
+  "id": "T5",
+  "command": "node scripts/export-invariants.mjs",
+  "cwd": "/home/writer/export-html",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "export-invariants: ok (1 source file scanned, 2 exports checked)"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 92,
+  "ran_at": "2026-08-30T10:44:59Z",
+  "commit": "18293a4",
+  "covers": [
+    "C1",
+    "C2"
+  ],
+  "phase": "verify"
+}

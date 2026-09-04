@@ -1,0 +1,65 @@
+{
+  "$schema": "../schemas/plan.schema.json",
+  "schema_version": "<integer, version of this schema>",
+  "launch": "<launch name this plan belongs to>",
+  "spec": {
+    "name": "<spec name>",
+    "version": "<integer, the pinned spec version>",
+    "commit": "<hash the spec was frozen at>"
+  },
+  "kickoff_version": "<base@N+shape-<s>@N+task-<t>@N, copied from launch.json>",
+  "shape": "<session | workflow | sessions; matches the shape part of kickoff_version>",
+  "expected_cost": {
+    "agents": "<integer, at most the agents ceiling>",
+    "minutes": "<integer>",
+    "tokens": "<integer, present only when tokens are counted>"
+  },
+  "models": {
+    "explore": "<model for explorers>",
+    "unit": "<model for implementers>",
+    "critic": "<model for the critic>"
+  },
+  "approach": "<how the work is cut and why, in one paragraph a stranger can check against the spec>",
+  "waves": [
+    {
+      "id": "<W0, W1, ... in order>",
+      "mode": "<serial | parallel; a parallel wave holds at most implementers_concurrent units>",
+      "units": ["<unit id>"]
+    }
+  ],
+  "units": [
+    {
+      "id": "<U<n>, unique>",
+      "name": "<short name; the unit branch is <launch>/<name>>",
+      "kind": "<contracts | feature | integration | proof; exactly one contracts unit in the serial W0 unless no_contracts is set>",
+      "spec_refs": ["<B or E id this unit makes true; the dispatch carries these and no other B or E>"],
+      "checks": ["<T id from the pinned tests map; never empty>"],
+      "owner": "<crew role that builds it, implementer by default>",
+      "budget_turns": "<integer, at most turns_per_agent>",
+      "paths": ["<glob this unit may write, inside the allowed paths>"],
+      "depends_on": ["<unit id in an earlier wave>"],
+      "pilot": "<boolean; at least one unit of the first parallel wave is a pilot and runs before the rest>"
+    }
+  ],
+  "risks": [
+    {
+      "text": "<what could go wrong, in observable terms>",
+      "reaction": "<mitigate | watch | abandon>",
+      "source": "<where the risk came from: an explorer id, runlog, or the spec node>"
+    }
+  ],
+  "gates": {
+    "G1": "<what the human reads at gate 1 to approve the plan>",
+    "G2": "<what the human reads at gate 2 to approve the contracts>",
+    "G3": "<what the human reads at gate 3 to end the run>"
+  },
+  "abandon_triggers": [
+    {
+      "trigger": "<the condition that stops the run, stated so it can be observed>",
+      "observable_by": "<the event, command or file that shows it fired>"
+    }
+  ],
+  "no_contracts": {
+    "reason": "<why this plan has no contracts unit; the key is absent when W0 holds one>"
+  }
+}

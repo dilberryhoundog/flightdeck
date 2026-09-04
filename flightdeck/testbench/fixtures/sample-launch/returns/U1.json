@@ -1,0 +1,13 @@
+{
+  "unit": "U1",
+  "status": "green",
+  "branch": "export-html-1/exporter-core",
+  "worktree": ".claude/worktrees/export-html-1-exporter-core",
+  "spec_refs": ["B1", "B2", "B3", "B4", "B5"],
+  "checks": [{ "id": "T2", "exit": 0 }],
+  "artefacts": ["src/export/index.mjs"],
+  "commits": ["f607182"],
+  "iterations": 1,
+  "halt": null,
+  "notes": "document assembly, sections in page order, data URI and path modes for images, escaping of block text"
+}

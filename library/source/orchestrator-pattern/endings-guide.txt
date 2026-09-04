@@ -1,0 +1,118 @@
+COMPANION · ENDINGS
+Three endings
+Abandoning
+Retrying
+Partial acceptance
+Merging
+Anti-patterns
+← Field review
+WHAT HAPPENS AFTER THE LAST GATE — OR THE FIRST TRIGGER
+A run is over the moment you stop trusting it.
+The end of a run's life in Claude Code: abandoning cleanly instead of patching, deciding what a failed run is allowed to leave behind, retrying with exactly one change, accepting units without accepting the run, and merging in a way that proves the whole before it lands.
+DEPENDS ON
+Abandon triggers set at planning · the run log
+GOVERNS
+Branches, worktrees, retries, the merge to main
+Three endings
+Every run ends one of three ways, and each ending has its own discipline. The undisciplined fourth — limping on — is the expensive one.
+The endings are decided at defined moments: at a gate, on the evidence, or mid-run when an abandon trigger fires. What must not decide them is momentum. The economics of the whole method assume a run can end cheaply, and cheap endings are something you build: small units, own branches, worktree isolation, triggers written when you were calm.
+ENDING ONE
+Accept and merge
+The evidence is green, the critic converged, the human's review passed. The work lands through the merge discipline below, and the run log gets its short success entry.
+ENDING TWO
+Abandon and retry
+A trigger fired or trust broke. The run stops at the finding, the diagnosis goes to the log, the setup improves, and a fresh run starts clean — usually the same day.
+ENDING THREE
+Partial acceptance
+Some units earned the merge and some did not. Vertical decomposition makes this a real option rather than a euphemism — with one hard condition on coupling, below.
+Notice what is missing: "fix it up and keep going." Mid-run patching past a trigger is not a fourth ending; it is a refusal to choose one, and it converts the run from an experiment with a conclusion into an expense with a story. The official session-level version of this rule is blunt — after repeated failed corrections, a clean start with a better prompt almost always beats a long session with accumulated corrections — and the run-level version inherits its logic at run-level prices.
+Abandoning well
+Abandonment is a skill with steps, and the first step is emotional: the tokens are already spent whether or not you keep going.
+Sunk cost is the whole psychology of the zombie run. Forty minutes in, six agents deep, the temptation is to extract something from the drift — and every minute of extraction is spent buying code you have already decided not to trust. The reframe that works: the run already produced its product. The product is the diagnosis. The code was only ever the packaging.
+The sequence
+	1	Stop at the finding. Halt the run where the trigger fired — escape the session, stop the workflow from its progress view, let dispatched agents finish or kill them, but dispatch nothing new. The finding is freshest now, and everything after it is noise.
+	2	Freeze the evidence. The display as it stood: which check failed how many times, what the critic's unconverged findings were, what the cost meter read. This is the raw material of the diagnosis and it degrades the moment cleanup starts.
+	3	Write the run-log entry. Symptom, axis seen on, cause, axis fixed on, the one change, the watch condition — the ten lines, written now, not tomorrow.
+	4	Make the setup change. The spec template line, the kickoff edit, the new hook, the tightened mandate — committed alongside the log entry so the fix and its reason travel together.
+	5	Clear the ground. Delete the run's branches, remove its worktrees, prune. Worktree-isolated units make this mechanical: a failed unit is a discarded directory, not an archaeology project. Stale worktrees are the documented reason teams quietly stop using the pattern, so cleanup is part of abandoning, not a chore for later.
+Do not resume the abandoned session and do not carry its transcript forward. A context that drifted is a context whose every summary argues for the drift. The next run's orchestrator meets the failure only through the run log — as a risk line in the new plan — never through inherited conversation. Fresh session, frozen spec, improved setup: that is the whole hand-off.
+Retrying
+A retry is a new experiment against an improved setup — not the old run given another chance.
+The discipline is attribution. Run 4 exists to answer one question: did the change made after run 3 fix what run 3 taught? That only works if run 4 differs from run 3 by that change — same frozen spec, same kickoff except the edit, same roster except the tightened file. One change per retry where possible; where a failure forced several fixes, the log marks which one the retry is testing and the others ride along as unattributed. When the failed axis was the spec itself, the spec is amended, re-frozen at a new commit, and every downstream artefact — tests, plan, dispatches — points at the new commit, loudly. A spec that changed quietly between runs poisons every comparison the log will ever make.
+What a failed run may leave behind
+Salvage is decided by one question: is this artefact setup or is it output? Setup survives runs by design. Output from a drifted run carries the drift.
+ARTEFACT
+CARRIES OVER?
+WHY
+The spec
+Yes
+Setup. Unless the spec was the failed axis — then the amended, re-frozen version carries instead.
+Pre-written tests
+Yes
+Setup: they encode the spec, not the run. If a test was the failure, it was fixed by the human at escalation, and the fix is a setup change.
+Wave-zero contracts
+If proven
+Contracts whose contract tests went green describe seams, not implementations. Carry them as inputs to the next plan, which may still redraw them.
+Explorer findings
+If factual
+"The renderer lives in X and is used by Y" survives. Conclusions drawn in service of the failed approach do not.
+The plan
+No
+Per-run by design. The next plan is generated fresh, with the failure as a risk line.
+Partial implementation
+No
+Output of a run you stopped trusting. Reading it to "save time" imports its assumptions into the fresh context — the contamination you paid to avoid.
+Orchestrator transcript
+No
+The run log carries what it taught. The transcript carries how it felt about it.
+Retry, demote, or shelve
+Not every abandonment earns a retry. Retry when the diagnosis is specific and the change is made. Demote to a single session when the failure pattern says the task never warranted the orchestra — coupling that kept collapsing waves, units that resisted independent pass/fail. That is not defeat; it is the whether-to-run decision getting better data. Shelve when the same axis has failed three runs straight: the log is saying the setup needs investment the task queue cannot fund right now, and a fourth identical tuition payment teaches nothing new.
+Partial acceptance
+Vertical units with their own pass/fail make "half the run was good" a decision instead of a rationalisation. One condition does all the guarding.
+A unit may be accepted out of a failed run when it clears the same bar a unit clears in a successful one — nothing about the run's failure lowers it. Its checks are green, the critic passed it individually, its diff stayed inside its boundary. Then the coupling condition: the unit must stand entirely on wave-zero contracts, not on any abandoned unit. If unit B's tests pass only because they mock a contract that failed unit C was supposed to honour, B is not done; it is waiting. Merging it lands an interface promise nobody is keeping.
+The mechanics fall out of the plan: one unit, one branch, one worktree. Accepted units merge through the ordinary discipline below; abandoned units are discarded branches; and the retry's plan shrinks to the surviving work — which is partial acceptance's real payoff. Run 4 is smaller, cheaper and more focused than run 3, because run 3's successes were banked instead of re-run.
+The run-log entry for a partial run records both halves: which units landed (and what carried them), which were abandoned (and the axis). A pattern of the same unit-type failing across partial runs is decomposition feedback for the planning guide's sizing rules.
+Partial acceptance is unit-level only. "The run mostly worked, let's keep the good parts" — judged over a tangled diff rather than per-unit evidence — is salvage of output wearing acceptance's clothes. If the run was not decomposed well enough to say which parts were good with per-unit checks, it was not decomposed well enough for partial acceptance.
+Merging
+Acceptance judged the units. The merge has one job left: prove the whole, because green branches can still make a red trunk.
+The trap at the finish line is merge skew: parallel units that each pass in their own worktree, against the base they branched from, combined onto a trunk that has since moved — or combined with each other for the first time. Every unit was tested alone; nobody has yet tested the sum. The integration wave in the plan exists for exactly this, and the merge extends it to the trunk.
+	•	Merge in wave order. Contracts and shared types land first, then the units that depend on them, in the dependency order the plan already drew. Dependency-ordered merging turns "integrate everything" into a sequence of small, attributable steps.
+	•	Integrate before the trunk. Stack the accepted branches onto an integration branch, rebase against current main, and run the spec's full end-to-end proof there. This is the first time the assembled change exists; it gets the same evidence bar any unit got.
+	•	Re-verify after skew. If main moved while the run ran, the integration proof runs against the rebased state — a unit's green from Tuesday says nothing about Thursday's trunk.
+	•	Land it readable. One PR per unit (the shape the fan-out tooling already produces) or one squashed commit per unit on the integration PR — unit names matching branches matching evidence sections, so the trunk's history reads like the plan did.
+	•	Let CI say it again. The same gates, run by the machine that does not care who authored the change. A merge that cannot pass its own gates in CI was accepted on local weather.
+	•	Close the run. Evidence display archived with the merge commit, run-log success entry written (spec commit, kickoff version, cost against expected, what worked), worktrees removed, branches deleted, and the spec's status updated to point at the landing commit. The ground is clear for the next run — which is the real definition of finished.
+The merge gate is the last place the human reads evidence, and the shortest: integration proof green on the rebased state, CI green, cost line closed. Everything else was earned earlier. A merge that needs discussion is a review that ended too soon.
+Anti-patterns
+Endings that keep runs alive past their usefulness, or land them before they are proven.
+	•	The zombie run Patched past its fired trigger, on the argument that stopping now wastes the spend. The spend is gone either way; the patching buys distrusted code at full price and skips the diagnosis that was the run's actual product.
+	•	Resume-as-retry Reopening the abandoned session "with lessons learned". The lessons live in a context that also carries every assumption that produced the failure. Retry means fresh session; the log is the only messenger.
+	•	Salvaging the diff Pasting the failed run's partial implementation into the retry to save time. Output of a drifted run is drift in file form, and the fresh context inherits it uncritically.
+	•	The changeless retry Running again with nothing altered, on hope. Without a change there is no question being asked, so whatever happens teaches nothing — a gamble wearing a method's clothes.
+	•	The quiet spec shift Spec edited between runs without re-freezing, so run 4's "fix" is partly a moved goalpost and the log's comparison is fiction. Amendments are loud: new commit, new pointer everywhere.
+	•	Merging on narrative "All units done, integrating now" accepted without the integration proof. The sum was never tested; the trunk becomes the test environment.
+	•	The big-bang landing Every branch merged at once, proof run after. When it fails, the failure has eight parents. Wave order plus per-merge verification keeps every red attributable.
+	•	The haunted repository Worktrees and branches from three abandoned runs still standing. Beyond the documented drag of stale worktrees, they are ambient temptation — half-finished code that looks one nudge from useful. Abandonment ends with clear ground.
+Three short checklists
+One per ending, run at the moment of choosing it.
+Abandoned cleanly
+	•	Stopped at the finding; nothing dispatched after the trigger.
+	•	Evidence frozen; run-log entry and setup change committed together.
+	•	Branches deleted, worktrees pruned, session not to be resumed.
+Ready to retry
+	•	The diagnosis names an axis and the change is made — exactly one under test.
+	•	Spec unchanged, or amended and re-frozen with every pointer updated.
+	•	Salvage passed the setup-vs-output test; the new plan carries the failure as a risk line.
+Ready to merge
+	•	Every landing unit green, individually reviewed, standing only on wave-zero contracts.
+	•	Integration branch rebased on current main; full end-to-end proof green there; CI green.
+	•	Wave-ordered landing, evidence archived with the merge commit, success entry written, ground cleared.
+Sources
+Official guidance first; the salvage table and ending taxonomy are this series' synthesis.
+	1	Anthropic, Best practices for Claude Code. The session-level abandonment rule this page scales up — after repeated corrections, a clean session with a better prompt beats a long session with accumulated failed approaches; /clear between tasks; checkpoints and rewind for in-session recovery (with the caution that they are not a git replacement); fan-out producing one PR per worktree-isolated unit; committing as the final phase of the workflow.
+	2	Anthropic, Run parallel sessions with worktrees. Worktree creation and cleanup by the runtime, reopened-worktree reset behaviour, and non-git hooks — the mechanics that make discarding a unit a deleted directory.
+	3	Anthropic, Orchestrate subagents at scale with dynamic workflows. Stopping a run from the progress view; completed agents returning cached results; exiting restarting a workflow fresh — the platform's own version of "no resumed runs".
+	4	Practitioner corroboration on stale worktrees as the main reason teams abandon the parallel pattern, and on scheduled pruning: Claude Code worktrees guide.
+	5	Practitioner corroboration on the clean-restart instinct at session scale — "knowing everything you know now, scrap this and implement the elegant solution" — and on gated, phase-wise landing: claude-code-best-practice.
+	6	The planning guide for the abandon triggers this page fires; the run log guide for the entry written at step three; the review guide for the non-converging loop as an abandon signal; the field review for the economics underneath all of it.
+Compiled August 2026. Parent document: Orchestrating agent teams in Claude Code. Related: the spec · planning · the kickoff · agents · verification · review · the run log.

@@ -1,0 +1,174 @@
+COMPANION · AGENTS IN THE SYSTEM
+Roles
+The cast
+Defining one
+Design rules
+Team shapes
+Anti-patterns
+← Field review
+WHO DOES WHAT, AND WHAT EACH IS ALLOWED TO TOUCH
+A team is designed, not assembled.
+The cast of an orchestrated run in Claude Code: the roles a run needs, why each exists, how a role becomes a subagent definition, and the rules that keep a team from collapsing back into one confused generalist.
+DEPENDS ON
+A spec with fixed interfaces · checks each role can run
+CONTEXT
+Orchestrating agent teams in Claude Code
+Why roles, not just workers
+Roles are not an organisational nicety. Each one exists because a specific quality property depends on a specific kind of separation.
+The mechanism underneath every role is context isolation. A subagent runs in its own context window with its own system prompt, its own tools and its own model; it receives only what it is given and returns only what it reports. That isolation is what makes each role's promise credible: the critic's judgement is independent because it never saw the implementer's reasoning; the test-writer's tests describe the spec because it never saw the implementation plan; the explorer can read three hundred files because none of them land in the orchestrator's context.
+So the question when designing a team is not "how many agents do I want" but "which separations does this run's quality depend on". Three separations do most of the work: the definer of done is separated from the doer (test-writer vs implementer), the judge is separated from the judged (critic vs implementer), and the coordinator is separated from the content (orchestrator vs everyone). Every role in the cast below serves one of those three, or exists to protect the orchestrator's context.
+Accountability runs vertically. Each agent answers to the orchestrator for one output in one declared shape; agents do not negotiate with each other. Handoffs travel through files and schemas, not through shared conversation. A team that chats horizontally is a team whose contexts are contaminating one another, which quietly dissolves the separations the roles were built for.
+THE ROSTER
+The cast of a run
+Seven roles cover a full run. Small runs merge some of them; no run should merge the ones whose separation it depends on. Badges show what each role is allowed to do: READ the codebase, WRITE to it, and RUN commands.
+COORDINATION
+Orchestrator
+Holds the goal; touches nothing.
+READ (SPARINGLY)
+NO WRITE
+Reads the spec and the kickoff, decomposes the work, fixes interfaces, dispatches roles, and synthesises results into evidence for the human's gates. It plans and judges; it does not implement, and it does not read what workers read. Its context is the run's scarcest resource, so everything reaches it as a summary or a result.
+In Claude Code: the main session, or the script of a dynamic workflow, which holds the loop and intermediate results outside any context window.
+BEFORE THE PLAN
+Explorer
+Reads widely so nobody else has to.
+READ
+RUN (READ-ONLY)
+Searches and analyses the codebase, git history, docs and logs, and returns a summary sized for the orchestrator. Cheap and fast by design; thoroughness is a parameter, not a virtue. Multiple explorers can fan out across questions in parallel.
+In Claude Code: the built-in Explore subagent (read-only, Haiku by default, with quick / medium / very thorough levels), or a custom read-only researcher with web tools added.
+BEFORE THE WORK
+Planner
+Turns spec plus codebase into an approach.
+READ
+NO WRITE
+Produces the plan the human approves at the first gate: files to change, order, risks, and the decomposition into units. Read-only by construction so that planning cannot leak into doing. Can be asked for two variant plans when the approach is genuinely uncertain.
+In Claude Code: plan mode in the session, or the built-in Plan subagent gathering context before a plan is presented.
+DEFINES DONE
+Test-writer
+Writes the target before anyone can aim past it.
+READ
+WRITE (TESTS ONLY)
+RUN
+Derives checks from the spec's numbered behaviours and edge cases, before implementation starts and without sight of the plan's internals. Its output is the locked target the run iterates against. Where the spec is too vague to test, it reports that as a spec finding rather than guessing.
+In Claude Code: a session or subagent run to completion before implementers start; its files then locked by a PreToolUse hook. See targets before work.
+DOES THE WORK
+Implementer
+Builds one unit against a fixed contract.
+READ
+WRITE
+RUN
+The only role with general write access, and there are usually several of them, each owning one unit with its own pass/fail. An implementer receives the spec, its unit's contract and its unit's checks; it does not receive the other units. It iterates until its checks pass or its budget runs out, and reports evidence, not narrative.
+In Claude Code: worker subagents with isolation: worktree so parallel edits cannot collide; each opens a small PR or commits atomically to its branch.
+CONFIRMS DONE
+Verifier
+Runs the checks and tries to refute the result.
+READ
+RUN
+Mostly not an agent at all: hooks, gates and scripts run the deterministic checks, and they should, because determinism is the point. The agent form of the verifier exists for the last rung of the ladder: a fresh model that re-runs the evidence and actively tries to refute the claim of done, so the agent doing the work is not the one grading it.
+In Claude Code: Stop hooks and /goal for the deterministic part; a verification subagent or a self-checking workflow stage for refutation.
+JUDGES THE WORK
+Critic
+Challenges the result, not the reasoning it never saw.
+READ (DIFF + SPEC)
+NO WRITE
+Receives the spec and the diff in a fresh context, with an adversarial mandate bounded to correctness and stated requirements. Reports gaps by spec number. Read-only by construction: a critic that can fix things becomes an implementer with opinions, and its findings stop being findings.
+In Claude Code: the bundled /code-review skill for bug-hunting, or a custom reviewer subagent for spec alignment. See independent review.
+OPTIONAL
+Scribe
+Keeps the evidence where the human will read it.
+READ
+WRITE (DISPLAY + LOG)
+Maintains the evidence display from check outputs and critic findings, and drafts the mechanical fields of the run-log entry at the end. Worth splitting out on large runs so the orchestrator's context is not spent on formatting; on small runs the orchestrator does it.
+In Claude Code: a small subagent on a cheap model, or hook scripts appending to the display and RUNLOG.md stub directly.
+The minimum viable cast for a run that earns its cost: orchestrator, one explorer pass, test-writer, implementers, a deterministic gate, one critic pass. The planner is folded into the orchestrator on small runs; the scribe is folded into hooks. What must never be folded together: test-writer with implementer, and critic with anything.
+From role to definition
+In Claude Code a role becomes a markdown file: YAML frontmatter for configuration, body as the agent's entire system prompt.
+Subagents live in .claude/agents/ (project) or ~/.claude/agents/ (personal), and the body of the file is the whole of what the agent knows about how to behave: subagents receive their own system prompt plus basic environment details, not the parent session's prompt, and they do not inherit the parent's skills. Whatever a role needs, its file must say.
+Only name and description are required, but the fields that matter for team design are the ones that encode the role's boundaries:
+FIELD
+ROLE-DESIGN USE
+description
+Written for the dispatcher, not the human: it is the logic by which the orchestrator picks this agent. State when to use it and what it returns.
+tools
+An allowlist. Omit it and the agent inherits everything, which is almost never what a role wants. The badge set above translates directly: a critic gets Read, Grep, Glob; an implementer adds Write, Edit, Bash.
+disallowedTools
+A denylist subtracted from the rest; the quick way to make a role read-only without enumerating.
+model
+haiku, sonnet, opus, a full model ID, or inherit (the default). This is where tiering happens: cheap models for wide reading and formatting, the strongest for judging. CLAUDE_CODE_SUBAGENT_MODEL overrides all of it for a session, useful as a cost ceiling.
+maxTurns
+A per-agent budget: the number of agentic turns before the subagent stops. The team-level stall rule, expressed locally.
+skills
+Skills injected into the agent's context at startup, in full. How a role carries its domain knowledge without the parent's.
+isolation
+worktree gives the agent its own checkout and branch, created and cleaned up by the runtime. The default for anything that writes code.
+permissionMode / memory / mcpServers / hooks
+Permission behaviour, opt-in memory, external tools, and per-agent hooks, for the roles that need them.
+A worked example, the critic:
+---
+name: critic
+description: Reviews a completed diff against the spec. Use after an
+  implementer reports done and its checks pass. Returns a list of
+  correctness gaps referencing spec behaviour numbers, or "no gaps".
+tools: Read, Grep, Glob, Bash
+model: opus
+maxTurns: 15
+---
+You are an adversarial reviewer. You will be given a spec file and a diff.
+Assume the diff contains at least one gap and look for it.
+
+Check, in order:
+1. Every numbered behaviour and edge case in the spec is implemented.
+2. Nothing outside the spec's scope section changed.
+3. No test file was modified.
+4. No error is suppressed rather than handled.
+
+Report only gaps that affect correctness or stated requirements — not
+style, not hypothetical robustness. For each gap: the spec number, the
+file and line, and one sentence on what is missing. If there are none,
+say "no gaps" and stop.
+Two details in that file carry more weight than they look. Bash is included so the critic can run the checks itself rather than trust reported output — running is not writing. And the output shape is stated in both the description and the body, because the orchestrator will consume it programmatically and an unstated shape becomes a different shape every run.
+Design rules
+Rules that hold across every role, and that most team failures trace back to.
+	•	One job, one definition of done. An agent's body should fit on a screen and end with what it returns. If the prompt needs sections, the role needs splitting.
+	•	Tools follow the role, never the convenience. Every tool an agent holds is a way its role can be corrupted. A critic with Edit will eventually fix instead of report; an explorer with Write will eventually "tidy something up". Scope first, widen only on evidence from the run log.
+	•	State the output shape explicitly. The parent receives only the result, so the result's format is the interface. For anything consumed downstream, make it a schema and validate it at the handoff.
+	•	Write descriptions for the dispatcher. Delegation is driven by the description. "Use this agent when…" phrasing, non-overlapping with sibling agents, and honest about what comes back. Overlapping descriptions produce misrouting that looks like model failure.
+	•	Tier models by role, not by pride. Wide reading, formatting and mechanical transforms go to cheap models; judging, planning and hard implementation go to the strongest. The verifier's deterministic parts go to no model at all.
+	•	Give every agent a budget. maxTurns per agent, caps on parallel count in the kickoff or workflow script. A role without a budget is where a run's cost surprise comes from.
+	•	Summarise on the way up. Instruct every role to return conclusions sized for a coordinator, with pointers to files for the detail. Many agents returning verbose results still drowns the parent.
+	•	Version the roster with the project. Agent files are setup, like the spec template and the hooks. They are checked in, reviewed, and improved through the run log, not edited ad hoc mid-run.
+MECHANISMS
+Team shapes in Claude Code
+The same cast can be staged four ways. The roles do not change; the coordination mechanism does.
+ONE SESSION
+Subagents in-session
+The session is the orchestrator; roles run as subagents and return summaries. Right for most runs. Coordination is turn by turn, and every result lands in the session's context, so scale is bounded by that context.
+SCRIPTED
+Dynamic workflow
+The orchestration moves into a script the runtime executes: stages, loops, schema-validated handoffs, per-stage models, tens to hundreds of agents. Right when the coordination itself is too big for a conversation, or should be re-runnable as an artefact.
+PARALLEL SESSIONS
+Sessions in worktrees
+Writer and reviewer, or several independent workstreams, as full sessions in separate worktrees, with the human as the bus between them. Right for the quality splits (fresh-context review, tests-first) at human pace.
+EXPERIMENTAL
+Agent teams
+Automated coordination of multiple sessions with shared tasks, messaging and a team lead. Disabled by default and experimental; the vertical-accountability rule matters more here, not less, because messaging makes horizontal chatter easy.
+These compose: a dynamic workflow's implementing stage can dispatch worktree-isolated subagents; a session can hand a finished run to a reviewer session. Choose the smallest shape that fits the run, and let the run log justify moving up.
+Anti-patterns
+Team designs that reliably fail, and what each one dissolves.
+	•	The generalist blob One agent, all tools, doing exploration, implementation and review in one context. Every separation the roles exist for is gone; the run self-confirms by construction.
+	•	The critic who saw the plan A reviewer given the implementer's reasoning, or run in the implementing session's context. It will review the intention instead of the result, and approve.
+	•	The implementer who grades itself Done declared by the agent that did the work, with no deterministic gate and no refutation. The exact self-confirmation orchestration is supposed to remove.
+	•	Horizontal chatter Workers passing context to each other directly. Contamination spreads, accountability blurs, and the orchestrator loses the ability to say which unit failed.
+	•	Agent sprawl A roster of eighteen specialists, most unmaintained, with overlapping descriptions the dispatcher cannot tell apart. Fewer, sharper roles beat many vague ones; retire agents the way the run log retires findings.
+	•	Inherit-everything tools Omitted tool lists on every agent, so every role can do everything and the badges above are fiction. The allowlist is the role.
+	•	The unbounded specialist No maxTurns, no cap on parallelism, no stall rule. One stuck agent quietly spends the run's budget on a loop nobody is watching.
+	•	Prompt-only isolation "Do not modify tests" written in the body of an agent that holds Edit and write access to the test directory. Boundaries that matter are enforced by tools, hooks and worktrees, not by asking nicely.
+Sources
+Official documentation first, practitioner corroboration after.
+	1	Anthropic, Create custom subagents. Frontmatter fields (name, description, tools, disallowedTools, model, permissionMode, maxTurns, skills, memory, mcpServers, hooks), the body as the agent's entire system prompt, no inheritance of the parent prompt or skills, built-in Explore (read-only, Haiku, thoroughness levels) and Plan subagents, and delegation driven by description.
+	2	Anthropic, Best practices for Claude Code. Subagents for investigation and verification, the writer/reviewer and test-writer/implementer session splits, fresh-context review, and context as the binding constraint.
+	3	Anthropic, Run parallel sessions with worktrees and power user tips. isolation: worktree in agent frontmatter, per-worktree state, enforcement covering spawned subagents, batched parallel workers.
+	4	Anthropic, Orchestrate subagents at scale with dynamic workflows. The script as orchestrator, per-stage model routing, CLAUDE_CODE_SUBAGENT_MODEL as an override, and agent teams as an experimental coordination layer.
+	5	Anthropic, How Claude Code is used in practice. The planning/execution division of labour that the orchestrator role formalises.
+	6	Practitioner corroboration on role-scoped tool sets (read-only reviewers, research agents with web tools, writers with edit and bash) and on keeping subagent prompts to one job with an explicit output format: awesome-claude-code-subagents; Claude Code subagents: a practical guide.
+	7	Practitioner corroboration on role pipelines (spec, architect, implementer/tester, QA) with hooks gating transitions: Best practices for Claude Code subagents.
+Compiled August 2026. Parent document: Orchestrating agent teams in Claude Code. Related: the spec · verification · the run log.

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "launch": "export-html-1",
+  "spec": { "name": "export-html", "version": 1, "commit": "a1b2c3d" },
+  "kickoff_version": "base@1+shape-session@1+task-feature@1",
+  "shape": "session",
+  "expected_cost": { "agents": 7, "minutes": 150 },
+  "models": { "explore": "haiku", "unit": "opus", "critic": "fable" },
+  "approach": "Fix the exporter's signature and the project and warning shapes first (wave 0, contract check T3), then build the document and its edge handling as two parallel feature units against the reference project, and close with one proof unit that lands the acceptance smoke; nothing outside src/export/ changes, and the pre-written checks under tests/export/ are locked for the whole run.",
+  "waves": [
+    { "id": "W0", "mode": "serial", "units": ["U0"] },
+    { "id": "W1", "mode": "parallel", "units": ["U1", "U2"] },
+    { "id": "W2", "mode": "serial", "units": ["U3"] }
+  ],
+  "units": [
+    {
+      "id": "U0",
+      "name": "contracts",
+      "kind": "contracts",
+      "spec_refs": ["I1", "I2"],
+      "checks": ["T3"],
+      "owner": "implementer",
+      "budget_turns": 15,
+      "paths": ["src/export/**"],
+      "depends_on": []
+    },
+    {
+      "id": "U1",
+      "name": "exporter-core",
+      "kind": "feature",
+      "spec_refs": ["B1", "B2", "B3", "B4", "B5"],
+      "checks": ["T2"],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": ["src/export/**"],
+      "depends_on": ["U0"],
+      "pilot": true
+    },
+    {
+      "id": "U2",
+      "name": "edges-and-invariants",
+      "kind": "feature",
+      "spec_refs": ["E1", "E2", "E3"],
+      "checks": ["T4", "T5"],
+      "owner": "implementer",
+      "budget_turns": 20,
+      "paths": ["src/export/**"],
+      "depends_on": ["U0"]
+    },
+    {
+      "id": "U3",
+      "name": "proof",
+      "kind": "proof",
+      "spec_refs": ["B1"],
+      "checks": ["T1"],
+      "owner": "implementer",
+      "budget_turns": 10,
+      "paths": ["src/export/**"],
+      "depends_on": ["U1", "U2"]
+    }
+  ],
+  "risks": [
+    {
+      "text": "U1 and U2 both edit src/export/index.mjs; U2 lands after U1 in wave order, and a conflict aborts fc worker merge and stops dispatch",
+      "reaction": "watch",
+      "source": "explorer X1"
+    }
+  ],
+  "gates": {
+    "G1": "plan.md read against the spec: units verifiable by named checks, waves respect coupling, budgets and abandon triggers present",
+    "G2": "contract check T3 green since lock_commit and the changed-since-lock list confined to src/export/",
+    "G3": "evidence page: five checks with raw output, critic findings and their state, boundary and locked results, the cost line"
+  },
+  "abandon_triggers": [
+    {
+      "trigger": "T1 red after 3 consecutive stop blocks in phase verify",
+      "observable_by": "stall and trigger events in events.jsonl; fc budget consecutive stop blocks"
+    },
+    {
+      "trigger": "any edit outside src/export/ and tests/export/, or any change under a locked path",
+      "observable_by": "boundary_denied or lock_denied events; fc boundary or fc locked exit 2"
+    }
+  ]
+}

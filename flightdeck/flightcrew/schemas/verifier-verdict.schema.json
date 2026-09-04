@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flightcrew/schemas/verifier-verdict.schema.json",
+  "title": "Verifier verdict",
+  "description": "launch/<L>/returns/verify-<n>.json: one verifier's attempt to refute the recorded evidence by re-running the checks on the merged branch. refuted true means at least one recorded verdict did not reproduce, and reasons says which.",
+  "type": "object",
+  "required": ["refuted", "checks_rerun", "reasons", "unverified", "test_file_changes", "outside_boundary"],
+  "additionalProperties": false,
+  "properties": {
+    "refuted": { "type": "boolean" },
+    "checks_rerun": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "exit"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^T[0-9]+$" },
+          "exit": { "type": ["integer", "null"] }
+        }
+      }
+    },
+    "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "unverified": { "type": "array", "items": { "type": "string", "minLength": 1 }, "description": "Spec node ids no check proves." },
+    "test_file_changes": { "type": "array", "items": { "type": "string", "minLength": 1 }, "description": "Changed paths under a locked path." },
+    "outside_boundary": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+  }
+}

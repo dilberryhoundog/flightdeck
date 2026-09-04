@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "name": "flightcrew-buildout",
+  "status": "abandoned",
+  "phase": "ended",
+  "created": "2026-09-03",
+  "spec": {
+    "name": "flightcrew-v1",
+    "version": 1,
+    "commit": "5f69a94",
+    "file_commit": "88290d00be4cfb246bffef0ad76dd2c992369cf2",
+    "path": "specs/flightcrew-v1/spec.v1.json"
+  },
+  "tests_map": {
+    "version": 1,
+    "commit": "44aff6b",
+    "path": "specs/flightcrew-v1/tests-map.v1.json"
+  },
+  "kickoff": {
+    "path": "kickoff.md",
+    "version": "base@1+shape-workflow@1+task-feature@1"
+  },
+  "base_commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "lock_commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "branch": "run/flightcrew-buildout",
+  "previous_launch": null,
+  "allow_draft": false,
+  "paths": {
+    "allowed": [
+      "flightdeck/flightcrew/**",
+      "flightdeck/launch/**",
+      "flightdeck/testbench/**",
+      "flightdeck/manuals/**"
+    ],
+    "locked": [
+      "flightdeck/testbench/suites/e2e/**",
+      "flightdeck/testbench/suites/bin-launch/**",
+      "flightdeck/testbench/suites/hooks-noop/**",
+      "flightdeck/testbench/suites/hooks-eventlog/**",
+      "flightdeck/testbench/suites/hooks-guards/**",
+      "flightdeck/testbench/suites/hooks-structural/**",
+      "flightdeck/testbench/suites/hooks-stopgate/**",
+      "flightdeck/testbench/suites/bin-check/**",
+      "flightdeck/testbench/suites/bin-boundary/**",
+      "flightdeck/testbench/suites/bin-report/**",
+      "flightdeck/testbench/suites/bin-evidence/**",
+      "flightdeck/testbench/suites/bin-runlog/**",
+      "flightdeck/testbench/suites/bin-plan/**",
+      "flightdeck/testbench/suites/validate-spec/**",
+      "flightdeck/testbench/suites/validate-tests-map/**",
+      "flightdeck/testbench/suites/validate-plan/**",
+      "flightdeck/testbench/suites/validate-launch/**",
+      "flightdeck/testbench/suites/lint-spec/**",
+      "flightdeck/testbench/suites/bin-dispatch/**",
+      "flightdeck/testbench/suites/bin-distribute/**",
+      "flightdeck/testbench/suites/bin-doctor/**",
+      "flightdeck/testbench/suites/crew/**",
+      "flightdeck/testbench/suites/run-all/**",
+      "flightdeck/testbench/suites/constraints/**",
+      "flightdeck/testbench/suites/hook-timing/**",
+      "flightdeck/testbench/suites/schemas/**",
+      "flightdeck/testbench/suites/templates/**",
+      "flightdeck/testbench/suites/manifest/**",
+      "flightdeck/testbench/suites/workflows/**",
+      "flightdeck/testbench/fixtures/**",
+      "flightdeck/testbench/lib/**",
+      "flightdeck/testbench/run-all.mjs",
+      "flightdeck/launch/specs/flightcrew-v1/**",
+      "flightdeck/manuals/spec/**",
+      "flightdeck/manuals/testing/**",
+      "flightdeck/manuals/versioning/**",
+      "flightdeck/manuals/rubrics/**",
+      "flightdeck/testbench/benches/rubrics/**",
+      "flightdeck/flightcrew/schemas/spec.schema.json",
+      "flightdeck/flightcrew/templates/spec.template.json",
+      "flightdeck/flightcrew/crew/spec-judge.md",
+      "flightdeck/flightcrew/crew/spec-attacker.md",
+      "flightdeck/launch/flightcrew-buildout/specs/**"
+    ],
+    "enforce_boundary": true
+  },
+  "acceptance": "T1",
+  "structural": {
+    ".mjs": "node --check {file}",
+    ".js": "node --experimental-default-type=module --check {file}",
+    ".json": "node -e \"JSON.parse(require('node:fs').readFileSync(process.argv[1], 'utf8'))\" {file}",
+    ".sh": "sh -n {file}"
+  },
+  "ceilings": {
+    "agents": 12,
+    "implementers_concurrent": 4,
+    "turns_per_agent": 25,
+    "gate_iterations": 3,
+    "stop_blocks": 8,
+    "critic_passes": 2,
+    "minutes": 240,
+    "tokens": null,
+    "expected_tokens": null
+  },
+  "gates": {
+    "G1": {
+      "status": "approved",
+      "at": "2026-09-03T21:58:50.006Z",
+      "note": "Plan read against the spec: unit ownership matches the design's build-unit table, every unit names checks that exist in the pinned map, and the contracts wave runs first."
+    },
+    "G2": {
+      "status": "approved",
+      "at": "2026-09-03T21:59:04.142Z",
+      "note": "Wave 0 landed: the ten schemas and the seven check libraries are in place, T26 is green since the lock commit, and the changed-since-lock list is confined to flightcrew/."
+    },
+    "G3": {
+      "status": "pending",
+      "at": null
+    }
+  },
+  "outcome": "abandoned",
+  "ended": "2026-09-03T22:43:49.716Z"
+}

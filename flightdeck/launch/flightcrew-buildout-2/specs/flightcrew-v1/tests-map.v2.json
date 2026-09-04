@@ -1,0 +1,575 @@
+{
+  "schema_version": 1,
+  "name": "flightcrew-v1",
+  "version": 2,
+  "status": "frozen",
+  "commit": "5cad9b9",
+  "reason": "two locked cases asserted wrong values (T11 expected 2 added lines where git numstat reports 3; T24 import scanner matched a string literal); the cases are corrected and every check is re-baselined against the built tree",
+  "spec": {
+    "name": "flightcrew-v1",
+    "version": 1,
+    "commit": "5f69a94"
+  },
+  "previous_versions": [
+    {
+      "v": 1,
+      "file": "tests-map.v1.json",
+      "date": "2026-09-03",
+      "commit": "44aff6b",
+      "reason": "initial targets for the flightcrew-v1 build",
+      "spec": {
+        "name": "flightcrew-v1",
+        "version": 1,
+        "commit": "5f69a94"
+      }
+    }
+  ],
+  "acceptance": "T1",
+  "fixture": "flightdeck/testbench/fixtures/sample-project",
+  "allowed_paths": [
+    "flightdeck/flightcrew/**",
+    "flightdeck/launch/**",
+    "flightdeck/testbench/**",
+    "flightdeck/manuals/**"
+  ],
+  "locked_paths": [
+    "flightdeck/testbench/suites/e2e/**",
+    "flightdeck/testbench/suites/bin-launch/**",
+    "flightdeck/testbench/suites/hooks-noop/**",
+    "flightdeck/testbench/suites/hooks-eventlog/**",
+    "flightdeck/testbench/suites/hooks-guards/**",
+    "flightdeck/testbench/suites/hooks-structural/**",
+    "flightdeck/testbench/suites/hooks-stopgate/**",
+    "flightdeck/testbench/suites/bin-check/**",
+    "flightdeck/testbench/suites/bin-boundary/**",
+    "flightdeck/testbench/suites/bin-report/**",
+    "flightdeck/testbench/suites/bin-evidence/**",
+    "flightdeck/testbench/suites/bin-runlog/**",
+    "flightdeck/testbench/suites/bin-plan/**",
+    "flightdeck/testbench/suites/validate-spec/**",
+    "flightdeck/testbench/suites/validate-tests-map/**",
+    "flightdeck/testbench/suites/validate-plan/**",
+    "flightdeck/testbench/suites/validate-launch/**",
+    "flightdeck/testbench/suites/lint-spec/**",
+    "flightdeck/testbench/suites/bin-dispatch/**",
+    "flightdeck/testbench/suites/bin-distribute/**",
+    "flightdeck/testbench/suites/bin-doctor/**",
+    "flightdeck/testbench/suites/crew/**",
+    "flightdeck/testbench/suites/run-all/**",
+    "flightdeck/testbench/suites/constraints/**",
+    "flightdeck/testbench/suites/hook-timing/**",
+    "flightdeck/testbench/suites/schemas/**",
+    "flightdeck/testbench/suites/templates/**",
+    "flightdeck/testbench/suites/manifest/**",
+    "flightdeck/testbench/suites/workflows/**",
+    "flightdeck/testbench/fixtures/**",
+    "flightdeck/testbench/lib/**",
+    "flightdeck/testbench/run-all.mjs",
+    "flightdeck/launch/specs/flightcrew-v1/**",
+    "flightdeck/manuals/spec/**",
+    "flightdeck/manuals/testing/**",
+    "flightdeck/manuals/versioning/**",
+    "flightdeck/manuals/rubrics/**",
+    "flightdeck/testbench/benches/rubrics/**",
+    "flightdeck/flightcrew/schemas/spec.schema.json",
+    "flightdeck/flightcrew/templates/spec.template.json",
+    "flightdeck/flightcrew/crew/spec-judge.md",
+    "flightdeck/flightcrew/crew/spec-attacker.md"
+  ],
+  "run_all": "node flightdeck/testbench/run-all.mjs",
+  "baseline": {
+    "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+    "date": "2026-09-04",
+    "note": "implementation present; every check expected to pass"
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "e2e",
+      "covers": [
+        "B34"
+      ],
+      "command": "node flightdeck/testbench/suites/e2e/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  setup-temporary-repository"
+      }
+    },
+    {
+      "id": "T2",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-launch",
+      "covers": [
+        "B1",
+        "B2",
+        "B3",
+        "B32",
+        "B35",
+        "B41",
+        "B44",
+        "B45",
+        "B47",
+        "B49",
+        "B50",
+        "B52",
+        "B54",
+        "I1",
+        "E1",
+        "E3",
+        "E6",
+        "E7",
+        "E12",
+        "E15",
+        "E18",
+        "E20",
+        "E22",
+        "E24"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-launch/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  new-creates-launch-folder"
+      }
+    },
+    {
+      "id": "T3",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-noop",
+      "covers": [
+        "B4",
+        "C8",
+        "I7",
+        "E5",
+        "E13",
+        "E14"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-noop/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  no-launch-folder-event-log"
+      }
+    },
+    {
+      "id": "T4",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-eventlog",
+      "covers": [
+        "B5",
+        "B52",
+        "I5"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-eventlog/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  records-SessionStart"
+      }
+    },
+    {
+      "id": "T5",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-guards",
+      "covers": [
+        "B6",
+        "B7",
+        "B42",
+        "B53",
+        "I7"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-guards/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  lock-edit-locked-denied"
+      }
+    },
+    {
+      "id": "T6",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-structural",
+      "covers": [
+        "B8",
+        "E9"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-structural/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  broken-mjs-blocks"
+      }
+    },
+    {
+      "id": "T7",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hooks-stopgate",
+      "covers": [
+        "B9",
+        "B10",
+        "B11",
+        "B40",
+        "B41"
+      ],
+      "command": "node flightdeck/testbench/suites/hooks-stopgate/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  verify-red-blocks-with-id-code-and-output"
+      }
+    },
+    {
+      "id": "T8",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-check",
+      "covers": [
+        "B12",
+        "B13",
+        "B36",
+        "B46",
+        "I6",
+        "E2",
+        "E8",
+        "E11",
+        "E17"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-check/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  check-all-runs-every-live-check-and-exits-0"
+      }
+    },
+    {
+      "id": "T9",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-boundary",
+      "covers": [
+        "B14",
+        "B15",
+        "B16",
+        "B51"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-boundary/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  boundary-lists-changed-marks-outside-excludes-worktrees-and-runs-exits-2"
+      }
+    },
+    {
+      "id": "T10",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-report",
+      "covers": [
+        "B17",
+        "B18",
+        "I12",
+        "E4",
+        "E21"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-report/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  report-has-the-eight-headings-in-order"
+      }
+    },
+    {
+      "id": "T11",
+      "status": "changed",
+      "kind": "behavioural",
+      "name": "bin-evidence",
+      "covers": [
+        "B19",
+        "B37"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-evidence/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  evidence-html-is-self-contained"
+      },
+      "note": "changed-since-lock case asserts 3 added lines: git numstat counts the blank line the probe appends"
+    },
+    {
+      "id": "T12",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-runlog",
+      "covers": [
+        "B20"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-runlog/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  stub-creates-run-log-with-accepted-entry"
+      }
+    },
+    {
+      "id": "T13",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-plan",
+      "covers": [
+        "B21"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-plan/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  render-writes-headings-in-order"
+      }
+    },
+    {
+      "id": "T14",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "validate-spec",
+      "covers": [
+        "B22"
+      ],
+      "command": "node flightdeck/testbench/suites/validate-spec/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  golden-v1-clean"
+      }
+    },
+    {
+      "id": "T15",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "validate-tests-map",
+      "covers": [
+        "B23"
+      ],
+      "command": "node flightdeck/testbench/suites/validate-tests-map/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  positive-sample-map"
+      }
+    },
+    {
+      "id": "T16",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "validate-plan",
+      "covers": [
+        "B24"
+      ],
+      "command": "node flightdeck/testbench/suites/validate-plan/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  positive-sample-plan"
+      }
+    },
+    {
+      "id": "T17",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "validate-launch",
+      "covers": [
+        "B25"
+      ],
+      "command": "node flightdeck/testbench/suites/validate-launch/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  positive-sample-launch"
+      }
+    },
+    {
+      "id": "T18",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "lint-spec",
+      "covers": [
+        "B26"
+      ],
+      "command": "node flightdeck/testbench/suites/lint-spec/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  positive-sample-spec"
+      }
+    },
+    {
+      "id": "T19",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-dispatch",
+      "covers": [
+        "B27",
+        "B28",
+        "B43",
+        "B48",
+        "E19",
+        "E23"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-dispatch/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  worker-render-prompt-first-line-and-always-present-nodes"
+      }
+    },
+    {
+      "id": "T20",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-distribute",
+      "covers": [
+        "B29",
+        "E10"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-distribute/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  dry-run-lists-and-writes-nothing"
+      }
+    },
+    {
+      "id": "T21",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "bin-doctor",
+      "covers": [
+        "B30"
+      ],
+      "command": "node flightdeck/testbench/suites/bin-doctor/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  doctor-passes-on-the-repository"
+      }
+    },
+    {
+      "id": "T22",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "crew",
+      "covers": [
+        "B31",
+        "I10"
+      ],
+      "command": "node flightdeck/testbench/suites/crew/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  every-crew-file-carries-name-description-tools-model"
+      }
+    },
+    {
+      "id": "T23",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "run-all",
+      "covers": [
+        "B33",
+        "I9"
+      ],
+      "command": "node flightdeck/testbench/suites/run-all/run.mjs",
+      "baseline": {
+        "expect": "pass: the suite runner is a targets-stage deliverable and exists before implementation",
+        "observed": "pass: pass  runs-every-suite-in-name-order-one-line-each-exit-0"
+      }
+    },
+    {
+      "id": "T24",
+      "status": "changed",
+      "kind": "structural",
+      "name": "constraints",
+      "covers": [
+        "C1",
+        "C2",
+        "C3",
+        "C5",
+        "C6",
+        "C7",
+        "C9"
+      ],
+      "command": "node flightdeck/testbench/suites/constraints/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  C1-imports-are-node-builtins-or-relative-inside-scope"
+      },
+      "note": "C1 import scanner anchors import statements at line start so a string literal containing @import is not read as a specifier"
+    },
+    {
+      "id": "T25",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hook-timing",
+      "covers": [
+        "C4"
+      ],
+      "command": "node flightdeck/testbench/suites/hook-timing/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  event-log-under-2000ms"
+      }
+    },
+    {
+      "id": "T26",
+      "status": "ok",
+      "kind": "structural",
+      "name": "schemas",
+      "covers": [
+        "I2",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I8",
+        "I14"
+      ],
+      "command": "node flightdeck/testbench/suites/schemas/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  launch-schema-parses"
+      }
+    },
+    {
+      "id": "T27",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "templates",
+      "covers": [
+        "I11",
+        "E16"
+      ],
+      "command": "node flightdeck/testbench/suites/templates/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  kickoff-parts-start-with-version-comment"
+      }
+    },
+    {
+      "id": "T28",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "manifest",
+      "covers": [
+        "B38",
+        "I13"
+      ],
+      "command": "node flightdeck/testbench/suites/manifest/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  manifest-exists-with-path-lines"
+      }
+    },
+    {
+      "id": "T29",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "workflows",
+      "covers": [
+        "B39"
+      ],
+      "command": "node flightdeck/testbench/suites/workflows/run.mjs",
+      "baseline": {
+        "expect": "pass: implementation present",
+        "observed": "pass: pass  passes-node-module-check"
+      }
+    }
+  ],
+  "quarantined": [],
+  "unverified": [],
+  "retired": []
+}

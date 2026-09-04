@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flightcrew/schemas/tests-map.schema.json",
+  "title": "Tests map",
+  "description": "launch/specs/<S>/tests-map.vN.json: the executable targets derived from one spec version, one check per T id. Invariants this schema cannot express, checked by validate-tests-map.mjs: tm-invariant-1 ids carry the T prefix; tm-invariant-2 ids unique; tm-invariant-3 live plus retired ids form an unbroken 1..N; tm-invariant-4 v1 has every check ok and no retired entries; tm-invariant-5 a non-ok check carries a note; tm-invariant-6 commit present iff frozen; tm-invariant-7 2 <= retired.at <= version; tm-invariant-8 every retired entry's covers is remapped to a live check or listed in unverified; tm-invariant-9 previous_versions is newest first, strictly descending, covering every earlier version; tm-invariant-10 T1 exists and equals acceptance; tm-invariant-11 frozen implies every check's baseline.observed first word equals its expect first word; tm-invariant-12 the spec pin names a frozen spec version (waived under allow_draft); tm-invariant-13 frozen implies allowed_paths and locked_paths non-empty. Plus the coverage rule: frozen implies every live B/E/C/I of the pinned spec appears in some covers or in unverified.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "name",
+    "version",
+    "status",
+    "reason",
+    "spec",
+    "previous_versions",
+    "acceptance",
+    "fixture",
+    "allowed_paths",
+    "locked_paths",
+    "baseline",
+    "checks",
+    "quarantined",
+    "unverified",
+    "retired"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "name": { "type": "string", "minLength": 1, "description": "Matches the spec name and the folder under launch/specs/." },
+    "version": { "type": "integer", "minimum": 1, "description": "This file is tests-map.v<version>.json." },
+    "status": { "type": "string", "enum": ["draft", "frozen"] },
+    "commit": { "$ref": "#/$defs/hash", "description": "Hash at freeze. Present iff frozen (tm-invariant-6)." },
+    "reason": { "type": "string", "minLength": 1, "description": "Why this version exists, one line." },
+    "spec": { "$ref": "#/$defs/specPin" },
+    "previous_versions": {
+      "type": "array",
+      "description": "Newest first (tm-invariant-9).",
+      "items": {
+        "type": "object",
+        "required": ["v", "file", "date", "commit", "reason", "spec"],
+        "additionalProperties": false,
+        "properties": {
+          "v": { "type": "integer", "minimum": 1 },
+          "file": { "type": "string", "minLength": 1 },
+          "date": { "$ref": "#/$defs/date" },
+          "commit": { "$ref": "#/$defs/hash" },
+          "reason": { "type": "string" },
+          "spec": { "$ref": "#/$defs/specPin" }
+        }
+      }
+    },
+    "acceptance": { "type": "string", "pattern": "^T[0-9]+$", "description": "The acceptance check id; tm-invariant-10 requires it to be T1." },
+    "fixture": { "type": "string", "minLength": 1 },
+    "allowed_paths": { "type": "array", "items": { "$ref": "#/$defs/glob" } },
+    "locked_paths": { "type": "array", "items": { "$ref": "#/$defs/glob" } },
+    "run_all": { "type": "string", "minLength": 1, "description": "One command running every check, for a human." },
+    "baseline": {
+      "type": "object",
+      "required": ["commit", "date", "note"],
+      "additionalProperties": false,
+      "properties": {
+        "commit": { "$ref": "#/$defs/hash" },
+        "date": { "$ref": "#/$defs/date" },
+        "note": { "type": "string" }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "status", "kind", "covers", "command", "baseline"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^T[0-9]+$" },
+          "status": { "type": "string", "enum": ["ok", "new", "changed"] },
+          "kind": {
+            "type": "string",
+            "enum": ["structural", "behavioural", "artefact", "invariant", "project-rule", "statistical", "judged"]
+          },
+          "class": { "type": "string", "enum": ["deterministic", "property", "statistical", "judged"] },
+          "name": { "type": "string" },
+          "covers": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Spec node ids, or the literal 'scope'."
+          },
+          "command": { "type": "string", "minLength": 1, "description": "Run as /bin/sh -c from the launch root." },
+          "gate_only": { "type": "boolean", "description": "Runs under fc check all and the stop gate; marked 'gate only' in dispatch prompts." },
+          "baseline": {
+            "type": "object",
+            "required": ["expect", "observed"],
+            "additionalProperties": false,
+            "properties": {
+              "expect": { "type": "string", "minLength": 1, "description": "'<pass|fail|error>: <why>' as written by the test-builder." },
+              "observed": { "type": "string", "description": "'<pass|fail|error>: <first non-empty output line>' as written by fc check --baseline." }
+            }
+          },
+          "note": { "type": "string", "description": "Required when status is not ok (tm-invariant-5)." }
+        }
+      }
+    },
+    "quarantined": {
+      "type": "array",
+      "description": "Ids that run with verdict skipped until the reason is gone.",
+      "items": {
+        "type": "object",
+        "required": ["id", "since", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "since": { "$ref": "#/$defs/date" },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "unverified": {
+      "type": "array",
+      "description": "Spec node ids a human accepted as unproven, with the reason.",
+      "items": {
+        "type": "object",
+        "required": ["id", "reason", "decided_by"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 },
+          "decided_by": { "type": "string", "enum": ["human"] }
+        }
+      }
+    },
+    "retired": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "at", "covers", "note"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "at": { "type": "integer", "minimum": 1, "description": "Map version where the check was removed (tm-invariant-7)." },
+          "covers": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+    "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}" },
+    "glob": { "type": "string", "minLength": 1 },
+    "specPin": {
+      "type": "object",
+      "required": ["name", "version", "commit"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "integer", "minimum": 1 },
+        "commit": { "$ref": "#/$defs/hashOrNull" }
+      }
+    },
+    "hashOrNull": { "type": ["string", "null"], "pattern": "^[0-9a-f]{7,40}$" }
+  }
+}

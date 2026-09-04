@@ -1,0 +1,107 @@
+{
+  "_comment": "Merge this fragment into the project's .claude/settings.json by hand or with `fc distribute --apply`: copy each key into the settings file, appending to any hooks list, permissions.allow and permissions.deny already there rather than replacing them. The hook scripts run in place from flightdeck/flightcrew/hooks/, so nothing is copied and $CLAUDE_PROJECT_DIR resolves them wherever the session starts, worktrees included. Where `node` is not on the PATH the harness gives its hooks, replace the leading `node` of every command with the absolute interpreter path (`fc distribute` prints the fragment with that substitution already made). Remove the `_comment` and `_sandbox_example` keys when merging; Claude Code ignores unknown keys but they carry no behaviour. `_sandbox_example` shows the shape of the sandbox rule that closes the one hole the guards cannot cover: a shell command that writes a locked file without going through Edit, Write or NotebookEdit.",
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" },
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/session-end.mjs" }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "SubagentStop": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "TaskCreated": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "TaskCompleted": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "PostToolUseFailure": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "PermissionDenied": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "PreCompact": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "PostCompact": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "WorktreeRemove": [
+      { "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" }] }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/lock-guard.mjs" },
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/boundary-guard.mjs" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/structural-check.mjs" }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs" },
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/stop-gate.mjs", "timeout": 600 }
+        ]
+      }
+    ]
+  },
+  "worktree": { "baseRef": "head" },
+  "permissions": {
+    "allow": [
+      "Bash(node flightdeck/flightcrew/bin/fc *)",
+      "Bash(flightdeck/flightcrew/bin/fc *)",
+      "Bash(./flightdeck/flightcrew/bin/fc *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git rev-parse *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git worktree list *)",
+      "Agent(spec-builder)",
+      "Agent(spec-judge)",
+      "Agent(spec-attacker)",
+      "Agent(explorer)",
+      "Agent(test-builder)",
+      "Agent(planner)",
+      "Agent(orchestrator)",
+      "Agent(implementer)",
+      "Agent(verifier)",
+      "Agent(critic)",
+      "Workflow(fc-implement)",
+      "Workflow(fc-review)",
+      "Workflow(fc-explore)"
+    ],
+    "deny": [
+      "Edit(flightdeck/launch/*/specs/**)",
+      "Edit(flightdeck/launch/specs/**)"
+    ]
+  },
+  "_sandbox_example": {
+    "filesystem": {
+      "deny": [
+        "tests/**",
+        "flightdeck/launch/specs/**"
+      ]
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "T13",
+  "command": "node flightdeck/testbench/suites/bin-plan/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  render-writes-headings-in-order",
+    "pass  render-one-table-row-per-unit",
+    "pass  render-is-deterministic",
+    "pass  render-invalid-plan-exits-2-without-writing",
+    "pass  render-schema-invalid-plan-exits-2",
+    "covers: B21",
+    "5/5 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 2976,
+  "ran_at": "2026-09-03T22:08:09.096Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "B21"
+  ],
+  "phase": "verify"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "T18",
+  "command": "node flightdeck/testbench/suites/lint-spec/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  positive-sample-spec",
+    "pass  lint-domains-empty-domain-without-decision",
+    "pass  lint-open-questions",
+    "pass  lint-sequential-id-hole",
+    "pass  lint-out-list-no-out-scope",
+    "pass  lint-artefacts-unresolved-path",
+    "pass  lint-artefacts-satisfied-by-deliverable",
+    "pass  lint-commands-run-missing-script",
+    "pass  lint-claimed-behaviour-absent-from-verification",
+    "pass  lint-boundary-acceptance-without-path-token",
+    "pass  lint-class-tags-agent-shaped-without-tags",
+    "pass  lint-class-tags-satisfied-when-tagged",
+    "pass  linter-script-accepts-the-sample-spec",
+    "pass  linter-script-names-lint-open-questions",
+    "pass  warn-impression-does-not-fail",
+    "pass  warn-length-does-not-fail",
+    "covers: B26",
+    "16/16 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 6362,
+  "ran_at": "2026-09-03T22:08:42.669Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "B26"
+  ],
+  "phase": "verify"
+}

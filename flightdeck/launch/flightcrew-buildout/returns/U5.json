@@ -1,0 +1,33 @@
+{
+  "unit": "U5",
+  "status": "green",
+  "branch": "flightcrew-buildout-v1",
+  "worktree": ".",
+  "spec_refs": [
+    "B39",
+    "I11",
+    "E16"
+  ],
+  "checks": [
+    {
+      "id": "T27",
+      "exit": 0
+    },
+    {
+      "id": "T29",
+      "exit": 0
+    }
+  ],
+  "artefacts": [
+    "flightdeck/flightcrew/templates/",
+    "flightdeck/flightcrew/templates/kickoff/",
+    "flightdeck/flightcrew/workflows/fc-implement.js",
+    "flightdeck/flightcrew/workflows/fc-review.js",
+    "flightdeck/flightcrew/workflows/fc-explore.js",
+    "flightdeck/flightcrew/workflows/README.md"
+  ],
+  "commits": [],
+  "iterations": 2,
+  "halt": null,
+  "notes": "The dispatch and document templates, the eight-part kickoff library and the three workflow scripts, each inlining the return schema its agents are validated against."
+}

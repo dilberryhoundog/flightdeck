@@ -1,0 +1,3 @@
+The hooks were not installed in the sessions that built this system, so no SessionStart, Stop or SubagentStop events were recorded; the nine agent starts are stated by hand and the phase changes are recorded by fc.
+Units ran as parallel build sessions in the repository working tree rather than in per-unit worktrees, so no unit branches were created and fc worker merge was not used; every return records an empty commit list.
+Two checks are red for reasons recorded as halts on the returns of U2 and U6: one case of suite bin-evidence asserts a line count the diff does not produce, and one case of suite constraints reads a string literal inside a locked suite as an import. Both live in locked suite files, so no unit may change them.

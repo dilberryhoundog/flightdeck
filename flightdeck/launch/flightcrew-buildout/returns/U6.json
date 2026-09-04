@@ -1,0 +1,34 @@
+{
+  "unit": "U6",
+  "status": "halt",
+  "branch": "flightcrew-buildout-v1",
+  "worktree": ".",
+  "spec_refs": [
+    "C5",
+    "C9",
+    "B54"
+  ],
+  "checks": [
+    {
+      "id": "T24",
+      "exit": 2
+    }
+  ],
+  "artefacts": [
+    "flightdeck/manuals/README.md",
+    "flightdeck/manuals/orchestration/",
+    "flightdeck/manuals/harness/",
+    "flightdeck/manuals/launch/launch-anatomy.md",
+    "flightdeck/launch/README.md",
+    "flightdeck/launch/RUNLOG.md",
+    "flightdeck/flightcrew/README.md",
+    "flightdeck/testbench/README.md"
+  ],
+  "commits": [],
+  "iterations": 2,
+  "halt": {
+    "kind": "unsatisfiable",
+    "detail": "Check T24 (suite constraints), case C1-imports-are-node-builtins-or-relative-inside-scope, fails on a file no unit of this run may change. The suite's import scanner strips comments but keeps string literals, so the two-character module name inside the literal '@import \"x\"' in the hostile-content fixture of suite bin-evidence reads as a bare import specifier. No script in the four in-scope directories imports a bare specifier, so the constraint itself holds; the scanner and the fixture are both locked targets. The two cases of this suite that read the manuals, C5-markdown-carries-no-session-phrases and C9-manuals-at-most-150-lines, pass."
+  },
+  "notes": "The manuals index, the eight orchestration manuals, the three harness manuals, the launch anatomy manual and the four READMEs. Every orchestration manual is at or under 150 lines."
+}

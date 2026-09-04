@@ -1,0 +1,13 @@
+{
+  "unit": "U2",
+  "status": "green",
+  "branch": "export-html-1/edges-and-invariants",
+  "worktree": ".claude/worktrees/export-html-1-edges-and-invariants",
+  "spec_refs": ["E1", "E2", "E3"],
+  "checks": [{ "id": "T4", "exit": 0 }, { "id": "T5", "exit": 0 }],
+  "artefacts": ["src/export/index.mjs"],
+  "commits": ["0718293"],
+  "iterations": 2,
+  "halt": null,
+  "notes": "missing-asset, no-pages and unknown-block warnings with page slugs; the invariants scan passes in both export modes"
+}

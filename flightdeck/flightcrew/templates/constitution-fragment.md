@@ -1,0 +1,7 @@
+## Flightcrew
+
+- Orchestrated runs live under `flightdeck/launch/`. One launch may be active at a time; `FLIGHTCREW_LAUNCH` is an environment variable set for a session or a single command: `FLIGHTCREW_LAUNCH=<name>` selects that launch whatever its status, and `FLIGHTCREW_LAUNCH=none` resolves the launch to none, so the guards stop enforcing locks and boundary for that session.
+- The runner is `flightdeck/flightcrew/bin/fc`, invoked by path and never installed; `fc` below is shorthand for that path, not a command on PATH. `flightdeck/flightcrew/bin/fc launch status` says what is active and in which phase.
+- Read `flightdeck/manuals/README.md` for which manual a role reads at which stage, and `flightdeck/launch/RUNLOG.md` before planning any run.
+- While a launch is active, paths listed as `paths.locked` in its `launch.json` are refused by a hook once the launch is past its targets phase, and paths outside `paths.allowed` are refused from the point the tests map is pinned; `flightdeck/manuals/launch/launch-anatomy.md` carries the phase conditions. Where an edit is refused, run `flightdeck/flightcrew/bin/fc launch escalate wrong-check --detail "<text>"` rather than editing the refused file.
+- Plans, kickoffs, reports and the evidence page (`evidence.html` in the launch folder) are rendered by `fc`, never hand-edited: `flightdeck/flightcrew/bin/fc plan render`, `fc launch kickoff`, `fc report` and `fc evidence` produce them.

@@ -1,0 +1,26 @@
+{
+  "id": "T25",
+  "command": "node flightdeck/testbench/suites/hook-timing/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  event-log-under-2000ms",
+    "pass  lock-guard-under-2000ms",
+    "pass  boundary-guard-under-2000ms",
+    "pass  structural-check-under-2000ms",
+    "pass  stop-gate-under-2000ms",
+    "pass  session-end-under-2000ms",
+    "pass  settings-fragment-stop-timeout-600",
+    "covers: C4",
+    "7/7 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 5991,
+  "ran_at": "2026-09-04T02:47:33.766Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
+  "covers": [
+    "C4"
+  ],
+  "phase": "report"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "T22",
+  "command": "node flightdeck/testbench/suites/crew/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  every-crew-file-carries-name-description-tools-model",
+    "pass  max-turns-on-every-role-except-the-four-named",
+    "pass  implementer-isolation-and-accept-edits",
+    "pass  orchestrator-initial-prompt-names-launch-status-and-kickoff",
+    "pass  new-roles-end-with-a-fenced-json-return-block",
+    "pass  explorer-verifier-critic-hold-no-write-or-edit",
+    "pass  critic-mandate",
+    "pass  new-roles-state-their-inputs-sentence",
+    "pass  new-roles-match-the-roster",
+    "covers: B31 I10",
+    "9/9 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 48,
+  "ran_at": "2026-09-03T22:09:07.473Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "B31",
+    "I10"
+  ],
+  "phase": "verify"
+}

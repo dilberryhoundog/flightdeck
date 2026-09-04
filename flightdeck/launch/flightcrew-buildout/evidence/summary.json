@@ -1,0 +1,295 @@
+{
+  "ran_at": "2026-09-03T22:09:32.169Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "counts": {
+    "pass": 27,
+    "fail": 2,
+    "error": 0,
+    "skipped": 0
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "verdict": "pass",
+      "covers": [
+        "B34"
+      ]
+    },
+    {
+      "id": "T2",
+      "verdict": "pass",
+      "covers": [
+        "B1",
+        "B2",
+        "B3",
+        "B32",
+        "B35",
+        "B41",
+        "B44",
+        "B45",
+        "B47",
+        "B49",
+        "B50",
+        "B52",
+        "B54",
+        "I1",
+        "E1",
+        "E3",
+        "E6",
+        "E7",
+        "E12",
+        "E15",
+        "E18",
+        "E20",
+        "E22",
+        "E24"
+      ]
+    },
+    {
+      "id": "T3",
+      "verdict": "pass",
+      "covers": [
+        "B4",
+        "C8",
+        "I7",
+        "E5",
+        "E13",
+        "E14"
+      ]
+    },
+    {
+      "id": "T4",
+      "verdict": "pass",
+      "covers": [
+        "B5",
+        "B52",
+        "I5"
+      ]
+    },
+    {
+      "id": "T5",
+      "verdict": "pass",
+      "covers": [
+        "B6",
+        "B7",
+        "B42",
+        "B53",
+        "I7"
+      ]
+    },
+    {
+      "id": "T6",
+      "verdict": "pass",
+      "covers": [
+        "B8",
+        "E9"
+      ]
+    },
+    {
+      "id": "T7",
+      "verdict": "pass",
+      "covers": [
+        "B9",
+        "B10",
+        "B11",
+        "B40",
+        "B41"
+      ]
+    },
+    {
+      "id": "T8",
+      "verdict": "pass",
+      "covers": [
+        "B12",
+        "B13",
+        "B36",
+        "B46",
+        "I6",
+        "E2",
+        "E8",
+        "E11",
+        "E17"
+      ]
+    },
+    {
+      "id": "T9",
+      "verdict": "pass",
+      "covers": [
+        "B14",
+        "B15",
+        "B16",
+        "B51"
+      ]
+    },
+    {
+      "id": "T10",
+      "verdict": "pass",
+      "covers": [
+        "B17",
+        "B18",
+        "I12",
+        "E4",
+        "E21"
+      ]
+    },
+    {
+      "id": "T11",
+      "verdict": "fail",
+      "covers": [
+        "B19",
+        "B37"
+      ]
+    },
+    {
+      "id": "T12",
+      "verdict": "pass",
+      "covers": [
+        "B20"
+      ]
+    },
+    {
+      "id": "T13",
+      "verdict": "pass",
+      "covers": [
+        "B21"
+      ]
+    },
+    {
+      "id": "T14",
+      "verdict": "pass",
+      "covers": [
+        "B22"
+      ]
+    },
+    {
+      "id": "T15",
+      "verdict": "pass",
+      "covers": [
+        "B23"
+      ]
+    },
+    {
+      "id": "T16",
+      "verdict": "pass",
+      "covers": [
+        "B24"
+      ]
+    },
+    {
+      "id": "T17",
+      "verdict": "pass",
+      "covers": [
+        "B25"
+      ]
+    },
+    {
+      "id": "T18",
+      "verdict": "pass",
+      "covers": [
+        "B26"
+      ]
+    },
+    {
+      "id": "T19",
+      "verdict": "pass",
+      "covers": [
+        "B27",
+        "B28",
+        "B43",
+        "B48",
+        "E19",
+        "E23"
+      ]
+    },
+    {
+      "id": "T20",
+      "verdict": "pass",
+      "covers": [
+        "B29",
+        "E10"
+      ]
+    },
+    {
+      "id": "T21",
+      "verdict": "pass",
+      "covers": [
+        "B30"
+      ]
+    },
+    {
+      "id": "T22",
+      "verdict": "pass",
+      "covers": [
+        "B31",
+        "I10"
+      ]
+    },
+    {
+      "id": "T23",
+      "verdict": "pass",
+      "covers": [
+        "B33",
+        "I9"
+      ]
+    },
+    {
+      "id": "T24",
+      "verdict": "fail",
+      "covers": [
+        "C1",
+        "C2",
+        "C3",
+        "C5",
+        "C6",
+        "C7",
+        "C9"
+      ]
+    },
+    {
+      "id": "T25",
+      "verdict": "pass",
+      "covers": [
+        "C4"
+      ]
+    },
+    {
+      "id": "T26",
+      "verdict": "pass",
+      "covers": [
+        "I2",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I8",
+        "I14"
+      ]
+    },
+    {
+      "id": "T27",
+      "verdict": "pass",
+      "covers": [
+        "I11",
+        "E16"
+      ]
+    },
+    {
+      "id": "T28",
+      "verdict": "pass",
+      "covers": [
+        "B38",
+        "I13"
+      ]
+    },
+    {
+      "id": "T29",
+      "verdict": "pass",
+      "covers": [
+        "B39"
+      ]
+    }
+  ],
+  "unverified": [],
+  "quarantined": [],
+  "uncovered": []
+}

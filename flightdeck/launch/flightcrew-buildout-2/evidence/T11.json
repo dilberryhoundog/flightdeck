@@ -1,0 +1,26 @@
+{
+  "id": "T11",
+  "command": "node flightdeck/testbench/suites/bin-evidence/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  evidence-html-is-self-contained",
+    "pass  hostile-check-output-is-shown-verbatim-and-escaped-never-injected",
+    "pass  one-pre-element-per-evidence-file-with-command-exit-and-tails",
+    "pass  named-sections-present-and-header-names-phase-and-last-event-time",
+    "pass  every-named-section-shows-a-dash-when-empty",
+    "pass  changed-since-lock-lists-each-path-with-added-and-removed-counts",
+    "covers: B19 B37",
+    "6/6 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 4549,
+  "ran_at": "2026-09-04T02:45:46.805Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
+  "covers": [
+    "B19",
+    "B37"
+  ],
+  "phase": "report"
+}

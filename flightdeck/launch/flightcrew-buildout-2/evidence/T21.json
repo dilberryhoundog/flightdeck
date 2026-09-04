@@ -1,0 +1,26 @@
+{
+  "id": "T21",
+  "command": "node flightdeck/testbench/suites/bin-doctor/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  doctor-passes-on-the-repository",
+    "pass  two-active-launches-exit-2",
+    "pass  doctor-passes-on-a-prepared-target",
+    "pass  target-missing-hook-command-exits-2",
+    "pass  target-agent-not-byte-equal-exits-2",
+    "pass  target-baseref-not-head-exits-2",
+    "pass  target-crew-name-collision-exits-2",
+    "covers: B30",
+    "7/7 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 16579,
+  "ran_at": "2026-09-04T02:47:16.328Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
+  "covers": [
+    "B30"
+  ],
+  "phase": "report"
+}

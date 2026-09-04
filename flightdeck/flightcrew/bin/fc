@@ -1,0 +1,4 @@
+#!/bin/sh
+# flightcrew/bin/fc — the fc runner, invoked by path: a shim that executes bin/fc.mjs with node so nothing has to be installed.
+# Usage: flightdeck/flightcrew/bin/fc <command> [sub] [args] [--launch <name>] [--json]
+exec node "$(dirname "$0")/fc.mjs" "$@"

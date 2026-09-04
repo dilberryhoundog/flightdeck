@@ -1,0 +1,33 @@
+{
+  "id": "T27",
+  "command": "node flightdeck/testbench/suites/templates/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  kickoff-parts-start-with-version-comment",
+    "pass  kickoff-equals-header-plus-parts-in-order",
+    "pass  kickoff-version-joins-part-versions",
+    "pass  kickoff-header-draft-spec-reads-draft",
+    "pass  kickoff-prior-reports-lists-same-spec-reports",
+    "pass  roles-names-are-backticked-crew-names",
+    "pass  validate-accepts-fresh-kickoff-with-no-map",
+    "pass  validate-rejects-missing-spec-path",
+    "pass  validate-rejects-missing-tests-map-path",
+    "pass  validate-rejects-bad-spec-commit",
+    "pass  validate-draft-commit-needs-allow-draft",
+    "pass  validate-rejects-unresolved-prior-report",
+    "pass  validate-rejects-unknown-role-name",
+    "covers: E16 I11",
+    "13/13 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 10080,
+  "ran_at": "2026-09-04T02:47:49.470Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
+  "covers": [
+    "I11",
+    "E16"
+  ],
+  "phase": "report"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "T20",
+  "command": "node flightdeck/testbench/suites/bin-distribute/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  dry-run-lists-and-writes-nothing",
+    "pass  apply-copies-crew-and-workflows-only",
+    "pass  apply-prints-fragment-gitignore-and-constitution",
+    "pass  apply-twice-with-identical-content-succeeds",
+    "pass  conflict-lists-paths-copies-nothing-exits-2",
+    "pass  force-overwrites-conflicts",
+    "covers: B29 E10",
+    "6/6 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 1010,
+  "ran_at": "2026-09-04T02:46:59.748Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
+  "covers": [
+    "B29",
+    "E10"
+  ],
+  "phase": "report"
+}

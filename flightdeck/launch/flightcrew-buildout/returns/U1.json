@@ -1,0 +1,57 @@
+{
+  "unit": "U1",
+  "status": "green",
+  "branch": "flightcrew-buildout-v1",
+  "worktree": ".",
+  "spec_refs": [
+    "B22",
+    "B23",
+    "B24",
+    "B25",
+    "B26",
+    "B47",
+    "B49",
+    "E1",
+    "E11",
+    "E15"
+  ],
+  "checks": [
+    {
+      "id": "T14",
+      "exit": 0
+    },
+    {
+      "id": "T15",
+      "exit": 0
+    },
+    {
+      "id": "T16",
+      "exit": 0
+    },
+    {
+      "id": "T17",
+      "exit": 0
+    },
+    {
+      "id": "T18",
+      "exit": 0
+    }
+  ],
+  "artefacts": [
+    "flightdeck/flightcrew/checks/validators/validate-spec.mjs",
+    "flightdeck/flightcrew/checks/validators/validate-tests-map.mjs",
+    "flightdeck/flightcrew/checks/validators/validate-plan.mjs",
+    "flightdeck/flightcrew/checks/validators/validate-launch.mjs",
+    "flightdeck/flightcrew/checks/validators/validate-return.mjs",
+    "flightdeck/flightcrew/checks/validators/validate-kickoff.mjs",
+    "flightdeck/flightcrew/checks/validators/validate-all.mjs",
+    "flightdeck/flightcrew/checks/validators/spec-readiness-lint.mjs",
+    "flightdeck/flightcrew/checks/gates/acceptance-gate.mjs",
+    "flightdeck/flightcrew/checks/gates/structural-gate.mjs",
+    "flightdeck/flightcrew/checks/gates/contracts-gate.mjs"
+  ],
+  "commits": [],
+  "iterations": 2,
+  "halt": null,
+  "notes": "The eight validators and the three gate modules. The gate modules export run(context); the stop-gate hook of U3 drives them, and the pair was reconciled against design section 8 during integration."
+}

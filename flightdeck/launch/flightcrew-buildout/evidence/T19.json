@@ -1,0 +1,39 @@
+{
+  "id": "T19",
+  "command": "node flightdeck/testbench/suites/bin-dispatch/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  worker-render-prompt-first-line-and-always-present-nodes",
+    "pass  worker-render-carries-only-the-units-b-and-e-nodes",
+    "pass  worker-render-lists-checks-by-id-with-covers-run-line-and-gate-only-mark-never-commands",
+    "pass  worker-render-exits-1-outside-phase-implement",
+    "pass  worker-render-unknown-unit-or-missing-plan-exits-1-naming-it",
+    "pass  return-worker-stores-at-returns-unit-and-appends-a-return-event",
+    "pass  return-rejects-an-invalid-file-with-exit-2-storing-nothing",
+    "pass  return-stores-explorer-verifier-and-critic-at-their-fixed-paths",
+    "pass  worker-return-alias-behaves-as-return-worker-with-unit",
+    "pass  worker-merge-green-path-merges-no-ff-runs-checks-commits-appends-unit-merged-and-cleans-up",
+    "pass  worker-merge-aborts-and-exits-2-naming-the-failing-check",
+    "pass  worker-merge-aborts-and-exits-2-naming-the-conflicting-path",
+    "pass  worker-merge-refuses-a-missing-red-or-unmerged-dependency-return-and-changes-nothing",
+    "pass  critic-render-writes-a-sealed-prompt-with-spec-diff-summary-and-locked-list-only",
+    "pass  critic-render-exits-1-outside-phase-review-or-with-stale-summary",
+    "covers: B27 B28 B43 B48 E19 E23",
+    "15/15 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 9047,
+  "ran_at": "2026-09-03T22:08:51.717Z",
+  "commit": "49aff47990c6b7df60c2da3f8a57fb20cb366e01",
+  "covers": [
+    "B27",
+    "B28",
+    "B43",
+    "B48",
+    "E19",
+    "E23"
+  ],
+  "phase": "verify"
+}

@@ -1,0 +1,14 @@
+{
+  "refuted": false,
+  "checks_rerun": [
+    { "id": "T1", "exit": 0 },
+    { "id": "T2", "exit": 0 },
+    { "id": "T3", "exit": 0 },
+    { "id": "T4", "exit": 0 },
+    { "id": "T5", "exit": 0 }
+  ],
+  "reasons": [],
+  "unverified": [],
+  "test_file_changes": [],
+  "outside_boundary": []
+}

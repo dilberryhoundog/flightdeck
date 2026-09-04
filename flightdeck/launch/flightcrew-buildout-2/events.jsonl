@@ -1,0 +1,11 @@
+{"ts":"2026-09-03T22:44:36.883Z","event":"phase","launch":"flightcrew-buildout-2","phase":"plan","source":"fc","detail":{"from":"targets","to":"plan","forced":false}}
+{"ts":"2026-09-03T22:44:37.260Z","event":"gate","launch":"flightcrew-buildout-2","phase":"contracts","source":"fc","detail":{"gate":"G1","decision":"approve","note":"Plan read against the spec: one proof unit carrying every check; no contracts wave because run 1 landed and verified them; risks carry run 1's run-log entry."}}
+{"ts":"2026-09-03T22:44:37.260Z","event":"phase","launch":"flightcrew-buildout-2","phase":"contracts","source":"fc","detail":{"from":"plan","to":"contracts","forced":false}}
+{"ts":"2026-09-03T22:44:42.283Z","event":"gate","launch":"flightcrew-buildout-2","phase":"implement","source":"fc","detail":{"gate":"G2","decision":"approve","note":"No contracts wave; T1 green since the lock commit."}}
+{"ts":"2026-09-03T22:44:42.283Z","event":"phase","launch":"flightcrew-buildout-2","phase":"implement","source":"fc","detail":{"from":"contracts","to":"implement","forced":false}}
+{"ts":"2026-09-03T22:44:42.442Z","event":"phase","launch":"flightcrew-buildout-2","phase":"verify","source":"fc","detail":{"from":"implement","to":"verify","forced":false}}
+{"ts":"2026-09-04T02:25:07.796Z","event":"phase","launch":"flightcrew-buildout-2","phase":"review","source":"fc","detail":{"from":"verify","to":"review","forced":false}}
+{"ts":"2026-09-04T02:25:07.971Z","event":"return","launch":"flightcrew-buildout-2","phase":"review","source":"fc","detail":{"kind":"critic","status":"gaps","pass":1}}
+{"ts":"2026-09-04T02:25:08.086Z","event":"return","launch":"flightcrew-buildout-2","phase":"review","source":"fc","detail":{"kind":"critic","status":"gaps","pass":2}}
+{"ts":"2026-09-04T02:25:08.252Z","event":"phase","launch":"flightcrew-buildout-2","phase":"report","source":"fc","detail":{"from":"review","to":"report","forced":false}}
+{"ts":"2026-09-04T02:47:50.693Z","event":"launch_end","launch":"flightcrew-buildout-2","phase":"ended","source":"fc","detail":{"outcome":"accepted-with-reservations","at":null}}

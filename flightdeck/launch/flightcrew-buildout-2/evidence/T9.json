@@ -1,0 +1,34 @@
+{
+  "id": "T9",
+  "command": "node flightdeck/testbench/suites/bin-boundary/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  boundary-lists-changed-marks-outside-excludes-worktrees-and-runs-exits-2",
+    "pass  boundary-exits-0-with-empty-outside-when-every-change-is-inside",
+    "pass  boundary-base-falls-back-to-base-commit-and-honours-the-base-flag",
+    "pass  locked-lists-changes-under-locked-paths-and-exits-2",
+    "pass  locked-exits-0-with-empty-list-when-no-locked-path-changed",
+    "pass  budget-counts-beside-ceilings-and-exits-0-within-them",
+    "pass  budget-exits-2-and-appends-trigger-when-agents-exceed-the-ceiling",
+    "pass  budget-counts-consecutive-stop-blocks-against-gate-iterations",
+    "pass  budget-reports-tokens-unobserved-without-usage-events",
+    "pass  budget-treats-an-absent-events-file-as-empty",
+    "pass  events-usage-appends-a-usage-event",
+    "pass  events-summary-prints-counts-by-event-per-agent-and-unparseable",
+    "covers: B14 B15 B16 B51",
+    "12/12 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 11272,
+  "ran_at": "2026-09-04T02:45:35.995Z",
+  "commit": "c28578e402a927a3049db463859d3efd7b49fe13",
+  "covers": [
+    "B14",
+    "B15",
+    "B16",
+    "B51"
+  ],
+  "phase": "report"
+}

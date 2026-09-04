@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flightcrew/schemas/check-result.schema.json",
+  "title": "Check result",
+  "description": "launch/<L>/evidence/<T>.json: the result of one check run. Each check runs as /bin/sh -c <command> with cwd the launch root (or --cwd), the parent environment plus FLIGHTCREW_LAUNCH, a 300 second limit, serially in map order; a command that cannot spawn or times out has verdict error, a null exit and a stderr_tail naming the command and the cause. Tails hold the last forty lines of each stream. evidence/summary.json is rebuilt from every evidence file present and holds { ran_at, commit, counts: {pass, fail, error, skipped}, checks: [{id, verdict, covers}], unverified, quarantined, uncovered }.",
+  "type": "object",
+  "required": ["id", "command", "cwd", "exit", "verdict", "stdout_tail", "stderr_tail", "duration_ms", "ran_at", "commit", "covers", "phase"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^T[0-9]+$" },
+    "command": { "type": "string", "minLength": 1 },
+    "cwd": { "type": "string", "minLength": 1 },
+    "exit": { "type": ["integer", "null"], "description": "null when the command could not spawn or was killed." },
+    "verdict": { "type": "string", "enum": ["pass", "fail", "error", "skipped"] },
+    "stdout_tail": { "type": "array", "items": { "type": "string" } },
+    "stderr_tail": { "type": "array", "items": { "type": "string" } },
+    "duration_ms": { "type": "integer", "minimum": 0 },
+    "ran_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+    "covers": { "type": "array", "items": { "type": "string", "minLength": 1 }, "description": "Spec node ids, or the literal 'scope'." },
+    "phase": { "type": "string", "minLength": 1 }
+  }
+}

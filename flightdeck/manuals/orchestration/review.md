@@ -4,12 +4,12 @@ Independent review at stage 8: a fresh `critic` in a sealed room holding the spe
 
 ## Division of labour
 
-| question | answered by | form |
-|---|---|---|
-| does it compile, lint, conform? | the structural-check hook, `structural[ext]` commands | deterministic, every edit |
-| do the numbered behaviours hold? | the pinned tests map through `fc check all`, `T1` through the stop gate | deterministic, at gates |
-| did anything outside scope or under a lock change? | `fc boundary`, `fc locked` | deterministic, at gates |
-| does the result match the spec's intent; what was missed between the numbers; should this survive a maintainer? | the critic | judgement, fresh context, after the rows above are green |
+| question                                                                                                        | answered by                                                             | form                                                     |
+|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|----------------------------------------------------------|
+| does it compile, lint, conform?                                                                                 | the structural-check hook, `structural[ext]` commands                   | deterministic, every edit                                |
+| do the numbered behaviours hold?                                                                                | the pinned tests map through `fc check all`, `T1` through the stop gate | deterministic, at gates                                  |
+| did anything outside scope or under a lock change?                                                              | `fc boundary`, `fc locked`                                              | deterministic, at gates                                  |
+| does the result match the spec's intent; what was missed between the numbers; should this survive a maintainer? | the critic                                                              | judgement, fresh context, after the rows above are green |
 
 - The critic runs after the deterministic layers are green: `fc launch phase review` is refused while `evidence/summary.json` is absent, older than HEAD, or carries a fail or error count, or while boundary or locked evidence is non-clean.
 - No context grades its own work: the critic is a subagent that receives only its own definition and the rendered dispatch.
@@ -18,12 +18,12 @@ Independent review at stage 8: a fresh `critic` in a sealed room holding the spe
 
 Independence is an input list, not an attitude. `fc critic render [--pass n]` writes `review/pass-<n>.prompt.md`. The orchestrator spawns the `critic` subagent (definition `flightdeck/flightcrew/crew/critic.md`) with the contents of that file as its entire prompt, and nothing else. In a workflow-shaped run the same file is passed as `critic_prompt_path` to `flightdeck/flightcrew/workflows/fc-review.js`, described in `flightdeck/manuals/harness/workflows.md`.
 
-| inside the room | kept outside |
-|---|---|
-| the pinned spec text at its commit, the sole definition of right | `plan.json` and `plan.md`: the critic judges the result against the spec, not fidelity to an approach |
-| the full diff since `lock_commit`, excluding the launch folder | `kickoff.md`: conduct rules are not correctness and bias toward the run's momentum |
-| `evidence/summary.json` and the locked-path change list, so judgement starts where determinism stopped | every file under `returns/`: an implementer's reasoning argues for the conclusion under review |
-| the return shape | prior pass files and fix chatter: each pass is a fresh room, or it inherits its own last verdict |
+| inside the room                                                                                                         | kept outside                                                                                                           |
+|-------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| the pinned spec text at its commit, the sole definition of right                                                        | `plan.json` and `plan.md`: the critic judges the result against the spec, not fidelity to an approach                  |
+| the full diff since `lock_commit`, excluding the launch folder                                                          | `kickoff.md`: conduct rules are not correctness and bias toward the run's momentum                                     |
+| `evidence/summary.json` and the locked-path change list, so judgement starts where determinism stopped                  | every file under `returns/`: an implementer's reasoning argues for the conclusion under review                         |
+| the return shape                                                                                                        | prior pass files and fix chatter: each pass is a fresh room, or it inherits its own last verdict                       |
 | Read, Grep, Glob and Bash, so the critic can open surrounding code and re-run `fc check` itself; running is not writing | Write and Edit: a critic that can edit becomes an implementer with opinions; the frontmatter allowlist makes this true |
 
 - `fc critic render` exits 1 when the phase is not review or when `summary.json` is older than HEAD; the dispatch always describes the current tree.
@@ -39,12 +39,12 @@ Independence is an input list, not an attitude. `fc critic render [--pass n]` wr
 
 ## The four finding kinds
 
-| kind | meaning | severity | routed to | by |
-|---|---|---|---|---|
-| `correctness-gap` | a spec node not satisfied, or satisfied more narrowly than the spec states | blocking | the implementer owning the unit whose `paths` contain the file, with the finding, the spec node and that unit's checks; fix | orchestrator, `fc-review.js` |
-| `scope-violation` | a change outside the spec's fence that the boundary could not classify, behaviourally out of scope even on an allowed path | blocking | the same implementer; revert, not debate | orchestrator, `fc-review.js` |
-| `spec-conflict` | the diff and the spec cannot both be right, or two spec lines collide when built | stops the run | `fc launch escalate spec-gap --detail "…"`; no fix is attempted; the human decides | orchestrator |
-| `observation` | real but out of mandate: a smell, a future risk, a simplification | never blocking | `fc launch note`, the report, the run log's `observations:` line; never dispatched to an agent | orchestrator |
+| kind              | meaning                                                                                                                    | severity       | routed to                                                                                                                   | by                           |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------|------------------------------|
+| `correctness-gap` | a spec node not satisfied, or satisfied more narrowly than the spec states                                                 | blocking       | the implementer owning the unit whose `paths` contain the file, with the finding, the spec node and that unit's checks; fix | orchestrator, `fc-review.js` |
+| `scope-violation` | a change outside the spec's fence that the boundary could not classify, behaviourally out of scope even on an allowed path | blocking       | the same implementer; revert, not debate                                                                                    | orchestrator, `fc-review.js` |
+| `spec-conflict`   | the diff and the spec cannot both be right, or two spec lines collide when built                                           | stops the run  | `fc launch escalate spec-gap --detail "…"`; no fix is attempted; the human decides                                          | orchestrator                 |
+| `observation`     | real but out of mandate: a smell, a future risk, a simplification                                                          | never blocking | `fc launch note`, the report, the run log's `observations:` line; never dispatched to an agent                              | orchestrator                 |
 
 - The taxonomy makes the loop mechanical: the first two kinds route without judgement, the third halts, the fourth is recorded and left alone.
 - Findings are stored as returned with `fc return critic <file> --pass <n>` at `review/pass-<n>.json`; the orchestrator filters nothing.
@@ -65,13 +65,13 @@ Independence is an input list, not an attitude. `fc critic render [--pass n]` wr
 
 ## Kinds of pass
 
-| pass | reference document | form in Claude Code | when |
-|---|---|---|---|
-| spec alignment | the pinned spec | the `critic` with the full mandate, through `fc critic render` | every run; the pass this manual centres on |
-| correctness, bug hunt | the code's own claims | the bundled `/code-review` skill in a fresh subagent | every run, before the critic |
-| simplification | the diff itself | `/simplify` on the diff before final review | when any unit needed a fix pass after a red check, or when its return records more than one halt |
-| security | defect classes | `/security-review` or a read-only reviewer on a reasoning-tier model per the roster | anything touching auth, input or the network |
-| design and conventions | a checked-in conventions document, at the path the kickoff header or `launch.json` records | a custom skill checking the diff against it | UI or API surface changes; the row is inert, and the pass is never attempted, until the repository names such a document |
+| pass                   | reference document                                                                         | form in Claude Code                                                                 | when                                                                                                                     |
+|------------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| spec alignment         | the pinned spec                                                                            | the `critic` with the full mandate, through `fc critic render`                      | every run; the pass this manual centres on                                                                               |
+| correctness, bug hunt  | the code's own claims                                                                      | the bundled `/code-review` skill in a fresh subagent                                | every run, before the critic                                                                                             |
+| simplification         | the diff itself                                                                            | `/simplify` on the diff before final review                                         | when any unit needed a fix pass after a red check, or when its return records more than one halt                         |
+| security               | defect classes                                                                             | `/security-review` or a read-only reviewer on a reasoning-tier model per the roster | anything touching auth, input or the network                                                                             |
+| design and conventions | a checked-in conventions document, at the path the kickoff header or `launch.json` records | a custom skill checking the diff against it                                         | UI or API surface changes; the row is inert, and the pass is never attempted, until the repository names such a document |
 
 - Order inside the review phase: simplify, deterministic re-check (`fc verify`), then the spec-alignment critic last, so judgement reviews the final form.
 - A pass without a reference document is a style opinion.

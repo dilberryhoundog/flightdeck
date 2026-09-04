@@ -24,15 +24,15 @@ cd $REPO && claude -p "Run flightdeck/flightcrew/bin/fc launch status. Read the 
 
 ## The fragment's lists
 
-| list | entries | why |
-|---|---|---|
-| `permissions.allow` | `Bash(node flightdeck/flightcrew/bin/fc *)`, `Bash(flightdeck/flightcrew/bin/fc *)`, `Bash(./flightdeck/flightcrew/bin/fc *)` | the three ways `fc` is invoked by path |
-| | `Bash(git status *)`, `Bash(git diff *)`, `Bash(git log *)`, `Bash(git rev-parse *)`, `Bash(git worktree list *)` | read-only git every role uses |
-| | `Bash(git add *)`, `Bash(git commit *)`, `Bash(git switch *)` | what an implementer needs on its own branch; `fc worker merge` does the merging |
-| | one `Agent(<name>)` per file in `flightdeck/flightcrew/crew/*.md`, which the list must match exactly: `spec-builder`, `spec-judge`, `spec-attacker`, `explorer`, `test-builder`, `planner`, `orchestrator`, `implementer`, `verifier`, `critic` | dispatch of every crew role without a prompt |
-| | `Workflow(fc-implement)`, `Workflow(fc-review)`, `Workflow(fc-explore)` | launching the three scripts, needed in `-p` runs |
-| `permissions.deny` | `Edit(flightdeck/launch/*/specs/**)`, `Edit(flightdeck/launch/specs/**)` | a hard lock on pinned copies and canonical specs that no launch state can lift; `Edit(path)` also governs Write and NotebookEdit |
-| printed by `fc launch pin tests-map` | one `Bash(<command>)` line per check | add these when checks are run by hand outside `fc check`; `fc check` itself is covered by the `fc` rules |
+| list                                 | entries                                                                                                                                                                                                                                         | why                                                                                                                              |
+|--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| `permissions.allow`                  | `Bash(node flightdeck/flightcrew/bin/fc *)`, `Bash(flightdeck/flightcrew/bin/fc *)`, `Bash(./flightdeck/flightcrew/bin/fc *)`                                                                                                                   | the three ways `fc` is invoked by path                                                                                           |
+|                                      | `Bash(git status *)`, `Bash(git diff *)`, `Bash(git log *)`, `Bash(git rev-parse *)`, `Bash(git worktree list *)`                                                                                                                               | read-only git every role uses                                                                                                    |
+|                                      | `Bash(git add *)`, `Bash(git commit *)`, `Bash(git switch *)`                                                                                                                                                                                   | what an implementer needs on its own branch; `fc worker merge` does the merging                                                  |
+|                                      | one `Agent(<name>)` per file in `flightdeck/flightcrew/crew/*.md`, which the list must match exactly: `spec-builder`, `spec-judge`, `spec-attacker`, `explorer`, `test-builder`, `planner`, `orchestrator`, `implementer`, `verifier`, `critic` | dispatch of every crew role without a prompt                                                                                     |
+|                                      | `Workflow(fc-implement)`, `Workflow(fc-review)`, `Workflow(fc-explore)`                                                                                                                                                                         | launching the three scripts, needed in `-p` runs                                                                                 |
+| `permissions.deny`                   | `Edit(flightdeck/launch/*/specs/**)`, `Edit(flightdeck/launch/specs/**)`                                                                                                                                                                        | a hard lock on pinned copies and canonical specs that no launch state can lift; `Edit(path)` also governs Write and NotebookEdit |
+| printed by `fc launch pin tests-map` | one `Bash(<command>)` line per check                                                                                                                                                                                                            | add these when checks are run by hand outside `fc check`; `fc check` itself is covered by the `fc` rules                         |
 
 - `deny` and `ask` apply immediately; `allow` applies after workspace trust, the confirmation Claude Code asks for the first time a session opens a directory. Until it is granted, an interactive run prompts despite the allow list; this is why headless runs pass `--allowedTools`.
 - Rule syntax: a trailing ` *` is a prefix match; `Edit(path)` uses gitignore glob semantics; `/path` is relative to the settings file's project root.
@@ -41,15 +41,15 @@ cd $REPO && claude -p "Run flightdeck/flightcrew/bin/fc launch status. Read the 
 
 The tools column is the frontmatter of `flightdeck/flightcrew/crew/<role>.md`, which `fc distribute --apply` copies to `.claude/agents/flightcrew/`; edit the source and redistribute. Only the "why" column is rationale.
 
-| role | tools (frontmatter allowlist) | deny or scope | why |
-|---|---|---|---|
-| `orchestrator` | Read, Grep, Glob, Bash, Agent | no Write, no Edit | every file it produces goes through an `fc` command |
-| `explorer` | Read, Grep, Glob, Bash | no Write, no Edit | read widely so nobody else has to |
-| `planner` | Read, Grep, Glob, Bash, Agent | no Write, no Edit | it returns plan content; the orchestrator writes it with `fc plan write` |
-| `test-builder` | Read, Grep, Glob, Bash, Write, Edit; `permissionMode: acceptEdits` | writes the map and check scripts only, before any implementer | it writes the map and the check scripts, which are locked before any implementer starts |
-| `implementer` | Read, Grep, Glob, Bash, Write, Edit; `isolation: worktree`; `permissionMode: acceptEdits` | the guards deny locked paths and paths outside its unit's boundary | the only role with general write access, one unit each |
-| `verifier` | Read, Grep, Glob, Bash | no Write, no Edit | running is not writing |
-| `critic` | Read, Grep, Glob, Bash | no Write, no Edit | it reports findings; every change is made by an implementer |
+| role           | tools (frontmatter allowlist)                                                             | deny or scope                                                      | why                                                                                     |
+|----------------|-------------------------------------------------------------------------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| `orchestrator` | Read, Grep, Glob, Bash, Agent                                                             | no Write, no Edit                                                  | every file it produces goes through an `fc` command                                     |
+| `explorer`     | Read, Grep, Glob, Bash                                                                    | no Write, no Edit                                                  | read widely so nobody else has to                                                       |
+| `planner`      | Read, Grep, Glob, Bash, Agent                                                             | no Write, no Edit                                                  | it returns plan content; the orchestrator writes it with `fc plan write`                |
+| `test-builder` | Read, Grep, Glob, Bash, Write, Edit; `permissionMode: acceptEdits`                        | writes the map and check scripts only, before any implementer      | it writes the map and the check scripts, which are locked before any implementer starts |
+| `implementer`  | Read, Grep, Glob, Bash, Write, Edit; `isolation: worktree`; `permissionMode: acceptEdits` | the guards deny locked paths and paths outside its unit's boundary | the only role with general write access, one unit each                                  |
+| `verifier`     | Read, Grep, Glob, Bash                                                                    | no Write, no Edit                                                  | running is not writing                                                                  |
+| `critic`       | Read, Grep, Glob, Bash                                                                    | no Write, no Edit                                                  | it reports findings; every change is made by an implementer                             |
 
 - Tools follow the role, never convenience; widen only on a recorded tooling-axis entry in `flightdeck/launch/RUNLOG.md` whose diagnosis names the missing tool.
 - `permissionMode: acceptEdits` on the implementer means a worktree edit inside its paths never prompts; a prompt during implement is therefore always a boundary, a lock or a missing allow rule.
@@ -62,8 +62,16 @@ Sandboxing applies to Bash and its child processes and closes the shell-write ho
 ```json
 "sandbox": {
   "enabled": true,
-  "filesystem": { "deny": ["tests/**", "flightdeck/launch/specs/**", "flightdeck/testbench/suites/**"] },
-  "network": { "allowedDomains": [] },
+  "filesystem": {
+    "deny": [
+      "tests/**",
+      "flightdeck/launch/specs/**",
+      "flightdeck/testbench/suites/**"
+    ]
+  },
+  "network": {
+    "allowedDomains": []
+  },
   "excludedCommands": []
 }
 ```

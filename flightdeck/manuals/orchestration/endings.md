@@ -6,11 +6,11 @@ A run is over the moment trust in it stops. Every run ends one of three ways, ac
 
 ## Three endings
 
-| ending | decided | recorded with | then |
-|---|---|---|---|
-| accept and merge | at G3, on green evidence, a converged critic and the human's review | `fc launch end accepted` or `fc launch end accepted-with-reservations` | the merge discipline below; the short run-log entry (`kept`, `reservation`) |
-| abandon and retry | at a gate (`fc launch gate <G> exit`), on the evidence, or mid-run when a trigger fires or an escalation cannot be resolved | `fc launch end abandoned --at <gate|stage>` | the abandon sequence below; a fresh run against an improved setup |
-| partial acceptance | at G3, unit by unit | `fc launch end partial --units U1,U3` | accepted units merge, abandoned units are discarded branches, the retry plan shrinks |
+| ending             | decided                                                                                                                     | recorded with                                                          | then                                                                                 |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| accept and merge   | at G3, on green evidence, a converged critic and the human's review                                                         | `fc launch end accepted` or `fc launch end accepted-with-reservations` | the merge discipline below; the short run-log entry (`kept`, `reservation`)          |
+| abandon and retry  | at a gate (`fc launch gate <G> exit`), on the evidence, or mid-run when a trigger fires or an escalation cannot be resolved | `fc launch end abandoned --at <gate                                    | stage>`                                                                              | the abandon sequence below; a fresh run against an improved setup |
+| partial acceptance | at G3, unit by unit                                                                                                         | `fc launch end partial --units U1,U3`                                  | accepted units merge, abandoned units are discarded branches, the retry plan shrinks |
 
 - The accepted family (`accepted`, `accepted-with-reservations`, `partial`) is refused while `evidence/summary.json.commit` differs from HEAD or the tree is not clean under the allowed paths; `abandoned` is always accepted.
 - Every ending sets `outcome`, `status`, `ended` and phase `ended`, renders `report.md` and `evidence.html`, inserts the RUNLOG stub, appends `launch_end`, and prints the worktree and branch cleanup lines and the report path.
@@ -31,15 +31,15 @@ When an abandon trigger fires, or a halt return or an unresolvable escalation la
 
 ## What a failed run may leave behind
 
-| artefact | carries over | why |
-|---|---|---|
-| the spec | yes | setup; unless `fixed on` names the context axis and the change is to the spec, in which case the amended spec re-frozen at a new commit carries instead |
-| the tests map and check scripts | yes | setup; they encode the spec, not the run; a wrong check was fixed by the human at escalation and re-pinned |
-| wave-0 contracts | if proven | contract checks that went green describe seams, not implementations; inputs to the next plan, which may redraw them |
-| explorer returns (`returns/explore-*.json`) | if factual | "the renderer lives in X" survives; conclusions drawn for the failed approach do not |
-| `plan.json` | no | per-run by design; the next plan is generated fresh with the failure as a `source: runlog` risk |
-| partial implementation on `<L>/<unit>` branches | no | output of a run that was stopped for a reason; reading it to save time imports its assumptions |
-| the orchestrator transcript | no | the run log carries what it taught; the transcript carries how it felt |
+| artefact                                        | carries over | why                                                                                                                                                     |
+|-------------------------------------------------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| the spec                                        | yes          | setup; unless `fixed on` names the context axis and the change is to the spec, in which case the amended spec re-frozen at a new commit carries instead |
+| the tests map and check scripts                 | yes          | setup; they encode the spec, not the run; a wrong check was fixed by the human at escalation and re-pinned                                              |
+| wave-0 contracts                                | if proven    | contract checks that went green describe seams, not implementations; inputs to the next plan, which may redraw them                                     |
+| explorer returns (`returns/explore-*.json`)     | if factual   | "the renderer lives in X" survives; conclusions drawn for the failed approach do not                                                                    |
+| `plan.json`                                     | no           | per-run by design; the next plan is generated fresh with the failure as a `source: runlog` risk                                                         |
+| partial implementation on `<L>/<unit>` branches | no           | output of a run that was stopped for a reason; reading it to save time imports its assumptions                                                          |
+| the orchestrator transcript                     | no           | the run log carries what it taught; the transcript carries how it felt                                                                                  |
 
 ## Retrying
 
@@ -52,6 +52,7 @@ When an abandon trigger fires, or a halt return or an unresolvable escalation la
 ## Partial acceptance
 
 `fc launch end partial --units <list>` writes `accepted_units` and `abandoned_units` to `launch.json` and refuses, naming the unit and the reason, when a listed unit:
+
 - depends on a unit outside the list other than the contracts unit;
 - has no green return and no `unit_merged` event;
 - has an open blocking finding under its paths.
@@ -76,16 +77,19 @@ Acceptance judged the units; the merge proves the whole, because green branches 
 ## Three checklists
 
 Abandoned cleanly:
+
 - Stopped at the finding; nothing dispatched after the trigger or the halt.
 - `fc launch end abandoned --at <where>` run; run-log diagnosis fields filled and the setup change committed together.
 - Branches deleted, worktrees pruned, the session not resumed.
 
 Ready to retry:
+
 - The run-log entry names an axis and the change is made, exactly one under test (`watch` says which).
 - Spec unchanged, or amended and re-frozen with the new launch pinning the new commit.
 - Salvage passed the setup-versus-output test of the carries-over table above — setup carries, run output does not; the new plan carries the failure as a `source: runlog` risk.
 
 Ready to merge:
+
 - Every landing unit green, individually reviewed, standing only on wave-0 contracts (`fc launch end` enforced the partial rules where they apply).
 - Integration branch rebased on the current parent; `fc verify` green there; CI green.
 - Wave-ordered landing; `fc launch land` recorded; success entry filled; worktrees and branches cleared.

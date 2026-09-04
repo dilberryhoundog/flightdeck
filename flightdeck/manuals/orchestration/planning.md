@@ -4,8 +4,8 @@ Between the frozen spec and the first dispatched implementer: whether the task e
 
 ## Whether to run
 
-| stay single-session when | orchestrate when | not yet when |
-|---|---|---|
+| stay single-session when                                          | orchestrate when                                                                                                | not yet when                                                                                       |
+|-------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
 | the cut yields fewer than three units, or they all touch one area | the cut yields three or more units that run in parallel against fixed contracts, each with its own pass or fail | a pillar is missing: no frozen spec, no executable checks (no pinned tests map), or no review path |
 
 - Multi-agent runs cost roughly an order of magnitude more tokens than a single session.
@@ -51,24 +51,25 @@ Between the frozen spec and the first dispatched implementer: whether the task e
 
 `plan.json` is the source of truth (schema `flightdeck/flightcrew/schemas/plan.schema.json`, template `flightdeck/flightcrew/templates/plan.template.json`); `plan.md` is rendered from it and never hand-edited. `fc plan write <json-path|--stdin>` validates, stores `flightdeck/launch/<L>/plan.json` and renders `plan.md`; `fc plan render` re-renders after a human edits `plan.json`, which is permitted before G1 approval only — after approval the plan is frozen for the run; rendering the same plan twice gives byte-identical output, and an invalid plan writes nothing and exits 2.
 
-| field | content |
-|---|---|
-| `schema_version` | integer; the version of `flightdeck/flightcrew/schemas/plan.schema.json` this plan is written against. `flightdeck/flightcrew/templates/plan.template.json` is the authoritative field list; the rows below explain only the fields needing judgement |
-| `launch`, `spec {name, version, commit}`, `kickoff_version` | identity; the kickoff version is copied from the kickoff header |
-| `shape` | `session`, `workflow` or `sessions`; must equal the `shape-<x>` part in the kickoff version |
-| `expected_cost {agents, minutes, tokens?}` | the line the run log compares with the actual |
-| `models {explore, unit, critic}` | model tiering by stage; each value is a model id the harness accepts. Defaults: `explore: haiku`, `unit: opus`, `critic: fable` |
-| `approach` | three sentences: what the run does, in what shape, and the one judgement call being made |
-| `waves [{id, mode, units}]` | `W0` serial contracts first; `mode` is `serial` or `parallel` |
+| field                                                                                         | content                                                                                                                                                                                                                                                                                                                       |
+|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `schema_version`                                                                              | integer; the version of `flightdeck/flightcrew/schemas/plan.schema.json` this plan is written against. `flightdeck/flightcrew/templates/plan.template.json` is the authoritative field list; the rows below explain only the fields needing judgement                                                                         |
+| `launch`, `spec {name, version, commit}`, `kickoff_version`                                   | identity; the kickoff version is copied from the kickoff header                                                                                                                                                                                                                                                               |
+| `shape`                                                                                       | `session`, `workflow` or `sessions`; must equal the `shape-<x>` part in the kickoff version                                                                                                                                                                                                                                   |
+| `expected_cost {agents, minutes, tokens?}`                                                    | the line the run log compares with the actual                                                                                                                                                                                                                                                                                 |
+| `models {explore, unit, critic}`                                                              | model tiering by stage; each value is a model id the harness accepts. Defaults: `explore: haiku`, `unit: opus`, `critic: fable`                                                                                                                                                                                               |
+| `approach`                                                                                    | three sentences: what the run does, in what shape, and the one judgement call being made                                                                                                                                                                                                                                      |
+| `waves [{id, mode, units}]`                                                                   | `W0` serial contracts first; `mode` is `serial` or `parallel`                                                                                                                                                                                                                                                                 |
 | `units [{id, name, kind, spec_refs, checks, owner, budget_turns, paths, depends_on, pilot?}]` | one row per unit. `id` is `U<n>`; `name` is the branch suffix only; `owner` is a crew role name, `implementer` by default; `checks` are `T` ids from the pinned map; `paths` are the globs the unit may touch, each inside `paths.allowed` from `launch.json`; `depends_on` and `waves[].units` carry unit `id`s, never names |
-| `risks [{text, reaction, source}]` | `reaction` is `mitigate`, `watch` or `abandon`; a `source: runlog` risk reproduces exactly a heading of `flightdeck/launch/RUNLOG.md`, of the form `## <ended date> · <spec name> · <launch name>` |
-| `gates {G1, G2, G3}` | what each gate presents: G1 the plan for approval, G2 the wave-0 contracts and their check results, G3 the report and the ending decision |
-| `abandon_triggers [{trigger, observable_by}]` | non-empty; each observable by a hook, `fc budget` or the evidence page `flightdeck/launch/<L>/evidence.html` |
-| `no_contracts {reason}` | only when the spec fixes every seam already; the stop gate (the Stop hook that runs the pinned checks and blocks the turn) then runs `T1` in phase contracts |
+| `risks [{text, reaction, source}]`                                                            | `reaction` is `mitigate`, `watch` or `abandon`; a `source: runlog` risk reproduces exactly a heading of `flightdeck/launch/RUNLOG.md`, of the form `## <ended date> · <spec name> · <launch name>`                                                                                                                            |
+| `gates {G1, G2, G3}`                                                                          | what each gate presents: G1 the plan for approval, G2 the wave-0 contracts and their check results, G3 the report and the ending decision                                                                                                                                                                                     |
+| `abandon_triggers [{trigger, observable_by}]`                                                 | non-empty; each observable by a hook, `fc budget` or the evidence page `flightdeck/launch/<L>/evidence.html`                                                                                                                                                                                                                  |
+| `no_contracts {reason}`                                                                       | only when the spec fixes every seam already; the stop gate (the Stop hook that runs the pinned checks and blocks the turn) then runs `T1` in phase contracts                                                                                                                                                                  |
 
 `plan.md` headings, in order: `# Plan: <spec> · <launch>`, `## Approach`, `## Waves and units` (one table row per unit), `## Risks`, `## Gates`, `## Abandon triggers`.
 
 Rules `fc validate plan` enforces (`plan-rule-N` in its output):
+
 - every `checks` id exists in the pinned tests map, and every unit has at least one check;
 - every `spec_refs` id is a live node of the pinned spec;
 - `depends_on` names units in earlier waves;

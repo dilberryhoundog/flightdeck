@@ -9,37 +9,38 @@ Agent-facing manuals for flightdeck: the orchestration manuals (the run journey 
 
 At most two manuals per role per stage; the stage numbers are those of `flightdeck/manuals/orchestration/journey.md`.
 
-| role | manual | read at |
-|---|---|---|
-| human | `flightdeck/manuals/orchestration/journey.md` | before the first run, and at every gate as the map |
-| human | `flightdeck/manuals/orchestration/endings.md` | G3 and stage 10 |
-| human (installing) | `flightdeck/manuals/harness/hooks.md` | once per repository, and whenever a run-log entry records `fixed on: tooling` (the axis for hooks, permissions, isolation, schemas and workflow scripts) |
-| human (starting the orchestrator) | `flightdeck/manuals/harness/permissions.md` | stage 3 |
-| human (opening a launch) | `flightdeck/manuals/launch/launch-anatomy.md` | stage 2a, and from any session other than the orchestrator's on a repository where `fc launch status` reports an active launch |
-| human (assembling the kickoff) | `flightdeck/manuals/orchestration/kickoff.md` | stage 3, and whenever a kickoff part changes |
-| human (diagnosing) | `flightdeck/manuals/orchestration/run-log.md`, `flightdeck/manuals/orchestration/run-report.md` | stage 10 |
-| human (changing a role) | `flightdeck/manuals/orchestration/crew.md` | stage 10, and when a run-log entry's `promote:` line moves a repeated rule into a role definition |
-| `test-builder` | `flightdeck/manuals/testing/testing-description.md`, `flightdeck/manuals/testing/testing-conventions.md` | stage 2b, named in its dispatch |
-| `planner` | `flightdeck/manuals/orchestration/planning.md`, `flightdeck/manuals/orchestration/run-log.md` | stage 4 |
-| `orchestrator` | `flightdeck/manuals/orchestration/planning.md`, `flightdeck/manuals/orchestration/review.md` | stage 4 (with the planner) and stage 8; its conduct is `flightdeck/launch/<L>/kickoff.md`, not a manual |
-| `orchestrator` (workflow shape) | `flightdeck/manuals/harness/workflows.md` | stages 4, 6 and 8 |
-| `implementer`, `verifier` | none | their inputs are only those named in the dispatch; `fc worker render` and `fc verifier render` carry everything they may act on |
-| `explorer` | none | its inputs are only those named in the dispatch; the dispatch is rendered from `flightdeck/flightcrew/templates/explorer-dispatch.template.md` by the orchestrator or by `fc-explore.js`, and its answer is stored with `fc return explorer` |
+| role                              | manual                                                                                                   | read at                                                                                                                                                                                                                                      |
+|-----------------------------------|----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| human                             | `flightdeck/manuals/orchestration/journey.md`                                                            | before the first run, and at every gate as the map                                                                                                                                                                                           |
+| human                             | `flightdeck/manuals/orchestration/endings.md`                                                            | G3 and stage 10                                                                                                                                                                                                                              |
+| human (installing)                | `flightdeck/manuals/harness/hooks.md`                                                                    | once per repository, and whenever a run-log entry records `fixed on: tooling` (the axis for hooks, permissions, isolation, schemas and workflow scripts)                                                                                     |
+| human (starting the orchestrator) | `flightdeck/manuals/harness/permissions.md`                                                              | stage 3                                                                                                                                                                                                                                      |
+| human (opening a launch)          | `flightdeck/manuals/launch/launch-anatomy.md`                                                            | stage 2a, and from any session other than the orchestrator's on a repository where `fc launch status` reports an active launch                                                                                                               |
+| human (assembling the kickoff)    | `flightdeck/manuals/orchestration/kickoff.md`                                                            | stage 3, and whenever a kickoff part changes                                                                                                                                                                                                 |
+| human (diagnosing)                | `flightdeck/manuals/orchestration/run-log.md`, `flightdeck/manuals/orchestration/run-report.md`          | stage 10                                                                                                                                                                                                                                     |
+| human (changing a role)           | `flightdeck/manuals/orchestration/crew.md`                                                               | stage 10, and when a run-log entry's `promote:` line moves a repeated rule into a role definition                                                                                                                                            |
+| `test-builder`                    | `flightdeck/manuals/testing/testing-description.md`, `flightdeck/manuals/testing/testing-conventions.md` | stage 2b, named in its dispatch                                                                                                                                                                                                              |
+| `planner`                         | `flightdeck/manuals/orchestration/planning.md`, `flightdeck/manuals/orchestration/run-log.md`            | stage 4                                                                                                                                                                                                                                      |
+| `orchestrator`                    | `flightdeck/manuals/orchestration/planning.md`, `flightdeck/manuals/orchestration/review.md`             | stage 4 (with the planner) and stage 8; its conduct is `flightdeck/launch/<L>/kickoff.md`, not a manual                                                                                                                                      |
+| `orchestrator` (workflow shape)   | `flightdeck/manuals/harness/workflows.md`                                                                | stages 4, 6 and 8                                                                                                                                                                                                                            |
+| `implementer`, `verifier`         | none                                                                                                     | their inputs are only those named in the dispatch; `fc worker render` and `fc verifier render` carry everything they may act on                                                                                                              |
+| `explorer`                        | none                                                                                                     | its inputs are only those named in the dispatch; the dispatch is rendered from `flightdeck/flightcrew/templates/explorer-dispatch.template.md` by the orchestrator or by `fc-explore.js`, and its answer is stored with `fc return explorer` |
 
 ## Roles whose manual content is baked into their definition
 
 Their conventions are encoded in their definitions under `flightdeck/flightcrew/crew/`, so nothing is loaded into their context beyond the dispatch. The roles in the table above marked "none" read no manual at session time either.
 
-| role | manuals encoded in its definition | dispatched with |
-|---|---|---|
-| `spec-builder` | `flightdeck/manuals/spec/spec-description.md`, `flightdeck/manuals/spec/spec-conventions.md`, `flightdeck/manuals/spec/verification-addendum.md`, `flightdeck/manuals/versioning/spec-versioning.md` | the fixed paths listed in `flightdeck/flightcrew/crew/README.md` (template, schema, rubric, validator, linter, run log, canonical spec folder) |
-| `spec-judge` | `flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md` | the rubric and the draft, nothing else |
-| `spec-attacker` | `flightdeck/manuals/spec/spec-description.md`, `flightdeck/manuals/spec/spec-conventions.md` | the draft and the project, nothing else |
-| `critic` | `flightdeck/manuals/orchestration/review.md` (the mandate, the checklist, the four finding kinds, the `no gaps` exit) | the sealed file `fc critic render` writes |
+| role            | manuals encoded in its definition                                                                                                                                                                    | dispatched with                                                                                                                                |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| `spec-builder`  | `flightdeck/manuals/spec/spec-description.md`, `flightdeck/manuals/spec/spec-conventions.md`, `flightdeck/manuals/spec/verification-addendum.md`, `flightdeck/manuals/versioning/spec-versioning.md` | the fixed paths listed in `flightdeck/flightcrew/crew/README.md` (template, schema, rubric, validator, linter, run log, canonical spec folder) |
+| `spec-judge`    | `flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md`                                                                                                                                           | the rubric and the draft, nothing else                                                                                                         |
+| `spec-attacker` | `flightdeck/manuals/spec/spec-description.md`, `flightdeck/manuals/spec/spec-conventions.md`                                                                                                         | the draft and the project, nothing else                                                                                                        |
+| `critic`        | `flightdeck/manuals/orchestration/review.md` (the mandate, the checklist, the four finding kinds, the `no gaps` exit)                                                                                | the sealed file `fc critic render` writes                                                                                                      |
 
 ## The manuals
 
 Orchestration (`flightdeck/manuals/orchestration/`):
+
 - `journey.md`: the stages with their commands, the three gates, the exits and re-entry table, the sessions-and-agents visibility table, the folder.
 - `planning.md`: whether to run, inputs, the seven phases, decomposition rules, `plan.json` and the rules `fc validate plan` enforces, budgets, the gate-1 checklist.
 - `kickoff.md`: the routing test, the library under `flightdeck/flightcrew/templates/kickoff/`, anatomy, assembly and validation, the before-sending checklist.
@@ -50,12 +51,14 @@ Orchestration (`flightdeck/manuals/orchestration/`):
 - `crew.md`: roles and the separations they serve, from role to definition, design rules, team shapes, anti-patterns; the roster is `flightdeck/flightcrew/crew/README.md`.
 
 Harness (`flightdeck/manuals/harness/`):
+
 - `hooks.md`: each hook, its event and exit semantics, install steps, troubleshooting, the shell-write hole and its backstops.
 - `permissions.md`: the orchestrator start line, the headless form, allow and deny recommendations per role, the sandbox, isolation.
 - `workflows.md`: the three scripts, when to choose the workflow shape, persisting payloads with `fc return`, the `/workflows` controls.
 - `claude-code-facts.md`: the Claude Code behaviour the harness relies on, with the documentation date it was verified against.
 
 Launch (`flightdeck/manuals/launch/`):
+
 - `launch-anatomy.md`: `launch.json` fields, folder layout, statuses and phases, the command-by-phase table, `FLIGHTCREW_LAUNCH` in side sessions, staleness.
 
 ## Frozen manuals

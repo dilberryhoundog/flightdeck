@@ -1,0 +1,153 @@
+COMPANION · REVIEW
+Division of labour
+The sealed room
+The mandate
+Findings
+The loop
+Kinds of pass
+The human's review
+Anti-patterns
+← Field review
+PILLAR FOUR, IN DEPTH
+A critic in a sealed room, with the spec and the diff.
+How to run independent review in Claude Code so it catches what tests cannot, without collapsing into agreement on one side or over-engineering on the other: what enters the reviewer's context, what the mandate says, what a finding is, how the loop converges, and what the human still reviews that no agent can.
+DEPENDS ON
+A spec with numbered behaviours · checks already run
+FEEDS
+The evidence display · the final gate · the run log
+What review is for
+Verification answers the questions that were anticipated. Review exists for the ones that were not, and for the judgement calls no check can express.
+Tests cover the behaviours the spec enumerated. A run can pass every one of them and still be wrong in ways that live between the numbers: an edge case silently narrowed so a test would pass, a requirement satisfied to the letter and missed in intent, a change that leaks outside its scope, a solution that works and should never be maintained by anyone. Those are judgement failures, and the only tool that catches judgement failures is judgement.
+The danger is whose judgement. The context that produced a decision, asked to evaluate it, approves it — not through dishonesty, but because a context is its commitments: every token of reasoning that led to the implementation is evidence, to that context, that the implementation is right. Self-review is the same context grading its own homework, and orchestration's promise of unattended quality dies exactly there. This is the evaluator-optimizer pattern from the agent-design literature: generation and evaluation as separate contexts, looped.
+So the division of labour is strict, and it is worth writing down, because review does badly whatever it inherits from the layers below it:
+QUESTION
+ANSWERED BY
+FORM
+Does it compile, lint, conform?
+Hooks and structural checks
+Deterministic, every edit
+Do the numbered behaviours hold?
+Pre-written tests and the e2e proof
+Deterministic, at gates
+Did anything outside scope change?
+Diff-boundary script
+Deterministic, at gates
+Does the result match the spec's intent? What was missed between the numbers? Should this survive contact with a maintainer?
+The critic
+Judgement, fresh context, after the above are green
+Sequence matters: the critic runs after the deterministic layers are green. A reviewer handed a diff that does not compile spends its judgement on what a script would have caught, and its real questions never get asked.
+The sealed room
+Independence is not an attitude; it is an input list. The reviewer's context is constructed, and what is kept out matters as much as what goes in.
+A subagent receives only its own system prompt and what it is handed — nothing of the parent's reasoning leaks in unless someone puts it there. That mechanism is the whole basis of independent review, and it is squandered the moment the dispatch message includes "here's what we were trying to do with this approach…". The room is sealed by discipline about the dispatch, not by the reviewer's virtue.
+Inside the room
+	•	The spec, at its frozen commit The sole definition of right. Intent, numbered behaviours, scope, non-goals.
+	•	The full diff The result on its own terms, including test-file changes — which should be none.
+	•	The evidence Raw check output and what was not checked, so judgement starts where determinism stopped.
+	•	Read access and a shell To open surrounding code and re-run checks itself. Running is not writing.
+Kept outside
+	•	The implementer's reasoning Every line of it argues for the conclusion under review.
+	•	The plan's internals The critic judges the result against the spec, not fidelity to an approach.
+	•	The kickoff Conduct rules are not correctness, and they bias toward the run's momentum.
+	•	Prior findings and fixes chatter Each re-review is a fresh room, or it inherits its own last verdict.
+Two consequences follow. Fresh context per pass: a re-review after fixes is a new dispatch with the new diff, not a continuing conversation, because a reviewer that remembers approving version one is invested in version two. And read-only by construction: a critic that can edit becomes an implementer with opinions, and its findings stop being findings — the frontmatter allowlist, not a polite instruction, is what makes this true.
+The mandate
+What the reviewer is told to be changes what it finds. The mandate has two halves, and each guards against a different collapse.
+The adversarial half guards against agreement. A neutral "review this" produces approval, because approval is the lowest-energy completion of a review. The instruction that changes behaviour is presumption: assume the diff contains at least one gap and look for it. Practitioner phrasings converge on the same move — "grill me on these changes", "prove to me this works" — and the mechanism is the same: the reviewer is given a goal that approval does not satisfy.
+The bounding half guards against the opposite collapse, and official guidance is unusually direct about it: a reviewer prompted to find gaps will usually report some even when the work is sound, because that is what it was asked to do, and chasing every finding produces over-engineering — extra abstraction, defensive code, tests for cases that cannot happen. So the mandate bounds the hunt: gaps that affect correctness or the stated requirements; not style, not hypothetical robustness, not improvements. And it gives the reviewer an honourable exit: if there are none, say "no gaps" and stop. A mandate without that sentence cannot be satisfied by sound work, which means it manufactures findings by construction.
+The full mandate, assembled: the presumption, the bounded scope, the checklist of what to examine in order (behaviours implemented, scope held, tests untouched, errors handled not suppressed), the output format, and the exit. The critic definition in the agents guide is this mandate as a frontmatter file.
+The two halves are not in tension; they are aimed at different failure modes. Adversarial-and-unbounded produces noise that costs budget and trust. Bounded-and-neutral produces a rubber stamp. The pair — presume a gap, within these limits, with a clean exit — is the whole craft of the mandate.
+OUTPUT
+What a finding is
+A finding is a claim with an address: the spec number it bears on, the file and line, and one sentence on what is missing. Findings come in four kinds, and the kind determines who acts.
+→ IMPLEMENTER, FIX
+Correctness gap
+A numbered behaviour or edge case not satisfied, or satisfied more narrowly than the spec states. Referenced by number: "B4: inlined images fetch externally when the asset is cached — src/export/inline.ts:88."
+→ IMPLEMENTER, REVERT
+Scope violation
+A change outside the spec's fence that the diff-boundary check could not classify — behaviourally out of scope even if the path was allowed. Reverted, not debated.
+→ HUMAN, DECIDE
+Spec conflict
+The diff and the spec cannot both be right, or two spec lines collide when implemented. This is an escalation, never something the loop resolves silently — the same rule that governs a wrong locked test.
+→ RUN LOG, NO ACTION
+Observation
+Real but out of mandate: a design smell, a future risk, a simplification. Recorded for the human's eyes and the run log; explicitly not fed back into the loop, or the over-engineering door reopens.
+The taxonomy is what makes the loop mechanical. The orchestrator can route the first two kinds without judgement, must halt on the third, and must not act on the fourth — and a reviewer told to label its findings by these kinds has been told, implicitly and precisely, what its mandate is.
+The loop, and when it stops
+Review is a cycle with sharply diminishing returns. The design problem is convergence, not thoroughness.
+	1	Deterministic layers green Checks pass, diff boundary holds, evidence assembled. The critic is not dispatched before this.
+	2	First pass Fresh critic, sealed room, full mandate. Because the reviewer runs as a subagent, findings return to the implementing session directly, and fixes happen without a human ferrying text between windows.
+	3	Fix and re-verify Correctness gaps and scope violations go back to the owning implementer; the deterministic layers re-run. A fix that breaks a check is a fix that did not happen.
+	4	One re-review, fresh room New dispatch, new diff, no memory of the first verdict. Its question is narrower: are the addressed findings actually addressed, and did the fixes introduce anything new?
+	5	Stop "No gaps", or only observations remain, or the iteration cap fires. The cap is real: a loop still producing correctness gaps on pass three is not converging, and that is an abandon signal for the run, not a reason for pass four.
+One strong pass captures most of the value; the second confirms the fixes. Beyond that, layering reviewers or iterating further yields diminishing returns while spending budget that verification would use better — and each additional pass is another invitation to act on observations. Disputed findings have exactly one adjudicator: the human at the gate, reading the finding and the implementer's objection side by side. The loop never argues with itself.
+Convergence is a designed property: bounded mandate, typed findings, fresh rooms, a hard cap, and a human adjudicator. Remove any one of them and the loop either stalls open or closes on agreement.
+REPERTOIRE
+Kinds of pass
+"The critic" is a role, and the role has a repertoire. The passes below are separable because each has a different reference document — and a pass without a reference document is a style opinion.
+PASS
+REFERENCE
+CLAUDE CODE FORM
+WHEN
+Correctness / bug hunt
+The code's own claims
+The bundled /code-review skill: reviews the current diff for bugs in a fresh subagent
+Every run
+Spec alignment
+The spec
+Custom critic subagent with the full mandate above
+Every run; the pass this guide centres on
+Simplification
+The diff itself
+/simplify on the diff, before final review
+When the implementers iterated hard; simpler diffs review better
+Security
+Defect classes
+Read-only security-reviewer subagent on the strongest model
+Anything touching auth, input, or the network
+Design / conventions
+A checked-in DESIGN.md or conventions file
+A custom skill checking the diff against the document
+UI or API surface changes
+Anthropic's own team chains these — code review, then simplify, then verify, then a design check if the change touched UI — so a habit becomes a contract and the sequence runs itself. In an orchestrated run the chain slots into the proof wave: simplify, deterministic re-check, then the spec-alignment critic last, so judgement always reviews the final form. On PRs, the managed code-review service and CI apply the same passes regardless of author diligence — the point at which review stops being personal infrastructure.
+Reviewing the reviewer
+The critic is part of the setup, which means the run log iterates it like everything else.
+Two numbers, kept roughly, tell you whether the mandate is calibrated. Findings that were real: of the correctness gaps reported, how many did the human at the gate agree were gaps? A low rate means the bounding half is too loose — the critic is manufacturing work, and the implementers are gold-plating to satisfy it. Escapes: defects found after acceptance that the critic's mandate should have caught. A pattern of escapes in one area means the mandate's checklist gets a line, or the spec template does — often the real fix is that behaviours in that area were never numbered, so the critic had nothing to hold the diff against.
+Both numbers live in the run log as ordinary entries: a manufactured-findings run is "fixed on: tooling — critic mandate tightened"; an escape is "fixed on: verification or context", depending on where the hole was. The critic's agent file is versioned with the roster, and it changes through this loop, not mid-run.
+The human's review
+The final gate is a review too — the one the whole system exists to make small, and the one part of it that cannot be delegated.
+By the time the evidence display reaches the final gate, the mechanical questions are settled and the critic has had its passes. What remains is what only the person who wanted the thing can judge, and it is worth naming, because a human who re-does the machine's review is wasting the one review only they can do:
+	•	Intent. Is this the thing you meant, as opposed to the thing the spec managed to say? Where those differ, the finding is about the spec template, and it goes to the run log.
+	•	The unverified list. The display's honest gaps — behaviours with no mapped check, skipped tests, observations the critic filed. This list, not the green checks, is where acceptance risk lives.
+	•	Disputed findings. Critic versus implementer, adjudicated here and nowhere else. The ruling often becomes a spec or mandate edit.
+	•	Taste, by spot-check. Read the diff of the riskiest unit and the e2e script end to end — not everything. Depth on the worst case beats coverage of the average one; the deterministic layers already did coverage.
+	•	The cost line. Actual against expected. Acceptance at double the budget is information for the next plan, even when the result is good.
+Review evidence, not narrative — the rule holds at this gate more than anywhere. The orchestrator's closing summary is the least informative artefact on the display; it is the one text produced by the context most invested in the conclusion. Read it last, if at all.
+Anti-patterns
+Each is a way review keeps the name and loses the function.
+	•	The briefed reviewer The dispatch includes the approach, the constraints "for context", the reasons. The room is unsealed; the critic reviews the intention and approves the result.
+	•	The continuing conversation Re-review in the same context as the first pass. The reviewer inherits its own verdict and defends it; every pass after the first is cheaper and blinder.
+	•	The helpful critic A reviewer with Edit that fixes what it finds. Judge and implementer merge, findings become undocumented changes, and the diff at the gate no longer matches what was reviewed.
+	•	Chasing everything All findings treated as blocking, observations included. The documented outcome is over-engineering: abstraction layers, defensive code, tests for the impossible — and a diff that drifted from the spec while satisfying the critic.
+	•	The unreferenced review No spec in the room, so the critic reviews against its own taste. Output: style opinions with the tone of findings, and no way to adjudicate any of them.
+	•	The reviewer stack Three critics in sequence for confidence. Each finds enough to justify itself; the budget goes to review theatre while one well-mandated pass plus fixes would have converged.
+	•	Narrative acceptance "Addressed all review feedback" taken as closure without the re-verify and the fresh-room re-review. Fixes are claims; the loop's later stages exist because claims are cheap.
+	•	Review as the only defence No pre-written checks, so the critic is asked to be the test suite. Judgement spent on what determinism does better, and the real review never happens.
+Before dispatching the critic
+The setup pass for the review stage of a run.
+	•	Deterministic layers are green and their evidence is assembled.
+	•	The dispatch contains the spec (frozen commit), the diff, the evidence — and nothing of plan, kickoff or reasoning.
+	•	The mandate has both halves: the presumption and the bounds, plus the "no gaps" exit.
+	•	Findings are typed, and the routing per type is in the kickoff's conduct rules.
+	•	Spec conflicts are wired to escalate, not resolve.
+	•	The critic's frontmatter is read-only-plus-shell, strongest model, turn-budgeted.
+	•	The loop has its cap, and the cap firing is an abandon signal.
+	•	Re-review is a fresh dispatch by construction.
+Sources
+Official guidance first.
+	1	Anthropic, Best practices for Claude Code, "Add an adversarial review step". The fresh-subagent reviewer seeing only the diff and the criteria; the review prompt naming the work, the plan to check against, and what counts as a finding; findings returning to the implementing session; and the callout that a gap-prompted reviewer reports gaps even in sound work, with over-engineering as the cost of chasing them. Also the Writer/Reviewer parallel-session pattern and fresh context improving review.
+	2	Anthropic, Building verification loops in Claude Code with skills. The chained repertoire in use on Anthropic's Claude Code team — /code-review, /simplify, /verify, a DESIGN.md check — plus the managed code-review service and CI gates as the team-infrastructure end of the same practice.
+	3	Anthropic, Create custom subagents. The isolation mechanism the sealed room is built on: a subagent receives its own system prompt and what it is handed, with tools as an allowlist.
+	4	Anthropic, "Building Effective Agents" (December 2024), as indexed by BuildingEffectiveAgents.com. The evaluator-optimizer pattern: generation and evaluation as separate contexts in a loop, composable inside orchestrator-workers.
+	5	Practitioner corroboration on adversarial phrasings ("grill me on these changes… don't make a PR until I pass your test", "prove to me this works") and on review as a standing stage of the converged Research → Plan → Execute → Review → Ship shape: claude-code-best-practice.
+	6	The verification guide for the deterministic layers the critic runs after; the agents guide for the critic's frontmatter; the kickoff guide for the escalation and routing rules the findings taxonomy plugs into.
+Compiled August 2026. Parent document: Orchestrating agent teams in Claude Code. Related: the spec · verification · agents · the kickoff · the run log.

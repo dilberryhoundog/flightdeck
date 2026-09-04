@@ -1,0 +1,142 @@
+COMPANION · PLANNING A RUN
+Whether
+Inputs
+Phases
+Decomposition
+The plan
+Budgets
+Anti-patterns
+← Field review
+BETWEEN THE SPEC AND THE FIRST DISPATCHED AGENT
+The plan is the cheapest place the run can fail.
+How to plan an orchestrated run in Claude Code: deciding whether the task deserves an orchestra at all, decomposing it into units with their own pass/fail, fixing the contracts, ordering the waves, setting the budgets, and producing the one-page plan the human approves before any worker spends a token.
+CONSUMES
+A frozen spec · explorer findings · the run log · the roster
+PRODUCES
+A plan approved at the first gate, then executed by the kickoff
+Whether to run at all
+Orchestration is a deliberate complexity choice, not a default. The first planning decision is whether this task earns it.
+The official heuristic for single-session planning scales up cleanly: if you could describe the diff in one sentence, skip the plan; and by extension, if one session could hold the whole task, skip the orchestra. A single session with plan mode, a verification check and a review pass is cheaper, faster to correct, and covers most work. The orchestrator-workers shape pays for itself only when the task genuinely exceeds what one context can coordinate, and multi-agent systems consume tokens on roughly another order of magnitude, so the bar should be real.
+STAY SINGLE-SESSION WHEN
+One context holds it
+The change is describable in a sentence or two, touches one area, and a person will be nearby. Plan mode, a check, done.
+ORCHESTRATE WHEN
+It decomposes
+The work splits into low-coupling units that can run in parallel against fixed contracts, each with its own pass/fail, and the volume exceeds one context. Migrations, audits, multi-component features.
+NOT YET WHEN
+The pillars are missing
+No frozen spec, no executable checks, or no reviewer path. Orchestrating without them buys speed toward an unverifiable result. Build the setup first; the run will still be there.
+The "not yet" column is the one that saves the most money. A task that decomposes beautifully but has no checks is not ready to orchestrate; it is ready to have its checks written.
+Inputs to planning
+Planning is cheap only if it does not have to invent its inputs. Four things should exist before it starts.
+The frozen spec supplies what must be true, the scope fence, the interfaces already decided, and the verification commands. The plan never re-litigates it; a planning session that discovers a spec gap stops and sends the gap back, because a plan built on an open question delegates that question to whichever agent hits it first.
+Explorer findings supply what the codebase actually looks like. Fan explorer subagents out over the planning questions — where does this pattern live, what already exists to reuse, what will this touch — and let their summaries land in the planning context instead of three hundred files. Read-only by construction, cheap by model, parallel by default.
+The run log supplies the known failure modes. Reading it before planning is the moment its value is realised: a plan that repeats a logged failure is the write-only log's signature. Known risks from the log go straight into the plan's risk section with their mitigations.
+The roster and the budget supply the constraints: which roles exist, what each may touch, what the run is allowed to cost. Planning against an unbounded budget produces unbounded plans.
+Do the planning in a context that will not implement. Plan mode makes the session read-only while exploring and planning; a plan produced this way can be edited directly before approval. If the same session will go on to orchestrate, approving the plan is the moment it switches modes. What must not happen is planning inside an implementer's context, where the plan inherits the implementer's eagerness.
+The phases
+Seven steps from spec to approved plan. Most are minutes, not hours; the pilot is the one that saves runs.
+	1	Explore Dispatch explorers on the open questions. Collect summaries, not files. Anything that surprises you here would have surprised a worker mid-run, at fan-out prices.
+	2	Decompose Cut the work into units, each with its own pass/fail (next section). Name them; the names will thread through the plan, the checks, the branches and the evidence.
+	3	Fix the contracts Write down every seam between units — signatures, schemas, file formats — beyond what the spec already fixed. Contracts are what let wave two run in parallel; each one gets a contract test.
+	4	Order the waves Group units by dependency: what must be serial, what can fan out (next section). High-risk units run early and serial, so their failure is cheap; safe units run parallel.
+	5	Budget Cap workers, turns per agent, iterations per gate. Route models by stage. Write down the expected cost so the run log can compare it to the actual.
+	6	Set gates and abandon triggers Where the human looks (plan, interfaces, final evidence), what each gate shows, and — the pre-mortem — what observations mean stop: a named check failing N times, the stall override firing, a worker touching an out-of-scope path, cost passing its ceiling.
+	7	Pilot Run one or two representative units end-to-end before fanning out — the same discipline the fan-out guidance applies to batch migrations: refine on the first few files, then run at scale. Also dry-run the checks: pre-written tests should fail in exactly the expected way against the unimplemented code, and the harness should go green on a known-good fixture. A pilot that surfaces friction just repaid the whole planning session.
+THE CRAFT
+Decomposition and ordering
+Decomposition is the planning decision that everything downstream inherits. Two principles do most of the work: cut vertically, and let coupling decide the order.
+A run in three waves: contracts first, implementation in parallel, verification and review last. The gate cells are where a human or a deterministic check must pass the run forward.
+WAVE 0 · SERIAL
+Contracts
+interfaces
+schemas
+contract tests
+GATE: interfaces
+WAVE 1 · PARALLEL
+Units
+unit A
+unit B
+unit C
+per-unit checks
+WAVE 2 · SERIAL
+Proof
+integrate + e2e
+critic
+GATE: evidence
+Cut vertically
+A vertical unit crosses all the layers it needs — data, logic, surface — and delivers one testable behaviour end to end: the tracer-bullet shape that practitioner playbooks converge on when breaking specs into slices. A horizontal unit ("all the models", "all the endpoints") cannot pass an end-to-end check on its own, so its defects hide until integration, which is the most expensive moment to find them. Vertical units also map cleanly onto spec behaviours, which keeps the unit-to-check-to-evidence thread unbroken.
+Size by verifiability
+A unit is too big when its pass/fail would need interpretation, and too small when its overhead (dispatch, context, review) outweighs its work. The practical test: can this unit's done-ness be stated as one or two named checks, and would a competent agent finish it inside its turn budget? Between those bounds, prefer smaller — abandoning a small unit is a discarded branch.
+Let coupling order the waves
+Anything two units share belongs in wave zero as a contract. After that, units that share nothing run in parallel; units with residual coupling run serial or get their seam promoted to a contract. Serialise the high-risk and the irreversible; parallelise the safe and the independent. If the wave diagram needs more than a handful of waves, the coupling is telling you the decomposition is wrong — or that this task wanted a single session after all.
+One unit, one owner, one branch
+Each unit is dispatched to one implementer in its own worktree, accountable vertically to the orchestrator. Two agents sharing a unit is horizontal collaboration wearing a plan's clothing.
+The plan document
+One page, approved at the first gate, then executed. Unlike the spec, the plan is disposable: regenerated for every run, and abandoned with it.
+The plan answers how, in what pieces, in what order, at what cost — and nothing the spec already answers. The human approving it is checking four things: the approach is sane, the units are verifiable, the waves respect coupling, and the budgets and abandon triggers exist. Everything in it should be scannable; prose belongs in the approach paragraph and nowhere else.
+# Plan: export-html · run 4
+spec: docs/specs/export-html.md @ a1b2c3d   shape: workflow, 6 agents max
+expected cost: ~medium · models: haiku (explore) / sonnet (units) / opus (critic)
+
+## Approach
+Three sentences. What the run does, in what shape, and the one judgement
+call being made (e.g. "renderer reused, not forked").
+
+## Waves and units
+W0  contracts   ExportResult type + warning schema; contract tests     serial
+W1  unit A      exporter core        checks B1–B3        budget 20 turns
+W1  unit B      asset inliner        checks B4–B5, E2    budget 20 turns
+W1  unit C      export dialog        checks B6–B7        budget 15 turns
+W2  proof       integrate, e2e smoke, critic pass                      serial
+
+## Risks
+From the run log and exploration: known failure modes, each with the
+planned reaction (mitigate, watch, or abandon trigger).
+
+## Gates
+G1 this document · G2 contracts + green contract tests · G3 evidence
+display: checks, critic findings, diff boundary, cost.
+
+## Abandon triggers
+e2e failing after 3 gate iterations · stall override fires · any write
+outside src/export/, tests locked dir · cost > 1.5× expected.
+Two mechanical notes. The units table is the source of truth the kickoff points workers at, so unit names here must match branch names, check names and evidence sections. And plans can be produced in variants when the approach is genuinely contested — ask the planner for two and choose at the gate, rather than letting the contest resurface mid-run.
+Budgets and stop conditions
+The plan is where cost discipline is decided; the run only enforces it.
+	•	Cap the fan-out. A hard maximum on concurrent workers, enforced by the workflow script or the dispatch instruction, not by hope. The documented failure mode of orchestrator-workers is the permissive plan that spawns many workers where three would do — plausible plan, real cost spike.
+	•	Budget per agent, per gate, per run. maxTurns on each role, an iteration cap on each deterministic gate (the Stop-hook override at eight consecutive blocks is a built-in ceiling), and a run-level cost ceiling in the abandon triggers.
+	•	Tier models by wave. Exploration and formatting on cheap models, units on the mid tier, critic and orchestration on the strongest. Workflow scripts route per stage; CLAUDE_CODE_SUBAGENT_MODEL caps a whole session when a ceiling matters more than nuance.
+	•	Record expected cost. One line in the plan. The run log compares it to actual, and the delta over several runs is how planning itself gets calibrated.
+	•	Make "stop" observable. Every abandon trigger must be something the evidence display or a hook can actually see. A trigger nobody can observe is a wish.
+Budgets are not pessimism; they are what makes abandoning cheap. A run that stops at its trigger has spent its planned tuition. A run that pushes past it has started paying for a lesson twice.
+Anti-patterns
+Plans that read well and run badly.
+	•	The plan that is a spec Behaviours and scope re-argued in the plan, drifting from the frozen document. Now there are two sources of truth and the verifier follows one while the critic follows the other.
+	•	The horizontal cut Units by layer instead of by behaviour. Nothing is provable until everything integrates, so the run's first real signal arrives at its most expensive moment.
+	•	Big-bang fan-out Twelve workers dispatched with no pilot. Whatever friction the first unit would have found, twelve units now find simultaneously, in twelve contexts, on the clock.
+	•	The unbudgeted plan No caps, no ceilings, no triggers. The plan cannot fail cheaply because it never says what failure costs.
+	•	Planning inside the doer The plan produced in a context already implementing, inheriting its momentum. Plan read-only; approve; then execute.
+	•	The transcript plan Ten pages of reasoning where one page of decisions should be. The human cannot gate what they cannot scan, so the gate becomes a rubber stamp.
+	•	Dependency by conversation Units that "coordinate as needed" instead of through a wave-zero contract. As-needed coordination is horizontal chatter scheduled in advance.
+	•	The plan that survives its run A failed run patched by editing the plan mid-flight. The plan dies with the run; the lesson moves to the run log and the setup, and the next plan is generated clean.
+At the first gate
+What the human checks before approving the plan.
+	•	Nothing in the plan contradicts or re-decides the spec. Spec gaps went back as findings, not forward as improvisation.
+	•	Every unit names its checks and its budget. Unit names match what branches, checks and evidence will use.
+	•	Every seam between units is a wave-zero contract with a test.
+	•	High-risk work runs early and serial; parallel units share nothing.
+	•	Fan-out is capped, models are tiered, expected cost is written down.
+	•	Abandon triggers are observable, and the run-log's known failures each have a line in the risks.
+	•	A pilot unit is identified, and the checks dry-run in the expected state.
+	•	The plan fits on a page.
+Sources
+Official guidance first, corroboration after.
+	1	Anthropic, Best practices for Claude Code. Explore–plan–implement–commit; plan mode as read-only planning with direct plan editing; "if you could describe the diff in one sentence, skip the plan"; subagents for investigation; piloting a fan-out on the first few files before running at scale; the infinite-exploration and kitchen-sink failure patterns.
+	2	Anthropic, Orchestrate subagents at scale with dynamic workflows. When a task needs more agents than one conversation can coordinate; per-stage model routing; large-run warnings; the script as a re-runnable plan.
+	3	Anthropic, "Building Effective Agents" (December 2024), as indexed by BuildingEffectiveAgents.com. Orchestrator-workers as a deliberate complexity choice for tasks whose subtasks are not predictable in advance; cost discipline via hard worker caps and per-task budgets; the permissive-plan cost-spike failure mode.
+	4	Anthropic multi-agent research writeup, as summarised in Multi-agent orchestration patterns. Fan-out/fan-in for low-coupling subtasks; multi-agent token costs roughly an order of magnitude above single-agent; the supervisor as bottleneck.
+	5	Practitioner corroboration on phase-gated plans with tests per phase and on breaking specs into vertical slices (tracer bullets) that cross all layers: claude-code-best-practice.
+	6	Practitioner corroboration on serialising high-risk steps while parallelising safe ones, with hooks gating transitions: Best practices for Claude Code subagents.
+	7	The field review for the three-axis economics the abandon triggers encode; the verification guide for the checks each unit names; the agents guide for the roster the plan dispatches.
+Compiled August 2026. Parent document: Orchestrating agent teams in Claude Code. Related: the spec · agents · verification · the run log.

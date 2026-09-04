@@ -1,0 +1,163 @@
+COMPANION · VERIFICATION
+Why
+A good check
+Catalogue
+Targets first
+Gating
+Where it runs
+Evidence
+Anti-patterns
+← Field review
+PILLAR THREE, IN DEPTH
+A check the agent can run beats a person who might notice.
+How to build an executable definition of done for orchestrated runs in Claude Code: what a good check looks like, the shapes it takes, how to write the target before the work, how hard it should gate the stop, and what evidence the human reads at the end.
+DEPENDS ON
+A spec with numbered behaviours
+FEEDS
+Independent review · the evidence display · the run log
+Why this is the largest lever
+In turn-by-turn work the developer is the verification loop. Remove the developer and the loop has to be rebuilt out of things a machine can run.
+An agent stops when the work looks done. That is not a flaw to be prompted away; it is the only stop signal available in the absence of anything better. Every mistake then waits for a person to notice it, and in an orchestrated run the person is not there. Official guidance puts it plainly: without a check the agent can run, you become the verification loop.
+Give the agent something that produces a pass or fail it can read, and the loop closes without a human. Do the work, run the check, read the result, iterate until it passes. The developer's job moves from noticing mistakes to designing the thing that notices them.
+Verification is also what makes the other system-side pillar meaningful. Independent review judges whether the work matches the spec's intent, but it can only do that well if the mechanical questions (does it compile, do the behaviours hold, did anything outside scope change) have already been answered by something deterministic. Review that has to do verification's job becomes vague and expensive.
+NARRATIVE — NOT EVIDENCE
+I have implemented the export feature and tested it thoroughly. All edge cases are handled and the tests pass.
+EVIDENCE
+$ npm test -- export
+PASS tests/export/behaviours.test.ts (B1–B7)
+PASS tests/export/edges.test.ts (E1–E3)
+Tests: 10 passed, 10 total
+$ scripts/export-smoke.sh
+network requests: 0   console errors: 0
+exit 0
+The left panel is what an agent produces when nothing better is asked of it. The right panel is what a run's stop condition should be built from, and what the human reads at the final gate.
+What a good check looks like
+Not every test is a good check for an agent. The properties below decide whether a check closes the loop or just adds noise to it.
+Readable in the loop
+Returns a signal the agent sees in the conversation: an exit code, a test summary, a diff, a screenshot. A check whose result only a human can interpret is observability, not verification.
+Terse on success, specific on failure
+Silence or one line when it passes. On failure, the failing case and where. Screens of output invite a plausible summary instead of a fix.
+Deterministic
+Same input, same result. A flaky check trains the agent to retry rather than investigate, and it will learn that lesson fast.
+Fast enough to run often
+The loop runs the check many times. A check that takes minutes gets run once at the end, which is the same as not having it.
+Traceable to the spec
+Each check maps to a numbered behaviour or edge case. Coverage of the spec becomes something that can be listed, not asserted.
+Lockable
+The implementing agent cannot weaken it. A check the agent can edit is a suggestion; a check it cannot edit is a target.
+The command an agent runs to verify should be written down where it cannot be misremembered: in CLAUDE.md for the project-wide ones, in the spec's verification section for the task-specific ones. Official guidance recommends listing exact build and test commands so the agent never has to infer them.
+SHAPES
+A catalogue of checks
+Grouped by the kind of question they answer. A run usually needs at least one from each of the first three groups; the fourth and fifth are added as the codebase and the run log justify them.
+Structural
+Is the result at least coherent? Cheap, fast, and the first thing that should fail if an agent has drifted.
+Type check
+Catches interface mismatches between parallel workers before any behaviour test runs. Run after every edit via hook. In typed projects a code-intelligence plugin surfaces errors as the agent works.
+Build exit code
+The bluntest possible pass/fail. Its value is that it cannot be argued with. Make it the floor of every gate.
+Linter and formatter
+Conventions hold without anyone asking. Hook, never instruction. A lint rule in CLAUDE.md is advisory; a lint hook is deterministic.
+Behavioural
+Does it do what the spec says? These are the checks that map one-to-one to numbered behaviours and edge cases.
+Unit tests
+One behaviour, enumerable inputs, local logic. Written from the spec before implementation so they describe what was wanted rather than what was built.
+Contract tests
+Two components agree on the seam between them. The check that makes parallel decomposition safe: each worker builds against the contract, and the contract test catches the drift.
+End-to-end acceptance
+The feature works the way a user would exercise it. The spec's final proof, and the only defence against the false green where units pass and the feature is unusable. Often a small script rather than a test framework: run the thing, poke it, assert.
+Reproduction test for bugs
+A failing test written first that captures the reported symptom, then made to pass. Guidance recommends this shape explicitly for bug fixes: it prevents fixing a symptom instead of a cause.
+Artefact
+Does the output match a known-good thing? For work whose result is a file, a page, or a structure rather than a return value.
+Golden output / fixture diff
+Generate, diff against a checked-in reference, fail on any difference. Ideal for generated documents, reports, rendered pages, data transforms. The reference is the target; updating it is a human decision.
+Screenshot comparison
+Render, capture, compare to a design or a previous state, list differences. The check for visual work that text-based tests cannot express. Guidance suggests pasting the design and asking for a compared screenshot.
+Schema validation
+An agent's structured output conforms to a declared shape. The natural check at every handoff between agents and every stage boundary in a workflow script.
+Invariant
+Do the properties that should always hold, hold? Broader than any enumerated case.
+Property-based and fuzz tests
+Generate inputs, assert an invariant. For parsers, transforms and anything with a wide input space where enumerated examples would always be incomplete.
+Assertions in code
+Runtime state stays inside stated bounds. Cheap to add, fires during the acceptance script, and turns silent corruption into a loud failure.
+Performance budget
+A measured cost did not regress: time on a fixture, bundle size, query count. Only worth automating for paths that matter, but for those it is the only way an agent will notice.
+Static analysis and security scan
+Known defect classes are absent. Anything touching auth, input handling or the network earns one.
+Project rules
+Does it obey the things only this project cares about? The category most often left in a human's head.
+Custom rule checks
+Deterministic rules no generic tool knows: a migration must not drop a column without a backfill, error logs must include the request ID and never the body, a public API file must not change without a version bump. Anything enforced by hand repeatedly qualifies. Anthropic's guidance is to write the rule in plain English as if for a new teammate, then package it as a skill so every session applies it.
+Diff boundary
+The change touches only the paths the spec allows. A trivial script over git diff --name-only, and one of the most effective scope fences available.
+Spec validation
+A skill that checks each change against the spec in the repository and attempts to fix violations. This is where verification and review meet: mechanical where it can be, judgement where it must.
+Targets before work
+A test written after describes what was built. A test written before describes what was wanted. The difference is exactly the set of defects that self-grading misses.
+Pre-written checks change the character of a run. The definition of done stops being a paragraph the orchestrator interprets and becomes a command it runs. The implementing agents have a fixed target they cannot negotiate with, and the human can judge the run by whether the target was hit rather than by whether the narrative is convincing.
+Deriving checks from the spec
+Each numbered behaviour and edge case in the spec becomes at least one check, named so the mapping is visible: a test file or case that references B4 is a test that someone can audit against the spec without reading the code. Where the spec is not precise enough to write the check, that is a finding about the spec, and the right response is to fix the spec, not to guess.
+Separating writer from implementer
+The documented pattern is to have one session write the tests from the spec and another write the code to pass them. The two sessions must not share context: a test-writer that has seen the implementation plan writes tests for the plan; a test-writer that has seen only the spec writes tests for the spec. In Claude Code this is two sessions in separate worktrees, or a test-writing subagent that runs to completion before the implementing agents start.
+Locking the target
+A check the implementer can edit will, under pressure, get edited. Three ways to prevent it, in increasing strength: an instruction in the kickoff that test files are read-only during the run; a PreToolUse hook that blocks writes to the test directory for implementing agents; and putting tests in a path the implementing agent's worktree does not carry write permission for. The hook is the practical default.
+Pre-written tests can be wrong. When an implementer reports that a test contradicts the spec or cannot be satisfied, that report should stop the run for a human decision rather than be resolved by the agent. Silent resolution in either direction is how a locked target becomes a locked mistake.
+How hard the check gates the stop
+Official guidance describes a ladder. Each rung trades more setup for less human attention, and an unattended run needs at least the third.
+	1	In the prompt Ask the agent to run the check and iterate in the same message. Works on any task today. Relies on the agent remembering, which under context pressure it may not.
+	2	As a session goal Set the check as a /goal condition. A separate evaluator re-checks it after every turn and the session keeps working until the goal resolves. If the agent stalls, Claude Code eventually stops the run with the goal still set, which is a useful signal in itself.
+	3	As a deterministic gate A Stop hook runs the check as a script and blocks the turn from ending until it passes. Claude Code overrides the hook after eight consecutive blocks. Treat that override as a stall detector: a run that hits it has a problem the check cannot fix, and the right response is to abandon and diagnose.
+	4	By a second opinion A verification subagent, or a dynamic workflow stage that checks its own findings, has a fresh model try to refute the result. This is the rung where verification hands over to independent review, and it should be built on top of the deterministic gate, not instead of it.
+Within a dynamic workflow the same ladder applies per stage: a schema check on every agent's output, a deterministic check at each phase boundary, and a refuting stage before results are merged. The script holds the loop, so a failing check re-dispatches the stage without the orchestrator's context growing.
+The floor for an unattended run is a deterministic gate on the spec's end-to-end proof. Everything else on the ladder is a refinement of what happens before that gate is reached.
+PLACEMENT
+Where the check runs
+Anthropic's verification-loop guidance distinguishes four placements. The signal for moving right along the row is finding yourself invoking the check after every change: at that point it has earned a permanent home.
+INVOKED
+Standalone
+A skill you run deliberately after the artefact exists. Right for cross-cutting checks that do not apply every time: a security scan, an accessibility audit, a licence-header sweep.
+AUTOMATIC
+Embedded
+The producing skill runs the check itself before reporting completion. Right for a check that belongs to one workflow. Only possible on skills you control.
+SEQUENCED
+Chained
+One skill invokes the next at its end: review, then simplify, then verify, then a design check if UI changed. A habit becomes a contract. Also the way to add a check to a skill you cannot edit.
+ENFORCED
+On every change
+Hooks for anything that must happen with zero exceptions; CI for the same gates on every PR regardless of who authored it. Hold off until the chain is stable.
+For orchestrated runs the useful split is: hooks for structural checks and the diff boundary (they must fire, and firing is cheap); the spec's verification commands for behavioural and artefact checks (run at gates); and chained skills for the judgement-adjacent checks that sit just before review.
+Evidence, not narrative
+The output of verification is what the human reads at the final gate. Its form decides whether the human is reviewing or being reassured.
+Official guidance: have the agent show the test output, the command it ran and what it returned, or a screenshot, rather than asserting success. Reviewing evidence is faster than re-running the checks and it works for sessions nobody watched. An evidence display for a run should carry, for each check: the exact command, the exit code, the relevant lines of output (not a paraphrase), the commit it ran against, and which spec behaviours it covers. Artefact checks include the artefact or the diff. Review findings sit alongside, in the same format.
+Two things belong on the display that agents will not volunteer. The first is what was not checked: spec behaviours with no mapped test, checks that were skipped or marked pending, and any test file that changed during the run. The second is the cost: agents spawned, iterations on the gate, tokens consumed, so that drift in effort is as visible as drift in correctness.
+A display that shows intentions is a checkpoint tool. A display that shows check results is a verification tool. The second is what allows the human to leave the room, and it is the form the observability pillar should converge on.
+Anti-patterns
+Each of these has produced a green run with a wrong result.
+	•	The weakened target The implementer edits a test, loosens an assertion, adds a skip, or mocks around the hard part. The check passes and proves nothing. Lock the tests; put test-file changes on the evidence display.
+	•	The suppressed error A build or lint failure is silenced rather than fixed. Guidance is explicit: address the root cause, do not suppress. A hook that fails on new suppression directives is cheap insurance.
+	•	The false green Every unit test passes and the feature does not work. Only an end-to-end acceptance check catches this, which is why the spec must end with one.
+	•	Tests that describe the implementation Written after the code, they assert what the code does rather than what the spec wants, and pass by construction. Write from the spec, before the code, in a separate context.
+	•	The noisy check Pages of output per run. The agent summarises instead of reading and the summary is optimistic. Make checks terse; pipe through a filter if the tool cannot be quiet.
+	•	The flaky check Intermittent failures teach the agent to retry until green. Quarantine flaky tests out of the gate immediately; a flaky gate is worse than no gate because it looks like one.
+	•	The unmapped check Tests exist but nobody can say which spec behaviour each covers, so coverage of the spec is a feeling. Number the behaviours; name the tests after them.
+	•	Verification by narrative "I tested this thoroughly." No command, no output, no exit code. Not evidence, and not to be accepted as such at a gate.
+Before the run
+A short pass over the verification setup, using the spec as the reference.
+	•	Every numbered behaviour and edge case maps to a named check. The unmapped ones are listed as unverified, deliberately.
+	•	The end-to-end proof exists and runs green on the reference fixture before any implementation begins. Or fails in the expected way, if the feature does not exist yet.
+	•	Test files are locked against the implementing agents. By hook, by default.
+	•	Structural checks run on every edit via hook. Type check, lint, format.
+	•	The diff boundary check knows the allowed paths. Taken from the spec's scope section.
+	•	The stop is gated deterministically. A Stop hook or workflow-stage check on the acceptance command.
+	•	The exact commands are written down. In CLAUDE.md or the spec, not in the orchestrator's memory.
+	•	The evidence display will show raw output, changed test files, unverified behaviours, and cost.
+Sources
+Official guidance first.
+	1	Anthropic, Best practices for Claude Code, "Give Claude a way to verify its work". The stop-condition argument, the accepted forms of check, the gating ladder (prompt, /goal, Stop hook with its eight-block override, verification subagent or self-checking workflow), evidence over assertion, reproduction-test-first for bugs, root cause over suppression, the test-writer/implementer split, and the trust-then-verify failure pattern.
+	2	Anthropic, Building verification loops in Claude Code with skills. Built-in loops (/verify, toolchain signals, code review, GitHub Actions, spec validation, rubric graders), capturing manual checks as skills, project-specific deterministic rules, and the standalone / embedded / chained / on-every-PR placements.
+	3	Anthropic, Orchestrate subagents at scale with dynamic workflows. Script-held loops, schema validation of stage outputs, self-checking stages.
+	4	Anthropic, How Claude Code is used in practice. Success defined by verifiable evidence such as passing tests or committed work; expertise partly measured by what the person asks Claude to verify.
+	5	Practitioner corroboration on hooks as deterministic enforcement across the tool lifecycle, including PreToolUse blocking and Stop gating: Claude Code hooks complete guide.
+	6	Practitioner corroboration on phase-gated plans with tests per phase and on challenging the agent to prove a change works before it is accepted: claude-code-best-practice.
+Compiled August 2026. Parent document: Orchestrating agent teams in Claude Code. Related: the spec · the run log.

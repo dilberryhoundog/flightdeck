@@ -1,0 +1,283 @@
+THE MAP · CLAUDE CODE ORCHESTRATION
+Foundation
+The journey
+Exits and re-entries
+Sessions and agents
+The folder
+What tends to be missed
+FOR A DEVELOPER ARRIVING WITH AN IDEA AND LEAVING WITH AN ACCEPTED RUN
+How the pieces fit.
+One pass through a single orchestrated run, from the idea in your head to a merged result, with every session, agent, document, gate and tool placed where it belongs in the sequence, and the loops that take you back when a run has to be abandoned.
+HUMAN you, at a gate or authoring a document
+AGENT a Claude session or subagent
+CHECKED a deterministic result
+EXIT a place the run can be abandoned
+Foundation
+Built once per project, before the first run. Everything here is reused by every run and improved by every abandoned one.
+Two kinds of things live here. The harness is the Claude Code configuration that makes agents deterministic: hooks, skills, agent definitions, permissions. The orchestration folder is the git-tracked home for the documents a run consumes and produces: spec template, kickoff library, specs, plans, reports, the log. The harness enforces; the folder remembers.
+Constitution
+	•	CLAUDE.md — build and test commands, conventions that differ from defaults, protected paths, where the orchestration folder is and what to read from it
+	•	Rules that must fire live in hooks, not here; this file stays short
+Hooks
+	•	On edit — type check, lint, format (structural checks)
+	•	Block writes to the test directory and protected interfaces for implementing agents
+	•	Stop gate — runs the spec's acceptance command; blocks the turn until green; eight blocks means abandon
+	•	Event log — subagent start/stop, task created/completed, tool failures, permission denials, compactions, worktree lifecycle → events.jsonl
+	•	Session end — assemble the run report
+Skills
+	•	Verification loops — project rules no linter knows, written in plain English, one skill each
+	•	Check wrapper — runs a named check, captures command, exit, output to the run directory
+	•	Diff boundary — files touched versus allowed paths
+	•	Report assembler — reads events, checks, plan, review; renders the report
+Agent definitions
+	•	.claude/agents/*.md — one file per role, narrow tools, chosen model, worktree isolation on anything that writes code
+	•	Worker return shape — every worker ends by returning unit, spec refs, artefacts, status
+Permissions and budgets
+	•	Allowlist known-safe commands; sandbox filesystem and network
+	•	--allowedTools on non-interactive runs
+	•	Ceilings — max agents, max gate iterations, spend cap, stall rule; per-stage model tiering
+	•	CLI tools installed: gh at minimum
+Orchestration folder
+	•	Templates — spec (nine parts), kickoff variants, worker prompt, reviewer mandate
+	•	Per-spec — the frozen spec, plan, reports
+	•	RUNLOG.md — diagnosis entries, newest first
+	•	See the folder below
+ONCE PER IDEA
+The journey
+Numbered circles are stages. Square markers are human gates. Red markers are exits, where the run stops and a loop begins. Each stage names who acts, what goes in, what comes out, and what it leaves in the folder.
+IDEA → SPEC
+The spec-building session
+HUMANAGENT Start a session with the idea in one paragraph and ask to be interviewed: skip the obvious, dig into edge cases, tradeoffs and failure modes, then write the spec to a file in the nine-part shape. Answer questions; do not draft.
+Then a second, fresh session attacks the draft with the reviewer's mandate: every behaviour that could be built two ways, every unstated boundary, every undefined term. Rewrite against the findings until open questions is empty.
+Freeze it. Commit it. The commit hash is the spec's identity for the rest of the run.
+SESSIONS
+interview session · attack session (fresh)
+IN
+the idea · spec template · RUNLOG.md (read for known failure modes)
+OUT
+specs/<name>/spec.md @ commit, status frozen
+GATE
+HUMAN readiness checklist passed
+SPEC → TARGETS
+The test-writing session
+AGENT A fresh session, or a test-writer subagent, that has seen only the spec. It derives one named check per numbered behaviour and edge case, writes the end-to-end acceptance script, and records the mapping. It never sees a plan or an implementation.
+CHECKED Run everything once on the reference fixture to establish the baseline: structural checks green, behaviour checks failing in the expected way, acceptance script failing because the feature does not exist. Commit the tests. From here they are read-only to implementing agents (the block-writes hook enforces it).
+The diff boundary check is configured from the spec's scope section at the same time.
+SESSIONS
+test-writer (fresh context)
+IN
+frozen spec · reference fixture
+OUT
+tests mapped to B/E numbers · acceptance script · diff boundary paths · baseline check results
+GATE
+HUMAN every behaviour mapped or listed as deliberately unverified
+TARGETS → KICKOFF
+Assembling the kickoff
+HUMAN The kickoff is how the run will be conducted, not what it must produce. Pull from the library, not the whole library: which agent roles and how many, worktree isolation on, the gates and what each requires, the budget ceilings, the model per stage, the display to maintain, the acceptance command the Stop gate runs, and the paths to the spec, tests, report directory and previous reports for this spec.
+Create the run branch and the run directory. Note the kickoff version in the run's header.
+IN
+kickoff library · spec commit · test commit · RUNLOG.md
+OUT
+runs/<id>/kickoff.md · branch run/<spec>-<n> · empty runs/<id>/
+NOT IN IT
+anything that belongs in the spec
+THE RUN BEGINS
+The orchestrator session, plan phase
+AGENT A fresh session started from the kickoff, in plan mode. The orchestrator reads the spec, the test mapping, the constitution and prior reports, and produces the plan: units of work, each with its spec refs and its mapped checks, the interfaces between units, the order, and the agent assigned to each. Investigation of the codebase goes to explorer subagents so the orchestrator's context stays clean.
+Nothing has been built and no worker has been spawned. This is the cheapest moment to be wrong.
+SESSIONS
+orchestrator (fresh, plan mode) · explorer subagents
+IN
+kickoff · spec · tests · CLAUDE.md · prior reports
+OUT
+runs/<id>/plan.md · intent page on the display
+CHECKPOINT
+Gate 1 — plan
+HUMAN Read the plan against the spec. Does every behaviour have a unit? Is anything planned that the spec did not ask for? Are units small enough to pass or fail on their own? Edit the plan directly if needed, then approve. The orchestrator leaves plan mode.
+READS
+plan · spec · display
+DECIDES
+approve · edit and approve · EXIT back to spec
+INTERFACES PHASE
+Fixing the contracts
+AGENT Before parallel work, the orchestrator (or a single worker) writes the seams the plan named: types, signatures, schemas, file formats, reusing existing names as the spec requires. CHECKED The contract tests from stage 2 run against the stubs; structural checks pass; the diff boundary passes.
+SESSIONS
+orchestrator · one worker at most
+OUT
+interface files committed · contract checks green or expectedly red
+GATE
+Stop hook on the contract checks
+CHECKPOINT
+Gate 2 — interfaces
+HUMAN The last look before tokens are spent in parallel. Do the contracts match the spec's interfaces section? Are they the ones the workers will build against? Approve, or EXIT if the seams are wrong, because every worker will inherit the error.
+READS
+interface diff · contract check results on the display
+IMPLEMENT PHASE
+Workers, in parallel, in isolation
+AGENT The orchestrator dispatches one worker per unit, each in its own worktree with the unit's spec refs, interface files and mapped checks, and nothing else. Workers build, the on-edit hooks fire, the block-writes hook keeps tests untouched, and each worker iterates against its own checks until green, then commits atomically and returns its structured result. Handoffs are files and schema-validated returns; workers do not talk to each other.
+CHECKED As units land, the orchestrator merges worktrees into the run branch and the display shows check results per unit, unverified behaviours, and cost so far. A worker that cannot satisfy a test, or that finds the test contradicts the spec, stops and reports rather than resolving it; that report is an EXIT for a human decision.
+At scale, this phase is a dynamic workflow: the script holds the loop and the stage results, only the merged outcome reaches the orchestrator's context.
+SESSIONS
+workers (worktree-isolated, tiered model) · orchestrator merging
+IN
+plan unit · interfaces · mapped checks · worker prompt template
+OUT
+per-unit commits · structured returns · events.jsonl filling
+CEILINGS
+agents · iterations per unit · spend
+VERIFY PHASE
+The run's stop condition
+CHECKED On the merged branch: every check the spec names, through the wrapper, output captured verbatim; the acceptance script; the diff boundary; the test-file change list. The Stop gate holds the turn open until the acceptance command is green. If it blocks eight times, the run has a problem checks cannot fix: EXIT.
+The display now shows evidence: commands, exit codes, output lines, spec coverage, what was not verified, cost.
+SESSIONS
+orchestrator · optional verification subagent to refute
+OUT
+runs/<id>/checks/ · evidence page
+REVIEW PHASE
+The critic
+AGENT A reviewer subagent in a fresh context, given the spec, the diff and the reviewer mandate: report correctness and requirement gaps only, assume something is wrong, no style. Findings return to the orchestrator, which fixes and re-runs stage 7 once. Findings are not filtered; disputed ones are marked disputed.
+SESSIONS
+reviewer subagent (fresh) · orchestrator for one fix pass
+IN
+spec · diff · mandate template
+OUT
+findings with severity and state · /code-review output if used
+RUN ENDS
+The report is assembled
+AGENT The session-end hook or a final orchestrator step runs the assembler: events, checks, plan and findings become the run report, every section marked recorded, checked, reviewed or stated. The ledger reconciles plan against outcome: landed, not landed, unplanned, discarded. A PR is opened from the run branch with the report linked. The evidence page is frozen as the report's HTML twin.
+OUT
+runs/<id>/report.md · PR · frozen evidence page
+CHECKPOINT
+Gate 3 — final review
+HUMAN Read the ledger first, then the open findings, then the verification section's three volunteered-by-nobody lines: unverified behaviours, test-file changes, files outside the boundary. Do not read the orchestrator notes first. The report carries the facts and does not make the decision; you do.
+READS
+report · PR diff
+DECIDES
+accept · accept with reservations · EXIT abandon
+ACCEPTED
+Merge, log, promote
+HUMAN Merge the PR. Write the short run log entry: spec, kickoff, outcome, cost, what worked, any reservation. Prune the worktrees. Then the promotion pass: anything the run confirmed as a rule graduates into the constitution, a hook or the spec template, and any kickoff variant that proved itself is saved to the library.
+Loop out. The next idea enters at stage 1 with a better template, a better library, and a log that already knows this codebase's failure modes.
+OUT
+merged commit · RUNLOG.md entry · promoted rules
+Exits and re-entries
+Any red marker above stops the run. What happens next is the same every time, and the only question is where the loop re-enters.
+On exit: the report is assembled anyway (an abandoned run's report is the most useful kind), the branch is left as it is, and the human reads the failures section and writes the run log diagnosis: symptom, axis seen on, cause, axis fixed on, the single change made, what to watch. The change is made to the artefact the axis points at. Then the run restarts clean at the stage that artefact feeds. Nothing is patched in place.
+FIXED ON
+CHANGE MADE TO
+RE-ENTER AT
+Context — spec
+The spec (a behaviour, boundary, interface or decision); the spec template if the gap is structural
+Stage 1, then 2 if behaviours changed, then 3
+Context — run conduct
+The kickoff (roles, gates, ceilings, display, paths); the kickoff library
+Stage 3
+Context — project
+CLAUDE.md, a skill, an agent definition
+Stage 3 (foundation changed; run restarts)
+Verification
+A missing or unmapped check, an unlocked test, the acceptance script, a flaky or noisy check, the gate
+Stage 2
+Tooling
+A hook, a permission, worktree isolation, a return schema, the workflow script's stage boundaries
+Foundation, then stage 3
+Exits before stage 6 are cheap and should be taken freely. Exits after stage 6 have spent parallel tokens, which is why gates 1 and 2 exist: they are the last two places a wrong assumption can be caught before it is multiplied by the number of workers.
+A worker reporting that a test contradicts the spec is an exit, not a bug for the worker to resolve. Either the test or the spec is wrong, and only a human can say which.
+WHO APPEARS
+Sessions and agents
+Every Claude context that exists during one run, what it is allowed to see, and why that boundary matters. "Fresh" means started with no memory of the sessions before it.
+ROLE
+STAGE
+SEES
+MUST NOT SEE
+FORM
+Interviewer
+1
+the idea, the spec template, the run log
+—
+interactive session
+Spec attacker
+1
+the draft spec, the reviewer mandate
+the interview
+fresh session
+Test writer
+2
+the frozen spec, the fixture, the codebase
+any plan or implementation
+fresh session or subagent
+Orchestrator
+4–9
+kickoff, spec, test mapping, constitution, prior reports, worker returns
+worker transcripts, the interview, the reviewer's reasoning
+fresh session; plan mode at 4
+Explorer
+4
+the codebase
+—
+subagent, read-only tools, small model
+Worker
+5–6
+one unit, its interfaces, its checks, the worker template
+other units, the plan as a whole, test files as writable
+subagent, worktree-isolated, tiered model, structured return
+Verifier
+7
+the merged branch, the check results
+the implementer's reasoning
+optional subagent asked to refute
+Reviewer
+8
+spec, diff, reviewer mandate
+the orchestrator's context, worker transcripts
+subagent, fresh, strong model
+Assembler
+9
+events, checks, plan, findings
+—
+skill invoked by hook or final step
+You
+1, 2, 3, G1, G2, G3, 10
+the display, then the report
+the transcripts, until something needs diagnosing
+—
+The folder
+Where every document from the journey lives. Committed, so the history of the setup and the history of the code line up.
+.claude/                       the harness (checked in)
+  CLAUDE.md                    constitution; points at orchestration/
+  settings.json                hooks, permissions, sandbox
+  hooks/                       on-edit checks · block-writes · stop gate · event log · assemble
+  skills/                      verification loops · check wrapper · diff boundary · assembler
+  agents/                      orchestrator · explorer · test-writer · worker · reviewer
+
+orchestration/                 the memory (checked in)
+  templates/
+    spec.md                    nine parts
+    kickoff-*.md               the library: variants by run shape
+    worker.md · reviewer.md    prompt shapes for subagents
+  specs/<name>/
+    spec.md                    frozen at a commit; status in header
+    tests-map.md               B/E number → check name
+  runs/<spec>-<n>/
+    kickoff.md                 the version used
+    plan.md                    approved at G1
+    events.jsonl               recorded by hooks
+    checks/                    command · exit · output, per check
+    review.md                  findings as returned
+    report.md                  assembled; the evidence page's twin
+  RUNLOG.md                    diagnosis entries, newest first
+
+tests/                         targets; read-only to workers during a run
+What tends to be missed
+The pieces that a first outline of this process usually leaves out, because nothing in turn-by-turn practice needs them.
+The kickoff and the plan are different documents. The kickoff is written by you before the run and says how it will be conducted. The plan is written by the orchestrator at stage 4 and approved by you at gate 1. Neither is the spec.
+The test-writing session comes before the run, in its own context. Tests derived after seeing a plan describe the plan. The baseline run at stage 2, where the acceptance script fails for the right reason, is what proves the target is real.
+The spec attack session. A fresh context with the reviewer's mandate, applied to the spec before anything is built. Cheapest exit in the whole process.
+Three visibility documents, not one. The evidence display during the run, the run report frozen at the end, the run log entry written by you afterwards. Intentions on the display are a gate 1 tool; results on the display are what let you leave.
+Budgets and the stall rule belong in the kickoff and the harness, or an unattended run has no ceiling. The Stop hook's eight-block cap is a stall detector, not an inconvenience.
+Permissions are part of tooling. Allowlists, sandbox, --allowedTools, protected paths. A worker that cannot write to the test directory does not need to be told not to.
+Structured returns from workers. Without a fixed return shape, the report's agents table and ledger are recalled rather than assembled.
+The promotion pass at stage 10. Rules confirmed by runs graduate out of the log into the constitution, hooks or templates, and stop being logged. This is how the setup improves without the log growing.
+Worktree pruning. Stale worktrees are the usual reason the isolation pattern gets abandoned. Part of stage 10.
+Reduced to one sentence: you write the spec and the kickoff, agents write the tests, the plan and the code, checks and a critic judge the result, hooks record what happened, and you decide at three gates using evidence rather than narrative.
+Compiled August 2026. Reference pages: the field review · the spec · verification · the run report · the run log.

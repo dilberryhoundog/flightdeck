@@ -1,0 +1,175 @@
+COMPANION · THE KICKOFF PROMPT
+Its place
+The library
+Anatomy
+Template
+Writing it
+Iterating
+Anti-patterns
+← Field review
+THE DOCUMENT THE ORCHESTRATOR WAKES UP TO
+The kickoff is a job description, not a briefing.
+How to write the prompt that tells an orchestrator how to conduct a run in Claude Code: which protocol to follow, which roles to dispatch, what to escalate, what to display, and what it must never do — while everything that defines correctness stays in the spec, where the whole team can see it.
+POINTS AT
+The spec · the roster · the run log
+DRIVES
+Planning, gates, dispatch, evidence, escalation
+Its place among the documents
+Four documents govern a run, and each one is read by a different set of contexts. The kickoff's defining property is that only the orchestrator ever sees it.
+The spec says what must be true. The plan says how, in what pieces, at what cost — and is generated fresh each run. CLAUDE.md is the project constitution, loaded into every session and every worker. The kickoff is the fourth document: the orchestrator's standing instructions for how to conduct a run of this shape. It is written by the human, maintained across runs, and versioned like code.
+Who reads what is not an implementation detail; it is the design. Correctness rules must live in the spec precisely because the verifier and the critic never see the kickoff — a "done means" statement written only in the kickoff is invisible to the two roles whose job is to enforce it. Conversely, conduct rules belong in the kickoff precisely because the workers never see it: an implementer has no use for the gate protocol, and every line of it in a worker's context is bloat that competes with the lines that matter.
+DOCUMENT
+ORCHESTRATOR
+WORKERS
+TEST-WRITER
+CRITIC
+ANSWERS
+CLAUDE.md
+
+
+
+
+How this project always works
+Kickoff
+
+
+
+
+How to conduct the run
+Spec
+
+
+
+
+What must be true
+Plan
+
+
+
+
+How, in what pieces, this run
+The test for any line you are about to write: who needs to obey this? Everyone → CLAUDE.md. The judges of correctness → the spec. Only the conductor → the kickoff. This run only → the plan, or the dispatch message itself.
+A library, not a monolith
+The kickoff that works is assembled per task from maintained parts, not pasted wholesale from an ever-growing master document.
+Instruction-following degrades with volume: the official guidance on CLAUDE.md — a bloated file causes Claude to ignore your actual instructions — applies with full force to the kickoff, because both are standing instructions competing for the same attention. A kickoff assembled from the whole library carries rules for shapes this run will never take, and every irrelevant rule dilutes the ones that bind.
+The workable structure is a small set of composable parts. A base carries what every orchestrated run shares: the conduct sequence, the gate protocol, the escalation rules, the evidence requirements. Shape modules carry what differs by mechanism — an in-session run with subagents versus a dynamic workflow versus parallel sessions — since dispatch, progress reporting and budget enforcement differ across them. Task-type modules carry what differs by kind of work: a feature build, a migration sweep, an audit. Assembling a kickoff is picking one of each and filling the header that points at this task's spec.
+Version the assembled result and record the version everywhere the run is referenced — the plan header and the run-log entry both carry it — so that when the log says "kickoff v7 failed on escalation", v7 is a diffable thing and v8 is one reviewed change away.
+This is where accumulated human-in-the-loop skill compounds fastest. Every correction you used to make live becomes a candidate line in a module, and the promotion rule keeps the library from bloating: lines that stop earning their place are pruned with the same question used on CLAUDE.md — would removing this cause mistakes?
+STRUCTURE
+Anatomy of a kickoff
+Eight parts. The ordering is deliberate: mission and pointers first because they anchor everything, escalation early because it is the part that must survive a filling context, and prohibitions last because they read as the final word.
+1 · Mission and pointers
+Anchors the run
+One line naming the task and the shape, then paths: the spec (with its frozen commit), the run log as required pre-planning reading, where the plan gets written, where evidence goes. Pointers, not copies — the orchestrator reads the spec from disk so there is exactly one version of the truth.
+2 · Conduct sequence
+The protocol
+The phases in order, with the gate after each: explore, plan, gate, contracts, gate, execute in waves, proof, gate. For each gate: what is presented, in what form, and that the run halts until the human responds. This is the skeleton the whole run hangs on; it should read like a checklist, not an essay.
+3 · Escalation rules
+When to stop and ask
+The most valuable section, and the one most kickoffs lack. Name the findings that halt the run for a human decision rather than being resolved by improvisation: a spec gap or contradiction, a pre-written test the implementer believes is wrong, an abandon trigger from the plan firing, a needed action that permissions block. An orchestrator without escalation rules does not stop being confused — it stops reporting that it is confused.
+4 · Roles and dispatch
+Who does what
+The roster available (by agent name, pointing at .claude/agents/), what each is for, and the dispatch rules: workers get their unit's contract, checks and the relevant spec sections only; the critic gets spec plus diff and nothing of the reasoning; the test-writer runs before any implementer. Caps on parallel dispatch live here as defaults the plan can tighten but not loosen.
+5 · Communication protocol
+What flows up, and how
+Summaries up, never transcripts; results in the declared shape; evidence not narrative. The evidence display: its path, what it must show (commands, raw output, critic findings, unverified behaviours, cost), and when it updates. This section is what turns the observability pillar from a habit into an instruction.
+6 · Budgets and stops
+Default ceilings
+Default model tiering by role, default turn budgets, default gate-iteration caps, and the rule that the plan must state expected cost. The plan carries this run's numbers; the kickoff carries the defaults and the instruction that exceeding a ceiling is an escalation, not a thing to push through.
+7 · Output requirements
+What "handed over" means
+Branch and commit conventions per unit, where PRs go, the evidence display finalised, the run-log stub drafted with mechanical fields filled. A run whose outputs are enumerated cannot end with "done" and an unclear working tree.
+8 · Prohibitions
+The never list
+Short and absolute: never modify locked test files, never write outside the spec's scope paths, never patch past an abandon trigger, never resolve a spec contradiction silently. Each of these should also be enforced by a hook or permission where possible — the list is the statement of intent; the hooks are the enforcement. A rule that exists only as prose is a preference.
+WORKED EXAMPLE
+A base kickoff to start from
+Assembled for a parallel feature build run in-session with subagents. Comments in italics are annotations, not content. Note how little of it is about the task: the task lives in the spec this file points at.
+# Kickoff: parallel feature build
+spec: docs/specs/export-html.md @ a1b2c3d
+read first: RUNLOG.md (all entries for this spec's area)
+write plan to: PLAN.md   evidence: evidence/<run-id>/index.html
+
+## Conduct
+1. Dispatch Explore subagents on the plan's open questions. Summaries only.
+2. Write PLAN.md per the planning guide: units, waves, budgets, risks,
+   abandon triggers. HALT — Gate 1: present PLAN.md; wait for approval.
+3. Wave 0: contracts and contract tests. Dispatch the test-writer for all
+   unit checks; on completion, tests are locked (hook enforced).
+   HALT — Gate 2: present contracts + green/red dry-run; wait.
+4. Waves 1..n: dispatch one implementer per unit, worktree-isolated,
+   with its contract, its checks, and spec sections for its behaviours.
+5. Proof: integrate, run the spec's e2e command, dispatch the critic
+   with the spec and the full diff.
+   HALT — Gate 3: present the evidence display; wait.
+
+## Escalate — stop and ask a human when
+- the spec is silent or contradictory on something a unit needs
+- an implementer reports a locked test is wrong or unsatisfiable
+- any abandon trigger in PLAN.md fires
+- a permission or tool blocks a required action
+Escalations name the finding and propose nothing else in the same message.
+
+## Roles (.claude/agents/)
+explorer (read-only, haiku) · test-writer (writes tests/ only) ·
+implementer (worktree, sonnet, maxTurns 20) · critic (read-only, opus).
+Dispatch cap: 4 implementers concurrent. Workers never message each other.
+
+## Communication
+Summaries up; declared output shapes; raw check output in evidence, never
+paraphrased. Update the evidence display at every phase end and gate.
+
+## Budgets
+Defaults: gate iterations 3 · run ceiling per PLAN.md expected × 1.5.
+Exceeding any ceiling is an escalation, not a push-through.
+
+## Outputs
+One branch per unit (unit name = branch name). Evidence display final.
+RUNLOG.md stub appended: spec commit, kickoff version, outcome, cost.
+
+## Never
+Edit tests/ after lock · write outside src/export/ and tests/ ·
+continue past a fired trigger · silently resolve a spec conflict.
+(each also enforced: PreToolUse hooks + diff-boundary check)
+Writing it well
+The kickoff is prompt engineering under the harshest condition: it must keep working forty minutes into a filling context.
+	•	Point, don't paste. Reference files by path and let the orchestrator read them. Pasted copies of the spec or roster go stale the moment their source changes, and official guidance is direct that referencing files and letting Claude pull context beats describing it.
+	•	Imperative, specific, sequenced. Numbered steps for the protocol, named commands, named paths. "Verify thoroughly" instructs nothing; "run the spec's verification commands and put raw output in the evidence display" instructs exactly one behaviour.
+	•	One home per rule. Anything already in CLAUDE.md does not repeat in the kickoff. Duplication is not reinforcement; it is two copies to keep synchronised and twice the volume diluting everything else.
+	•	Emphasis is a budget. The guidance on emphasis in CLAUDE.md transfers whole: mark the one or two lines that are absolute (the halt-at-gates line earns it), because if many lines shout, none does.
+	•	Make halting the marked behaviour. Gates fail silently when "present and wait" is implied rather than stated. Write the halt as its own instruction at each gate, and back the critical ones with enforcement — a Stop-hook gate does not rely on the orchestrator remembering to stop.
+	•	Say what to do, not only what not to. The Never list is short and absolute; everywhere else, positive instruction ("summaries up") outperforms prohibition ("don't dump transcripts") because it names the behaviour you want performed.
+	•	Write for the tired orchestrator. The kickoff is read once at full attention and relied on later at partial attention. Front-load what must survive: mission, gates, escalation. If the context compacts, those are the lines the summary must keep — and a compaction instruction in CLAUDE.md can say so.
+Iterating it
+The kickoff is the setup artefact the run log most often points at. Its improvement loop is the run loop.
+Treat the library like code because it is load-bearing like code: versioned in the repository, changed in reviewed diffs, one change per run where possible so the next run attributes cleanly. The run-log entry names the kickoff version; a "fixed on: context" entry whose cause was conduct (a missing escalation, a gate that did not halt, a dispatch rule that leaked context) lands as a kickoff edit, and the log's watch field says what the next run should confirm.
+Test kickoff changes the way CLAUDE.md changes are tested: by observing whether behaviour actually shifts on the next run, not by rereading the prose and finding it convincing. And prune on the same schedule as you add — the library's failure mode is monotonic growth, and the question for every line at review time stays: would removing this cause a mistake, or is a hook now enforcing it better than prose ever did?
+A healthy kickoff library shrinks in prose as the harness grows in enforcement. Lines migrate outward: correctness lines to the spec template, universal lines to CLAUDE.md, enforceable lines to hooks — and what remains is genuinely and only the conduct of the run.
+Anti-patterns
+Kickoffs that read impressively and conduct badly.
+	•	The everything-document Spec, plan and kickoff merged into one heroic prompt. Nothing can be frozen, versioned or routed separately, the critic sees conduct rules it should not, and the workers drown in protocol they cannot use.
+	•	The pasted library Every module thrown at every run "to be safe". Volume dilutes adherence; the run obeys the average of the library instead of the rules that bind this shape.
+	•	Correctness smuggled into conduct A "done means X" line that exists only in the kickoff. The verifier and critic never see it, so the run's own machinery cannot enforce the one line the human cared most about. Correctness lives in the spec.
+	•	The silent kickoff No escalation section. The orchestrator meets a spec gap and does the only thing available: improvises confidently. Every escalation rule is a class of silent failure converted into a question.
+	•	Prose where a hook belongs "Never edit tests" as a sentence, with Edit access to the test directory intact. Instructions are advisory; hooks are deterministic. The Never list states intent; enforcement makes it true.
+	•	CLAUDE.md's twin Half the project constitution repeated in the kickoff, drifting from the original within a month. One home per rule.
+	•	The stale pointer Paths to a spec layout, agent names or commands that no longer exist. The orchestrator reconstructs what it can and the run inherits the guesswork. Kickoff review belongs in the same pass as roster review.
+	•	Gates as suggestions "Check in with me at sensible points." The run's sensible and yours differ, and the difference is your budget. Gates are named, placed, and halting.
+Before sending it
+A pass over the assembled kickoff, before it meets a run.
+	•	Every pointer resolves: spec path and commit, run log, agent names, evidence path, commands.
+	•	Every line passes the routing test — conduct only; nothing the spec, plan or CLAUDE.md already owns.
+	•	Each gate says what is presented and that the run halts.
+	•	The escalation list covers spec gaps, wrong-test claims, fired triggers and blocked actions.
+	•	Dispatch rules state what each role receives — and what it must not.
+	•	Every Never has an enforcement twin, or a note that it deliberately does not.
+	•	The version is bumped and will be recorded in the plan and the run log.
+	•	It is shorter than the last version, or you can say why not.
+Sources
+Official guidance first; the routing model is this series' synthesis.
+	1	Anthropic, Best practices for Claude Code. Specific, scoped prompting with file references over description; CLAUDE.md discipline — keep it short, prune with "would removing this cause mistakes?", selective emphasis, convert repeat instructions to hooks — applied here to the kickoff as the same class of standing instruction; hooks as deterministic where instructions are advisory; compaction instructions preserving critical context; executing a spec in a fresh session.
+	2	Anthropic, Create custom subagents. Subagents receive only their own system prompt plus environment — the mechanism behind the routing matrix: what a role is not given, it cannot obey or be biased by.
+	3	Anthropic, Orchestrate subagents at scale with dynamic workflows. Shape-specific conduct: script-held orchestration, progress reporting, per-stage models — why the kickoff library needs shape modules.
+	4	Anthropic, Building verification loops in Claude Code with skills. Encoding repeated manual instructions into durable, automatically-applied form — the promotion path kickoff lines follow into skills and hooks.
+	5	The spec guide for the spec/plan boundary this page extends into a four-document routing model; the planning guide for the plan header that records the kickoff version; the run log guide for the promotion and pruning loop.
+Compiled August 2026. Parent document: Orchestrating agent teams in Claude Code. Related: the spec · planning · agents · verification · the run log.

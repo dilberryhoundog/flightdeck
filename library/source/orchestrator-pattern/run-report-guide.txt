@@ -1,0 +1,200 @@
+COMPANION · THE RUN REPORT
+What it is
+Who writes it
+Anatomy
+How claims are judged
+Building it
+Template
+Anti-patterns
+WHAT HAPPENED, RECORDED BY THE THING IT HAPPENED TO
+One run, one record, written by the run.
+A guide to the run report: the system-generated account of an orchestrated run in Claude Code. What phases ran, which agents were spawned and what they returned, what failed, what was planned against what landed, which checks ran and what they said. Assembled from recorded events, not narrated from memory.
+WRITTEN BY
+Hooks and runtimes record; the orchestrator assembles; checks and the reviewer judge
+READ BY
+The human at the final gate; the run log's diagnosis; the next run's orchestrator
+What it is
+The run report is the answer to "what happened in there?" for a run the human did not watch. It has three ancestors in ordinary engineering, and inherits a rule from each.
+FROM TRACING
+One run, one trace
+Observability practice treats a single agent run as one root trace with child spans for each phase, agent and tool call, each carrying duration, outcome and cost. The rule inherited: every step is a span, and if the report cannot say which step spent the money or the time, it is not a report.
+FROM CI
+Counts first, detail on demand
+A test report leads with passed, failed, skipped, then per-check detail and artefacts. The rule inherited: every check is listed with its result and its raw output, and skipped checks are as visible as failed ones.
+FROM INCIDENT TIMELINES
+Chronology, not story
+A post-incident timeline is a dated sequence of facts with sources. The rule inherited: events in order, each with where it was observed, and interpretation kept separate from record.
+Three documents surround a run and are easily confused. The evidence display is the live view the human reads during and at the end of the run. The run report is that view frozen at completion, made complete, and persisted with the code. The run log entry is the short human diagnosis written afterwards from the report: which axis failed and what changed in the setup. The report is the factual body; the log entry is the judgement. The report can exist without the log; the log is worthless without the report.
+Official guidance asks the agent to show evidence rather than assert success: the test output, the command it ran and what it returned. The run report is that principle applied to the whole run rather than a single check.
+Who writes it
+Nobody writes it, in the sense of composing it. It is recorded, assembled and judged by different parts of the system, and every line carries a mark saying which.
+The single most important property of a run report is provenance. A line that says "all agents completed successfully" means one thing if a hook counted the stop events and another if the orchestrator recalled it. The report should make that difference visible on every line, so the human can weigh a fact by its source. Four sources cover everything a report contains.
+RECORDED
+Hooks and runtimes
+Deterministic. Subagent start and stop events, task creation and completion, tool failures, permission denials, stop-hook blocks, worktree lifecycle, session boundaries, token usage from the CLI's JSON output, stage results from a workflow runtime. Written by scripts the model does not control.
+CHECKED
+Verification commands
+Deterministic. The exit code and output of every check the spec names, the diff boundary result, the list of test files that changed. Produced by running commands, captured verbatim.
+REVIEWED
+The reviewer subagent
+Model judgement in a fresh context. Findings against the spec, each with a severity and a resolution state. Not deterministic, but independent of the implementer and bounded by a mandate.
+STATED
+The orchestrator
+Model narrative from the run's own context. Confined to one labelled section: why a phase was abandoned, what a worker was asked to do, what the orchestrator would flag. The only part of the report that can be wrong in the way a person's recollection is wrong.
+The orchestrator's role is assembly, not authorship. At the end of the run it reads the recorded event stream, the check outputs and the reviewer's findings, and lays them out in the report's structure. Where a fact exists in a recorded source, the orchestrator quotes it and marks it recorded. Where it does not, the orchestrator states it and marks it stated. A report in which most lines are stated is a report whose harness needs more hooks.
+The one thing the orchestrator must produce that no hook can is the reconciliation of plan against outcome: which planned units landed, which did not, and what landed that was never planned. Even there, each verdict points at a checked or reviewed source, so the orchestrator is joining records rather than judging its own work.
+STRUCTURE
+Anatomy of a run report
+Eight sections, in the order a reader at the final gate needs them: the verdict, then the ledger, then the evidence, then the chronology, then the narrative. Each carries its provenance marks.
+Header
+RECORDED
+Identity and totals. Enough to find the run again, compare it to its siblings, and see the outcome and cost without reading further.
+run id · spec path @ commit · kickoff name @ version · started / ended · outcome (accepted | accepted-with-reservations | abandoned at <gate>) · total tokens or cost · agents spawned · phases completed / planned
+Ledger
+CHECKED REVIEWED STATED
+The plan reconciled against the result. Four lists, each entry pointing at the check or review finding that decides it. This is the section the human reads to decide whether to accept the run.
+Planned and landed. Units from the approved plan whose mapped checks pass. Planned and not landed. Units whose checks fail, were skipped, or were never attempted; each with the reason as recorded (gate block, stall, abandoned phase). Unplanned and landed. Changes present in the diff that no plan unit accounts for, surfaced by the diff boundary check and by reviewer findings of behaviour the spec did not ask for. Attempted and discarded. Work that was started and reverted, from worktree removal or discarded branches.
+unit · plan ref · spec refs (B/E numbers) · verdict · deciding source (check name / finding id / diff path) · agent(s)
+Verification
+CHECKED
+Every check the spec names, in CI-report form: counts first, then each check with its command, exit code, the relevant output lines verbatim, and the spec behaviours it covers. Then the three things agents will not volunteer: spec behaviours with no mapped check, checks skipped or pending, and any test file that changed during the run with the diff.
+passed / failed / skipped · per check: name · command · exit · output excerpt · covers · ran at commit
+unverified behaviours · test-file changes · diff boundary: files outside allowed paths
+Review
+REVIEWED
+The reviewer's findings as returned, unedited by the orchestrator, each with severity, the spec reference it concerns, and whether it was resolved (with the fixing commit) or left open. Findings the implementer disputed are marked as disputed, not deleted.
+finding id · severity · spec ref · description · state (resolved @ commit | open | disputed)
+Phases
+RECORDED STATED
+The run's progression, one row per phase or workflow stage: when it started and ended, which gate it hit, whether the gate passed or blocked, how many agents it spawned and what they cost. Abandoned phases say where and cite the recorded event that stopped them.
+phase · started / ended · gate · gate result · agents · tokens · ended by (gate pass | stop-hook block ×n | stall | human | error)
+Agents
+RECORDED STATED
+One row per spawned agent, from start and stop events. The task it was given is stated by the orchestrator; the outcome, duration and transcript path are recorded. "What it produced" is the artefacts it wrote or the structured result it returned, as paths or schema-validated payloads, not a summary of its summary.
+agent id · type / role · model · phase · task (stated) · outcome (returned | failed | blocked | stalled) · duration · tokens · artefacts · transcript path
+Failures and interventions
+RECORDED
+Everything that happened that nobody asked for: tool failures, permission denials, stop-hook blocks and their count, subagent failures, context compactions, retries, worktree conflicts. Chronological, each with the agent and phase it belonged to. This section is where the run log's diagnosis usually starts.
+time · phase · agent · event · detail (verbatim from hook input) 
+Orchestrator notes
+STATED
+The only narrative section, kept short and clearly marked. Why a phase was abandoned, decisions made at forks, anything the orchestrator would raise with a human. It may refer to records above; it may not restate them as if they were its own observations.
+How claims are judged
+Every verdict in the report has a deciding source that is not the orchestrator's opinion of its own work.
+CLAIM
+JUDGED BY
+SOURCE IN THE REPORT
+A planned unit landed
+Its mapped checks pass at the final commit
+Verification section, check names
+A planned unit did not land
+A mapped check fails, is skipped, or no check ran for it
+Verification section; phase row that ended it
+Something unplanned landed
+Diff boundary lists a path no plan unit owns; or a review finding names behaviour the spec did not ask for
+Diff boundary output; review findings
+The feature works end to end
+The spec's acceptance script exits 0
+Verification section, the e2e check
+Scope was respected
+Diff boundary passes; reviewer reports no out-of-scope change
+Diff boundary; review
+The tests were not weakened
+Test-file change list is empty, or each change is accounted for
+Verification section, test-file changes
+An agent completed
+Its stop event fired with a returned result that validated against the expected schema
+Agents table, recorded outcome
+A phase was abandoned for a reason
+The recorded event that ended it (block count, stall, error)
+Phases table, "ended by"; failures section
+The run should be accepted
+The human, reading the ledger and the open findings
+Not in the report; in the run log entry
+The last row is deliberate. The report carries every fact needed for the acceptance decision and does not make it. The moment a report says "this run is ready to merge" in its own voice, it has become narrative, and the reader has to re-verify everything to know whether to believe it.
+A reviewer prompted to find gaps will report some even when the work is sound. The report records findings as returned, with their severity, and leaves it to the human to decide which matter. Filtering them before they reach the report is the orchestrator grading the critic.
+Building it in Claude Code
+Most of the report already exists as events; the work is capturing them to one place and assembling at the end.
+	1	Record events to a per-run JSONL file. Hooks receive JSON on stdin with a common envelope (session id, transcript path, working directory, event name) plus event-specific fields. A small script appended to SubagentStart, SubagentStop, TaskCreated, TaskCompleted, PostToolUseFailure, PermissionDenied, Stop, PreCompact, WorktreeCreate and WorktreeRemove writes each event, timestamped, to runs/<id>/events.jsonl. Subagent stop events carry the agent id, type and its own transcript path; stop events carry the last assistant message, which is what a stop-hook gate evaluated.
+	2	Capture every check's output verbatim. The verification commands the spec names run through a wrapper that writes command, exit code and output to runs/<id>/checks/. The diff boundary check and the test-file change list are two more commands in the same wrapper. The Stop hook that gates the run is the natural place to call it.
+	3	Return structured results from workers. Each subagent definition ends with an instruction to return a result in a fixed shape (unit, spec refs, artefacts written, status), validated by a schema check at the handoff. Dynamic workflow runtimes hold stage results outside the model's context; the script writes them to the run directory as stages complete. Structured returns are what make the agents table and the ledger assemblable rather than recalled.
+	4	Capture cost. Non-interactive runs with --output-format json return usage alongside the result; streaming JSON gives per-event detail. Inside a workflow the script can tally per-stage usage. Per-agent cost goes in the agents table; per-phase cost in the phases table; the total in the header.
+	5	Assemble at the end. A final orchestrator step, or a SessionEnd hook that invokes a skill, reads the events file, the checks directory, the reviewer's return and the plan, and renders the report in the anatomy above: a markdown file committed with the run, and the same content as the HTML evidence page. Every line marked with its source.
+	6	Read it, then write the log entry. The human reads the ledger and the open findings, decides, and writes the run log's diagnosis from the failures section. The next run's kickoff points the orchestrator at the previous reports for the same spec.
+The test of a good harness is the ratio of recorded to stated lines in the report. Each run, pick the stated line that mattered most and ask which hook or structured return would have recorded it instead.
+ANNOTATED TEMPLATE
+A report skeleton
+Markdown, one file per run, committed alongside the code at the run's final commit. Provenance marks in brackets on every section. Comments in italics are guidance and do not appear in a real report.
+# Run report · export-html · run 3
+spec: docs/specs/export-html.md @ a1b2c3d   kickoff: kickoffs/feature-parallel.md v7
+started: 2026-08-26 09:12   ended: 09:51   outcome: abandoned at gate 2 (interfaces)
+cost: 412k tokens   agents: 6   phases: 2 of 4 completed                     [recorded]
+
+## Ledger                                                        [checked · reviewed · stated]
+Planned, landed
+  U1 export-core  B1 B2 B3        pass   tests/export/behaviours.test.ts   agent-a2
+Planned, not landed
+  U2 warnings     B5 E2           fail   contract test Warning ×4          agent-a3 agent-a4
+  U3 smoke        e2e             not run  phase 3 not reached
+Unplanned, landed
+  src/types/Warning2.ts           diff boundary: outside plan   agent-a4
+Attempted, discarded
+  —
+
+## Verification                                                  [checked]
+passed 6 · failed 1 · skipped 0 · not run 2
+- tests/export/behaviours.test.ts  `npm test -- export/behaviours`  exit 0  covers B1–B3  @ 9f8e7d6
+- tests/export/contract.test.ts    `npm test -- export/contract`    exit 1  covers B5
+    FAIL  Warning shape mismatch: expected {kind, message}, got {code, msg}
+- diff boundary  `scripts/diff-boundary.sh src/export tests/export`  exit 1
+    outside: src/types/Warning2.ts
+unverified: B4 B6 B7 E1 E3 (phase not reached)
+test-file changes: none                                             the line that proves the target held
+
+## Review                                                        [reviewed]
+not run — phase 3 not reached
+
+## Phases                                                        [recorded · stated]
+1 plan        09:12–09:19  gate: plan approved      pass   1 agent   38k
+2 interfaces  09:19–09:51  gate: contract tests     block ×8  4 agents  361k   ended by: stop-hook cap
+3 implement   —            —                        —
+4 review      —            —                        —
+
+## Agents                                                        [recorded · stated]
+agent-a1  plan      opus    ph1  task: decompose spec into units (stated)   returned   6m   38k   plan.md
+agent-a2  worker    sonnet  ph2  task: U1 export-core (stated)               returned  11m   92k   src/export/core.ts
+agent-a3  worker    sonnet  ph2  task: U2 warnings, producer side (stated)   returned  14m  118k   src/export/warn.ts
+agent-a4  worker    sonnet  ph2  task: U2 warnings, consumer side (stated)   returned  15m  131k   src/types/Warning2.ts
+…
+
+## Failures and interventions                                    [recorded]
+09:31  ph2  agent-a4  PermissionDenied  Write src/types/Warning.ts (protected path)
+09:33  ph2  agent-a4  PostToolUse       Write src/types/Warning2.ts
+09:40–09:51  ph2  main  Stop hook block ×8  reason: contract test failing
+09:51  ph2  main  session ended by stop-hook cap
+
+## Orchestrator notes                                            [stated]
+Workers a3 and a4 each defined a Warning shape; the spec named the type
+but did not say to reuse the existing one. a4 was blocked from editing the
+protected type and created a parallel one. Recommend the spec fix the
+interface before rerun.
+Anti-patterns
+Ways a report stops being evidence.
+	•	Narrated, not recorded The orchestrator writes the report from memory at the end of a long context. Agent counts are approximate, failures are forgotten, and the report reads well. Hooks exist so this does not happen.
+	•	No provenance Every line looks equally authoritative, so the reader cannot tell a counted event from a recollection. Mark the source on every section.
+	•	Summaries of summaries "Agent 3 completed its task successfully" in place of the artefact it wrote and the check that passed. Record paths and results, not characterisations.
+	•	The missing "not landed" Only landed units are listed, so the ledger looks complete and the reader cannot see what was planned and dropped. All four lists, always, even when empty.
+	•	Filtered findings The orchestrator removes reviewer findings it considers unimportant before they reach the report. The critic's independence is gone.
+	•	No cost column The report says what happened but not what it cost per phase or agent, so runaway spend is invisible until the bill. If the report cannot say which step spent the money, it is not observability.
+	•	The verdict in the report's own voice "Ready to merge." The human now has to re-verify everything to know whether to trust the sentence. The report carries the facts for the decision and does not make it.
+	•	The wall of transcript Raw agent output pasted in bulk. Unreadable and unscannable. Link the transcript path; quote only the lines a check or a failure produced.
+Sources
+Official documentation for the mechanisms; observability practice for the shape.
+	1	Anthropic, Best practices for Claude Code. Show evidence rather than assert success; the Stop hook gate and its eight-block cap; non-interactive runs with JSON and streaming JSON output; the adversarial review step and the caveat that a reviewer asked for gaps will report some.
+	2	Anthropic, Intercept and control agent behavior with hooks (Agent SDK). The SubagentStop input carrying agent id and the subagent's own transcript path; hooks performing asynchronous logging and webhooks.
+	3	Anthropic, Orchestrate subagents at scale with dynamic workflows. Stage results held by the runtime outside the model's context; per-stage model routing and cost control.
+	4	Hook lifecycle and input envelope, corroborated by practitioner references: Claude Code hooks complete guide (event phases, common fields, SubagentStart/SubagentStop, TaskCreated/TaskCompleted, PreCompact, worktree events); claude-howto hooks reference (last_assistant_message on stop events; the consecutive-block cap).
+	5	OpenTelemetry, AI agent observability: evolving standards and best practices. Semantic conventions for agent telemetry; agent invocations and tool calls as spans.
+	6	Practitioner observability guidance on one run as one root trace with spans carrying duration, outcome and cost, and on cost-per-step as the test of adequate observability: OpenTelemetry instrumentation for AI agents; AI agent observability guide.
+	7	CI test-report conventions (counts, per-check detail, skipped as visible as failed) and post-incident timeline conventions (dated facts with sources, interpretation kept separate) are general engineering practice and are applied here by analogy.
+Compiled August 2026. Related: the field review · verification · the run log.

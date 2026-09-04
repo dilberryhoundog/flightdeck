@@ -1,0 +1,181 @@
+COMPANION · SPEC WRITING
+Why
+What it is
+Anatomy
+Writing one
+Template
+Ready?
+Drift
+← Field review
+THE DOCUMENT THE FOUR PILLARS STAND ON
+Writing a spec that three agents can act on.
+How to take the definition of a task out of a developer's head and put it into a document an orchestrator can decompose, a verifier can test, and a critic can hold the result against.
+FOR
+Developers whose specs have so far lived in their own judgement
+CONTEXT
+Orchestrating agent teams in Claude Code · Verification
+Why the spec matters more now
+In turn-by-turn work the spec is the person. In orchestration it has to be a file, because the readers who need it most are not the person.
+A developer shaping every turn does not need a written spec. Scope, priorities, edge cases and taste are all applied live, at the moment an output is read. This works because the same head that defined the task judges the result. It also means that expertise never gets written down, and when the person steps away from the loop, the definition of the task steps away with them.
+An orchestrated run has three readers who each need the definition of the task, none of whom can ask the developer a question mid-run.
+READER ONE
+The orchestrator
+Reads the spec to decompose the work, fix interfaces, and decide what each subagent is accountable for.
+READER TWO
+The verifier
+Reads the spec to know what to test. Every behaviour it cannot find here becomes a behaviour that will not be checked.
+READER THREE
+The critic
+Reads the spec to know what counts as a gap. Without it, review collapses into style opinions and generic caution.
+If the three readers have different understandings, the run's own quality machinery is aligned on the wrong target. Tests pass, review approves, and the result is wrong. A shared spec is what makes verification and independent review mean anything.
+Anthropic's guidance describes the most useful specs as self-contained: they name the files and interfaces involved, state what is out of scope, and end with an end-to-end verification step that proves the feature works. It adds that time spent making the spec precise pays off more than time spent watching the implementation. That is the whole economic argument in one sentence.
+What a spec is, and is not
+The word gets used for several different documents. Only one of them is the shared source of truth for a run.
+A spec answers what must be true when this is done. It is stable across implementations: two different teams could build from it and both results would satisfy it. It is the input to planning, not the plan. It describes outcomes and boundaries, not steps.
+ANSWERS
+Spec
+What must be true. Outcomes, scope, constraints, behaviours, proof. Written by the human with help. Frozen before the run.
+ANSWERS
+Plan
+How it will be done. Files touched, approach, order, risks. Written by the orchestrator, approved at a gate.
+ANSWERS
+Tasks
+Who does what. Small, independently verifiable units with fixed interfaces. Derived from the plan; dispatched to workers.
+It is also not the kickoff prompt. The kickoff tells the orchestrator how to conduct the run: which tools, which agents, which gates, which display to maintain. The spec is referenced by the kickoff, and it is the only one of the two that the verifier and critic should ever see. Keeping them apart prevents run mechanics leaking into the definition of correctness.
+A spec is not a product requirements document either. A PRD argues for why something should exist and for whom; it is a persuasion document with a business audience. A spec assumes the decision is made and pins down the behaviour precisely enough to test.
+The commonest failure is a spec that is really a plan: it lists steps to take rather than conditions to satisfy. Steps cannot be tested, only followed, so the verifier has nothing to check and the critic has nothing to hold the result against.
+STRUCTURE
+Anatomy of a spec
+Nine parts, each with its primary readers marked. Not every task needs every part at full weight, but a missing part should be a decision, not an oversight. Examples show a weak phrasing and a testable one.
+Intent
+Read by orchestrator · critic
+One or two sentences on the outcome and why it matters. This is what the critic uses to judge whether the work, even if every test passes, is the right work. It is also what the orchestrator uses to resolve ambiguity when the rest of the spec is silent.
+Improve the export feature.
+Users can export a project as a single self-contained HTML file that opens offline in any modern browser, so a report can be emailed without hosting.
+Scope
+Read by orchestrator · critic
+What is in, and explicitly what is out. Out-of-scope statements do more work than in-scope ones, because they are what stops an agent from helpfully expanding the task. The critic checks that nothing outside scope changed.
+Export should work well.
+In: HTML export of a single project. Out: PDF, batch export, changes to the project data model, any UI outside the export dialog.
+Constraints
+Read by orchestrator · verifier
+Non-negotiables about how the result may be built: dependencies allowed or forbidden, performance ceilings, compatibility targets, security rules, style rules that differ from defaults. Many of these convert directly into checks.
+Keep it fast and don't add too many dependencies.
+No new runtime dependencies. Output for a 500-item project under 2 MB and generated in under 3 s on the reference fixture. Must not inline any secret or absolute local path.
+Interfaces and contracts
+Read by orchestrator · verifier
+The seams: function signatures, API shapes, file formats, schemas, CLI arguments, events. Fixing these in the spec is what allows parallel workers to build without each other's context, and each contract is a natural place for a contract test.
+Add an export function.
+exportProject(id: ProjectId, opts: {inlineAssets: boolean}): Promise<ExportResult> where ExportResult = {html: string, warnings: Warning[]}. Existing ProjectId and Warning types are reused unchanged.
+Behaviours
+Read by verifier · critic
+The heart of the spec: each observable behaviour stated so that a test can be written from it without interpretation. A given/when/then shape or a plain input-to-output example both work; the property that matters is that a second person could write the same test. Number them so tests and review findings can refer to them.
+Images should be handled properly.
+B4. Given a project with a linked image, when exported with inlineAssets: true, the image appears as a data URI and no external request is made when the file is opened.
+B5. Given the same project with inlineAssets: false, the image is referenced by its original URL and a warning of kind external-asset is returned.
+Edge cases and failure modes
+Read by verifier · critic
+What happens at the boundaries and when things go wrong: empty inputs, missing resources, oversized data, concurrency, permissions. These are the behaviours most often narrowed silently by an implementer to make a test pass, and the ones a critic is most useful for.
+Handle errors gracefully.
+E1. An empty project exports a valid HTML document with a visible "no content" message, not an error.
+E2. An unreachable linked asset with inlineAssets: true is replaced by a placeholder and a warning of kind asset-unavailable; export still succeeds.
+E3. Export of a project the caller cannot read rejects with NotAuthorized and writes nothing.
+Prior decisions and non-goals
+Read by orchestrator · critic
+Things already decided elsewhere that the agents must not re-litigate, and tempting improvements that are deliberately not being made. This is where the developer's accumulated judgement goes. It saves the orchestrator from re-deriving choices and stops the critic from flagging them as gaps.
+The export uses the existing template renderer; do not introduce a second templating path. Accessibility of the exported page is a follow-up, not part of this spec.
+Verification
+Read by orchestrator · verifier
+How the behaviours will be proven, and the single end-to-end step that demonstrates the whole feature works. Name the commands. If the tests are pre-written, name the files and state that they are not to be modified. This section is what the run's stop condition is built from.
+Unit and contract tests in tests/export/ cover B1–B7 and E1–E3; they are written before implementation and are read-only during the run. npm test -- export must exit 0. End-to-end: scripts/export-smoke.sh exports the reference fixture, opens it headless, and asserts no network requests and no console errors.
+Definition of done
+Read by orchestrator · verifier · critic
+The short list that ends the run: which checks pass, what evidence is presented, what the reviewer has confirmed. Everything above feeds it; nothing new should appear here.
+All named tests pass. Smoke script exits 0. Reviewer reports no correctness gaps against B1–B7, E1–E3. Diff touches only src/export/ and tests/export/. Evidence page shows test output and reviewer findings.
+An "open questions" section is useful while the spec is being written and should be empty before the run starts. A question left open is a decision delegated to whichever agent hits it first.
+Writing one
+The hard part is not the format. It is extracting what an experienced developer already knows but has never had to say.
+Developers who have worked turn-by-turn for a long time carry the spec as instinct: they know a wrong output when they see it. The difficulty of writing a spec is that instinct does not volunteer itself. It surfaces only when prompted by a concrete case. The methods below all work by forcing that prompt.
+Be interviewed
+The most reliable method, and the one Claude Code documents directly. Start a session with a brief description and ask Claude to interview you using its question tool, with an instruction to skip the obvious and dig into edge cases, tradeoffs and the hard parts you might not have considered, then to write a complete spec to a file. The questions do the extraction; the developer only has to answer. When the spec is written, start a fresh session to execute it so the implementation context never sees the interview.
+Draft, then attack
+Write a rough draft, then have a fresh context read it with the reviewer's mandate: find every behaviour that could be implemented two different ways, every boundary that is not stated, every term that is used without definition. Rewrite against the findings. This is the adversarial review pattern applied to the spec itself, and it is cheap relative to a run.
+Write the tests first, and let the spec follow
+Some developers find it easier to write concrete test cases than abstract behaviours. Writing the tests exposes exactly what has not been decided, and the behaviours section can then be written by describing what the tests check. This has the further benefit that the verification section is done at the same time.
+Mine the history
+Past turn-by-turn sessions are a record of the developer's judgement: every correction is a behaviour or constraint that was never written down. Reading a few recent sessions for the corrections, and stating each as a line in the spec or in CLAUDE.md, converts tacit practice into shared context.
+A working sequence
+	1	State the intent and the out-of-scope list first. These two constrain everything else and are the easiest to get wrong late.
+	2	Fix the interfaces. Decide the seams before the behaviours, because behaviours are expressed in terms of them.
+	3	Enumerate behaviours as numbered, testable statements. Then ask, for each one, what happens at the edge and on failure.
+	4	Record prior decisions and non-goals. Everything the agents should not reconsider.
+	5	Write the verification section and the end-to-end proof. Name commands and files. If tests are pre-written, do that now and lock them.
+	6	Attack it from a fresh context. Resolve every open question. Freeze it, commit it, and reference it from the kickoff.
+A spec is ready when a stranger with the repository could write the tests, and a second stranger with only the diff and the spec could say whether the work is done. Both strangers, in an orchestrated run, are agents.
+ANNOTATED TEMPLATE
+A template to start from
+Markdown, kept in the repository beside the code it describes. Comments in italics explain each section and should be deleted from a real spec. Section weights vary by task; the presence of each section should not.
+# Spec: <feature or change name>
+Status: draft | frozen        Owner: <name>        Kickoff: <path to kickoff prompt>
+
+## Intent
+One or two sentences. Outcome and why. The critic's reference for "right work".
+
+## Scope
+In:  what this change delivers
+Out: what it explicitly does not touch — files, features, models, UI
+
+## Constraints
+Dependencies, performance ceilings, compatibility, security, style deviations.
+Each one should be checkable, or say why it is not.
+
+## Interfaces and contracts
+Signatures, schemas, formats, CLI shapes, events. Reuse existing types by name.
+These are fixed before parallel work starts.
+
+## Behaviours
+B1. Given … when … then … (or input → output)
+B2. …
+
+## Edge cases and failure modes
+E1. Empty / missing / oversized / unauthorised / concurrent …
+E2. …
+
+## Prior decisions and non-goals
+Decisions not to reopen. Improvements deliberately deferred.
+
+## Verification
+Test files and what they cover (map to B/E numbers). Commands and expected exit.
+Whether tests are pre-written and read-only. The end-to-end proof.
+
+## Definition of done
+Checks that pass. Evidence presented. Reviewer confirmation. Diff boundary.
+
+## Open questions
+Must be empty before status becomes frozen.
+Is it ready?
+A short pass before freezing. Each item is a way a run has actually gone wrong.
+	•	Every behaviour could be tested by someone who did not write the spec. If a line needs interpretation, it will be interpreted differently by the implementer and the verifier.
+	•	The out-of-scope list names the most tempting expansions. Agents expand toward whatever looks helpful; the list is the fence.
+	•	Interfaces reuse existing names. New types introduced casually in a spec become parallel implementations in the code.
+	•	Every edge case has a stated outcome, not a stated concern. "Handle gracefully" is a concern. "Returns a placeholder and a warning" is an outcome.
+	•	The verification section names commands and files. A run's stop condition cannot be built from a paragraph.
+	•	The end-to-end proof exercises the feature the way a user would. Unit tests passing while the feature is unusable is the classic false green.
+	•	Nothing in the spec describes how to conduct the run. Tools, agents, gates and displays belong in the kickoff.
+	•	Open questions is empty.
+	•	A fresh context has attacked it and the findings were resolved.
+Drift and maintenance
+A spec that is not maintained is a spec that lies, and an agent cannot tell the difference.
+Implementation teaches things the spec did not know. The rule is simple: the spec changes before the code does. When a run discovers that a behaviour is impossible, unnecessary or under-specified, the run should stop at that finding rather than improvise, the developer updates the spec, and the run restarts against the new definition. This is the abandon-and-improve economics applied to the spec axis.
+Version the spec alongside the code and reference the commit it was frozen at from the run log. Over time, the collection of specs is a record of the project's decisions in a form that both people and agents can read, which is a better architectural memory than most codebases have.
+Specs also compound into the project constitution. Constraints and prior decisions that appear in spec after spec belong in CLAUDE.md or a rules file, where every session reads them once, and can then be deleted from individual specs. The reverse also holds: if CLAUDE.md is growing, some of it is probably spec-level detail that should live with the feature that needs it.
+Sources
+Official guidance first; practitioner material for the surrounding methodology.
+	1	Anthropic, Best practices for Claude Code, "Let Claude interview you". The interview-to-SPEC.md pattern, executing in a fresh session, and the description of the most useful specs as self-contained with files, interfaces, out-of-scope statements and an end-to-end verification step.
+	2	Anthropic, Building verification loops in Claude Code with skills. Encoding checks so that every session applies them; spec validation as a verification loop.
+	3	Addy Osmani, How to write a good spec for AI agents (also published by O'Reilly Radar). The spec as version-controlled source of truth; the spec → plan → tasks → implement sequence; reviewing and refining an agent-drafted spec before any code.
+	4	Augment Code, What is spec-driven development. The six-element framing (outcomes, scope boundaries, constraints, prior decisions, task breakdown, verification criteria) and the coordinator / implementer / verifier pattern; the observation that narrower, task-relevant context outperforms broad repository exposure.
+	5	Microsoft for Developers, Spec-driven development: a spec-first approach. Requirements, constraints, acceptance criteria and edge cases defined up front as a durable source of truth rather than living in prompts.
+	6	DeepLearning.AI with JetBrains, Spec-driven development with coding agents. Project constitution plus feature specs; the plan–implement–verify loop packaged as a skill.
+	7	Practitioner note on spec drift and on specs as context engineering: Spec-driven development and agentic coding.
+Compiled August 2026. Parent document: Orchestrating agent teams in Claude Code. Related: verification · the run log.

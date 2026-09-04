@@ -1,0 +1,197 @@
+FIELD REVIEW · CLAUDE CODE · ORCHESTRATION
+The shift
+Four pillars
+The spec
+Considerations
+Sequence
+Sources
+Spec →
+Verification →
+Run log →
+WORKING WITH AN ORCHESTRATOR AND A TEAM OF SUBAGENTS
+Quality has to come from somewhere other than you.
+A review of what makes orchestrated agent runs succeed when the human is no longer present for every turn, written for a developer moving from human-in-the-loop practice to orchestration in Claude Code.
+ASSUMES
+Claude Code, git, a terminal, subagents and dynamic workflows
+COMPANIONS
+The spec · Verification · The run log
+The shift
+Human-in-the-loop work routes every quality decision through a person. Orchestration removes the person from most turns, so the same decisions have to be routed somewhere else, deliberately, before the run starts.
+In turn-by-turn work the developer is the test suite, the reviewer, the scope enforcer and the memory. None of that has to be written down because it lives in the same head that reads every output. The practice is iterative and forgiving: a wrong turn costs one turn.
+An orchestrated run inverts the economics. The run is expensive, the human is absent for most of it, and a wrong turn early compounds across every agent downstream. The developer's judgement is still the scarcest and most valuable ingredient, but it has to be applied before the run in the form of setup, and after the run in the form of evidence review, rather than during it.
+The useful way to think about this is to ask, for each quality decision, whether it is routed through the human or through the system. Two of the four pillars below stay with the human, and they are direct extensions of human-in-the-loop skill. Two move to the system, and they are the ones that typically have no equivalent in prior practice because the human used to do them implicitly.
+ROUTED THROUGH THE HUMAN
+Before and after the run
+	•	Context engineering Produce the starting state: scope, boundaries, references, spec. The human's domain judgement, written down.
+	•	Observability See what agents believe and intend early enough to stop compounding misdirection. The human protects the budget.
+ROUTED THROUGH THE SYSTEM
+During the run
+	•	Verification An executable definition of done. The run's stop condition is a machine outcome, not a claim.
+	•	Independent review A fresh context judges the result against the spec with a mandate to find fault, not to agree.
+Anthropic's own analysis of roughly 400,000 Claude Code sessions found that in a typical session people make most of the planning decisions and Claude makes most of the execution decisions, and that success correlated with how precisely the person framed directions and what they asked Claude to verify. Orchestration is that division of labour pushed to its limit.
+PART ONE
+Four pillars
+Each pillar is presented with its foundation in human-in-the-loop practice, the extension that orchestration demands, and the Claude Code mechanisms that carry it.
+PILLAR 1 · HUMAN
+Context engineering
+A good starting state is the cheapest quality you will ever buy.
+The orchestrator's first context window sets the ceiling on the whole run. Everything the human knows about the problem that is not in that window will be reconstructed by guesswork, and guesses compound across agents. Context engineering is the discipline of putting the right things in that window, and only the right things.
+The human-in-the-loop skill this extends is scoping: knowing what the task is, what it is not, and what "done" produces. A developer who has shaped many turns already has this instinct. The extension is that it now has to be externalised, because the developer will not be present to supply it when a question arises.
+FOUNDATION
+A rich kickoff prompt covering task, goals, scope, features, references, outputs and architecture, assembled from a maintained library rather than pasted wholesale. Iteratively improved between runs.
+EXTENSION
+A written spec that the orchestrator, the verifier and the reviewer all read. A project constitution in CLAUDE.md that is short and stable. Domain knowledge moved into skills so it loads only when relevant. Subagent definitions with narrow tools and a single job each.
+Claude Code mechanisms
+CLAUDE.md is read at the start of every session and is the right home for build and test commands, conventions that differ from defaults, repository etiquette and project-specific gotchas. The official guidance is to keep it short, asking of each line whether removing it would cause mistakes, and to convert anything Claude already does correctly into a hook or delete it. Skills in .claude/skills/ carry domain knowledge and repeatable workflows that load on demand. Subagents in .claude/agents/ get their own context, tools and model.
+For larger pieces of work the documented pattern is to have Claude interview you using its question tool, write a complete spec to a file, and then start a fresh session to execute it so the implementation context contains only the spec and nothing of the negotiation that produced it. That separation is the whole point: the spec is the product of the interview, and the run should never see the interview.
+The kickoff prompt and the spec are different artefacts. The kickoff tells the orchestrator how to run; the spec tells everyone what the result must be. See the spec below and the companion guide.
+PILLAR 2 · HUMAN
+Observability
+Misdirection is cheap to stop at minute two and ruinous at minute forty.
+An orchestrator that has misunderstood the goal will faithfully coordinate a team toward the wrong thing. Observability is whatever lets the human see intentions and findings early enough to intervene, and it is the pillar that protects the budget. The human-in-the-loop skill it extends is reading the model: noticing from an output that the model has drifted, before the drift becomes work.
+FOUNDATION
+Agents write local HTML pages showing what they intend to do and what they have found, in a form that is quick to read and easy to react to. This converts a stream of transcript into a document a human can judge.
+EXTENSION
+The pages shift from showing intentions to showing evidence: which checks ran, what they returned, what the reviewer flagged. The human's role moves from approving plans to reading proof. Run-level telemetry (token spend, agents spawned, phase progress) sits alongside so cost drift is visible too.
+Claude Code mechanisms
+Dynamic workflows report progress through /workflows, and the script itself is readable and re-runnable, which makes the orchestration plan inspectable before and after the fact rather than reconstructed from chat. Non-interactive runs (claude -p) can emit streaming JSON that a small local page or script can render. Hooks fire on subagent start and stop, task creation and completion, and turn end, and can write to a log the display reads. A custom status line keeps context usage visible during interactive work.
+The official best-practices guidance is blunt about the underlying principle: have Claude show evidence rather than assert success, because reviewing evidence is faster than re-running the verification yourself and it works for sessions you were not watching. Observability is how that evidence reaches you.
+A display that shows intentions is a checkpoint tool. A display that shows check results is a verification tool. Both are worth having, but the second is what allows the human to leave the room.
+PILLAR 3 · SYSTEM
+Verification
+An agent stops when the work looks done. Give it something better than looks.
+This is the largest single lever available to someone moving into orchestration, and the one with no natural equivalent in human-in-the-loop work because the human was the verification. Without an executable check, "looks done" is the only signal the agent has and every mistake waits for a person to notice it. With one, the loop closes on its own: do the work, run the check, read the result, iterate until it passes.
+The critical property is that the definition of done is executable and produces a pass or fail the agent can read. Narrative ("I have implemented and tested the feature") is not evidence. Test output, an exit code, a diff against a fixture, a screenshot compared to a design: these are.
+Shapes verification takes
+SHAPE
+WHAT IT PROVES
+BEST WHEN
+Unit tests
+A function does what its examples say
+Logic is local and inputs are enumerable
+Integration and contract tests
+Components agree on interfaces
+Multiple agents build parts that must fit together
+End-to-end acceptance script
+The feature works as a user would exercise it
+Always; this is the spec's final proof
+Type check and build exit code
+The code is at least coherent
+Cheap gate that catches structural drift early
+Linter and formatter
+Conventions hold
+Run automatically via hook, never asked for
+Golden output / fixture diff
+Output matches a known-good artefact byte for byte
+Generated files, reports, rendered pages, data transforms
+Screenshot comparison
+UI matches a design or a prior state
+Visual work where text checks miss the point
+Schema validation
+An agent's structured output conforms
+Handoffs between agents; workflow stage outputs
+Property-based and fuzz tests
+Invariants hold across generated inputs
+Parsers, transforms, anything with a wide input space
+Static analysis and security scan
+Known classes of defect are absent
+Anything that touches auth, input, or the network
+Performance budget
+A change did not regress a measured cost
+Hot paths, bundle size, query counts
+Assertions and invariants in code
+Runtime state stays inside stated bounds
+Long-lived processes; state machines
+Pre-written targets
+Verification is far more powerful when it exists before the implementation. A test written afterwards tends to describe what was built; a test written beforehand describes what was wanted, and the gap between those is exactly the set of defects that self-grading misses. The documented pattern is to have one session write the tests from the spec and another write the code to pass them. Locking the test files against edits by the implementing agent (a hook that blocks writes to the test directory, or a separate worktree) preserves the target.
+Pre-written tests also change the nature of the kickoff prompt: the definition of done stops being a paragraph and becomes a command the orchestrator runs.
+How hard the check gates the stop
+The official guidance describes a ladder of increasing rigour. Each step trades setup for attention.
+	1	In the prompt Ask the agent to run the check and iterate in the same message. Works on any task today, relies on the agent remembering.
+	2	As a session goal Set the check as a /goal condition. A separate evaluator re-checks after every turn and the session keeps working until the goal resolves or the run is stopped for stalling.
+	3	As a deterministic gate A Stop hook runs the check as a script and blocks the turn from ending until it passes. Claude Code overrides the hook after eight consecutive blocks, which is itself a useful stall detector.
+	4	By a second opinion A verification subagent, or a dynamic workflow stage that checks its own findings, has a fresh model try to refute the result so the agent doing the work is not the one grading it. This is where verification meets independent review.
+The stop condition of a run should be a machine outcome. Everything on this page that is not verification exists to make that outcome mean something.
+The companion guide on verification covers the properties of a good check, a fuller catalogue, deriving and locking targets from the spec, the gating ladder in practice, where checks run, the evidence display, and the anti-patterns that produce a green run with a wrong result.
+PILLAR 4 · SYSTEM
+Independent review
+The implementer's reasoning should be challenged by a critic, not confirmed by a teammate.
+Tests cover what was anticipated. Review covers judgement: whether the work matches the spec's intent, whether something outside scope changed, whether an edge case was silently narrowed to make a test pass. The failure mode review guards against is self-confirmation, where the same context that produced a decision is asked to evaluate it and, unsurprisingly, approves.
+Two properties make review independent. First, context isolation: the reviewer sees the spec and the diff, not the implementer's reasoning or the conversation that led there. A fresh context has no investment in the conclusion. Second, an adversarial mandate: the reviewer is told to find what is wrong and to assume something is. A neutral "review this" tends to produce approval; an explicit instruction to report gaps changes behaviour materially.
+ALIGN INPUT WITH OUTPUT
+Give the reviewer the same spec the implementer worked from, and the concrete result (diff, artefact, test output). The review question is then answerable: does this output satisfy this input?
+BOUND THE FINDINGS
+Ask for gaps that affect correctness or stated requirements, not style. A reviewer told to find gaps will find some even when the work is sound; chasing every finding produces over-engineering, defensive code and tests for cases that cannot happen.
+Claude Code mechanisms
+Subagents are the natural reviewer because they run in a separate context and return findings to the implementing session, which can fix and re-review without a human copying text between windows. The bundled /code-review skill reviews the current diff for bugs in a fresh subagent. For a spec-alignment review the prompt is written by hand and names three things: the work to check, the document to check it against, and what counts as a finding. Parallel sessions in separate worktrees give the writer/reviewer pattern at a larger scale, and the same split applies to tests: one session writes tests, another writes code to pass them.
+One strong review pass captures most of the value. Layering several reviewers yields diminishing returns and spends budget that would be better put into verification.
+Review findings are evidence too. They belong in the same display the human reads at the final checkpoint, alongside the test results, so the human judges the run on what the system found rather than on what the orchestrator says about itself.
+The spec
+Not a fifth pillar, but the document all four stand on. In human-in-the-loop work the spec lives in the developer's head. In orchestration it has three readers who are not the developer.
+The orchestrator reads the spec to decompose and plan. The verifier reads it to know what to test. The reviewer reads it to know what counts as a gap. If any of those three is working from a different understanding, the run's own quality machinery is checking the wrong thing, and it will do so with complete confidence.
+A usable spec is self-contained: it names the files and interfaces involved, states what is out of scope, gives behaviours in a form that can be turned into tests, and ends with an end-to-end verification step that proves the feature works. It is distinct from the plan, which says how, and from the tasks, which say who does what in which order. Official guidance is direct that time spent making the spec precise pays off more than time spent watching the implementation.
+The most reliable way to produce one is to be interviewed. The developer's tacit knowledge is extracted by questions about edge cases, tradeoffs and failure modes that the developer would not think to volunteer, and the resulting document is written to a file and executed in a fresh session.
+The companion guide covers the anatomy of a good spec, how to write one from scratch or extract one from human-in-the-loop habits, a checklist for judging whether a spec is ready, and an annotated template.
+PART TWO
+Other considerations
+Practices that make the four pillars work in a real repository. The first four follow directly from the pillars; the ones marked as additions are easy to miss because nothing in human-in-the-loop practice requires them.
+ECONOMICS
+Abandon failed runs
+If a run is expensive, the valuable artefact is not the patched output but the improved setup. Patching mid-run returns to turn-by-turn work and guarantees the next run drifts the same way.
+Every failure lies on one of three axes: context (the orchestrator did not know something), verification (the check did not catch something), or tooling (an agent could not do or see something). Diagnose the axis, fix that one thing, start clean. This is the orchestration equivalent of the documented advice that after two failed corrections a clean session with a better prompt almost always outperforms a long session with accumulated corrections.
+TOOLING
+Deterministic tools
+Agents do well with tools that give terse, unambiguous output and badly with tools that need interpretation. A test runner that prints one line per failure and exits non-zero keeps an agent focused and accountable; one that prints three screens of noise invites a plausible summary instead of a fix.
+Hooks make tool use non-optional. Unlike instructions in CLAUDE.md, which are advisory, a hook that runs the linter after every edit or blocks writes to a protected directory is deterministic and cannot be forgotten. CLI tools (gh, cloud CLIs) are the most context-efficient way to reach external services.
+STRUCTURE
+Decomposition
+Fix interfaces and contracts before workers start, so parallel agents proceed without needing each other's context. Each unit should be small enough to have its own pass/fail. Task runners are accountable vertically to the orchestrator, not collaborative horizontally with each other; handoffs go through files and schemas, not shared memory.
+The orchestrator's context is sacred. Workers return summaries and results, never transcripts. Dynamic workflows formalise this: the script holds the loop and the intermediate results, and only the final answer reaches the session's context.
+GATES
+Checkpoints
+Human attention moves from every turn to a few gates. Plan: the orchestrator's decomposition and approach, before any worker spends tokens. Interfaces: the contracts workers will build against, before parallel work begins. Final review: test results and reviewer findings, as evidence, before the result is accepted.
+Plan mode and the interview pattern serve the first gate. The observability pages serve all three. A gate that shows narrative rather than evidence is a checkpoint in name only.
+ADDITION
+Isolation and recoverability
+Parallel agents editing the same checkout collide. Git worktrees give each agent its own directory and branch; subagents can opt in with isolation: worktree in their definition and the runtime manages creation and cleanup. Per-worktree state means two agents cannot see each other's edits.
+Small atomic commits per unit make abandoning cheap: a failed unit is a discarded branch, not a manual unpick. Stale worktrees are the usual reason teams drop the pattern, so prune on a schedule.
+ADDITION
+Budgets and stop conditions
+An unattended run needs an explicit ceiling: maximum iterations on a failing check, maximum agents, maximum spend, and a definition of "stalled". The eight-block override on Stop hooks and the stall detection in /goal are built-in examples; a workflow script can carry its own.
+Model tiering is a budget tool as much as a cost one: route routine stages to a smaller model and reserve the strongest for orchestration, review and the hard parts. Workflow scripts can route per stage.
+ADDITION
+The run log
+Abandoning runs only compounds if something records what was learned. A short log per run naming the failure axis and the change made to the setup becomes the highest-leverage document in the project, because it is what the kickoff prompt, the spec template and the hook set are iterated against.
+Read it before writing the next kickoff. If the same axis keeps appearing, that is the pillar to invest in next. See the companion guide on the run log.
+ADDITION
+Permissions and blast radius
+Unattended runs need boundaries they cannot talk their way past. Allowlists for known-safe commands, sandboxing for filesystem and network, --allowedTools on non-interactive runs, and disable-model-invocation on skills with side effects. Auto mode adds a classifier that blocks scope escalation, but it is a backstop, not a substitute for scoping tools per agent.
+PART THREE
+A sequence for adoption
+The pillars are not equally urgent. This order front-loads the change with the largest effect on run quality and defers the ones that refine an already-working loop.
+FIRST
+Executable done
+Pick one real task. Write the spec's acceptance criteria as tests before any implementation. Make the run's stop condition "these pass". Lock the tests.
+SECOND
+Evidence display
+Change the observability pages from intentions to check results and reviewer findings. Read those at the final gate instead of the orchestrator's summary.
+THIRD
+Fresh-context critic
+Add one reviewer subagent with the spec, the diff, and a mandate to report correctness gaps only. Feed findings back to the implementer once.
+FOURTH
+Harness
+Convert repeated checks into hooks. Give code-writing subagents worktree isolation. Set budgets and a stall rule.
+THEN
+Loop on the log
+Abandon rather than patch. Record the axis. Iterate the spec template, kickoff library and hook set against the log.
+Sources
+Official documentation first, then practitioner material used for corroboration. Feature details change; the documentation links are authoritative.
+	1	Anthropic, Best practices for Claude Code. Verification ladder (prompt, /goal, Stop hook, verification subagent), show evidence not assertions, interview-to-spec pattern, CLAUDE.md pruning, adversarial review step and its over-engineering caveat, writer/reviewer and test-writer/implementer splits, fan-out with claude -p, common failure patterns.
+	2	Anthropic, Orchestrate subagents at scale with dynamic workflows. Script-held orchestration, background runtime, per-stage model routing, /workflows progress view.
+	3	Anthropic, Run parallel sessions with worktrees. Subagent worktree isolation, enforcement while isolated, cleanup behaviour.
+	4	Anthropic, Building verification loops in Claude Code with skills. Packaging manual checks as skills so every session applies them; listing exact build and test commands in CLAUDE.md.
+	5	Anthropic, How Claude Code is used in practice. Analysis of ~400,000 sessions; planning versus execution split; expertise measured by framing precision and what the person asks Claude to verify.
+	6	Anthropic Help Center, Claude Code power user tips. Subagent frontmatter for worktree isolation and batched parallel changes.
+	7	Practitioner corroboration on hooks as deterministic enforcement and on the layering of hooks, skills and subagents: Claude Code hooks complete guide; Claude Code worktrees guide.
+	8	Practitioner corroboration on the Research → Plan → Execute → Review → Ship convergence and phase-gated plans with tests per phase: claude-code-best-practice.
+Compiled August 2026. Companions: the spec · verification · the run log.

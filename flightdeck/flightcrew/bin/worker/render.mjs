@@ -164,7 +164,7 @@ It depends on: {{depends_on}}
 Locked paths are refused by a hook and reported by fc locked. Never stage anything under flightdeck/launch/.
 
 ## How to work
-1. \`git switch -c {{branch}}\` before your first commit; work in the worktree at {{worktree}}.
+1. \`git switch -c {{branch}}\` before your first commit; work in the worktree you were started in and report its absolute path as \`worktree\` in your return.
 2. Make the smallest change that turns the checks green, re-running them after each step.
 3. Stage only this unit's paths and commit with a message naming the unit.
 4. Return the shape below. status green means every check above passed on this branch; red means it did not; halt means you stopped, and halt.kind says why.
@@ -189,7 +189,6 @@ export function workerPrompt({ unit, spec, map, launch, template = null }) {
     unit_kind: unit?.kind ?? DASH,
     launch: launchName,
     branch,
-    worktree: `.claude/worktrees/${launchName}-${name}`,
     budget_turns: unit?.budget_turns ?? DASH,
     spec_refs: bulletsFor(spec, Array.isArray(unit?.spec_refs) ? unit.spec_refs : []),
     checks: checkLines(map, unit?.checks ?? []),

@@ -101,6 +101,12 @@ export async function run(args, ctx) {
     fail(error.message);
     return EXIT.usage;
   }
+  // Spec C2 lets --apply write only into the directory given on the command line, so it never defaults a target.
+  // The dry run has nothing to write and keeps <root>/.claude as the directory it lists against.
+  if (flags.apply && !flags.target) {
+    fail('fc distribute --apply needs --target <dir>: it writes only into a directory given on the command line');
+    return EXIT.usage;
+  }
   const fd = ctx.fd;
   const target = flags.target
     ? path.resolve(ctx.cwd ?? process.cwd(), flags.target)

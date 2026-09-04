@@ -1,6 +1,6 @@
-<!-- version: 1 -->
+<!-- version: 2 -->
 ## Task: migration
-The work is a sweep: the same mechanical change across many call sites, with behaviour held constant. Cut the units by area of the tree, not by behaviour, and size each one so its diff stays readable.
-Wave 0 lands the new shape and the compatibility surface, and its contract check proves the old and the new forms agree. Every later unit converts one area and re-runs the same behavioural checks; the acceptance check proves the old form is gone.
-Hold the line that a migration changes no behaviour: a unit that finds a defect on the way reports it as a finding and converts the call site as it stands. Fixing it inside the sweep hides it from the diff and from the critic.
+The work is a sweep: the same mechanical change across many call sites, with behaviour held constant. Cut the units by area of the tree, and size each one so it converts at most one area and its diff stays inside the unit's turn budget.
+Wave 0 is the single `kind: contracts` unit: it lands the new form and the compatibility surface, and its contract check proves the old and the new forms agree. Every later unit is `kind: feature`, converts one area, and re-runs the behavioural check ids that covered that area before the conversion. The last wave holds one `kind: proof` unit that deletes the compatibility surface and carries the acceptance check, which proves the old form is gone; that check is expected to flip there and nowhere earlier.
+Hold the line that a migration changes no behaviour: a unit that finds a defect on the way converts the call site as it stands and names the defect in its return notes, and the orchestrator records it with `fc launch note`. Fixing it inside the sweep makes it indistinguishable from the mechanical change, so neither the diff nor the critic can isolate it.
 Risks worth naming: a call site the sweep cannot reach, a check that passes because both forms are present, and a rename that collides with an unconverted area.

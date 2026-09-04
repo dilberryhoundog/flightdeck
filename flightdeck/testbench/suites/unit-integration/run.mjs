@@ -17,6 +17,8 @@ const RUN_OUTPUT = {
   launch: (rel) => {
     const match = /^launch\/(?!specs\/)([^/]+)\/(.+)$/.exec(rel);
     if (!match) return false;
+    // Only this system's own first run ships its inputs; every other launch folder is run output.
+    if (match[1] !== 'flightcrew-buildout') return true;
     const inside = match[2];
     return !(inside === 'launch.json' || inside === 'kickoff.md' || inside === 'plan.json' || inside === 'plan.md' || inside.startsWith('specs/'));
   },

@@ -25,6 +25,9 @@ export const help = [
   'fc check all --baseline <map>      record observed baselines into a draft map, writing no evidence',
 ].join('\n');
 
+/** --baseline records a draft map's observed baselines before any launch pins it, so it resolves no launch. */
+export const needsLaunch = (args) => !args.includes('--baseline');
+
 // ── reading the pinned map ───────────────────────────────────────────────────
 
 /** A usage or environment failure a caller turns into an exit 1 line. */

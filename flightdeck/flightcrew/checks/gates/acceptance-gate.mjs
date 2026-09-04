@@ -99,6 +99,11 @@ export async function run(context = {}) {
     return { ran: false, reason: `the pinned tests map has no acceptance check ${id}`, checks: [], extra: [] };
   }
   const outcome = runFcCheck(context, [id]);
+  // Exit 1 means no check ran — a pin mismatch, an unknown id, an unreadable map — and the evidence file on disk is
+  // from an earlier run. Reporting it would release the turn on a stale pass, so the gate reports that it could not run.
+  if (outcome.code === EXIT.usage) {
+    return { ran: false, reason: outcome.stderr.trim().split('\n')[0] || 'fc check exited 1', checks: [], extra: [] };
+  }
   const item = itemFor(id, evidenceFor(context.launchDir, id), outcome);
   item.blocking = item.blocking || item.verdict === 'fail' || item.verdict === 'error';
   return { ran: true, checks: [item], extra: [] };

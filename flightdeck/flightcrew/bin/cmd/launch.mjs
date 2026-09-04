@@ -267,11 +267,6 @@ async function newLaunch(args, ctx) {
   if (isDir(dir)) throw new UsageError(`launch exists: ${repoPath(ctx, dir)}`);
 
   const specCopy = path.join(dir, 'specs', specName, path.basename(specFile));
-  fs.mkdirSync(path.dirname(specCopy), { recursive: true });
-  fs.copyFileSync(specFile, specCopy);
-  for (const child of ['evidence', 'returns', 'review']) fs.mkdirSync(path.join(dir, child), { recursive: true });
-  fs.writeFileSync(path.join(dir, 'events.jsonl'), '');
-
   const defaults = defaultsFor(ctx);
   const launchJson = {
     schema_version: 1,
@@ -301,7 +296,16 @@ async function newLaunch(args, ctx) {
     outcome: null,
     ended: null,
   };
-  launchJson.kickoff.version = writeKickoff(ctx, dir, launchJson, flags.kickoff ?? DEFAULT_PARTS);
+  // The kickoff is rendered before the folder exists, so a missing or unversioned part refuses with nothing written
+  // rather than leaving a half-built launch folder that the corrected retry then refuses as `launch exists`.
+  const kickoff = renderKickoff(ctx, dir, launchJson, flags.kickoff ?? DEFAULT_PARTS);
+  launchJson.kickoff.version = kickoff.version;
+
+  fs.mkdirSync(path.dirname(specCopy), { recursive: true });
+  fs.copyFileSync(specFile, specCopy);
+  for (const child of ['evidence', 'returns', 'review']) fs.mkdirSync(path.join(dir, child), { recursive: true });
+  fs.writeFileSync(path.join(dir, 'events.jsonl'), '');
+  fs.writeFileSync(path.join(dir, launchJson.kickoff.path), kickoff.text);
   writeLaunch(dir, launchJson);
   ok(`export FLIGHTCREW_LAUNCH=${name}`);
   return EXIT.ok;
@@ -480,6 +484,17 @@ function baselineDisagreements(map) {
   return problems;
 }
 
+/**
+ * Runs one validator with its output captured, so a successful phase move prints one line of its own (spec C3)
+ * and a refusal still shows what the validator said. Returns the exit code and the validator's non-empty lines.
+ */
+function capturedValidator(ctx, name, args) {
+  const result = runValidator(ctx, name, args, { capture: true });
+  if (typeof result === 'number') return { code: result, lines: [] };
+  const lines = `${result.stdout ?? ''}\n${result.stderr ?? ''}`.split('\n').map((line) => line.trim()).filter((line) => line !== '');
+  return { code: result.code, lines };
+}
+
 /** Everything that stands between a launch and phase plan, as one line each. */
 function planBlockers(ctx) {
   const { dir, json: launchJson } = ctx.launch;
@@ -496,9 +511,11 @@ function planBlockers(ctx) {
     }
   }
   const launchFile = path.join(dir, 'launch.json');
-  if (runValidator(ctx, 'validate-launch', [launchFile]) !== EXIT.ok) problems.push('launch.json does not validate');
+  const launchCheck = capturedValidator(ctx, 'validate-launch', [launchFile]);
+  if (launchCheck.code !== EXIT.ok) problems.push('launch.json does not validate', ...launchCheck.lines);
   const kickoffFile = path.join(dir, launchJson.kickoff?.path ?? 'kickoff.md');
-  if (runValidator(ctx, 'validate-kickoff', [kickoffFile]) !== EXIT.ok) problems.push('kickoff.md does not validate');
+  const kickoffCheck = capturedValidator(ctx, 'validate-kickoff', [kickoffFile]);
+  if (kickoffCheck.code !== EXIT.ok) problems.push('kickoff.md does not validate', ...kickoffCheck.lines);
   return problems;
 }
 
@@ -607,15 +624,22 @@ async function gate(args, ctx) {
     const problems = gate2Blockers(ctx);
     if (problems.length > 0) throw new BlockedError(['gate G2 refused:', ...problems.map((line) => `  ${line}`)]);
   }
+  const from = launchJson.phase;
+  const source = id === 'G1' ? 'plan' : id === 'G2' ? 'contracts' : null;
+  const moveTo = decision === 'approve' ? (id === 'G1' ? 'contracts' : id === 'G2' ? 'implement' : null) : null;
+  // G1 approve moves plan → contracts and G2 approve moves contracts → implement (spec B35). Approving from any
+  // other phase would skip that phase's preconditions, so it is refused; --force records the gate and moves nothing.
+  if (decision === 'approve' && source && from !== source && !flags.force) {
+    throw new UsageError(`gate ${id} approve moves ${source} → ${moveTo}; the launch is in phase ${from}`);
+  }
+  const moved = Boolean(moveTo) && from === source;
   const at = new Date().toISOString();
   launchJson.gates[id] = { status: decision === 'approve' ? 'approved' : 'exited', at };
   if (flags.note) launchJson.gates[id].note = flags.note;
-  const from = launchJson.phase;
-  const moveTo = decision === 'approve' ? (id === 'G1' ? 'contracts' : id === 'G2' ? 'implement' : null) : null;
-  if (moveTo && moveTo !== from) launchJson.phase = moveTo;
+  if (moved) launchJson.phase = moveTo;
   writeLaunch(dir, launchJson);
   appendEvent(dir, { event: 'gate', detail: { gate: id, decision, note: flags.note ?? null } });
-  if (moveTo && moveTo !== from) {
+  if (moved) {
     appendEvent(dir, { event: 'phase', phase: moveTo, detail: { from, to: moveTo, forced: false } });
   }
   clearEscalation(dir);
@@ -624,7 +648,7 @@ async function gate(args, ctx) {
     print(`gate ${id} exited; now run: fc launch end abandoned --at ${id}`);
     return EXIT.ok;
   }
-  ok(`gate ${id} approved${moveTo && moveTo !== from ? `; phase ${from} → ${moveTo}` : ''}`);
+  ok(`gate ${id} approved${moved ? `; phase ${from} → ${moveTo}` : ''}`);
   return EXIT.ok;
 }
 

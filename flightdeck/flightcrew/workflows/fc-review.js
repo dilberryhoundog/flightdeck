@@ -387,7 +387,7 @@ function fixPrompt(unit, findings) {
   const lines = findings.map((finding) => `${finding.id} [${finding.kind}, ${finding.severity}] ${finding.file ?? 'unknown file'}:${finding.line ?? '?'} — ${finding.text}${finding.spec_ref ? ` (spec ${finding.spec_ref})` : ''}`);
   return [
     `unit: ${unit.id}`,
-    `A fresh critic found gaps in the work of unit ${unit.id} (${unit.name}) of launch ${args.launch}. Read ${unit.prompt_path} for this unit's brief and ${args.spec_path} for the pinned spec.`,
+    `A fresh critic found gaps in the work of unit ${unit.id} (${unit.name}) of launch ${args.launch}. Read ${unit.prompt_path} (committed on the run branch) for this unit's brief and ${args.spec_path} for the pinned spec.`,
     'Close these findings and nothing else:',
     lines.join('\n'),
     `Re-run the unit's checks (${(unit.checks ?? []).join(' ') || 'none listed'}) before returning. Return the worker return shape. A finding you believe is wrong is a halt with the kind test-contradicts-spec and your reasoning, not a silent skip.`,

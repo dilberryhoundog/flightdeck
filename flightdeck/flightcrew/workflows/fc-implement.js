@@ -190,7 +190,7 @@ function chunks(list, size) {
 function dispatch(unit, launch) {
   return [
     `unit: ${unit.id}`,
-    `You are building one unit of launch ${launch}. Read ${unit.prompt_path} and follow it exactly; it is your whole brief.`,
+    `You are building one unit of launch ${launch}. Read ${unit.prompt_path} (committed on the run branch) and follow it exactly; it is your whole brief.`,
     `Work on branch ${launch}/${unit.name} in your own worktree, run the checks it names (${(unit.checks ?? []).join(' ') || 'none listed'}) with the launch-local fc, and change nothing outside the paths it lists.`,
     'Return the worker return shape. Use status halt, with the kind and a precise detail, rather than editing a check or working outside your paths.',
   ].join('\n\n');

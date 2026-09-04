@@ -3,6 +3,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { resolveCommit } from '../../checks/lib/git-lib.mjs';
 import { matchAny } from '../../checks/lib/glob-lib.mjs';
 import { bestEffortRender } from '../../checks/lib/launch-lib.mjs';
 import { EXIT, ok, fail, isJson, json } from '../../checks/lib/output.mjs';
@@ -54,6 +55,12 @@ export async function run(args, ctx) {
   const launch = ctx?.launch;
   if (!ctx?.root || !launch?.dir) {
     fail('no active launch');
+    return process.exit(EXIT.usage);
+  }
+  // A base git cannot diff is dropped by changedSince, which would then report the working tree alone as a clean
+  // locked read. A base given on the command line has to resolve; the stored lock_commit fallback stays lenient.
+  if (base && !resolveCommit(ctx.root, base)) {
+    fail(`fc locked: --base ${base} does not resolve to a commit`);
     return process.exit(EXIT.usage);
   }
   const { code, document } = reportLocked({

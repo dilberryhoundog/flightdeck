@@ -1,6 +1,6 @@
 # The crew
 
-Roles, the separations each one exists for, the rules that turn a role into a definition, and the team shapes a run can take. The roster with tools, models, turn budgets, inputs and returns is `flightcrew/crew/README.md`; each definition is `flightcrew/crew/<role>.md`. Read by the human when changing a role (stage 10, promotion) and by the planner when the plan assigns owners and models.
+Roles, the separations each one exists for, the rules that turn a role into a definition, and the team shapes a run can take. The roster with tools, models, turn budgets, inputs and returns is `flightdeck/flightcrew/crew/README.md`; each definition is `flightdeck/flightcrew/crew/<role>.md`. `fc` is `flightdeck/flightcrew/bin/fc`. The stage numbers used elsewhere are those of `flightdeck/manuals/orchestration/journey.md`; promotion is defined in `flightdeck/manuals/orchestration/run-log.md`.
 
 ## Roles, not workers
 
@@ -14,18 +14,18 @@ Roles, the separations each one exists for, the rules that turn a role into a de
 
 | role | separation it serves | may | must not | form |
 |---|---|---|---|---|
-| `orchestrator` | coordinator from content | read the kickoff, spec, map, plan, stored returns, prior reports; dispatch; run `fc` | write any file except through `fc plan write`, `fc launch note`, `fc return`; read worker transcripts, the interview, the critic's reasoning | the session agent (`claude --agent orchestrator`) |
+| `orchestrator` | coordinator from content | read the kickoff, spec, map, plan, stored returns, prior reports; dispatch; run `fc` | hold Write or Edit — it has neither, so every file it produces goes through an `fc` command (`fc plan write`, `fc launch note`, `fc return`, `fc launch end` and the rest); read worker transcripts, the spec-stage interview folder `flightdeck/launch/specs/<S>/interview/` (never copied into a launch), the critic's reasoning | the session agent (`claude --agent orchestrator`) |
 | `explorer` | protects the orchestrator's context | read the codebase, answer one question, cite pointers | write; receive the plan or a unit's work | read-only subagent, small model, fanned in parallel |
 | `planner` | plan from implementation | read spec, map, run log, roster, explorer returns; return plan content | write; read worker transcripts | subagent, read-only tools |
-| `test-builder` | definer of done from doer | write the tests map and check scripts from the frozen spec and the fixture | see any plan, implementation or interview | fresh session or subagent before every implementer; its files locked afterwards |
+| `test-builder` | definer of done from doer | write the tests map and check scripts from the frozen spec and the fixture | see any plan, implementation, or `flightdeck/launch/specs/<S>/interview/` | fresh session or subagent before every implementer; its files locked afterwards |
 | `implementer` | one unit, one owner | write inside its unit's paths in its own worktree and branch; run `fc check <T…>` | read other units, the whole plan, the kickoff; edit a locked path | worktree-isolated subagent, structured return |
 | `verifier` | second opinion on done | re-run the evidence and try to refute the claim of done | write; read implementer reasoning or stored returns | optional subagent; the deterministic part is hooks, gates and `fc verify` |
-| `critic` | judge from judged | read spec, diff and evidence; run checks | write; read plan, kickoff, reasoning, prior findings | fresh subagent per pass, strongest model |
-| `spec-builder`, `spec-judge`, `spec-attacker` | intention from run | produce, grade and attack a spec at stage 1 | see the run, prior specs, the interview (judge and attacker) | spec-stage sessions and subagents; unchanged calibration assets |
+| `critic` | judge from judged | read spec, diff and evidence; run checks | write; read plan, kickoff, reasoning, prior findings | fresh subagent per pass, the roster's reasoning-tier model |
+| `spec-builder`, `spec-judge`, `spec-attacker` | intention from run | produce, grade and attack a spec before a launch exists | see the run, prior specs, the interview (judge and attacker) | spec-stage sessions and subagents; these three definitions and the rubric are held byte-unchanged because they carry the calibration evidence, so editing them invalidates the grades |
 
-- The minimum cast for a run that earns its cost: orchestrator, one explorer pass, test-builder, implementers, the deterministic gates, one critic pass; the planner may fold into the orchestrator on a small run.
+- The minimum cast for a run that earns its cost: orchestrator, one explorer pass, test-builder, implementers, the deterministic gates, one critic pass; the planner may fold into the orchestrator when the human records that decision at the plan gate.
 - Never folded together: test-builder with implementer, and critic with anything.
-- There is no scribe: `fc launch end`, `fc report`, `fc evidence` and the SessionEnd hook assemble the report and the evidence page; a second way to produce the same file is drift.
+- `fc launch end`, `fc report`, `fc evidence` and the SessionEnd hook assemble the report and the evidence page; no agent writes either, and a second way to produce the same file is drift.
 
 ## From role to definition
 
@@ -36,24 +36,24 @@ A role is a markdown file: YAML frontmatter for configuration, body as the agent
 | `name` | the identity the dispatcher and the permission rule `Agent(<name>)` use; lowercase and hyphens |
 | `description` | written for the dispatcher: when to use it and what it returns, one or two sentences, non-overlapping with siblings |
 | `tools` | an allowlist; omitting it inherits everything, which no role wants; the badge is the role: a critic gets Read, Grep, Glob, Bash; an implementer adds Write and Edit |
-| `model` | tiering: `haiku` for wide reading, `opus` for units, `fable` for judging and planning, `inherit` for the orchestrator |
-| `maxTurns` | the per-agent budget, present on every role except orchestrator, spec-builder, spec-judge and spec-attacker; validate-plan holds `budget_turns` at or under it |
-| `isolation: worktree` | the implementer only; the fragment's `worktree.baseRef: head` makes the worktree branch from the run branch |
+| `model` | tiering: `haiku` for wide reading (explorer), `opus` for units (implementer, test-builder), `sonnet` for the verifier's re-run, `fable` for judging and planning (critic, planner, spec roles), `inherit` for the orchestrator |
+| `maxTurns` | the per-agent budget, present on every role except orchestrator, spec-builder, spec-judge and spec-attacker; `fc validate plan` holds the per-unit `budget_turns` in `plan.json` at or under it; `flightdeck/manuals/orchestration/planning.md` carries the plan rules |
+| `isolation: worktree` | the implementer only; `worktree.baseRef: head` in the settings fragment `flightdeck/flightcrew/hooks/settings.fragment.json`, installed as `flightdeck/manuals/harness/hooks.md` describes, makes the worktree branch from the run branch |
 | `permissionMode: acceptEdits` | implementer and test-builder, so edits inside their paths need no prompt |
-| `initialPrompt` | the orchestrator only: run `fc launch status`, read `kickoff.md`, follow it |
-| the body's last block | a fenced JSON block showing the return shape, matching `flightcrew/schemas/<kind>.schema.json`; `fc return` validates it |
+| `initialPrompt` | the orchestrator only: run `fc launch status`, read the active launch's `flightdeck/launch/<L>/kickoff.md` at the name it prints, follow it |
+| the body's last block | a fenced JSON block showing the return shape, matching `flightdeck/flightcrew/schemas/<kind>.schema.json`, where `<kind>` is `explorer-return` for the explorer, `worker-return` for the test-builder and implementer, `verifier-verdict` for the verifier and `critic-findings` for the critic; `fc return` validates it |
 
 - Bash on the critic and the verifier is deliberate: running checks is not writing.
 - The output shape is stated in the description and the body because the orchestrator consumes it programmatically.
 
 ## Design rules
 
-- One job, one definition of done: a body fits on a screen and ends with what it returns; a prompt that needs sections is a role that needs splitting.
+- One job, one definition of done: a body is at most 60 lines and ends with what it returns; a prompt that needs sections is a role that needs splitting.
 - Tools follow the role, never convenience: every tool an agent holds is a way its role can be corrupted; scope first, widen only on run-log evidence.
 - State the output shape explicitly and validate it at the handoff (`fc return`).
 - Write descriptions for the dispatcher; overlapping descriptions produce misrouting that looks like model failure.
 - Tier models by role: wide reading and formatting to cheap models, judging and planning to the strongest, the deterministic part of verification to no model.
-- Give every agent a budget: `maxTurns` per role, `implementers_concurrent` on fan-out, `agents` on the run.
+- Give every agent a budget: `maxTurns` per role, and `ceilings.implementers_concurrent` and `ceilings.agents` in `flightdeck/launch/<L>/launch.json` (`flightdeck/manuals/launch/launch-anatomy.md` carries the ceilings block) on fan-out and on the run.
 - Summarise on the way up: conclusions sized for a coordinator, pointers to files for the detail.
 - Version the roster with the project: crew files are setup, changed in reviewed diffs through the run log, never mid-run; `fc distribute --apply` copies them to `.claude/agents/flightcrew/` and `fc doctor --target` checks the copies are byte-equal.
 
@@ -62,7 +62,7 @@ A role is a markdown file: YAML frontmatter for configuration, body as the agent
 | shape | mechanism | choose when | kickoff part |
 |---|---|---|---|
 | session | one Claude Code session is the orchestrator; roles run as subagents and return summaries | the default; every wave fits within `implementers_concurrent` in one turn | `shape-session` |
-| workflow | a dynamic workflow script (`fc-implement`, `fc-review`, `fc-explore`) holds the loop and the stage results; the session keeps the gates and the `fc` commands | a wave holds more units than `implementers_concurrent` | `shape-workflow` |
+| workflow | a dynamic workflow script (`flightdeck/flightcrew/workflows/fc-implement.js`, `fc-review.js`, `fc-explore.js`, invoked as `flightdeck/manuals/harness/workflows.md` describes) holds the loop and the stage results; the session keeps the gates and the `fc` commands | a wave holds more units than `implementers_concurrent` | `shape-workflow` |
 | sessions | one conducting session owning the gates plus one session per long-running stream, sharing only the launch folder | a stream needs its own context window for hours | `shape-sessions` |
 
 - In every shape the orchestrator session, the gates, the `fc` commands and the stored returns are identical; only dispatch, progress and stopping differ.

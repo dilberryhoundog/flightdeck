@@ -124,6 +124,7 @@ flightdeck/launch/README.md
 flightdeck/launch/RUNLOG.md
 flightdeck/launch/specs/flightcrew-v1/spec.v1.json
 flightdeck/launch/specs/flightcrew-v1/tests-map.v1.json
+flightdeck/launch/specs/flightcrew-v1/tests-map.v2.json
 flightdeck/launch/specs/flightcrew-v1/design.md
 
 # ── launch: this system's own first run; its evidence and events are not listed

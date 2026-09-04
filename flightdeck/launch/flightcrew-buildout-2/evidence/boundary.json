@@ -7,6 +7,126 @@
       "removed": 0
     },
     {
+      "path": "flightdeck/flightcrew/MANIFEST.txt",
+      "added": 1,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/README.md",
+      "added": 2,
+      "removed": 2
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/boundary.mjs",
+      "added": 7,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/check.mjs",
+      "added": 3,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/distribute.mjs",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/doctor.mjs",
+      "added": 15,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/launch.mjs",
+      "added": 37,
+      "removed": 13
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/locked.mjs",
+      "added": 7,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/plan.mjs",
+      "added": 15,
+      "removed": 5
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/cmd/worker.mjs",
+      "added": 21,
+      "removed": 2
+    },
+    {
+      "path": "flightdeck/flightcrew/bin/worker/render.mjs",
+      "added": 1,
+      "removed": 2
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/gates/acceptance-gate.mjs",
+      "added": 5,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/checks/gates/contracts-gate.mjs",
+      "added": 5,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/critic.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/implementer.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/orchestrator.md",
+      "added": 2,
+      "removed": 2
+    },
+    {
+      "path": "flightdeck/flightcrew/crew/planner.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/critic-dispatch.template.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/kickoff/base.md",
+      "added": 7,
+      "removed": 7
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/runlog-entry.template.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/templates/worker-dispatch.template.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/workflows/README.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/workflows/fc-implement.js",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/flightcrew/workflows/fc-review.js",
+      "added": 1,
+      "removed": 1
+    },
+    {
       "path": "flightdeck/launch/RUNLOG.md",
       "added": 14,
       "removed": 0
@@ -18,7 +138,7 @@
     },
     {
       "path": "flightdeck/launch/flightcrew-buildout-2/evidence.html",
-      "added": 90,
+      "added": 791,
       "removed": 0
     },
     {
@@ -167,6 +287,21 @@
       "removed": 0
     },
     {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/boundary.json",
+      "added": 223,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/budget.json",
+      "added": 44,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-buildout-2/evidence/locked.json",
+      "added": 226,
+      "removed": 0
+    },
+    {
       "path": "flightdeck/launch/flightcrew-buildout-2/evidence/summary.json",
       "added": 295,
       "removed": 0
@@ -215,6 +350,36 @@
       "path": "flightdeck/launch/flightcrew-buildout/report.md",
       "added": 11,
       "removed": 10
+    },
+    {
+      "path": "flightdeck/manuals/harness/hooks.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/manuals/harness/workflows.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/journey.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/kickoff.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/manuals/orchestration/run-report.md",
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "flightdeck/testbench/suites/unit-integration/run.mjs",
+      "added": 2,
+      "removed": 0
     }
   ],
   "outside": [

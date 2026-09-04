@@ -1,6 +1,6 @@
 # Review
 
-Independent review at stage 8: a fresh `critic` in a sealed room holding the spec, the diff and the evidence, with a mandate to find fault. Verification answers the questions the spec anticipated; review exists for the ones it did not, and for the judgement calls no check expresses. Read by the orchestrator at stage 8 and by the human at G3. The critic reads no manual; its mandate is encoded in `flightcrew/crew/critic.md` and `flightcrew/templates/critic-dispatch.template.md`.
+Independent review at stage 8: a fresh `critic` in a sealed room holding the spec, the diff and the evidence, with a mandate to find fault. Verification answers the questions the spec anticipated; review exists for the ones it did not, and for the judgement calls no check expresses. Stage 8 is the review stage of the run; the stages and gates are `flightdeck/manuals/orchestration/journey.md`, and G3 is the final human gate, acceptance. The critic reads no manual; its mandate is encoded in `flightdeck/flightcrew/crew/critic.md` and `flightdeck/flightcrew/templates/critic-dispatch.template.md`. `fc` is `flightdeck/flightcrew/bin/fc`, invoked by path from the repository root; `$REPO` is the repository root, `<L>` a launch name; paths written `evidence/…`, `returns/…` and `review/…` are relative to the launch folder `flightdeck/launch/<L>/`.
 
 ## Division of labour
 
@@ -16,7 +16,7 @@ Independent review at stage 8: a fresh `critic` in a sealed room holding the spe
 
 ## The sealed room
 
-Independence is an input list, not an attitude. `fc critic render [--pass n]` writes `review/pass-<n>.prompt.md`, and the orchestrator dispatches that file and nothing else.
+Independence is an input list, not an attitude. `fc critic render [--pass n]` writes `review/pass-<n>.prompt.md`. The orchestrator spawns the `critic` subagent (definition `flightdeck/flightcrew/crew/critic.md`) with the contents of that file as its entire prompt, and nothing else. In a workflow-shaped run the same file is passed as `critic_prompt_path` to `flightdeck/flightcrew/workflows/fc-review.js`, described in `flightdeck/manuals/harness/workflows.md`.
 
 | inside the room | kept outside |
 |---|---|
@@ -55,7 +55,7 @@ Independence is an input list, not an attitude. `fc critic render [--pass n]` wr
 1. Deterministic layers green: `fc verify` exits 0 and `fc launch phase review` is accepted.
 2. First pass: `fc critic render --pass 1`, dispatch the critic, `fc return critic <file> --pass 1`.
 3. Fix and re-verify: route blocking findings by kind; re-run `fc verify` in place (the phase stays review); a fix that breaks a check is a fix that did not happen; record each resolution with `--resolve`.
-4. One re-review, fresh room: `fc critic render --pass 2` on the new diff; its question is narrower: are the addressed findings addressed, and did the fixes introduce anything new.
+4. Re-review, fresh room: `fc critic render --pass <n+1>` on the new diff; its question is narrower: did the fixes introduce anything new, and does the new diff still leave a gap. Repeat steps 3 and 4 until a stop condition in step 5 fires; `critic_passes` defaults to 2, so one re-review is the normal case. Whether the prior pass's findings were addressed is the orchestrator's comparison, made before the render, of `review/resolutions.json` (written by `fc return critic --resolve`) against the open findings of the prior pass file.
 5. Stop: verdict `no gaps`, or only observations remain, or the pass count reaches `ceilings.critic_passes`.
 
 - The cap is real: a loop still producing correctness gaps at the cap is not converging; that is an abandon trigger (`fc-review.js` returns a trigger payload; `fc budget` counts `review/pass-*.json` against `critic_passes`), not a reason for another pass.
@@ -69,20 +69,22 @@ Independence is an input list, not an attitude. `fc critic render [--pass n]` wr
 |---|---|---|---|
 | spec alignment | the pinned spec | the `critic` with the full mandate, through `fc critic render` | every run; the pass this manual centres on |
 | correctness, bug hunt | the code's own claims | the bundled `/code-review` skill in a fresh subagent | every run, before the critic |
-| simplification | the diff itself | `/simplify` on the diff before final review | when implementers iterated hard |
-| security | defect classes | `/security-review` or a read-only reviewer on the strongest model | anything touching auth, input or the network |
-| design and conventions | a checked-in conventions document | a custom skill checking the diff against it | UI or API surface changes |
+| simplification | the diff itself | `/simplify` on the diff before final review | when any unit needed a fix pass after a red check, or when its return records more than one halt |
+| security | defect classes | `/security-review` or a read-only reviewer on a reasoning-tier model per the roster | anything touching auth, input or the network |
+| design and conventions | a checked-in conventions document, at the path the kickoff header or `launch.json` records | a custom skill checking the diff against it | UI or API surface changes; the row is inert, and the pass is never attempted, until the repository names such a document |
 
 - Order inside the review phase: simplify, deterministic re-check (`fc verify`), then the spec-alignment critic last, so judgement reviews the final form.
 - A pass without a reference document is a style opinion.
 
 ## Reviewing the reviewer
 
-- Findings that were real: of the correctness gaps reported, how many did the human at G3 agree were gaps; a low rate means the bound is too loose (run-log entry, fixed on tooling: mandate tightened).
+- Findings that were real: of the correctness gaps reported, how many did the human at G3 agree were gaps; fewer than half upheld means the bound is too loose (run-log entry, fixed on tooling: mandate tightened). This is a judgement the human records, not a computed trigger.
 - Escapes: defects found after acceptance that the mandate should have caught; a pattern in one area means the checklist gets a line or the spec template does (fixed on verification or context).
 - The critic definition is versioned with the roster and changes through the run log, never mid-run.
 
-## The human's review at G3
+## The human's review at G3 — read by the human; the orchestrator assembles it
+
+The orchestrator prepares the unverified list, the open disputed findings and the cost line so that every item below is answerable at the gate.
 
 - Intent: is this the thing meant, as opposed to the thing the spec managed to say; where they differ the finding is about the spec template and goes to the run log.
 - The unverified list: behaviours with no mapped check, quarantined checks, test-file changes, files outside the boundary; acceptance risk lives here, not in the green checks.
@@ -95,9 +97,9 @@ Independence is an input list, not an attitude. `fc critic render [--pass n]` wr
 
 - `fc verify` exits 0 and `fc launch phase review` was accepted.
 - The dispatch is the file `fc critic render` wrote, unedited, with nothing of plan, kickoff or reasoning added.
-- The mandate has both halves and the `no gaps` exit (the critic definition and the dispatch template carry them).
+- The mandate carries the presumption (assume at least one gap and look for it) and the bound (correctness or stated requirements only), plus the `no gaps` exit; the critic definition and the dispatch template carry them.
 - Findings will be routed by kind per the table above, spec conflicts to an escalation.
-- The critic's frontmatter is read-only plus shell, strongest model, `maxTurns` set.
+- The critic's frontmatter matches the roster (`flightdeck/flightcrew/crew/README.md`): `tools: Read, Grep, Glob, Bash`, no Write or Edit, the roster's model, `maxTurns` present.
 - The pass count and `ceilings.critic_passes` are known; the cap firing is an abandon signal.
 - The re-review will be a fresh render and a fresh dispatch.
 

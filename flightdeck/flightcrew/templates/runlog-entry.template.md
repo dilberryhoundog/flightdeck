@@ -47,4 +47,4 @@ observations:
 {{observations}}
 ```
 
-`fixed on` names the axis the change belongs to — context, verification, tooling or scope — so that entries can be counted by axis; `watch` names what the next run against this spec should confirm.
+`fixed on` names the axis the change belongs to — context, verification or tooling — so that entries can be counted by axis; `watch` names what the next run against this spec should confirm.

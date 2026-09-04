@@ -91,8 +91,15 @@ export function renderPlanMarkdown(plan) {
   return `${title}\n\n${mdSections(sections)}`;
 }
 
+/**
+ * Runs validate-plan with its output captured, so a successful `fc plan` prints one line of its own (spec C3)
+ * and a failing one still shows what the validator said. Returns the exit code and the validator's lines.
+ */
 function validatePlanFile(ctx, file) {
-  return runValidator(ctx, 'validate-plan', [file], { cwd: ctx.launch.dir });
+  const result = runValidator(ctx, 'validate-plan', [file], { cwd: ctx.launch.dir, capture: true });
+  if (typeof result === 'number') return { code: result, lines: [] };
+  const lines = `${result.stdout ?? ''}\n${result.stderr ?? ''}`.split('\n').map((line) => line.trim()).filter((line) => line !== '');
+  return { code: result.code, lines };
 }
 
 /** Reads the plan the write subcommand was given: a file path, or the whole of standard input under --stdin. */
@@ -122,13 +129,14 @@ async function write(args, ctx) {
   const candidate = path.join(dir, 'plan.candidate.json');
   const plan = readCandidate(ctx, args);
   writeJsonFile(candidate, plan);
-  let code;
+  let checked;
   try {
-    code = validatePlanFile(ctx, candidate);
+    checked = validatePlanFile(ctx, candidate);
   } finally {
     fs.rmSync(candidate, { force: true });
   }
-  if (code !== EXIT.ok) {
+  if (checked.code !== EXIT.ok) {
+    if (checked.lines.length > 0) fail(checked.lines);
     fail('plan not stored: it does not validate');
     return EXIT.blocked;
   }
@@ -144,7 +152,9 @@ async function render(args, ctx) {
   const planJson = path.join(dir, 'plan.json');
   const planMd = path.join(dir, 'plan.md');
   if (!fs.existsSync(planJson)) throw new UsageError(`no plan to render: ${path.relative(ctx.root, planJson).split(path.sep).join('/')} does not exist`);
-  if (validatePlanFile(ctx, planJson) !== EXIT.ok) {
+  const checked = validatePlanFile(ctx, planJson);
+  if (checked.code !== EXIT.ok) {
+    if (checked.lines.length > 0) fail(checked.lines);
     fail('plan.md not rendered: plan.json does not validate');
     return EXIT.blocked;
   }

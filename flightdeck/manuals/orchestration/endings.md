@@ -1,6 +1,8 @@
 # Endings
 
-A run is over the moment trust in it stops. Every run ends one of three ways, each with its own `fc launch end` outcome and its own discipline; the undisciplined fourth, limping on past a fired trigger, is not an ending and is the expensive one. Read by the human at G3 and stage 10, and by the orchestrator when a trigger fires.
+A run is over the moment trust in it stops. Every run ends one of three ways, across four `fc launch end` outcomes: the accept ending takes either `accepted` or `accepted-with-reservations`, and abandon and partial acceptance take one each. Limping on past a fired trigger is not an ending and is the expensive one.
+
+`<L>` is the launch name (`launch.json.name`), `<unit>` a unit name from `plan.json`, so a unit branch reads `<L>/<unit>`. Waves are the dispatch layers of `plan.json`, and wave 0 is the contracts unit (`kind: contracts`) every later unit depends on; `flightdeck/manuals/orchestration/planning.md` covers decomposition. The three run-log axes are `context`, `verification` and `tooling`; `flightdeck/manuals/orchestration/run-log.md` carries the diagnosis table and the full shape of an entry.
 
 ## Three endings
 
@@ -16,12 +18,12 @@ A run is over the moment trust in it stops. Every run ends one of three ways, ea
 
 ## Abandoning
 
-The tokens are spent whether or not the run continues; the run's product is the diagnosis, and the code was the packaging.
+When an abandon trigger fires, or a halt return or an unresolvable escalation lands, dispatch stops and this sequence runs. Its required artefact is the run-log diagnosis.
 
-1. Stop at the finding: a halt return, a fired trigger or an escalation stops dispatch; the guards deny every edit while a trigger is fired, and `fc worker render`, `fc worker merge` and `fc launch phase` (except to ended) exit 2; let dispatched agents finish or stop them, dispatch nothing new.
+1. Stop at the finding: a halt return, a fired trigger or an escalation stops dispatch; the guards — the lock and boundary hooks, whose deny semantics are in `flightdeck/manuals/harness/hooks.md` — deny every edit while a trigger is fired, and `fc worker render`, `fc worker merge` and `fc launch phase` (except to ended) exit 2; let dispatched agents finish or stop them, dispatch nothing new.
 2. Freeze the evidence: `fc launch end abandoned --at <gate|stage>` renders `report.md` and `evidence.html` as they stand; the Failures section and the stop-block count are the raw material of the diagnosis.
-3. Write the run-log entry: the stub is already in `launch/RUNLOG.md` with `symptom` pre-filled from the ending event; fill `seen on`, `cause`, `fixed on`, `change`, `watch` now, not later.
-4. Make the setup change: the spec node, the kickoff part, the hook, the mandate, the check; commit it together with the log entry so the fix and its reason travel together.
+3. Write the run-log entry: the stub is already in `flightdeck/launch/RUNLOG.md` with `symptom` pre-filled from the ending event; fill `seen on`, `cause`, `fixed on`, `change`, `watch` now, not later. `seen on` and `fixed on` take one of `context`, `verification` or `tooling`; `change` names one artefact and one edit; `watch` names what the next run would show.
+4. Make the setup change: the spec node, the kickoff part under `flightdeck/flightcrew/templates/kickoff/`, the hook, the critic mandate (`flightdeck/manuals/orchestration/review.md`), the check; commit it together with the log entry so the fix and its reason travel together.
 5. Clear the ground: run the printed cleanup lines (`git worktree remove`, `git branch -D <L>/<unit>`), `git worktree prune`; a failed unit is a discarded directory.
 
 - Do not resume the abandoned session and do not carry its transcript forward; the next orchestrator meets the failure only through the run log, as a risk line in the new plan.
@@ -31,7 +33,7 @@ The tokens are spent whether or not the run continues; the run's product is the 
 
 | artefact | carries over | why |
 |---|---|---|
-| the spec | yes | setup; unless the spec was the failed axis, in which case the amended spec re-frozen at a new commit carries instead |
+| the spec | yes | setup; unless `fixed on` names the context axis and the change is to the spec, in which case the amended spec re-frozen at a new commit carries instead |
 | the tests map and check scripts | yes | setup; they encode the spec, not the run; a wrong check was fixed by the human at escalation and re-pinned |
 | wave-0 contracts | if proven | contract checks that went green describe seams, not implementations; inputs to the next plan, which may redraw them |
 | explorer returns (`returns/explore-*.json`) | if factual | "the renderer lives in X" survives; conclusions drawn for the failed approach do not |
@@ -41,11 +43,11 @@ The tokens are spent whether or not the run continues; the run's product is the 
 
 ## Retrying
 
-- A retry is a new experiment against an improved setup, never the old run given another chance: `fc launch new` again, fresh session, frozen spec.
+- A retry is a new experiment against an improved setup: `fc launch new` again, fresh session, frozen spec.
 - One change per retry where possible; where several fixes were forced, the run-log `watch` line names which one the retry tests and the others ride along unattributed.
 - Same spec commit, same kickoff parts except the bumped one, same crew except the changed file, so the difference between runs is the change.
-- When the spec was the failed axis, it is amended and re-frozen at a new commit, and the new launch pins the new commit; the previous launch is named in `launch.json.previous_launch` automatically.
-- Retry when the diagnosis names an axis and the change is made; demote to a single session when the failure pattern says the task never warranted the orchestra; shelve when the same axis has failed three runs straight.
+- When the change is to the spec, it is amended and re-frozen at a new commit, and the new launch pins the new commit; the previous launch is named in `launch.json.previous_launch` automatically.
+- Retry when the diagnosis names an axis and the change is made; demote to a single session when `plan.json` held no parallel wave of two or more units, so the run paid coordination cost for work one context could hold; shelve when the same axis has failed three runs straight.
 
 ## Partial acceptance
 
@@ -65,11 +67,11 @@ Acceptance judged the units; the merge proves the whole, because green branches 
 
 - Units land in wave order through `fc worker merge <unit>` during the run (`--no-ff`, checks re-run, `unit_merged` appended); the merge to the parent branch extends the same order.
 - Integrate before the trunk: rebase the run branch (`launch.json.branch`) or an integration branch built from it onto the current parent; run `fc verify` there; a unit's green from before the rebase says nothing about the rebased state.
-- Open the PR from that branch with `launch/<L>/report.md` linked; let CI run the same gates.
+- Open the PR from that branch with `flightdeck/launch/<L>/report.md` linked; let CI run the same gates.
 - Merge, then `fc launch land --commit <sha> --pr <url> [--evidence-commit <sha>]`; it writes `landed {commit, pr, integration_check}` and refuses while no evidence at that commit has zero fail and error counts.
 - Land it readable: one squashed commit per unit or one commit per merge, unit names matching branches matching evidence sections.
 - Close the run: fill the run-log fields, prune worktrees, delete `<L>/*` branches, promote confirmed rules; the ground is clear for the next run.
-- The merge gate is the shortest human read: integration proof green on the rebased state, CI green, cost line closed; a merge that needs discussion is a review that ended too soon.
+- The merge gate is the shortest human read: integration proof green on the rebased state, CI green, and the cost line closed — the report's cost line shows recorded agent, stop-block and minute counts rather than `not recorded`, and the run-log entry's `cost` field carries it; a merge that needs discussion is a review that ended too soon.
 
 ## Three checklists
 
@@ -81,7 +83,7 @@ Abandoned cleanly:
 Ready to retry:
 - The run-log entry names an axis and the change is made, exactly one under test (`watch` says which).
 - Spec unchanged, or amended and re-frozen with the new launch pinning the new commit.
-- Salvage passed the setup-versus-output test; the new plan carries the failure as a `source: runlog` risk.
+- Salvage passed the setup-versus-output test of the carries-over table above — setup carries, run output does not; the new plan carries the failure as a `source: runlog` risk.
 
 Ready to merge:
 - Every landing unit green, individually reviewed, standing only on wave-0 contracts (`fc launch end` enforced the partial rules where they apply).

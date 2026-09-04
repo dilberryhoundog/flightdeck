@@ -93,6 +93,11 @@ function render(args, ctx) {
     launch: { name: launch.name },
     template: readTemplate(ctx.fd.templates, 'worker-dispatch.template.md'),
   });
+  // The dispatch is written beside being printed: a subagent worktree branches from HEAD, so the
+  // prompt file has to exist in the run branch before the dispatch names it by repository path.
+  const file = path.join(launch.dir, 'returns', `${id}.prompt.md`);
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, prompt.endsWith('\n') ? prompt : `${prompt}\n`);
   print(prompt.replace(/\n+$/, ''));
   return EXIT.ok;
 }
@@ -183,9 +188,23 @@ async function merge(args, ctx) {
   const worktree = typeof workerReturn.worktree === 'string' && workerReturn.worktree !== ''
     ? path.resolve(root, workerReturn.worktree)
     : null;
-  if (worktree && fs.existsSync(worktree)) git(['worktree', 'remove', '--force', worktree], root);
+  // Cleanup is reported rather than assumed: a changed worktree can be locked, and `worktree remove` then exits 128,
+  // after which `branch -D` refuses because the branch is still checked out there. The merge itself already stands.
+  const leftovers = [];
+  if (worktree && fs.existsSync(worktree)) {
+    git(['worktree', 'unlock', worktree], root);
+    const removed = git(['worktree', 'remove', '--force', worktree], root);
+    if (!removed.ok) leftovers.push([`worktree ${worktree}`, removed]);
+  }
   git(['worktree', 'prune'], root);
-  if (branchExists(root, branch)) git(['branch', '-D', branch], root);
+  if (branchExists(root, branch)) {
+    const deleted = git(['branch', '-D', branch], root);
+    if (!deleted.ok) leftovers.push([`branch ${branch}`, deleted]);
+  }
+  for (const [what, result] of leftovers) {
+    const why = (result.stderr || result.stdout || '').trim().split('\n')[0] || 'git gave no reason';
+    fail(`warn:  ${id}: ${what} was not removed: ${why}; run the cleanup line fc launch end prints`);
+  }
 
   await bestEffortRender(launch.dir);
   if (isJson()) json({ unit: id, branch, commit, checks: outcome.results.map((doc) => ({ id: doc.id, verdict: doc.verdict })) });

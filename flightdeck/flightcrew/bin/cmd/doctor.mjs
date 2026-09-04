@@ -248,6 +248,21 @@ function checkTarget(report, fd, target) {
       }
     }
     report.say('target hooks', missing.length === 0, missing.length === 0 ? `every fragment hook command is in settings.json (${wanted.size} events)` : missing.join('; '));
+    // A hook command whose interpreter is not on PATH fails silently at every event, so the leading token is resolved
+    // rather than only compared as text (design section 6: 'hook node resolvable').
+    const interpreters = new Set();
+    for (const commands of there.values()) {
+      for (const command of commands) {
+        const token = String(command).trim().split(/\s+/)[0];
+        if (token) interpreters.add(token);
+      }
+    }
+    const unresolved = [...interpreters].filter((token) => (path.isAbsolute(token)
+      ? !fs.existsSync(token)
+      : spawnSync(token, ['--version'], { encoding: 'utf8' }).status !== 0));
+    report.say('target hook interpreter', unresolved.length === 0, unresolved.length === 0
+      ? `every hook interpreter resolves (${[...interpreters].join(', ')})`
+      : `${unresolved.join(', ')} does not resolve on this machine`);
     const baseRef = settings.worktree?.baseRef;
     report.say('target worktree.baseRef', baseRef === 'head', `worktree.baseRef is ${baseRef ?? 'unset'}, and the crew's worktrees branch from head`);
   }

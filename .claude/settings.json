@@ -1,5 +1,6 @@
 {
   "enabledPlugins": {
     "dev-workspace@DBHD-dev-workspace": true
-  }
+  },
+  "outputStyle": "concise"
 }

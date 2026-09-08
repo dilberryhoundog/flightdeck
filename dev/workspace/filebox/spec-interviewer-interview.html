@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec interview · agent-spec-interviewer · round 3 — three problems</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --fg:#e6e6e6; --dim:#9aa3b2; --acc:#7cc4ff; --rec:#3ddc97; }
+  body { margin:0; font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--fg); }
+  header { position:sticky; top:0; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 24px; display:flex; gap:16px; align-items:center; z-index:2; }
+  header h1 { font-size:16px; margin:0; flex:1; }
+  button { background:var(--acc); color:#000; border:0; border-radius:6px; padding:8px 14px; font-weight:600; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--acc); border:1px solid var(--acc); }
+  main { max-width:960px; margin:0 auto; padding:24px; }
+  .lead { color:var(--dim); font-size:14px; margin:0 0 16px; }
+  .bundle { border:1px solid var(--line); border-radius:12px; padding:6px 18px 14px; margin:18px 0; }
+  .bundle > h2 { font-size:14px; letter-spacing:.06em; color:var(--dim); margin:10px 0 4px; }
+  .bundle > h2 code { color:var(--rec); }
+  .problem { font-size:14px; margin:0 0 8px; }
+  .q { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 18px; margin:12px 0; }
+  .q h3 { margin:0 0 6px; font-size:15px; }
+  .q h3 span { color:var(--acc); margin-right:8px; font-family:ui-monospace, monospace; }
+  .why { color:var(--dim); font-size:13.5px; margin:0 0 12px; }
+  code { background:#0b0d11; padding:1px 5px; border-radius:4px; font-size:12.5px; }
+  label.opt { display:block; padding:6px 8px; border-radius:6px; cursor:pointer; }
+  label.opt:hover { background:#1e2330; }
+  label.opt input { margin-right:8px; }
+  .rec { color:var(--rec); font-size:12px; font-weight:600; margin-left:8px; }
+  textarea { width:100%; box-sizing:border-box; background:#0b0d11; color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:8px; min-height:44px; font:inherit; margin-top:8px; }
+  #out { white-space:pre-wrap; background:#0b0d11; border:1px solid var(--line); border-radius:8px; padding:12px; font:12.5px ui-monospace, monospace; display:none; }
+  .toast { position:fixed; bottom:20px; right:20px; background:var(--rec); color:#000; padding:8px 14px; border-radius:6px; display:none; font-weight:600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>agent-spec-interviewer · round 3 — three bundles, one problem each</h1>
+  <button class="ghost" onclick="preview()">Preview</button>
+  <button onclick="copyAll()">Copy answers</button>
+</header>
+<main>
+<p class="lead">Shaped as the I3/I4 contract now reads: one bundle per problem, a marker, ≤5 questions, options + comment, a bundle comment. Draft: <code>dev/workspace/runs/agent-spec-interviewer/spec.v1.json</code> — validator clean, linter clean except these three.</p>
+
+<div class="bundle" data-marker="P-bundle-size">
+<h2>bundle <code>P-bundle-size</code> · tradeoff · constraints</h2>
+<p class="problem">C12 caps a bundle at five questions so the question tool and chat can carry it. Five is my guess at the tradeoff between one round trip and the provider's attention.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>Is five the number?</h3>
+  <label class="opt"><input type="radio" name="Q1" value="5"> Five. <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="Q1" value="4"> Four — AskUserQuestion's comfortable limit.</label>
+  <label class="opt"><input type="radio" name="Q1" value="no cap; the surface decides"> No cap in the spec; each surface declares its own.</label>
+  <textarea name="Q1_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P-bundle-size_bc" placeholder="Bundle comment"></textarea>
+</div>
+
+<div class="bundle" data-marker="P-problem-kinds">
+<h2>bundle <code>P-problem-kinds</code> · dual-path · interfaces</h2>
+<p class="problem">I5's register kinds are gap, dual-path, tradeoff, failure-mode, hard-part — your list. B8 sends every open Q to an explorer <em>except</em> tradeoff and dual-path, on the reasoning that those are choices only you can make and an explorer would burn a dispatch returning options you already have.</p>
+<div class="q" data-id="Q2a">
+  <h3><span>Q2a</span>Is the exemption right?</h3>
+  <label class="opt"><input type="radio" name="Q2a" value="exempt tradeoff and dual-path"> Yes — tradeoff and dual-path go straight back to me. <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="Q2a" value="no exemption; explorers always go first"> No — explorers always go first; a cited option list still helps me choose.</label>
+  <label class="opt"><input type="radio" name="Q2a" value="exempt tradeoff only"> Exempt tradeoff only; a dual-path may be settled by finding which path the repository already took.</label>
+  <textarea name="Q2a_c"></textarea>
+</div>
+<div class="q" data-id="Q2b">
+  <h3><span>Q2b</span>Is the kind list complete?</h3>
+  <label class="opt"><input type="radio" name="Q2b" value="complete"> Complete.</label>
+  <label class="opt"><input type="radio" name="Q2b" value="add: contradiction (two sources disagree)"> Add <code>contradiction</code> — two sources disagree (E2, E7 use dual-path for this today).</label>
+  <label class="opt"><input type="radio" name="Q2b" value="add: unverified (a name no explorer could cite)"> Add <code>unverified</code> — a name no explorer could cite (E6 uses gap today).</label>
+  <textarea name="Q2b_c" placeholder="Other kinds"></textarea>
+</div>
+<textarea name="P-problem-kinds_bc" placeholder="Bundle comment"></textarea>
+</div>
+
+<div class="bundle" data-marker="P-calibration">
+<h2>bundle <code>P-calibration</code> · gap · verification</h2>
+<p class="problem">The judged rubric needs three provider-graded records, at least one a failure, before its verdicts are trusted. You ran the rubric in another session and did not record it. VER currently says calibration starts from zero in this run.</p>
+<div class="q" data-id="Q3">
+  <h3><span>Q3</span>Is anything from that session recoverable as a calibration example?</h3>
+  <label class="opt"><input type="radio" name="Q3" value="start from zero; harness manufactures the three"> No — start from zero; the harness manufactures the three records and I grade them. <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="Q3" value="recoverable from history; path given in comment"> Yes — the verdict sheets are in a history file; path in the comment.</label>
+  <label class="opt"><input type="radio" name="Q3" value="one known-bad exists: the old agent-spec-builder draft; use it"> Partly — the old <code>agent-spec-builder</code> draft is a known-bad example; use it as the failure record.</label>
+  <textarea name="Q3_c"></textarea>
+</div>
+<textarea name="P-calibration_bc" placeholder="Bundle comment"></textarea>
+</div>
+
+<section><h2 style="font-size:14px;color:var(--dim)">Preview</h2><div id="out"></div></section>
+</main>
+<div class="toast" id="toast">Copied</div>
+<script>
+document.querySelectorAll('input[type=radio]').forEach(r=>{ r.addEventListener('mousedown',function(){ this._was=this.checked; }); r.addEventListener('click',function(){ if(this._was){ this.checked=false; } }); });
+function collect(){
+  const lines=[];
+  document.querySelectorAll(".bundle").forEach(b=>{
+    lines.push(`## ${b.dataset.marker}`);
+    b.querySelectorAll(".q").forEach(q=>{
+      const id=q.dataset.id;
+      const picked=[...q.querySelectorAll("input:checked")].map(i=>i.value);
+      const c=q.querySelector("textarea")?.value.trim();
+      lines.push(`### ${id}`); lines.push(`answer: ${picked.length?picked.join(" | "):"(unanswered)"}`); if(c) lines.push(`comment: ${c}`);
+    });
+    const bc=b.querySelector(`textarea[name="${b.dataset.marker}_bc"]`)?.value.trim();
+    if(bc) lines.push(`bundle comment: ${bc}`);
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+function preview(){ const o=document.getElementById("out"); o.textContent=collect(); o.style.display="block"; o.scrollIntoView({behavior:"smooth"}); }
+async function copyAll(){ const t=collect(); try{ await navigator.clipboard.writeText(t); }catch(e){ preview(); return; } const s=document.getElementById("toast"); s.style.display="block"; setTimeout(()=>s.style.display="none",1500); }
+</script>
+</body>
+</html>

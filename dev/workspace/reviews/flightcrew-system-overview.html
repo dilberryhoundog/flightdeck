@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside Flightcrew</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#f1f3f2;
+  --surface:#ffffff;
+  --surface-2:#e8ebea;
+  --ink:#121817;
+  --ink-2:#33403d;
+  --muted:#5b6764;
+  --line:#d2d8d6;
+  --line-strong:#b3bcb9;
+  --accent:#0f5f57;
+  --accent-soft:#dfece9;
+  --clear:#2f6b3a;
+  --clear-soft:#e2eee4;
+  --caution:#9a6600;
+  --caution-soft:#f6ecd8;
+  --block:#9e2f26;
+  --block-soft:#f6e3e1;
+  --code-bg:#eceeed;
+  --shadow:0 1px 2px rgba(18,24,23,.06);
+  --maxw:65ch;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0d1413;
+    --surface:#141c1b;
+    --surface-2:#1b2423;
+    --ink:#e3ebe8;
+    --ink-2:#c2cecb;
+    --muted:#8d9c98;
+    --line:#26312f;
+    --line-strong:#3a4644;
+    --accent:#4fb8a8;
+    --accent-soft:#122926;
+    --clear:#6bb87a;
+    --clear-soft:#132318;
+    --caution:#d5a03f;
+    --caution-soft:#2a2013;
+    --block:#e0796d;
+    --block-soft:#2c1715;
+    --code-bg:#101817;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0d1413;
+  --surface:#141c1b;
+  --surface-2:#1b2423;
+  --ink:#e3ebe8;
+  --ink-2:#c2cecb;
+  --muted:#8d9c98;
+  --line:#26312f;
+  --line-strong:#3a4644;
+  --accent:#4fb8a8;
+  --accent-soft:#122926;
+  --clear:#6bb87a;
+  --clear-soft:#132318;
+  --caution:#d5a03f;
+  --caution-soft:#2a2013;
+  --block:#e0796d;
+  --block-soft:#2c1715;
+  --code-bg:#101817;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16.5px;
+  line-height:1.62;
+  font-weight:400;
+}
+h1,h2,h3,h4{font-family:"Zilla Slab",Georgia,"Times New Roman",serif;font-weight:600;text-wrap:balance;margin:0}
+code,kbd,pre,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+a{color:var(--accent);text-underline-offset:.18em}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:min(272px,26vw) minmax(0,1fr);gap:0;max-width:1400px;margin:0 auto}
+.rail{
+  border-right:1px solid var(--line);
+  padding:34px 26px 60px 30px;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  background:var(--ground);
+}
+main{padding:34px clamp(20px,4vw,64px) 120px;min-width:0}
+
+.rail .brand{font-family:"Zilla Slab",Georgia,serif;font-size:1.12rem;font-weight:700;letter-spacing:-.01em;line-height:1.25;margin-bottom:2px}
+.rail .brand span{color:var(--accent)}
+.rail .brand-sub{font-size:.735rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:26px}
+
+.rail nav ol,.rail nav ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.rail .navgroup{font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 7px;font-weight:600}
+.rail nav a{
+  display:flex;gap:9px;align-items:baseline;
+  text-decoration:none;color:var(--ink-2);
+  font-size:.855rem;line-height:1.35;padding:4px 0;
+}
+.rail nav a:hover{color:var(--accent)}
+.rail nav a .n{
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--muted);
+  min-width:1.5em;font-variant-numeric:tabular-nums;
+}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:2px solid var(--ink);padding-bottom:26px;margin-bottom:34px}
+.eyebrow{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px}
+h1{font-size:clamp(2.1rem,4.6vw,3.15rem);line-height:1.03;letter-spacing:-.022em;font-weight:700;margin-bottom:16px}
+.lede{font-size:1.09rem;line-height:1.58;color:var(--ink-2);max-width:64ch;margin:0}
+.masthead .meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:.78rem;color:var(--muted);font-family:"IBM Plex Mono",monospace}
+
+/* ---------- sections ---------- */
+section{margin:0 0 58px;scroll-margin-top:22px}
+.sec-head{display:flex;gap:14px;align-items:baseline;border-top:1px solid var(--line-strong);padding-top:14px;margin-bottom:18px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--accent);font-weight:500;letter-spacing:.04em;padding-top:.35em;white-space:nowrap}
+h2{font-size:1.62rem;letter-spacing:-.014em;line-height:1.18}
+h3{font-size:1.11rem;margin:30px 0 9px;letter-spacing:-.005em}
+h4{font-size:.94rem;margin:22px 0 6px;font-family:"IBM Plex Sans",sans-serif;font-weight:600;letter-spacing:.005em}
+p{margin:0 0 14px;max-width:var(--maxw)}
+ul,ol{max-width:var(--maxw);margin:0 0 14px;padding-left:1.15em}
+li{margin-bottom:6px}
+li::marker{color:var(--muted)}
+strong{font-weight:600;color:var(--ink)}
+
+code{
+  font-size:.855em;background:var(--code-bg);padding:.11em .34em;border-radius:2px;
+  color:var(--ink);white-space:nowrap;
+}
+p code,li code,td code{white-space:normal;word-break:break-word}
+
+/* ---------- plain-terms callout ---------- */
+.plain{
+  border-left:3px solid var(--accent);
+  background:var(--accent-soft);
+  padding:14px 18px;margin:0 0 20px;max-width:var(--maxw);
+}
+.plain p{margin:0;font-size:1.005rem;color:var(--ink-2)}
+.plain p+p{margin-top:10px}
+.plain .tag{
+  display:block;font-size:.665rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:6px;font-family:"IBM Plex Sans",sans-serif;
+}
+
+.plain.gate-note{border-left-color:var(--caution);background:var(--caution-soft)}
+.plain.gate-note .tag{color:var(--caution)}
+
+/* ---------- details ---------- */
+details{border:1px solid var(--line);background:var(--surface);margin:18px 0 22px;box-shadow:var(--shadow)}
+details summary{
+  cursor:pointer;padding:11px 16px;font-size:.8rem;font-weight:600;
+  letter-spacing:.045em;text-transform:uppercase;color:var(--muted);
+  list-style:none;display:flex;align-items:center;gap:9px;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+";font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:1rem;line-height:1}
+details[open] summary::before{content:"−"}
+details[open] summary{border-bottom:1px solid var(--line)}
+.det-body{padding:16px 18px 4px}
+.det-body>*:last-child{margin-bottom:14px}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:0 0 22px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:.845rem;min-width:520px}
+th,td{text-align:left;padding:8px 13px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+th{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:.685rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);background:var(--surface-2);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+td.mono,th.mono{font-family:"IBM Plex Mono",monospace;font-size:.79rem;white-space:nowrap}
+td.wrap{white-space:normal}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- badges ---------- */
+.bg{
+  display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  padding:.13em .45em;border-radius:2px;font-weight:500;white-space:nowrap;letter-spacing:.02em;
+}
+.bg-clear{background:var(--clear-soft);color:var(--clear)}
+.bg-caution{background:var(--caution-soft);color:var(--caution)}
+.bg-block{background:var(--block-soft);color:var(--block)}
+.bg-neutral{background:var(--surface-2);color:var(--muted)}
+
+/* ---------- phase strip ---------- */
+.strip-wrap{margin:0 0 26px;border:1px solid var(--line);background:var(--surface);padding:20px 18px 16px;box-shadow:var(--shadow)}
+.strip-title{font-size:.665rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+.strip{display:flex;flex-wrap:wrap;gap:5px;align-items:stretch}
+.ph{
+  flex:1 1 88px;min-width:82px;border:1px solid var(--line-strong);border-top:3px solid var(--accent);
+  padding:8px 9px 9px;background:var(--surface);
+}
+.ph .i{font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--muted);display:block}
+.ph .nm{font-family:"IBM Plex Mono",monospace;font-size:.79rem;font-weight:500;color:var(--ink);display:block;margin-top:2px}
+.ph .wh{font-size:.7rem;color:var(--muted);line-height:1.32;display:block;margin-top:5px}
+.ph.gate{border-top-color:var(--caution)}
+.ph.gate .nm{color:var(--caution)}
+.ph.end{border-top-color:var(--line-strong)}
+.strip-key{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:13px;font-size:.72rem;color:var(--muted)}
+.strip-key span::before{content:"";display:inline-block;width:16px;height:3px;vertical-align:middle;margin-right:6px;position:relative;top:-1px}
+.strip-key .k-a::before{background:var(--accent)}
+.strip-key .k-g::before{background:var(--caution)}
+
+/* ---------- figure ---------- */
+figure{margin:0 0 24px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+figure .fig-in{padding:18px 16px 8px;overflow-x:auto}
+figure svg{display:block;min-width:520px;max-width:100%;height:auto;margin:0 auto}
+figcaption{font-size:.75rem;color:var(--muted);padding:0 16px 13px;line-height:1.45}
+
+/* ---------- layer stack ---------- */
+.layers{list-style:none;padding:0;margin:0 0 22px;max-width:none;display:flex;flex-direction:column;gap:2px}
+.layers li{
+  display:grid;grid-template-columns:auto minmax(140px,190px) minmax(0,1fr);gap:14px;
+  border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--surface);
+  padding:10px 14px;margin:0;align-items:baseline;font-size:.87rem;
+}
+.layers .lv{font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.layers .lname{font-weight:600;font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--ink)}
+.layers .ldesc{color:var(--ink-2);line-height:1.45}
+
+/* ---------- cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:2px;margin:0 0 22px}
+.card{border:1px solid var(--line);background:var(--surface);padding:13px 15px 15px;display:flex;flex-direction:column;gap:6px}
+.card .ct{font-family:"IBM Plex Mono",monospace;font-size:.82rem;font-weight:500;color:var(--ink)}
+.card .cd{font-size:.81rem;color:var(--ink-2);line-height:1.45;margin:0}
+.card .cm{font-size:.71rem;color:var(--muted);font-family:"IBM Plex Mono",monospace;margin-top:auto;padding-top:4px}
+
+/* ---------- path list ---------- */
+.paths{
+  font-family:"IBM Plex Mono",monospace;font-size:.8rem;line-height:1.7;
+  background:var(--surface);border:1px solid var(--line);padding:14px 16px;margin:0 0 22px;
+  overflow-x:auto;white-space:pre;color:var(--ink-2);box-shadow:var(--shadow);
+}
+.paths b{color:var(--accent);font-weight:500}
+.paths i{color:var(--muted);font-style:normal}
+
+pre.cmd{
+  font-size:.8rem;background:var(--code-bg);border-left:3px solid var(--line-strong);
+  padding:12px 15px;margin:0 0 20px;overflow-x:auto;line-height:1.6;color:var(--ink-2);
+}
+pre.cmd b{color:var(--ink);font-weight:500}
+pre.cmd i{color:var(--muted);font-style:normal}
+
+/* ---------- run notes ---------- */
+.runs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;margin:0 0 22px}
+.run{border:1px solid var(--line);background:var(--surface);padding:14px 16px}
+.run .rn{font-family:"IBM Plex Mono",monospace;font-size:.82rem;font-weight:500;margin-bottom:3px}
+.run .ro{font-size:.72rem;font-family:"IBM Plex Mono",monospace;margin-bottom:8px}
+.run p{font-size:.82rem;color:var(--ink-2);margin:0;line-height:1.5}
+
+/* ---------- closing ---------- */
+.tenets{list-style:none;padding:0;margin:0;max-width:none;display:flex;flex-direction:column;gap:2px}
+.tenets li{border:1px solid var(--line);background:var(--surface);padding:13px 16px;margin:0}
+.tenets b{display:block;font-family:"Zilla Slab",Georgia,serif;font-size:1.02rem;font-weight:600;margin-bottom:3px}
+.tenets span{font-size:.865rem;color:var(--ink-2);line-height:1.5;display:block;max-width:70ch}
+
+footer{border-top:1px solid var(--line-strong);margin-top:56px;padding-top:18px;font-size:.78rem;color:var(--muted)}
+footer p{max-width:70ch;margin-bottom:8px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:24px 20px 26px}
+  .rail nav ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0 18px}
+  main{padding:28px 20px 80px}
+  .layers li{grid-template-columns:auto 1fr;gap:6px 12px}
+  .layers .ldesc{grid-column:1 / -1}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<aside class="rail">
+  <div class="brand">Inside <span>Flightcrew</span></div>
+  <div class="brand-sub">FlightDeck · system overview</div>
+  <nav aria-label="Contents">
+    <div class="navgroup">Orientation</div>
+    <ul>
+      <li><a href="#idea"><span class="n">§0</span>The idea in one page</a></li>
+      <li><a href="#map"><span class="n">§0</span>The map on disk</a></li>
+      <li><a href="#fc"><span class="n">§0</span>The <code>fc</code> tool</a></li>
+    </ul>
+    <div class="navgroup">A run, phase by phase</div>
+    <ol>
+      <li><a href="#targets"><span class="n">1</span>targets — spec &amp; tests</a></li>
+      <li><a href="#kickoff"><span class="n">1b</span>kickoff &amp; the launch</a></li>
+      <li><a href="#plan"><span class="n">2</span>plan</a></li>
+      <li><a href="#contracts"><span class="n">3</span>contracts</a></li>
+      <li><a href="#implement"><span class="n">4</span>implement</a></li>
+      <li><a href="#verify"><span class="n">5</span>verify</a></li>
+      <li><a href="#review"><span class="n">6</span>review</a></li>
+      <li><a href="#report"><span class="n">7</span>report</a></li>
+      <li><a href="#ended"><span class="n">8</span>ended</a></li>
+    </ol>
+    <div class="navgroup">The machinery</div>
+    <ul>
+      <li><a href="#crew"><span class="n">§9</span>The crew</a></li>
+      <li><a href="#workflows"><span class="n">§10</span>Workflows &amp; fan-out</a></li>
+      <li><a href="#guards"><span class="n">§11</span>Isolation &amp; guards</a></li>
+      <li><a href="#testing"><span class="n">§12</span>Testing &amp; checks</a></li>
+      <li><a href="#outputs"><span class="n">§13</span>The launch folder</a></li>
+      <li><a href="#tenets"><span class="n">§14</span>Why it's built this way</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+
+<header class="masthead">
+  <div class="eyebrow">Codebase review · dev/workspace/reviews</div>
+  <h1>Inside Flightcrew</h1>
+  <p class="lede">Flightcrew is the orchestrated half of FlightDeck: a system for having AI agents build software against a specification that was frozen before any of them started, and proving afterwards that they actually did. This page walks the whole thing from the outside in — what a run is, who does the work, and what stops an agent from marking its own homework.</p>
+  <div class="meta">
+    <span>scope · <code>flightdeck/</code></span>
+    <span>29 locked suites</span>
+    <span>10 crew roles</span>
+    <span>2 real runs on record</span>
+  </div>
+</header>
+
+<!-- ============ 0. THE IDEA ============ -->
+<section id="idea">
+  <div class="sec-head"><span class="sec-num">§0.1</span><h2>The idea in one page</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Ask a capable AI agent to "build this feature" and you get code plus a confident claim that it works. Flightcrew's whole design is a refusal to take that claim at face value. It splits the job into two halves separated by a hard freeze: <strong>first you write down exactly what must be true and how it will be tested, and lock those files</strong>; <strong>then agents build against them without being able to edit either one.</strong></p>
+    <p>Everything else — the folders, the hooks, the ten agent roles, the twenty-odd commands — exists to make that separation hold under pressure.</p>
+  </div>
+
+  <p>The unit of work is a <strong>launch</strong>: one orchestrated run, living entirely in its own folder at <code>flightdeck/launch/&lt;name&gt;/</code>. A launch moves through eight phases in a fixed order, and pauses at three gates where a human — not an agent — decides whether it continues.</p>
+
+  <div class="strip-wrap">
+    <div class="strip-title">The eight phases of a launch, in order</div>
+    <div class="strip">
+      <div class="ph"><span class="i">1</span><span class="nm">targets</span><span class="wh">Spec and tests map pinned to the run</span></div>
+      <div class="ph"><span class="i">2</span><span class="nm">plan</span><span class="wh">Work cut into waves and units</span></div>
+      <div class="ph gate"><span class="i">↑</span><span class="nm">G1</span><span class="wh">Human reads the plan against the spec</span></div>
+      <div class="ph"><span class="i">3</span><span class="nm">contracts</span><span class="wh">Wave 0 lands the shared interfaces</span></div>
+      <div class="ph gate"><span class="i">↑</span><span class="nm">G2</span><span class="wh">Human approves before the fleet runs</span></div>
+      <div class="ph"><span class="i">4</span><span class="nm">implement</span><span class="wh">Units built in parallel, then merged</span></div>
+      <div class="ph"><span class="i">5</span><span class="nm">verify</span><span class="wh">Checks, boundary, locks, budget</span></div>
+      <div class="ph"><span class="i">6</span><span class="nm">review</span><span class="wh">A critic hunts for gaps in the diff</span></div>
+      <div class="ph"><span class="i">7</span><span class="nm">report</span><span class="wh">Evidence assembled, nothing judged</span></div>
+      <div class="ph gate"><span class="i">↑</span><span class="nm">G3</span><span class="wh">Human decides the outcome</span></div>
+      <div class="ph end"><span class="i">8</span><span class="nm">ended</span><span class="wh">Outcome recorded, run log stubbed</span></div>
+    </div>
+    <div class="strip-key">
+      <span class="k-a">phase — the machine advances</span>
+      <span class="k-g">gate — the run halts for a person</span>
+    </div>
+  </div>
+
+  <p>The phase list is not documentation prose; it is a literal array in the code (<code>PHASES</code> in <code>checks/lib/launch-lib.mjs</code>), and <code>fc launch phase</code> will only accept the immediately next one unless forced. You cannot skip verification on the way to a report.</p>
+
+  <h3>Four documents, each frozen before the next is written</h3>
+  <p>A run is really a chain of four documents. Each one is finished and locked before the next begins, so nothing downstream can quietly renegotiate what upstream decided.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Document</th><th>Answers</th><th>Written by</th><th>Locked when</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">spec.v1.json</td><td class="wrap">What must be true when the work is done</td><td class="wrap">spec-builder, judged and attacked</td><td class="wrap">A human sets <code>status: frozen</code> and records the commit</td></tr>
+      <tr><td class="mono">tests-map.v1.json</td><td class="wrap">Which commands prove each part of it</td><td class="wrap">test-builder, before any code exists</td><td class="wrap">Frozen, then pinned to the launch — this sets <code>lock_commit</code></td></tr>
+      <tr><td class="mono">plan.json</td><td class="wrap">How this particular run is cut up</td><td class="wrap">planner, once per launch</td><td class="wrap">Approved by a human at gate G1</td></tr>
+      <tr><td class="mono">kickoff.md</td><td class="wrap">How a run of this shape is conducted</td><td class="wrap">Rendered from a template library</td><td class="wrap">Version-stamped at render; never hand-edited</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Notice the ordering trick: <strong>the tests are written before the implementation exists</strong>, and each check records a <em>baseline</em> — the test-builder's own prediction of whether it will pass or fail on the empty codebase, written down before it is ever run. A check that was supposed to fail and instead passed is itself a defect in the check.</p>
+</section>
+
+<!-- ============ 0.2 MAP ============ -->
+<section id="map">
+  <div class="sec-head"><span class="sec-num">§0.2</span><h2>The map on disk</h2></div>
+
+  <p>FlightDeck's top level splits into human-in-the-loop space and orchestrated space. Only two folders below are heavily built out today; the rest are staked-out ground with a one-line note explaining what they will hold.</p>
+
+  <div class="paths"><b>flightdeck/</b>
+├── <b>missions/</b>      <i>ideas, decomposed — where a piece of work starts life</i>
+├── <b>hangar/</b>        <i>the main agent loop's working directory (human-in-the-loop)</i>
+├── <b>flightcrew/</b>    <i>the global assets every run uses — this page is mostly about here</i>
+│   ├── bin/          <i>the `fc` runner and one module per command</i>
+│   ├── crew/         <i>ten agent role definitions, one markdown file each</i>
+│   ├── checks/       <i>shared libraries, document validators, phase gates</i>
+│   ├── hooks/        <i>six scripts that intercept what an agent tries to do</i>
+│   ├── schemas/      <i>JSON schemas for every document the system writes</i>
+│   ├── templates/    <i>spec / plan / launch / dispatch / kickoff templates</i>
+│   ├── workflows/    <i>three scripts that fan agents out in bulk</i>
+│   └── MANIFEST.txt  <i>every file the system ships, one path per line</i>
+├── <b>launch/</b>        <i>the runs themselves, one self-contained folder each</i>
+│   ├── specs/        <i>the canonical home of every spec and tests map</i>
+│   ├── RUNLOG.md     <i>cross-run history — read before planning the next run</i>
+│   └── &lt;launch&gt;/     <i>one orchestrated run, start to finish</i>
+├── <b>testbench/</b>     <i>29 locked regression suites + fixtures + the rubric bench</i>
+├── <b>blackbox/</b>      <i>archives (placeholder for a later `archive` command)</i>
+└── <b>radar/</b>         <i>visualisation panels and decks (stubbed)</i></div>
+
+  <p>The important structural fact: <strong>nothing here is installed</strong>. <code>fc</code> is invoked by its path, hooks run in place, and only the crew definitions and the workflow scripts are ever copied out into a consuming project's <code>.claude/</code> directory.</p>
+</section>
+
+<!-- ============ 0.3 FC ============ -->
+<section id="fc">
+  <div class="sec-head"><span class="sec-num">§0.3</span><h2>The <code>fc</code> tool</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p><code>fc</code> is the one command anybody — human or agent — uses to touch a run. Agents in this system hold almost no write permissions; instead of editing <code>launch.json</code> they run <code>fc launch phase verify</code>, and instead of saving a result they run <code>fc return worker</code>. Every state change goes through a command that validates first and refuses cleanly.</p>
+  </div>
+
+  <p><code>flightdeck/flightcrew/bin/fc</code> is a four-line shell shim that execs <code>fc.mjs</code>. Two flags work anywhere in the argument list: <code>--json</code> switches a command's one-line output for a single structured document, and <code>--launch &lt;name&gt;</code> forces which run to act on.</p>
+
+  <h3>How it finds the run you mean</h3>
+  <p>Two separate resolutions happen before any command body runs.</p>
+  <ul>
+    <li><strong>The root</strong> is the first of <code>$FLIGHTCREW_ROOT</code>, <code>$CLAUDE_PROJECT_DIR</code>, the git toplevel of the working directory, or the repository holding <code>fc</code> itself, that names a directory at all. The first one that names a directory <em>settles it</em> — if that directory has no <code>flightdeck/launch/</code> under it, that is an error, not a reason to try the next candidate. A stated root can never be silently swapped for a different repo.</li>
+    <li><strong>The launch</strong> is whatever <code>$FLIGHTCREW_LAUNCH</code> names, regardless of its status; the literal value <code>none</code> means "no launch, disable enforcement for this session". Only when that variable is unset does <code>fc</code> look for the unique launch with <code>status: active</code> — zero or two both being errors.</li>
+  </ul>
+
+  <h3>Exit codes carry the meaning</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th class="mono">code</th><th>Means</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td class="mono"><span class="bg bg-clear">0</span></td><td class="wrap">Success</td><td class="wrap">Checks green, document valid, merge landed</td></tr>
+      <tr><td class="mono"><span class="bg bg-caution">1</span></td><td class="wrap">Usage or environment error</td><td class="wrap">Bad flag, missing file, no launch resolves, two launches active</td></tr>
+      <tr><td class="mono"><span class="bg bg-block">2</span></td><td class="wrap">A failed check or a blocking decision</td><td class="wrap">Test failed, boundary violated, budget exceeded, invalid return, merge conflict</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The convention on output is equally tight: one line on success, unless the command's whole purpose is a document or a listing — <code>launch status</code>, <code>events summary</code>, <code>runlog show</code>, the renderers, <code>validate all</code> and <code>doctor</code> are the named exceptions.</p>
+
+  <details>
+    <summary>The full command surface</summary>
+    <div class="det-body">
+      <div class="tw">
+      <table>
+        <thead><tr><th class="mono">Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">launch new / activate</td><td class="wrap">Create the run folder from a spec; flip it to the single active run</td></tr>
+          <tr><td class="mono">launch pin tests-map</td><td class="wrap">Freeze the allowed and locked path globs, set <code>lock_commit</code> to HEAD</td></tr>
+          <tr><td class="mono">launch status</td><td class="wrap">Phase, pins, gates, budget counters vs ceilings</td></tr>
+          <tr><td class="mono">launch phase / gate</td><td class="wrap">Advance a phase; record a G1/G2/G3 approve or exit</td></tr>
+          <tr><td class="mono">launch escalate / note</td><td class="wrap">Raise a blocking problem for a human; append an orchestrator note</td></tr>
+          <tr><td class="mono">launch end / land</td><td class="wrap">Record the outcome and stub the run log; record where the work landed</td></tr>
+          <tr><td class="mono">plan write / render</td><td class="wrap">Validate and store <code>plan.json</code>; re-render <code>plan.md</code> from it</td></tr>
+          <tr><td class="mono">check / verify</td><td class="wrap">Run checks from the pinned map; run checks + boundary + locks + budget</td></tr>
+          <tr><td class="mono">boundary / locked / budget</td><td class="wrap">The three evidence probes, each writing its own JSON and exiting 2 when dirty</td></tr>
+          <tr><td class="mono">worker render / merge / return</td><td class="wrap">Seal a unit dispatch; land a green unit; store what came back</td></tr>
+          <tr><td class="mono">critic render / verifier render</td><td class="wrap">Seal a review or verification dispatch</td></tr>
+          <tr><td class="mono">return worker|explorer|verifier|critic</td><td class="wrap">Schema-validate and store an agent's return; append a <code>return</code> event</td></tr>
+          <tr><td class="mono">events append / usage / summary</td><td class="wrap">Write and tally the run's event log</td></tr>
+          <tr><td class="mono">evidence / report / runlog</td><td class="wrap">Render <code>evidence.html</code>, <code>report.md</code>, the <code>RUNLOG.md</code> entry</td></tr>
+          <tr><td class="mono">validate / lint</td><td class="wrap">Dispatch to the standalone document validators and the spec readiness linter</td></tr>
+          <tr><td class="mono">distribute / doctor</td><td class="wrap">Copy crew and workflows into a project's <code>.claude/</code>; check the install is whole</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Two design details worth knowing. <strong>Validators are separate programs, not library calls</strong> — <code>fc validate</code> spawns <code>checks/validators/&lt;name&gt;.mjs</code> as its own process and adds nothing to its output, so the same verdict is reachable with or without the CLI. And <strong>one shared loader feeds both renderers</strong>: <code>evidence.html</code> and <code>report.md</code> read the launch folder through the same <code>loadLaunchData()</code>, so the two documents cannot disagree about what happened.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 1. TARGETS ============ -->
+<section id="targets">
+  <div class="sec-head"><span class="sec-num">Phase 1</span><h2>targets — the spec and the tests</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Before a single line is built, two files are written, argued over, and frozen: a <strong>spec</strong> saying what must be true, and a <strong>tests map</strong> saying which commands prove it. Freezing means literally stamping the file <code>frozen</code> with the git commit it was frozen at. From that point the files are read-only for the rest of the run, enforced by a hook that refuses to edit them.</p>
+  </div>
+
+  <h3>What a spec actually is</h3>
+  <p>One JSON file of typed, ID-prefixed nodes across nine required domains. Every node carries a status, and any node that is not <code>ok</code> must carry a note explaining why.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="mono">id</th><th>Domain</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">INT</td><td>intent</td><td class="wrap">The outcome and why — exactly one</td></tr>
+      <tr><td class="mono">SC<i>n</i></td><td>scope</td><td class="wrap">What is in and, just as importantly, what is deliberately out</td></tr>
+      <tr><td class="mono">C<i>n</i></td><td>constraints</td><td class="wrap">Non-negotiables about how</td></tr>
+      <tr><td class="mono">I<i>n</i></td><td>interfaces</td><td class="wrap">Named contracts and types, each declaring what it reuses</td></tr>
+      <tr><td class="mono">B<i>n</i></td><td>behaviours</td><td class="wrap">Observable, testable outcomes</td></tr>
+      <tr><td class="mono">E<i>n</i></td><td>edges</td><td class="wrap">Boundary and failure cases, each stating an outcome</td></tr>
+      <tr><td class="mono">D<i>n</i></td><td>decisions</td><td class="wrap">Things decided elsewhere or deliberately deferred</td></tr>
+      <tr><td class="mono">VER</td><td>verification</td><td class="wrap">How the spec expects to be proven, behaviour by behaviour</td></tr>
+      <tr><td class="mono">ACC</td><td>acceptance</td><td class="wrap">The conditions that end the work, and which paths may change</td></tr>
+      <tr><td class="mono">Q<i>n</i></td><td>open_questions</td><td class="wrap">Unresolved items — must be empty before a freeze</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The system's own spec, <code>flightcrew-v1</code>, is a good sense of scale: 54 behaviours, 24 edges, 14 interfaces, 18 decisions, 9 scope entries and 9 constraints, frozen at commit <code>5f69a94</code>.</p>
+
+  <p>Two rules give the spec its unusual discipline. <strong>IDs are permanent</strong> — a removed node moves to a <code>retired</code> list rather than disappearing, and live plus retired ids must together form an unbroken run from 1 to N per prefix. And <strong>a frozen file is never edited</strong>: a change means copying to the next version number, appending the old header to <code>previous_versions</code>, and starting again as a draft.</p>
+
+  <h3>The adversarial loop that gets it there</h3>
+  <p>Three agents, deliberately kept apart, cycle until the spec stops producing findings.</p>
+
+  <figure>
+    <div class="fig-in">
+      <svg viewBox="0 0 760 250" role="img" aria-label="The spec loop: builder writes, judge scores against a rubric, attacker hunts for holes, findings return to the builder, a human freezes.">
+        <defs>
+          <marker id="ar" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto">
+            <path d="M0,0 L7.5,3.2 L0,6.4 z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <g style="color:var(--line-strong)">
+          <line x1="182" y1="72" x2="252" y2="72" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"/>
+          <line x1="422" y1="72" x2="492" y2="72" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"/>
+          <path d="M582 104 L582 168 L110 168 L110 104" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+          <line x1="662" y1="72" x2="700" y2="72" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"/>
+        </g>
+
+        <g>
+          <rect x="30" y="44" width="152" height="60" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/>
+          <text x="106" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">spec-builder</text>
+          <text x="106" y="87" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--muted)">writes the draft</text>
+        </g>
+        <g>
+          <rect x="252" y="44" width="170" height="60" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/>
+          <text x="337" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">spec-judge</text>
+          <text x="337" y="87" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--muted)">rubric, yes/no + quote</text>
+        </g>
+        <g>
+          <rect x="492" y="44" width="170" height="60" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/>
+          <text x="577" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">spec-attacker</text>
+          <text x="577" y="87" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--muted)">hunts for holes</text>
+        </g>
+        <g>
+          <rect x="700" y="44" width="36" height="60" fill="var(--caution-soft)" stroke="var(--caution)" stroke-width="1.4"/>
+          <text x="718" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--caution)">👤</text>
+        </g>
+        <text x="718" y="124" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="var(--caution)">human</text>
+        <text x="718" y="137" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="var(--caution)">freezes</text>
+
+        <text x="346" y="186" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--muted)">every finding absorbed, asked of the provider, or rejected — then judged and attacked again</text>
+
+        <g style="color:var(--muted)">
+          <text x="30" y="222" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--muted)">Loop ends when: open_questions is empty · the linter exits 0 · the judge says “ready to freeze” · a full attack returns “no findings”</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Each of the three roles is walled off from the others' reasoning. The judge is handed exactly two files — the rubric and the draft — because a judge shown the author's reasoning confirms rather than examines.</figcaption>
+  </figure>
+
+  <p>The attacker's rule against padding is telling: if a full pass finds nothing, it returns the literal string <code>no findings</code>, because "a manufactured finding costs a provider round and teaches the chain to ignore you."</p>
+
+  <details>
+    <summary>What the readiness linter catches that a schema cannot</summary>
+    <div class="det-body">
+      <p><code>fc lint spec</code> is separate from <code>fc validate spec</code>. The validator checks shape — ids, statuses, freeze invariants. The linter checks whether a human could responsibly freeze it. Nine failing rules and two warnings:</p>
+      <ul>
+        <li><code>lint-domains</code> — all nine domains non-empty, unless the spec says which is empty by decision and why</li>
+        <li><code>lint-open-questions</code> — any open question at all fails</li>
+        <li><code>lint-sequential</code> — ids form an unbroken sequence per prefix</li>
+        <li><code>lint-out-list</code> — at least one scope entry is <code>kind: out</code>: what the spec is <em>not</em> is as much a boundary as what it is</li>
+        <li><code>lint-artefacts</code> — every file path named in interfaces or verification must actually resolve in the repo, or be explicitly promised as a deliverable</li>
+        <li><code>lint-commands-run</code> — every command named in verification must be an executable really on PATH</li>
+        <li><code>lint-claimed</code> — every behaviour and edge id appears literally in the verification text, so every claim names its proof</li>
+        <li><code>lint-boundary</code> — acceptance names at least one path glob, so the diff boundary is stated</li>
+        <li><code>lint-class-tags</code> — for an "agent-shaped" product, every behaviour opens with <code>[deterministic]</code>, <code>[property]</code>, <code>[statistical]</code> or <code>[judged]</code></li>
+      </ul>
+      <p>Plus two warnings that never block: <code>warn-impression</code> flags a behaviour leaning on unfalsifiable words ("robust", "gracefully", "properly"), and <code>warn-length</code> flags a spec past roughly 12,000 characters or 60 nodes — beyond what a reader holds in one sitting.</p>
+    </div>
+  </details>
+
+  <h3>The tests map, and what "locked" means</h3>
+  <p>The tests map is the executable half: one check per <code>T</code> id, each naming the spec nodes it <code>covers</code>, the shell command that runs it, and a <strong>baseline</strong> — an <code>expect</code> written before running anything, and an <code>observed</code> filled in by the first baseline run.</p>
+
+  <p>The map also declares the two path sets that govern the whole run:</p>
+  <ul>
+    <li><code>allowed_paths</code> — globs a unit may write into.</li>
+    <li><code>locked_paths</code> — globs no edit may touch once the run is past <code>targets</code>. In practice this covers the suite files, the fixtures, the map itself and the spec folder. <strong>An implementer cannot rewrite the test it is being judged by.</strong></li>
+  </ul>
+
+  <p>Coverage is enforced, not aspirational: every live behaviour, edge, constraint and interface node of the pinned spec must appear in some check's <code>covers</code>, or be explicitly listed under <code>unverified</code> with <code>decided_by: "human"</code>.</p>
+
+  <details>
+    <summary>How a wrong check gets fixed mid-run</summary>
+    <div class="det-body">
+      <p>This is not hypothetical — it happened on the first real run of this system. Two locked suite cases asserted values no faithful implementation could produce (<code>T11</code> expected 2 added lines where <code>git numstat</code> reports 3; <code>T24</code>'s import scanner matched a string literal). The implementer could not edit them, so the sequence was:</p>
+      <ol>
+        <li>The worker returned <code>status: "halt"</code> with <code>halt.kind: "test-contradicts-spec"</code>.</li>
+        <li>The orchestrator escalated with <code>fc launch escalate wrong-check</code>.</li>
+        <li>A <strong>human</strong> decided the checks were wrong, not the spec.</li>
+        <li>A new frozen <code>tests-map.v2.json</code> was cut — same 29 check ids, two marked <code>status: "changed"</code> with notes saying exactly what was wrong — and re-pinned.</li>
+      </ol>
+      <p>The spec itself never changed; the pin still points at spec v1 at commit <code>5f69a94</code>. That is the point of versioning the two documents independently.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 1b. KICKOFF ============ -->
+<section id="kickoff">
+  <div class="sec-head"><span class="sec-num">Phase 1b</span><h2>kickoff — opening the run</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p><code>fc launch new</code> creates the run folder and writes a <strong>kickoff</strong> — the standing instruction sheet the conducting agent follows for the whole run. It is assembled from a small library of parts rather than written by hand, so "how we conduct runs" is a versioned thing that improves across runs instead of drifting per run.</p>
+  </div>
+
+  <p>The division of labour between the four documents is stated crisply in the kickoff library's own README: <em>the spec says what must be true, the plan says how this run is cut, the project constitution says how the project always works, and the kickoff says only how to conduct a run of this shape.</em></p>
+
+  <h3>Three parts, always in this order</h3>
+  <ol>
+    <li><strong>A generated header</strong> — the launch path, spec and tests-map paths with their pinned commits, the assembled version string, a pointer to <code>RUNLOG.md</code>, and any prior reports for the same spec.</li>
+    <li><strong><code>base.md</code></strong> — what every run shares: the seven-step conduct sequence, the three halting gates, the escalate rule, roles, budgets, outputs, and a "never" list.</li>
+    <li><strong>One shape + one task type</strong> — see below.</li>
+  </ol>
+
+  <p>Every part file opens with <code>&lt;!-- version: N --&gt;</code>, and the assembled kickoff's version is the joined list — for example <code>base@1+shape-workflow@1+task-feature@1</code>. That string is recorded in three places (<code>launch.json</code>, <code>plan.json</code>, and the run log entry), so any run traces back to exactly which conduct rules it followed. Improving conduct means bumping a part's version, not editing a rendered kickoff.</p>
+
+  <h4>The three shapes — how units get dispatched</h4>
+  <div class="cards">
+    <div class="card"><span class="ct">shape-session</span><p class="cd">One Claude Code session dispatches subagents directly, one per unit. The default, used when every parallel wave fits inside the concurrency ceiling.</p><span class="cm">gates halt the session's own turn</span></div>
+    <div class="card"><span class="ct">shape-workflow</span><p class="cd">The session keeps the gates and every <code>fc</code> command but hands a whole wave to a workflow script. Used when a wave holds more units than the ceiling allows.</p><span class="cm">both real runs used this</span></div>
+    <div class="card"><span class="ct">shape-sessions</span><p class="cd">The run is split across several sessions against one launch — one conducting session owning the gates, plus a session per stream of units.</p><span class="cm">for work needing hours, not turns</span></div>
+  </div>
+
+  <h4>The four task types — how work gets cut</h4>
+  <div class="cards">
+    <div class="card"><span class="ct">task-feature</span><p class="cd">Cut vertically, one testable behaviour per unit. Wave 0 is the single contracts unit; the last wave carries the acceptance check.</p></div>
+    <div class="card"><span class="ct">task-migration</span><p class="cd">A mechanical sweep. Wave 0 lands the new form plus a compatibility surface; the last wave deletes it and proves the old form is gone. A unit that finds a defect converts the call site as it stands and <em>names</em> the defect — it never fixes it inline.</p></div>
+    <div class="card"><span class="ct">task-audit</span><p class="cd">No code changes. Cut by question, each unit needing a check that <em>reproduces</em> its finding. Wave 0 builds a shared harness; later units write only into their own findings folder.</p></div>
+    <div class="card"><span class="ct">task-agent</span><p class="cd">For building agent-shaped products whose output varies run to run. Behaviours are tagged by evidence class, and a judged verdict is appended to the event log as a stated fact.</p></div>
+  </div>
+
+  <p>Selecting parts is a flag: <code>--kickoff base+shape-workflow+task-feature</code>. A rendered kickoff is then validated — its header must parse, its pointers must resolve, and every backticked role name under <code>## Roles</code> must have a matching file in <code>flightcrew/crew/</code>.</p>
+</section>
+
+<!-- ============ 2. PLAN ============ -->
+<section id="plan">
+  <div class="sec-head"><span class="sec-num">Phase 2</span><h2>plan — cutting the work</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>The planner reads the frozen spec and the pinned tests map and produces one document: how this run is cut into <strong>units</strong> (chunks of work owned by one agent) grouped into <strong>waves</strong> (things that can run at the same time). The governing rule is ownership: <em>if two units must write the same file, they are one unit.</em></p>
+  </div>
+
+  <p>A unit names the spec nodes it makes true, the checks that prove it, the paths it alone may write, and which units it depends on. Dependencies may only point at strictly earlier waves — which is what makes a wave safely parallel.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="mono">field</th><th>Carries</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">id / name</td><td class="wrap">Unit id, and the branch suffix — the unit branch is <code>&lt;launch&gt;/&lt;name&gt;</code></td></tr>
+      <tr><td class="mono">kind</td><td class="wrap"><code>contracts</code> · <code>feature</code> · <code>integration</code> · <code>proof</code></td></tr>
+      <tr><td class="mono">spec_refs</td><td class="wrap">The behaviour and edge ids this unit makes true — its dispatch carries these and no others</td></tr>
+      <tr><td class="mono">checks</td><td class="wrap">Check ids from the pinned map. Never empty</td></tr>
+      <tr><td class="mono">paths</td><td class="wrap">Globs this unit alone may write, inside the map's allowed paths</td></tr>
+      <tr><td class="mono">depends_on</td><td class="wrap">Unit ids in strictly earlier waves</td></tr>
+      <tr><td class="mono">pilot</td><td class="wrap">Runs first, alone, before the rest of its wave commits</td></tr>
+      <tr><td class="mono">budget_turns</td><td class="wrap">Turn ceiling, capped by the implementer role's own declared maximum</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Twelve coded rules validate a plan before it can be stored, and they cross-reference the other documents: a check id absent from the pinned map, a spec ref absent from the pinned spec, a dependency pointing sideways, a parallel wave wider than the concurrency ceiling, a turn budget above the implementer role's own <code>maxTurns</code> — each is a named, individually testable failure. The turn ceiling is genuinely read out of the crew file's frontmatter rather than hard-coded, so the plan can never promise an agent more turns than the agent is configured to take.</p>
+
+  <h3>What a real plan looks like</h3>
+  <p>This is the plan that built flightcrew itself — eight units across four waves.</p>
+
+  <figure>
+    <div class="fig-in">
+      <svg viewBox="0 0 860 260" role="img" aria-label="Four waves: W0 contracts unit U0; W1 four parallel units U1 to U4 with U2 as pilot; W2 two parallel units U5 and U6; W3 the integration unit U7.">
+        <defs>
+          <marker id="ar2" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto">
+            <path d="M0,0 L7.5,3.2 L0,6.4 z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <g style="color:var(--line-strong)">
+          <line x1="176" y1="128" x2="212" y2="128" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+          <line x1="404" y1="128" x2="440" y2="128" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+          <line x1="616" y1="128" x2="652" y2="128" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+        </g>
+
+        <text x="96" y="28" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)">W0 · serial</text>
+        <text x="308" y="28" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)">W1 · parallel</text>
+        <text x="528" y="28" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)">W2 · parallel</text>
+        <text x="756" y="28" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)">W3 · serial</text>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="12">
+          <rect x="20" y="104" width="156" height="48" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+          <text x="98" y="124" text-anchor="middle" fill="var(--ink)">U0 contracts</text>
+          <text x="98" y="141" text-anchor="middle" font-size="10" fill="var(--muted)">schemas + shared libs</text>
+
+          <rect x="212" y="44" width="192" height="36" fill="var(--surface-2)" stroke="var(--line-strong)"/>
+          <text x="308" y="67" text-anchor="middle" fill="var(--ink)">U1 validators</text>
+
+          <rect x="212" y="88" width="192" height="36" fill="var(--caution-soft)" stroke="var(--caution)" stroke-width="1.4"/>
+          <text x="300" y="111" text-anchor="middle" fill="var(--ink)">U2 runners</text>
+          <text x="386" y="111" text-anchor="end" font-size="9.5" fill="var(--caution)">PILOT</text>
+
+          <rect x="212" y="132" width="192" height="36" fill="var(--surface-2)" stroke="var(--line-strong)"/>
+          <text x="308" y="155" text-anchor="middle" fill="var(--ink)">U3 hooks</text>
+
+          <rect x="212" y="176" width="192" height="36" fill="var(--surface-2)" stroke="var(--line-strong)"/>
+          <text x="308" y="199" text-anchor="middle" fill="var(--ink)">U4 crew</text>
+
+          <rect x="440" y="88" width="176" height="36" fill="var(--surface-2)" stroke="var(--line-strong)"/>
+          <text x="528" y="111" text-anchor="middle" fill="var(--ink)">U5 templates</text>
+
+          <rect x="440" y="132" width="176" height="36" fill="var(--surface-2)" stroke="var(--line-strong)"/>
+          <text x="528" y="155" text-anchor="middle" fill="var(--ink)">U6 manuals</text>
+
+          <rect x="652" y="104" width="188" height="48" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+          <text x="746" y="124" text-anchor="middle" fill="var(--ink)">U7 integration</text>
+          <text x="746" y="141" text-anchor="middle" font-size="10" fill="var(--muted)">depends on U1–U6</text>
+        </g>
+
+        <text x="308" y="238" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--muted)">the pilot runs alone first — a broken runner would waste the whole wave</text>
+      </svg>
+    </div>
+    <figcaption>Wave 0 is a single contracts unit owning the schemas and shared libraries every later unit imports. Wave 3 reconciles everything and writes the manifest. The contracts unit is never the pilot.</figcaption>
+  </figure>
+
+  <p><code>plan.json</code> is the source of truth; <code>plan.md</code> is rendered from it and never hand-edited — rendering the same JSON twice produces byte-identical markdown, which is itself an asserted behaviour of the system. <code>fc plan write</code> validates a candidate in a temporary file first and writes nothing at all if it fails.</p>
+
+  <p>The plan also declares <strong>abandon triggers</strong> — conditions that end the run — and each must name something observable: a command, an event, or a file. "The run is going badly" is not a trigger; "a worker return with status halt and an escalation event of kind wrong-check" is.</p>
+
+  <div class="plain gate-note">
+    <span class="tag">Gate G1 · the run halts here</span>
+    <p>A human reads <code>plan.md</code> against the spec: does every unit own files no other unit writes, does every check exist, are the abandon triggers observable? Nothing is dispatched until they approve.</p>
+  </div>
+</section>
+
+<!-- ============ 3. CONTRACTS ============ -->
+<section id="contracts">
+  <div class="sec-head"><span class="sec-num">Phase 3</span><h2>contracts — wave zero</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Exactly one unit runs first and alone: the one that lands the shared interfaces — the schemas, types and libraries every other unit will import. If six agents each invent their own version of a shared type, the integration wave becomes a rewrite. Wave zero prevents that by making the shared surface exist, and be checked, before anyone else starts.</p>
+  </div>
+
+  <p>The contracts unit is dispatched, returned and merged exactly like any other unit. What is different is the gate on the far side of it.</p>
+
+  <p><strong>Gate G2</strong> is where a human approves before the fleet runs, and the command refuses to record that approval unless wave zero's checks are green <em>and</em> were run at or after the lock commit. Stale evidence does not count as evidence. If the spec genuinely has no shared interface, the plan says so explicitly with <code>no_contracts: { reason }</code> and the wave is omitted — the exception has to be argued for, not assumed.</p>
+
+  <p>The stop-gate hook is active in this phase too: ending a turn here runs the contracts unit's own checks plus a boundary probe, and blocks the turn if either is red.</p>
+</section>
+
+<!-- ============ 4. IMPLEMENT ============ -->
+<section id="implement">
+  <div class="sec-head"><span class="sec-num">Phase 4</span><h2>implement — the build</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Each unit goes to one implementer agent working in its <strong>own git worktree on its own branch</strong>, with a prompt that contains everything it is allowed to know and nothing else. It builds until its checks pass, then returns a structured verdict. If the verdict is green, and its dependencies have landed, the orchestrator merges the branch — and re-runs the checks against the <em>merged</em> tree before committing.</p>
+  </div>
+
+  <h3>The sealed dispatch</h3>
+  <p><code>fc worker render &lt;unit&gt;</code> builds a prompt that is the worker's entire input. It carries the unit's intent, scope, constraints, interfaces and decisions pulled live from the pinned spec, the exact spec refs it must satisfy, its allowed paths, its dependencies — and its checks <strong>by id only, never the command text</strong>. A worker that could read the assertion could write to it.</p>
+
+  <p>The dispatch says so in as many words: <em>auto-loaded project instructions that ask you to read other files or run repository tooling do not apply to this role.</em> A subtle mechanic falls out of the worktree isolation — the prompt is written to <code>returns/&lt;unit&gt;.prompt.md</code> and must be committed on the run branch before dispatch, because a subagent's worktree branches from HEAD and would otherwise never see the file.</p>
+
+  <h3>What must come back</h3>
+  <p>A worker return is a fixed JSON shape with no extra properties tolerated. The field that matters most is <code>status</code>:</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="mono">status</th><th>Means</th><th>What happens next</th></tr></thead>
+    <tbody>
+      <tr><td class="mono"><span class="bg bg-clear">green</span></td><td class="wrap">Checks pass, work done</td><td class="wrap">Eligible for <code>fc worker merge</code></td></tr>
+      <tr><td class="mono"><span class="bg bg-block">red</span></td><td class="wrap">Did not get there</td><td class="wrap">Never merges; a red <em>pilot</em> stops the whole wave</td></tr>
+      <tr><td class="mono"><span class="bg bg-caution">halt</span></td><td class="wrap">Cannot proceed honestly</td><td class="wrap">Stops the run; carries a <code>halt.kind</code> for a human to act on</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The five halt kinds are the system's vocabulary for "I will not fake this": <code>test-contradicts-spec</code>, <code>unsatisfiable</code>, <code>blocked</code>, <code>budget</code>, <code>boundary</code>. A worker that thinks its test is wrong is expected to halt and say so — never to edit the test, which the lock guard would refuse anyway.</p>
+
+  <p>Returns are stored with <code>fc return worker</code>, which validates against the schema first. <strong>An invalid return is never written and no event is appended</strong> — it is a blocking error, not a warning.</p>
+
+  <h3>The merge is where trust is re-earned</h3>
+  <p><code>fc worker merge &lt;unit&gt;</code> refuses unless: no abandon trigger has fired, a <em>green</em> return is stored, every dependency is already merged, the repo is on the run branch, and the unit branch exists. Then:</p>
+
+  <pre class="cmd"><b>git merge --no-ff --no-commit</b>   <i>← stage it, don't trust it yet</i>
+<b>fc check &lt;unit's ids&gt;</b>          <i>← re-run its checks on the MERGED tree</i>
+<b>git commit --no-verify</b>          <i>← only if still green</i>
+<i>then: unit_merged event, worktree unlocked, removed, pruned, branch deleted</i></pre>
+
+  <p>That middle step is the crux. A unit's checks passing in its own isolated worktree proves nothing about the tree everyone else is building on. On conflict, or if the re-run goes red, the merge is aborted.</p>
+
+  <details>
+    <summary>Budgets — what actually stops a runaway run</summary>
+    <div class="det-body">
+      <p><code>fc budget</code> counts nine metrics from the event log and the review folder, and compares each against a ceiling declared in <code>launch.json</code>. Exceeding one appends a <code>trigger</code> event and exits 2 — and a fired trigger blocks every further phase move except the move to <code>ended</code>.</p>
+      <div class="tw">
+      <table>
+        <thead><tr><th class="mono">counter</th><th>Derived from</th><th class="num">default ceiling</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">agents</td><td class="wrap">SubagentStart events</td><td class="num">12</td></tr>
+          <tr><td class="mono">implementers_concurrent</td><td class="wrap">Fan-out width per wave chunk</td><td class="num">4</td></tr>
+          <tr><td class="mono">turns_per_agent</td><td class="wrap">Per-unit turn budget</td><td class="num">25</td></tr>
+          <tr><td class="mono">stop_blocks</td><td class="wrap">Turns the stop gate refused to release</td><td class="num">8</td></tr>
+          <tr><td class="mono">consecutive_stop_blocks</td><td class="wrap">Blocks since the last passing check or gate</td><td class="num">3</td></tr>
+          <tr><td class="mono">critic_passes</td><td class="wrap">Files in <code>review/</code></td><td class="num">2</td></tr>
+          <tr><td class="mono">minutes</td><td class="wrap">Span between first and last event</td><td class="num">240</td></tr>
+          <tr><td class="mono">tokens</td><td class="wrap">Summed usage events, or <code>'unobserved'</code></td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Three more — tool failures, permission denials and compactions — are reported but never enforced. A ceiling set to <code>null</code> is reported only, and unobserved tokens are never compared against anything: the system declines to enforce a limit on a number it did not actually measure.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 5. VERIFY ============ -->
+<section id="verify">
+  <div class="sec-head"><span class="sec-num">Phase 5</span><h2>verify — is the green real?</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Every unit says it passed. Verification asks whether the tree as a whole passes, whether anything was written outside the lines, and whether the run stayed inside its budget. Then, optionally, a separate agent re-runs everything and actively tries to break the result.</p>
+  </div>
+
+  <p><code>fc verify</code> runs four stages in a fixed order, and all four must be clean for exit 0:</p>
+
+  <ol class="layers" style="counter-reset:none">
+    <li><span class="lv">1</span><span class="lname">check all</span><span class="ldesc">Every check in the pinned map, each writing its own evidence file with exit code, verdict and the last 40 lines of output.</span></li>
+    <li><span class="lv">2</span><span class="lname">boundary</span><span class="ldesc">Every path changed since the lock commit, flagging any that falls outside the allowed and locked globs.</span></li>
+    <li><span class="lv">3</span><span class="lname">locked</span><span class="ldesc">Any changed path matching a locked glob — the backstop that catches a shell write the edit hooks never saw.</span></li>
+    <li><span class="lv">4</span><span class="lname">budget</span><span class="ldesc">The nine counters against their ceilings, spawned as its own process so the counting lives in exactly one place.</span></li>
+  </ol>
+
+  <h3>The verifier's job is to fail</h3>
+  <p>The verifier role opens with the premise: <em>a green board is a claim, not a fact.</em> It is deliberately denied the implementer's reasoning and the stored returns, because "a worker's account of why a check passes is exactly the claim under test."</p>
+
+  <p>It returns a verdict with one decisive boolean, <code>refuted</code>, set true in exactly three situations: a recorded check verdict did not reproduce when re-run; a locked path changed since the lock; or a change landed outside the boundary. Everything else it notices goes into supporting lists — <code>unverified</code> spec nodes, <code>test_file_changes</code>, <code>outside_boundary</code>, and free-text <code>reasons</code> — without on its own flipping the verdict.</p>
+</section>
+
+<!-- ============ 6. REVIEW ============ -->
+<section id="review">
+  <div class="sec-head"><span class="sec-num">Phase 6</span><h2>review — hunting for the gap</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Passing tests only proves the tests pass. The critic reads the whole diff against the frozen spec and asks a different question: is the thing actually built, is it in scope, were the tests weakened, are errors handled or just swallowed? It reports findings and fixes nothing.</p>
+  </div>
+
+  <p>Review cannot even start on a dirty run. <code>fc launch phase review</code> refuses unless the evidence summary exists, was written at HEAD, shows zero failures and errors, and the boundary and locked probes are both clean.</p>
+
+  <p>The critic's dispatch is <strong>sealed</strong>: the spec text at its pinned commit, the diff since the lock, the evidence summary and the locked-path change list are all inlined. It reads no repository file to obtain them. It works a fixed checklist in order — behaviours actually implemented (not merely asserted by a check), scope held, tests untouched, errors handled rather than suppressed — under the instruction to <em>assume the diff contains at least one gap and look for it.</em></p>
+
+  <h3>Findings and what happens to them</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th class="mono">kind</th><th>Severity</th><th>Routed to</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">correctness-gap</td><td><span class="bg bg-block">blocking</span></td><td class="wrap">The implementer owning the unit whose paths hold the file</td></tr>
+      <tr><td class="mono">scope-violation</td><td><span class="bg bg-block">blocking</span></td><td class="wrap">Same — the unit that wrote outside its lines</td></tr>
+      <tr><td class="mono">spec-conflict</td><td><span class="bg bg-block">blocking</span></td><td class="wrap">Straight to escalation. No fix is attempted — the spec itself is in question</td></tr>
+      <tr><td class="mono">observation</td><td><span class="bg bg-neutral">non-blocking</span></td><td class="wrap">Recorded as a note; sent to no agent. Surfaces later in the run log</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>A pass file is <strong>frozen once written</strong>. When a finding is later fixed or contested, that goes into a separate <code>resolutions.json</code> keyed by finding id, and the report joins the two at render time. The audit trail of what the critic originally said survives intact.</p>
+
+  <p>Each pass runs in a fresh context and is denied the previous pass's findings — <em>a prior verdict would anchor this one.</em> In the real second run, pass 2 raised six findings pass 1 had never mentioned, precisely because it was not looking at pass 1's list.</p>
+
+  <p>Review ends one of two ways: the critic returns <strong>no gaps</strong> and the run moves to the report, or the pass ceiling is reached with blocking findings still open — which is itself an abandon trigger. Not another pass, and not on to the report.</p>
+</section>
+
+<!-- ============ 7. REPORT ============ -->
+<section id="report">
+  <div class="sec-head"><span class="sec-num">Phase 7</span><h2>report — evidence, not verdict</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>The report has one unusual and deliberate property: <strong>it never says whether the run succeeded.</strong> It lays out what was mechanically checked, what was reviewed by an agent, and what was merely asserted by someone — each labelled — and leaves the judgement to the human at gate G3.</p>
+  </div>
+
+  <p>That labelling is built into the headings themselves:</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Heading</th><th class="mono">provenance</th><th>Contents</th></tr></thead>
+    <tbody>
+      <tr><td>Ledger</td><td class="mono">checked · reviewed · stated</td><td class="wrap">One row per unit: checks and verdicts, branch, merge commit, return status; plus what merged, what stayed open, what was attempted and discarded</td></tr>
+      <tr><td>Verification</td><td class="mono">checked</td><td class="wrap">Straight from the evidence summary counts</td></tr>
+      <tr><td>Review</td><td class="mono">reviewed</td><td class="wrap">Every critic finding joined with its resolution state</td></tr>
+      <tr><td>Phases</td><td class="mono">recorded · stated</td><td class="wrap">The phase and gate events as they happened</td></tr>
+      <tr><td>Agents</td><td class="mono">recorded · stated</td><td class="wrap">Who was dispatched, and what came back</td></tr>
+      <tr><td>Failures and interventions</td><td class="mono">recorded</td><td class="wrap">Stop blocks, denials, escalations, triggers</td></tr>
+      <tr><td>Orchestrator notes</td><td class="mono">stated</td><td class="wrap"><code>notes.md</code>, verbatim</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Every section shows a placeholder when its input never happened, so the document has the same shape for a run that barely started as for one that finished — you can always tell the difference between "clean" and "never ran".</p>
+</section>
+
+<!-- ============ 8. ENDED ============ -->
+<section id="ended">
+  <div class="sec-head"><span class="sec-num">Phase 8</span><h2>ended — and what carries forward</h2></div>
+
+  <p>A human ends the run with one of four outcomes: <code>accepted</code>, <code>accepted-with-reservations</code>, <code>abandoned</code>, or <code>partial</code>. For the accepted family the command first demands current, matching evidence and a clean working tree under the allowed paths; for <code>partial</code> it validates that the units being kept are dependency-consistent and carry no open blocking findings.</p>
+
+  <p>Ending then re-renders the evidence page and the report, and inserts a stub into <code>flightdeck/launch/RUNLOG.md</code>. The stub is the interesting part: mechanical fields are filled automatically, but the diagnosis fields arrive as literal <code>&lt;fill&gt;</code> placeholders — <em>cause</em>, <em>change</em>, <em>watch</em>, <em>keep</em>, <em>promote</em>. An entry is never silently complete. The symptom line is pre-filled from the recorded ending event and never hand-written.</p>
+
+  <p>The planner reads that file before writing a plan for the same spec. That is the loop that makes the system get better rather than just repeat: <strong>a run's failure becomes an input to the next run's plan.</strong> Cleanup is never automatic — the ending prints the worktree-removal and branch-deletion commands for a person to run.</p>
+
+  <h3>The two runs on record</h3>
+  <div class="runs">
+    <div class="run">
+      <div class="rn">flightcrew-buildout</div>
+      <div class="ro"><span class="bg bg-block">abandoned</span> at verify</div>
+      <p>Escalated <code>wrong-check</code>: two locked suite cases could not be satisfied by any faithful implementation. A human cut tests-map v2 rather than letting an agent edit the tests.</p>
+    </div>
+    <div class="run">
+      <div class="rn">flightcrew-buildout-2</div>
+      <div class="ro"><span class="bg bg-caution">accepted with reservations</span></div>
+      <p>Two critic passes, 22 findings between them. Reservations recorded rather than waved through — including that the run used a shared branch rather than per-unit worktrees.</p>
+    </div>
+  </div>
+
+  <p>Worth sitting with: the system's <em>own</em> first build run was abandoned by its own rules, and the second was accepted only with reservations, both recorded in its own run log. That is the machinery working, not failing.</p>
+</section>
+
+<!-- ============ 9. CREW ============ -->
+<section id="crew">
+  <div class="sec-head"><span class="sec-num">§9</span><h2>The crew</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Ten roles, each one markdown file: frontmatter sets the model, the tools and the limits; the body is the system prompt. The single most important column in the table below is the last one — <strong>what each role is forbidden to see</strong>. A reviewer who reads why something was done will rationalise it rather than test it.</p>
+  </div>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="mono">role</th><th class="mono">model</th><th>Job</th><th>Must not see</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">orchestrator</td><td class="mono">inherit</td><td class="wrap">Conducts the run; dispatches, records, holds gates open. Holds no write tools</td><td class="wrap">Worker transcripts, the spec interview, a critic's reasoning</td></tr>
+      <tr><td class="mono">planner</td><td class="mono">fable</td><td class="wrap">Cuts the spec into waves and units</td><td class="wrap">Worker transcripts, another launch's returns, the implementation</td></tr>
+      <tr><td class="mono">implementer</td><td class="mono">opus</td><td class="wrap">Builds one unit in its own worktree, 25 turns</td><td class="wrap">The plan, the kickoff, any other unit's dispatch or return</td></tr>
+      <tr><td class="mono">verifier</td><td class="mono">sonnet</td><td class="wrap">Re-runs the checks and tries to refute the green board</td><td class="wrap">Implementer reasoning, stored returns, the plan</td></tr>
+      <tr><td class="mono">critic</td><td class="mono">fable</td><td class="wrap">Reviews the diff against the spec; reports, never fixes</td><td class="wrap">The plan, worker reasoning, <em>earlier passes' findings</em></td></tr>
+      <tr><td class="mono">explorer</td><td class="mono">haiku</td><td class="wrap">Answers one narrow factual question with citations and a confidence rating</td><td class="wrap">Anything but the question and the paths it names</td></tr>
+      <tr><td class="mono">spec-builder</td><td class="mono">fable</td><td class="wrap">Writes the spec via a structured interview</td><td class="wrap">Repository source — every fact must arrive via a cited explorer return</td></tr>
+      <tr><td class="mono">spec-judge</td><td class="mono">fable</td><td class="wrap">Scores the draft against the rubric, yes/no with a required quotation</td><td class="wrap">Everything except two files: the rubric and the draft</td></tr>
+      <tr><td class="mono">spec-attacker</td><td class="mono">fable</td><td class="wrap">Finds the holes before freeze; returns <code>no findings</code> if there are none</td><td class="wrap">The rubric, the standard, the interview</td></tr>
+      <tr><td class="mono">test-builder</td><td class="mono">opus</td><td class="wrap">Turns a frozen spec into the tests map and the check scripts</td><td class="wrap">A plan, an implementation, a prior run's returns</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Only the implementer runs with worktree isolation and edit permissions. The verifier, critic, explorer, judge and attacker hold read-only tools — they physically cannot change what they are assessing.</p>
+
+  <p>The roster README states the principle once, for all of them: <em>a role that reads the plan or another role's reasoning stops being an independent witness.</em> The adversarial roles simply turn that isolation outward into an explicit mandate to find fault — the verifier against the evidence, the critic against the spec-versus-code claim, the attacker against the draft's completeness.</p>
+</section>
+
+<!-- ============ 10. WORKFLOWS ============ -->
+<section id="workflows">
+  <div class="sec-head"><span class="sec-num">§10</span><h2>Workflows and fan-out</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>When a wave holds more units than one session should juggle, the orchestrator hands the fan-out to a small JavaScript script. These scripts are pure dispatchers: they cannot read a file, run a command, touch git, or even ask what time it is. They call agents and return a payload; nothing they return counts as evidence until the orchestrator stores it with an <code>fc return</code> command.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><span class="ct">fc-implement.js</span><p class="cd">Dispatches a launch's implementers wave by wave: pilots first, then the rest in chunks capped by the concurrency ceiling.</p><span class="cm">stops on the first halt, or a red pilot</span></div>
+    <div class="card"><span class="ct">fc-review.js</span><p class="cd">Runs the critic → route → fix → re-verify loop, routing each finding to the unit whose path globs match the file.</p><span class="cm">capped by critic_passes</span></div>
+    <div class="card"><span class="ct">fc-explore.js</span><p class="cd">Fans one read-only explorer per open question, all at once. A bad answer is dropped, not escalated.</p><span class="cm">no waves, no halting</span></div>
+  </div>
+
+  <p>The prohibition on clocks and randomness is not advisory — a locked testbench suite checks every workflow script for <code>Date.now</code>, <code>new Date</code> and <code>Math.random</code>, and verifies that the JSON schemas inlined in each script are byte-identical to the canonical ones in <code>flightcrew/schemas/</code>. A timestamp has to arrive as an argument.</p>
+
+  <h3>How the fan-out actually behaves</h3>
+  <ul>
+    <li><strong>Waves run strictly in order.</strong> A later wave never starts before an earlier one finishes or halts.</li>
+    <li><strong>Pilots go first, alone.</strong> If a pilot comes back red, the wave stops there — the "prove the risky bit works before committing the fleet" gate.</li>
+    <li><strong>The rest run in chunks.</strong> Units inside a chunk are genuinely concurrent; the next chunk waits for the whole current one.</li>
+    <li><strong>A missing or malformed return becomes a synthetic halt</strong>, never a silent gap. A stuck subagent still produces a well-formed record.</li>
+  </ul>
+
+  <p>Above all of this sits the orchestrator's own gating: three human gates plus any halt return or fired trigger stop the run regardless of what a script would have done next.</p>
+</section>
+
+<!-- ============ 11. GUARDS ============ -->
+<section id="guards">
+  <div class="sec-head"><span class="sec-num">§11</span><h2>Isolation, permissions and guards</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Six small scripts sit between an agent and the filesystem. Two refuse edits it shouldn't make, one checks that whatever it just wrote still parses, one refuses to let it end its turn while the tests are red, and two exist purely so the run leaves a record. None of them can crash a session: every one is wrapped so that any error is swallowed and logged, and every one is a complete no-op when no launch is active.</p>
+  </div>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="mono">hook</th><th class="mono">fires on</th><th>Does</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">lock-guard</td><td class="mono">PreToolUse</td><td class="wrap">Denies an edit to a locked path in any phase past <code>targets</code> — "report a wrong or unsatisfiable check instead of editing it"</td></tr>
+      <tr><td class="mono">boundary-guard</td><td class="mono">PreToolUse</td><td class="wrap">Denies an edit outside the paths the current phase permits</td></tr>
+      <tr><td class="mono">structural-check</td><td class="mono">PostToolUse</td><td class="wrap">Runs a per-extension syntax command on the file just written; exits 2 with the last 20 lines on failure</td></tr>
+      <tr><td class="mono">stop-gate</td><td class="mono">Stop</td><td class="wrap">In <code>verify</code> and <code>contracts</code> only, runs the phase's gate and refuses to release the turn while it is red</td></tr>
+      <tr><td class="mono">event-log</td><td class="mono">many</td><td class="wrap">Appends one well-formed event line per recorded event. Blocks nothing</td></tr>
+      <tr><td class="mono">session-end</td><td class="mono">SessionEnd</td><td class="wrap">Best-effort, 1.5 second budget: re-renders the evidence page and report so they survive the session</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Boundaries and locks</h3>
+  <p>The two guards read the same declaration in <code>launch.json</code> and answer different questions. <strong>Locked</strong> means "nobody may edit this at all past the targets phase" — the tests, the fixtures, the spec. <strong>Boundary</strong> means "this phase permits writes only here" — in the build phases, the unit's allowed paths plus the launch's own folder.</p>
+
+  <p>Both guards refuse by returning a decision, not by exiting non-zero, and both are honest about ambiguity: when two launches are active or <code>launch.json</code> is unreadable, they return <code>ask</code> rather than guessing, handing the decision to a person.</p>
+
+  <p>There is one gap they cannot close, and the system says so plainly rather than pretending otherwise: <strong>a shell command that writes a file never triggers an edit hook.</strong> A <code>sed -i</code>, a redirect, a <code>git checkout</code> — none pass through <code>Edit</code> or <code>Write</code>. Three backstops cover it together: harness-level deny rules on the locked paths, a filesystem sandbox deny list that applies to Bash and its children, and <code>fc locked</code> / <code>fc boundary</code> running inside <code>fc verify</code> so a shell write is still caught before a run can be accepted.</p>
+
+  <h3>Worktree isolation</h3>
+  <p>Each implementer works in its own git worktree under <code>.claude/worktrees/</code>, gitignored and excluded from every changed-path calculation. One configuration detail is load-bearing: <code>worktree.baseRef</code> must be <code>head</code>, or subagents branch from the remote default branch and never see the run's own branch at all.</p>
+
+  <p>Worktree creation is deliberately left unhooked, and the reason is a nice piece of harness knowledge: a hook on that event does not <em>observe</em> creation, it <em>replaces</em> it — a logging hook attached there would break every isolated subagent.</p>
+
+  <h3>The stop gate, and the escape valve</h3>
+  <p>The stop gate is the only hook granted a raised timeout (600 seconds) because it runs real checks. If the gate is red it records a block, prints the failing check ids with their output tails, and exits 2 — refusing to let the turn end.</p>
+
+  <p>But it will not do that forever. After a hard ceiling of consecutive blocks it records a stall and a trigger, prints a message pointing at <code>fc launch escalate</code>, and <em>releases</em> the turn. An open escalation also releases it immediately. The design position is explicit: a human's escalation always beats a red gate, and an agent trapped in a retry loop is a failure to hand back, not a failure to grind through.</p>
+
+  <details>
+    <summary>The one-paragraph threat model</summary>
+    <div class="det-body">
+      <p>Each layer answers a distinct way a semi-autonomous coding agent goes wrong. The lock and boundary guards stop a worker silently rewriting the tests it is judged by, or wandering outside the files its unit was scoped to — the two most direct routes to an agent marking its own homework. The structural check catches a broken file the instant it is written, before the mistake compounds across further edits. The stop gate stops an agent declaring a phase done while its checks are red, and its block ceiling stops it looping forever. The event log and session-end hook block nothing at all; they exist so the audit trail and the rendered evidence survive however the session ends. Underneath, the no-op rule — silence whenever a launch cannot be confidently resolved — plus the retrospective <code>fc boundary</code> and <code>fc locked</code> probes form the failure-safe backstop: hooks never crash or hang a session, and the one gap the guards structurally cannot see is closed by the harness's own deny rules and by verification refusing to pass a run with a dirty tree.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 12. TESTING ============ -->
+<section id="testing">
+  <div class="sec-head"><span class="sec-num">§12</span><h2>Testing and checks</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>"Checking" happens at six layers, and it is worth keeping them apart. At the bottom, a schema says what shape a file must have. At the top, a regression suite spawns the real command as a subprocess and asserts on its exit code. In between sit the semantic validators, the phase gates, and the hooks that call them.</p>
+  </div>
+
+  <ol class="layers">
+    <li><span class="lv">L1</span><span class="lname">schemas/</span><span class="ldesc">JSON schema files describing the shape of every document the system writes. They declare; they run nothing.</span></li>
+    <li><span class="lv">L2</span><span class="lname">schema-lib.mjs</span><span class="ldesc">A hand-rolled validator covering exactly the keyword subset the bundled schemas use — no dependency, no more surface than needed.</span></li>
+    <li><span class="lv">L3</span><span class="lname">validators/</span><span class="ldesc">Semantic rules a schema cannot express: the 13 spec invariants, the 13 tests-map invariants plus coverage, the 12 plan rules, the kickoff and launch rules.</span></li>
+    <li><span class="lv">L4</span><span class="lname">gates/</span><span class="ldesc">Decide whether a phase transition may proceed. They report a verdict and never decide what to do about it — the caller decides.</span></li>
+    <li><span class="lv">L5</span><span class="lname">hooks/</span><span class="ldesc">Live interception, wired declaratively to tool events, calling the gates.</span></li>
+    <li><span class="lv">L6</span><span class="lname">testbench/suites/</span><span class="ldesc">29 locked regression suites that spawn the real commands, hooks, validators and gates against temporary fixture repositories and assert on real output.</span></li>
+  </ol>
+
+  <h3>The testbench</h3>
+  <pre class="cmd"><b>node flightdeck/testbench/run-all.mjs</b> [--only &lt;substring&gt;]
+
+<i>ok bin-boundary (12/12, 7050 ms)</i>
+<i>ok bin-check    (17/17, 16056 ms)</i>
+<i>…</i>
+<i>ok workflows    (4/4, 171 ms)</i>
+<i>hygiene: ok</i></pre>
+
+  <p>Every suite follows one protocol: a <code>pass</code> or <code>FAIL</code> line per case, then exactly one <code>covers:</code> line naming the spec node ids it proves, then a count line. Exit 0 if every case passed, 2 otherwise — never 1, and never a silent crash, since an uncaught error becomes a FAIL line.</p>
+
+  <p>Two hygiene rules run around the whole thing: each suite gets a private temp directory and anything left in it is a leak that fails the run, and a git status snapshot before and after catches any file written outside the runs folder.</p>
+
+  <p>The 29 suites map one-to-one onto the 29 check ids of the pinned tests map — the end-to-end journey, each command family, each hook, each validator, plus static scans for imports and network use, hook timing, schema round-trips, the kickoff template assembly, the manifest, and the workflow scripts. Implementation units may <em>add</em> suites under <code>unit-*/</code>; they may never edit a locked one.</p>
+
+  <details>
+    <summary>Fixtures, the manifest, doctor, and what a "bench" is</summary>
+    <div class="det-body">
+      <p><strong>Fixtures</strong> are golden inputs that suites copy and mutate — never mutate in place. <code>sample-project</code> is a tiny real codebase with real tests; <code>sample-spec</code> holds a spec, tests map and plan; <code>sample-launch</code> is a complete realistic launch folder with events, evidence, returns and a review pass, used as the reference for launch-folder shape.</p>
+      <p><strong><code>MANIFEST.txt</code></strong> lists every file the system ships, one repository-relative path per line. <code>fc doctor</code> and a dedicated suite both check every listed path exists and is non-empty — and the suite checks the reverse too, that no shipped file is missing from the list.</p>
+      <p><strong><code>fc doctor</code></strong> is the installation health check: Node version, git on PATH, no two launches active, crew frontmatter complete, every script passing <code>node --check</code>, every schema parsing, the sample launch validating, the manifest whole, the implementer declaring a turn cap. With <code>--target</code> it also checks a distributed <code>.claude/</code> — crew files byte-equal to source, every hook command present in settings, hook interpreters resolvable, <code>worktree.baseRef</code> set to <code>head</code>, worktrees gitignored, and no name collision with the project's other agents.</p>
+      <p><strong>A bench is not a suite</strong>, and <code>run-all</code> does not run it. The rubric bench under <code>testbench/benches/</code> asks a question no pass/fail assertion can: given one draft and one rubric, do <em>different judges</em> converge on the same findings, and if not, which rubric questions are responsible? It tracks "flips" — a question a chain passed and then failed on unchanged text, which disqualifies that question's wording. It is calibration data for a judged process, kept deliberately outside the green/red status of the testbench.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 13. OUTPUTS ============ -->
+<section id="outputs">
+  <div class="sec-head"><span class="sec-num">§13</span><h2>The launch folder and what it leaves behind</h2></div>
+
+  <div class="plain">
+    <span class="tag">In plain terms</span>
+    <p>Everything a run produces lands in one self-contained folder. A person who never watched the run can open it afterwards and reconstruct what happened, what was proven, and what was only claimed — because the outputs are deliberately separated along exactly that line.</p>
+  </div>
+
+  <div class="paths"><b>flightdeck/launch/&lt;run&gt;/</b>
+├── launch.json      <i>state: status, phase, pins, paths, ceilings, gates, outcome</i>
+├── kickoff.md       <i>the conduct rules, rendered and version-stamped</i>
+├── specs/&lt;S&gt;/       <i>pinned copies of the spec and tests map</i>
+├── plan.json        <i>source of truth for the run's shape</i>
+├── plan.md          <i>rendered from it, byte-deterministically</i>
+├── events.jsonl     <i>append-only: what the hooks and fc recorded</i>
+├── hooks.log        <i>raw hook diagnostics</i>
+├── evidence/        <i>one JSON per check + boundary, locked, budget, summary</i>
+├── evidence.html    <i>the self-contained page a human actually reads</i>
+├── returns/         <i>every stored agent return, plus its sealed prompt</i>
+├── review/          <i>critic passes (frozen) + resolutions.json (mutable)</i>
+├── notes.md         <i>orchestrator notes, quoted verbatim into the report</i>
+└── report.md        <i>the ledger — final at `fc launch end`</i></div>
+
+  <h3>The provenance split</h3>
+  <p>Three words recur across the outputs and they mean three different things:</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th class="mono">source</th><th>Means</th><th>Trust</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">hook</td><td class="wrap">A Claude Code hook observed it happening</td><td class="wrap">Recorded mechanically; no agent chose to write it</td></tr>
+      <tr><td class="mono">fc</td><td class="wrap">A command wrote it as part of doing something</td><td class="wrap">Tied to a validated state change</td></tr>
+      <tr><td class="mono">stated</td><td class="wrap">A human recorded something that happened outside the hooks</td><td class="wrap">A claim, labelled as one</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The event log recognises a fixed vocabulary — phases, gates, stop blocks, stalls, triggers, escalations, lock and boundary denials, check runs, returns, unit merges, usage, and the ending — so tallies are meaningful rather than free text.</p>
+
+  <p><code>evidence.html</code> is the display surface: one self-contained page with no network dependencies, re-rendered at every check, gate, phase change, return and ending, with a fixed section order that puts what is unproven first — <em>Unverified, Quarantined, Test-file changes, Boundary, Changed since lock, Findings, Phases, Agents, Failures</em>, then every check's raw output. The kickoff states the corresponding rule for the conductor: <strong>the evidence page is the display, and the session's own scrollback is not evidence.</strong></p>
+</section>
+
+<!-- ============ 14. TENETS ============ -->
+<section id="tenets">
+  <div class="sec-head"><span class="sec-num">§14</span><h2>Why it's built this way</h2></div>
+
+  <p>Reading across the whole system, the same handful of convictions keep reappearing in different clothes. They are the actual design, and the folders and commands are just how they are expressed.</p>
+
+  <ul class="tenets">
+    <li><b>Freeze before you build.</b><span>The spec and the tests are finished, argued over and locked before implementation starts. Everything downstream is measured against something that cannot move to accommodate it.</span></li>
+    <li><b>Nobody grades their own work.</b><span>The implementer cannot edit its tests. The verifier is denied the implementer's reasoning. The critic is denied its own previous findings. The judge sees two files. Independence is enforced by what each role is allowed to read.</span></li>
+    <li><b>A green board is a claim.</b><span>Checks are re-run on the merged tree, not just in the worktree that produced them. A verdict is refuted, not confirmed, and evidence recorded at the wrong commit does not count.</span></li>
+    <li><b>Refusing is a valid outcome.</b><span>Halt kinds, escalation kinds, abandon triggers and the stop gate's release ceiling all exist so that an agent stuck against something wrong hands back rather than improvising. The first real run of this system was abandoned by its own rules.</span></li>
+    <li><b>Say what kind of claim it is.</b><span>Checked, reviewed, stated. Recorded versus asserted. The report is structured around the distinction and refuses to collapse it into a verdict — that call belongs to a person.</span></li>
+    <li><b>Rendered, never hand-edited.</b><span>plan.md from plan.json, kickoff.md from versioned parts, report.md and evidence.html from one shared loader. A hand-edited copy drifts, and a drifted copy is worse than none.</span></li>
+    <li><b>Failure is an input.</b><span>The run log carries deliberate <code>&lt;fill&gt;</code> gaps a human must complete, and the planner reads it before cutting the next run for the same spec. What went wrong last time is meant to change what happens next time.</span></li>
+  </ul>
+</section>
+
+<footer>
+  <p>Compiled from a read of <code>flightdeck/flightcrew/</code>, <code>flightdeck/launch/</code> and <code>flightdeck/testbench/</code> at branch <code>flightcrew-buildout</code>. Manuals, <code>.claude/</code>, <code>dev/</code> and <code>library/</code> were out of scope and were not read.</p>
+  <p>Sources of record for anything ambiguous here: the frozen spec at <code>flightdeck/launch/specs/flightcrew-v1/spec.v1.json</code>, the pinned map <code>tests-map.v2.json</code>, and the two run folders under <code>flightdeck/launch/</code>.</p>
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>

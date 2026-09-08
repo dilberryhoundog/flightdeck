@@ -1,0 +1,163 @@
+<title>How Dynamic Workflows Run</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F7F6F2;--ink:#1B1F24;--muted:#5C6470;--rule:#D9D6CE;--panel:#EFEDE6;
+  --run:#0F6E6E;--run-soft:#D7E9E8;--human:#9A4B14;--human-soft:#F1E1D3;--code:#2A3038;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15181C;--ink:#E8E6E0;--muted:#A3AAB4;--rule:#2E343B;--panel:#1D2126;
+  --run:#5FBFBB;--run-soft:#173A3A;--human:#E0955C;--human-soft:#3D2814;--code:#0F1215;}}
+:root[data-theme="dark"]{
+  --bg:#15181C;--ink:#E8E6E0;--muted:#A3AAB4;--rule:#2E343B;--panel:#1D2126;
+  --run:#5FBFBB;--run-soft:#173A3A;--human:#E0955C;--human-soft:#3D2814;--code:#0F1215;}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;margin:0}
+main{max-width:72ch;margin:0 auto;padding:3rem 1.25rem 5rem}
+h1,h2,h3{font-family:"IBM Plex Serif",Georgia,serif;text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:2.25rem;font-weight:600}
+h2{font-size:1.5rem;font-weight:600;margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule)}
+h3{font-size:1.1rem;font-weight:600;margin-top:1.75rem}
+p{margin:.9rem 0;max-width:65ch}
+.lede{font-size:1.125rem;color:var(--muted);margin-top:.75rem}
+.eyebrow{font:500 .75rem/1 "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--run);margin-bottom:.75rem}
+code,pre{font-family:"IBM Plex Mono",ui-monospace,monospace}
+code{font-size:.92em;background:var(--panel);padding:.05em .35em;border-radius:3px}
+pre{background:var(--code);color:#E6E9EE;padding:1rem 1.1rem;border-radius:6px;overflow-x:auto;font-size:.85rem;line-height:1.55;margin:1rem 0}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+ul,ol{padding-left:1.25rem;max-width:65ch}li{margin:.35rem 0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .6rem;border-bottom:1px solid var(--rule)}
+th{font:500 .75rem/1.3 "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.wide{overflow-x:auto}
+.run{color:var(--run)}.human{color:var(--human)}
+.tag{display:inline-block;font:500 .7rem/1 "IBM Plex Mono",monospace;letter-spacing:.05em;padding:.3em .5em;border-radius:3px}
+.tag.run{background:var(--run-soft);color:var(--run)}.tag.human{background:var(--human-soft);color:var(--human)}
+figure{margin:1.5rem 0}figcaption{font-size:.85rem;color:var(--muted);margin-top:.5rem}
+svg text{font-family:"IBM Plex Mono",monospace;font-size:11px;fill:var(--ink)}
+.note{border-left:3px solid var(--human);padding:.2rem 0 .2rem 1rem;color:var(--muted);margin:1.25rem 0}
+.src{font-size:.85rem;color:var(--muted);border-top:1px solid var(--rule);margin-top:3rem;padding-top:1rem}
+</style>
+<main>
+<div class="eyebrow">Claude Code runtime · explainer 1 of 2</div>
+<h1>How Dynamic Workflows Run</h1>
+<p class="lede">A dynamic workflow is a saved JavaScript script that the Claude Code runtime executes to spawn agents in a fixed order, with fixed fan-out and fixed stop conditions. The script decides the shape. The agents do the work. This page describes what the runtime actually does when it runs one, and where its edges are.</p>
+
+<h2>What a workflow is</h2>
+<p>A workflow is one file. It begins with a pure literal that names it and lists its phases, and the rest is plain JavaScript that calls a small runtime API. Saved under the project's workflows directory it runs as a slash command by name, and a structured <code>args</code> value can be passed to it. The script itself never touches the repository: it cannot read a file, run a command, or look at the clock. Everything that touches disk is done by an agent the script spawns.</p>
+<pre><code>export const meta = {
+  name: 'implement-wave',
+  description: 'Build one wave of units in parallel, each in its own worktree',
+  phases: [{ title: 'Pilots' }, { title: 'Units' }],
+}
+phase('Pilots')
+const pilots = await parallel(args.pilots.map(u => () =>
+  agent(u.prompt, { label: u.id, schema: WORKER_RETURN, agentType: 'implementer', isolation: 'worktree' })))
+if (pilots.filter(Boolean).some(r => r.status !== 'green')) return { stopped_on: 'pilot' }
+phase('Units')
+const units = await pipeline(args.units,
+  u => agent(u.prompt, { label: u.id, phase: 'Units', schema: WORKER_RETURN, agentType: 'implementer', isolation: 'worktree' }))
+return { pilots, units }</code></pre>
+<p>Three things in that example carry the whole model. The script holds the loop and the branching. Each <code>agent()</code> call is a real subagent session. The return values are validated objects, not prose.</p>
+
+<h2>The script API</h2>
+<div class="wide"><table>
+<tr><th>Call</th><th>What it does</th><th>Edge to know</th></tr>
+<tr><td><code>agent(prompt, opts)</code></td><td>Spawns one subagent and returns its result. With <code>schema</code>, the agent is forced to return an object matching that JSON Schema and the runtime validates it; the model retries on mismatch.</td><td>Returns <code>null</code> if the agent dies on a terminal error or the user skips it. Filter nulls.</td></tr>
+<tr><td><code>opts.agentType</code></td><td>Uses a custom agent definition from the project's agents directory, the same registry the Agent tool uses. Composes with <code>schema</code>.</td><td>The custom agent's own prompt gets a structured-output instruction appended.</td></tr>
+<tr><td><code>opts.isolation: 'worktree'</code></td><td>Runs the agent in a fresh git worktree, created and removed by the runtime if unchanged.</td><td>Costs setup time and disk per agent. The worktree branches from the base the settings name; for a run on a feature branch that setting must be <code>head</code>.</td></tr>
+<tr><td><code>opts.model</code>, <code>opts.effort</code></td><td>Per-call overrides for model tier and reasoning effort.</td><td>Omit to inherit the session's. Precedence: this call, then the agent file, then a session-wide env var, then the parent.</td></tr>
+<tr><td><code>pipeline(items, ...stages)</code></td><td>Runs each item through every stage independently with no barrier. Item A can be in stage three while item B is in stage one.</td><td>The default for multi-stage work. A stage that throws drops that item to <code>null</code>.</td></tr>
+<tr><td><code>parallel(thunks)</code></td><td>Runs tasks concurrently and waits for all of them.</td><td>A barrier. Use only when a later stage needs every earlier result at once.</td></tr>
+<tr><td><code>phase(title)</code>, <code>log(msg)</code></td><td>Groups later agents under a title in the progress view; emits a narrator line.</td><td>Display only. Neither is evidence.</td></tr>
+<tr><td><code>args</code></td><td>The value passed when the workflow was invoked, verbatim.</td><td>Pass arrays and objects as real JSON, not as a string.</td></tr>
+<tr><td><code>budget</code></td><td>The turn's token target: <code>total</code>, <code>spent()</code>, <code>remaining()</code>.</td><td>A hard ceiling. Once spent reaches total, further <code>agent()</code> calls throw. Null total means no ceiling.</td></tr>
+<tr><td><code>workflow(name, args)</code></td><td>Runs another saved workflow inline and returns its result. Shares the parent's caps and budget.</td><td>One level only. A child cannot call a grandchild.</td></tr>
+</table></div>
+
+<h2>What happens when it runs</h2>
+<figure>
+<svg viewBox="0 0 640 230" width="100%" role="img" aria-label="A script spawning agents, each a subagent session with hooks, returning validated objects">
+  <rect x="10" y="20" width="150" height="190" rx="6" fill="var(--panel)" stroke="var(--rule)"/>
+  <text x="85" y="42" text-anchor="middle" font-weight="500">the script</text>
+  <text x="85" y="66" text-anchor="middle" fill="var(--muted)">no fs · no shell · no clock</text>
+  <text x="85" y="92" text-anchor="middle">phase()</text>
+  <text x="85" y="112" text-anchor="middle">pipeline()</text>
+  <text x="85" y="132" text-anchor="middle">parallel()</text>
+  <text x="85" y="160" text-anchor="middle" fill="var(--run)">budget · caps</text>
+  <text x="85" y="180" text-anchor="middle" fill="var(--run)">journal · resume</text>
+  <g stroke="var(--run)" stroke-width="1.5" fill="none">
+    <path d="M160 70 H230"/><path d="M160 115 H230"/><path d="M160 160 H230"/>
+  </g>
+  <g>
+    <rect x="230" y="50" width="200" height="40" rx="5" fill="var(--run-soft)" stroke="var(--run)"/>
+    <text x="330" y="67" text-anchor="middle" font-weight="500">agent · subagent session</text>
+    <text x="330" y="82" text-anchor="middle" fill="var(--muted)">own prompt · tools · worktree</text>
+    <rect x="230" y="95" width="200" height="40" rx="5" fill="var(--run-soft)" stroke="var(--run)"/>
+    <text x="330" y="112" text-anchor="middle" font-weight="500">agent · subagent session</text>
+    <text x="330" y="127" text-anchor="middle" fill="var(--muted)">project hooks fire inside</text>
+    <rect x="230" y="140" width="200" height="40" rx="5" fill="var(--run-soft)" stroke="var(--run)"/>
+    <text x="330" y="157" text-anchor="middle" font-weight="500">agent · subagent session</text>
+    <text x="330" y="172" text-anchor="middle" fill="var(--muted)">writes files · runs commands</text>
+  </g>
+  <g stroke="var(--run)" stroke-width="1.5" fill="none">
+    <path d="M430 70 H500"/><path d="M430 115 H500"/><path d="M430 160 H500"/>
+  </g>
+  <rect x="500" y="50" width="130" height="130" rx="6" fill="var(--panel)" stroke="var(--rule)"/>
+  <text x="565" y="72" text-anchor="middle" font-weight="500">returns</text>
+  <text x="565" y="96" text-anchor="middle">{ schema-</text>
+  <text x="565" y="112" text-anchor="middle">validated }</text>
+  <text x="565" y="140" text-anchor="middle" fill="var(--muted)">or null</text>
+  <text x="565" y="164" text-anchor="middle" fill="var(--muted)">back to the script</text>
+</svg>
+<figcaption>The script never touches the repository. Each agent is a full subagent session that can, and the hooks configured for the project fire inside it. Results come back as validated objects the script branches on.</figcaption>
+</figure>
+
+<h3>Agents are real subagent sessions</h3>
+<p>An agent the script spawns receives its own system prompt from its agent definition, the environment, the delegation message, the project's instruction files and any preloaded skills. It does not receive the parent's conversation. It has whatever tools its definition allows, so it can read, write, run commands and use git. Hooks configured in the project settings fire on its tool calls, and the hook envelope carries the agent's id and type. Its transcript is written to disk under the session's subagents folder.</p>
+
+<h3>Returns are typed</h3>
+<p>Without a schema, an agent's final text is its return value. With a schema, the runtime forces a structured-output tool call and validates the object before the script sees it. The subagent is told its final text is data, not a message to a person. This is the mechanism that makes a script's branching trustworthy: a red status is a field, not a sentence to interpret.</p>
+
+<h3>Limits the runtime enforces</h3>
+<ul>
+<li><span class="run">Concurrency.</span> At most sixteen agents run at once per workflow, fewer on machines with fewer cores. Excess calls queue. You can pass a hundred items and they all complete.</li>
+<li><span class="run">Total agents.</span> One thousand per run, a backstop against a runaway loop. One call accepts at most 4,096 items.</li>
+<li><span class="run">Tokens.</span> If the turn has a token target, it is a hard ceiling shared across the main session and every workflow. Reaching it makes further agent calls throw.</li>
+<li><span class="run">Size guideline.</span> A per-session setting bounds how large a workflow the session will accept, from small to unrestricted. Permission rules approve launching a workflow by name.</li>
+</ul>
+
+<h3>Repeatability and resume</h3>
+<p>Every run is journaled: each agent's actual return value is recorded. Relaunching the same script with the same arguments replays entirely from cache. Edit one call and the longest unchanged prefix of agent calls returns cached results instantly, while the edited call and everything after it runs live. This is why the clock and randomness are forbidden in the script: a value that changed between runs would break the prefix match. Timestamps arrive through <code>args</code> and are stamped after the workflow returns.</p>
+
+<h2>What a workflow cannot do</h2>
+<ul>
+<li><span class="human">Take human input mid-run.</span> Only a permission prompt can pause it. A decision that needs a person is the end of one workflow and the start of the next.</li>
+<li><span class="run">Touch the filesystem or shell.</span> Recording, rendering and committing are done by the agents it spawns, not by the script.</li>
+<li><span class="run">Nest deeper than one level.</span> A workflow can call a saved workflow. That child cannot call another.</li>
+<li><span class="run">Read the clock or draw randomness.</span> Both throw.</li>
+</ul>
+
+<h2>What fires around a spawned agent</h2>
+<div class="wide"><table>
+<tr><th>Event</th><th>When</th><th>Can it block?</th></tr>
+<tr><td><code>SubagentStart</code></td><td>Each agent the script spawns begins</td><td>No, record only</td></tr>
+<tr><td><code>PreToolUse</code></td><td>Before any tool call inside the agent, with the tool name and input</td><td>Yes, exit 2 or a deny decision refuses the call</td></tr>
+<tr><td><code>PostToolUse</code></td><td>After a tool call, with its result</td><td>No, but exit 2 shows stderr to the agent</td></tr>
+<tr><td><code>SubagentStop</code></td><td>The agent is about to end</td><td>Yes, exit 2 holds it, the same way a Stop hook holds a session</td></tr>
+<tr><td><code>WorktreeRemove</code></td><td>An isolated agent's worktree is cleaned up</td><td>No</td></tr>
+</table></div>
+<p>The point for gating: a hook that refuses to let a worker finish until its checks pass belongs on the subagent-stop event, not on the session's stop event. The session-level stop hook holds the orchestrator's turn, which under a workflow is not where the work happens.</p>
+
+<div class="note">Verified against the Claude Code docs for version 2.1.259 on 2026-09-03 by the flightcrew build, and against the runtime's own authoring reference at the time of writing. Where the live docs disagree, the docs win.</div>
+
+<h2>The shape of a good script</h2>
+<ul>
+<li>Default to <code>pipeline()</code>. Reach for a barrier only when a stage needs every earlier result at once, for a dedupe or an early exit.</li>
+<li>Put a schema on every agent whose return the script branches on.</li>
+<li>Name the agent type per call so each stage runs the role it should, on the tier it should.</li>
+<li>Use worktree isolation only for agents that write files in parallel.</li>
+<li>Log what was dropped or capped, so a bounded sweep does not read as a complete one.</li>
+<li>Return one object. The caller reads it; nothing else leaves the script.</li>
+</ul>
+<p class="src">Sources: the Claude Code workflow authoring reference; <code>flightdeck/manuals/harness/claude-code-facts.md</code> on branch flightcrew-buildout.</p>
+</main>

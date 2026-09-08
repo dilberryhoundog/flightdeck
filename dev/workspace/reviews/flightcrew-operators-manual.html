@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flightcrew Operator's Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#f1f3f2;
+  --surface:#ffffff;
+  --surface-2:#e8ebea;
+  --ink:#121817;
+  --ink-2:#33403d;
+  --muted:#5b6764;
+  --line:#d2d8d6;
+  --line-strong:#b3bcb9;
+  --accent:#0f5f57;
+  --accent-soft:#dfece9;
+  --clear:#2f6b3a;
+  --clear-soft:#e2eee4;
+  --caution:#9a6600;
+  --caution-soft:#f6ecd8;
+  --block:#9e2f26;
+  --block-soft:#f6e3e1;
+  --term-bg:#12201e;
+  --term-ink:#cfe0dc;
+  --term-dim:#7d938e;
+  --term-you:#7fd6c4;
+  --shadow:0 1px 2px rgba(18,24,23,.06);
+  --maxw:66ch;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0d1413; --surface:#141c1b; --surface-2:#1b2423;
+    --ink:#e3ebe8; --ink-2:#c2cecb; --muted:#8d9c98;
+    --line:#26312f; --line-strong:#3a4644;
+    --accent:#4fb8a8; --accent-soft:#122926;
+    --clear:#6bb87a; --clear-soft:#132318;
+    --caution:#d5a03f; --caution-soft:#2a2013;
+    --block:#e0796d; --block-soft:#2c1715;
+    --term-bg:#0a1211; --term-ink:#cfe0dc; --term-dim:#748883; --term-you:#7fd6c4;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0d1413; --surface:#141c1b; --surface-2:#1b2423;
+  --ink:#e3ebe8; --ink-2:#c2cecb; --muted:#8d9c98;
+  --line:#26312f; --line-strong:#3a4644;
+  --accent:#4fb8a8; --accent-soft:#122926;
+  --clear:#6bb87a; --clear-soft:#132318;
+  --caution:#d5a03f; --caution-soft:#2a2013;
+  --block:#e0796d; --block-soft:#2c1715;
+  --term-bg:#0a1211; --term-ink:#cfe0dc; --term-dim:#748883; --term-you:#7fd6c4;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16.5px;line-height:1.6;
+}
+h1,h2,h3,h4{font-family:"Zilla Slab",Georgia,serif;font-weight:600;text-wrap:balance;margin:0}
+code,pre,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+a{color:var(--accent);text-underline-offset:.18em}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.shell{display:grid;grid-template-columns:min(258px,25vw) minmax(0,1fr);max-width:1380px;margin:0 auto}
+.rail{border-right:1px solid var(--line);padding:32px 22px 60px 28px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--ground)}
+main{padding:32px clamp(20px,4vw,60px) 110px;min-width:0}
+
+.rail .brand{font-family:"Zilla Slab",Georgia,serif;font-size:1.08rem;font-weight:700;line-height:1.25}
+.rail .brand span{color:var(--accent)}
+.rail .brand-sub{font-size:.71rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin:3px 0 24px}
+.rail ol,.rail ul{list-style:none;margin:0;padding:0}
+.rail .navgroup{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:20px 0 6px;font-weight:600}
+.rail a{display:flex;gap:8px;text-decoration:none;color:var(--ink-2);font-size:.845rem;line-height:1.35;padding:3.5px 0}
+.rail a:hover{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace;font-size:.69rem;color:var(--muted);min-width:1.4em}
+
+.masthead{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:32px}
+.eyebrow{font-size:.69rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+h1{font-size:clamp(2rem,4.3vw,2.95rem);line-height:1.04;letter-spacing:-.022em;font-weight:700;margin-bottom:14px}
+.lede{font-size:1.07rem;color:var(--ink-2);max-width:64ch;margin:0}
+
+section{margin:0 0 54px;scroll-margin-top:20px}
+.sec-head{display:flex;gap:13px;align-items:baseline;border-top:1px solid var(--line-strong);padding-top:13px;margin-bottom:16px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--accent);font-weight:500;padding-top:.35em;white-space:nowrap}
+h2{font-size:1.56rem;letter-spacing:-.014em;line-height:1.18}
+h3{font-size:1.06rem;margin:28px 0 8px}
+h4{font-size:.92rem;margin:20px 0 6px;font-family:"IBM Plex Sans",sans-serif;font-weight:600}
+p{margin:0 0 13px;max-width:var(--maxw)}
+ul,ol{max-width:var(--maxw);margin:0 0 13px;padding-left:1.15em}
+li{margin-bottom:5px}
+li::marker{color:var(--muted)}
+strong{font-weight:600;color:var(--ink)}
+code{font-size:.855em;background:var(--surface-2);padding:.1em .32em;border-radius:2px;color:var(--ink)}
+p code,li code,td code{word-break:break-word}
+
+/* terminal blocks — the primary structural element of this document */
+.term{
+  background:var(--term-bg);color:var(--term-ink);
+  font-family:"IBM Plex Mono",monospace;font-size:.815rem;line-height:1.72;
+  padding:14px 17px;margin:0 0 18px;overflow-x:auto;white-space:pre;
+  border-left:3px solid var(--accent);
+}
+.term .you{color:var(--term-you);font-weight:500}
+.term .out{color:var(--term-dim)}
+.term .cm{color:var(--term-dim);font-style:italic}
+.term .hi{color:#e8b866}
+
+/* step blocks */
+.step{border:1px solid var(--line);background:var(--surface);margin:0 0 18px;box-shadow:var(--shadow)}
+.step-head{display:flex;gap:12px;align-items:baseline;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.step-head .sn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--accent);font-weight:600;letter-spacing:.05em;white-space:nowrap}
+.step-head .st{font-family:"Zilla Slab",Georgia,serif;font-size:1.02rem;font-weight:600}
+.step-head .sp{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--muted);white-space:nowrap}
+.step-body{padding:15px 17px 3px}
+.step-body>*:last-child{margin-bottom:15px}
+.step-body .term{margin-left:-17px;margin-right:-17px;border-left-width:3px}
+
+/* decision panel — what you judge at a gate */
+.gate{border:1px solid var(--caution);background:var(--caution-soft);margin:0 0 20px;box-shadow:var(--shadow)}
+.gate-head{padding:11px 17px;border-bottom:1px solid var(--caution);display:flex;gap:12px;align-items:baseline}
+.gate-head .gn{font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--caution);font-size:.86rem}
+.gate-head .gt{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:1.02rem}
+.gate-body{padding:14px 17px 2px}
+.gate-body p{max-width:none}
+.gate-body ul{max-width:none;margin-bottom:14px}
+.gate-body>*:last-child{margin-bottom:14px}
+.gate-body .term{border-left-color:var(--caution)}
+
+/* callouts */
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:13px 17px;margin:0 0 18px;max-width:var(--maxw)}
+.note p{margin:0}
+.note p+p{margin-top:9px}
+.note .tag{display:block;font-size:.655rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:5px}
+.note.warn{border-left-color:var(--block);background:var(--block-soft)}
+.note.warn .tag{color:var(--block)}
+
+/* tables */
+.tw{overflow-x:auto;margin:0 0 20px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:.83rem;min-width:560px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+th{font-size:.665rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);font-weight:600;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.mono{font-family:"IBM Plex Mono",monospace;font-size:.775rem}
+td.nw{white-space:nowrap}
+
+.bg{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.67rem;padding:.13em .45em;border-radius:2px;font-weight:500;white-space:nowrap}
+.bg-clear{background:var(--clear-soft);color:var(--clear)}
+.bg-caution{background:var(--caution-soft);color:var(--caution)}
+.bg-block{background:var(--block-soft);color:var(--block)}
+.bg-n{background:var(--surface-2);color:var(--muted)}
+
+details{border:1px solid var(--line);background:var(--surface);margin:16px 0 20px;box-shadow:var(--shadow)}
+summary{cursor:pointer;padding:10px 16px;font-size:.78rem;font-weight:600;letter-spacing:.045em;text-transform:uppercase;color:var(--muted);list-style:none;display:flex;gap:9px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:1rem}
+details[open] summary::before{content:"−"}
+details[open] summary{border-bottom:1px solid var(--line)}
+.det-body{padding:15px 17px 3px}
+.det-body>*:last-child{margin-bottom:15px}
+
+/* two-column safe/unsafe */
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:2px;margin:0 0 20px}
+.col{border:1px solid var(--line);background:var(--surface);padding:14px 16px}
+.col h4{margin:0 0 9px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.col.safe{border-top:3px solid var(--clear)}
+.col.safe h4{color:var(--clear)}
+.col.unsafe{border-top:3px solid var(--block)}
+.col.unsafe h4{color:var(--block)}
+.col ul{margin:0;padding-left:1.05em;max-width:none;font-size:.83rem}
+.col li{margin-bottom:4px}
+.col code{font-size:.79rem;background:none;padding:0}
+
+footer{border-top:1px solid var(--line-strong);margin-top:52px;padding-top:16px;font-size:.77rem;color:var(--muted)}
+footer p{max-width:70ch;margin-bottom:7px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:22px 20px 24px}
+  .rail ol,.rail ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:0 16px}
+  main{padding:26px 20px 70px}
+  .step-body .term{margin-left:-17px;margin-right:-17px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<aside class="rail">
+  <div class="brand">Flightcrew <span>Operator's Manual</span></div>
+  <div class="brand-sub">driving a run</div>
+  <nav aria-label="Contents">
+    <div class="navgroup">Orientation</div>
+    <ul>
+      <li><a href="#seat"><span class="n">§1</span>Your seat</a></li>
+      <li><a href="#safe"><span class="n">§2</span>Safe to poke at</a></li>
+    </ul>
+    <div class="navgroup">Driving a run</div>
+    <ol>
+      <li><a href="#preflight"><span class="n">A</span>Pre-flight</a></li>
+      <li><a href="#open"><span class="n">B</span>Open the launch</a></li>
+      <li><a href="#planning"><span class="n">C</span>Plan · gate G1</a></li>
+      <li><a href="#wave0"><span class="n">D</span>Contracts · gate G2</a></li>
+      <li><a href="#units"><span class="n">E</span>Implement</a></li>
+      <li><a href="#verifying"><span class="n">F</span>Verify</a></li>
+      <li><a href="#reviewing"><span class="n">G</span>Review · gate G3</a></li>
+      <li><a href="#ending"><span class="n">H</span>End it</a></li>
+    </ol>
+    <div class="navgroup">When it goes wrong</div>
+    <ul>
+      <li><a href="#halts"><span class="n">§3</span>Halts</a></li>
+      <li><a href="#escalate"><span class="n">§4</span>Escalating</a></li>
+      <li><a href="#stuck"><span class="n">§5</span>Stuck &amp; stalled</a></li>
+      <li><a href="#refusals"><span class="n">§6</span>Why it refused</a></li>
+    </ul>
+    <div class="navgroup">Reference</div>
+    <ul>
+      <li><a href="#flags"><span class="n">§7</span>Flags &amp; env</a></li>
+      <li><a href="#card"><span class="n">§8</span>The whole run</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+
+<header class="masthead">
+  <div class="eyebrow">Operator's manual · flightcrew</div>
+  <h1>Driving a launch</h1>
+  <p class="lede">You are not the builder. You open the run, approve three gates, read what comes back, decide what a halt means, and write the ending. This is the sequence you type and the judgements only you can make — the design's own division of labour, from the operator's seat.</p>
+</header>
+
+<section id="seat">
+  <div class="sec-head"><span class="sec-num">§1</span><h2>Your seat</h2></div>
+
+  <p>Everything in flightcrew is arranged so that the interesting decisions land on you and the tedious ones don't. Agents write code, tests, plans and findings. You do exactly five things:</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>You</th><th>Where it happens</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Freeze the targets</strong> — decide the spec is right and the tests are fair</td><td class="nw">before the run</td></tr>
+      <tr><td><strong>Approve the plan</strong> — gate G1</td><td class="nw">after <code>fc plan write</code></td></tr>
+      <tr><td><strong>Approve the shared surface</strong> — gate G2</td><td class="nw">after wave 0 lands</td></tr>
+      <tr><td><strong>Judge a halt</strong> — is the check wrong, or the code?</td><td class="nw">any time a unit stops</td></tr>
+      <tr><td><strong>Call the outcome</strong> — gate G3 and the run log</td><td class="nw">at the end</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">The one rule that shapes everything</span>
+    <p>The system never tells you whether the run succeeded. <code>report.md</code> lays out what was mechanically checked, what an agent reviewed, and what was merely asserted — each labelled — and stops there. The verdict is yours, and it is the reason the gates exist.</p>
+  </div>
+
+  <p>Commands are run from the repo root, and <code>fc</code> is invoked by path — it is never on your <code>PATH</code>:</p>
+  <div class="term"><span class="you">flightdeck/flightcrew/bin/fc launch status</span>
+<span class="out">no active launch</span></div>
+  <p>Throughout this manual I write it as <code>fc</code> for brevity. Exit codes are consistent everywhere: <span class="bg bg-clear">0</span> fine, <span class="bg bg-caution">1</span> you asked wrong, <span class="bg bg-block">2</span> it is refusing you on the merits.</p>
+</section>
+
+<section id="safe">
+  <div class="sec-head"><span class="sec-num">§2</span><h2>What you can poke at safely</h2></div>
+
+  <p>Before touching anything that changes state, know which half of the command surface is free. This is the most useful thing to learn first — nearly every "am I stuck?" question is answerable without changing a thing.</p>
+
+  <div class="split">
+    <div class="col safe">
+      <h4>Run these freely</h4>
+      <ul>
+        <li><code>fc launch status</code> — where am I</li>
+        <li><code>fc doctor</code> — is the install whole</li>
+        <li><code>fc events summary</code> — what happened</li>
+        <li><code>fc runlog show --spec &lt;S&gt;</code> — past runs</li>
+        <li><code>fc validate &lt;kind&gt;</code> · <code>fc lint spec</code></li>
+        <li><code>fc evidence</code> · <code>fc report</code> · <code>fc plan render</code> — pure re-renders</li>
+        <li><code>fc distribute</code> without <code>--apply</code> — dry run</li>
+        <li><code>fc check</code> · <code>boundary</code> · <code>locked</code> — overwrite evidence with current truth; re-running is how you clear a stale-evidence refusal</li>
+      </ul>
+    </div>
+    <div class="col unsafe">
+      <h4>These change state</h4>
+      <ul>
+        <li><code>fc launch new</code> — no delete command exists</li>
+        <li><code>fc launch phase</code> · <code>gate</code> — append-only, no way back</li>
+        <li><code>fc worker merge</code> — a real <code>git merge</code>, removes the worktree, deletes the branch</li>
+        <li><code>fc return …</code> — overwrites the stored return for that id</li>
+        <li><code>fc launch end</code> — final for that launch</li>
+        <li><code>fc budget</code> — harmless to read, but appends a <code>trigger</code> event if a ceiling is exceeded, which then blocks phase moves</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="tag">Worth knowing early</span>
+    <p><code>fc launch status</code> warns you when the newest event is 24 hours old. Picking a run back up after a break, that line is how you tell "actively running" from "abandoned mid-flight".</p>
+  </div>
+</section>
+
+<!-- ============ THE RUN ============ -->
+<section id="preflight">
+  <div class="sec-head"><span class="sec-num">Step A</span><h2>Pre-flight — before a launch exists</h2></div>
+
+  <p>You need a spec and a tests map, both frozen. Freezing is a human act: you set <code>status: "frozen"</code> and record the commit. No agent does it. These three commands are how you check you're entitled to.</p>
+
+  <div class="term"><span class="cm"># is the spec ready for a human to freeze?</span>
+<span class="you">fc lint spec flightdeck/launch/specs/&lt;S&gt;/spec.v1.json --repo .</span>
+
+<span class="cm"># rehearse the freeze gate against a still-draft file</span>
+<span class="you">fc validate spec flightdeck/launch/specs/&lt;S&gt;/spec.v1.json --for-freeze</span>
+
+<span class="cm"># and the map that will lock the build</span>
+<span class="you">fc validate tests-map flightdeck/launch/specs/&lt;S&gt;/tests-map.v1.json</span></div>
+
+  <p>The linter is the one that catches what a schema can't: an open question still hanging, a file path named in the spec that doesn't resolve, a command in the verification text that isn't actually on PATH, a behaviour whose id appears nowhere in the verification section. It also warns — without failing — when a behaviour leans on unfalsifiable words like "robust" or "gracefully".</p>
+
+  <p>If the map's baselines have never been recorded, that happens here too, before any launch exists:</p>
+  <div class="term"><span class="you">fc check --baseline flightdeck/launch/specs/&lt;S&gt;/tests-map.v1.json</span>
+<span class="out">   writes observed baselines into the map file itself, no evidence, no launch needed</span></div>
+</section>
+
+<section id="open">
+  <div class="sec-head"><span class="sec-num">Step B</span><h2>Open the launch</h2></div>
+
+  <div class="step">
+    <div class="step-head"><span class="sn">B1</span><span class="st">Create the folder</span><span class="sp">phase: targets</span></div>
+    <div class="step-body">
+      <div class="term"><span class="you">fc launch new flightdeck/launch/specs/&lt;S&gt;/spec.v1.json \
+   --kickoff base+shape-session+task-feature</span>
+<span class="out">export FLIGHTCREW_LAUNCH=&lt;name&gt;</span></div>
+      <p>It prints that export line for you to run verbatim. Everything after this point acts on that launch.</p>
+      <p><strong>Choose the kickoff parts deliberately</strong> — they set how the run is conducted, and the choice is recorded in three places for traceability. Default is <code>base+shape-session+task-feature</code>.</p>
+      <div class="tw">
+      <table>
+        <thead><tr><th class="nw">shape</th><th>Pick it when</th></tr></thead>
+        <tbody>
+          <tr><td class="mono nw">shape-session</td><td>Every parallel wave fits inside the concurrency ceiling. One session dispatches subagents directly. Start here.</td></tr>
+          <tr><td class="mono nw">shape-workflow</td><td>A wave holds more units than the ceiling. Hands the fan-out to a workflow script; you keep the gates.</td></tr>
+          <tr><td class="mono nw">shape-sessions</td><td>The work needs hours rather than turns. Split across sessions, one conducting session owning the gates.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="tw">
+      <table>
+        <thead><tr><th class="nw">task type</th><th>Pick it when</th></tr></thead>
+        <tbody>
+          <tr><td class="mono nw">task-feature</td><td>Building something new. Vertical cuts, one behaviour per unit.</td></tr>
+          <tr><td class="mono nw">task-migration</td><td>A mechanical sweep. Units convert call sites as they stand and <em>name</em> defects rather than fixing them inline.</td></tr>
+          <tr><td class="mono nw">task-audit</td><td>No code changes. Cut by question; each unit needs a check that reproduces its finding.</td></tr>
+          <tr><td class="mono nw">task-agent</td><td>Building a prompt, agent or workflow whose output varies between runs.</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head"><span class="sn">B2</span><span class="st">Pin the tests map</span><span class="sp">sets the lock</span></div>
+    <div class="step-body">
+      <div class="term"><span class="you">export FLIGHTCREW_LAUNCH=&lt;name&gt;</span>
+<span class="you">fc launch pin tests-map flightdeck/launch/specs/&lt;S&gt;/tests-map.v1.json</span>
+<span class="out">tests map pinned: &lt;path&gt; @ &lt;commit&gt;; lock &lt;short&gt;
+allow these commands so the checks can run:
+  Bash(&lt;command&gt;)</span></div>
+      <p>This is the moment the run acquires teeth. It sets the allowed and locked path globs, flips boundary enforcement on, and records <code>lock_commit</code> — the baseline every later diff, boundary check and critic pass is measured against.</p>
+      <p>Paste the printed <code>Bash(…)</code> lines into your permission allowlist so the checks can actually run.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head"><span class="sn">B3</span><span class="st">Activate</span><span class="sp">draft → active</span></div>
+    <div class="step-body">
+      <div class="term"><span class="you">fc launch activate</span>
+<span class="out">launch &lt;name&gt; is active in phase targets</span></div>
+      <p>Only one launch may be active at a time. If the spec or map aren't frozen this refuses — <code>--allow-draft</code> waives it while you're still iterating, and stamps the launch so every later report says so.</p>
+    </div>
+  </div>
+</section>
+
+<section id="planning">
+  <div class="sec-head"><span class="sec-num">Step C</span><h2>Plan, then gate G1</h2></div>
+
+  <div class="term"><span class="you">fc launch phase plan</span>
+<span class="cm"># dispatch the planner agent, then store what it returns</span>
+<span class="you">fc plan write plan.json</span>          <span class="cm">(or --stdin)</span>
+<span class="out">plan written: flightdeck/launch/&lt;name&gt;/plan.md</span></div>
+
+  <p><code>fc launch phase plan</code> is the first command that can refuse you on the merits. It checks the spec and map are frozen, that <code>launch.json</code> and <code>kickoff.md</code> both validate, and — easy to miss — that <strong>every check's recorded baseline agrees with what the map predicted</strong>. A check that was supposed to fail on an empty tree and actually passed will stop you here.</p>
+
+  <p><code>fc plan write</code> validates before it writes. An invalid plan leaves nothing on disk at all, so you can retry freely.</p>
+
+  <div class="gate">
+    <div class="gate-head"><span class="gn">G1</span><span class="gt">Is this plan worth running?</span></div>
+    <div class="gate-body">
+      <p>Read <code>plan.md</code> against the spec. The machine has already checked that every check id exists and every dependency points backwards. What it cannot check, and you must:</p>
+      <ul>
+        <li><strong>Does every unit own files no other unit writes?</strong> Overlapping ownership is the single most expensive planning mistake — it surfaces as merge conflicts in the last wave.</li>
+        <li><strong>Is wave 0 genuinely the shared surface?</strong> If a type or library that six units need isn't in the contracts unit, you'll find out four waves later.</li>
+        <li><strong>Are the abandon triggers observable?</strong> Each must name a command, an event or a file. "The run is going badly" isn't a trigger.</li>
+        <li><strong>Is the pilot the right unit?</strong> It should be the riskiest thing in the wave, not the easiest. It is never the contracts unit.</li>
+      </ul>
+      <div class="term"><span class="you">fc launch gate G1 approve --note "plan read against spec; unit ownership disjoint; triggers observable"</span>
+<span class="out">gate G1 approved; phase plan → contracts</span></div>
+      <p>The approve moves the phase for you. The note goes into the permanent record — write it for the person reading the report later, which is often you.</p>
+    </div>
+  </div>
+</section>
+
+<section id="wave0">
+  <div class="sec-head"><span class="sec-num">Step D</span><h2>Contracts, then gate G2</h2></div>
+
+  <p>One unit runs, alone: the one that lands the schemas, types and libraries everything else imports. Dispatch and land it exactly like any other unit.</p>
+
+  <div class="term"><span class="you">fc worker render U0</span>              <span class="cm"># prints the sealed dispatch; give it to an implementer</span>
+<span class="you">fc return worker ret.json --unit U0</span>
+<span class="you">fc worker merge U0</span>
+<span class="out">merged: U0 from &lt;branch&gt; at &lt;commit&gt;</span></div>
+
+  <div class="gate">
+    <div class="gate-head"><span class="gn">G2</span><span class="gt">Is the foundation sound?</span></div>
+    <div class="gate-body">
+      <p>The command refuses to record this approval unless wave 0's checks are green <em>and</em> ran at or after the lock commit — stale evidence doesn't count. So the mechanical question is already settled by the time you're asked.</p>
+      <p>What you're actually judging: <strong>six agents are about to build on this surface in parallel. Is it right?</strong> A wrong shared type discovered in wave 3 costs the whole wave. This is the cheapest moment in the run to change your mind.</p>
+      <div class="term"><span class="you">fc launch gate G2 approve</span>
+<span class="out">gate G2 approved; phase contracts → implement</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="units">
+  <div class="sec-head"><span class="sec-num">Step E</span><h2>Implement — per unit, per wave</h2></div>
+
+  <p>Three commands per unit, repeated. Waves run in order; the pilot in each wave goes first and alone.</p>
+
+  <div class="term"><span class="you">fc worker render U1</span>              <span class="cm"># sealed prompt → returns/U1.prompt.md</span>
+<span class="cm"># dispatch to an implementer; it works in its own worktree and branch</span>
+<span class="you">fc return worker u1.json --unit U1</span>  <span class="cm"># schema-validated; invalid is never stored</span>
+<span class="you">fc worker merge U1</span></div>
+
+  <div class="note">
+    <span class="tag">What merge actually does</span>
+    <p>It stages with <code>--no-ff --no-commit</code>, <strong>re-runs the unit's checks against the merged tree</strong>, and only then commits. A unit passing in its own worktree proves nothing about the tree everyone else is building on. On conflict or a red re-run, the merge is aborted and nothing is left dirty.</p>
+  </div>
+
+  <p>Merge refuses unless the return is green, every dependency is already merged, and the repo is checked out on the run branch. That last one catches people out — check with <code>git branch --show-current</code> if merge says the repository is on the wrong branch.</p>
+
+  <p>A <span class="bg bg-block">halt</span> from any unit stops the whole wave, not just that lane. See <a href="#halts">§3</a>.</p>
+</section>
+
+<section id="verifying">
+  <div class="sec-head"><span class="sec-num">Step F</span><h2>Verify</h2></div>
+
+  <div class="term"><span class="you">fc launch phase verify</span>
+<span class="you">fc verify</span>
+<span class="out">verify: 29 pass, 0 fail, 0 error, 0 skipped; boundary clean; no locked change; within budget</span></div>
+
+  <p>Four stages in order — every check, then the boundary, then the locks, then the budget. All four must be clean. The locks stage is the one that catches a shell write the edit guards never saw, so don't skip straight to reading the check counts.</p>
+
+  <p>Optionally dispatch a verifier to independently re-run everything and try to break the result:</p>
+  <div class="term"><span class="you">fc verifier render</span>                <span class="cm"># needs fresh evidence at HEAD</span>
+<span class="you">fc return verifier v1.json --pass 1</span></div>
+
+  <p>Its verdict is one boolean, <code>refuted</code>, true only if a check didn't reproduce, a locked path changed, or something landed outside the boundary.</p>
+</section>
+
+<section id="reviewing">
+  <div class="sec-head"><span class="sec-num">Step G</span><h2>Review, then gate G3</h2></div>
+
+  <div class="term"><span class="you">fc launch phase review</span>
+<span class="you">fc critic render --pass 1</span>
+<span class="you">fc return critic pass1.json --pass 1</span></div>
+
+  <p>The phase move refuses on a dirty run: it wants fresh evidence at HEAD with zero failures, a clean boundary and no locked changes. If it refuses, re-run <code>fc verify</code> — that's usually all it takes.</p>
+
+  <p>Findings come back typed. What you do with each:</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th class="nw">kind</th><th>You</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">correctness-gap <span class="bg bg-block">blocking</span></td><td>Route to the implementer owning the unit whose paths hold the file. Re-verify, then take a fresh pass.</td></tr>
+      <tr><td class="mono nw">scope-violation <span class="bg bg-block">blocking</span></td><td>Same routing — the unit wrote outside its lines.</td></tr>
+      <tr><td class="mono nw">spec-conflict <span class="bg bg-block">blocking</span></td><td><strong>Do not attempt a fix.</strong> Escalate. The spec itself is in question, and that is a between-runs decision.</td></tr>
+      <tr><td class="mono nw">observation <span class="bg bg-n">non-blocking</span></td><td><code>fc launch note</code> and move on. It surfaces in the run log later.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Record a resolution without touching the frozen pass file:</p>
+  <div class="term"><span class="you">fc return critic --resolve F1 --commit &lt;sha&gt;</span>
+<span class="you">fc return critic --resolve F2 --dispute "the locked-path change was your v2 re-pin, not a run edit"</span></div>
+
+  <p>Review ends when a pass comes back with no gaps — or when you hit the pass ceiling with blocking findings still open, which is itself an abandon trigger. Not another pass, and not on to the report.</p>
+
+  <div class="gate">
+    <div class="gate-head"><span class="gn">G3</span><span class="gt">What is this run worth?</span></div>
+    <div class="gate-body">
+      <p>No blocker runs for G3 and it moves no phase. It is purely your recorded decision, and the report deliberately refuses to make it for you. Read, in this order: the <strong>Ledger</strong> (what merged, what stayed open, what was attempted and discarded), <strong>Verification</strong> (the raw counts), <strong>Review</strong> (findings joined with their resolutions), then <strong>Failures and interventions</strong>.</p>
+      <p>The question isn't "are the tests green" — you already know that. It's <em>would I be comfortable defending this diff to someone who didn't watch it happen?</em></p>
+      <div class="term"><span class="you">fc launch phase report</span>
+<span class="you">fc launch gate G3 approve --note "…"</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="ending">
+  <div class="sec-head"><span class="sec-num">Step H</span><h2>End it, and write the log</h2></div>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="nw">outcome</th><th>Requires</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">accepted</td><td>Fresh evidence at HEAD, clean tree under the allowed paths (the launch's own folder is exempt).</td></tr>
+      <tr><td class="mono nw">accepted-with-reservations</td><td>Mechanically identical to <code>accepted</code>. The difference is entirely your judgement — and the run log then asks you to name the reservation.</td></tr>
+      <tr><td class="mono nw">abandoned</td><td>Nothing. Add <code>--at verify</code> or <code>--at G3</code> to record where it died.</td></tr>
+      <tr><td class="mono nw">partial</td><td><code>--units U0,U1</code>. Each kept unit needs a green return or a merge event, its dependencies kept too, and no open blocking finding under its paths.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="term"><span class="you">fc launch end accepted-with-reservations</span>
+<span class="out">   → rewrites evidence.html and report.md
+   → inserts a stub into flightdeck/launch/RUNLOG.md
+   → prints the worktree and branch cleanup commands
+   → prints the path to report.md</span></div>
+
+  <div class="note">
+    <span class="tag">Two things it will not do for you</span>
+    <p><strong>Cleanup is manual.</strong> It prints <code>git worktree remove …</code> and <code>git branch -D …</code> lines; you run them.</p>
+    <p><strong>The run log stub is deliberately incomplete.</strong> Mechanical fields are filled in, but the diagnosis fields arrive as literal <code>&lt;fill&gt;</code> — <em>cause</em>, <em>change</em>, <em>watch</em>, <em>kept</em>, <em>promote</em>. That is your writing, and the planner reads it before cutting the next run for this spec. Fill it before you start the next version, not after.</p>
+  </div>
+
+  <p>Once the work lands on your main branch, record where:</p>
+  <div class="term"><span class="you">fc launch land --commit &lt;sha&gt; --pr &lt;url&gt;</span></div>
+</section>
+
+<!-- ============ WHEN IT GOES WRONG ============ -->
+<section id="halts">
+  <div class="sec-head"><span class="sec-num">§3</span><h2>Halts — a unit gave up</h2></div>
+
+  <p>A halt is not a crash. It is the schema-enforced way an implementer says "I stopped, and here is why" rather than faking a pass. <strong>Any halt stops the whole implement wave</strong>, so you will be dealing with it immediately.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="nw">halt.kind</th><th>Means</th><th>You</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">test-contradicts-spec</td><td>A locked check asserts something the spec doesn't require, or contradicts it.</td><td>Read the detail. Verify it against the spec text <em>yourself</em>. If the agent is right, escalate <code>wrong-check</code> — you cannot fix it in-run, the file is locked.</td></tr>
+      <tr><td class="mono nw">unsatisfiable</td><td>No faithful implementation could pass this check, regardless of who's wrong.</td><td>Same. This is between-runs work: a new tests-map version.</td></tr>
+      <tr><td class="mono nw">blocked</td><td>A permission it needed was denied.</td><td>Check <code>events.jsonl</code> for <code>PermissionDenied</code>, <code>lock_denied</code> or <code>boundary_denied</code> near the halt timestamp to see what was actually refused.</td></tr>
+      <tr><td class="mono nw">budget</td><td>Out of turns. Also what you get automatically when a return is absent or malformed.</td><td>Decide which: was the unit too big for its turn budget (fix the plan), or did the agent loop unproductively (read the transcript)?</td></tr>
+      <tr><td class="mono nw">boundary</td><td>Tried to write outside its allowed paths.</td><td>Almost always the unit's <code>paths</code> in the plan are too narrow. Fix the plan, don't override the guard.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note warn">
+    <span class="tag">The trap</span>
+    <p>Your instinct on <code>test-contradicts-spec</code> will be to just fix the test. You can't — the lock guard refuses, by design, because a worker that can edit its own assertion isn't being tested. Judge the claim on its merits instead. On the first real run of this system, the agent was right both times.</p>
+  </div>
+</section>
+
+<section id="escalate">
+  <div class="sec-head"><span class="sec-num">§4</span><h2>Escalating</h2></div>
+
+  <div class="term"><span class="you">fc launch escalate wrong-check --detail "T11 expects 2 added lines; git numstat reports 3 under every counting mode"</span></div>
+
+  <p>Escalation is the one command whose job is to <em>release</em> a block. Writing one does three things: creates <code>escalation.json</code>, appends an <code>escalation</code> event, and re-renders the evidence page.</p>
+
+  <p>Its effect is immediate and broad — the stop gate checks for an open escalation first and releases the turn unconditionally, and a fired abandon trigger is silenced by any newer escalation event. <strong>A human's escalation always beats a red gate.</strong></p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="nw">kind</th><th>Raise it when</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">wrong-check</td><td>A specific check tests the wrong thing. The usual companion to a confirmed <code>test-contradicts-spec</code> halt.</td></tr>
+      <tr><td class="mono nw">spec-gap</td><td>The spec is silent or ambiguous about something the run needs decided.</td></tr>
+      <tr><td class="mono nw">blocked</td><td>Something outside the run — permissions, tooling, environment — is stopping progress.</td></tr>
+      <tr><td class="mono nw">trigger</td><td>You looked at a fired abandon trigger and decided to continue anyway.</td></tr>
+      <tr><td class="mono nw">budget</td><td>A ceiling has bound and continuing needs your decision, not a retry.</td></tr>
+      <tr><td class="mono nw">halt</td><td>A worker halt that isn't cleanly one of the above, recorded as-is for the record.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>You don't clear an escalation directly.</strong> It disappears on its own the next time you record a gate decision, move a phase, or end the run. So the shape is always: escalate → do the human thing the detail called for → advance.</p>
+</section>
+
+<section id="stuck">
+  <div class="sec-head"><span class="sec-num">§5</span><h2>Stuck, stalled, and triggered</h2></div>
+
+  <h3>An agent's turn keeps getting blocked</h3>
+  <p>The stop gate only runs in <code>verify</code> and <code>contracts</code>. When it blocks, you see the failing check id, its exit code and the last 20 lines of its output, and the turn ends.</p>
+
+  <p><strong>Don't just keep hitting continue.</strong> The same check re-fails up to eight consecutive times — a hard ceiling regardless of what the launch config says — and then the gate gives up, records a stall, fires an abandon trigger and releases the turn anyway. You've spent eight turns to arrive at a worse position. Read the output at the first block and decide whether it's a real bug or a <code>test-contradicts-spec</code> situation. If it's the latter, escalate immediately.</p>
+
+  <h3>An abandon trigger has fired</h3>
+  <p>Two things fire one: the stall above, or <code>fc budget</code> finding a counter over its ceiling. While a trigger stands, the run is frozen — <strong>every edit is denied, no phase moves except to <code>ended</code>, and worker render and merge both refuse.</strong></p>
+  <p>Two ways out. Record any gate decision, phase move or escalation — a newer event silences it and work resumes. Or, if the cause is real, end the run.</p>
+
+  <h3>The session died mid-run</h3>
+  <p>Nothing is lost. A launch's entire state is on disk — <code>launch.json</code> is where you were, <code>events.jsonl</code> is what happened, <code>escalation.json</code> is what's still open. Run <code>fc launch status</code> and pick up. Watch for the staleness warning.</p>
+</section>
+
+<section id="refusals">
+  <div class="sec-head"><span class="sec-num">§6</span><h2>Why it just refused you</h2></div>
+
+  <p>Exit 2 means it is refusing on the merits. The common ones, and the fix:</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>It said</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">evidence/summary.json is absent; run fc verify</td><td>Run <code>fc verify</code>.</td></tr>
+      <tr><td class="mono">evidence/summary.json is at &lt;x&gt;, HEAD is &lt;y&gt;</td><td>You committed after checking. Re-run <code>fc check all</code> (or <code>fc verify</code>).</td></tr>
+      <tr><td class="mono">&lt;id&gt;: observed &lt;x&gt; where the map expects &lt;y&gt;</td><td>A baseline disagrees with its prediction. The map is wrong, or the tree isn't what the baseline was taken against.</td></tr>
+      <tr><td class="mono">abandon trigger &lt;name&gt;: end or exit the launch</td><td>See <a href="#stuck">§5</a> — record a gate, phase or escalation, or end it.</td></tr>
+      <tr><td class="mono">&lt;U&gt;: the stored return is halt, and only a green return is merged</td><td>Deal with the halt. Merging isn't available.</td></tr>
+      <tr><td class="mono">&lt;U&gt;: the repository is on &lt;x&gt; and the run branch is &lt;y&gt;</td><td><code>git switch &lt;run branch&gt;</code> before merging.</td></tr>
+      <tr><td class="mono">&lt;U&gt;: &lt;deps&gt; not merged yet</td><td>Merge dependencies first — waves are ordered for a reason.</td></tr>
+      <tr><td class="mono">illegal phase change: &lt;a&gt; → &lt;b&gt;; the next phase is &lt;c&gt;</td><td>You skipped. <code>--force</code> exists but also skips the blocker checks, so know why.</td></tr>
+      <tr><td class="mono">two launches are active: X, Y</td><td>Pass <code>--launch &lt;name&gt;</code> or set <code>FLIGHTCREW_LAUNCH</code>.</td></tr>
+      <tr><td class="mono">spec not frozen: … pass --allow-draft</td><td>Freeze it, or accept a draft run knowingly.</td></tr>
+      <tr><td class="mono">working tree not clean under allowed paths</td><td>Commit or stash before ending. The launch's own folder is exempt.</td></tr>
+      <tr><td class="mono">&lt;kind&gt; return does not validate</td><td>The agent returned a malformed document. Nothing was stored — fix and re-submit.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="flags">
+  <div class="sec-head"><span class="sec-num">§7</span><h2>Flags and environment worth knowing</h2></div>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="nw">flag</th><th>When you actually need it</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">--allow-draft</td><td>Iterating before a real freeze. Stamps the launch so every report says so.</td></tr>
+      <tr><td class="mono nw">--force</td><td>On <code>phase</code> it skips both the ordering check <em>and</em> the blockers. On <code>gate</code> it re-records a decided gate. Know why before using.</td></tr>
+      <tr><td class="mono nw">--kickoff</td><td>On <code>launch new</code> — anything other than a plain session/feature build.</td></tr>
+      <tr><td class="mono nw">--branch</td><td>Sets the run branch (default <code>run/&lt;name&gt;</code>). Merge refuses unless you're on it.</td></tr>
+      <tr><td class="mono nw">--baseline</td><td>On <code>fc check</code> — record a draft map's baselines before any launch exists. Writes no evidence.</td></tr>
+      <tr><td class="mono nw">--for-freeze</td><td>On <code>validate spec</code> — rehearse the freeze gate against a draft.</td></tr>
+      <tr><td class="mono nw">--strict</td><td>Turns validator warnings into failures. Use right before freezing, not while drafting.</td></tr>
+      <tr><td class="mono nw">--base</td><td>On <code>boundary</code>/<code>locked</code> — measure from a commit other than the lock.</td></tr>
+      <tr><td class="mono nw">--at / --units</td><td>On <code>launch end</code> — where it died; which units a <code>partial</code> keeps.</td></tr>
+      <tr><td class="mono nw">--json</td><td>Anywhere. Swaps the one-line output for a structured document.</td></tr>
+      <tr><td class="mono nw">--launch &lt;name&gt;</td><td>Act on a launch other than your exported one, for one invocation.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th class="nw">variable</th><th>Set it when</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">FLIGHTCREW_LAUNCH</td><td>Right after <code>fc launch new</code> prints it. Also whenever two launches are ambiguous.</td></tr>
+      <tr><td class="mono nw">FLIGHTCREW_LAUNCH=none</td><td>Deliberately force "no active launch" — running launch-independent checks without picking up whatever is active.</td></tr>
+      <tr><td class="mono nw">FLIGHTCREW_ROOT</td><td>Invoking <code>fc</code> from outside the repo and you want certainty about which repository it acts on. Overrides everything.</td></tr>
+      <tr><td class="mono nw">CLAUDE_PROJECT_DIR</td><td>Set by the session. It is what hooks use exclusively — unset, a hook is a silent no-op.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">Not an fc flag</span>
+    <p><code>--only</code> belongs to the testbench runner, not <code>fc</code>: <code>node flightdeck/testbench/run-all.mjs --only manifest</code> runs a single suite. Handy — the full bench takes minutes.</p>
+  </div>
+</section>
+
+<section id="card">
+  <div class="sec-head"><span class="sec-num">§8</span><h2>The whole run, on one card</h2></div>
+
+  <div class="term"><span class="cm"># ── pre-flight ─────────────────────────────────────────</span>
+<span class="you">fc lint spec &lt;spec&gt; --repo .</span>
+<span class="you">fc validate spec &lt;spec&gt; --for-freeze</span>
+<span class="you">fc validate tests-map &lt;map&gt;</span>
+<span class="cm">                                    ← you freeze both, by hand</span>
+
+<span class="cm"># ── open ───────────────────────────────────────────────</span>
+<span class="you">fc launch new &lt;spec&gt; --kickoff base+shape-session+task-feature</span>
+<span class="you">export FLIGHTCREW_LAUNCH=&lt;name&gt;</span>
+<span class="you">fc launch pin tests-map &lt;map&gt;</span>
+<span class="you">fc launch activate</span>
+
+<span class="cm"># ── plan ───────────────────────────────────────────────</span>
+<span class="you">fc launch phase plan</span>
+<span class="you">fc plan write plan.json</span>
+<span class="hi">fc launch gate G1 approve --note "…"</span>      <span class="cm">← YOUR CALL · → contracts</span>
+
+<span class="cm"># ── contracts ──────────────────────────────────────────</span>
+<span class="you">fc worker render U0</span> → dispatch → <span class="you">fc return worker … --unit U0</span>
+<span class="you">fc worker merge U0</span>
+<span class="hi">fc launch gate G2 approve</span>                 <span class="cm">← YOUR CALL · → implement</span>
+
+<span class="cm"># ── implement · per unit, waves in order ───────────────</span>
+<span class="you">fc worker render U&lt;n&gt;</span> → dispatch → <span class="you">fc return worker … --unit U&lt;n&gt;</span>
+<span class="you">fc worker merge U&lt;n&gt;</span>
+
+<span class="cm"># ── verify ─────────────────────────────────────────────</span>
+<span class="you">fc launch phase verify</span>
+<span class="you">fc verify</span>                                  <span class="cm">checks · boundary · locked · budget</span>
+<span class="you">fc verifier render</span> → <span class="you">fc return verifier … --pass 1</span>
+
+<span class="cm"># ── review ─────────────────────────────────────────────</span>
+<span class="you">fc launch phase review</span>
+<span class="you">fc critic render --pass 1</span> → <span class="you">fc return critic … --pass 1</span>
+<span class="you">fc return critic --resolve F1 --commit &lt;sha&gt;</span>
+
+<span class="cm"># ── end ────────────────────────────────────────────────</span>
+<span class="you">fc launch phase report</span>
+<span class="hi">fc launch gate G3 approve --note "…"</span>      <span class="cm">← YOUR CALL</span>
+<span class="hi">fc launch end &lt;outcome&gt;</span>                   <span class="cm">← YOUR CALL</span>
+<span class="cm">                                    ← you fill RUNLOG.md &lt;fill&gt; fields
+                                    ← you run the printed cleanup commands</span>
+<span class="you">fc launch land --commit &lt;sha&gt; --pr &lt;url&gt;</span></div>
+
+  <div class="note">
+    <span class="tag">Learn from the two runs already on record</span>
+    <p>The first build of this system was <strong>abandoned at verify</strong> — two locked checks were genuinely wrong and no code could satisfy them. The second was <strong>accepted with reservations</strong>, carrying four spec conflicts forward to the next version rather than forcing a clean pass. Run <code>fc runlog show</code> before you plan anything; that is what it's for, and the planner reads it too.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Derived from <code>flightdeck/flightcrew/bin/</code>, the crew and schema definitions, and the two completed runs under <code>flightdeck/launch/</code>. Command strings and refusal messages are quoted from source.</p>
+  <p>Companion page: the system overview, for how and why the machinery is arranged this way.</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

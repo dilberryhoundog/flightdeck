@@ -1,117 +1,17 @@
-<!--
-=== CHAT SUMMARY (Phase 1 scaffold — stripped before final) ===
-Toggle: + = write into the document (relevant to chat AND doc)
-        - = relevant to the chat only, never reaches the final document
-Agent sets the first pass; user adjusts. Sections are voluntary — include one
-only when real context exists for it.
-
-## conversation
-user points
-  + some crew do not have the instructions to do their jobs
-  + the spec-builder must be started as a session agent with the agent flag because it asks the human questions; a subagent cannot; so the human invokes it by necessity
-  + is any role missing from the lineup
-  + the absence of an interface builder and of a backup scribe is a problem, not a permitted folding
-  + the test-builder is probably an interactive session: tests are built before anything else exists and the work needs back and forth between spec and tests
-agent points
-  + the sources name fourteen roles in the constitution, seven in the agents guide, nine on the map; the differences are the same hats split or folded
-  + the sources' floor: orchestrator, one explorer pass, test-writer, implementers, a deterministic gate, one critic pass; the planner folds into the orchestrator and the scribe into hooks on small runs
-  + the sources' never-merge rule: test-writer with implementer, and critic with anything
-  + the three separations: definer of done from doer, judge from judged, coordinator from content; the mechanism is context isolation; accountability runs upward never sideways
-  + the sources render a dispatch from three layers: the agent file that never varies, a template per project that implements the must-not-see boundary because what is not a slot cannot reach the worker, and the fill per unit; freehand composition is where context leaks and slots drop
-  + the sources require a role file to declare tools, model and effort, isolation, memory scope, permission mode and role-scoped hooks, a description written for the dispatcher, and the output shape in both description and body
-  + the built roster is ten: spec-builder, spec-judge, spec-attacker, explorer, test-builder, planner, orchestrator, implementer, verifier, critic; the interface builder is folded into a contracts unit built by an implementer and the assembler into commands and a hook
-  + the constitution's interface builder halts on a contradiction between spec and codebase rather than adapting around it; an implementer building the contracts unit is told to iterate to green
-  + report assembly is a runner command and a session-end hook whose render swallows every error; no role notices when it fails
-  + the built test-builder file is shaped as a subagent: a turn budget, accept-edits permission mode, a dispatch its body describes, and no ask-user tool
-  + two roles the sources call for are absent: the strong worker, one escalation retry on a stronger tier from a clean state with the failure evidence, and the per-unit adversary before merge; nothing retries a failed unit and nothing attacks a unit before it lands
-  + two roles are session agents the human starts: the orchestrator and the spec-builder; three get a rendered sealed dispatch from a command: implementer, critic, verifier; the explorer has a template and no command; the test-builder, planner, judge and attacker are composed freehand
-  + the test-builder, planner and spec-builder each enumerate in their body the inputs a dispatch for the role always names, with no template or renderer to guarantee them
-  + the README names a spec-stage dispatcher beside three render commands; it is the human, by necessity for the spec-builder, and the README does not say so or say why
-  + four returns have schemas and a store command: worker, explorer, verifier, critic; the test-builder's return matches no schema and no store kind though the crew manual says it matches the worker's; the orchestrator, spec-builder, judge and attacker returns have no schema; the manual states handoffs travel through files and schemas as a universal rule
-  + the critic is told its dispatch carries the allowed and locked globs and to check nothing landed outside them; the renderer never sends them and the template says boundary is measured by the run, not here
-  + the orchestrator is told to run an escalate form without the detail flag that the runner refuses
-  + the verifier is described as must not write while its three commands rewrite the evidence files, which its body acknowledges
-  + the planning manual asks the planner to return candidate plans as files; the planner has no write tool and is told it does not write files
-  + the spec-attacker is told to open every command the draft reuses by name and treat an unresolved one as a hole; it holds Read, Grep and Glob only
-  + the implementer is told to pass the launch flag and never a leading environment assignment; the design contract fixes its body as running the check with the environment variable
-  + no role declares hooks, memory, disallowed tools or skills; turn budgets are absent on the orchestrator and the three spec-chain roles; the orchestrator's model is inherit; isolation is on the implementer only
-  + the two spec-chain files held byte-unchanged for calibration lack the inputs sentence the manual says every body carries; the crew suite checks only the seven new roles for it
-  + the spec-builder was to change on two lines per the design contract and was rewritten wholesale with 110 lines changed; the judge and attacker are genuinely unchanged
-  + the orchestrator's body names eighteen distinct runner commands, has no procedure for the targets stage, and has no render for a review fix dispatch
-  + the explorer's dispatch template exists and no command renders it; the explorer is also dispatched by the planner and the spec-builder with the Agent tool
-  + the crew suite asserts frontmatter fields, the four-role turn-budget exemption, the critic's mandate text, fenced return blocks on the seven new roles, and the roster's tools and models; it does not check the body-length rule, the inputs sentence on the spec chain, or return schema agreement
-  - the word worker survives in commands, schemas and prose; a worker role once existed and was renamed implementer
-
-## agent context
-recommended
-  + state the sources' cast and its three separations once at the top as the standard
-  + a roster table: role, how it is started, what renders its dispatch, whether its return has a schema, which sources role it corresponds to
-  + reference the runner, kickoff and system problems documents rather than restating them
-possible
-  - a per-problem severity flag
-edge cases
-  + the spec chain's freeze for calibration and the requirement that every body carry the inputs sentence cannot both hold without a decision
-
-## meta
-user steering
-  - problem hunting; what the source says against what is written; diagnosis only
-  - what, why it matters, effect on the wider system
-decisions
-  + roles divide into session agents the human starts and subagents something dispatches with a rendered prompt
-constraints
-  + observed on branch flightcrew-buildout at commit 75b2b42; the working tree may be on another branch
-  + agent-agnostic: a reader has none of this conversation
-
-## language
-vocabulary
-  + :session agent: — a role that is the session itself, started by the human with the agent flag, because it must talk to the human or conduct the run
-  + :subagent: — a role something dispatches with a prompt; it cannot ask the human anything and returns once
-  + :sealed dispatch: — a prompt rendered from a template by a script, carrying only what its slots allow
-  + :separation: — a pair of roles the method keeps in different contexts so that one cannot bias the other
-  - :worker: — the sources' word; the built role is implementer
-  - :fc: — use runner unless quoting
-
-## audience
-agent/human
-  - the planner of the fix launch and the spec-builder, any model, any session
-purpose
-  - describe the crew problems so the next version can give every role its inputs, its dispatch and its return shape
-=== END CHAT SUMMARY ===
--->
-
 # Crew problems
 
-<!-- ===META=== two short paragraphs: what this document is, the domain, diagnosis not remediation, branch and commit, and the evidence rule -->
-<!-- + observed on branch flightcrew-buildout at commit 75b2b42; the working tree may be on another branch -->
-<!-- + reference the runner, kickoff and system problems documents rather than restating them -->
 This document describes the problems of the flightcrew crew: the ten role definitions under `flightdeck/flightcrew/crew/`, how each is started, what each is handed and returns, and what each is told against what its tools allow. It is the last of a set of problem documents, each covering one domain, written to inform the plan of a later launch and the next version of the spec. It diagnoses. It proposes no remediation. The runner the roles are told to drive is treated in the runner problems document, the kickoff that sequences them in the kickoff problems document, and the hooks and permissions around them in the system problems document; none is restated here.
 
 Every observation was verified on branch `flightcrew-buildout` at commit `75b2b42`. Paths and line numbers refer to that revision; the working tree may be on another branch, so read evidence with `git show flightcrew-buildout:<path>`. Only what was built counts as evidence: the two recorded runs were driven by Claude Code workflows, not by these roles, so their results say nothing about the crew.
 
 ## Agent Invariants
 
-<!-- ===META=== a terse bulleted list of the rules a reader must hold; restated from the sections below -->
-<!-- + the sources' never-merge rule: test-writer with implementer, and critic with anything -->
-<!-- + roles divide into session agents the human starts and subagents something dispatches with a rendered prompt -->
-<!-- + agent-agnostic: a reader has none of this conversation -->
 - The definer of done is never the doer, and the judge is never merged with anything. The test-builder and the implementer are different contexts; the critic is a different context from everyone.
 - A role is either a session agent the human starts, because it must talk to the human or conduct the run, or a subagent something dispatches with a rendered prompt. The two are started differently and the difference is structural, not a convention.
 - The reader has none of the conversation that produced this document. Every claim stands on the cited evidence alone.
 
 ## What the sources say
 
-<!-- ===META=== three short paragraphs: the cast and its floor; the three separations and the never-merge rule; how a role is dispatched and what its file declares; define session agent, subagent, sealed dispatch and separation at first use -->
-<!-- + state the sources' cast and its three separations once at the top as the standard -->
-<!-- + the sources name fourteen roles in the constitution, seven in the agents guide, nine on the map; the differences are the same hats split or folded -->
-<!-- + the sources' floor: orchestrator, one explorer pass, test-writer, implementers, a deterministic gate, one critic pass; the planner folds into the orchestrator and the scribe into hooks on small runs -->
-<!-- + the sources' never-merge rule: test-writer with implementer, and critic with anything -->
-<!-- + the three separations: definer of done from doer, judge from judged, coordinator from content; the mechanism is context isolation; accountability runs upward never sideways -->
-<!-- + the sources render a dispatch from three layers: the agent file that never varies, a template per project that implements the must-not-see boundary because what is not a slot cannot reach the worker, and the fill per unit; freehand composition is where context leaks and slots drop -->
-<!-- + the sources require a role file to declare tools, model and effort, isolation, memory scope, permission mode and role-scoped hooks, a description written for the dispatcher, and the output shape in both description and body -->
-<!-- + :session agent: — a role that is the session itself, started by the human with the agent flag, because it must talk to the human or conduct the run -->
-<!-- + :subagent: — a role something dispatches with a prompt; it cannot ask the human anything and returns once -->
-<!-- + :sealed dispatch: — a prompt rendered from a template by a script, carrying only what its slots allow -->
-<!-- + :separation: — a pair of roles the method keeps in different contexts so that one cannot bias the other -->
 The constitution names fourteen roles, the agents guide seven, the map page nine. The differences are the same hats split or folded: the interface builder, spec judge, strong worker, per-unit adversary and report assembler are separate agents in the constitution and phases of the orchestrator or of a hook in the guides. The guides state the floor outright: an orchestrator, one explorer pass, a test-writer, implementers, a deterministic gate and one critic pass. The planner folds into the orchestrator on small runs and the scribe folds into hooks. One member of the floor is not an agent: the gate is a stop hook running the acceptance command.
 
 What the cast protects is three **separations**, pairs of roles the method keeps in different contexts so that one cannot bias the other. The definer of done is separated from the doer, the test-writer from the implementer. The judge is separated from the judged, the critic from the implementer. The coordinator is separated from the content, the orchestrator from everyone. The never-merge rule follows: the test-writer is never merged with the implementer, and the critic is never merged with anything. The mechanism under all three is context isolation, a subagent receiving only what it is given and returning only what it reports, and the fourth rule is that accountability runs upward and never sideways.
@@ -120,35 +20,27 @@ A role is started in one of two ways. A **session agent** is the session itself,
 
 ## The built roster
 
-<!-- ===META=== one short paragraph then a table: role, sources' name, how started, what renders its dispatch, return schema, turn budget -->
-<!-- + a roster table: role, how it is started, what renders its dispatch, whether its return has a schema, which sources role it corresponds to -->
-<!-- + the built roster is ten: spec-builder, spec-judge, spec-attacker, explorer, test-builder, planner, orchestrator, implementer, verifier, critic; the interface builder is folded into a contracts unit and the assembler into commands and a hook, both permitted by the guides -->
-<!-- + two roles are session agents the human starts: the orchestrator and the spec-builder; three get a rendered sealed dispatch from a command: implementer, critic, verifier; the explorer has a template and no command; the test-builder, planner, judge and attacker are composed freehand -->
-<!-- + the spec-builder must be started as a session agent with the agent flag because it asks the human questions; a subagent cannot; so the human invokes it by necessity -->
 The built roster is ten roles. Against the sources' longer list, the interface builder is folded into a contracts unit built by an implementer and the report assembler into runner commands and a hook; the guides permit both. Two roles are session agents on paper: the orchestrator, which conducts, and the spec-builder, which asks the human questions through a tool no subagent holds. That second case is structural. A third is a session in practice and a subagent on paper: the test-builder works before anything else exists and needs back and forth between the spec and the tests, yet its file carries a turn budget, an accept-edits permission mode and a described dispatch, and no tool for asking the human anything. The crew README names a spec-stage dispatcher beside three render commands; it is the human, by necessity, and the README says neither that nor why.
 
-| Role | Sources' name | Started as | Dispatch rendered by | Return schema | Turn budget |
-|---|---|---|---|---|---|
-| spec-builder | interviewer | session agent, human | the human's session | none | none |
-| spec-judge | spec judge | subagent of spec-builder | freehand, two paths | none | none |
-| spec-attacker | spec attacker | subagent of spec-builder | freehand, draft and root | none | none |
-| explorer | explorer | subagent of orchestrator, planner or spec-builder | template exists, no command | yes | 12 |
-| test-builder | test-writer | session in practice, subagent on paper | none | none | 40 |
-| planner | planner | subagent of orchestrator | none | plan schema | 30 |
-| orchestrator | orchestrator | session agent, human | its own initial prompt | none | none |
-| implementer | worker, general | subagent, per unit | `fc worker render` | yes | 25 |
-| verifier | run verifier | subagent, per pass | `fc verifier render` | yes | 15 |
-| critic | reviewer | subagent, per pass | `fc critic render` | yes | 20 |
+| Role          | Sources' name   | Started as                                        | Dispatch rendered by        | Return schema | Turn budget |
+|---------------|-----------------|---------------------------------------------------|-----------------------------|---------------|-------------|
+| spec-builder  | interviewer     | session agent, human                              | the human's session         | none          | none        |
+| spec-judge    | spec judge      | subagent of spec-builder                          | freehand, two paths         | none          | none        |
+| spec-attacker | spec attacker   | subagent of spec-builder                          | freehand, draft and root    | none          | none        |
+| explorer      | explorer        | subagent of orchestrator, planner or spec-builder | template exists, no command | yes           | 12          |
+| test-builder  | test-writer     | session in practice, subagent on paper            | none                        | none          | 40          |
+| planner       | planner         | subagent of orchestrator                          | none                        | plan schema   | 30          |
+| orchestrator  | orchestrator    | session agent, human                              | its own initial prompt      | none          | none        |
+| implementer   | worker, general | subagent, per unit                                | `fc worker render`          | yes           | 25          |
+| verifier      | run verifier    | subagent, per pass                                | `fc verifier render`        | yes           | 15          |
+| critic        | reviewer        | subagent, per pass                                | `fc critic render`          | yes           | 20          |
 
 ## Problems
 
-<!-- ===META=== one subsection per problem; each has three short paragraphs led by the bold words **What**, **Why it matters**, **Effect on the system**; evidence cited by path and line; no remediation -->
-
 ### 1. Four roles the constitution names do not exist
 
-<!-- + two roles the sources call for are absent: the strong worker, one escalation retry on a stronger tier from a clean state with the failure evidence, and the per-unit adversary before merge; nothing retries a failed unit and nothing attacks a unit before it lands -->
-<!-- + is any role missing from the lineup -->
-**What.** The constitution's roster names four roles the built system folded or dropped. The interface builder writes the wave-zero seams as signatures without behaviour, and a contradiction between the spec and the codebase halts the run rather than being adapted around; the built system gives the contracts unit to an implementer whose method at `crew/implementer.md:24` is to iterate to green. The report assembler joins the recorded artefacts into the report with provenance marked and no verdict; the built system makes assembly a runner command and a session-end hook, per `design.md:295`, and the hook's render at `checks/lib/launch-lib.mjs:352-372` swallows every error, so when assembly fails no role notices and the report is absent. The constitution's roster also has a strong worker: one escalation retry on a unit the general worker failed, on a stronger model, from a clean state, with the failure evidence in hand and not the approach; a second failure ends attempts on the unit. The core-stages guide states the same as a kickoff rule, a worker that hits its iteration ceiling is retried once on the stronger tier before returning blocked, and the principles fix the escalation path as one stronger attempt from a clean state, then the run stops for a human. The constitution also has a per-unit adversary that attacks a completed unit before merge for what its checks missed and where it narrowed scope. Neither exists on the branch. A search of `flightdeck/**` for strong worker, worker-strong and adversary returns nothing. `flightdeck/flightcrew/crew/implementer.md` runs on one tier and, at its budget, returns red at `:24`; nothing dispatches anything after that. The critic reviews the whole diff at the end; the design contract reserves per-unit review for risk-flagged units and no role performs it.
+**What.** The constitution's roster names four roles the built system folded or dropped. The interface builder writes the wave-zero seams as signatures without behaviour, and a contradiction between the spec and the codebase halts the run rather than being adapted around; the built system gives the contracts unit to an implementer whose method at `crew/implementer.md:24` is to iterate to green. The report assembler joins the recorded artefacts into the report with provenance marked and no verdict; the built system makes assembly a runner command and a session-end hook, per `design.md:295`, and the hook's render at `checks/lib/launch-lib.mjs:352-372` swallows every error, so when assembly fails no role notices and the report is absent. The constitution's roster also has a strong worker: one escalation retry on a unit the general worker failed, on a stronger model, from a clean state, with the failure evidence in hand and not the approach; a second failure ends attempts on the unit. The
+core-stages guide states the same as a kickoff rule, a worker that hits its iteration ceiling is retried once on the stronger tier before returning blocked, and the principles fix the escalation path as one stronger attempt from a clean state, then the run stops for a human. The constitution also has a per-unit adversary that attacks a completed unit before merge for what its checks missed and where it narrowed scope. Neither exists on the branch. A search of `flightdeck/**` for strong worker, worker-strong and adversary returns nothing. `flightdeck/flightcrew/crew/implementer.md` runs on one tier and, at its budget, returns red at `:24`; nothing dispatches anything after that. The critic reviews the whole diff at the end; the design contract reserves per-unit review for risk-flagged units and no role performs it.
 
 **Why it matters.** The interface builder's halt is the behaviour that protects every worker after it: a seam adapted around a contradiction is inherited by the whole wave. An implementer's instinct at a red check is to change the code until it passes, which at the seams is the wrong instinct. The scribe is the method's backup for the record when the machinery that writes it fails, and the built machinery fails silently. The escalation retry is the method's answer to a cheap model failing an honest unit: one more attempt on a stronger tier before a human is asked. Without it, every red unit is an escalation, or the general worker runs on the strongest tier for every unit, which is what the built implementer does at `implementer.md:5`. The per-unit adversary is the attack the principles place at the unit boundary, before merge, where a narrowed scope is cheapest to catch.
 
@@ -156,12 +48,8 @@ The built roster is ten roles. Against the sources' longer list, the interface b
 
 ### 2. Dispatch is sealed for three roles and freehand for four
 
-<!-- + the sources render a dispatch from three layers: the agent file that never varies, a template per project that implements the must-not-see boundary because what is not a slot cannot reach the worker, and the fill per unit; freehand composition is where context leaks and slots drop -->
-<!-- + two roles are session agents the human starts: the orchestrator and the spec-builder; three get a rendered sealed dispatch from a command: implementer, critic, verifier; the explorer has a template and no command; the test-builder, planner, judge and attacker are composed freehand -->
-<!-- + the test-builder, planner and spec-builder each enumerate in their body the inputs a dispatch for the role always names, with no template or renderer to guarantee them -->
-<!-- + the README names a spec-stage dispatcher beside three render commands; it is the human, by necessity for the spec-builder, and the README does not say so or say why -->
-<!-- + the explorer's dispatch template exists and no command renders it; the explorer is also dispatched by the planner and the spec-builder with the Agent tool -->
-**What.** Three roles receive a sealed dispatch from a render command: the implementer from `fc worker render`, the critic from `fc critic render`, the verifier from `fc verifier render`, each through a template under `flightdeck/flightcrew/templates/`. The explorer has a template at `templates/explorer-dispatch.template.md` and no command renders it; `bin/fc.mjs:24-26` lists no explorer command, and the explorer is dispatched by the orchestrator, the planner and the spec-builder with the Agent tool. The planner, the spec-judge and the spec-attacker have no template and no command; whoever spawns them composes their prompt. The test-builder has neither, and is in a different position again: it works before anything else exists and needs back and forth between the spec and the tests, which makes it a session the human sits in, yet `crew/test-builder.md:1-9` shapes it as a subagent with a turn budget and an accept-edits permission mode, describes a dispatch it never receives, and gives it no tool for asking the human anything. Three of those roles state in their own body what "a dispatch for this role always names": the test-builder at `crew/test-builder.md:15` its four inputs, the planner at `crew/planner.md:14` the launch name, kickoff header block, spec pin and ceilings, the spec-builder at `crew/spec-builder.md:15` six required paths. Nothing guarantees any of it. `crew/README.md:5` lists the three render commands and then "the spec-stage dispatcher passes the fixed paths listed below". The spec-builder is a session agent because it holds the ask-user-question tool at `spec-builder.md:4` and a subagent cannot ask the human anything; the dispatcher named is the human, and the README says neither that nor why.
+**What.** Three roles receive a sealed dispatch from a render command: the implementer from `fc worker render`, the critic from `fc critic render`, the verifier from `fc verifier render`, each through a template under `flightdeck/flightcrew/templates/`. The explorer has a template at `templates/explorer-dispatch.template.md` and no command renders it; `bin/fc.mjs:24-26` lists no explorer command, and the explorer is dispatched by the orchestrator, the planner and the spec-builder with the Agent tool. The planner, the spec-judge and the spec-attacker have no template and no command; whoever spawns them composes their prompt. The test-builder has neither, and is in a different position again: it works before anything else exists and needs back and forth between the spec and the tests, which makes it a session the human sits in, yet `crew/test-builder.md:1-9` shapes it as a subagent with a turn budget and an accept-edits permission mode, describes a dispatch it never receives, and gives
+it no tool for asking the human anything. Three of those roles state in their own body what "a dispatch for this role always names": the test-builder at `crew/test-builder.md:15` its four inputs, the planner at `crew/planner.md:14` the launch name, kickoff header block, spec pin and ceilings, the spec-builder at `crew/spec-builder.md:15` six required paths. Nothing guarantees any of it. `crew/README.md:5` lists the three render commands and then "the spec-stage dispatcher passes the fixed paths listed below". The spec-builder is a session agent because it holds the ask-user-question tool at `spec-builder.md:4` and a subagent cannot ask the human anything; the dispatcher named is the human, and the README says neither that nor why.
 
 **Why it matters.** The sources make the sealed dispatch the mechanism of context isolation: what is not a slot cannot reach the worker, and a rendered prompt is a recorded file rather than a recollection. A freehand prompt is where the orchestrator's context leaks into a role and where a required input is dropped under pressure. The test-builder is the definer of done, the role whose isolation from the plan the first separation depends on, and its file supports neither of the two ways a role can be started: it cannot be dispatched sealed, because nothing renders it, and it cannot ask the human, because it holds no tool to.
 
@@ -169,8 +57,6 @@ The built roster is ten roles. Against the sources' longer list, the interface b
 
 ### 3. Half the returns have no shape
 
-<!-- + four returns have schemas and a store command: worker, explorer, verifier, critic; the test-builder's return matches no schema and no store kind though the crew manual says it matches the worker's; the orchestrator, spec-builder, judge and attacker returns have no schema; the manual states handoffs travel through files and schemas as a universal rule -->
-<!-- + the sources require a role file to declare tools, model and effort, isolation, memory scope, permission mode and role-scoped hooks, a description written for the dispatcher, and the output shape in both description and body -->
 **What.** Four roles return an object a schema describes and a command stores: the worker, explorer, verifier and critic, per `flightdeck/flightcrew/schemas/` and `bin/cmd/return.mjs:11-15`. The test-builder's return at `crew/test-builder.md:34-41` matches no schema and no store kind, though `flightdeck/manuals/orchestration/crew.md:44` says it matches the worker's. The orchestrator's return at `crew/orchestrator.md:31-39`, the spec-builder's at `crew/spec-builder.md:59-75`, the judge's verdict sheet and the attacker's finding lines have no schema at all; the design contract at `flightdeck/launch/specs/flightcrew-v1/design.md:298` records the judge's absence as a decision. `crew.md:10` states that handoffs travel through files and schemas as a universal rule.
 
 **Why it matters.** The sources' design rule is to state the output shape explicitly and, for anything consumed downstream, make it a schema and validate it at the handoff, because the parent receives only the result and the result's format is the interface. A return with no schema is parsed by the reader's judgement, which is the thing the handoff exists to remove. The test-builder's return is consumed by the human who freezes the map and by the next version's builder; the orchestrator's is the run's own account of itself.
@@ -179,14 +65,8 @@ The built roster is ten roles. Against the sources' longer list, the interface b
 
 ### 4. Roles are told things their tools and dispatch contradict
 
-<!-- + some crew do not have the instructions to do their jobs -->
-<!-- + the critic is told its dispatch carries the allowed and locked globs and to check nothing landed outside them; the renderer never sends them and the template says boundary is measured by the run, not here -->
-<!-- + the orchestrator is told to run an escalate form without the detail flag that the runner refuses -->
-<!-- + the verifier is described as must not write while its three commands rewrite the evidence files, which its body acknowledges -->
-<!-- + the planning manual asks the planner to return candidate plans as files; the planner has no write tool and is told it does not write files -->
-<!-- + the spec-attacker is told to open every command the draft reuses by name and treat an unresolved one as a hole; it holds Read, Grep and Glob only -->
-<!-- + the implementer is told to pass the launch flag and never a leading environment assignment; the design contract fixes its body as running the check with the environment variable -->
-**What.** Six cases are on the record. The critic at `crew/critic.md:14` is told its dispatch carries the launch's allowed and locked path globs and at `:19` to check that nothing landed outside them; the renderer at `bin/worker/render.mjs:248-260` sends no globs, and the template at `templates/critic-dispatch.template.md:9` says a change outside the boundary is measured by the run, not here. The orchestrator at `crew/orchestrator.md:24` is told to run an escalate command without the detail flag that `bin/cmd/launch.mjs:661` refuses. The verifier is described at `manuals/orchestration/crew.md:22` as must not write, while its three commands rewrite the evidence files, which its own body acknowledges at `crew/verifier.md:26`. The planning manual at `manuals/orchestration/planning.md:86` asks the planner to return candidate plans as files; the planner holds no write tool and is told at `crew/planner.md:25` that it does not write files. The spec-attacker at `crew/spec-attacker.md:14` is told to open every command the draft reuses by name and treat one that does not resolve as a hole; it holds Read, Grep and Glob. The implementer at `crew/implementer.md:22` is told to pass the launch flag and never a leading environment assignment; the design contract at `design.md:238` fixes its body as running the check with the environment variable.
+**What.** Six cases are on the record. The critic at `crew/critic.md:14` is told its dispatch carries the launch's allowed and locked path globs and at `:19` to check that nothing landed outside them; the renderer at `bin/worker/render.mjs:248-260` sends no globs, and the template at `templates/critic-dispatch.template.md:9` says a change outside the boundary is measured by the run, not here. The orchestrator at `crew/orchestrator.md:24` is told to run an escalate command without the detail flag that `bin/cmd/launch.mjs:661` refuses. The verifier is described at `manuals/orchestration/crew.md:22` as must not write, while its three commands rewrite the evidence files, which its own body acknowledges at `crew/verifier.md:26`. The planning manual at `manuals/orchestration/planning.md:86` asks the planner to return candidate plans as files; the planner holds no write tool and is told at `crew/planner.md:25` that it does not write files. The spec-attacker at `crew/spec-attacker.md:14` is
+told to open every command the draft reuses by name and treat one that does not resolve as a hole; it holds Read, Grep and Glob. The implementer at `crew/implementer.md:22` is told to pass the launch flag and never a leading environment assignment; the design contract at `design.md:238` fixes its body as running the check with the environment variable.
 
 **Why it matters.** A role file is the whole of what the role knows. When it names an input the dispatch does not carry, the role either invents the input or reports a gap that is not there. When it names a command the tool refuses, the role fails at the moment it most needs to succeed, which for the orchestrator is the escalation. When a manual asks a role for what its tools forbid, the two documents that should agree about the role disagree in front of it.
 
@@ -194,12 +74,8 @@ The built roster is ten roles. Against the sources' longer list, the interface b
 
 ### 5. The role files declare less than the constitution asks
 
-<!-- + no role declares hooks, memory, disallowed tools or skills; turn budgets are absent on the orchestrator and the three spec-chain roles; the orchestrator's model is inherit; isolation is on the implementer only -->
-<!-- + the two spec-chain files held byte-unchanged for calibration lack the inputs sentence the manual says every body carries; the crew suite checks only the seven new roles for it -->
-<!-- + the spec-builder was to change on two lines per the design contract and was rewritten wholesale with 110 lines changed; the judge and attacker are genuinely unchanged -->
-<!-- + the spec chain's freeze for calibration and the requirement that every body carry the inputs sentence cannot both hold without a decision -->
-<!-- + the crew suite asserts frontmatter fields, the four-role turn-budget exemption, the critic's mandate text, fenced return blocks on the seven new roles, and the roster's tools and models; it does not check the body-length rule, the inputs sentence on the spec chain, or return schema agreement -->
-**What.** The constitution's frontmatter model requires six declarations per role. Across the ten files, tools appear on every role; isolation on the implementer only; permission mode on the implementer and test-builder; turn budgets on six, absent on the orchestrator and all three spec-chain roles; the orchestrator's model is inherit; and no role declares hooks, memory, disallowed tools or skills. Two rules the crew manual states about every body are false for the spec chain: `crew.md:11` says every body carries the inputs sentence, and `crew/spec-judge.md` and `crew/spec-attacker.md` do not; the crew suite at `flightdeck/testbench/suites/crew/run.mjs:151-156` checks only the seven new roles. `crew.md:51` says a body is at most sixty lines; the spec-builder's is sixty-nine and no suite checks it. The design contract at `design.md:242-244` held the three spec-chain files byte-unchanged for calibration except two named lines of the spec-builder; commit `71cc34a` rewrote the spec-builder with 110 lines changed, while the judge and attacker are genuinely unchanged.
+**What.** The constitution's frontmatter model requires six declarations per role. Across the ten files, tools appear on every role; isolation on the implementer only; permission mode on the implementer and test-builder; turn budgets on six, absent on the orchestrator and all three spec-chain roles; the orchestrator's model is inherit; and no role declares hooks, memory, disallowed tools or skills. Two rules the crew manual states about every body are false for the spec chain: `crew.md:11` says every body carries the inputs sentence, and `crew/spec-judge.md` and `crew/spec-attacker.md` do not; the crew suite at `flightdeck/testbench/suites/crew/run.mjs:151-156` checks only the seven new roles. `crew.md:51` says a body is at most sixty lines; the spec-builder's is sixty-nine and no suite checks it. The design contract at `design.md:242-244` held the three spec-chain files byte-unchanged for calibration except two named lines of the spec-builder; commit `71cc34a` rewrote the spec-builder
+with 110 lines changed, while the judge and attacker are genuinely unchanged.
 
 **Why it matters.** The constitution's rule is that reading the role file is enough to know what the role does and what it can touch, and that nothing a role can do exceeds what is declared there. A model set to inherit is the one case the constitution names as the thing to avoid. Absent turn budgets on the roles that conduct and specify are the unbounded specialist the agents guide warns of. The freeze on the spec chain protects calibration evidence and was broken for one of the three files without a record saying so.
 
@@ -207,8 +83,6 @@ The built roster is ten roles. Against the sources' longer list, the interface b
 
 ### 6. The orchestrator's job is the runner
 
-<!-- + the orchestrator's body names eighteen distinct runner commands, has no procedure for the targets stage, and has no render for a review fix dispatch -->
-<!-- + the three separations: definer of done from doer, judge from judged, coordinator from content; the mechanism is context isolation; accountability runs upward never sideways -->
 **What.** `crew/orchestrator.md` names eighteen distinct runner commands across its eight steps. Its method begins at the plan and has no procedure for the targets stage, where the test-builder writes the checks; the test-builder is never mentioned. It routes review findings back to an implementer at `:24` and has no render for a fix dispatch; `fc worker render` renders a build dispatch. It holds no Write and no Edit and writes through three commands, by design decision.
 
 **Why it matters.** The coordinator's separation from the content is meant to keep its context clean: it sees handoffs and check results and never how a worker got there. The built orchestrator's context is filled instead with the runner's surface. The sources' orchestrator reads the kickoff, decomposes, dispatches roles and synthesises evidence; the built one is told which command to type at each step and is given no way to type the ones the review loop needs.
@@ -216,10 +90,6 @@ The built roster is ten roles. Against the sources' longer list, the interface b
 **Effect on the system.** The role that conducts a run cannot start its first stage, cannot dispatch a fix, and fails on its escalation command. The runner problems document describes the program these commands belong to; this is the role file that was written around it.
 
 ## Decisions the shape forces
-
-<!-- ===META=== a bulleted list of open decisions for the human, each one line, no recommendation -->
-<!-- + the spec chain's freeze for calibration and the requirement that every body carry the inputs sentence cannot both hold without a decision -->
-<!-- + two roles the sources call for are absent: the strong worker, one escalation retry on a stronger tier from a clean state with the failure evidence, and the per-unit adversary before merge; nothing retries a failed unit and nothing attacks a unit before it lands -->
 
 - Whether the spec chain stays byte-frozen for its calibration evidence or is brought into line with the rules every other role file follows; the two cannot both hold.
 - Whether the interface builder, the scribe, the strong worker and the per-unit adversary are roles, kickoff rules or workflow stages, given that the sources describe them in more than one way.

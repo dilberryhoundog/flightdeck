@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The run log: making abandoned runs compound</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFF1;--paper-2:#E3E6E9;--ink:#161B22;--ink-2:#3C4450;--ink-3:#6B7480;--rule:#C9CED4;
+    --pass:#1E6E55;--pass-bg:#DCEEE6;--flag:#B0432B;--flag-bg:#F3DED7;--human:#2F4B8C;--human-bg:#DDE4F3;--max:74rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--human);text-decoration-thickness:1px;text-underline-offset:3px}
+  a:focus-visible{outline:3px solid var(--human);outline-offset:3px}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+  code{background:var(--paper-2);padding:.1em .4em;border-radius:3px}
+  h1,h2,h3,h4{font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0;letter-spacing:-.005em}
+  h1{font-size:clamp(2.6rem,6vw,5rem)}
+  h2{font-size:clamp(2rem,3.6vw,2.9rem);margin-bottom:.4em}
+  h3{font-size:1.65rem;margin:1.6rem 0 .4rem}
+  h4{font-size:1.25rem;margin:1.2rem 0 .3rem;font-style:italic}
+  p{margin:0 0 1.05em}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(1.1rem,4vw,3rem)}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  header.top{border-bottom:1px solid var(--rule)}
+  header.top .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:.9rem;padding-bottom:.9rem;gap:1rem;flex-wrap:wrap}
+  nav.toc{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid transparent}
+  nav.toc a:hover{border-color:var(--ink-2)}
+  .hero{padding:clamp(3rem,8vw,6.5rem) 0 clamp(2rem,5vw,4rem);border-bottom:1px solid var(--rule)}
+  .hero .lede{font-size:clamp(1.15rem,2vw,1.45rem);max-width:44ch;color:var(--ink-2);margin-top:1.4rem;line-height:1.45}
+  .hero .meta{margin-top:2rem;display:flex;gap:2rem;flex-wrap:wrap}
+  section{padding:clamp(2.6rem,6vw,5rem) 0;border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:0}
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(1.5rem,4vw,4rem)}
+  .two .side p{color:var(--ink-2);font-size:1.02rem}
+  .prose{max-width:66ch}
+  @media (max-width:820px){.two{grid-template-columns:1fr}}
+
+  /* not-these */
+  .notthese{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin:1.4rem 0}
+  .notthese > div{border:1px solid var(--rule);background:#F5F6F7;padding:1rem 1.1rem}
+  .notthese h4{font-style:normal;margin:0 0 .3rem;font-size:1.25rem}
+  .notthese p{font-size:.92rem;margin:0;color:var(--ink-2)}
+
+  /* loop diagram (signature) */
+  .loop{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);margin:1.6rem 0;position:relative}
+  .loop > div{padding:1rem 1.1rem;border-right:1px solid var(--rule);background:#F5F6F7}
+  .loop > div:last-child{border-right:0;background:var(--pass-bg)}
+  .loop h4{font-style:normal;margin:0 0 .3rem;font-size:1.3rem}
+  .loop p{font-size:.9rem;margin:0}
+  .loop .q{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .loop .back{grid-column:1/-1;border-right:0;border-top:1px dashed var(--rule);background:var(--human-bg);font-size:.88rem;color:var(--human);text-align:center;padding:.6rem}
+  @media (max-width:820px){.loop{grid-template-columns:1fr 1fr}.loop > div:nth-child(2){border-right:0}.loop > div:nth-child(-n+2){border-bottom:1px solid var(--rule)}}
+  @media (max-width:520px){.loop{grid-template-columns:1fr}.loop > div{border-right:0;border-bottom:1px solid var(--rule)}}
+
+  /* axis cards */
+  .axes{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.4rem 0}
+  .axes > div{border:1px solid var(--rule);background:#F5F6F7;padding:1rem 1.1rem;border-top:3px solid var(--ink)}
+  .axes h4{font-style:normal;margin:0 0 .4rem;font-size:1.35rem}
+  .axes p{font-size:.92rem;margin:0 0 .5em;color:var(--ink-2)}
+  .axes p:last-child{margin:0}
+  .axes .sym{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);display:block}
+  @media (max-width:640px){.axes{grid-template-columns:1fr}}
+
+  /* template */
+  .tpl{background:#FBFBFC;border:1px solid var(--rule);padding:clamp(1.2rem,3vw,2.2rem);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86rem;line-height:1.55;margin:1.6rem 0;position:relative;overflow-x:auto}
+  .tpl .h{font-weight:500}
+  .tpl .c{color:var(--ink-3);font-style:italic}
+  .tpl .k{color:var(--human)}
+  .tpl pre{margin:0;white-space:pre-wrap;font:inherit}
+  .tpl::before{content:"RUNLOG.md";position:absolute;top:0;right:0;font-size:.7rem;letter-spacing:.08em;padding:.35rem .7rem;background:var(--ink);color:var(--paper)}
+
+  .rules{list-style:none;padding:0;margin:1.2rem 0}
+  .rules li{padding:.8rem 0;border-top:1px solid var(--rule);font-size:.98rem}
+  .rules li:last-child{border-bottom:1px solid var(--rule)}
+  .rules li strong{display:block;font-weight:600}
+  .rules li span{color:var(--ink-2)}
+
+  .anti{list-style:none;padding:0;margin:1.2rem 0}
+  .anti li{padding:.8rem 0 .8rem 1.2rem;border-left:3px solid var(--flag);margin-bottom:.8rem;background:#F5F6F7;font-size:.97rem}
+  .anti li strong{display:block;font-weight:600}
+  .anti li span{color:var(--ink-2)}
+
+  .note{border-left:3px solid var(--rule);padding:.2rem 0 .2rem 1.1rem;color:var(--ink-2);margin:1.4rem 0;font-size:1rem}
+  .note.pass{border-color:var(--pass);background:var(--pass-bg);padding:1rem 1.2rem;color:var(--ink)}
+  .note.flag{border-color:var(--flag);background:var(--flag-bg);padding:1rem 1.2rem;color:var(--ink)}
+  .note.human{border-color:var(--human);background:var(--human-bg);padding:1rem 1.2rem;color:var(--ink)}
+  .sources ol{padding-left:1.3rem;font-size:.93rem;color:var(--ink-2)}
+  .sources li{margin-bottom:.45rem}
+  footer{padding:2rem 0 3rem;color:var(--ink-3);font-size:.88rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="eyebrow">Companion · the run log</span>
+    <nav class="toc" aria-label="Sections">
+      <a href="#what">What it is</a>
+      <a href="#axes">Three axes</a>
+      <a href="#entry">An entry</a>
+      <a href="#practice">Practice</a>
+      <a href="#anti">Anti-patterns</a>
+      <a href="orchestrator-review.html">← Field review</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">The document the setup is iterated against</span>
+    <h1>Abandoning a run only pays off if something remembers why.</h1>
+    <p class="lede">A short guide to the run log: the record that turns expensive failed runs into cheap improvements to the spec template, the kickoff library, the hooks and the project constitution.</p>
+    <div class="meta">
+      <div><span class="eyebrow">Length of an entry</span><br>Ten lines, written at the moment of abandonment</div>
+      <div><span class="eyebrow">Context</span><br><a href="orchestrator-review.html">Orchestrating agent teams in Claude Code</a></div>
+    </div>
+  </div>
+</div>
+
+<section id="what">
+  <div class="wrap two">
+    <div class="side">
+      <h2>What it is</h2>
+      <p>Not telemetry, not a transcript, not a diary. A structured memory of what went wrong with a run's setup and what was changed as a result.</p>
+    </div>
+    <div class="prose">
+      <p>The orchestration economics say: when a run drifts, do not patch it, abandon it and fix the setup. That is only an improvement over patching if the fix is actually made and actually sticks. Left to memory, the same failure recurs three runs later with a different surface, is diagnosed again from scratch, and the setup stays where it was. The run log is the mechanism that makes abandonment compound rather than repeat.</p>
+      <p>It is the orchestration form of a practice that engineering already has: the blameless post-incident record, where the question is never who failed but what about the system allowed the failure and what changes so it cannot happen the same way. Here the "system" is the run's setup, and the "incident" is a run that had to be abandoned or that was accepted with reservations.</p>
+      <div class="notthese">
+        <div><h4>Not the transcript</h4><p>Session logs are complete and unreadable. The run log is what a person concluded from them.</p></div>
+        <div><h4>Not the evidence display</h4><p>Evidence shows what a run proved. The log records what the run taught about the setup.</p></div>
+        <div><h4>Not git history</h4><p>Commits record what changed in the code. The log records why the spec template, kickoff or hooks changed.</p></div>
+        <div><h4>Not a diary</h4><p>No narrative of the day. One entry per run, one diagnosis, one change.</p></div>
+      </div>
+      <p>The log closes a loop that otherwise stays open:</p>
+      <div class="loop">
+        <div><span class="q">Run</span><h4>Drift appears</h4><p>The evidence display or the gate shows a run has gone wrong.</p></div>
+        <div><span class="q">Stop</span><h4>Abandon</h4><p>The run is stopped at the finding, not patched.</p></div>
+        <div><span class="q">Record</span><h4>Diagnose the axis</h4><p>One entry: symptom, axis, cause, change.</p></div>
+        <div><span class="q">Fix</span><h4>Change the setup</h4><p>The spec template, kickoff, hook set or constitution is edited.</p></div>
+        <div class="back">Next run starts clean, from the improved setup, with the log read first</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="axes">
+  <div class="wrap two">
+    <div class="side">
+      <h2>The three axes</h2>
+      <p>Every abandoned run failed on one of three axes. Naming the axis is most of the diagnosis, because each axis points at a different part of the setup.</p>
+    </div>
+    <div class="prose">
+      <div class="axes">
+        <div>
+          <h4>Context</h4>
+          <span class="sym">Symptom</span>
+          <p>The orchestrator or a worker did not know something a person would have known: a convention, a constraint, a file, what "done" meant, what was out of scope.</p>
+          <span class="sym">Points at</span>
+          <p>The spec (missing behaviour, scope or decision), the kickoff prompt, <code>CLAUDE.md</code>, a skill, a subagent definition.</p>
+        </div>
+        <div>
+          <h4>Verification</h4>
+          <span class="sym">Symptom</span>
+          <p>The run went green and the result was wrong, or the agent iterated on a failing check without converging, or a check was weakened to pass.</p>
+          <span class="sym">Points at</span>
+          <p>A missing or unmapped check, an unlocked test, a false green with no end-to-end proof, a flaky or noisy check, a gate that was not deterministic.</p>
+        </div>
+        <div>
+          <h4>Tooling</h4>
+          <span class="sym">Symptom</span>
+          <p>An agent could not do or see something: a tool gave ambiguous output, permissions blocked a needed action, workers collided on files, a handoff lost structure.</p>
+          <span class="sym">Points at</span>
+          <p>Hooks, allowlists, worktree isolation, schema at handoffs, CLI availability, the workflow script's stage boundaries.</p>
+        </div>
+      </div>
+      <p>Most failures present on one axis and are caused on another. A worker that ignored a convention (context) may have done so because a lint hook that would have caught it does not exist (tooling). Record both: the axis where it appeared and the axis where the fix was made. Over several entries the second column is the one that says where to invest.</p>
+      <p class="note flag">"The model was not good enough" is not an axis. It may occasionally be true, but as a diagnosis it produces no change to the setup and so teaches nothing. Force the entry onto one of the three; if it will not go, the run was under-observed and that is the finding.</p>
+    </div>
+  </div>
+</section>
+
+<section id="entry">
+  <div class="wrap">
+    <span class="eyebrow">Anatomy</span>
+    <h2>An entry</h2>
+    <p class="prose">Short enough to write in the moment and to read before the next kickoff. The fields exist so that entries can be scanned for patterns; free prose belongs in the two lines allowed for it. Comments in italics explain each field and are not part of a real entry.</p>
+    <div class="tpl"><pre><span class="h">## 2026-08-26 · export-html · run 3</span>
+<span class="k">spec:</span>     docs/specs/export-html.md @ a1b2c3d     <span class="c">the frozen spec commit</span>
+<span class="k">kickoff:</span>  kickoffs/feature-parallel.md v7        <span class="c">which kickoff, which version</span>
+<span class="k">outcome:</span>  abandoned at gate 2 (interfaces)      <span class="c">accepted | accepted-with-reservations | abandoned at &lt;gate or stage&gt;</span>
+<span class="k">cost:</span>     ~40 min · 6 agents · heavy            <span class="c">enough to compare runs; exact tokens if you have them</span>
+
+<span class="k">symptom:</span>  two workers defined incompatible Warning types; contract test failed 4×
+<span class="k">seen on:</span>  verification                          <span class="c">context | verification | tooling</span>
+<span class="k">cause:</span>    spec named Warning but did not say "reuse existing type"; nothing stopped a redefinition
+<span class="k">fixed on:</span> context                               <span class="c">the axis the change was made on</span>
+<span class="k">change:</span>   spec template: interfaces section now requires "reuse existing type by name" for every referenced type
+<span class="k">watch:</span>    whether the contract test passes first time on run 4  <span class="c">what would confirm the fix</span>
+
+<span class="c">— optional —</span>
+<span class="k">kept:</span>     worker-per-module decomposition worked cleanly; do not change  <span class="c">what worked, so it is not accidentally removed</span>
+<span class="k">promote:</span>  "reuse existing types" → CLAUDE.md if it appears again  <span class="c">a candidate for graduating out of the spec</span></pre></div>
+    <p class="prose">An accepted run gets a shorter entry: spec, kickoff, outcome, cost, and a line for what worked and any reservation. Recording successes is what stops a later "improvement" from removing the thing that was carrying the run.</p>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Practice</h2>
+      <p>The log is cheap to keep and easy to stop keeping. These rules are what keep it alive and useful.</p>
+    </div>
+    <div class="prose">
+      <ul class="rules">
+        <li><strong>Write it at the moment of abandonment.</strong><span>The diagnosis is sharpest when the evidence display is still open. An entry written the next day is a reconstruction.</span></li>
+        <li><strong>One change per run where possible.</strong><span>If three things change between run 3 and run 4, nothing can be attributed. When a failure demands several fixes, make them, but mark which one the next run is testing.</span></li>
+        <li><strong>Attribute to the setup, not to the agent.</strong><span>The agent is not a variable the log can change. The spec template, kickoff, hooks and constitution are.</span></li>
+        <li><strong>Read the log before every kickoff.</strong><span>Its whole value is realised at this moment. A log that is written but never read is a diary.</span></li>
+        <li><strong>Run a pattern pass every few entries.</strong><span>Which axis keeps appearing in the "fixed on" column? That is the pillar to invest in next. Three context fixes in a row means the spec template or the interview process needs work, not the next spec.</span></li>
+        <li><strong>Promote and retire.</strong><span>A rule that appears in two or three entries graduates into <code>CLAUDE.md</code>, a hook, or the spec template. Once promoted, it stops being logged. The log should stay short because its findings keep leaving it for more permanent homes.</span></li>
+        <li><strong>Let the orchestrator draft, and the human diagnose.</strong><span>At the end of a run the orchestrator can fill the mechanical fields from the evidence display: spec commit, kickoff version, outcome, cost, symptom. The axis, the cause and the change are the human's, because they are judgements about the setup that the run could not see.</span></li>
+      </ul>
+      <h4>Where it lives in a Claude Code project</h4>
+      <p>A single <code>RUNLOG.md</code> in the repository, newest entry first, or one file per run under <code>docs/runs/</code> if runs are frequent. Committed with the setup changes it describes, so the history of the log and the history of the kickoff library line up. A <code>Stop</code> or <code>SessionEnd</code> hook can append a stub entry with the mechanical fields filled, leaving the diagnosis fields empty for the human. The log is referenced from the kickoff prompt as required reading for the orchestrator's planning phase, so that known failure modes shape the plan before a single worker is dispatched.</p>
+      <p class="note pass">Official guidance already contains the seed of this practice: after two failed corrections, start clean with a better prompt that incorporates what you learned, and pay attention to what worked when a session goes well. The run log is that advice made durable across runs instead of held in one person's memory.</p>
+    </div>
+  </div>
+</section>
+
+<section id="anti">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Anti-patterns</h2>
+      <p>Ways a run log stops being one.</p>
+    </div>
+    <div class="prose">
+      <ul class="anti">
+        <li><strong>The transcript dump</strong><span>Pasting agent output into the entry. Nobody reads it, and the diagnosis never gets written because the dump feels like one.</span></li>
+        <li><strong>The blame log</strong><span>Entries that record what the agent did wrong rather than what the setup allowed. Produces no change and slowly turns into a case against the method rather than an improvement of it.</span></li>
+        <li><strong>The write-only log</strong><span>Entries accumulate, the kickoff never references them, the pattern pass never happens. The tell is a fix that was already logged two months earlier.</span></li>
+        <li><strong>The unbounded entry</strong><span>Paragraphs where fields should be. Long entries are not scanned, and a log that cannot be scanned cannot reveal a pattern.</span></li>
+        <li><strong>No successes recorded</strong><span>Only failures are logged, so the next round of setup changes removes something that was quietly essential and the log has no record that it mattered.</span></li>
+        <li><strong>Never promoting</strong><span>The same rule logged five times and still living only in the log. The finding should have become a hook or a line in the constitution after the second.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="sources" class="sources">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Sources</h2>
+      <p>The run log is a synthesis rather than a documented feature; these are the practices it draws on.</p>
+    </div>
+    <div>
+      <ol>
+        <li>Anthropic, <a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>, "Course-correct early and often" and "Develop your intuition". The advice to start clean with a better prompt after repeated corrections, and to notice what worked when a session goes well, are the per-session form of what the log does across runs.</li>
+        <li>Anthropic, <a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>, "Set up hooks" and "Write an effective CLAUDE.md". The promotion targets: rules that must fire every time become hooks; broadly applicable conventions become constitution lines; and the file is pruned of anything Claude already does correctly.</li>
+        <li>Blameless post-incident review as practised in site reliability engineering: the record asks what about the system allowed the failure and what changes, never who failed. The run log applies the same stance to a run's setup.</li>
+        <li>The <a href="orchestrator-review.html#considerations">field review</a> for the abandon-and-improve economics and the three failure axes; the <a href="verification-guide.html#evidence">verification guide</a> for the evidence display the mechanical fields are drawn from.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Compiled August 2026. Parent document: <a href="orchestrator-review.html">Orchestrating agent teams in Claude Code</a>. Related: <a href="spec-guide.html">the spec</a> · <a href="verification-guide.html">verification</a>.</div>
+</footer>
+</body>
+</html>

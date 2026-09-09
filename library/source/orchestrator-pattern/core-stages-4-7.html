@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setting up an orchestration run — the core (stages 4 to 7)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFF1;--paper-2:#E3E6E9;--ink:#161B22;--ink-2:#3C4450;--ink-3:#6B7480;--rule:#C9CED4;
+    --pass:#1E6E55;--pass-bg:#DCEEE6;--flag:#B0432B;--flag-bg:#F3DED7;--human:#2F4B8C;--human-bg:#DDE4F3;
+    --rec:#4A4F57;--rec-bg:#DFE2E6;--max:74rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--human);text-decoration-thickness:1px;text-underline-offset:3px}
+  a:focus-visible{outline:3px solid var(--human);outline-offset:3px}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+  code{background:var(--paper-2);padding:.1em .4em;border-radius:3px}
+  h1,h2,h3,h4{font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0;letter-spacing:-.005em}
+  h1{font-size:clamp(2.6rem,6vw,5rem)}
+  h2{font-size:clamp(2rem,3.6vw,2.9rem);margin-bottom:.4em}
+  h3{font-size:1.6rem;margin:1.6rem 0 .4rem}
+  h4{font-size:1.2rem;margin:1.1rem 0 .3rem;font-style:italic}
+  p{margin:0 0 1.05em}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(1.1rem,4vw,3rem)}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  header.top{border-bottom:1px solid var(--rule)}
+  header.top .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:.9rem;padding-bottom:.9rem;gap:1rem;flex-wrap:wrap}
+  nav.toc{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid transparent}
+  nav.toc a:hover{border-color:var(--ink-2)}
+  .hero{padding:clamp(3rem,8vw,6.5rem) 0 clamp(2rem,5vw,4rem);border-bottom:1px solid var(--rule)}
+  .hero .lede{font-size:clamp(1.15rem,2vw,1.45rem);max-width:46ch;color:var(--ink-2);margin-top:1.4rem;line-height:1.45}
+  .hero .meta{margin-top:2rem;display:flex;gap:2rem;flex-wrap:wrap;font-size:.95rem}
+  .trilogy{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule);margin-top:2rem;font-size:.9rem}
+  .trilogy > div{padding:.8rem 1rem;border-right:1px solid var(--rule);color:var(--ink-3)}
+  .trilogy > div:last-child{border-right:0}
+  .trilogy > div.now{background:var(--ink);color:var(--paper)}
+  .trilogy b{display:block;font-weight:600;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-family:"JetBrains Mono",monospace}
+  @media (max-width:640px){.trilogy{grid-template-columns:1fr}.trilogy > div{border-right:0;border-bottom:1px solid var(--rule)}}
+  section{padding:clamp(2.6rem,6vw,5rem) 0;border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:0}
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(1.5rem,4vw,4rem)}
+  .two .side p{color:var(--ink-2);font-size:1.02rem}
+  .two .side .stagebar{margin-top:1.2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.9rem}
+  .two .side .stagebar div{margin-bottom:.5rem}
+  .two .side .stagebar b{display:block;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+  .prose{max-width:66ch}
+  @media (max-width:820px){.two{grid-template-columns:1fr}}
+
+  .chip{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:.18em .55em;border-radius:2px;vertical-align:middle;margin:0 .35rem .25rem 0}
+  .chip.h{background:var(--human-bg);color:var(--human)}
+  .chip.a{background:var(--rec-bg);color:var(--rec)}
+  .chip.g{background:var(--pass-bg);color:var(--pass)}
+  .chip.x{background:var(--flag-bg);color:var(--flag)}
+
+  .code{background:#FBFBFC;border:1px solid var(--rule);padding:1.1rem 1.3rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.82rem;line-height:1.55;white-space:pre-wrap;overflow-x:auto;margin:1.2rem 0}
+  .code .c{color:var(--ink-3);font-style:italic}
+  .code .k{color:var(--human)}
+  .code .g{color:var(--pass)}
+  .code .r{color:var(--flag)}
+
+  .rails{border:1px solid var(--rule);border-left:4px solid var(--rec);background:#F5F6F7;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.95rem}
+  .rails .lab{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:.4rem}
+  .rails p{margin-bottom:.5em}
+  .rails p:last-child{margin-bottom:0}
+
+  table{border-collapse:collapse;width:100%;font-size:.92rem;margin:1.2rem 0}
+  th,td{text-align:left;padding:.55rem .65rem;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-weight:600;font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+  td:first-child{font-weight:500;white-space:nowrap}
+  @media (max-width:640px){td:first-child{white-space:normal}}
+
+  .cases{margin:1.2rem 0;border-top:2px solid var(--ink)}
+  .case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--rule)}
+  .case h4{font-style:normal;margin:0;font-size:1.25rem}
+  .case p{font-size:.95rem;margin:0}
+  @media (max-width:640px){.case{grid-template-columns:1fr}}
+
+  .note{border-left:3px solid var(--rule);padding:.2rem 0 .2rem 1.1rem;color:var(--ink-2);margin:1.4rem 0;font-size:1rem}
+  .note.pass{border-color:var(--pass);background:var(--pass-bg);padding:1rem 1.2rem;color:var(--ink)}
+  .note.flag{border-color:var(--flag);background:var(--flag-bg);padding:1rem 1.2rem;color:var(--ink)}
+  .note.human{border-color:var(--human);background:var(--human-bg);padding:1rem 1.2rem;color:var(--ink)}
+  .sources ol{padding-left:1.3rem;font-size:.93rem;color:var(--ink-2)}
+  .sources li{margin-bottom:.45rem}
+  footer{padding:2rem 0 3rem;color:var(--ink-3);font-size:.88rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="eyebrow">Setting up an orchestration run · part two</span>
+    <nav class="toc" aria-label="Sections">
+      <a href="#orientation">Orientation</a>
+      <a href="#s4">Stage 4 · Plan</a>
+      <a href="#g1">Gate 1</a>
+      <a href="#s5">Stage 5 · Interfaces</a>
+      <a href="#g2">Gate 2</a>
+      <a href="#s6">Stage 6 · Workers</a>
+      <a href="#s7">Stage 7 · Verify</a>
+      <a href="#summary">Summary</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">What the internals actually look like</span>
+    <h1>The core.</h1>
+    <p class="lede">Stages 4 to 7 of an orchestrated run in Claude Code: from a fresh orchestrator session reading a frozen spec, through the plan, the seams, the parallel workers, and the whole-feature verification that decides when the run stops. The part of the process that is almost entirely agents, with the human at two gates.</p>
+    <div class="meta">
+      <div><span class="chip h">Human</span> at a gate</div>
+      <div><span class="chip a">Agent</span> a session or subagent</div>
+      <div><span class="chip g">Checked</span> a deterministic result</div>
+      <div><span class="chip x">Exit</span> the run stops for a decision</div>
+    </div>
+    <div class="trilogy">
+      <div><b>Part one · setup</b>Spec, targets, kickoff. The human is the main character.</div>
+      <div class="now"><b>Part two · the core</b>Plan, interfaces, workers, verify. The orchestrator is the main character.</div>
+      <div><b>Part three · finishing</b>Review, report, gate 3, log, promote, re-enter. Hardening and showing.</div>
+    </div>
+  </div>
+</div>
+
+<section id="orientation">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Orientation</h2>
+      <p>Everything in the core follows from one idea inherited from human-in-the-loop work: build the earlier structure before the dependent one. The core writes that ordering down and enforces it.</p>
+    </div>
+    <div class="prose">
+      <p>Entering the core, three things exist and are frozen: <code>spec.json</code> at a commit, the tests derived from it (read-only to anything that writes code), and the kickoff that says how this run is conducted. The orchestrator is a fresh session started from the kickoff. It has never seen the interview that produced the spec and never will.</p>
+      <p>The core goes green in predetermined phases. Interfaces first, so every unit can test its seams. Then waves of parallel workers, each accountable for a slice of the spec, each fenced to its own paths, each unable to edit the tests or the seams it builds against. Then the whole feature, on the merged branch, against the acceptance script. At each phase the stop condition is a check result, and the human appears exactly twice, at the two moments where a wrong assumption is about to be multiplied by the number of workers.</p>
+      <p>The worked example throughout is the classic Rails blog, and the run is <em>comments</em>: a nested resource under posts, a model, a controller with create and destroy, a form and a list in the post view.</p>
+      <div class="rails"><span class="lab">The comments run, entering the core</span>
+        <p>Frozen: <code>specs/comments/spec.json</code> with behaviours B1–B7 (posting, listing, ordering, validation, deleting) and edges E1–E3 (empty body, missing post, unauthorised delete). Tests in <code>spec/</code>: model, routing, request and system specs mapped to those numbers, plus a comment factory. Branch <code>run/comments-1</code>. Kickoff names three worker roles, two gates, an iteration ceiling of five per unit, Sonnet for workers and Opus for everything else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">Stage 4</span>
+      <h2>Plan</h2>
+      <p>The orchestrator reads, explores, and produces a plan. Nothing is built. This is the cheapest moment in the run to be wrong.</p>
+      <div class="stagebar">
+        <div><b>Main character</b>orchestrator, in plan mode</div>
+        <div><b>Sees</b>kickoff · spec · test map · constitution · prior reports</div>
+        <div><b>Produces</b><code>runs/&lt;id&gt;/plan.json</code></div>
+        <div><b>Ends at</b>gate 1</div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3>Why plan mode</h3>
+      <p>Plan mode restricts the session to read-only tools. The orchestrator can explore the codebase, read the spec and tests, spawn explorer subagents, and write a plan; it cannot edit files. Three consequences matter. The plan phase cannot leak into implementation no matter how confident the orchestrator is. The orchestrator's context stays small, because no edit results, hook outputs or test runs have entered it yet, and that context is the scarce resource for the rest of the run. And approving the plan is the act that takes the session out of plan mode, so gate 1 is a switch rather than a convention.</p>
+      <p>The kickoff must say to write the plan to a file. Plan mode's default output is conversational; the plan is consumed later by dispatch and by the report's ledger, and both need <code>runs/&lt;id&gt;/plan.json</code>.</p>
+
+      <h3>The plan is data</h3>
+      <p>A plan for an orchestrated run is read three times, by the orchestrator to dispatch, by the assembler to reconcile plan against outcome, and by the human to scan for gaps. All three want rows. Each unit is a pointer into things that already carry the detail, spec entity IDs, interface IDs, check names, paths, and the plan restates none of it. That is why a good plan is short on disk and reads rich on screen: the viewer resolves the IDs.</p>
+      <div class="code"><span class="c">// plan.json — one unit; every value is a reference, never a copy</span>
+{
+  "id": "&lt;unit-id&gt;",
+  "name": "&lt;unit-name&gt;",
+  "spec_refs": ["&lt;B|E ids&gt;"],          <span class="c">// what this unit is accountable for</span>
+  "owns": ["&lt;paths&gt;"],                  <span class="c">// the only paths it may write — its diff boundary</span>
+  "needs": ["&lt;I-ids&gt;"],                 <span class="c">// interfaces it consumes</span>
+  "produces": ["&lt;I-ids&gt;"],              <span class="c">// interfaces it defines (stubbed at stage 5)</span>
+  "checks": ["&lt;check names&gt;"],         <span class="c">// its stop condition, from the test map</span>
+  "worker": "&lt;role&gt;", "model": "&lt;tier&gt;",
+  "group": "&lt;wave id&gt;", "size": "S|M|L",
+  "flags": ["produces-interface", "modifies-existing", "risk", "human-decision"],
+  "decisions": ["&lt;a call made where the spec was silent&gt;"]
+}
+<span class="c">// top level: "spec": "&lt;path&gt;@&lt;commit&gt;", "interfaces": [{id, name, reuse|new, check}],
+//            "order": [["wave-1 groups"], ["wave-2 groups"]]</span></div>
+      <p>Interfaces are first-class objects at the top of the plan, each with its own contract check; that list is the entire input to stage 5. <code>order</code> is explicit waves, the dispatch schedule for stage 6. <code>decisions</code> is where a human-decision flag points, so every judgement call the plan made can be read in one pass. Status is not on the plan; that is the report's job.</p>
+      <p>Without a template the orchestrator writes prose, because that is what plans look like in its training. A <code>plan</code> schema in <code>orchestration/schemas/</code>, named by the kickoff, is what makes the plan parseable rather than interpreted.</p>
+      <div class="rails"><span class="lab">The comments plan</span>
+        <p>Interfaces: I1 <code>comments</code> migration (new), I2 <code>Comment belongs_to :post</code> and <code>Post has_many :comments</code> (modifies-existing), I3 nested route <code>create</code>/<code>destroy</code> (new), I4 <code>comment_params</code> permitting <code>body</code> (new). Units: U1 model behaviour (B3 validation, E1) owning <code>app/models/comment.rb</code>; U2 controller (B1 B5 E2 E3) owning <code>app/controllers/comments_controller.rb</code>; U3 views (B2 B4) owning the comment partials and the post show template. Order: wave 1 is U1 and U2 and U3 together, because none needs another's implementation, only the seams. U2 carries a risk flag for the authorisation edge and one decision: delete is restricted to the post author because the spec named "owner" without defining it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="g1">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">Gate 1</span>
+      <h2>Plan approval</h2>
+      <p>A page, not a reading exercise. The mechanical half of the gate runs before the human looks at anything.</p>
+    </div>
+    <div class="prose">
+      <p><span class="chip h">Human</span> The gate is a local page that opens the run directory, reads <code>plan.json</code>, resolves every reference against <code>spec.json</code>, and derives the checks a person would otherwise do by eye: every behaviour and edge in exactly one unit, and the uncovered ones listed; every <code>needs</code> matched by a <code>produces</code> or an existing interface; no two units owning the same path; every named check present in the test map; spec version of the plan equal to spec version of the tests. Those appear as flags at the top. What remains for the human is judgement: unit size, decomposition, and each entry in <code>decisions</code>.</p>
+      <p>Three outcomes, each a file. <strong>Approve</strong> writes an approval block into the plan (<code>approved: {at, spec_version, plan_hash}</code>) so the orchestrator and the assembler can verify they are working from the plan the human saw. <strong>Edit</strong> writes a new plan revision; the kickoff tells the orchestrator the plan file is the source of truth and to re-read it after the gate, so edits win without a conversation. <strong>Comment</strong> writes <code>comments.json</code> keyed by unit ID, and the page renders the comments as a revise-plan prompt to paste into the orchestrator session; it re-plans, the page reloads. Only approve leaves plan mode.</p>
+      <p class="note human">In Chrome the File System Access API lets the page read and write the run directory in place, so there is no export and import step. The same page family, with a different lens, serves the spec freeze before the core and the report after it.</p>
+      <p><span class="chip x">Exit</span> A plan that cannot be fixed by editing units is a spec problem. The run stops here and re-enters at stage 1. Nothing has been spent.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">Stage 5</span>
+      <h2>Interfaces</h2>
+      <p>The seams are built before anyone builds a room: everything a worker will import from another worker, declared and not implemented, checked, committed, and locked.</p>
+      <div class="stagebar">
+        <div><b>Main character</b>orchestrator, or one worker in sequence</div>
+        <div><b>Sees</b>the plan's interfaces list · the spec's interfaces section · the contract checks</div>
+        <div><b>Produces</b>one commit on the run branch · the protected path set</div>
+        <div><b>Ends at</b>gate 2</div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3>What is created</h3>
+      <p>Not empty files. For each interface in the plan's list, the orchestrator does one of three things. An interface marked reuse gets nothing created; the existing type or contract is confirmed to be where the spec says and the contract check references it. An interface that is its own implementation, a type, a schema, a migration, a route, an association, a permitted-params list, is written in full, because there is nothing to defer. An interface that has behaviour behind it, a function or an action, is written as a signature whose body raises a not-implemented error carrying the unit ID that will implement it. If units own module files that do not exist yet, those are created with their exports declared, so every import a worker will write already resolves.</p>
+      <p>The stub raises; it never returns. A stub that returns plausible data, an empty result or a fake redirect, lets a behaviour test pass falsely and lets a worker build against fake behaviour. A raise with the unit ID means every failure in the next phase names the unit that has not been done yet.</p>
+      <div class="rails"><span class="lab">The comments seams</span>
+        <p>Written in full and run: the migration (<code>post</code> reference, <code>body</code>, timestamps), so <code>db/schema.rb</code> in this commit is the contract. Written in full: <code>belongs_to :post</code> in the new model, <code>has_many :comments</code> added to <code>Post</code>, <code>resources :comments, only: [:create, :destroy]</code> nested under posts, <code>comment_params</code> permitting <code>body</code>. Stubbed: <code>CommentsController#create</code> and <code>#destroy</code>, each <code>raise NotImplementedError, "U2"</code>. Created for U3: the partial files the controller will render, so <code>render</code> resolves. Untouched: validations, ordering, counter caches, anything that is behaviour.</p>
+      </div>
+
+      <h3>The signal</h3>
+      <p><span class="chip g">Checked</span> The stubs do not produce a signal; the stage-2 tests do, and what stage 5 changes is the reason they fail. Before this stage a request spec fails with a routing error or a missing constant, the wrong reasons. After it, the same spec fails with the not-implemented error naming U2, which is reaching the stub. Meanwhile every check that tests only shape goes green: the routing spec, the association spec, the schema after migrating the test database, factory lint, the autoloader check, the linter. The stop condition for the phase is that specific pattern in the output, green structure and contracts, red behaviour for the right reason, and the Stop hook holds the turn open for it.</p>
+      <div class="code"><span class="g">PASS</span>  spec/routing/comments_routing_spec.rb
+<span class="g">PASS</span>  spec/models/comment_spec.rb  (associations)
+<span class="g">PASS</span>  FactoryBot.lint · zeitwerk:check · rubocop
+<span class="r">FAIL</span>  spec/requests/comments_spec.rb  B1  NotImplementedError: U2   <span class="c">← reached the stub</span>
+<span class="r">FAIL</span>  spec/system/post_comments_spec.rb  B2  NotImplementedError: U2
+diff boundary: db/migrate, config/routes.rb, app/models, app/controllers, app/views  <span class="g">within plan</span></div>
+
+      <h3>Commit and lock</h3>
+      <p>One commit, <code>interfaces: comments</code>, on the run branch. It does two things: every worker's worktree will inherit the seams, and the interface paths join the protected set, so the block-writes hook now stops workers from changing them. That is the point of the phase. Without it two workers sharing a type each invent their own; with it the shared vocabulary is fixed before anyone speaks, and a worker that needs a seam to change has to stop and report.</p>
+      <p>The lock is by path, so it is clean where a file is pure interface (the migration, <code>routes.rb</code>, <code>schema.rb</code>, the factory) and awkward where interface and implementation share a file, which in Rails is the model: the association line is interface, the validations the worker will add are implementation, and a line cannot be locked. For those files the contract test is the lock. The association spec lives in the read-only test directory; a worker that changes the association breaks a test it cannot edit. Lock the file when you can; where you cannot, make sure a contract test covers the seam.</p>
+      <p class="note flag">Two things belong on the gate 2 diff for a reason. <code>has_many :comments</code> on <code>Post</code> changes a model already in production, which the plan flagged modifies-existing. And the migration is executed, not stubbed; it is the one thing before stage 6 that is not trivially reversible.</p>
+    </div>
+  </div>
+</section>
+
+<section id="g2">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">Gate 2</span>
+      <h2>Interfaces approval</h2>
+      <p>The last moment a wrong seam costs one agent's work instead of a wave's.</p>
+    </div>
+    <div class="prose">
+      <p><span class="chip h">Human</span> The gate 2 page shows the interfaces commit as a diff with the contract check results beside each interface, and the modifies-existing and risk flags highlighted. One question: are these the seams the spec's interfaces section described, and are they the ones every worker should build against.</p>
+      <p><span class="chip x">Exit</span> If the seams are wrong the fix is upstream, in the spec's interfaces section or the plan's reading of it, never in the code. The branch is left as it is and the run restarts where the fix lands.</p>
+      <p>Approval writes the approval block, the interface paths are confirmed in the protected set, and the seams become canon. From here the wiring is verified three times: it was verified when built, it is verified continuously because every worker's check set includes the contract checks, and it is verified again on the merged branch at stage 7. That is what lets canon be canon without anyone watching it.</p>
+
+      <h3>Waves and the chain of checks</h3>
+      <p>Within a wave, units depend on each other's interfaces and never on each other's implementation; that is what lets them run in parallel. Where a unit genuinely needs another's finished behaviour, the plan puts it in a later wave, and the later wave's check set includes the earlier wave's behaviour tests as well as the contracts. Wave two cannot go green by breaking wave one, because wave one's tests are in wave two's stop condition and wave two cannot edit them. Regression protection grows wave by wave, from the plan's <code>order</code> field and the check-set rule, not from anything a worker decides.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">Stage 6</span>
+      <h2>Workers</h2>
+      <p>One worker per unit, each in its own worktree, each with the spec's behaviour, the seams, its checks and its fence, and nothing else.</p>
+      <div class="stagebar">
+        <div><b>Main character</b>the workers; the orchestrator dispatches and merges</div>
+        <div><b>Each worker sees</b>its rendered prompt only</div>
+        <div><b>Produces</b>per-unit commits · structured returns · <code>events.jsonl</code> filling</div>
+        <div><b>Ceilings</b>agents · iterations per unit · spend</div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3>Where the worker prompt comes from</h3>
+      <p>Not the plan. The plan unit is data; the prompt is rendered from it at dispatch time, from three layers each kept in one place.</p>
+      <table>
+        <thead><tr><th>Layer</th><th>Lives in</th><th>Carries</th><th>Varies</th></tr></thead>
+        <tbody>
+          <tr><td>Agent definition</td><td><code>.claude/agents/worker.md</code></td><td>Role, tools allowed and denied, model tier, worktree isolation, the return shape</td><td>never</td></tr>
+          <tr><td>Worker template</td><td><code>orchestration/templates/worker.md</code></td><td>The sections, the rules, the order; the place the "must not see" boundary is implemented, because what is not a slot cannot reach the worker</td><td>per project</td></tr>
+          <tr><td>The fill</td><td><code>plan.json</code> resolved against <code>spec.json</code></td><td>The unit's spec entities verbatim, interface signatures, paths, check names and command</td><td>per unit</td></tr>
+        </tbody>
+      </table>
+      <div class="code"><span class="c">// worker.md — slots; nothing else reaches the worker</span>
+&lt;unit id and name&gt;
+&lt;spec entities, verbatim: the behaviours and edges this unit is accountable for&gt;
+&lt;interfaces consumed: signatures, marked read-only&gt;
+&lt;interfaces produced: already stubbed, to be implemented&gt;
+&lt;paths this unit may write&gt;
+&lt;checks that must be green, and the exact command&gt;
+&lt;rules: tests and interfaces are read-only · outside "owns" is out of bounds ·
+        on a contradiction between a test and the spec, stop and return blocked&gt;
+&lt;iteration ceiling&gt;
+&lt;return shape: unit · spec refs · artefacts written · status · blocked-on&gt;</div>
+      <p>The orchestrator does not tell the worker how. It tells the worker what it is accountable for, what proves it, and where the fence is; the decomposition, the ordering and the fences are the orchestrator's contribution, all upstream of the prompt. The procedural part, how to implement B5 in this codebase, is the part the model is better at than a prompt-writer at the unit level, and leaving it out is not withholding guidance.</p>
+      <p>Render the prompt deterministically, with a small skill or script over the two JSON files, rather than having the orchestrator compose it freehand. Freehand composition is where orchestrator context leaks into workers and where a slot is quietly dropped under context pressure. It also makes the report's agents table honest: the task a worker was given becomes a recorded file rather than a stated recollection.</p>
+
+      <h3>Model tier</h3>
+      <p>This shape is what makes tiering safe. A unit prompt is narrow, its target is executable, and iteration is cheap: a smaller model iterating against a deterministic check converges on tasks it would fail if asked to get right in one pass, because the check loop is doing work that raw capability would otherwise do. The default is a smaller tier for workers, with escalation driven by the plan's flags: size L, a risk mark, or a unit with entries in <code>decisions</code> gets the stronger model, since interpretation is doing more of the work there than iteration. A useful kickoff rule is escalation on failure: a worker that hits its iteration ceiling is retried once on the stronger tier before returning blocked. Everything upstream of the workers stays on the strongest model: the orchestrator, the test-writer, the reviewer.</p>
+      <p class="note pass">The human-in-the-loop instinct that bigger is always better comes from one-shotting. In the core, a cheaper model throwing tokens iteratively at a goal with a deterministic check deciding "done" is the intended mode, and the strong model's job is to make the goal and the check precise.</p>
+
+      <h3>When a worker meets the wiring</h3>
+      <div class="cases">
+        <div class="case"><div><h4>Tries to edit a locked file</h4></div><div><p>The block-writes hook refuses the write before it happens and the worker sees why. Nothing goes red because nothing changed.</p></div></div>
+        <div class="case"><div><h4>Breaks a contract in a shared file</h4></div><div><p>The contract test goes red in the worker's own check run. It cannot edit the test, so the only way back to green is to undo its change. The worker fixes its own mistake.</p></div></div>
+        <div class="case"><div><h4>Discovers the wiring is wrong for its unit</h4></div><div><p>It must not route around the contract; that produces code that satisfies the tests while not doing what the spec meant. It stops, returns <code>status: blocked</code> with the contract it needs changed and the spec entity that requires it. <span class="chip x">Exit</span> Either the spec's interfaces section or the plan's reading of it was wrong, and only a human says which.</p></div></div>
+      </div>
+
+      <h3>How a block reaches the human</h3>
+      <p>Depends on the run's shape, because Claude Code handles a mid-run stop differently in each. In the interactive shape, an orchestrator session dispatching subagents, the blocked status is the worker's return value landing in the orchestrator's context. The kickoff and the orchestrator's agent definition say what to do with it: stop dispatching, do not resolve the contract yourself, write the block to the run directory, ask the user. An interactive session waits whenever it ends its turn with a question. What makes this deterministic is a <code>PostToolUse</code> hook on the subagent tool that reads the returned result, appends a blocked event to <code>events.jsonl</code> on a match, and injects a line into the orchestrator's context saying dispatch must halt; a notification hook pings the human at the same time.</p>
+      <p>In the workflow shape, dynamic workflows do not accept user input during execution, only a permission prompt can pause one, and the script has no filesystem access of its own. A block there is a stop condition the script handles: skip dependents, finish or stop the wave, return the block as the final result to the session, which then asks. A block almost always means a spec or plan change, which means a new run. This is why the core runs interactively through gate 2 and only the parallel waves of stage 6 are candidates for a workflow: the stages with gates need a session that can stop and ask; the stage where the human has already chosen not to be present is where a script that cannot ask is the right tool.</p>
+
+      <h3>A per-unit adversary, if wanted</h3>
+      <p>Findings go to the orchestrator, never straight to the worker whose context is the thing being challenged. The reviewer returns a structured result; the orchestrator dispatches a fresh fix-worker with the finding, the spec entities it cites, the unit's checks and the diff, and nothing of the original worker's reasoning. A finding is resolved when the fix-worker's checks are green and, if the kickoff asks, the reviewer re-checks once. The orchestrator does not adjudicate: a finding the fix-worker disputes stays open and reaches the report marked disputed. Per-unit review is usually reserved for risk-flagged units; the whole-diff review after the core covers the rest.</p>
+      <div class="rails"><span class="lab">The comments wave</span>
+        <p>U1, U2 and U3 dispatched together into three worktrees on Sonnet, U2 escalated to Opus for its risk flag. U1 replaces nothing, adds the presence validation and the ordering scope, turns the model specs green in two iterations, commits, returns. U3 builds the form and the list partials against the stubbed controller, turns the system spec green only as far as rendering, and returns with B4 noted as dependent on U2. U2 replaces the two raises, hits the request specs green in four iterations, and on E3 stops: the spec's "owner" is undefined and the plan's decision (post author) contradicts a test that expects the comment's author. Returns blocked. The hook halts dispatch; the orchestrator asks. The spec gets an owner definition; the run re-enters at stage 2 with one test changed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">Stage 7</span>
+      <h2>Verify</h2>
+      <p>The whole-feature version of what each worker did for its unit, and the jail the orchestrator cannot break out of.</p>
+      <div class="stagebar">
+        <div><b>Main character</b>the Stop hook; the orchestrator merges and re-dispatches</div>
+        <div><b>Runs</b>the full check set on the merged branch</div>
+        <div><b>Produces</b><code>runs/&lt;id&gt;/checks/</code> · the evidence display in its final form</div>
+        <div><b>Ends by</b>acceptance green, or the stall cap</div>
+      </div>
+    </div>
+    <div class="prose">
+      <p><span class="chip g">Checked</span> Workers went green in isolation against their own checks. Stage 7 is the first time everything exists in one place and asks the question no worker could. The orchestrator merges the wave worktrees onto the run branch and the full set runs through the check wrapper, every result captured verbatim: structural checks, every contract and behaviour test, and for the first time the acceptance script from stage 2, plus the diff boundary over the run's entire diff, the list of spec behaviours with no green check, and the list of test files changed since stage 2, which should be empty.</p>
+      <p>Units interact in ways their own checks cannot see: two changes pass separately and fail together, a shared factory is satisfied by one unit and broken by another, a count is right in the model spec and wrong on the page. The acceptance script is the only check that exercises the feature the way a user would, and it is what the run's stop condition is built on.</p>
+      <div class="rails"><span class="lab">The comments acceptance</span>
+        <p>Full spec suite; a system spec that visits a post, writes a comment, submits, sees it rendered in order, deletes it as the owner, and is refused as someone else; migrations from scratch on a clean database; RuboCop; diff boundary over the whole run diff against the union of every unit's <code>owns</code>.</p>
+      </div>
+
+      <h3>The stop condition</h3>
+      <p>The Stop hook runs the acceptance command and refuses to let the orchestrator's turn end until it exits zero. On failure the orchestrator reads the output, identifies the unit from the failing check's spec mapping, dispatches a fix-worker with that check as its target, on the stronger tier if the kickoff says so, re-merges, and the hook runs again. The orchestrator cannot declare done; only the command can.</p>
+      <p>After eight consecutive blocks Claude Code overrides the hook and ends the turn. Eight is Anthropic's number, a runtime safeguard so a broken check cannot trap a session forever; it is not chosen, it is exploited. A tighter ceiling is the hook script counting its own blocks, writing a stalled event on the fourth or fifth and exiting zero to end the turn cleanly, with the built-in cap as backstop. Either way the number is a stall detector. <span class="chip x">Exit</span> The useful question at exit is which check kept failing, and the report says.</p>
+      <p>A verification subagent, if the kickoff asks for one, runs here: given the merged branch and the check results and told to try to refute them. It is a refinement on top of the deterministic gate, not a substitute for it.</p>
+
+      <h3>What stage 7 leaves behind</h3>
+      <p>The evidence display in its final form. Through gate 2 it showed intentions, the plan and the seams. From here it shows results: commands, exit codes, output lines, spec coverage, what was not verified, test files touched, cost per unit and per phase. This is the flip from an approval tool to a verification tool. Everything after the core, the whole-diff review, the report, gate 3, is judgement and record laid on top of these facts, and none of it should run if stage 7 is not green.</p>
+    </div>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="wrap">
+    <span class="eyebrow">The core on one screen</span>
+    <h2>Summary</h2>
+    <table>
+      <thead><tr><th>Stage</th><th>Main character</th><th>Sees</th><th>Produces</th><th>Stops on</th><th>Exit means</th></tr></thead>
+      <tbody>
+        <tr><td>4 Plan</td><td>orchestrator, plan mode</td><td>kickoff · spec · test map · constitution · prior reports</td><td><code>plan.json</code> · intent page</td><td>gate 1 approval block</td><td>spec problem → stage 1</td></tr>
+        <tr><td>5 Interfaces</td><td>orchestrator or one worker</td><td>plan interfaces · spec interfaces · contract checks</td><td>interfaces commit · protected paths</td><td>green shape, red behaviour for the right reason; gate 2</td><td>seam problem → spec or plan</td></tr>
+        <tr><td>6 Workers</td><td>workers, in worktrees</td><td>rendered prompt only</td><td>unit commits · structured returns · events</td><td>each unit's checks green, or ceiling</td><td>blocked → human picks spec or plan</td></tr>
+        <tr><td>7 Verify</td><td>the Stop hook</td><td>merged branch · full check set</td><td><code>checks/</code> · evidence display</td><td>acceptance exits 0</td><td>stall cap → which check kept failing</td></tr>
+      </tbody>
+    </table>
+    <p class="prose note pass">Reduced to one sentence: the orchestrator decomposes and orders, the seams are built and locked before anyone builds against them, cheap workers iterate against checks they cannot edit inside fences they cannot cross, and a hook that only a passing command can satisfy decides when the run is done.</p>
+  </div>
+</section>
+
+<section id="sources" class="sources">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Sources</h2>
+      <p>Mechanisms are official; the assembly is a design.</p>
+    </div>
+    <div>
+      <ol>
+        <li>Anthropic, <a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>. Plan mode as read-only exploration; the Stop hook gate and its eight-block override; verification subagents; narrow subagent context; test-writer and implementer in separate sessions; evidence over assertion.</li>
+        <li>Anthropic, <a href="https://code.claude.com/docs/en/workflows">Orchestrate subagents at scale with dynamic workflows</a>. No user input during execution; permission prompts as the only pause; scripts without filesystem access; per-stage model routing; pause and resume within a session.</li>
+        <li>Anthropic, <a href="https://code.claude.com/docs/en/worktrees">Run parallel sessions with worktrees</a>. Subagent worktree isolation and enforcement.</li>
+        <li>Practitioner reference on hook events and inputs, including <code>PostToolUse</code> context injection and subagent lifecycle events: <a href="https://hidekazu-konishi.com/entry/claude_code_hooks_complete_guide.html">Claude Code hooks complete guide</a>.</li>
+        <li>The <a href="how-it-fits.html">map</a> for the full journey and the <a href="orchestrator-review.html">field review</a> for the four pillars; <a href="spec-guide.html">the spec</a>, <a href="verification-guide.html">verification</a> and <a href="run-report-guide.html">the run report</a> for the artefacts the core consumes and produces.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Compiled August 2026. Part two of <em>Setting up an orchestration run</em>. Part one (setup) and part three (finishing) to follow.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing a spec that three agents can act on</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFF1;--paper-2:#E3E6E9;--ink:#161B22;--ink-2:#3C4450;--ink-3:#6B7480;--rule:#C9CED4;
+    --pass:#1E6E55;--pass-bg:#DCEEE6;--flag:#B0432B;--flag-bg:#F3DED7;--human:#2F4B8C;--human-bg:#DDE4F3;--max:74rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--human);text-decoration-thickness:1px;text-underline-offset:3px}
+  a:focus-visible{outline:3px solid var(--human);outline-offset:3px}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+  code{background:var(--paper-2);padding:.1em .4em;border-radius:3px}
+  h1,h2,h3,h4{font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0;letter-spacing:-.005em}
+  h1{font-size:clamp(2.6rem,6vw,5rem)}
+  h2{font-size:clamp(2rem,3.6vw,2.9rem);margin-bottom:.4em}
+  h3{font-size:1.65rem;margin:1.6rem 0 .4rem}
+  h4{font-size:1.25rem;margin:1.2rem 0 .3rem;font-style:italic}
+  p{margin:0 0 1.05em}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(1.1rem,4vw,3rem)}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  header.top{border-bottom:1px solid var(--rule)}
+  header.top .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:.9rem;padding-bottom:.9rem;gap:1rem;flex-wrap:wrap}
+  nav.toc{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid transparent}
+  nav.toc a:hover{border-color:var(--ink-2)}
+  .hero{padding:clamp(3rem,8vw,6.5rem) 0 clamp(2rem,5vw,4rem);border-bottom:1px solid var(--rule)}
+  .hero .lede{font-size:clamp(1.15rem,2vw,1.45rem);max-width:44ch;color:var(--ink-2);margin-top:1.4rem;line-height:1.45}
+  .hero .meta{margin-top:2rem;display:flex;gap:2rem;flex-wrap:wrap}
+  section{padding:clamp(2.6rem,6vw,5rem) 0;border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:0}
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(1.5rem,4vw,4rem)}
+  .two .side p{color:var(--ink-2);font-size:1.02rem}
+  .prose{max-width:66ch}
+  @media (max-width:820px){.two{grid-template-columns:1fr}}
+
+  /* three readers diagram */
+  .readers{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.6rem 0}
+  .reader{border:1px solid var(--rule);background:#F5F6F7;padding:1rem 1.1rem}
+  .reader .r{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .reader h4{font-style:normal;margin:.3rem 0 .4rem;font-size:1.35rem}
+  .reader p{font-size:.93rem;margin:0}
+  .reader.o{border-top:3px solid var(--human)}
+  .reader.v{border-top:3px solid var(--pass)}
+  .reader.c{border-top:3px solid var(--flag)}
+  @media (max-width:640px){.readers{grid-template-columns:1fr}}
+
+  /* anatomy */
+  .anatomy{margin:1.6rem 0;border-top:2px solid var(--ink)}
+  .part{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);gap:1.4rem;padding:1.3rem 0;border-bottom:1px solid var(--rule)}
+  .part h4{font-style:normal;margin:0 0 .3rem;font-size:1.4rem}
+  .part .reads{font-size:.82rem;color:var(--ink-3)}
+  .part .reads b{font-weight:600}
+  .part .reads .o{color:var(--human)}.part .reads .v{color:var(--pass)}.part .reads .c{color:var(--flag)}
+  .part p{font-size:.98rem;margin-bottom:.6em}
+  .part p:last-child{margin-bottom:0}
+  .part .bad,.part .good{display:block;font-family:"JetBrains Mono",monospace;font-size:.82rem;padding:.55rem .75rem;margin:.4rem 0;border-left:3px solid;white-space:pre-wrap}
+  .part .bad{border-color:var(--flag);background:var(--flag-bg)}
+  .part .good{border-color:var(--pass);background:var(--pass-bg)}
+  @media (max-width:640px){.part{grid-template-columns:1fr}}
+
+  /* template (signature) */
+  .tpl{background:#FBFBFC;border:1px solid var(--rule);padding:clamp(1.2rem,3vw,2.2rem);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86rem;line-height:1.55;margin:1.6rem 0;position:relative;overflow-x:auto}
+  .tpl .h{color:var(--ink);font-weight:500}
+  .tpl .c{color:var(--ink-3);font-style:italic}
+  .tpl .k{color:var(--human)}
+  .tpl .t{color:var(--pass)}
+  .tpl pre{margin:0;white-space:pre-wrap;font:inherit}
+  .tpl::before{content:"SPEC.md";position:absolute;top:0;right:0;font-size:.7rem;letter-spacing:.08em;padding:.35rem .7rem;background:var(--ink);color:var(--paper)}
+
+  /* checklist */
+  .check{list-style:none;padding:0;margin:1.2rem 0}
+  .check li{padding:.7rem 0 .7rem 2.2rem;position:relative;border-top:1px solid var(--rule);font-size:.98rem}
+  .check li:last-child{border-bottom:1px solid var(--rule)}
+  .check li::before{content:"";position:absolute;left:0;top:.95rem;width:1.05rem;height:1.05rem;border:1.5px solid var(--ink);border-radius:2px}
+  .check li strong{font-weight:600}
+
+  .note{border-left:3px solid var(--rule);padding:.2rem 0 .2rem 1.1rem;color:var(--ink-2);margin:1.4rem 0;font-size:1rem}
+  .note.pass{border-color:var(--pass);background:var(--pass-bg);padding:1rem 1.2rem;color:var(--ink)}
+  .note.flag{border-color:var(--flag);background:var(--flag-bg);padding:1rem 1.2rem;color:var(--ink)}
+  .note.human{border-color:var(--human);background:var(--human-bg);padding:1rem 1.2rem;color:var(--ink)}
+
+  .steps{counter-reset:s;list-style:none;padding:0;margin:1.4rem 0}
+  .steps li{position:relative;padding:.9rem 0 .9rem 3.2rem;border-top:1px solid var(--rule)}
+  .steps li:last-child{border-bottom:1px solid var(--rule)}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:.75rem;width:2.1rem;height:2.1rem;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:.85rem}
+  .steps li strong{display:block;font-weight:600}
+  .steps li p{margin:.2rem 0 0;font-size:.97rem;color:var(--ink-2)}
+
+  .pipe{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);margin:1.4rem 0}
+  .pipe > div{padding:1rem 1.1rem;border-right:1px solid var(--rule);background:#F5F6F7}
+  .pipe > div:last-child{border-right:0}
+  .pipe h4{font-style:normal;margin:0 0 .3rem;font-size:1.3rem}
+  .pipe p{font-size:.92rem;margin:0}
+  .pipe .q{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  @media (max-width:640px){.pipe{grid-template-columns:1fr}.pipe > div{border-right:0;border-bottom:1px solid var(--rule)}.pipe > div:last-child{border-bottom:0}}
+
+  .sources ol{padding-left:1.3rem;font-size:.93rem;color:var(--ink-2)}
+  .sources li{margin-bottom:.45rem}
+  footer{padding:2rem 0 3rem;color:var(--ink-3);font-size:.88rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="eyebrow">Companion · spec writing</span>
+    <nav class="toc" aria-label="Sections">
+      <a href="#why">Why</a>
+      <a href="#what">What it is</a>
+      <a href="#anatomy">Anatomy</a>
+      <a href="#write">Writing one</a>
+      <a href="#template">Template</a>
+      <a href="#ready">Ready?</a>
+      <a href="#drift">Drift</a>
+      <a href="orchestrator-review.html">← Field review</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">The document the four pillars stand on</span>
+    <h1>Writing a spec that three agents can act on.</h1>
+    <p class="lede">How to take the definition of a task out of a developer's head and put it into a document an orchestrator can decompose, a verifier can test, and a critic can hold the result against.</p>
+    <div class="meta">
+      <div><span class="eyebrow">For</span><br>Developers whose specs have so far lived in their own judgement</div>
+      <div><span class="eyebrow">Context</span><br><a href="orchestrator-review.html">Orchestrating agent teams in Claude Code</a> · <a href="verification-guide.html">Verification</a></div>
+    </div>
+  </div>
+</div>
+
+<section id="why">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Why the spec matters more now</h2>
+      <p>In turn-by-turn work the spec is the person. In orchestration it has to be a file, because the readers who need it most are not the person.</p>
+    </div>
+    <div class="prose">
+      <p>A developer shaping every turn does not need a written spec. Scope, priorities, edge cases and taste are all applied live, at the moment an output is read. This works because the same head that defined the task judges the result. It also means that expertise never gets written down, and when the person steps away from the loop, the definition of the task steps away with them.</p>
+      <p>An orchestrated run has three readers who each need the definition of the task, none of whom can ask the developer a question mid-run.</p>
+      <div class="readers">
+        <div class="reader o"><span class="r">Reader one</span><h4>The orchestrator</h4><p>Reads the spec to decompose the work, fix interfaces, and decide what each subagent is accountable for.</p></div>
+        <div class="reader v"><span class="r">Reader two</span><h4>The verifier</h4><p>Reads the spec to know what to test. Every behaviour it cannot find here becomes a behaviour that will not be checked.</p></div>
+        <div class="reader c"><span class="r">Reader three</span><h4>The critic</h4><p>Reads the spec to know what counts as a gap. Without it, review collapses into style opinions and generic caution.</p></div>
+      </div>
+      <p>If the three readers have different understandings, the run's own quality machinery is aligned on the wrong target. Tests pass, review approves, and the result is wrong. A shared spec is what makes verification and independent review mean anything.</p>
+      <p class="note">Anthropic's guidance describes the most useful specs as self-contained: they name the files and interfaces involved, state what is out of scope, and end with an end-to-end verification step that proves the feature works. It adds that time spent making the spec precise pays off more than time spent watching the implementation. That is the whole economic argument in one sentence.</p>
+    </div>
+  </div>
+</section>
+
+<section id="what">
+  <div class="wrap two">
+    <div class="side">
+      <h2>What a spec is, and is not</h2>
+      <p>The word gets used for several different documents. Only one of them is the shared source of truth for a run.</p>
+    </div>
+    <div class="prose">
+      <p>A spec answers <em>what must be true when this is done</em>. It is stable across implementations: two different teams could build from it and both results would satisfy it. It is the input to planning, not the plan. It describes outcomes and boundaries, not steps.</p>
+      <div class="pipe">
+        <div><span class="q">Answers</span><h4>Spec</h4><p>What must be true. Outcomes, scope, constraints, behaviours, proof. Written by the human with help. Frozen before the run.</p></div>
+        <div><span class="q">Answers</span><h4>Plan</h4><p>How it will be done. Files touched, approach, order, risks. Written by the orchestrator, approved at a gate.</p></div>
+        <div><span class="q">Answers</span><h4>Tasks</h4><p>Who does what. Small, independently verifiable units with fixed interfaces. Derived from the plan; dispatched to workers.</p></div>
+      </div>
+      <p>It is also not the kickoff prompt. The kickoff tells the orchestrator how to conduct the run: which tools, which agents, which gates, which display to maintain. The spec is referenced by the kickoff, and it is the only one of the two that the verifier and critic should ever see. Keeping them apart prevents run mechanics leaking into the definition of correctness.</p>
+      <p>A spec is not a product requirements document either. A PRD argues for why something should exist and for whom; it is a persuasion document with a business audience. A spec assumes the decision is made and pins down the behaviour precisely enough to test.</p>
+      <p class="note flag">The commonest failure is a spec that is really a plan: it lists steps to take rather than conditions to satisfy. Steps cannot be tested, only followed, so the verifier has nothing to check and the critic has nothing to hold the result against.</p>
+    </div>
+  </div>
+</section>
+
+<section id="anatomy">
+  <div class="wrap">
+    <span class="eyebrow">Structure</span>
+    <h2>Anatomy of a spec</h2>
+    <p class="prose">Nine parts, each with its primary readers marked. Not every task needs every part at full weight, but a missing part should be a decision, not an oversight. Examples show a weak phrasing and a testable one.</p>
+    <div class="anatomy">
+
+      <div class="part">
+        <div><h4>Intent</h4><div class="reads">Read by <b class="o">orchestrator</b> · <b class="c">critic</b></div></div>
+        <div>
+          <p>One or two sentences on the outcome and why it matters. This is what the critic uses to judge whether the work, even if every test passes, is the right work. It is also what the orchestrator uses to resolve ambiguity when the rest of the spec is silent.</p>
+          <span class="bad">Improve the export feature.</span>
+          <span class="good">Users can export a project as a single self-contained HTML file that opens offline in any modern browser, so a report can be emailed without hosting.</span>
+        </div>
+      </div>
+
+      <div class="part">
+        <div><h4>Scope</h4><div class="reads">Read by <b class="o">orchestrator</b> · <b class="c">critic</b></div></div>
+        <div>
+          <p>What is in, and explicitly what is out. Out-of-scope statements do more work than in-scope ones, because they are what stops an agent from helpfully expanding the task. The critic checks that nothing outside scope changed.</p>
+          <span class="bad">Export should work well.</span>
+          <span class="good">In: HTML export of a single project. Out: PDF, batch export, changes to the project data model, any UI outside the export dialog.</span>
+        </div>
+      </div>
+
+      <div class="part">
+        <div><h4>Constraints</h4><div class="reads">Read by <b class="o">orchestrator</b> · <b class="v">verifier</b></div></div>
+        <div>
+          <p>Non-negotiables about how the result may be built: dependencies allowed or forbidden, performance ceilings, compatibility targets, security rules, style rules that differ from defaults. Many of these convert directly into checks.</p>
+          <span class="bad">Keep it fast and don't add too many dependencies.</span>
+          <span class="good">No new runtime dependencies. Output for a 500-item project under 2 MB and generated in under 3 s on the reference fixture. Must not inline any secret or absolute local path.</span>
+        </div>
+      </div>
+
+      <div class="part">
+        <div><h4>Interfaces and contracts</h4><div class="reads">Read by <b class="o">orchestrator</b> · <b class="v">verifier</b></div></div>
+        <div>
+          <p>The seams: function signatures, API shapes, file formats, schemas, CLI arguments, events. Fixing these in the spec is what allows parallel workers to build without each other's context, and each contract is a natural place for a contract test.</p>
+          <span class="bad">Add an export function.</span>
+          <span class="good"><code>exportProject(id: ProjectId, opts: {inlineAssets: boolean}): Promise&lt;ExportResult&gt;</code> where <code>ExportResult = {html: string, warnings: Warning[]}</code>. Existing <code>ProjectId</code> and <code>Warning</code> types are reused unchanged.</span>
+        </div>
+      </div>
+
+      <div class="part">
+        <div><h4>Behaviours</h4><div class="reads">Read by <b class="v">verifier</b> · <b class="c">critic</b></div></div>
+        <div>
+          <p>The heart of the spec: each observable behaviour stated so that a test can be written from it without interpretation. A given/when/then shape or a plain input-to-output example both work; the property that matters is that a second person could write the same test. Number them so tests and review findings can refer to them.</p>
+          <span class="bad">Images should be handled properly.</span>
+          <span class="good">B4. Given a project with a linked image, when exported with <code>inlineAssets: true</code>, the image appears as a data URI and no external request is made when the file is opened.
+B5. Given the same project with <code>inlineAssets: false</code>, the image is referenced by its original URL and a warning of kind <code>external-asset</code> is returned.</span>
+        </div>
+      </div>
+
+      <div class="part">
+        <div><h4>Edge cases and failure modes</h4><div class="reads">Read by <b class="v">verifier</b> · <b class="c">critic</b></div></div>
+        <div>
+          <p>What happens at the boundaries and when things go wrong: empty inputs, missing resources, oversized data, concurrency, permissions. These are the behaviours most often narrowed silently by an implementer to make a test pass, and the ones a critic is most useful for.</p>
+          <span class="bad">Handle errors gracefully.</span>
+          <span class="good">E1. An empty project exports a valid HTML document with a visible "no content" message, not an error.
+E2. An unreachable linked asset with <code>inlineAssets: true</code> is replaced by a placeholder and a warning of kind <code>asset-unavailable</code>; export still succeeds.
+E3. Export of a project the caller cannot read rejects with <code>NotAuthorized</code> and writes nothing.</span>
+        </div>
+      </div>
+
+      <div class="part">
+        <div><h4>Prior decisions and non-goals</h4><div class="reads">Read by <b class="o">orchestrator</b> · <b class="c">critic</b></div></div>
+        <div>
+          <p>Things already decided elsewhere that the agents must not re-litigate, and tempting improvements that are deliberately not being made. This is where the developer's accumulated judgement goes. It saves the orchestrator from re-deriving choices and stops the critic from flagging them as gaps.</p>
+          <span class="good">The export uses the existing template renderer; do not introduce a second templating path. Accessibility of the exported page is a follow-up, not part of this spec.</span>
+        </div>
+      </div>
+
+      <div class="part">
+        <div><h4>Verification</h4><div class="reads">Read by <b class="o">orchestrator</b> · <b class="v">verifier</b></div></div>
+        <div>
+          <p>How the behaviours will be proven, and the single end-to-end step that demonstrates the whole feature works. Name the commands. If the tests are pre-written, name the files and state that they are not to be modified. This section is what the run's stop condition is built from.</p>
+          <span class="good">Unit and contract tests in <code>tests/export/</code> cover B1–B7 and E1–E3; they are written before implementation and are read-only during the run. <code>npm test -- export</code> must exit 0. End-to-end: <code>scripts/export-smoke.sh</code> exports the reference fixture, opens it headless, and asserts no network requests and no console errors.</span>
+        </div>
+      </div>
+
+      <div class="part">
+        <div><h4>Definition of done</h4><div class="reads">Read by <b class="o">orchestrator</b> · <b class="v">verifier</b> · <b class="c">critic</b></div></div>
+        <div>
+          <p>The short list that ends the run: which checks pass, what evidence is presented, what the reviewer has confirmed. Everything above feeds it; nothing new should appear here.</p>
+          <span class="good">All named tests pass. Smoke script exits 0. Reviewer reports no correctness gaps against B1–B7, E1–E3. Diff touches only <code>src/export/</code> and <code>tests/export/</code>. Evidence page shows test output and reviewer findings.</span>
+        </div>
+      </div>
+
+    </div>
+    <p class="note human">An "open questions" section is useful while the spec is being written and should be empty before the run starts. A question left open is a decision delegated to whichever agent hits it first.</p>
+  </div>
+</section>
+
+<section id="write">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Writing one</h2>
+      <p>The hard part is not the format. It is extracting what an experienced developer already knows but has never had to say.</p>
+    </div>
+    <div class="prose">
+      <p>Developers who have worked turn-by-turn for a long time carry the spec as instinct: they know a wrong output when they see it. The difficulty of writing a spec is that instinct does not volunteer itself. It surfaces only when prompted by a concrete case. The methods below all work by forcing that prompt.</p>
+
+      <h4>Be interviewed</h4>
+      <p>The most reliable method, and the one Claude Code documents directly. Start a session with a brief description and ask Claude to interview you using its question tool, with an instruction to skip the obvious and dig into edge cases, tradeoffs and the hard parts you might not have considered, then to write a complete spec to a file. The questions do the extraction; the developer only has to answer. When the spec is written, start a fresh session to execute it so the implementation context never sees the interview.</p>
+
+      <h4>Draft, then attack</h4>
+      <p>Write a rough draft, then have a fresh context read it with the reviewer's mandate: find every behaviour that could be implemented two different ways, every boundary that is not stated, every term that is used without definition. Rewrite against the findings. This is the adversarial review pattern applied to the spec itself, and it is cheap relative to a run.</p>
+
+      <h4>Write the tests first, and let the spec follow</h4>
+      <p>Some developers find it easier to write concrete test cases than abstract behaviours. Writing the tests exposes exactly what has not been decided, and the behaviours section can then be written by describing what the tests check. This has the further benefit that the verification section is done at the same time.</p>
+
+      <h4>Mine the history</h4>
+      <p>Past turn-by-turn sessions are a record of the developer's judgement: every correction is a behaviour or constraint that was never written down. Reading a few recent sessions for the corrections, and stating each as a line in the spec or in <code>CLAUDE.md</code>, converts tacit practice into shared context.</p>
+
+      <h4>A working sequence</h4>
+      <ol class="steps">
+        <li><strong>State the intent and the out-of-scope list first.</strong><p>These two constrain everything else and are the easiest to get wrong late.</p></li>
+        <li><strong>Fix the interfaces.</strong><p>Decide the seams before the behaviours, because behaviours are expressed in terms of them.</p></li>
+        <li><strong>Enumerate behaviours as numbered, testable statements.</strong><p>Then ask, for each one, what happens at the edge and on failure.</p></li>
+        <li><strong>Record prior decisions and non-goals.</strong><p>Everything the agents should not reconsider.</p></li>
+        <li><strong>Write the verification section and the end-to-end proof.</strong><p>Name commands and files. If tests are pre-written, do that now and lock them.</p></li>
+        <li><strong>Attack it from a fresh context.</strong><p>Resolve every open question. Freeze it, commit it, and reference it from the kickoff.</p></li>
+      </ol>
+      <p class="note pass">A spec is ready when a stranger with the repository could write the tests, and a second stranger with only the diff and the spec could say whether the work is done. Both strangers, in an orchestrated run, are agents.</p>
+    </div>
+  </div>
+</section>
+
+<section id="template">
+  <div class="wrap">
+    <span class="eyebrow">Annotated template</span>
+    <h2>A template to start from</h2>
+    <p class="prose">Markdown, kept in the repository beside the code it describes. Comments in italics explain each section and should be deleted from a real spec. Section weights vary by task; the presence of each section should not.</p>
+    <div class="tpl"><pre><span class="h"># Spec: &lt;feature or change name&gt;</span>
+<span class="c">Status: draft | frozen        Owner: &lt;name&gt;        Kickoff: &lt;path to kickoff prompt&gt;</span>
+
+<span class="h">## Intent</span>
+<span class="c">One or two sentences. Outcome and why. The critic's reference for "right work".</span>
+
+<span class="h">## Scope</span>
+<span class="k">In:</span>  <span class="c">what this change delivers</span>
+<span class="k">Out:</span> <span class="c">what it explicitly does not touch — files, features, models, UI</span>
+
+<span class="h">## Constraints</span>
+<span class="c">Dependencies, performance ceilings, compatibility, security, style deviations.
+Each one should be checkable, or say why it is not.</span>
+
+<span class="h">## Interfaces and contracts</span>
+<span class="c">Signatures, schemas, formats, CLI shapes, events. Reuse existing types by name.
+These are fixed before parallel work starts.</span>
+
+<span class="h">## Behaviours</span>
+<span class="t">B1.</span> <span class="c">Given … when … then … (or input → output)</span>
+<span class="t">B2.</span> <span class="c">…</span>
+
+<span class="h">## Edge cases and failure modes</span>
+<span class="t">E1.</span> <span class="c">Empty / missing / oversized / unauthorised / concurrent …</span>
+<span class="t">E2.</span> <span class="c">…</span>
+
+<span class="h">## Prior decisions and non-goals</span>
+<span class="c">Decisions not to reopen. Improvements deliberately deferred.</span>
+
+<span class="h">## Verification</span>
+<span class="c">Test files and what they cover (map to B/E numbers). Commands and expected exit.
+Whether tests are pre-written and read-only. The end-to-end proof.</span>
+
+<span class="h">## Definition of done</span>
+<span class="c">Checks that pass. Evidence presented. Reviewer confirmation. Diff boundary.</span>
+
+<span class="h">## Open questions</span>
+<span class="c">Must be empty before status becomes frozen.</span></pre></div>
+  </div>
+</section>
+
+<section id="ready">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Is it ready?</h2>
+      <p>A short pass before freezing. Each item is a way a run has actually gone wrong.</p>
+    </div>
+    <div class="prose">
+      <ul class="check">
+        <li><strong>Every behaviour could be tested by someone who did not write the spec.</strong> If a line needs interpretation, it will be interpreted differently by the implementer and the verifier.</li>
+        <li><strong>The out-of-scope list names the most tempting expansions.</strong> Agents expand toward whatever looks helpful; the list is the fence.</li>
+        <li><strong>Interfaces reuse existing names.</strong> New types introduced casually in a spec become parallel implementations in the code.</li>
+        <li><strong>Every edge case has a stated outcome, not a stated concern.</strong> "Handle gracefully" is a concern. "Returns a placeholder and a warning" is an outcome.</li>
+        <li><strong>The verification section names commands and files.</strong> A run's stop condition cannot be built from a paragraph.</li>
+        <li><strong>The end-to-end proof exercises the feature the way a user would.</strong> Unit tests passing while the feature is unusable is the classic false green.</li>
+        <li><strong>Nothing in the spec describes how to conduct the run.</strong> Tools, agents, gates and displays belong in the kickoff.</li>
+        <li><strong>Open questions is empty.</strong></li>
+        <li><strong>A fresh context has attacked it and the findings were resolved.</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="drift">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Drift and maintenance</h2>
+      <p>A spec that is not maintained is a spec that lies, and an agent cannot tell the difference.</p>
+    </div>
+    <div class="prose">
+      <p>Implementation teaches things the spec did not know. The rule is simple: the spec changes before the code does. When a run discovers that a behaviour is impossible, unnecessary or under-specified, the run should stop at that finding rather than improvise, the developer updates the spec, and the run restarts against the new definition. This is the abandon-and-improve economics applied to the spec axis.</p>
+      <p>Version the spec alongside the code and reference the commit it was frozen at from the run log. Over time, the collection of specs is a record of the project's decisions in a form that both people and agents can read, which is a better architectural memory than most codebases have.</p>
+      <p>Specs also compound into the project constitution. Constraints and prior decisions that appear in spec after spec belong in <code>CLAUDE.md</code> or a rules file, where every session reads them once, and can then be deleted from individual specs. The reverse also holds: if <code>CLAUDE.md</code> is growing, some of it is probably spec-level detail that should live with the feature that needs it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sources" class="sources">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Sources</h2>
+      <p>Official guidance first; practitioner material for the surrounding methodology.</p>
+    </div>
+    <div>
+      <ol>
+        <li>Anthropic, <a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>, "Let Claude interview you". The interview-to-<code>SPEC.md</code> pattern, executing in a fresh session, and the description of the most useful specs as self-contained with files, interfaces, out-of-scope statements and an end-to-end verification step.</li>
+        <li>Anthropic, <a href="https://claude.com/blog/building-verification-loops-in-claude-code-with-skills">Building verification loops in Claude Code with skills</a>. Encoding checks so that every session applies them; spec validation as a verification loop.</li>
+        <li>Addy Osmani, <a href="https://addyosmani.com/blog/good-spec/">How to write a good spec for AI agents</a> (also published by O'Reilly Radar). The spec as version-controlled source of truth; the spec → plan → tasks → implement sequence; reviewing and refining an agent-drafted spec before any code.</li>
+        <li>Augment Code, <a href="https://www.augmentcode.com/guides/what-is-spec-driven-development">What is spec-driven development</a>. The six-element framing (outcomes, scope boundaries, constraints, prior decisions, task breakdown, verification criteria) and the coordinator / implementer / verifier pattern; the observation that narrower, task-relevant context outperforms broad repository exposure.</li>
+        <li>Microsoft for Developers, <a href="https://developer.microsoft.com/blog/spec-driven-development-ai-native-engineering/">Spec-driven development: a spec-first approach</a>. Requirements, constraints, acceptance criteria and edge cases defined up front as a durable source of truth rather than living in prompts.</li>
+        <li>DeepLearning.AI with JetBrains, <a href="https://www.deeplearning.ai/courses/spec-driven-development-with-coding-agents">Spec-driven development with coding agents</a>. Project constitution plus feature specs; the plan–implement–verify loop packaged as a skill.</li>
+        <li>Practitioner note on spec drift and on specs as context engineering: <a href="https://vishalgandhi.in/spec-driven-development/">Spec-driven development and agentic coding</a>.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Compiled August 2026. Parent document: <a href="orchestrator-review.html">Orchestrating agent teams in Claude Code</a>. Related: <a href="verification-guide.html">verification</a> · <a href="run-log-guide.html">the run log</a>.</div>
+</footer>
+</body>
+</html>

@@ -3,7 +3,8 @@
   "schema_version": 1,
   "name": "flightcrew-core",
   "version": 1,
-  "status": "draft",
+  "status": "frozen",
+  "commit": "852b77c",
   "reason": "initial: flightcrew rebuilt as files and native tooling — launch and run folders, JSON documents with schemas, freeze in the document, the runner as leaves, conduct as workflows and their arguments, three verdict kinds, a complete crew with sealed dispatch and schema'd returns, enforcement that fails closed, endings performed, and the human's diagnosis carried into the next run.",
   "previous_versions": [],
   "intent": {

@@ -52,6 +52,12 @@ flightdeck/flightcrew/checks/validators/validate-tests-map.mjs
 flightdeck/flightcrew/checks/gates/acceptance-gate.mjs
 flightdeck/flightcrew/checks/gates/contracts-gate.mjs
 flightdeck/flightcrew/checks/gates/structural-gate.mjs
+flightdeck/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md
+flightdeck/flightcrew/checks/rubrics/spec/deprecated/spec-readiness-rubric.v1.md
+flightdeck/flightcrew/checks/rubrics/spec/deprecated/spec-readiness-rubric.v2.md
+flightdeck/flightcrew/checks/rubrics/spec/deprecated/spec-readiness-rubric.v2.1.md
+flightdeck/flightcrew/checks/rubrics/spec/deprecated/spec-readiness-rubric.v2.2.md
+flightdeck/flightcrew/checks/rubrics/spec/deprecated/spec-readiness-rubric.v2.3.md
 
 # ── flightcrew: the crew, distributed to <target>/agents/flightcrew/ ─────────
 flightdeck/flightcrew/crew/agents.keep
@@ -257,8 +263,3 @@ flightdeck/manuals/testing/testing-description.md
 flightdeck/manuals/testing/testing-conventions.md
 flightdeck/manuals/versioning/spec-versioning.md
 flightdeck/manuals/versioning/tests-map-versioning.md
-flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md
-flightdeck/manuals/rubrics/spec/deprecated/spec-readiness-rubric.v1.md
-flightdeck/manuals/rubrics/spec/deprecated/spec-readiness-rubric.v2.md
-flightdeck/manuals/rubrics/spec/deprecated/spec-readiness-rubric.v2.1.md
-flightdeck/manuals/rubrics/spec/deprecated/spec-readiness-rubric.v2.2.md

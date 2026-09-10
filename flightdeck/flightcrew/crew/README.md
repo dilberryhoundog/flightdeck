@@ -29,7 +29,7 @@ The spec-stage roles read no manual at session time — their conventions are en
 
 - template, to spec-builder: `flightdeck/flightcrew/templates/spec.template.json`
 - schema, to spec-builder: `flightdeck/flightcrew/schemas/spec.schema.json`
-- rubric, to spec-judge: `flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md`
+- rubric, to spec-judge: `flightdeck/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md`
 - validator, run by spec-builder: `flightdeck/flightcrew/checks/validators/validate-spec.mjs`
 - linter, run by spec-builder: `flightdeck/flightcrew/checks/validators/spec-readiness-lint.mjs`
 - canonical spec folder, to spec-builder: `flightdeck/launch/specs/<spec-name>/`, where `<spec-name>` is the spec's `name` field, naming the folder created at the first freeze

@@ -1,4 +1,6 @@
-# Spec-Readiness Rubric v2.2
+# Spec-Readiness Rubric v2.3
+
+**DEPRECATED**
 
 This rubric judges whether a draft specification is ready to freeze. The standard it derives from is the written definition of a spec — the nine domains, their contents, and the contributor invariants — so the questions below ask nothing that standard does not already claim; they only make each claim answerable with a quotation from the draft. The standard is the rubric author's source, not the judge's input: every rule a judge needs is written into the question that needs it, and the judge reads the rubric and the draft alone.
 

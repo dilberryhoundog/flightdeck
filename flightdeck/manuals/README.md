@@ -1,6 +1,6 @@
 # Manuals
 
-Agent-facing manuals for flightdeck: the orchestration manuals (the run journey and each stage's discipline), the harness manuals (hooks, permissions, workflow scripts), the launch anatomy, and the frozen spec, testing, versioning and rubric manuals listed under "Frozen manuals" below. Each manual is written for a stranger who may be any model and names flightdeck paths and `fc` commands (`flightdeck/flightcrew/bin/fc`).
+Agent-facing manuals for flightdeck: the orchestration manuals (the run journey and each stage's discipline), the harness manuals (hooks, permissions, workflow scripts), the launch anatomy, and the frozen spec, testing and versioning manuals listed under "Frozen manuals" below. Each manual is written for a stranger who may be any model and names flightdeck paths and `fc` commands (`flightdeck/flightcrew/bin/fc`).
 
 - The orchestration, harness and launch manuals are written to the conventions at the end of this file and each fits in 150 lines. The frozen manuals predate those conventions and are exempt from both.
 - `flightdeck/manuals/orchestration/journey.md` places the stage-by-stage manuals on the stage where each is read. The install-time and reference manuals (`flightdeck/manuals/orchestration/crew.md`, `flightdeck/manuals/harness/hooks.md`, `flightdeck/manuals/harness/claude-code-facts.md`) are placed by this index only.
@@ -33,7 +33,7 @@ Their conventions are encoded in their definitions under `flightdeck/flightcrew/
 | role            | manuals encoded in its definition                                                                                                                                                                    | dispatched with                                                                                                                                |
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | `spec-builder`  | `flightdeck/manuals/spec/spec-description.md`, `flightdeck/manuals/spec/spec-conventions.md`, `flightdeck/manuals/spec/verification-addendum.md`, `flightdeck/manuals/versioning/spec-versioning.md` | the fixed paths listed in `flightdeck/flightcrew/crew/README.md` (template, schema, rubric, validator, linter, run log, canonical spec folder) |
-| `spec-judge`    | `flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md`                                                                                                                                           | the rubric and the draft, nothing else                                                                                                         |
+| `spec-judge`    | `flightdeck/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md`                                                                                                                                         | the rubric and the draft, nothing else                                                                                                         |
 | `spec-attacker` | `flightdeck/manuals/spec/spec-description.md`, `flightdeck/manuals/spec/spec-conventions.md`                                                                                                         | the draft and the project, nothing else                                                                                                        |
 | `critic`        | `flightdeck/manuals/orchestration/review.md` (the mandate, the checklist, the four finding kinds, the `no gaps` exit)                                                                                | the sealed file `fc critic render` writes                                                                                                      |
 
@@ -72,11 +72,10 @@ These files must not be edited. Calibration evidence — bench chains and human 
 - `flightdeck/manuals/testing/testing-conventions.md`: the conventions a tests map and its checks follow.
 - `flightdeck/manuals/versioning/spec-versioning.md`: spec versioning, node status and the retired registry.
 - `flightdeck/manuals/versioning/tests-map-versioning.md`: tests-map versioning, check status and the retired registry.
-- `flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md`: the readiness rubric the spec-judge applies; earlier versions under `flightdeck/manuals/rubrics/spec/deprecated/`.
 
 ## Historical paths
 
-- The `dev/...` paths quoted inside `flightdeck/manuals/rubrics/spec/`, `flightdeck/testbench/benches/rubrics/spec/` and `flightdeck/testbench/suites/validate-spec/` are historical: nothing in this system reads them, and they are never resolved against the current tree.
+- The `dev/...` paths quoted inside `flightdeck/flightcrew/checks/rubrics/spec/`, `flightdeck/testbench/benches/rubrics/spec/` and `flightdeck/testbench/suites/validate-spec/` are historical: nothing in this system reads them, and they are never resolved against the current tree.
 - The live homes are `flightdeck/testbench/benches/rubrics/spec/experiments/` for new bench chains and `flightdeck/launch/specs/<S>/` for specs.
 
 ## Conventions every manual follows

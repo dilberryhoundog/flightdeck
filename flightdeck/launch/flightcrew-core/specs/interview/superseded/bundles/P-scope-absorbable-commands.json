@@ -1,0 +1,24 @@
+{
+  "marker": "P-scope-absorbable-commands",
+  "domain": "scope",
+  "problem": "Facts from the official docs: a SubagentStop hook receives the subagent's last message, agent_id and agent_type, so a return can be captured and validated by a hook with no command; PostToolUse receives the tool input and response, so a check-after-edit can run from a role's own frontmatter hook; a workflow script has no file or shell access, so nothing a workflow does can write a document except through an agent. Proposed sorting of the built single-artefact commands follows.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Does this sorting stand? ABSORBED — return → a SubagentStop hook that validates the last message against the schema for agent_type and writes runs/run-<n>/returns/; events → hooks as today; evidence page, report and log stub → the scribe role writing from the JSON documents; budget → the stop gate reading events; boundary and locked → folded into check; plan render → dropped. REMAINING LEAVES — check (runs the map's checks, writes evidence), render (one dispatch prompt per subagent role), merge (lands a unit branch), validate and lint, launch init and launch run, install (what distribute and doctor did).",
+      "why": "This is the leaf set the interfaces stage names and the implementers build; everything absorbed is a hook or role behaviour instead.",
+      "options": [
+        {
+          "value": "stands",
+          "recommended": true
+        },
+        {
+          "value": "adjust as commented",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

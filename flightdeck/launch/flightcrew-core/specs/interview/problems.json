@@ -1,0 +1,82 @@
+[
+  {
+    "id": "P1-layout",
+    "kind": "gap",
+    "domain": "interfaces",
+    "text": "Launch and run layout. Placed: SC2, I1, I2, I3, B1, B2, D3, D4, E1, E2.",
+    "state": "closed",
+    "closed_by": "draft"
+  },
+  {
+    "id": "P2-json-foundation",
+    "kind": "gap",
+    "domain": "interfaces",
+    "text": "JSON foundation and freeze. Placed: C10, C11, I4, I13, B3, B4, D5, E3.",
+    "state": "closed",
+    "closed_by": "I2"
+  },
+  {
+    "id": "P3-runner-leaves",
+    "kind": "dual-path",
+    "domain": "scope",
+    "text": "Runner as leaves. Placed: SC1, C3, I5, B5, B6, B7, B8, D2, E9, E10, E11, E12.",
+    "state": "closed",
+    "closed_by": "SC4"
+  },
+  {
+    "id": "P4-kickoff-conduct",
+    "kind": "dual-path",
+    "domain": "interfaces",
+    "text": "Kickoff as workflow arguments. Placed: I14, C13, B9, B10, B11, B12, D6, E13.",
+    "state": "closed",
+    "closed_by": "I14"
+  },
+  {
+    "id": "P5-check-rail",
+    "kind": "gap",
+    "domain": "interfaces",
+    "text": "Check rail and three verdicts. Placed: I15, I16, B13, B14, B15, D13, E15.",
+    "state": "closed",
+    "closed_by": "B14"
+  },
+  {
+    "id": "P6-roster",
+    "kind": "dual-path",
+    "domain": "interfaces",
+    "text": "Roster and separations. Placed: I7, B16, B17, D11.",
+    "state": "closed",
+    "closed_by": "draft"
+  },
+  {
+    "id": "P7-dispatch-returns",
+    "kind": "gap",
+    "domain": "behaviours",
+    "text": "Dispatch and return contracts. Placed: I8, I9, B18, B19, D9, E4.",
+    "state": "closed",
+    "closed_by": "B18"
+  },
+  {
+    "id": "P8-enforcement",
+    "kind": "failure-mode",
+    "domain": "behaviours",
+    "text": "Enforcement that fails closed. Placed: C8, C12, I6, B20, B21, B22, B23, D7, E5, E6, E7, E8.",
+    "state": "closed",
+    "closed_by": "C12"
+  },
+  {
+    "id": "P9-endings",
+    "kind": "gap",
+    "domain": "behaviours",
+    "text": "Endings performed. Placed: B24, B25, B26, B27, D14, E14.",
+    "state": "closed",
+    "closed_by": "D14"
+  },
+  {
+    "id": "P10-diagnosis",
+    "kind": "failure-mode",
+    "domain": "behaviours",
+    "text": "Diagnosis reaches the next run. Placed: I10, B2 (previous_entry), B28, B29, E1.",
+    "state": "closed",
+    "closed_by": "B2"
+  }
+]

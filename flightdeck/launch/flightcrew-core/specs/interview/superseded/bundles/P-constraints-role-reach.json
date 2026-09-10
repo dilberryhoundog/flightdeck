@@ -1,0 +1,24 @@
+{
+  "marker": "P-constraints-role-reach",
+  "domain": "constraints",
+  "problem": "Explored. Official docs: a role's tools, disallowedTools, permissionMode, isolation and hooks are frontmatter fields and govern only that agent; frontmatter hooks run only while that agent acts; settings permissions are global, and Agent(name) there is a deny or allow of dispatching that role; Edit/Write denies do not reach subprocess writes, the sandbox denyWrite does.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Given those facts, is a role's reach declared like this: the role file is the single source for what the role can do (tools, mode, isolation, its own hooks); settings hold only what no role can express — the sandbox denyWrite list, global recording hooks, and the list of roles a session may dispatch — and the install leaf derives that dispatch list from the crew folder?",
+      "why": "Closes the two-files-that-contradict hole. The alternative keeps two hand-written files and adds a check.",
+      "options": [
+        {
+          "value": "yes",
+          "recommended": true
+        },
+        {
+          "value": "no — two hand-maintained files with a check that they agree",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

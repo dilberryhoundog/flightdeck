@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>flightcrew-core v2 · round 2 — one bundle per problem</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --fg:#e6e6e6; --dim:#9aa3b2; --acc:#7cc4ff; --rec:#3ddc97; }
+  body { margin:0; font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--fg); }
+  header { position:sticky; top:0; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 24px; display:flex; gap:16px; align-items:center; z-index:2; }
+  header h1 { font-size:16px; margin:0; flex:1; }
+  button { background:var(--acc); color:#000; border:0; border-radius:6px; padding:8px 14px; font-weight:600; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--acc); border:1px solid var(--acc); }
+  main { max-width:960px; margin:0 auto; padding:24px; }
+  .lead { color:var(--dim); font-size:14px; margin:0 0 16px; }
+  .bundle { border:1px solid var(--line); border-radius:12px; padding:6px 18px 14px; margin:18px 0; }
+  .bundle > h2 { font-size:14px; letter-spacing:.06em; color:var(--dim); margin:10px 0 4px; }
+  .bundle > h2 code { color:var(--rec); }
+  .problem { font-size:14px; margin:0 0 8px; }
+  .q { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 18px; margin:12px 0; }
+  .q h3 { margin:0 0 6px; font-size:15px; }
+  .q h3 span { color:var(--acc); margin-right:8px; font-family:ui-monospace, monospace; }
+  .why { color:var(--dim); font-size:13.5px; margin:0 0 12px; }
+  code { background:#0b0d11; padding:1px 5px; border-radius:4px; font-size:12.5px; }
+  label.opt { display:block; padding:6px 8px; border-radius:6px; cursor:pointer; }
+  label.opt:hover { background:#1e2330; }
+  label.opt input { margin-right:8px; }
+  .rec { color:var(--rec); font-size:12px; font-weight:600; margin-left:8px; }
+  textarea { width:100%; box-sizing:border-box; background:#0b0d11; color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:8px; min-height:44px; font:inherit; margin-top:8px; }
+  #out { white-space:pre-wrap; background:#0b0d11; border:1px solid var(--line); border-radius:8px; padding:12px; font:12.5px ui-monospace, monospace; display:none; }
+  .toast { position:fixed; bottom:20px; right:20px; background:var(--rec); color:#000; padding:8px 14px; border-radius:6px; display:none; font-weight:600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>flightcrew-core v2 · round 2 — one bundle per problem</h1>
+  <button class="ghost" onclick="preview()">Preview</button>
+  <button onclick="copyAll()">Copy answers</button>
+</header>
+<main>
+<p class="lead">Clean v1, your intent verbatim, all ten problems placed. Eight bundles carry the only forks left; P1 (layout) and P6 (roster) had none and are placed without a question. The spec viewer tab shows every node.</p>
+<div class="bundle" data-marker="P2-json-foundation">
+<h2>bundle <code>P2-json-foundation</code> · gap · interfaces</h2>
+<p class="problem">JSON foundation and freeze. Placed: C10, C11, I4, I13, B3, B4, D5, E3.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>Who writes a gate clearance into launch.json?</h3>
+  <p class="why">No command a human types advances a run, and a workflow cannot write a file. The record still needs the clearance written by something.</p>
+  <label class="opt"><input type="radio" name="P2-json-foundation__Q1" value="The human edits launch.json (or later the control surface does); nothing automated writes a gate."> The human edits launch.json (or later the control surface does); nothing automated writes a gate. <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="P2-json-foundation__Q1" value="The orchestrator session writes it through a leaf after the human approves in chat."> The orchestrator session writes it through a leaf after the human approves in chat.</label>
+  <textarea name="P2-json-foundation__Q1_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P2-json-foundation_bc" placeholder="Bundle comment"></textarea>
+</div>
+<div class="bundle" data-marker="P3-runner-leaves">
+<h2>bundle <code>P3-runner-leaves</code> · dual-path · scope</h2>
+<p class="problem">Runner as leaves. Placed: SC1, C3, I5, B5, B6, B7, B8, D2, E9, E10, E11, E12.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>The manuals still written as fc command sequences (journey, review, workflows, launch-anatomy): rewritten in this run (SC4 as drafted) or deleted and left for later?</h3>
+  <p class="why">Rewriting is units of work; deleting loses nothing the crew reads; leaving them hands false context to every role.</p>
+  <label class="opt"><input type="radio" name="P3-runner-leaves__Q1" value="Rewrite in this run (SC4 as drafted)."> Rewrite in this run (SC4 as drafted). <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="P3-runner-leaves__Q1" value="Delete them in this run; write successors later."> Delete them in this run; write successors later.</label>
+  <textarea name="P3-runner-leaves__Q1_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P3-runner-leaves_bc" placeholder="Bundle comment"></textarea>
+</div>
+<div class="bundle" data-marker="P4-kickoff-conduct">
+<h2>bundle <code>P4-kickoff-conduct</code> · dual-path · interfaces</h2>
+<p class="problem">Kickoff as workflow arguments. Placed: I14, C13, B9, B10, B11, B12, D6, E13.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>Is the workflow cut right: fc-plan → G1 → fc-contracts → G2 → fc-waves → G3 → fc-review → outcome → fc-end?</h3>
+  <p class="why">Fixes what each gate reads and which roles each script owns. The alternative merges contracts into waves so G2 disappears.</p>
+  <label class="opt"><input type="radio" name="P4-kickoff-conduct__Q1" value="Yes, five workflows, three gates plus the outcome."> Yes, five workflows, three gates plus the outcome. <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="P4-kickoff-conduct__Q1" value="Four: contracts inside fc-waves; G2 dropped."> Four: contracts inside fc-waves; G2 dropped.</label>
+  <textarea name="P4-kickoff-conduct__Q1_c" placeholder="Comment"></textarea>
+</div>
+<div class="q" data-id="Q2">
+  <h3><span>Q2</span>Who conducts: an orchestrator session that invokes each workflow and reports at each gate, or the human invoking each workflow by name after clearing a gate?</h3>
+  <p class="why">Decides whether the orchestrator role has a job in this version and whether the human&#x27;s surface is chat or the file system.</p>
+  <label class="opt"><input type="radio" name="P4-kickoff-conduct__Q2" value="The human invokes each workflow by name after clearing the gate; the orchestrator role is retired from the roster."> The human invokes each workflow by name after clearing the gate; the orchestrator role is retired from the roster.</label>
+  <label class="opt"><input type="radio" name="P4-kickoff-conduct__Q2" value="An orchestrator session invokes the workflows in order, stops at each gate, and reports; the human clears the gate in launch.json."> An orchestrator session invokes the workflows in order, stops at each gate, and reports; the human clears the gate in launch.json. <span class="rec">★</span></label>
+  <textarea name="P4-kickoff-conduct__Q2_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P4-kickoff-conduct_bc" placeholder="Bundle comment"></textarea>
+</div>
+<div class="bundle" data-marker="P5-check-rail">
+<h2>bundle <code>P5-check-rail</code> · gap · interfaces</h2>
+<p class="problem">Check rail and three verdicts. Placed: I15, I16, B13, B14, B15, D13, E15.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>The judge: a crew role dispatched with a rubric that returns the sheet (as drafted), or a leaf that shells out to a model?</h3>
+  <p class="why">C6 forbids network in scripts, so a leaf cannot call a model; a role can. The role costs a crew file and a template.</p>
+  <label class="opt"><input type="radio" name="P5-check-rail__Q1" value="A crew role (as drafted)."> A crew role (as drafted). <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="P5-check-rail__Q1" value="Something else — described in the comment."> Something else — described in the comment.</label>
+  <textarea name="P5-check-rail__Q1_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P5-check-rail_bc" placeholder="Bundle comment"></textarea>
+</div>
+<div class="bundle" data-marker="P7-dispatch-returns">
+<h2>bundle <code>P7-dispatch-returns</code> · gap · behaviours</h2>
+<p class="problem">Dispatch and return contracts. Placed: I8, I9, B18, B19, D9, E4.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>Who persists a subagent&#x27;s return?</h3>
+  <p class="why">A hook needs no agent cooperation and can hold the agent until the return validates; a leaf the agent calls keeps the hook set smaller but relies on the agent remembering.</p>
+  <label class="opt"><input type="radio" name="P7-dispatch-returns__Q1" value="A global SubagentStop hook (as drafted, B18)."> A global SubagentStop hook (as drafted, B18). <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="P7-dispatch-returns__Q1" value="The agent, by calling a store leaf as its last act; the hook only holds the agent if the file is missing."> The agent, by calling a store leaf as its last act; the hook only holds the agent if the file is missing.</label>
+  <textarea name="P7-dispatch-returns__Q1_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P7-dispatch-returns_bc" placeholder="Bundle comment"></textarea>
+</div>
+<div class="bundle" data-marker="P8-enforcement">
+<h2>bundle <code>P8-enforcement</code> · failure-mode · behaviours</h2>
+<p class="problem">Enforcement that fails closed. Placed: C8, C12, I6, B20, B21, B22, B23, D7, E5, E6, E7, E8.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>Bash held by the sandbox only, or sandbox plus a PreToolUse hook on Bash?</h3>
+  <p class="why">The sandbox cannot be talked past; a Bash hook parses commands and can be fooled but shows the agent a reason.</p>
+  <label class="opt"><input type="radio" name="P8-enforcement__Q1" value="Sandbox only."> Sandbox only. <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="P8-enforcement__Q1" value="Sandbox plus a Bash hook that denies commands naming a guarded path."> Sandbox plus a Bash hook that denies commands naming a guarded path.</label>
+  <textarea name="P8-enforcement__Q1_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P8-enforcement_bc" placeholder="Bundle comment"></textarea>
+</div>
+<div class="bundle" data-marker="P9-endings">
+<h2>bundle <code>P9-endings</code> · gap · behaviours</h2>
+<p class="problem">Endings performed. Placed: B24, B25, B26, B27, D14, E14.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>An abandoned run&#x27;s branch: deleted to clear the ground, or kept for its evidence?</h3>
+  <p class="why">The two source guides disagree. The draft makes it a kickoff argument (ending.abandoned_branches) with a default; this sets the default.</p>
+  <label class="opt"><input type="radio" name="P9-endings__Q1" value="Delete by default (evidence is committed on the branch first and the log entry points at the commit)."> Delete by default (evidence is committed on the branch first and the log entry points at the commit). <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="P9-endings__Q1" value="Keep by default."> Keep by default.</label>
+  <textarea name="P9-endings__Q1_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P9-endings_bc" placeholder="Bundle comment"></textarea>
+</div>
+<div class="bundle" data-marker="P10-diagnosis">
+<h2>bundle <code>P10-diagnosis</code> · failure-mode · behaviours</h2>
+<p class="problem">Diagnosis reaches the next run. Placed: I10, B2 (previous_entry), B28, B29, E1.</p>
+<div class="q" data-id="Q1">
+  <h3><span>Q1</span>The one-change-per-retry rule: refused by flight launch run when more than one key differs, or only recorded in run.json.changed_from_previous for the human to read?</h3>
+  <p class="why">Refusing makes the discipline an instrument; recording keeps the human free to make a deliberate multi-change retry.</p>
+  <label class="opt"><input type="radio" name="P10-diagnosis__Q1" value="Record only (as drafted, B29)."> Record only (as drafted, B29). <span class="rec">★</span></label>
+  <label class="opt"><input type="radio" name="P10-diagnosis__Q1" value="Refuse unless --allow-multiple is passed."> Refuse unless --allow-multiple is passed.</label>
+  <textarea name="P10-diagnosis__Q1_c" placeholder="Comment"></textarea>
+</div>
+<textarea name="P10-diagnosis_bc" placeholder="Bundle comment"></textarea>
+</div>
+
+<section><h2 style="font-size:14px;color:var(--dim)">Preview</h2><div id="out"></div></section>
+</main>
+<div class="toast" id="toast">Copied</div>
+<script>
+document.querySelectorAll('input[type=radio]').forEach(r=>{ r.addEventListener('mousedown',function(){ this._was=this.checked; }); r.addEventListener('click',function(){ if(this._was){ this.checked=false; } }); });
+function collect(){
+  const lines=[];
+  document.querySelectorAll(".bundle").forEach(b=>{
+    lines.push(`## ${b.dataset.marker}`);
+    b.querySelectorAll(".q").forEach(q=>{
+      const id=q.dataset.id;
+      const picked=[...q.querySelectorAll("input:checked")].map(i=>i.value);
+      const c=q.querySelector("textarea")?.value.trim();
+      lines.push(`### ${id}`); lines.push(`answer: ${picked.length?picked.join(" | "):"(unanswered)"}`); if(c) lines.push(`comment: ${c}`);
+    });
+    const bc=b.querySelector(`textarea[name="${b.dataset.marker}_bc"]`)?.value.trim();
+    if(bc) lines.push(`bundle comment: ${bc}`);
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+function preview(){ const o=document.getElementById("out"); o.textContent=collect(); o.style.display="block"; o.scrollIntoView({behavior:"smooth"}); }
+async function copyAll(){ const t=collect(); try{ await navigator.clipboard.writeText(t); }catch(e){ preview(); return; } const s=document.getElementById("toast"); s.style.display="block"; setTimeout(()=>s.style.display="none",1500); }
+</script>
+</body>
+</html>

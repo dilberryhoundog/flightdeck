@@ -1,0 +1,26 @@
+{
+  "marker": "P2-json-foundation",
+  "domain": "interfaces",
+  "problem": "JSON foundation and freeze. Placed: C10, C11, I4, I13, B3, B4, D5, E3.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Who writes a gate clearance into launch.json?",
+      "why": "No command a human types advances a run, and a workflow cannot write a file. The record still needs the clearance written by something.",
+      "options": [
+        {
+          "value": "The human edits launch.json (or later the control surface does); nothing automated writes a gate.",
+          "recommended": true
+        },
+        {
+          "value": "The orchestrator session writes it through a leaf after the human approves in chat.",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true,
+      "answer": "custom: no gates, only workflows; launch.json was the first builder's idea; workflow agents write, the human checks and tells the orchestrator to run the next workflow"
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

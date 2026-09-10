@@ -1,0 +1,28 @@
+{
+  "marker": "P-interfaces-json-document-foundation",
+  "domain": "interfaces",
+  "problem": "Constraints-facing part only: C10 makes every run document JSON with a schema and C11 puts freeze in the document. One fork is a constraint on who may write phase state, and a workflow script cannot write a file at all.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Who writes a phase change and a gate approval into the launch record?",
+      "why": "No command a human types advances a run. Something still has to write the record; the options differ in whether an agent ever writes phase state.",
+      "options": [
+        {
+          "value": "The human writes gate approvals into the launch record (by editing it, or later through the control surface); a hook records each phase end when the workflow that ran the phase returns; no leaf sets phase or gate.",
+          "recommended": true
+        },
+        {
+          "value": "The orchestrator session writes phase and gates through a leaf after the human approves in chat.",
+          "recommended": false
+        },
+        {
+          "value": "The human writes both gates and phases; nothing automated touches the record.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

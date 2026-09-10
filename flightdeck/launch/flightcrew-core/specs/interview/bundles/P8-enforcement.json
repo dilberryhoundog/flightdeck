@@ -1,0 +1,26 @@
+{
+  "marker": "P8-enforcement",
+  "domain": "behaviours",
+  "problem": "Enforcement that fails closed. Placed: C8, C12, I6, B20, B21, B22, B23, D7, E5, E6, E7, E8.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Bash held by the sandbox only, or sandbox plus a PreToolUse hook on Bash?",
+      "why": "The sandbox cannot be talked past; a Bash hook parses commands and can be fooled but shows the agent a reason.",
+      "options": [
+        {
+          "value": "Sandbox only.",
+          "recommended": true
+        },
+        {
+          "value": "Sandbox plus a Bash hook that denies commands naming a guarded path.",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true,
+      "answer": "Sandbox only."
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

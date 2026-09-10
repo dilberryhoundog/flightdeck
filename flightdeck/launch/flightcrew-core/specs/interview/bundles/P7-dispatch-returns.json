@@ -1,0 +1,26 @@
+{
+  "marker": "P7-dispatch-returns",
+  "domain": "behaviours",
+  "problem": "Dispatch and return contracts. Placed: I8, I9, B18, B19, D9, E4.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Who persists a subagent's return?",
+      "why": "A hook needs no agent cooperation and can hold the agent until the return validates; a leaf the agent calls keeps the hook set smaller but relies on the agent remembering.",
+      "options": [
+        {
+          "value": "A global SubagentStop hook (as drafted, B18).",
+          "recommended": true
+        },
+        {
+          "value": "The agent, by calling a store leaf as its last act; the hook only holds the agent if the file is missing.",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true,
+      "answer": "A global SubagentStop hook (as drafted, B18)."
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

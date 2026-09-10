@@ -1,0 +1,61 @@
+{
+  "marker": "P-interfaces-launch-layout",
+  "domain": "interfaces",
+  "problem": "Scope needs the paths before interfaces can fix the file sets. Today: launch/specs/flightcrew-v1/ (spec + two maps, no interview), two run folders as launches, RUNLOG.md with the preamble under its entries, no STRUCTURE.md on this branch, blackbox/ hangar/ missions/ radar/ holding only keep files. This spec already lives at launch/flightcrew-core/specs/. Only the scope-facing part is asked here; file sets and branch convention come at interfaces.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Is the target layout adopted as written: flightdeck/launch/<name>/ holding specs/ (spec series, tests-map series, interview/) and runs/run-<n>/, with one log beside all launches?",
+      "why": "Fixes SC2's in-scope paths and everything a scaffold leaf creates.",
+      "options": [
+        {
+          "value": "Adopted as written.",
+          "recommended": true
+        },
+        {
+          "value": "Adopted, amended as commented.",
+          "recommended": false
+        }
+      ],
+      "answer": "(unanswered) — taken from the problem text's target model, which Q2 and Q3 assume"
+    },
+    {
+      "id": "Q2",
+      "text": "What happens to the existing folders: launch/flightcrew-buildout/, launch/flightcrew-buildout-2/ and launch/specs/flightcrew-v1/?",
+      "why": "They are history of a build that was not a flightcrew run. Moving them means editing two frozen maps and two launch records; leaving them means a validator that walks launch/ meets two shapes.",
+      "options": [
+        {
+          "value": "Out of scope and untouched; the launch README names them as pre-layout history and tooling skips a folder without the new shape.",
+          "recommended": true
+        },
+        {
+          "value": "Moved under launch/flightcrew-v1/runs/run-1 and run-2 with their spec series in specs/, records edited to match.",
+          "recommended": false
+        },
+        {
+          "value": "Deleted from the branch; git history keeps them.",
+          "recommended": false
+        }
+      ],
+      "answer": "deleted from the branch; git history keeps them"
+    },
+    {
+      "id": "Q3",
+      "text": "The log's name and place?",
+      "why": "A rename breaks one locked suite and every pointer; keeping it keeps a name that says run where the model says launch.",
+      "options": [
+        {
+          "value": "flightdeck/launch/FLIGHTLOG.md",
+          "recommended": false
+        },
+        {
+          "value": "flightdeck/launch/RUNLOG.md, unchanged",
+          "recommended": true
+        }
+      ],
+      "answer": "flightdeck/launch/FLIGHTLOG.md"
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

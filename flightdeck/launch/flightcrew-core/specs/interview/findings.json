@@ -1,0 +1,527 @@
+{
+  "dispatches": [
+    {
+      "n": 1,
+      "agent": "spec-judge",
+      "result": "ignored: judged a superseded reduced draft"
+    },
+    {
+      "n": 2,
+      "agent": "spec-judge",
+      "result": "ignored: judged a superseded reduced draft"
+    },
+    {
+      "n": 3,
+      "agent": "spec-judge",
+      "result": "returned: QIFC.1, QBEH.2, QPRI.1, QDOD.1"
+    },
+    {
+      "n": 4,
+      "agent": "spec-judge",
+      "result": "returned: QIFC.1, QIFC.2, QBEH.1, QBEH.2, QVER.3"
+    },
+    {
+      "n": 5,
+      "agent": "spec-judge",
+      "result": "returned: QIFC.1, QIFC.2, QBEH.2, QVER.3"
+    },
+    {
+      "n": 6,
+      "agent": "spec-attacker",
+      "result": "44 findings, 31 blocking"
+    },
+    {
+      "n": 7,
+      "agent": "spec-judge",
+      "result": "returned: QGEN.1, QIFC.1, QBEH.2, QPRI.1, QDOD.2"
+    },
+    {
+      "n": 8,
+      "agent": "spec-judge",
+      "result": "returned (rubric v2.4): QIFC.1, QBEH.2, QDOD.2"
+    },
+    {
+      "n": 9,
+      "agent": "spec-judge",
+      "result": "returned: QBEH.2 (B60); advisories QGEN.3 I5/B14/B93, QVER.3 B22-B24 tags"
+    }
+  ],
+  "findings": [
+    {
+      "id": "J3-1",
+      "source": "judge",
+      "dispatch": 3,
+      "state": "absorbed",
+      "ref": "I14 args shape, I13 review files and ledger marks, fc-report error field \u2014 QIFC.1"
+    },
+    {
+      "id": "J3-2",
+      "source": "judge",
+      "dispatch": 3,
+      "state": "absorbed",
+      "ref": "B1-B59 split one decision each \u2014 QBEH.2"
+    },
+    {
+      "id": "J3-3",
+      "source": "judge",
+      "dispatch": 3,
+      "state": "absorbed",
+      "ref": "D18 clause moved to I14 settings \u2014 QPRI.1"
+    },
+    {
+      "id": "J3-4",
+      "source": "judge",
+      "dispatch": 3,
+      "state": "absorbed",
+      "ref": "SC1 names flightcrew/README.md \u2014 QDOD.1"
+    },
+    {
+      "id": "J4-1",
+      "source": "judge",
+      "dispatch": 4,
+      "state": "absorbed",
+      "ref": "I5 --force, I8 targets, I14 entry args and standalone, I6 Bash rules, I13 quarantine; verifier runs flight check, orchestrator opens the PR \u2014 QIFC.1"
+    },
+    {
+      "id": "J4-2",
+      "source": "judge",
+      "dispatch": 4,
+      "state": "absorbed",
+      "ref": "I13 counts, I14 halt/verify/review reuse \u2014 QIFC.2"
+    },
+    {
+      "id": "J4-3",
+      "source": "judge",
+      "dispatch": 4,
+      "state": "absorbed",
+      "ref": "test-builder and scribe inputs named \u2014 QBEH.1"
+    },
+    {
+      "id": "J4-4",
+      "source": "judge",
+      "dispatch": 4,
+      "state": "absorbed",
+      "ref": "thirteen behaviours split \u2014 QBEH.2"
+    },
+    {
+      "id": "J4-5",
+      "source": "judge",
+      "dispatch": 4,
+      "state": "absorbed",
+      "ref": "B17 retagged deterministic \u2014 QVER.3"
+    },
+    {
+      "id": "J5-1",
+      "source": "judge",
+      "dispatch": 5,
+      "state": "absorbed",
+      "ref": "I15 T<n>; E15 orchestrator PR failure; stalled and guard event names in I13 \u2014 QIFC.1"
+    },
+    {
+      "id": "J5-2",
+      "source": "judge",
+      "dispatch": 5,
+      "state": "absorbed",
+      "ref": "I13 check-result fields listed as reused \u2014 QIFC.2"
+    },
+    {
+      "id": "J5-3",
+      "source": "judge",
+      "dispatch": 5,
+      "state": "absorbed",
+      "ref": "seven behaviours split \u2014 QBEH.2"
+    },
+    {
+      "id": "J5-4",
+      "source": "judge",
+      "dispatch": 5,
+      "state": "absorbed",
+      "ref": "B21 retagged deterministic \u2014 QVER.3"
+    },
+    {
+      "id": "A6-F1",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "steward role (D20)"
+    },
+    {
+      "id": "A6-F2",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "judge per sheet check in fc-verify (I15, B41)"
+    },
+    {
+      "id": "A6-F3",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "init opens run-1 (B1, VER)"
+    },
+    {
+      "id": "A6-F4",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "flight freeze pins (B81)"
+    },
+    {
+      "id": "A6-F5",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "liftoff/ unlocked; checks/ locked at map freeze (B66)"
+    },
+    {
+      "id": "A6-F6",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "returns carry target/unit (I8, B63, B68)"
+    },
+    {
+      "id": "A6-F7",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "C10 dispatch exemption"
+    },
+    {
+      "id": "A6-F8",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "C12 limited to fixed rules"
+    },
+    {
+      "id": "A6-F9",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "plan schema fields (I13)"
+    },
+    {
+      "id": "A6-F10",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "event schema phase/source (I13)"
+    },
+    {
+      "id": "A6-F11",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "cwd repository root, {run} relative (I15, B7)"
+    },
+    {
+      "id": "A6-F12",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "boundary base and sets (B9)"
+    },
+    {
+      "id": "A6-F13",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "I9 slots added"
+    },
+    {
+      "id": "A6-F14",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "fix dispatch names (I8, I9)"
+    },
+    {
+      "id": "A6-F15",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "review fix worktree and merge (B49)"
+    },
+    {
+      "id": "A6-F16",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "stop merges green, skips nested (B37)"
+    },
+    {
+      "id": "A6-F17",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "second adversary pass closes (B40)"
+    },
+    {
+      "id": "A6-F18",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "halt return (B79)"
+    },
+    {
+      "id": "A6-F19",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "check-after-edit (I6, B80)"
+    },
+    {
+      "id": "A6-F20",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "entry args semantics (I14)"
+    },
+    {
+      "id": "A6-F21",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "one event per gate run (I6, B70)"
+    },
+    {
+      "id": "A6-F22",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "ACC boundary and SC1 deletions"
+    },
+    {
+      "id": "A6-F23",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "bootstrap (SC2, D21)"
+    },
+    {
+      "id": "A6-F24",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "report phases/cost/outcome (I13, B78)"
+    },
+    {
+      "id": "A6-F25",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "review/ removed"
+    },
+    {
+      "id": "A6-F26",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "gh and git push allowed (C6, I6)"
+    },
+    {
+      "id": "A6-F27",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "flight check args (I5, B7)"
+    },
+    {
+      "id": "A6-F28",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "run branch created by launch leaves (I5, B1, B2)"
+    },
+    {
+      "id": "A6-F29",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "test_dir and path token (I2, I15, E17)"
+    },
+    {
+      "id": "A6-F30",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "map fields (I15, B82)"
+    },
+    {
+      "id": "A6-F31",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "judged checks by judge with rubrics (VER, B60)"
+    },
+    {
+      "id": "A6-F32",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "test-builder writes own return (B84)"
+    },
+    {
+      "id": "A6-F33",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "log-guard rule (B76)"
+    },
+    {
+      "id": "A6-F34",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "pairing waived without run (I6)"
+    },
+    {
+      "id": "A6-F35",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "inline schemas scanned (C13, E20)"
+    },
+    {
+      "id": "A6-F36",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "install creates files (B17, B18)"
+    },
+    {
+      "id": "A6-F37",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "RUNLOG stays (SC2)"
+    },
+    {
+      "id": "A6-F38",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "init fills spec header (B1)"
+    },
+    {
+      "id": "A6-F39",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "started, created, hooks.log (B1, B3)"
+    },
+    {
+      "id": "A6-F40",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "E7 frozen-guard deny (E7)"
+    },
+    {
+      "id": "A6-F41",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "spec schema exemption (C10)"
+    },
+    {
+      "id": "A6-F42",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "liftoff commit = git log -1 (I14)"
+    },
+    {
+      "id": "A6-F43",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "conflict defined (E13)"
+    },
+    {
+      "id": "A6-F44",
+      "source": "attacker",
+      "dispatch": 6,
+      "state": "absorbed",
+      "ref": "no unit of kind contracts (E19)"
+    },
+    {
+      "id": "J7-1",
+      "source": "judge",
+      "dispatch": 7,
+      "state": "absorbed",
+      "ref": "SC2, D21 reworded to results \u2014 QGEN.1"
+    },
+    {
+      "id": "J7-2",
+      "source": "judge",
+      "dispatch": 7,
+      "state": "absorbed",
+      "ref": "I5 --test-dir; I8 fix field \u2014 QIFC.1"
+    },
+    {
+      "id": "J7-3",
+      "source": "judge",
+      "dispatch": 7,
+      "state": "absorbed",
+      "ref": "twelve behaviours split; two duplicates dropped \u2014 QBEH.2"
+    },
+    {
+      "id": "J7-4",
+      "source": "judge",
+      "dispatch": 7,
+      "state": "absorbed",
+      "ref": "D16 corrected to crew/ \u2014 QPRI.1"
+    },
+    {
+      "id": "J7-5",
+      "source": "judge",
+      "dispatch": 7,
+      "state": "absorbed",
+      "ref": "rubric v2.4 accepts locked paths; SC6 locks the spec-chain files and rubric folder \u2014 QDOD.2"
+    },
+    {
+      "id": "J8-1",
+      "source": "judge",
+      "dispatch": 8,
+      "state": "absorbed",
+      "ref": "I5 --fill, I9 fill source and fill.schema.json \u2014 QIFC.1"
+    },
+    {
+      "id": "J8-2",
+      "source": "judge",
+      "dispatch": 8,
+      "state": "absorbed",
+      "ref": "B2, B40, B66 split \u2014 QBEH.2"
+    },
+    {
+      "id": "J8-3",
+      "source": "judge",
+      "dispatch": 8,
+      "state": "absorbed",
+      "ref": "ACC boundary names flightdeck/.controlcenter \u2014 QDOD.2"
+    },
+    {
+      "id": "J9-1",
+      "source": "judge",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B60 split \u2014 QBEH.2"
+    },
+    {
+      "id": "J9-2",
+      "source": "judge",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "I5 trimmed of B14/B93 restatements \u2014 QGEN.3 advisory"
+    },
+    {
+      "id": "J9-3",
+      "source": "judge",
+      "dispatch": 9,
+      "state": "absorbed",
+      "ref": "B24 retagged judged; B22, B23 proved by transcript check \u2014 QVER.3 advisory"
+    }
+  ]
+}

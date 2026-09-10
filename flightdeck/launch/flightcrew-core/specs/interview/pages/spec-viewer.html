@@ -1,0 +1,1719 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>spec viewer · flightcrew-core · v1 · frozen</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --fg:#e6e6e6; --dim:#9aa3b2; --acc:#7cc4ff; --rec:#3ddc97; --bad:#ff7c7c; }
+  body { margin:0; font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--fg); }
+  header { position:sticky; top:0; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 24px; display:flex; gap:16px; align-items:center; z-index:2; }
+  header h1 { font-size:16px; margin:0; flex:1; }
+  button { background:var(--acc); color:#000; border:0; border-radius:6px; padding:6px 12px; font-weight:600; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--acc); border:1px solid var(--acc); }
+  main { max-width:1000px; margin:0 auto; padding:24px; }
+  .lead { color:var(--dim); font-size:14px; margin:0 0 16px; }
+  nav { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+  nav a { color:var(--acc); font-size:13px; text-decoration:none; border:1px solid var(--line); border-radius:6px; padding:3px 8px; }
+  .domain { border:1px solid var(--line); border-radius:12px; padding:6px 18px 14px; margin:18px 0; }
+  .domain > h2 { font-size:14px; letter-spacing:.06em; color:var(--dim); margin:10px 0 4px; display:flex; align-items:center; gap:12px; }
+  .domain > h2 em { color:var(--rec); font-style:normal; }
+  .domain > h2 button { margin-left:auto; font-size:12px; }
+  .node { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:12px 0; }
+  .node[data-dec="agree"] { border-color:var(--rec); }
+  .node[data-dec="disagree"] { border-color:var(--bad); }
+  .node h3 { margin:0 0 6px; font-size:13px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .node h3 span { color:var(--acc); font-family:ui-monospace, monospace; font-size:14px; }
+  .tag { color:var(--dim); font-size:12px; background:#0b0d11; padding:1px 6px; border-radius:4px; }
+  .text { margin:6px 0; }
+  .note { color:var(--dim); font-size:13px; margin:4px 0 0; }
+  .ctl { display:flex; gap:8px; align-items:flex-start; margin-top:10px; flex-wrap:wrap; }
+  .dec { background:transparent; color:var(--dim); border:1px solid var(--line); }
+  .dec.on.agree { background:var(--rec); color:#000; border-color:var(--rec); }
+  .dec.on.disagree { background:var(--bad); color:#000; border-color:var(--bad); }
+  textarea { flex:1; min-width:260px; box-sizing:border-box; background:#0b0d11; color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:8px; min-height:38px; font:inherit; }
+  #out { white-space:pre-wrap; background:#0b0d11; border:1px solid var(--line); border-radius:8px; padding:12px; font:12.5px ui-monospace, monospace; display:none; }
+  .toast { position:fixed; bottom:20px; right:20px; background:var(--rec); color:#000; padding:8px 14px; border-radius:6px; display:none; font-weight:600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>spec viewer · flightcrew-core · v1 · frozen</h1>
+  <button class="ghost" onclick="preview()">Preview all</button>
+  <button onclick="copyAll()">Copy all</button>
+</header>
+<main>
+<p class="lead">initial: flightcrew rebuilt as files and native tooling — launch and run folders, JSON documents with schemas, freeze in the document, the runner as leaves, conduct as workflows and their arguments, three verdict kinds, a complete crew with sealed dispatch and schema&#x27;d returns, enforcement that fails closed, endings performed, and the human&#x27;s diagnosis carried into the next run.</p>
+<nav><a href="#intent">Intent</a><a href="#scope">Scope</a><a href="#constraints">Constraints</a><a href="#interfaces">Interfaces</a><a href="#behaviours">Behaviours</a><a href="#edges">Edges</a><a href="#decisions">Decisions</a><a href="#verification">Verification</a><a href="#acceptance">Acceptance</a></nav>
+<section id="intent" class="domain" data-domain="intent">
+<h2>Intent <em>1</em> <button onclick="copyDomain('intent')">Copy intent</button></h2>
+<div class="node" data-id="INT" data-dec="">
+  <h3><span>INT</span><span class="tag">status: ok</span></h3>
+  <p class="text">An AI engineer who has outgrown one-shot chat turns needs a crew of agents that builds what a spec says, beginning with itself, until it can build other things; the product is agent-shaped. Flightcrew v1 was built by a dynamic workflow that wrote its own spec and chose a fully testable command surface as the system&#x27;s driver, and both recorded runs were driven by hand and transcribed into its format, so nothing it claims about a run has been observed. This version is the human&#x27;s correction: the accepted foundations are kept, the first attempt&#x27;s mistakes are corrected, and the result is a simpler system, just as capable, that runs under its own power for the first time. The elements of a run — a valid spec, its tests, the kickoff, the plan, the roles, the units built, verified, attacked and merged, the review, the record of events, the log entry and the clearing of build residue — each exist as files and as Claude Code&#x27;s own tooling (hooks, agents, workflows, settings), each element stands alone and doesn&#x27;t need active control. The engineer&#x27;s vision is front-loaded into frozen documents before building begins. The outcome is discovered not built; workflow state is shaken out progressively, it rests &#x27;hardcoded&#x27;; and what a run records is what the next run inherits.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="scope" class="domain" data-domain="scope">
+<h2>Scope <em>8</em> <button onclick="copyDomain('scope')">Copy scope</button></h2>
+<div class="node" data-id="SC1" data-dec="">
+  <h3><span>SC1</span><span class="tag">status: ok</span> <span class="tag">kind: in</span></h3>
+  <p class="text">flightdeck/flightcrew/: bin/flight and the leaf scripts under bin/, each runnable by its own path; hooks/ with the hook scripts and settings.fragment.json; crew/ with one file per role; schemas/run/ with every run-document and return schema; templates/dispatch/ with one template per subagent role and one planner template per task kind; workflows/ holding the workflow suite; liftoffs/ holding the liftoff library; verify/ holding the shared libraries and validators (replacing checks/lib, checks/validators and checks/gates); checks/rubrics/ stays as it is. flightdeck/flightcrew/README.md is rewritten to this layout. Superseded v1 files are deleted: bin/fc, bin/fc.mjs, bin/cmd/, bin/worker/, checks/lib, checks/validators, checks/gates, MANIFEST.txt, the v1 hooks that the I6 set replaces, the v1 workflow scripts, templates/kickoff/, the v1 dispatch templates directly under templates/, and every schema directly under schemas/ other than spec.schema.json.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC2" data-dec="">
+  <h3><span>SC2</span><span class="tag">status: ok</span> <span class="tag">kind: in</span></h3>
+  <p class="text">flightdeck/launch/: README.md, FLIGHTLOG.md, and one folder per launch at launch/&lt;name&gt;/ holding launch.json, specs/ (spec.v&lt;n&gt;.json, tests-map.v&lt;n&gt;.json, interview/) and runs/run-&lt;n&gt;/; flightdeck/.controlcenter and its .gitignore line; launch/flightcrew-core/ is this work&#x27;s own launch and its runs/run-1/ is produced by flight and the workflows. flightdeck/launch/RUNLOG.md stays as it is; FLIGHTLOG.md is created in the bootstrap. launch/flightcrew-core/launch.json, its runs/run-1/ and FLIGHTLOG.md exist in the I1 layout and validate before any leaf does.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC3" data-dec="">
+  <h3><span>SC3</span><span class="tag">status: ok</span> <span class="tag">kind: in</span></h3>
+  <p class="text">flightdeck/testbench/: fixtures/, lib/, benches/, and only those suites whose cases cover a leaf, hook, validator, workflow or crew rule this spec names; every other suite is deleted.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC4" data-dec="">
+  <h3><span>SC4</span><span class="tag">status: ok</span> <span class="tag">kind: in</span></h3>
+  <p class="text">flightdeck/manuals/launch/, flightdeck/manuals/harness/ and flightdeck/manuals/orchestration/ rewritten to the artefacts, roles, workflows, liftoffs and human readings this spec names with no command sequence in them; flightdeck/manuals/testing/ and library/terms.md aligned to I16; flightdeck/manuals/README.md updated; .claude/workflows/ receives the workflow suite and CLAUDE.md at the repository root receives the constitution block; the markdown kickoff library under flightdeck/flightcrew/templates/kickoff/ is deleted.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC5" data-dec="">
+  <h3><span>SC5</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">Out: flightdeck/launch/flightcrew-buildout/, flightdeck/launch/flightcrew-buildout-2/ and flightdeck/launch/specs/flightcrew-v1/ are untouched pre-layout history.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC6" data-dec="">
+  <h3><span>SC6</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">Out: flightdeck/flightcrew/schemas/spec.schema.json, flightdeck/flightcrew/templates/spec.template.json, flightdeck/flightcrew/crew/spec-builder.md, flightdeck/flightcrew/crew/spec-judge.md, flightdeck/flightcrew/crew/spec-attacker.md, flightdeck/manuals/spec/, flightdeck/manuals/versioning/ and flightdeck/flightcrew/checks/rubrics/ are unchanged in any byte.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC7" data-dec="">
+  <h3><span>SC7</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">Out: a local web control surface over the run documents, CI configuration, telemetry beyond the events file, any npm package, and installing anything — no global command, no package.json, no symlink into the home directory; flightdeck/blackbox/, flightdeck/hangar/, flightdeck/missions/, flightdeck/radar/, library/ (except terms.md), dev/ and the dev-workspace skill are never written.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC8" data-dec="">
+  <h3><span>SC8</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">Out: copying a spec, a tests map or an interview/ folder into a run folder; rewriting the $id or $schema strings of any schema, template or spec; editing .gitignore beyond the one line for flightdeck/.controlcenter; migrating spec folders on other branches to the new layout.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="constraints" class="domain" data-domain="constraints">
+<h2>Constraints <em>13</em> <button onclick="copyDomain('constraints')">Copy constraints</button></h2>
+<div class="node" data-id="C1" data-dec="">
+  <h3><span>C1</span><span class="tag">status: ok</span></h3>
+  <p class="text">Every import specifier in every script under flightdeck/flightcrew and flightdeck/testbench is a node: built-in or a relative path resolving inside those two directories; no bare package specifier, package.json, node_modules or lock file exists under them.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C2" data-dec="">
+  <h3><span>C2</span><span class="tag">status: ok</span></h3>
+  <p class="text">No leaf, hook, workflow-dispatched agent or validator writes outside the current run folder, its launch&#x27;s launch.json and specs/ folder, flightdeck/launch/FLIGHTLOG.md, flightdeck/.controlcenter, the paths the run&#x27;s plan allows, and os.tmpdir(); flight install writes under .claude/ and CLAUDE.md only with --apply.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C3" data-dec="">
+  <h3><span>C3</span><span class="tag">status: ok</span></h3>
+  <p class="text">Every leaf script exits 0 on success, 1 on a usage or environment error and 2 on a failed check or a refused action, prints at most one line on success unless its purpose is a listing or a rendered document, and runs by its own path with bin/flight absent.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C4" data-dec="">
+  <h3><span>C4</span><span class="tag">status: ok</span></h3>
+  <p class="text">Each hook, spawned with a minimal envelope for its event against the sample launch, exits within 2000 ms wall-clock taking the best of three runs, except the worker gate, which declares timeout 600 where it is wired.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C5" data-dec="">
+  <h3><span>C5</span><span class="tag">status: ok</span></h3>
+  <p class="text">Every markdown file under flightdeck/flightcrew, flightdeck/manuals, flightdeck/launch/README.md, flightdeck/testbench/README.md and the root CLAUDE.md contains none of the phrases &#x27;this session&#x27;, &#x27;we decided&#x27;, &#x27;as discussed&#x27;, &#x27;earlier today&#x27;, &#x27;the user asked&#x27;.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C6" data-dec="">
+  <h3><span>C6</span><span class="tag">status: ok</span></h3>
+  <p class="text">No leaf, hook or validator script imports node:http, node:https, node:net, node:dgram or node:tls, and none calls fetch; agents reach the network only through the tools their crew files name (the orchestrator gh and git push; the explorer WebFetch and WebSearch).</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C7" data-dec="">
+  <h3><span>C7</span><span class="tag">status: ok</span></h3>
+  <p class="text">Running node flightdeck/testbench/run-all.mjs leaves the set of entry names directly under os.tmpdir() unchanged and adds no git status line outside flightdeck/testbench/runs/.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C8" data-dec="">
+  <h3><span>C8</span><span class="tag">status: ok</span></h3>
+  <p class="text">A hook that resolves no launch with a run in progress exits 0 and writes nothing; a guard that resolves one and then cannot read what it needs to decide denies with a reason naming the failure; a recording hook in the same case exits 0 and appends one line to the run&#x27;s hooks.log; no hook permits by failing.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C9" data-dec="">
+  <h3><span>C9</span><span class="tag">status: ok</span></h3>
+  <p class="text">Every file under flightdeck/manuals/launch, flightdeck/manuals/harness and flightdeck/manuals/orchestration is at most 150 lines.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C10" data-dec="">
+  <h3><span>C10</span><span class="tag">status: ok</span></h3>
+  <p class="text">Every document a run reads or writes is a JSON file validating against a schema under flightdeck/flightcrew/schemas/run/ (the spec against flightdeck/flightcrew/schemas/spec.schema.json); a markdown file under a run is a rendering — a dispatch for the agent it is rendered for, a report or plan for a human — and is read back by no script or hook.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C11" data-dec="">
+  <h3><span>C11</span><span class="tag">status: ok</span></h3>
+  <p class="text">Whether a document is frozen is stated in that document&#x27;s own status field and enforced by a hook that reads the file it is about to touch; no freeze depends on a run being in progress or a locked-paths list being populated.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C12" data-dec="">
+  <h3><span>C12</span><span class="tag">status: ok</span></h3>
+  <p class="text">Every path frozen-guard, locked-guard and log-guard deny by a fixed rule — flightdeck/launch/*/specs/**, flightdeck/launch/*/runs/*/checks/** and flightdeck/launch/FLIGHTLOG.md — is also listed under sandbox.filesystem.denyWrite in the settings flight install writes, so a Bash command or a subprocess cannot write what those guards refuse; the sandbox section ships active. A map&#x27;s own locked paths and the plan&#x27;s boundary are held by the guards alone.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C13" data-dec="">
+  <h3><span>C13</span><span class="tag">status: ok</span></h3>
+  <p class="text">Every workflow script ends with a top-level return of one object, calls no filesystem or shell, uses no Date.now, new Date or Math.random, names an agentType from flightdeck/flightcrew/crew/ on every agent() call, passes a schema on every agent() call whose return it branches on, carries each such schema inline as a literal byte-equal to the I8 file it copies, and nests workflow() at most one level.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="interfaces" class="domain" data-domain="interfaces">
+<h2>Interfaces <em>17</em> <button onclick="copyDomain('interfaces')">Copy interfaces</button></h2>
+<div class="node" data-id="I1" data-dec="">
+  <h3><span>I1</span><span class="tag">status: ok</span> <span class="tag">name: launch folder</span></h3>
+  <p class="text">flightdeck/launch/&lt;name&gt;/ = { launch.json, specs/ = { spec.v&lt;n&gt;.json, tests-map.v&lt;n&gt;.json, interview/ }, runs/ = { run-&lt;n&gt;/ = { liftoff/ = { &lt;liftoff name&gt;.json }, plan.json, plan.md, events.jsonl, hooks.log, checks/ = { &lt;check scripts&gt;, rubrics/ = { &lt;T&gt;.md } }, evidence/, dispatches/, returns/, report.json, report.md } } }; &lt;name&gt; is the launch name and &lt;n&gt; a positive integer; a folder under flightdeck/launch/ without launch.json is not a launch.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I2" data-dec="">
+  <h3><span>I2</span><span class="tag">status: ok</span> <span class="tag">name: launch.json</span></h3>
+  <p class="text">flightdeck/flightcrew/schemas/run/launch.schema.json: { schema_version: 1, name: string, created: date, spec: { version: int }, tests_map: { version: int } | null, test_dir: string (the project&#x27;s own test folder, repository-relative), current_run: int|null, runs: [ { n: int, branch: string (&#x27;run/&lt;name&gt;-&lt;n&gt;&#x27;), base_commit: hex, lock_commit: hex|null, started: iso } ] }. An index of what spans runs; the frozen files carry their own commits, the log entry carries a run&#x27;s outcome, and the run folder carries everything else.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I3" data-dec="">
+  <h3><span>I3</span><span class="tag">status: ok</span> <span class="tag">name: .controlcenter</span></h3>
+  <p class="text">flightdeck/.controlcenter: one &#x27;KEY=value&#x27; line per key, git-ignored, holding LAUNCH_DIRECTORY=&lt;repository-relative launch folder&gt;; written by flight launch init and flight run new, editable by hand; every hook and leaf resolves the run in progress as LAUNCH_DIRECTORY plus that launch&#x27;s launch.json.current_run, and a worktree resolves the file from the main checkout.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I4" data-dec="">
+  <h3><span>I4</span><span class="tag">status: ok</span> <span class="tag">name: frozen documents</span></h3>
+  <p class="text">A document with top-level status: &#x27;draft&#x27;|&#x27;frozen&#x27; and, when frozen, commit: &lt;7 to 40 hex characters&gt;: the spec and tests-map files under specs/ (fields already in their schemas) and a run&#x27;s plan.json once fc-plan-&lt;kind&gt; has returned. A frozen file is never edited; a revision is the next-numbered file, and a tests map is never revised inside a run.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I5" data-dec="">
+  <h3><span>I5</span><span class="tag">status: ok</span> <span class="tag">name: flight</span></h3>
+  <p class="text">flightdeck/flightcrew/bin/flight &lt;leaf&gt; [args], a dispatcher that only routes to flightdeck/flightcrew/bin/&lt;leaf&gt;.mjs. Leaves and the artefact each writes: launch init &lt;name&gt; [--test-dir &lt;path&gt;] → the launch folder with its record, specs/spec.v1.json from flightdeck/flightcrew/templates/spec.template.json, the interview folder and flightdeck/.controlcenter, and no run; run new &lt;name&gt; → runs/run-&lt;n&gt;/ (run-1 included), its branch run/&lt;name&gt;-&lt;n&gt; created from HEAD, the record&#x27;s current_run and runs entry, and flightdeck/.controlcenter; check [T&lt;n&gt;... | --unit &lt;id&gt;] [--baseline] → one evidence file per check run and evidence/summary.json, or with --baseline the map&#x27;s baseline.observed fields; event &lt;json&gt; → one line appended to events.jsonl with source leaf; render &lt;role&gt; &lt;target&gt; [--fill &lt;path to a JSON object&gt;] → dispatches/&lt;role&gt;-&lt;target&gt;.md, the fill&#x27;s unit fields read from plan.json when &lt;target&gt; is a unit id and every other slot from the --fill object; merge &lt;unit&gt; → the unit branch merged; freeze &lt;path&gt; → the document with status frozen and commit set to HEAD, and for a spec or map the version pin in launch.json; validate &lt;path&gt; and lint spec &lt;path&gt; → one &#x27;error: &lt;message&gt; — [&lt;rule&gt;]&#x27; line per violation on stdout; install [--apply --target &lt;dir&gt; [--force]] → the I17 install set.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I6" data-dec="">
+  <h3><span>I6</span><span class="tag">status: ok</span> <span class="tag">name: hooks and settings fragment</span> <span class="tag">reuse: https://code.claude.com/docs/en/hooks</span></h3>
+  <p class="text">flightdeck/flightcrew/hooks/settings.fragment.json wires the global hooks: event-log (SessionStart, SessionEnd, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, PostToolUseFailure, PermissionDenied, PreCompact, PostCompact, Stop, WorktreeRemove); frozen-guard, locked-guard, boundary-guard and log-guard (PreToolUse, matcher Edit|Write|NotebookEdit); return-capture (SubagentStop); check-after-edit (PostToolUse, matcher Edit|Write, wired only in the frontmatter of implementer, strong-worker and interface-builder: runs flight check --unit for the unit named in the agent&#x27;s last return-in-progress or dispatch and prints the failing ids on stderr, never blocking). permissions.allow lists Agent(&lt;name&gt;) for each crew file, Workflow(&lt;name&gt;) for each workflow, Bash rules for the flight dispatcher, the leaf scripts under flightdeck/flightcrew/bin/, git status, diff, log, rev-parse, switch, worktree list, git push and gh pr create; sandbox.filesystem.denyWrite lists flightdeck/launch/*/specs/**, flightdeck/launch/*/runs/*/checks/** and flightdeck/launch/FLIGHTLOG.md; worktree.baseRef is head. The worker gate lives in the frontmatter of implementer, strong-worker and interface-builder, not in the fragment. When a run resolves, every deny decision a guard prints is paired with one event named &lt;guard&gt;_denied, and every worker-gate run appends exactly one of stop_block, check_run or stalled; with no run resolved no event is written. Hooks read the stdin envelope and answer with a permissionDecision, a systemMessage, or exit 2 with the reason on stderr.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I7" data-dec="">
+  <h3><span>I7</span><span class="tag">status: ok</span> <span class="tag">name: crew file</span> <span class="tag">reuse: https://code.claude.com/docs/en/sub-agents</span></h3>
+  <p class="text">flightdeck/flightcrew/crew/&lt;role&gt;.md for explorer, planner, orchestrator, steward, interface-builder, implementer, strong-worker, adversary, verifier, critic, judge, scribe, test-builder; flightdeck/flightcrew/crew/spec-builder.md, flightdeck/flightcrew/crew/spec-judge.md and flightdeck/flightcrew/crew/spec-attacker.md as they stand. Frontmatter carries name, description, tools, model (never inherit), and for subagents maxTurns; disallowedTools naming Write and Edit on every role that must not write; isolation: worktree on implementer and strong-worker; hooks carrying the PostToolUse check-after-edit and the SubagentStop worker gate on implementer, strong-worker and interface-builder. The body of every subagent role ends with a fenced JSON block showing its return and contains the sentence &#x27;Your inputs are only those named in the dispatch&#x27;. spec-builder and test-builder are session agents: they hold AskUserQuestion and no maxTurns. The steward holds Bash only, runs one leaf or git invocation per dispatch and returns its exit and output. The orchestrator&#x27;s tools include Bash with gh and git push; the explorer&#x27;s include WebFetch and WebSearch.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I8" data-dec="">
+  <h3><span>I8</span><span class="tag">status: ok</span> <span class="tag">name: returns</span></h3>
+  <p class="text">One return schema per subagent role under flightdeck/flightcrew/schemas/run/. Reused as they stand: flightdeck/flightcrew/schemas/run/explorer-return.schema.json, flightdeck/flightcrew/schemas/run/worker-return.schema.json (implementer, strong-worker), flightdeck/flightcrew/schemas/run/verifier-verdict.schema.json, flightdeck/flightcrew/schemas/run/critic-findings.schema.json. New: flightdeck/flightcrew/schemas/run/planner-return.schema.json = the plan object of I13; flightdeck/flightcrew/schemas/run/interface-builder-return.schema.json = worker-return with halt.kind extended by &#x27;spec-contradiction&#x27;; flightdeck/flightcrew/schemas/run/adversary-return.schema.json = critic-findings plus unit: string; flightdeck/flightcrew/schemas/run/judge-return.schema.json = the verdict sheet of I15; flightdeck/flightcrew/schemas/run/scribe-return.schema.json = { target: string, report: string, log_entry: string, assembled: boolean, missing: [string] }; flightdeck/flightcrew/schemas/run/steward-return.schema.json = { target: string, command: string, exit: int, stdout_tail: [string], stderr_tail: [string] }; flightdeck/flightcrew/schemas/run/test-builder-return.schema.json = { map: string, checks: [ { id: string, kind: string, verdict: &#x27;exit&#x27;|&#x27;ratio&#x27;|&#x27;sheet&#x27;, covers: [string], command: string } ], unverified: [ { id: string, reason: string } ], spec_findings: [ { node: string, kind: string, text: string } ] }. Every return carries target: string (the worker shapes carry it as unit) and fix: int|null (the fix number for a fix dispatch, else null) and is stored at runs/run-&lt;n&gt;/returns/&lt;role&gt;-&lt;target&gt;.json, a fix return at &lt;role&gt;-&lt;target&gt;-fix-&lt;k&gt;.json, &lt;target&gt; being the unit id for a worker, interface-builder, strong-worker or adversary, X&lt;n&gt; for an explorer, pass-&lt;n&gt; for a critic, verifier or judge pass, &#x27;plan&#x27; for the planner, &#x27;report&#x27; for the scribe, &#x27;map&#x27; for the test-builder (which writes its own return file, being a session agent), the leaf name for the steward, and T&lt;n&gt; for a judge sheet.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I9" data-dec="">
+  <h3><span>I9</span><span class="tag">status: ok</span> <span class="tag">name: dispatch</span></h3>
+  <p class="text">flightdeck/flightcrew/templates/dispatch/&lt;role&gt;.template.md for every subagent role, and planner-&lt;kind&gt;.template.md for each task kind feature, migration, audit and agent carrying that kind&#x27;s cutting rules, wave-0 obligation and risks, rendered by flight render to runs/run-&lt;n&gt;/dispatches/&lt;role&gt;-&lt;target&gt;.md from the role file, the template and the fill; the fill is the plan unit named by &lt;target&gt; where one exists, plus the --fill object the caller passes (flightdeck/flightcrew/schemas/run/fill.schema.json: { question?: string, rubric?: string, subject?: string, evidence?: string, leaf?: string, previous_findings?: object }), which a workflow supplies through the steward dispatch that runs the render. Line 1 is &#x27;&lt;role&gt; · &lt;target&gt;&#x27;. Slots: {{launch}}, {{run}}, {{target}}, {{intent}}, {{scope}}, {{constraints}}, {{interfaces}}, {{decisions}} (each the texts of that domain, one per line), {{spec_refs}} (the texts of the nodes the target names), {{checks}} (one &#x27;&lt;id&gt;: &lt;covers&gt;&#x27; line per check), {{paths}} and {{depends_on}} (one glob or unit id per line), {{previous_findings}} (the open findings as critic-findings JSON, fix dispatches only), {{question}} (explorer only), {{rubric}} and {{subject}} (the rubric file&#x27;s text and the subject path, judge only), {{evidence}} (the failed unit&#x27;s check output and return, strong-worker only), {{leaf}} (the invocation, steward only), {{return_shape}} (the role&#x27;s return schema). A fix dispatch is rendered from the role&#x27;s own template with {{previous_findings}} filled to dispatches/&lt;role&gt;-&lt;target&gt;-fix-&lt;k&gt;.md. A template names only these slots; a rendered dispatch contains no text of a B or E node outside spec_refs and no check command text.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I10" data-dec="">
+  <h3><span>I10</span><span class="tag">status: ok</span> <span class="tag">name: FLIGHTLOG.md</span></h3>
+  <p class="text">flightdeck/launch/FLIGHTLOG.md: &#x27;# Flight log&#x27;, a preamble paragraph, then entries newest first. Entry = &#x27;## &lt;YYYY-MM-DD&gt; · &lt;launch&gt; · run-&lt;n&gt;&#x27; followed by one &#x27;&lt;field&gt;: &lt;text&gt;&#x27; line per field, in this order: spec, kickoff (the liftoff name @ commit), cost, symptom, pr (scribe-written; pr reads the pull request URL or &#x27;—&#x27;), then outcome, seen on, cause, fixed on, change, watch, kept, reservation, promote (human-owned, reading &#x27;&lt;fill&gt;&#x27; until written). outcome is one of accepted, abandoned, partial, and is the human&#x27;s word after merging or rejecting the pull request.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I11" data-dec="">
+  <h3><span>I11</span><span class="tag">status: ok</span> <span class="tag">name: CLAUDE.md</span></h3>
+  <p class="text">The repository root CLAUDE.md holds a section &#x27;# Flightcrew&#x27; ending at the next &#x27;# &#x27; heading or end of file, written whole by flight install: &#x27;Launches live under flightdeck/launch/&lt;name&gt;/; a run is runs/run-&lt;n&gt;/ (see flightdeck/launch/README.md)&#x27;, &#x27;Frozen: any JSON file whose status is frozen; locked: specs/**, runs/*/checks/** and the pinned map&#x27;s locked paths&#x27;, &#x27;Checks: flightdeck/flightcrew/bin/flight check&#x27;, &#x27;A role reads its own dispatch and nothing else&#x27;.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I12" data-dec="">
+  <h3><span>I12</span><span class="tag">status: ok</span> <span class="tag">name: suite protocol</span></h3>
+  <p class="text">flightdeck/testbench/suites/&lt;name&gt;/run.mjs: no arguments required; prints one line per case as &#x27;pass  &lt;case&gt;&#x27; or &#x27;FAIL  &lt;case&gt;&#x27; and a final &#x27;&lt;n&gt;/&lt;m&gt; passed&#x27;; exit 0 when all pass, 2 otherwise; flightdeck/testbench/run-all.mjs runs every suite in name order, prints one line per suite, and exits 2 if any suite exits non-zero.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I13" data-dec="">
+  <h3><span>I13</span><span class="tag">status: ok</span> <span class="tag">name: run documents</span></h3>
+  <p class="text">Run documents and their schemas: plan.json → flightdeck/flightcrew/schemas/run/plan.schema.json as it stands with the unit flag pilot renamed scout; gates, abandon_triggers, kickoff_version, shape, models, expected_cost and budget_turns removed; and status: &#x27;draft&#x27;|&#x27;frozen&#x27; and commit added; evidence/&lt;T&gt;.json → flightdeck/flightcrew/schemas/run/check-result.schema.json as it stands (id, command, cwd, exit, verdict, stdout_tail, stderr_tail, duration_ms, ran_at, commit, covers, phase) plus the I15 fields observed and sheet; evidence/summary.json → flightdeck/flightcrew/schemas/run/evidence-summary.schema.json = { ran_at: iso, commit: hex, counts: { pass: int, fail: int, error: int, skipped: int }, checks: [ { id: string, verdict: string, covers: [string] } ], boundary: { base: hex, outside: [string] }, locked: { changed: [string] } }; events.jsonl → flightdeck/flightcrew/schemas/run/event.schema.json as it stands with phase removed, run: int added, source one of hook|leaf|role, event one of the hook event names or frozen_denied, locked_denied, boundary_denied, log_denied, return, return_invalid, stop_block, check_run, stalled, unit_merged, workflow_end, and detail keys limited to tool_name, file_path, command, error, tool_error_code, permission_denial_reason, stop_reason, trigger, task_id, task_title, reason, mode, prompt, transcript_path, worktree_path, agent_id, agent_type, unit, workflow; returns/&lt;role&gt;-&lt;target&gt;.invalid.json → flightdeck/flightcrew/schemas/run/invalid-return.schema.json = { agent_id: string, agent_type: string, raw: string, errors: [string] }; report.json → flightdeck/flightcrew/schemas/run/report.schema.json = { launch: string, run: int, header: { spec: string, kickoff: string, cost: string (&#x27;&lt;agents&gt; agents · &lt;minutes&gt; minutes&#x27; from SubagentStart counts and first and last event times), started: iso, ended: iso }, ledger: [string] (each line &#x27;[recorded|checked|reviewed|stated] &lt;text&gt;&#x27;, the bracketed word being its provenance mark), verification: { counts: &lt;evidence-summary counts as above&gt;, unverified: [string], quarantined: [string] (the ids the pinned map lists under quarantined), boundary: [string], locked: [string] }, review: { passes: int, open: [string], resolved: [string] }, phases: [ { workflow: string, ended: iso } ] (one per workflow_end event), agents: [ { agent_type: string, count: int } ], failures: [ { event: string, ts: iso, detail: object } ], notes: string }. hooks.log lines are &#x27;&lt;iso ts&gt; &lt;hook name&gt; &lt;message&gt;&#x27;.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I14" data-dec="">
+  <h3><span>I14</span><span class="tag">status: ok</span> <span class="tag">name: liftoffs and workflows</span> <span class="tag">reuse: https://code.claude.com/docs/en/workflows</span></h3>
+  <p class="text">A liftoff is one file under flightdeck/flightcrew/liftoffs/&lt;name&gt;.json → flightdeck/flightcrew/schemas/run/liftoff.schema.json = { name: string, task: &#x27;feature&#x27;|&#x27;migration&#x27;|&#x27;audit&#x27;|&#x27;agent&#x27;, sequence: [ { workflow: string, args: &lt;the entry args of that workflow&gt; } ], sessions: [ { name: string, units: [string] } ] (empty for one seat), models: { explore: string, unit: string, strong: string, critic: string, judge: string }, review: { critic_passes: int, adversary_per_unit: boolean }, settings: object, notes: string }; the library ships with at least three liftoffs, settings holds only keys the workflow runtime accepts as call options (model, effort, isolation, budget) and nothing else. The log entry&#x27;s kickoff line is &#x27;&lt;liftoff name&gt; @ &lt;commit&gt;&#x27;, the commit being git log -1 of the library file. The workflow suite under flightdeck/flightcrew/workflows/, installed to .claude/workflows/, each script&#x27;s meta.name equal to its file name, each receiving args = { launch: string, run: int, liftoff: &lt;the liftoff object&gt;, entry: &lt;its entry args&gt; } and returning one object. Entry args: fc-plan-&lt;kind&gt; { questions: [string] }; fc-contracts {}; fc-build { standalone: boolean, waves: [string]|null (only these wave ids when set), session: string|null (only the units of that liftoff sessions entry when set) }; fc-verify {}; fc-review { passes: int|null (overrides liftoff.review.critic_passes when set) }; fc-report {}. A workflow runs a leaf or a git command by dispatching the steward with the invocation and reading its exit from the return. Results: flightdeck/flightcrew/workflows/fc-plan-feature.js, flightdeck/flightcrew/workflows/fc-plan-migration.js, flightdeck/flightcrew/workflows/fc-plan-audit.js, flightdeck/flightcrew/workflows/fc-plan-agent.js (explorers then planner with that kind&#x27;s template) → { plan: string, explorers: int, halt: &lt;worker-return halt&gt;|null }; flightdeck/flightcrew/workflows/fc-contracts.js (interface-builder on wave 0 and its checks) → { unit: string, green: boolean, halt: &lt;worker-return halt&gt;|null }; flightdeck/flightcrew/workflows/fc-build.js (implementers by wave, scouts first, strong-worker on a stall or red, adversary per unit, merge through the steward; then workflow(&#x27;fc-verify&#x27;) and workflow(&#x27;fc-review&#x27;) unless args.entry.standalone) → { units: [ { id: string, status: &#x27;green&#x27;|&#x27;red&#x27;|&#x27;stalled&#x27;|&#x27;halt&#x27;|&#x27;unmerged&#x27;, merged: boolean, halt: &lt;worker-return halt&gt;|null } ], verify: &lt;the fc-verify result&gt;|null, review: &lt;the fc-review result&gt;|null, stopped: null | { unit: string, check: string } }; flightdeck/flightcrew/workflows/fc-verify.js (judge per sheet check, verifier running flight check) → { green: boolean, refuted: boolean, failing: [string] }; flightdeck/flightcrew/workflows/fc-review.js (critic passes, fix dispatches, re-verify) → { passes: int, open: [string], resolved: [string] }; flightdeck/flightcrew/workflows/fc-report.js (scribe report and log stub, worktrees removed) → { report: string, log_entry: boolean, worktrees_removed: int, error: string|null }. Any workflow given args failing its schema returns { refused: string }.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I15" data-dec="">
+  <h3><span>I15</span><span class="tag">status: ok</span> <span class="tag">name: verdicts</span></h3>
+  <p class="text">Three verdict kinds. A check id is T&lt;n&gt;, &lt;n&gt; a positive integer unique within a map. In flightdeck/flightcrew/schemas/run/tests-map.schema.json each check carries verdict: &#x27;exit&#x27;|&#x27;ratio&#x27;|&#x27;sheet&#x27; (replacing class), kind as it stands, depends_on: [glob] (paths whose change invalidates the check, locked with it), baseline { expect, observed } as it stands (observed written by flight check --baseline), and for ratio { trials: int, threshold: number } and for sheet { rubric: string, a path under runs/run-&lt;n&gt;/checks/rubrics/ }; allowed_paths and gate_only are removed (the plan owns the boundary); fixture and run_all stay. A command runs with cwd the repository root and {run} expanded to the repository-relative run folder; a path in a command is any token containing a slash. In flightdeck/flightcrew/schemas/run/check-result.schema.json a result carries verdict: &#x27;pass&#x27;|&#x27;fail&#x27;|&#x27;error&#x27;|&#x27;skipped&#x27; plus for ratio observed: { passes: int, trials: int } and for sheet sheet: string (path). A sheet check&#x27;s command prints the path of the judge&#x27;s return for that check, returns/judge-&lt;T&gt;.json, which fc-verify has the judge write before the verifier runs flight check. The verdict sheet → flightdeck/flightcrew/schemas/run/judge-return.schema.json = { rubric: string, subject: string, answers: [ { question: string, answer: &#x27;yes&#x27;|&#x27;no&#x27;, quote: string } ], verdict: &#x27;pass&#x27;|&#x27;fail&#x27; }, an answer with an empty quote invalidating the sheet.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I16" data-dec="">
+  <h3><span>I16</span><span class="tag">status: ok</span> <span class="tag">name: testing vocabulary</span> <span class="tag">reuse: library/terms.md</span></h3>
+  <p class="text">library/terms.md defines: test — an assertion owned by the project, in its own framework, invoked by a check and never written by a run; check — the wrapper a tests map names, which runs something and returns a verdict a gate reads; verdict — an exit code, a ratio against a threshold declared before any trial, or a verdict sheet against a rubric; check class is removed and verdict kind replaces it. Checks live at runs/run-&lt;n&gt;/checks/, the tests-map series beside the spec under specs/, fixtures and benches under flightdeck/testbench/, shared libraries under flightdeck/flightcrew/verify/.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I17" data-dec="">
+  <h3><span>I17</span><span class="tag">status: ok</span> <span class="tag">name: install set</span></h3>
+  <p class="text">The install set flight install --apply --target &lt;dir&gt; writes: &lt;dir&gt;/agents/flightcrew/&lt;role&gt;.md for every file under flightdeck/flightcrew/crew/ and the three spec-chain files, byte-equal; &lt;dir&gt;/workflows/&lt;name&gt;.js for every workflow of the suite, byte-equal; &lt;dir&gt;/settings.json with the fragment&#x27;s hooks, sandbox and worktree entries merged in and permissions.allow holding one Agent(&lt;name&gt;) per crew file and one Workflow(&lt;name&gt;) per workflow; the I11 block in the root CLAUDE.md; and the line &#x27;flightdeck/.controlcenter&#x27; in .gitignore.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="behaviours" class="domain" data-domain="behaviours">
+<h2>Behaviours <em>98</em> <button onclick="copyDomain('behaviours')">Copy behaviours</button></h2>
+<div class="node" data-id="B1" data-dec="">
+  <h3><span>B1</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight launch init &lt;name&gt; creates launch.json per I2 with created, current_run null, test_dir from --test-dir and runs empty, an empty specs/interview/, and no run folder.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B2" data-dec="">
+  <h3><span>B2</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight launch init writes specs/spec.v1.json from flightdeck/flightcrew/templates/spec.template.json with schema_version 1, name &lt;name&gt;, version 1 and status draft filled.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B3" data-dec="">
+  <h3><span>B3</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight run new &lt;name&gt; creates the branch run/&lt;name&gt;-&lt;n&gt; from the current HEAD.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B4" data-dec="">
+  <h3><span>B4</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight run new &lt;name&gt;, given the newest spec and tests map under specs/ frozen and, for n greater than 1, the previous run&#x27;s FLIGHTLOG entry fully written, creates runs/run-&lt;n&gt;/ with the I1 file set and empty events.jsonl and hooks.log.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B5" data-dec="">
+  <h3><span>B5</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight run new, after creating the run folder, appends { n, branch, base_commit HEAD, lock_commit null, started } to launch.json.runs and sets current_run to n.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B6" data-dec="">
+  <h3><span>B6</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight launch init and flight run new each end by writing LAUNCH_DIRECTORY=&lt;launch folder&gt; to flightdeck/.controlcenter.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B7" data-dec="">
+  <h3><span>B7</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] frozen-guard, on a PreToolUse for Edit, Write or NotebookEdit whose target is a JSON file with a top-level status of frozen, prints a deny decision naming the file, with no launch resolved, with .controlcenter absent, and inside a worktree alike.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B8" data-dec="">
+  <h3><span>B8</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight validate &lt;path&gt;, given a document, validates it against the schema its filename selects, printing the I5 error lines and exiting 2 on any error and 0 with no output otherwise.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B9" data-dec="">
+  <h3><span>B9</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight check runs the checks it is given — every non-quarantined check of the pinned tests map, the listed T&lt;n&gt; ids, or with --unit the checks of that plan unit — serially, each as /bin/sh -c with {run} expanded and cwd the repository root, under a 300 second limit.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B10" data-dec="">
+  <h3><span>B10</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight check rebuilds evidence/summary.json per I13 from every evidence file present, computing boundary against launch.json.runs[current].lock_commit with the plan&#x27;s unit paths plus the run folder as the allowed set, and locked against the map&#x27;s locked_paths, its depends_on paths and runs/run-&lt;n&gt;/checks/.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B11" data-dec="">
+  <h3><span>B11</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight render &lt;role&gt; &lt;target&gt; writes dispatches/&lt;role&gt;-&lt;target&gt;.md per I9, using the planner-&lt;kind&gt;.template.md named by the run&#x27;s liftoff for the planner.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B12" data-dec="">
+  <h3><span>B12</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight render commits the rendered dispatch on the run branch before exiting, so that git log -1 on its path resolves on the run branch.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B13" data-dec="">
+  <h3><span>B13</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight merge &lt;unit&gt;, given a green return whose branch exists, the checked-out branch equal to the run&#x27;s branch in launch.json and every depends_on unit already merged, merges the unit branch with --no-ff, runs the unit&#x27;s checks, and commits when every check passes.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B14" data-dec="">
+  <h3><span>B14</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight merge, after its merge commit, appends a unit_merged event.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B15" data-dec="">
+  <h3><span>B15</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight merge, after its merge commit, removes the unit&#x27;s worktree and branch.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B16" data-dec="">
+  <h3><span>B16</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight install --apply --target &lt;dir&gt; writes the I17 install set.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B17" data-dec="">
+  <h3><span>B17</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight install --apply, finding a CLAUDE.md Flightcrew block, replaces it rather than adding a second.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B18" data-dec="">
+  <h3><span>B18</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight install --apply, finding no CLAUDE.md, creates it holding the Flightcrew block.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B19" data-dec="">
+  <h3><span>B19</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight install --apply, finding the .gitignore line present, adds nothing.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B20" data-dec="">
+  <h3><span>B20</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight install --apply, finding no .gitignore or no line, writes the line.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B21" data-dec="">
+  <h3><span>B21</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The orchestrator, handed a liftoff, writes it unchanged to runs/run-&lt;n&gt;/liftoff/&lt;name&gt;.json before invoking the first workflow of its sequence.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B22" data-dec="">
+  <h3><span>B22</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The orchestrator invokes the liftoff&#x27;s sequence in its stated order.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B23" data-dec="">
+  <h3><span>B23</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The orchestrator invokes each sequence entry only on a new human instruction.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B24" data-dec="">
+  <h3><span>B24</span><span class="tag">status: ok</span></h3>
+  <p class="text">[judged] The orchestrator, after each workflow returns, reports its result and names what the human should read next.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B25" data-dec="">
+  <h3><span>B25</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Each workflow of I14, invoked with its I14 args, returns the I14 result object for its name.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B26" data-dec="">
+  <h3><span>B26</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Each workflow of I14 dispatches nothing after the point I14 names as its end.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B27" data-dec="">
+  <h3><span>B27</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-plan-&lt;kind&gt; dispatches one explorer per question in its entry args.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B28" data-dec="">
+  <h3><span>B28</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-plan-&lt;kind&gt; dispatches the planner with the planner-&lt;kind&gt; template and the explorer returns after the explorers return.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B29" data-dec="">
+  <h3><span>B29</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-plan-&lt;kind&gt; returns with plan.json written by the planner&#x27;s return.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B30" data-dec="">
+  <h3><span>B30</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-plan-&lt;kind&gt;, after plan.json is written, dispatches the steward with flight freeze on it.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B31" data-dec="">
+  <h3><span>B31</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build dispatches every implementer with a dispatch rendered by a steward dispatch of flight render.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B32" data-dec="">
+  <h3><span>B32</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build dispatches every implementer and strong-worker with isolation worktree.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B33" data-dec="">
+  <h3><span>B33</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build runs the scout units of a wave to green before dispatching the rest of that wave.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B34" data-dec="">
+  <h3><span>B34</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, on a red or stalled return for a unit, dispatches strong-worker once for that unit.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B35" data-dec="">
+  <h3><span>B35</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] A strong-worker dispatch carries model args.liftoff.models.strong.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B36" data-dec="">
+  <h3><span>B36</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] A strong-worker dispatch runs from a clean worktree branched from the run branch, not the failed worker&#x27;s.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B37" data-dec="">
+  <h3><span>B37</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] A strong-worker dispatch carries the failed unit&#x27;s check output and return.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B38" data-dec="">
+  <h3><span>B38</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] A strong-worker dispatch carries no text of the failed worker&#x27;s transcript or approach.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B39" data-dec="">
+  <h3><span>B39</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, on a second red or stalled return for the same unit, dispatches nothing further.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B40" data-dec="">
+  <h3><span>B40</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, when it stops on a unit, merges the green units already returned.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B41" data-dec="">
+  <h3><span>B41</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, when it stops on a unit, dispatches nothing further.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B42" data-dec="">
+  <h3><span>B42</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, when it stops on a unit, returns with stopped naming the unit and the failing check, and verify and review null.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B43" data-dec="">
+  <h3><span>B43</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, when args.liftoff.review.adversary_per_unit is true, dispatches adversary for every green unit before merge.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B44" data-dec="">
+  <h3><span>B44</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, on a blocking adversary finding, dispatches one fix dispatch of the same worker for that unit.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B45" data-dec="">
+  <h3><span>B45</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, after a fix dispatch, dispatches the adversary once more for that unit.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B46" data-dec="">
+  <h3><span>B46</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build leaves a unit unmerged, status unmerged, while its second adversary pass reports a blocking finding.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B47" data-dec="">
+  <h3><span>B47</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, unless args.entry.standalone is true, calls workflow(&#x27;fc-verify&#x27;) after its last merge and carries the result in its own.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B48" data-dec="">
+  <h3><span>B48</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, after a green fc-verify result and unless args.entry.standalone is true, calls workflow(&#x27;fc-review&#x27;) and carries the result in its own.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B49" data-dec="">
+  <h3><span>B49</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-contracts, on an interface-builder return with halt.kind spec-contradiction, dispatches nothing after it.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B50" data-dec="">
+  <h3><span>B50</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-contracts, when it stops on a spec-contradiction, returns with that return as its halt.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B51" data-dec="">
+  <h3><span>B51</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-verify dispatches the judge once per sheet check of the pinned map with that check&#x27;s rubric and subject.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B52" data-dec="">
+  <h3><span>B52</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-verify, after the judge returns, dispatches the verifier against the merged run branch.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B53" data-dec="">
+  <h3><span>B53</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-verify returns green only when every verdict of the verifier&#x27;s flight check passes and the verifier does not refute.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B54" data-dec="">
+  <h3><span>B54</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-review dispatches the critic up to args.liftoff.review.critic_passes times.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B55" data-dec="">
+  <h3><span>B55</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-review returns the open and resolved finding ids of its last pass, a finding being resolved when the next critic pass no longer reports it.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B56" data-dec="">
+  <h3><span>B56</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-review, between critic passes, dispatches one fix dispatch per blocking finding to the unit&#x27;s worker in a fresh worktree on a branch &lt;unit&gt;-fix-&lt;k&gt; from the run branch.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B57" data-dec="">
+  <h3><span>B57</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-review, on a green fix return, dispatches the steward with flight merge for the fix branch.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B58" data-dec="">
+  <h3><span>B58</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-review, after the fix dispatches of a pass, dispatches a verifier rerun before the next critic pass.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B59" data-dec="">
+  <h3><span>B59</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-report dispatches the scribe.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B60" data-dec="">
+  <h3><span>B60</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-report, after the scribe returns, dispatches the steward to remove every remaining worktree of the run with git worktree remove.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B61" data-dec="">
+  <h3><span>B61</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The worktree removal of fc-report deletes no branch: each removed worktree&#x27;s branch still exists afterwards.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B62" data-dec="">
+  <h3><span>B62</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The orchestrator, after fc-report returns, opens a pull request from the run branch with the report linked.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B63" data-dec="">
+  <h3><span>B63</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The orchestrator reports the pull request URL to the human.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B64" data-dec="">
+  <h3><span>B64</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight check, for a check with verdict ratio, runs the command trials times, counts exit-0 runs as passes, and writes observed { passes, trials } with verdict pass when passes / trials ≥ threshold and fail otherwise.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B65" data-dec="">
+  <h3><span>B65</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight check, for a check with verdict sheet, reads the path the command prints, validates the file against flightdeck/flightcrew/schemas/run/judge-return.schema.json, and writes that sheet&#x27;s verdict and path.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B66" data-dec="">
+  <h3><span>B66</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The judge role, dispatched with the {{rubric}} slot and a subject path, returns a verdict sheet per I15 with a non-empty quote on every answer.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B67" data-dec="">
+  <h3><span>B67</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The test-builder, given the frozen spec, writes the tests map to specs/tests-map.v&lt;n&gt;.json.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B68" data-dec="">
+  <h3><span>B68</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The test-builder, given the frozen spec, writes every check script under runs/run-&lt;n&gt;/checks/.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B69" data-dec="">
+  <h3><span>B69</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The test-builder writes every sheet check&#x27;s rubric under runs/run-&lt;n&gt;/checks/rubrics/&lt;T&gt;.md.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B70" data-dec="">
+  <h3><span>B70</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The test-builder names every check script in the map&#x27;s command strings by the {run} token.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B71" data-dec="">
+  <h3><span>B71</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Every crew file satisfies I7, and a parse of the files finds no field I7 requires absent and no value I7 forbids.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B72" data-dec="">
+  <h3><span>B72</span><span class="tag">status: ok</span></h3>
+  <p class="text">[judged] Every crew file names only inputs its dispatch template supplies, only commands its tools can run, and no write its tools forbid; a reader holding one role file and its template finds no instruction the role cannot carry out.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B73" data-dec="">
+  <h3><span>B73</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] return-capture, on SubagentStop for an agent_type that has a return schema and a last_assistant_message whose fenced JSON validates against it, writes the object to runs/run-&lt;n&gt;/returns/&lt;agent_type&gt;-&lt;target&gt;.json, &lt;target&gt; read from the return&#x27;s target field (unit for the worker shapes), with -fix-&lt;k&gt; appended when the return&#x27;s fix field is set.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B74" data-dec="">
+  <h3><span>B74</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight render succeeds for every subagent role and every planner kind against the sample launch, and the dispatch produced contains every I9 slot&#x27;s content.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B75" data-dec="">
+  <h3><span>B75</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Every return fixture under flightdeck/testbench/fixtures/ validates against its role&#x27;s I8 schema.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B76" data-dec="">
+  <h3><span>B76</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] locked-guard, given a run in progress whose launch.json pins a tests map, prints a deny decision for an Edit, Write or NotebookEdit whose target matches a locked path or a depends_on path of that map or lies under runs/run-&lt;n&gt;/checks/, and prints nothing for any other target.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B77" data-dec="">
+  <h3><span>B77</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] boundary-guard, given a frozen plan.json in the run, prints a deny decision for an Edit, Write or NotebookEdit whose target lies outside the plan&#x27;s allowed paths and the run folder, and prints nothing for a target inside them.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B78" data-dec="">
+  <h3><span>B78</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] worker-gate, the SubagentStop hook in the frontmatter of implementer, strong-worker and interface-builder, runs flight check --unit for the unit named in the agent&#x27;s last_assistant_message return (unit field) and exits 2 with the failing ids and their last 20 output lines on stderr when any verdict is fail or error.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B79" data-dec="">
+  <h3><span>B79</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] worker-gate exits 0 when every check of the unit passes.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B80" data-dec="">
+  <h3><span>B80</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] worker-gate, on the fifth consecutive stop_block for one agent_id with no check_run between, appends a stalled event (in place of a stop_block) naming the unit and the failing check ids and exits 0, so the worker returns and the workflow reads the stall.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B81" data-dec="">
+  <h3><span>B81</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] event-log appends exactly one line per recorded hook event to runs/run-&lt;n&gt;/events.jsonl, validating against flightdeck/flightcrew/schemas/run/event.schema.json with source hook and the detail keys I13 allows.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B82" data-dec="">
+  <h3><span>B82</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] event-log on SessionStart, given a run in progress, prints a systemMessage naming the launch and the run number.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B83" data-dec="">
+  <h3><span>B83</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The scribe writes report.json per I13 from the run&#x27;s liftoff, events.jsonl, evidence/ and returns/, every ledger line carrying its provenance mark.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B84" data-dec="">
+  <h3><span>B84</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The scribe renders report.md from report.json.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B85" data-dec="">
+  <h3><span>B85</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The scribe, from report.json, inserts the run&#x27;s FLIGHTLOG entry per I10 with the scribe-written lines filled and the human-owned lines reading &lt;fill&gt;.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B86" data-dec="">
+  <h3><span>B86</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] log-guard denies any Edit, Write or NotebookEdit to flightdeck/launch/FLIGHTLOG.md except one that only inserts a new entry per I10 or only fills an existing entry&#x27;s pr line.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B87" data-dec="">
+  <h3><span>B87</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] node flightdeck/testbench/run-all.mjs exits 0.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B88" data-dec="">
+  <h3><span>B88</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The orchestrator, after each workflow returns, appends a workflow_end event through flight event naming the workflow and its result.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B89" data-dec="">
+  <h3><span>B89</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build, on a halt return for a unit, dispatches nothing further for that unit.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B90" data-dec="">
+  <h3><span>B90</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] fc-build carries a halted unit in its result as status halt with the halt object.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B91" data-dec="">
+  <h3><span>B91</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] check-after-edit, after an Edit or Write by a building role, runs flight check --unit for the agent&#x27;s unit and prints the failing ids on stderr, exiting 0.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B92" data-dec="">
+  <h3><span>B92</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight freeze on a spec or tests map under specs/ sets that file&#x27;s status to frozen and its commit to HEAD.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B93" data-dec="">
+  <h3><span>B93</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight freeze on a spec or tests map writes that file&#x27;s version pin into launch.json.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B94" data-dec="">
+  <h3><span>B94</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight freeze on a tests map sets the current run&#x27;s lock_commit in launch.json to HEAD.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B95" data-dec="">
+  <h3><span>B95</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight check --baseline runs every check of a draft map and writes each check&#x27;s baseline.observed as &#x27;&lt;pass|fail|error&gt;: &lt;first non-empty output line&gt;&#x27; into the map.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B96" data-dec="">
+  <h3><span>B96</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] flight check --baseline writes no evidence file.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B97" data-dec="">
+  <h3><span>B97</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The steward, dispatched with one leaf or git invocation, runs it from the repository root and returns its exit code and output tails per I8.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B98" data-dec="">
+  <h3><span>B98</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The test-builder writes its own return to runs/run-&lt;n&gt;/returns/test-builder-map.json validating against flightdeck/flightcrew/schemas/run/test-builder-return.schema.json.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="edges" class="domain" data-domain="edges">
+<h2>Edges <em>20</em> <button onclick="copyDomain('edges')">Copy edges</button></h2>
+<div class="node" data-id="E1" data-dec="">
+  <h3><span>E1</span><span class="tag">status: ok</span></h3>
+  <p class="text">flight run new is run while the newest spec or map under specs/ has status draft, or for n greater than 1 while the previous run&#x27;s FLIGHTLOG entry is absent or still carries a &#x27;&lt;fill&gt;&#x27; line: it exits 2 naming the draft file or the unfilled field, and writes nothing.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E2" data-dec="">
+  <h3><span>E2</span><span class="tag">status: ok</span></h3>
+  <p class="text">flight launch init is run for a name whose folder exists: it exits 1 with &#x27;launch exists&#x27;.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E3" data-dec="">
+  <h3><span>E3</span><span class="tag">status: ok</span></h3>
+  <p class="text">A frozen spec is rewritten through a Bash redirect in a session running the installed settings: the write fails under the sandbox and the file is unchanged; the same edit through the Edit tool is denied by frozen-guard.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E4" data-dec="">
+  <h3><span>E4</span><span class="tag">status: ok</span></h3>
+  <p class="text">return-capture receives a last_assistant_message with no fenced JSON or JSON failing the schema: on the first occurrence for an agent_id it exits 2 with the errors on stderr and stores nothing; on the second it writes returns/&lt;agent_type&gt;-&lt;target&gt;.invalid.json per I13, appends return_invalid, and exits 0.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E5" data-dec="">
+  <h3><span>E5</span><span class="tag">status: ok</span></h3>
+  <p class="text">worker-gate cannot find the unit&#x27;s checks — line 1 of the dispatch names no unit, no map is pinned, or the map is unreadable: it exits 2 with the reason on stderr and appends a stop_block event.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E6" data-dec="">
+  <h3><span>E6</span><span class="tag">status: ok</span></h3>
+  <p class="text">A guard resolves a run in progress and then fails to parse launch.json, the pinned map or the plan: it prints a deny decision naming the file; event-log in the same case exits 0 and appends one line to hooks.log.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E7" data-dec="">
+  <h3><span>E7</span><span class="tag">status: ok</span></h3>
+  <p class="text">flightdeck/.controlcenter is absent, names a folder without launch.json, or names a launch whose current_run is null: every hook writes no file and no event and, except frozen-guard, prints nothing; frozen-guard still prints its deny for a frozen target; every flight leaf that needs a run exits 1 naming the file.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E8" data-dec="">
+  <h3><span>E8</span><span class="tag">status: ok</span></h3>
+  <p class="text">A hook receives stdin that is not a JSON object, or runs with $CLAUDE_PROJECT_DIR unset or pointing at a directory without flightdeck/launch/, or an unlisted hook_event_name: it exits 0, prints nothing to stdout, and writes no event.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E9" data-dec="">
+  <h3><span>E9</span><span class="tag">status: ok</span></h3>
+  <p class="text">A check&#x27;s command names a binary that does not exist or exceeds 300 seconds: its verdict is error, its stderr_tail names the command and the cause, and the remaining checks still run.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E10" data-dec="">
+  <h3><span>E10</span><span class="tag">status: ok</span></h3>
+  <p class="text">flight check finds any verdict fail or error, or a non-empty boundary outside list or locked changed list in the summary: it exits 2; otherwise 0.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E11" data-dec="">
+  <h3><span>E11</span><span class="tag">status: ok</span></h3>
+  <p class="text">flight render is asked for a role with no template, a planner kind with no template, or a unit target absent from plan.json, or flight validate is given a path that is neither a schema&#x27;d document nor a launch folder: it exits 1 naming the role, kind, target or path and writes nothing.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E12" data-dec="">
+  <h3><span>E12</span><span class="tag">status: ok</span></h3>
+  <p class="text">flight merge finds a red unit check or a merge conflict: it aborts the merge, leaves the branch, worktree and working tree as they were, and exits 2 naming the failing ids or the conflicting paths.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E13" data-dec="">
+  <h3><span>E13</span><span class="tag">status: ok</span></h3>
+  <p class="text">flight install is run without --apply: it prints the planned writes, one path per line, and writes nothing; with --apply it finds a settings.json key the fragment sets holding a different value, an agent or workflow file with different content, or a Flightcrew block whose text differs: it lists the conflicting paths and keys, writes nothing, and exits 2 unless --force is passed.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E14" data-dec="">
+  <h3><span>E14</span><span class="tag">status: ok</span></h3>
+  <p class="text">A workflow receives args that fail its schema, or a liftoff fails flightdeck/flightcrew/schemas/run/liftoff.schema.json when the orchestrator is handed it: the workflow returns { refused: &lt;errors&gt; } and dispatches nothing, and the orchestrator writes nothing and reports the errors.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E15" data-dec="">
+  <h3><span>E15</span><span class="tag">status: ok</span></h3>
+  <p class="text">The orchestrator cannot open the pull request after fc-report (no remote, or the command fails): it reports the failure and the run branch name to the human and opens nothing; the report, the log stub and the worktree removal stand.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E16" data-dec="">
+  <h3><span>E16</span><span class="tag">status: ok</span></h3>
+  <p class="text">A ratio check&#x27;s observed rate falls below threshold, or a sheet check&#x27;s command prints no path or a path whose file fails flightdeck/flightcrew/schemas/run/judge-return.schema.json or carries an empty quote: the verdict is fail, error or error respectively.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E17" data-dec="">
+  <h3><span>E17</span><span class="tag">status: ok</span></h3>
+  <p class="text">flight validate is run on a tests map whose check command names a path outside runs/run-&lt;n&gt;/checks/, flightdeck/testbench/ or launch.json.test_dir, or whose ratio check lacks trials or threshold, or whose sheet check lacks rubric: it exits 2 naming the check.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E18" data-dec="">
+  <h3><span>E18</span><span class="tag">status: ok</span></h3>
+  <p class="text">The scribe finds an input it needs absent or unparsable: it returns assembled false naming the missing inputs and writes no report.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E19" data-dec="">
+  <h3><span>E19</span><span class="tag">status: ok</span></h3>
+  <p class="text">fc-build is invoked while plan.json is absent or draft, or fc-contracts while the plan carries no unit of kind contracts: it returns { refused: &lt;reason&gt; } and dispatches nothing.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E20" data-dec="">
+  <h3><span>E20</span><span class="tag">status: ok</span></h3>
+  <p class="text">A workflow&#x27;s inline return schema differs from the I8 file it copies: the C13 static scan fails naming the workflow and the schema.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="decisions" class="domain" data-domain="decisions">
+<h2>Decisions <em>21</em> <button onclick="copyDomain('decisions')">Copy decisions</button></h2>
+<div class="node" data-id="D1" data-dec="">
+  <h3><span>D1</span><span class="tag">status: ok</span></h3>
+  <p class="text">Node ES modules with zero dependencies and no package.json, because the harness must run identically on any machine with Node 22 and git; hooks, leaves and workflows are JavaScript so one testbench covers them.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D2" data-dec="">
+  <h3><span>D2</span><span class="tag">status: ok</span></h3>
+  <p class="text">The runner is named flight and is a thin dispatcher over leaves that run by their own path, because nothing may depend on the dispatcher and no command a human types advances a run.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D3" data-dec="">
+  <h3><span>D3</span><span class="tag">status: ok</span></h3>
+  <p class="text">The launch is the unit of work and the run the unit of attempt: launch/&lt;name&gt;/ holds the spec series and every run, runs are numbered and never reopened, and the log is FLIGHTLOG.md beside all launches, because two attempts at one piece of work must share an address.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D4" data-dec="">
+  <h3><span>D4</span><span class="tag">status: ok</span></h3>
+  <p class="text">A launch is opened from an idea before any spec is frozen and holds no run until one is frozen; flight run new opens each attempt and cuts its branch from the branch the human is on at that moment, because a branch cut before the spec is frozen is based on a commit the run cannot use.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D5" data-dec="">
+  <h3><span>D5</span><span class="tag">status: ok</span></h3>
+  <p class="text">A run has no phase field and no gate switch: it is a liftoff&#x27;s sequence of workflows, each ending where a human reads what it wrote and tells the orchestrator to invoke the next, because a phase a program advances and a gate a human flips were the spine the first attempt built itself around and neither is in the sources.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D6" data-dec="">
+  <h3><span>D6</span><span class="tag">status: ok</span></h3>
+  <p class="text">The liftoff is a JSON recipe in a library, naming the workflow sequence, its overrides and settings, pasted into the orchestrator session, because tooling is a failure axis and a run that needs different tooling gets a different liftoff, not a different workflow; the markdown kickoff parts end and the task parts become planner templates.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D7" data-dec="">
+  <h3><span>D7</span><span class="tag">status: ok</span></h3>
+  <p class="text">The gate that holds a worker red is the SubagentStop hook in the worker&#x27;s own frontmatter, not the session Stop hook, and it counts its own blocks and writes a stalled event before Claude Code&#x27;s eight-block override, because the override displays nothing and a stall must reach the workflow as a return.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D8" data-dec="">
+  <h3><span>D8</span><span class="tag">status: ok</span></h3>
+  <p class="text">plan.json is the source of truth and plan.md is rendered from it, because a hand-edited copy drifts and machine consumers need the structured form.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D9" data-dec="">
+  <h3><span>D9</span><span class="tag">status: ok</span></h3>
+  <p class="text">Worktree isolation is requested per agent() call for implementer and strong-worker only, the settings set worktree.baseRef to head, a rendered dispatch is committed before the worker is spawned, and WorktreeCreate is not hooked, because a worktree branches from HEAD and a command hook there replaces Claude Code&#x27;s own worktree creation.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D10" data-dec="">
+  <h3><span>D10</span><span class="tag">status: ok</span></h3>
+  <p class="text">Hooks run in place from flightdeck/flightcrew/hooks/ through $CLAUDE_PROJECT_DIR and are never copied, because a copied hook loses its relative imports and a second copy drifts.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D11" data-dec="">
+  <h3><span>D11</span><span class="tag">status: ok</span></h3>
+  <p class="text">The spec chain and its rubric corpus are unchanged because they carry calibration evidence this launch cannot reproduce; spec-builder is a session agent and spec-judge and spec-attacker are subagents it dispatches, which is why their files declare inputs differently from the run chain.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D12" data-dec="">
+  <h3><span>D12</span><span class="tag">status: ok</span></h3>
+  <p class="text">The two v1 attempt folders and the old spec folder stay as history rather than being migrated, because migrating means editing two frozen maps and two records for evidence no flightcrew run produced.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D13" data-dec="">
+  <h3><span>D13</span><span class="tag">status: ok</span></h3>
+  <p class="text">The tests map lives beside the spec under specs/ and the checks it names live in the run, joined by the {run} token in each command, because the map is a versioned series that absorbs the log&#x27;s decisions while checks change between runs.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D14" data-dec="">
+  <h3><span>D14</span><span class="tag">status: ok</span></h3>
+  <p class="text">After the report, everything is the human&#x27;s: reading the report, merging or rejecting the pull request, deleting branches, writing the diagnosis and starting the next run; the system&#x27;s part of an ending is the report, the log stub, the worktrees removed and the pull request opened, because the sources put every step after the final review in the human&#x27;s hands and no remote automation is in scope.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D15" data-dec="">
+  <h3><span>D15</span><span class="tag">status: ok</span></h3>
+  <p class="text">B71, B72, B74, B75, B87, B22, B23 and B24 have no edge of their own because each is a whole-set property with one violating result — a file that fails the parse, the reading, the render, the schema, the pacing rule or the run — and that result is the check&#x27;s failure line.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D16" data-dec="">
+  <h3><span>D16</span><span class="tag">status: ok</span></h3>
+  <p class="text">This run&#x27;s schemas and dispatch templates live under schemas/run/ and templates/dispatch/, and the crew stays flat under crew/ as the source of truth for every agent, because the spec schema and template must sit outside the folders the run rewrites while a role file&#x27;s folder is what install and the dispatch list read.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D17" data-dec="">
+  <h3><span>D17</span><span class="tag">status: ok</span></h3>
+  <p class="text">The run in progress is resolved from flightdeck/.controlcenter rather than by scanning for an active record or reading an environment variable, because a file a launch command writes is the variable made durable, and a worktree reads the main checkout&#x27;s copy so workers need nothing of their own.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D18" data-dec="">
+  <h3><span>D18</span><span class="tag">status: ok</span></h3>
+  <p class="text">Budgets — concurrency, agents, tokens, turns — belong to the workflow runtime and the agent files, because the runtime enforces them without consulting the agent and a ceilings object in a document is a number nothing reads.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D19" data-dec="">
+  <h3><span>D19</span><span class="tag">status: ok</span></h3>
+  <p class="text">A merged unit&#x27;s worktree and branch are removed by flight merge and the run&#x27;s remaining worktrees by fc-report with their branches kept, because the runtime removes a worktree by itself only when it finishes without changes and deletes the branch when it does, so a run&#x27;s own cleanup must be explicit and must not lose a red unit&#x27;s evidence.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D20" data-dec="">
+  <h3><span>D20</span><span class="tag">status: ok</span></h3>
+  <p class="text">Workflows run leaves and git through a steward role that holds Bash alone, because a workflow script cannot touch disk, the orchestrator is not inside it, and giving a building role the leaf would let it merge its own work.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D21" data-dec="">
+  <h3><span>D21</span><span class="tag">status: ok</span></h3>
+  <p class="text">This launch&#x27;s own launch.json, run-1 and FLIGHTLOG.md predate the leaves that would create them, because the tools that open a launch and a run are themselves deliverables of the run; every later launch is opened by flight launch init and every later run by flight run new.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="verification" class="domain" data-domain="verification">
+<h2>Verification <em>1</em> <button onclick="copyDomain('verification')">Copy verification</button></h2>
+<div class="node" data-id="VER" data-dec="">
+  <h3><span>VER</span><span class="tag">status: ok</span></h3>
+  <p class="text">Checks are written by the test-builder from this spec into runs/run-1/checks/ of flightdeck/launch/flightcrew-core before implementation and are locked against it (I6, B76); each is a script per I12 reusing flightdeck/testbench/fixtures and lib. B1, B2, B3, B4, B5, B6, E1, E2, E7: on a temporary git repository, run flight launch init and flight run new (for run-1 and run-2) against frozen and draft fixtures and a filled, an unfilled and a missing log entry, and assert every I1 file, every I2 field, the branch and its base, the .controlcenter line, that flight validate accepts the written spec, and the refusals; spawn a hook and a leaf with .controlcenter absent, stale and null. B7, E3: spawn frozen-guard with Edit envelopes at a frozen fixture with and without .controlcenter and inside a worktree and assert the deny; with the installed settings in a temporary project run a Bash redirect at the frozen file and assert it fails. B8, B9, E11, E17: run flight validate on every fixture document, mutated copies, the sample launch, a stray path and maps with out-of-rail commands and missing ratio or sheet fields, and assert the error lines and exits. B9, B10, B64, B65, E9, E10, E16: run flight check against a sample map holding exit, ratio and sheet checks with passing, failing, unspawnable, below-threshold, pathless and quoteless cases and assert the spawn arguments and limit, each evidence file against I15, the summary against I13, and the exits. B11, B12, B74, E11: run flight render for every role and planner kind, an unknown role, an unknown kind and an absent target and assert line 1, every slot&#x27;s content, the absence of other node texts and command text, git log -1 on the dispatch path, and the refusals. B13, B14, B15, E12: on a temporary repository with a unit branch, run flight merge in the green, red and conflict cases and assert the merge commit, the unit_merged event, the removed worktree and branch, and the untouched state on abort. B16, B17, B18, B19, B20, E13: run flight install against a temporary target with and without --apply, --force, a conflicting file, an existing Flightcrew block and an existing .gitignore line, and assert every I17 entry, the single block, the single line, and the dry-run and conflict outputs. B21, B22, B23, E14: on an orchestrator transcript fixture and its events.jsonl, with a valid and an invalid liftoff, assert the copied liftoff is byte-equal to the fixture, the workflow_end events follow the liftoff&#x27;s sequence, every workflow invocation is preceded by a human turn, and the invalid liftoff is refused; B24: a judged check — a judge sheet against a rubric under runs/run-1/checks/rubrics/ over the same transcript, verdict pass. B25, B26, B27, B28, B29, B30, B31, B32, B33, B34, B35, B36, B37, B38, B39, B40, B41, B42, B43, B44, B45, B46, B47, B48, B49, B50, B51, B52, B53, B54, B55, B56, B57, B58, B59, B60, B61, B62, B63, E14, E15, E19: run every workflow of the suite under a stub of the workflow runtime (agent() answered from return fixtures, workflow() answered from result fixtures) with valid and invalid args, an absent and a draft plan, red, green, stalled and spec-contradiction returns, a blocking adversary finding, standalone true and false, and a failing pull-request command, and assert the dispatch order, the dispatch form and isolation, the scout ordering, the strong-worker dispatch, its model and its content, the stop on a second stall, the adversary, fix and unmerged outcomes, each nested call and its condition, the critic pass count, the fix and verifier dispatches, the worktree removal and the surviving branches, the pull request call, the error field, and every I14 result. B66: dispatch judge against a fixture subject and rubric and assert the stored sheet validates and a quoteless sheet is refused by E16. B67, B68, B69, B70: run the test-builder against the sample spec in a temporary launch and assert the map&#x27;s location, every check&#x27;s location, every rubric&#x27;s location and the {run} token. B71, B75: parse every crew file and assert I7 field by field; validate every return fixture against I8. B72: a judged check — a judge sheet against the rubric runs/run-1/checks/rubrics/&lt;T&gt;.md over the run-chain role files and their templates, verdict pass. B73, E4: spawn return-capture with valid, invalid and repeated-invalid SubagentStop envelopes and assert the stored file, the return and return_invalid events, and the exits. B76, B77, B78, B79, B80, E5, E6, E8, C8: spawn locked-guard, boundary-guard, worker-gate and event-log against the sample launch with targets inside and outside the locked, depends_on and allowed sets and the liftoff folder, red and green units, no map, an unreadable launch.json, bad stdin, no project dir and an unlisted event, then five red gate runs for one agent_id, and assert every decision, exit, paired event (I6) and the stalled event. B81, B82: spawn event-log with each recorded event and on SessionStart and assert the lines against flightdeck/flightcrew/schemas/run/event.schema.json and the systemMessage. B83, B84, B85, E18: dispatch scribe against a sample run with complete and with missing inputs and assert report.json against I13 with its provenance marks, report.md, the log entry per I10, and the assembled-false return. B86: spawn log-guard with edits that change a &lt;fill&gt; line, a human-owned line, insert a new entry and fill the pr line, and assert deny, deny, permit, permit. B87, C1–C7, C9–C13: the constraint checks of the v1 testbench re-pointed at the new paths plus the denyWrite superset check, the no-markdown-read check, the workflow static scan and a scan of every suite for the v1 runner names. The end-to-end proof is a real run: in a Claude Code session with the installed settings on a temporary repository holding flightdeck/testbench/fixtures/sample-project, the orchestrator is started on a launch made by flight launch init, whose sample spec and map are frozen by flight freeze and whose run-1 is opened by flight run new; the human pastes a library liftoff and instructs each entry of its sequence in turn, reading the plan and the seams between; the proof passes when every dispatch under dispatches/ has a return under returns/ captured by return-capture, every hook event in events.jsonl carries source hook and every workflow has a workflow_end event, the report and the log stub exist with the human-owned lines reading &lt;fill&gt;, no worktree of the run remains, fc-report&#x27;s result names a pull request or E15&#x27;s failure, and flight validate accepts the run folder; then flight run new refuses until the entry&#x27;s human-owned lines are filled and opens run-2 once they are. The whole set runs with node flightdeck/testbench/run-all.mjs, which exits 0, and a critic pass over the diff against this spec returns no blocking correctness gap. B88, B89, B90, B91, B92, B93, B94, B95, B96, B97, B98, E20: append workflow_end through flight event and assert the line; run fc-build under the stub with a halt return and assert the status; spawn check-after-edit against a red unit and assert the stderr and exit 0; run flight freeze on a spec and a map fixture and assert the headers, the pins and lock_commit; run flight check --baseline on a draft map and assert observed; dispatch steward with a leaf invocation and assert its return; run the test-builder and assert its own return file; mutate an inline schema and assert the scan fails.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="acceptance" class="domain" data-domain="acceptance">
+<h2>Acceptance <em>1</em> <button onclick="copyDomain('acceptance')">Copy acceptance</button></h2>
+<div class="node" data-id="ACC" data-dec="">
+  <h3><span>ACC</span><span class="tag">status: ok</span></h3>
+  <p class="text">node flightdeck/testbench/run-all.mjs exits 0 with every check the tests map names passing. flightdeck/launch/flightcrew-core/runs/run-1/ holds liftoff/&lt;name&gt;.json, plan.json, evidence/summary.json, report.json and the dispatches and returns this run produced, validating with flight validate, and flightdeck/launch/FLIGHTLOG.md holds this run&#x27;s entry with its human-owned fields reading &lt;fill&gt;. A critic pass over the diff against this spec returns no blocking correctness gap. The locked result of evidence/summary.json is empty. The diff touches only flightdeck/flightcrew/bin/**, flightdeck/flightcrew/hooks/**, flightdeck/flightcrew/crew/**, flightdeck/flightcrew/schemas/run/**, flightdeck/flightcrew/templates/dispatch/**, flightdeck/flightcrew/templates/kickoff/**, flightdeck/flightcrew/workflows/**, flightdeck/flightcrew/liftoffs/**, flightdeck/flightcrew/verify/**, flightdeck/flightcrew/checks/**, flightdeck/flightcrew/README.md, flightdeck/launch/README.md, flightdeck/launch/FLIGHTLOG.md, flightdeck/launch/flightcrew-core/**, flightdeck/testbench/**, flightdeck/manuals/launch/**, flightdeck/manuals/harness/**, flightdeck/manuals/orchestration/**, flightdeck/manuals/testing/**, flightdeck/manuals/README.md, library/terms.md, .claude/workflows/**, flightdeck/.controlcenter, .gitignore, .claude/settings.json, .claude/agents/**, CLAUDE.md, plus the deletions SC1 names.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section>
+<section><h2 style="font-size:14px;color:var(--dim)">Preview</h2><div id="out"></div></section>
+</main>
+<div class="toast" id="toast">Copied</div>
+<script>
+function pick(btn) {
+  const node = btn.closest('.node');
+  const was = btn.classList.contains('on');
+  node.querySelectorAll('.dec').forEach(b => b.classList.remove('on'));
+  if (!was) { btn.classList.add('on'); node.dataset.dec = btn.dataset.v; } else { node.dataset.dec = ''; }
+}
+function collectDomain(sec) {
+  const lines = ['## ' + sec.dataset.domain];
+  sec.querySelectorAll('.node').forEach(n => {
+    const c = n.querySelector('textarea')?.value.trim();
+    lines.push('### ' + n.dataset.id);
+    lines.push('decision: ' + (n.dataset.dec || '(undecided)'));
+    if (c) lines.push('comment: ' + c);
+  });
+  lines.push('');
+  return lines.join('\n');
+}
+function collectAll() {
+  return [...document.querySelectorAll('.domain')].filter(s => s.dataset.domain !== 'retired').map(collectDomain).join('\n');
+}
+async function put(t) {
+  try { await navigator.clipboard.writeText(t); } catch (e) { const o = document.getElementById('out'); o.textContent = t; o.style.display = 'block'; o.scrollIntoView({behavior:'smooth'}); return; }
+  const s = document.getElementById('toast'); s.style.display = 'block'; setTimeout(() => s.style.display = 'none', 1500);
+}
+function copyDomain(key) { put(collectDomain(document.querySelector(`.domain[data-domain="${key}"]`))); }
+function copyAll() { put(collectAll()); }
+function preview() { const o = document.getElementById('out'); o.textContent = collectAll(); o.style.display = 'block'; o.scrollIntoView({behavior:'smooth'}); }
+</script>
+</body>
+</html>

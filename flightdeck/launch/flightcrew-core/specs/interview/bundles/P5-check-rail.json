@@ -1,0 +1,26 @@
+{
+  "marker": "P5-check-rail",
+  "domain": "interfaces",
+  "problem": "Check rail and three verdicts. Placed: I15, I16, B13, B14, B15, D13, E15.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "The judge: a crew role dispatched with a rubric that returns the sheet (as drafted), or a leaf that shells out to a model?",
+      "why": "C6 forbids network in scripts, so a leaf cannot call a model; a role can. The role costs a crew file and a template.",
+      "options": [
+        {
+          "value": "A crew role (as drafted).",
+          "recommended": true
+        },
+        {
+          "value": "Something else — described in the comment.",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true,
+      "answer": "A crew role (as drafted)."
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

@@ -1,0 +1,26 @@
+{
+  "marker": "P3-runner-leaves",
+  "domain": "scope",
+  "problem": "Runner as leaves. Placed: SC1, C3, I5, B5, B6, B7, B8, D2, E9, E10, E11, E12.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "The manuals still written as fc command sequences (journey, review, workflows, launch-anatomy): rewritten in this run (SC4 as drafted) or deleted and left for later?",
+      "why": "Rewriting is units of work; deleting loses nothing the crew reads; leaving them hands false context to every role.",
+      "options": [
+        {
+          "value": "Rewrite in this run (SC4 as drafted).",
+          "recommended": true
+        },
+        {
+          "value": "Delete them in this run; write successors later.",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true,
+      "answer": "Rewrite in this run (SC4 as drafted)."
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

@@ -1,0 +1,26 @@
+{
+  "marker": "P-intent-wording",
+  "domain": "intent",
+  "problem": "The intent node now reads: “An AI engineer who has outgrown one-shot chat turns needs a crew of agents that builds what a spec says, beginning with itself, until it can build other things; the product is agent-shaped. Flightcrew v1 was built by a dynamic workflow that wrote its own spec and chose a fully testable command surface as the system's driver, and both recorded runs were driven by hand and transcribed into its format, so nothing it claims about a run has been observed. This version is the human's correction: the accepted foundations are kept, the first attempt's mistakes are corrected, and the result is a simpler system, just as capable, that runs under its own power for the first time. The elements of a run — a valid spec, its tests, the kickoff, the plan, the roles, the units built, verified, attacked and merged, the review, the record of events, the log entry and the clearing of build residue — each exist as files and as Claude Code's own tooling (hooks, agents, workflows, settings), never as a program a human types into to advance a run. The engineer's vision is front-loaded into a spec with no gaps and judged back into it, never dispensed through the build; the outcome is discovered across cheap retried attempts; the state is shaken out as open documents any program can read; and what a run records is what the next run inherits.”",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Does that sentence stand as the intent?",
+      "why": "Every later node hangs from it. A change here is cheap now and a version later.",
+      "options": [
+        {
+          "value": "stands",
+          "recommended": true
+        },
+        {
+          "value": "amend as commented",
+          "recommended": false
+        }
+      ],
+      "allow_comment": true,
+      "answer": "amend as commented — edited directly in the JSON"
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

@@ -1,0 +1,46 @@
+{
+  "marker": "P-scope-out-list",
+  "domain": "scope",
+  "problem": "Scope must name the tempting expansions. Candidates below; each ticked one becomes an out node with its reason.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Which are out of scope for this run?",
+      "why": "Each is something a unit could plausibly start on. An unticked item is not thereby in scope; it is undecided and I will ask.",
+      "multi": true,
+      "options": [
+        {
+          "value": "The local web control surface that reads and writes the JSON documents (a later spec).",
+          "recommended": true
+        },
+        {
+          "value": "Migrating spec folders on other branches (constitution-research, engage-crew) to the layout.",
+          "recommended": true
+        },
+        {
+          "value": "CI configuration and any remote (GitHub Actions, PR automation).",
+          "recommended": true
+        },
+        {
+          "value": "Changing the spec schema, spec template, readiness rubric, rubric bench, and the spec/testing/versioning manuals — except where a registered problem names one (testing manuals, terms).",
+          "recommended": true
+        },
+        {
+          "value": "Installing anything: global commands, package.json, symlinks.",
+          "recommended": true
+        },
+        {
+          "value": "A judge runner for judged checks that calls a model (the check produces the sheet; the gate reads it).",
+          "recommended": false
+        },
+        {
+          "value": "The two build scripts under .claude/workflows/ from the v1 build: deleted or moved out of the harness folder as part of this run's cleanup.",
+          "recommended": false
+        }
+      ],
+      "answer": "web control surface | migrating other branches' folders | CI and remotes | spec schema, template, rubric, bench, spec/testing/versioning manuals except where a problem names one | installing anything; bundle comment: scope-in adds CLAUDE.md scaffolded per constitution and source guidance, and renaming pilot to scout"
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "answered"
+}

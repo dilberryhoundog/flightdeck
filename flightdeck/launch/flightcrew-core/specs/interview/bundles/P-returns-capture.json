@@ -1,0 +1,43 @@
+{
+  "marker": "P-returns-capture",
+  "domain": "behaviours",
+  "problem": "Two ways to persist a subagent's return; the draft's B5 uses the hook.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Who writes a subagent's return to the run folder?",
+      "why": "The hook needs no agent cooperation and can hold the agent (exit 2) until the return validates; the leaf makes the agent responsible and keeps the hook set smaller. Either way the workflow receives the typed return.",
+      "options": [
+        {
+          "value": "A global SubagentStop hook: parses, validates, stores, holds the agent on failure (draft B5).",
+          "recommended": true
+        },
+        {
+          "value": "The agent itself, by calling a store leaf as its last act; the hook only checks that the file exists and holds the agent if not.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "The three manuals still written as runner command sequences (journey, review, workflows): what happens to them in this launch?",
+      "why": "They are context an agent cannot test. Rewriting is a unit; deleting is cheap and loses nothing a role in this launch reads; leaving them hands every role a false premise.",
+      "options": [
+        {
+          "value": "Delete them in this launch; the conduct launch writes their successors.",
+          "recommended": true
+        },
+        {
+          "value": "Rewrite them here to artefacts, roles and gates.",
+          "recommended": false
+        },
+        {
+          "value": "Leave them; a header line marks them as describing the superseded runner.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

@@ -1,0 +1,883 @@
+Session: 4f6285bb-97d7-449b-a242-6df5b9879916
+Date: 2026-09-09 23:27
+Branch: flightcrew-buildout
+CWD: ~/Projects/flightdeck
+
+============================================================
+[SUMMARY]
+>>>
+Repaired question QDOD.2 of the spec-readiness rubric, which had asked whether anything excluded by scope lay inside the definition-of-done path boundary. That containment reading was unchanged since v1 and inverted: exclusions are only ever written for territory the boundary already admits, so the check fired on correctly-written specs and could not fire on broken ones. Investigation of the calibration record showed the v2.1 indirection sentence made three models converge on the false positive rather than fix it, and that the human grades confirming every recorded instance were the judge's own output returned, leaving the question with no verified true positive across v1 through v2.3.
+QDOD.2 now reads "Does every scope entry that resolves to a path fall inside the stated boundary?", covering in-list and out-list with one test and not judging activity-shaped entries. The governing principle established: a spec names territory and must not describe gate machinery (QGEN.1 forbids it), so naming a path and placing it inside the boundary discharges the spec's whole responsibility, with the test-builder deriving locked_paths and fc boundary/fc locked/the verifier enforcing them.
+The rubric moved from flightdeck/manuals/rubrics/spec/ to flightdeck/flightcrew/checks/rubrics/spec/, beside the linter that runs part one, with its deprecated versions; v2.3 was archived and marked, the live file bumped to v2.4, and the calibration record extended with what was retired and why. Seven live references were repointed and the rubric path was pinned into spec-judge.md. Committed as 93e18c5; fc doctor green.
+Outstanding: the next tests map must lock flightdeck/flightcrew/checks/rubrics/** rather than the old manuals glob, no agreement check has yet run against v2.4, and an offered sweep of specs under flightdeck/launch/ for pure-restatement nodes (the SC12-referencing-C6 shape, advisory under QGEN.3) was not taken up.
+<<<
+------------------------------------------------------------
+
+[USER]    💭: none
+Your task is to repair and place a spec rubric. it is here.
+flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md
+
+The refector involves QDOD.2 
+The test flags normal behavour whereby some locked files are sitting adjacent to files in scope. The question need reframing. but I don't really know to what.
+
+The other problem is the rubric is in manuals and the spec-judge does not have the path to it hardcoded. It should be located in a testing location. flightcrew/checks is probably the place (global test harnesses)
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+I'll start by reading the rubric and finding how the spec-judge references it.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cat flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md
+Description: Read the spec readiness rubric
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: ls flightdeck/ && echo "---AGENTS---" && ls .claude/agents/ && echo "---CHECKS---" && ls flightdeck/checks 2>/dev/null || find . -type d -name checks -not -path "*/node_modules/*" | head -20
+Description: Survey flightdeck layout
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cat .claude/agents/spec-judge.md; echo "=====CHECKS DIR====="; ls -la flightdeck/flightcrew/checks/; echo "=====MANUALS====="; find flightdeck/manuals -type f | head -50
+Description: Read spec-judge and checks dir
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd flightdeck && grep -rn "spec-readiness-rubric\|readiness rubric\|rubrics/spec" --include=* -l . ../.claude 2>/dev/null | grep -v deprecated | head -30
+Description: Find references to rubric
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd flightdeck/flightcrew && ls -R checks | head -60; echo "=== keep ==="; cat checks/checks.keep; echo "=== flightcrew top ==="; ls
+Description: Explore checks tree
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck && grep -rn "readiness-rubric\|readiness rubric" . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=deprecated | head -40
+Description: Find rubric references
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck/flightdeck/flightcrew && ls -R checks | head -80; echo "=== keep ==="; cat checks/checks.keep
+Description: Explore checks tree
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck && grep -rn "rubrics/spec" .claude flightdeck --exclude-dir=deprecated 2>/dev/null | grep -v "^flightdeck/manuals/rubrics" | head -30
+Description: Live references to rubric path
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck && ls flightdeck/flightcrew/crew/ 2>/dev/null; echo "=== manuals README rubric mentions ==="; grep -n "rubric" flightdeck/manuals/README.md; echo "=== testbench ==="; ls flightdeck/testbench/benches/rubrics/spec/ 2>/dev/null
+Description: Crew dir and manuals README
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Now I have the full picture — including the actual false positive (flightcrew-core spec v2: SC6 excludes the rubric file, boundary admits `flightdeck/manuals/**`, which the build genuinely needs). Let me make the move first.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: diff .claude/agents/spec-judge.md flightdeck/flightcrew/crew/spec-judge.md && echo "IDENTICAL"; echo "=== manuals README 70-82 ==="; sed -n '68,82p' flightdeck/manuals/README.md
+Description: Compare judge copies, read README tail
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: git mv flightdeck/manuals/rubrics flightdeck/flightcrew/checks/rubrics && ls -R flightdeck/flightcrew/checks/rubrics && ls flightdeck/manuals
+Description: Move rubrics tree into checks
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: R=flightdeck/flightcrew/checks/rubrics/spec && cp $R/spec-readiness-rubric.md $R/deprecated/spec-readiness-rubric.v2.3.md && ls $R/deprecated
+Description: Archive current version as v2.3
+
+------------------------------------------------------------
+
+[USER]    💭: none
+ok i did not explicitly say to check the landscape first. what is the go?
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Fair pull-up. I ran ahead. Here's exactly where things stand:
+
+**Done (unreviewed, uncommitted):**
+- `git mv flightdeck/manuals/rubrics → flightdeck/flightcrew/checks/rubrics` — the whole tree, live rubric plus the four `deprecated/` versions.
+- Copied the live rubric to `deprecated/spec-readiness-rubric.v2.3.md` (its title says v2.2 but its part-two header says "Rubric version: 2.3" — I treated 2.3 as the truth and archived it ahead of an edit).
+
+**Not done:** no content edit yet, and no reference updates. So right now the tree is broken — seven live files still point at `flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md`: both `spec-builder.md` copies, `crew/README.md`, `manuals/README.md` (four lines), `MANIFEST.txt`, and a brief string in `.claude/workflows/flightcrew-build.js`.
+
+Both of those moves were calls I should have put to you — you hedged on the location ("probably"), and archiving a version is a decision about the calibration record, not housekeeping. Say the word and I revert both.
+
+**What the landscape did turn up, and it's the useful part** — the real QDOD.2 false positive is on record in the flightcrew-core v2 verdict sheet:
+
+- Boundary admits `flightdeck/manuals/**` (the build genuinely edits manuals).
+- SC6 excludes changing the rubric — which lives at `flightdeck/manuals/rubrics/spec/...`.
+- Judge fired QDOD.2: excluded thing lies inside the boundary.
+
+That's your "locked files adjacent to files in scope", exactly. And it shows what the question got wrong: it reads a path boundary as a *prediction that everything inside changes*, when a boundary is a *permission envelope*. A named exclusion nested inside an admitted directory isn't a contradiction — the narrower rule governs, the way it always does.
+
+So the reframe I'd propose, for you to shoot at:
+
+> **QDOD.2** (critical) Can an implementer holding the boundary and scope's exclusions together tell, for every excluded thing, which files it forbids? The boundary is a permission envelope, not a prediction that everything inside it changes: an excluded file or subtree nested inside an admitted directory is not a conflict — the narrower exclusion governs, and locked or frozen files sitting beside files in scope are the ordinary case. Report an exclusion only where the pair leaves the implementer nothing to obey: it resolves to no path at all; it resolves to the whole of a surface the boundary admits with no narrower path named; or an in-list entry, behaviour or verification step requires touching what it excludes. Before deciding, resolve every exclusion that refers to another node ("outside the boundary in C6") to the paths that node names. (quote the boundary and any such exclusion with its resolved paths, or state agreement)
+
+It keeps the defect the question was built for (a gate that re-admits a whole excluded surface, or a draft that contradicts itself) and drops the nesting reading that produced the SC6 finding.
+
+Three things I need from you before I touch anything else: whether the move stands as-is, whether `deprecated/` was meant to travel with the rubric or stay under manuals, and whether that QDOD.2 wording is the direction — plus, since a question edit reruns the agreement check per the rubric's own calibration clause, whether you want me to write that as v2.4 or leave the version alone until it's been benched.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+Ok so is this in the same register and format as the other questions. rubric questions should easily arrive at yes/no. 
+
+what is this question asking? the original is "Does the stated path boundary agree with scope's exclusion"
+
+are we trying to find unaccounted file (not in exclusion lists) inside the path boundary? because this seem to fit the shape we already have, spec-builder, judge, and attacker are deliberately excluded inside a scope, yet the tester is flagging them as a finding.
+
+should the finding be reframed? "Does the stated path boundary agree with the scope's exclusion and inclusion"
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+You're right on register — mine opens "Can an implementer... tell", which judges a hypothetical reader rather than the draft. Every other question in the rubric is "Does/Is `<thing in the draft>` `<property>` — `<contrast that sharpens it>`?", then exemption sentences, then the quote instruction. Mine broke the pattern and made the yes/no softer, not harder.
+
+On "are we trying to find unaccounted files inside the boundary" — no, and it's worth being firm about why: the judge opens exactly two files, the rubric and the draft, with `tools: Read`. It cannot list a directory. Anything that needs the tree resolved belongs in part one, where the linter already does it ("Named code artefacts exist… resolves in the repository"). So every part-two question has to be answerable by comparing statements already in the draft. QDOD.2 can only ever be a comparison of two stated lists: scope's entries, and the boundary's paths.
+
+That's the actual bug in the original. "Nothing excluded by scope lying inside the boundary" is written as if the judge could resolve paths against a tree and find strays — and on the one shape it can see, a named exclusion sitting under an admitted directory, it fires. But that shape is agreement, not conflict: the boundary is a permission envelope, and a narrower exclusion governs inside it. Which is exactly your case — the rubric, spec-judge and spec-attacker deliberately excluded inside `manuals/**` while the build legitimately edits the rest of it.
+
+And your instinct about inclusion is the missing half. There are two ways a boundary can genuinely disagree with scope, and the current question tests neither:
+
+- An in-list surface the boundary doesn't admit. Scope says the work touches it, the gate forbids it — the implementer cannot satisfy both. Hard contradiction, and the question is completely blind to it today.
+- A boundary entry that admits *only* what scope excludes. Nothing may be done there, so the entry has no purpose and the two sections contradict.
+
+Nesting is neither of those. So:
+
+> **QDOD.2** (critical) Does the stated path boundary agree with scope's inclusions and exclusions — every in-list surface admitted by the boundary, and no boundary entry naming only paths scope excludes? An exclusion lying inside an admitted directory is agreement, not conflict: the boundary states what the diff may touch, and the narrower exclusion governs within it. Before comparing, resolve every entry that refers to another node ("outside the boundary in C6") to the paths that node names. (quote the boundary together with any in-list surface it does not admit, or any boundary entry scope wholly excludes, or state agreement)
+
+Both halves are set comparisons over stated paths, so the yes/no is forced. Run against flightcrew-core v2 it now reads agreement on SC6 — `manuals/**` admits far more than the rubric path — while still catching a boundary that had, say, listed `flightdeck/manuals/rubrics/**` outright.
+
+I haven't touched the file yet. Still open from before: whether the move to `flightcrew/checks/rubrics/spec/` stands, whether `deprecated/` travels with it, and whether this goes in as v2.4 or sits unversioned until it's been benched — the rubric's own calibration clause says a question edit reruns the agreement check before it judges a live draft.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+Ok so is this in the same register and format as the other questions. rubric questions should all be easily decided 'yes' and if not true in anyway then 'no'. 
+
+Im looking for learning 
+what is this question asking? the original is "Does the stated path boundary agree with scope's exclusion"
+
+lets break it down. the scope sais "don't touch xxx/yyy/zzz.file" the boundary sais "only operate in xxx/yyy/" is this correct?
+then the rubric checker has to answer 'No' to the QDOD.2 because it can see that a 'no go' file is in a 'go' path. or is it the second statement that trips the agent up?
+
+"nothing excluded by scope lying inside the boundary"
+
+this will flag every rails model, controller mutation ever attempted. models/ go (boudary) -> model/xxx.rb, yyy.rb no go (exclusion).
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Your breakdown is right, and the second clause is the culprit. Here's the mechanism.
+
+The question has two halves joined by an em dash. The first half — "does the stated path boundary agree with scope's exclusions" — is a judgment call about consistency. The second half — "nothing excluded by scope lying inside the boundary" — reads as the *operational test* for the first. And it's decidable by pure path containment: take each excluded path, ask whether it descends from a boundary path, answer yes/no. No judgment needed.
+
+A judge will always take that reading. It's cheaper, it's mechanical, and the rubric handed it to them as if it were the definition. So the em-dash clause doesn't clarify the question, it replaces it.
+
+And the test it installs is **inverted**. Containment is the signature of a *well-formed* exclusion, not a defect. You only bother excluding something you'd otherwise be allowed to touch — an exclusion outside the boundary is dead text, since the boundary already forbade it. So the correctly-written spec is precisely the one that fails: every exclusion it bothers to write lands inside the boundary, and the check fires on each. Your Rails case is the general form of it — `models/` go, `models/user.rb` no-go is not a contradiction, it's the only way exclusions are ever written. SC6 vs `flightdeck/manuals/**` is the same shape.
+
+So QDOD.2 as written has close to a 100% false-positive rate on good drafts, and it can't fire on a bad one for the reason it claims to.
+
+On register — you're right that my draft broke it, and worth naming why. The other questions run: one interrogative sentence naming a property of the draft, then sentences that *narrow* it by carving exemptions, then the parenthetical quote instruction. QBEH.2 is the model — "Is each behaviour a single decision?" then a pile of "these two things are not two decisions". The narrowing never restates the question. Mine opened with "Can an implementer holding both tell..." which is a question about a hypothetical reader's capability, not a property of the draft, and it front-loaded the permission-envelope metaphor into the question slot instead of the exemption slot. Wrong register, and hard to answer yes to cleanly.
+
+Now the design question, which is the part I don't think either of us has settled: **what defect is QDOD.2 for once containment is off the table?**
+
+I can see two live candidates, and they're different questions.
+
+The **contradiction** reading keeps the current direction but raises the bar from containment to conflict: the boundary re-admits an *entire* surface scope excluded, with no narrower path anywhere in the draft. Scope says "the validators: out", boundary says "touches only `checks/validators/**`". The implementer has two instructions and no way to obey both. That's real but rare — a draft this confused usually fails QSCO or QGEN.3 first, so the question may earn very little.
+
+The **mirror** reading flips it, and I think this is the more valuable one: not "is an excluded thing inside the boundary" but "is an *included* thing outside it". Scope's in-list names the surfaces the work touches; the boundary is what the implementer is actually permitted to edit. A boundary that omits an in-list surface blocks the build, and nothing else in the rubric catches it — QDOD.1 checks gate conditions have antecedents, not that the boundary covers scope. It's decidable, it's a genuine yes/no, and it fails only on drafts that are actually broken.
+
+The mirror also inverts cleanly with how exclusions work: exclusions carve *inside* the boundary (normal, ignore), inclusions must be *covered by* it (checkable, gate on it).
+
+My read is the mirror is what the question was reaching for and got backwards — but that's a judgment about what you want the gate to do, so I'd rather you call it than have me write it. Which direction, or both clauses in one question?
+
+Also still open from before: whether the move to `flightcrew/checks/rubrics/spec/` stands, whether `deprecated/` travels with it, and whether this becomes v2.4 now or waits on a bench run — the rubric's own calibration clause says a question edit reruns the agreement check before it judges live, and you have two untuned specs already queued for the v2.3 test.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+Ok so we can let exclusions inside the boundary go through to the keeper. but instead we check for files we need to work on but are outside of the boundary.is this doable only holding the spec?
+
+one thing to do is check the deprecated rubrics at QDOD.2 and see if it was changed unintentionally during rubrics testing.
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Good instinct on the history — let me pull QDOD.2 across every version.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd flightdeck/flightcrew/checks/rubrics/spec && for f in deprecated/spec-readiness-rubric.v1.md deprecated/spec-readiness-rubric.v2.md deprecated/spec-readiness-rubric.v2.1.md deprecated/spec-readiness-rubric.v2.2.md spec-readiness-rubric.md; do echo "################ $f"; grep -n "QDOD" "$f"; done
+Description: Trace QDOD.2 across rubric versions
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Checked all five. **QDOD.2's containment clause is original — verbatim in v1 and unchanged in every version since.** Not a testing accident:
+
+- v1 / v2: `Does the stated path boundary agree with scope's exclusions — nothing excluded by scope lying inside the boundary?`
+- v2.1 added only the resolve-through-nodes sentence; v2.2 and v2.3 left it untouched.
+
+But the calibration record shows something worse than an accidental edit. Under v2: *"fable alone found QDOD.2"*. The v2.1 edit was made to fix that disagreement, and it worked — *"all three found QDOD.2 by resolving SC12 through C6"*. So the sharpening was tuned to make three models **converge on firing it**, and what they now reliably agree on is the shape that just false-fired on flightcrew-core. The bench measures agreement, not correctness; a wrong question everyone agrees on scores as a win.
+
+One thing I should check before concluding it was always wrong: the human graded QDOD.2 as expected-to-fire on that v1 draft (SC12 through C6). So either the human saw a genuine defect there that differs from the SC6 case, or the human's grade encodes the same misreading. That distinction decides whether we reframe or retire, and the answer is in `testbench/benches/rubrics/spec/rubric-v2-proposal.md`.
+
+**On your question — is the mirror check doable holding only the spec?**
+
+Partly, and the partial is the interesting bit.
+
+It's decidable for any in-list entry that resolves to a path *within the draft* — either it names the path itself, or it points at a node that does. That's the same resolve-through-nodes move v2.1 already added, just pointed the other way. And QSCO.2 upstream already forces in-list entries to be "a concrete surface, feature or file", so by the time DOD is judged, the concreteness is guaranteed by an earlier gate.
+
+It is **not** decidable for an in-list entry that names a surface without a path — "the spec-stage agents: in" against a boundary of `.claude/agents/**`. Knowing those roles live there is repo knowledge, and the judge has two files and no Read of the tree. It'd have to guess, and a guessing judge is the failure mode the whole two-file rule exists to prevent.
+
+So the honest scope is: *every in-list entry whose path is stated in the draft or resolvable through a node it names must fall inside the boundary* — and entries that resolve to no path are QSCO.2's problem, not QDOD.2's. That keeps it a clean yes/no.
+
+The repo-grounded half is the linter's job, not the judge's — it has repo access and already runs "Named code artefacts exist" and "A path boundary is stated". Mechanical containment of stated paths against the boundary is exactly the kind of thing part one should own. That's arguably where the whole check belonged from the start: it's a path-arithmetic question wearing a judgment question's clothes, which is why the judge kept getting it wrong.
+
+Want me to read the human's QDOD.2 grade in `rubric-v2-proposal.md` before we settle the direction? That's the one piece of evidence that tells us whether there was ever a real defect under this question.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+um a human never did anything but trust the agent (silly human, it was me)
+"every resolvable scope entry must fall inside the stated boundary" sais both in list and out list are inside the boundary. if something resolves outside the boundary in or out is a finding. Does the "resolvable" reduction carry enough weight (i think it does) or does somewhere else state that scope entries must be resolvable?
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+That kills the last defence of the containment reading. The human grade was the agent's own output handed back — so QDOD.2 has never had a verified true positive in its entire life, across four versions and nineteen runs. The calibration record just laundered fable's v2 finding into a three-model consensus. No need to read the proposal doc; you've answered it.
+
+**On the symmetric version — I think it breaks, and the reason is instructive.**
+
+Test it against the cases. SC6 excludes the rubric file, boundary admits `flightdeck/manuals/**` → resolves inside → no finding. Correct, false positive gone. Rails `models/user.rb` against `models/` → inside → no finding. Correct. In-list entry resolving to `flightdeck/flightcrew/bin/fc` with a boundary that omits `bin/` → outside → finding. Correct, and that's the blocked build.
+
+Now the out-list half. A spec whose boundary is `flightdeck/**` and whose out-list says "`dev/workspace/`: out" → resolves outside → finding. But that exclusion is *good practice*, and QSCO.1 explicitly rewards it: it demands "at least one adjacent, tempting expansion — something a helpful implementer would plausibly reach for". Adjacent-and-tempting means **just outside the working area**. That's where a good exclusion naturally sits.
+
+So the symmetric rule puts QDOD.2 in direct conflict with QSCO.1: one question demands you name tempting things outside your boundary, the other flags every one of them. A draft can't satisfy both.
+
+The asymmetry is real and it's not an accident of wording. An in-list entry is a claim about territory the work **needs** — it must be admitted, or the build is blocked. An out-list entry is a claim about territory the work must **avoid**, and avoidable territory is legitimate in both positions: inside the boundary it's a carve-out, outside it's belt-and-braces. Neither position is a defect, so there's nothing to check.
+
+Only the in-list direction is decidable. Out-list entries genuinely do go through to the keeper — not as a concession, but because their position carries no information.
+
+**On "resolvable" — yes, it carries the weight, and for a better reason than economy.**
+
+Scope entries come in two kinds. Territorial ones name a place: `flightdeck/manuals/**`, `checks/validators/`. Behavioural ones name an activity: "rewriting the auth system: out", "adding new check classes: in". Only territorial entries can be compared to a path boundary at all — a behavioural entry has no position to test. "Resolvable" is exactly the filter that selects the territorial ones. It isn't a dodge that lets vague specs slip the gate; it's the correct discriminator, and forcing every scope entry to name a path would be wrong.
+
+**But no, nothing else states it, and there are two specific holes you should know about.**
+
+The linter's artefact check reads *"every file path, type, function and command name in the **interfaces and verification** sections resolves in the repository"* — scope is not in that list. A path named in scope is never checked to exist anywhere in part one.
+
+And QSCO.2 requires *"every in-list entry a concrete surface, feature or file"* — in-list only, and "surface" and "feature" are concrete without being paths. So it doesn't get you to resolvability either.
+
+Neither hole is fatal, because the reduction is doing legitimate work rather than papering over a gap. But it does mean QDOD.2 would be the only question relying on a property nothing upstream establishes, and a scope path that's simply mistyped sails past both parts.
+
+That points at the question I think is actually live now: **should this be a judged question at all?** Once it's "every path-shaped token in the in-list falls inside the boundary", it's path arithmetic on stated strings — no meaning, no judgment. The linter holds the draft *and* the repo, already extracts paths for the artefact check, and could close both holes in the same pass. The only part needing a reader is following a cross-reference like SC12 → C6, and the spec is JSON with node ids, so that may be structural too.
+
+If it moves to part one, QDOD.2 retires rather than gets reframed, DOD drops to QDOD.1 plus the advisory, and the judge stops being asked a question it has failed at four versions running.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+oh i added it because you said exclusions should only be inside the boundary as standard practice. stating something outside the boundary is stating the obvious. I can see the adjacent tempting exclusion as valid now that you mentioned it.
+however if the boundary is not strong enough to prevent tempting expansions, why do we need it all? which one is rock solid?
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Neither is rock solid, and they fail in opposite directions — that's why the system carries both.
+
+**The boundary is the only one with teeth.** It's a gate condition on the diff: list the changed files, check each against the admit-list, exit non-zero on trespass. The verifier role already does exactly this — "lists test-file changes and outside-boundary paths". No reading, no judgment, no cooperation from the implementer required. For territory it doesn't admit, it is genuinely rock solid.
+
+**The exclusion is the only one with meaning, and it has no teeth at all.** "Rewriting the auth system: out" has no diff signature — an implementer can honour or ignore it and the file list looks identical either way. It's enforced by an agent reading prose and choosing to obey.
+
+So the split is: the boundary bounds blast radius mechanically but is *silent about everything inside itself*, and the exclusion says what actually matters but can only ask nicely.
+
+Which brings us back to your question with a sharper edge. Take the flightcrew-core case seriously: boundary admits `flightdeck/manuals/**`, SC6 forbids the rubric file, D4 says byte-unchanged because it carries calibration evidence the build can't reproduce. An implementer who edits that rubric **passes the boundary check**. The diff is inside the envelope. The only thing standing between a calibrated instrument and a well-meaning agent is one sentence of prose in a section read hours earlier.
+
+That exclusion is load-bearing and completely unenforced.
+
+So the original QDOD.2 was groping at something real. It noticed "excluded thing sits inside the boundary" and concluded *contradiction*, which is wrong. The true statement is *this exclusion has no mechanical backing* — and that's not a contradiction, it's a gap in enforcement. Same observation, entirely different finding. That's probably why it felt meaningful enough to survive four versions.
+
+Which gives two ways to close it, and they're the same insight with the teeth in different places.
+
+**Put the teeth in the boundary.** Require the boundary to carve out any territorial exclusion that would otherwise fall inside it — `flightdeck/manuals/**` except `flightdeck/manuals/rubrics/**`. Then the boundary check catches the violation mechanically and the exclusion stops being load-bearing. QDOD.2 becomes "is every territorial exclusion either outside the boundary or carved out of it?" — decidable, and honestly a linter check rather than a judged one. Cost is verbose boundaries.
+
+**Put the teeth in verification.** Leave the boundary coarse and require that any exclusion inside it is named by something that would detect a violation — the tests map already has `locked_paths` for precisely this. QDOD.2 becomes "does each territorial exclusion inside the boundary have a check or locked-path entry that would catch a change to it?" That stays a judged question, answerable from the draft's VER section alone, and it's a question about meaning rather than arithmetic — which is the right kind of work for a judge.
+
+The second one also composes with the in-list arithmetic we landed on earlier: linter does "in-list paths fall inside the boundary", judge does "exclusions inside the boundary have detectors". Two questions, two instruments, each doing what it's actually good at.
+
+My lean is the second, because `locked_paths` already exists and because it leaves the judge with a meaning question instead of path maths it's demonstrably bad at. But the first makes the boundary genuinely rock solid, which is what you were asking for, so it depends whether you want the enforcement in the gate or in the suite.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+If the boundary has teeth and is always present "every spec names a diff boundary", then requiring a tempting expansion is redundant. if this is so. this is a decent question.
+"every resolvable scope entry must fall inside the stated boundary".
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+You're right, and my QSCO.1 objection was wrong. QSCO.1 says "adjacent, tempting — rather than only remote irrelevancies". The contrast is adjacent vs *remote*; I read "adjacent" as "just outside the boundary" and that isn't what it says.
+
+Follow your premise through and it lands somewhere better than either of us had it. If the boundary has teeth, a tempting expansion *outside* it is already handled mechanically — the exclusion is decoration. The tempting expansion that actually needs prose is the one **inside** the boundary, where the gate is silent. That's the SC6 case exactly: the rubric file is adjacent, tempting, admitted by the boundary, and protected by nothing but a sentence.
+
+So QSCO.1's real target is an exclusion inside the boundary, and your symmetric rule pushes in the same direction. They align rather than collide. "Every resolvable scope entry must fall inside the stated boundary" is a decent question — one rule, both lists, no direction to get confused about, and it fails only on drafts that are actually wrong.
+
+It rests entirely on the premise though, so let me verify the teeth rather than assert them again.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck/flightdeck && grep -rn "boundary" flightcrew/checks/gates/*.mjs flightcrew/checks/lib/*.mjs 2>/dev/null | head -20; echo "=== VERIFIER ==="; grep -n "boundary" .claude/agents/verifier.md flightcrew/crew/verifier.md ../.claude/agents/verifier.md 2>/dev/null | head; echo "=== SCHEMAS ==="; grep -rn "boundary\|locked_paths" flightcrew/schemas/*.json | head -20
+Description: Check whether path boundary is mechanically enforced
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Teeth confirmed, and stronger than I described — the enforcement is a **pair of glob lists**, not one boundary.
+
+`launch.json` carries `allowed`, `locked` and `enforce_boundary`. The tests map carries `allowed_paths` **and** `locked_paths`, with `tm-invariant-13`: frozen implies both non-empty. `fc boundary` is a real command; `contracts-gate.mjs` runs it and exit 2 blocks the phase. The verifier sets `refuted: true` on exactly three things — a verdict that didn't reproduce, **a locked path that changed**, or a change outside the boundary. And `events.jsonl` records `boundary_denied` and `lock_denied`, so denial happens live during the run, not just at the post-mortem.
+
+So the SC6 case is not unprotected after all. `locked_paths` is precisely the mechanism for "inside the allowed area, but do not touch" — that's what it exists for. The rubric file would be mechanically guarded, refutable and denied at write time, *provided the exclusion reaches `locked_paths`*.
+
+Which changes the answer to your question. Neither list alone is rock solid; the pair is. `allowed` is the outer envelope, `locked` is the carve-outs inside it. The DOD's path boundary maps to `allowed`, and scope's inside-the-boundary exclusions are exactly what should become `locked`.
+
+And that's the problem with your symmetric rule, now that I can see the mechanism. Test it against SC6: the rubric file resolves inside the boundary, so the rule passes it — silently, whether or not anything ever locks it. The rule is *safe* (it won't false-fire on good drafts, which is the bug we set out to kill) but it's **empty on the case that motivated the whole conversation**. It catches the blocked build and the redundant exclusion, and lets the unenforced exclusion through.
+
+The linter reflects the same gap: *"A path boundary is stated — the definition of done names the paths the change may touch."* Singular. Nothing asks the draft for the locked half, so a spec can freeze naming only `allowed`, and the test-builder is left to invent `locked_paths` from prose — or not.
+
+So the question that actually earns its place is about the pair:
+
+> **QDOD.2** (critical) Does the definition of done name both the paths the work may touch and the paths inside them it may not change, and does every scope exclusion resolving to a path inside the boundary appear among the latter? An exclusion resolving outside the boundary needs no entry: the boundary already forbids it. (quote the two path lists and any inside-boundary exclusion missing from the locked list, or state agreement)
+
+That keeps your insight — inside-the-boundary is the normal, uninteresting case for *containment* — while turning it into the interesting case for *enforcement*. It's answerable from the draft alone, it's yes/no, and it fails only when a load-bearing exclusion has nothing behind it.
+
+Your in-list half is still worth having, but it's arithmetic on stated strings and the linter already has the repo — I'd add it to part one as a second boundary check rather than spend a judged question on it.
+
+That's three open calls now: this wording versus your symmetric one, whether the in-list half goes to the linter, and the placement/versioning questions still sitting unanswered from earlier — the tree is currently mid-move with seven live references still pointing at `manuals/`.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+nope this has just exploded my head. ive just understood DOD.2 boundaries overule everything. is it the specs resposibility to ensure files are locked? if it names the path and then places the path inside the boundary then it has done its job yeah? the spec describes the work not the sytem ie "you must lock these files" should never be in a spec.
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+You're right, and my last proposal was wrong. QGEN.1 already forbids it: *"Is the draft free of statements about how the work will be conducted? ... Conduct is who does this work, with what tools, agents, **gates**, displays or model."* `locked_paths` is gate machinery. A spec that says "lock these files" fails GEN — so a QDOD.2 that *requires* it would set the two blocks against each other. Same mistake I made with QSCO.1, one block over.
+
+Answering both directly: no, and yes.
+
+The division of labour is already in the system:
+
+- The **spec** names territory — the boundary, and exclusions that resolve to paths within it. That's a statement about the result.
+- The **test-builder** reads the frozen spec and derives `allowed_paths` and `locked_paths`, with `tm-invariant-13` forcing both non-empty at freeze.
+- **`fc boundary`, `fc locked`, the verifier** enforce them.
+
+So a spec that names the file and places it inside the boundary has discharged its whole responsibility. If nothing locks it afterwards, that's a test-builder failure, caught at the tests-map layer — not a spec defect, and not the readiness rubric's business.
+
+Which means SC6 was never a finding at all. Not "a false positive we should tolerate" — a correctly-written spec doing exactly what a spec is for. And your rule is right for the principled reason, not just the pragmatic one: it is the only boundary-versus-scope property that's a fact about the *draft* rather than about the machinery downstream of it.
+
+In register:
+
+> **QDOD.2** (critical) Does every scope entry that resolves to a path fall inside the stated boundary? Resolve every entry that refers to another node ("outside the boundary in C6") to the paths that node names before deciding. An entry naming an activity rather than a place has no path to test and is not judged here. (quote the boundary and any entry resolving outside it, or state agreement)
+
+Both lists, one test, no direction to confuse. An in-list entry outside the boundary blocks the build; an out-list entry outside it means the author has misread their own boundary or drawn it wrong. Behavioural exclusions fall out cleanly.
+
+One gap to know about rather than fix now: nothing upstream guarantees a scope entry is path-resolvable. The linter's artefact check reads interfaces and verification only, and QSCO.2 accepts "surface" or "feature" for the in-list alone. It doesn't break this question — "resolves to a path" is self-limiting — but a mistyped scope path is currently checked by nothing at all, and the test-builder needs those paths to derive the locks.
+
+Nothing is written yet. To land it I need: this wording or your own phrasing; whether the mistyped-path gap goes to the linter now or gets noted for later; and the two from earlier — does the move to `flightcrew/checks/rubrics/spec/` stand with `deprecated/` alongside it, and is this v2.4 now or does it wait for a bench run, given the rubric's own calibration clause. Seven live references are still pointing at the old `manuals/` path until I update them.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+ok step 1 settled, the yes/no test for DOD.2
+ 
+now i dont understand what 
+"Resolve every entry that refers to another node ("outside the boundary in C6") to the paths that node names before deciding" is trying to achieve? didn't you say something about it before?
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Yes — it's the v2.1 addition, and it handles indirection. Some scope entries name no path themselves, they point at a node that does:
+
+- `SC12`: "Anything outside the boundary in C6: out."
+- `C6`: "The change touches only `flightdeck/flightcrew/**` and `flightdeck/manuals/**`."
+
+`SC12` has no path in it. Without the instruction, a judge reads it, finds nothing path-shaped, and skips it. With the instruction, it follows the reference to `C6` and gets paths to test. That's the whole intent — don't let an entry escape the check by naming its paths one hop away.
+
+Worth knowing where it came from, though: that sentence was added in v2.1 *to make the false positive reproducible*. The calibration record says it outright — under v2, "fable alone found QDOD.2"; after v2.1, "all three found QDOD.2 **by resolving SC12 through C6**." It was the instrument that taught three models to chase references until they hit a containment violation.
+
+The mechanic is still sound — indirection is real and you do want it followed. But there's a trap in it that your new question inherits, and `SC12` is exactly the shape that springs it.
+
+Look at what `SC12` actually says: *everything outside the boundary*. It isn't an entry that happens to sit somewhere relative to the boundary — it's **defined as the boundary's complement**. Resolve it and ask "does it fall inside the boundary?" and the answer is no, necessarily, by construction. It fires every time, on every draft that writes one, forever. Circular, and a fresh false positive in a brand-new question.
+
+So the sentence needs a guard. And it's the same move the question already makes for activities — an entry with no independent path has nothing to test:
+
+> **QDOD.2** (critical) Does every scope entry that resolves to a path fall inside the stated boundary? An entry that names its paths through another node ("the paths in C6") is resolved to that node's paths before deciding. Two kinds are not judged here: an entry naming an activity rather than a place, and an entry defined as the boundary's complement ("anything outside the boundary in C6"), which restates the boundary rather than testing against it. (quote the boundary and any entry resolving outside it, or state agreement)
+
+That keeps genuine indirection working — `SC12` pointing at `C6` for a *specific* path list still gets followed and tested — while dropping the entries that are just the boundary said twice.
+
+Worth noticing the pattern across all three of these: QSCO.1, QGEN.1, now the complement case. Every wrong turn came from a question testing something that isn't a property of the draft. The exemptions aren't special cases, they're the same rule — if there's no independent fact in the entry, there's nothing to judge.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+i think the 2.1 addition was for a rule that shouldn't have existed. and this makes no sense SC12 referencing C6 is more of a finding, it is a double statement wasting attention. C6 looks like the boundary statement. SC12 is like "duh ofcourse" wasted node.
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Agreed, and the rubric already says so. QGEN.3 asks whether the draft is free of "the same requirement expressed in two domains" — SC12 restating C6's boundary in scope is precisely that. It's a finding where it lands, not something QDOD.2 should be carefully resolving.
+
+And note QGEN.3's own exemption list: *"a scope exclusion and the constraint that enforces it are not duplicates."* That protects the legitimate pair — C6 states a condition on the result, SC6 excludes touching the file. But that pair doesn't need indirection: SC6 names its own path. The only entries that *require* following a reference to find any territory at all are the ones with no territory of their own — which is the restatement case. So the indirection rule doesn't have a real constituency; it was scaffolding, exactly as you say.
+
+Dropping it:
+
+> **QDOD.2** (critical) Does every scope entry that resolves to a path fall inside the stated boundary? An entry naming an activity rather than a place has no path to test and is not judged here. (quote the boundary and any entry resolving outside it, or state agreement)
+
+Two sentences and the quote instruction — same shape as QSCO.2 and QPRI.1.
+
+Three things I need before writing, all still open from earlier turns:
+
+1. Does the move stand — `flightdeck/flightcrew/checks/rubrics/spec/`, with `deprecated/` alongside it? The tree is mid-move and seven live references still point at `manuals/`.
+2. v2.4 now, or leave the version until it's benched? The rubric's calibration clause says a question edit reruns the agreement check before it judges live, and the record's QDOD.2 lines document a reading we're retiring.
+3. The mistyped-scope-path gap — linter check now, or note it for later?
+
+------------------------------------------------------------
+
+[USER]    💭: none
+yes move stands, make it v2.4, **Deprecated** is added to the top of the old files.
+
+3. i haven't read 90 percent of the fluff you wrote above only trying to understand in a single domain, humans can't hold 8 different directives at once. so you will have to explain what "mistyped-scope-path gap" is.
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Fair. Dropping everything else — here's just that one thing.
+
+**The gap:** scope names a path. Nothing ever checks that path exists.
+
+The linter has a check for exactly this — *"Named code artefacts exist — every file path... resolves in the repository"* — but it reads **the interfaces and verification sections only**. Scope isn't in that list. And the judge can't help: it has the rubric and the draft, no repo access.
+
+So `flightdeck/manuals/rubrik/` sails through both parts.
+
+**Why it matters for the question we just wrote:** QDOD.2 now compares scope paths against the boundary. A typo is still path-shaped, so the judge dutifully tests it, finds it outside the boundary, and reports a boundary finding — when it's really a spelling mistake. The author goes looking for a scope/boundary disagreement that doesn't exist.
+
+**The fix** is adding scope to that existing linter bullet. Small, and it's part one's job since the linter already has the repo open.
+
+I'll leave it out of this edit and just tell you what it'd take once the rubric is landed. Doing the approved work now.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd flightdeck/flightcrew/checks/rubrics/spec && head -3 deprecated/spec-readiness-rubric.v2.2.md; echo "----v1----"; head -3 deprecated/spec-readiness-rubric.v1.md
+Description: Inspect deprecated file headers
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck/flightdeck/flightcrew/checks/rubrics/spec && for f in deprecated/*.md; do echo "### $f"; head -3 "$f"; done
+Description: Inspect deprecated file headers
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: echo "### LIVE"; head -1 spec-readiness-rubric.md; grep -n "^Rubric version" spec-readiness-rubric.md; echo "### v2.3 copy"; head -1 deprecated/spec-readiness-rubric.v2.3.md; grep -n "^Rubric version" deprecated/spec-readiness-rubric.v2.3.md; echo "### diff live vs v2.3copy"; diff spec-readiness-rubric.md deprecated/spec-readiness-rubric.v2.3.md && echo IDENTICAL
+Description: Verify live vs archived copy titles
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck && git diff HEAD --stat -- '*spec-readiness-rubric*'; echo "=== title at HEAD ==="; git show HEAD:flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md | head -1; git show HEAD:flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md | sed -n '25p'
+Description: Verify rubric content unchanged from HEAD
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: git diff HEAD -- '*spec-readiness-rubric.md'
+Description: Show the rubric diff
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Flagging one thing before I edit: the rubric's title line changed from `v2.2` to `v2.3` in the working tree at some point during this conversation. Not from anything I ran — `git mv` and `cp` don't rewrite content. Most likely you tidied it while we were talking. It only aligns the title with the `Rubric version: 2.3` line, and both go to 2.4 now, so it's moot — but I didn't want to absorb an edit I can't account for.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck/flightdeck/flightcrew/checks/rubrics/spec && python3 - <<'PY'
+import io,re
+p='spec-readiness-rubric.md'
+s=io.open(p,encoding='utf-8').read()
+orig=s
+
+s=s.replace('# Spec-Readiness Rubric v2.3\n','# Spec-Readiness Rubric v2.4\n',1)
+s=s.replace('Rubric version: 2.3','Rubric version: 2.4',1)
+
+old_q='- QDOD.2 (critical) Does the stated path boundary agree with scope\'s exclusions — nothing excluded by scope lying inside the boundary? Before comparing, resolve every exclusion that refers to another node ("outside the boundary in C6") to the paths that node names, and compare those paths to the boundary. (quote both the boundary and any conflicting exclusion with the resolved paths, or state agreement)'
+new_q="- QDOD.2 (critical) Does every scope entry that resolves to a path fall inside the stated boundary? An entry naming an activity rather than a place has no path to test and is not judged here. (quote the boundary and any entry resolving outside it, or state agreement)"
+assert old_q in s, 'QDOD.2 not matched'
+s=s.replace(old_q,new_q,1)
+
+tail='with fable and opus.'
+assert s.rstrip().endswith(tail)
+note=" v2.4 (2026-09-10) rewrites QDOD.2 and retires the containment reading it carried unchanged from v1: an exclusion that resolves inside the boundary is the ordinary shape of an exclusion rather than a conflict, since a boundary admits a working area and exclusions carve within it, so the question now asks only whether every scope entry resolving to a path falls inside the boundary, and entries naming an activity are not judged. The v2.1 indirection sentence is dropped with it: an entry whose only territory is another node's restates that node, which QGEN.3 already covers as a duplicate across domains. Every QDOD.2 instance recorded above was produced under the retired reading, the human grades that confirmed them were the judge's own output returned rather than an independent read, and the question has no verified true positive across v1 through v2.3; the flightcrew-core v2 draft (SC6 against a boundary admitting flightdeck/manuals/**) is the recorded false positive that prompted the rewrite. No agreement check has run against v2.4."
+s=s.rstrip()+note+"\n"
+
+io.open(p,'w',encoding='utf-8').write(s)
+print('written; changed:', s!=orig)
+PY
+echo "=== verify ==="; head -1 spec-readiness-rubric.md; sed -n '25p' spec-readiness-rubric.md; grep -n "QDOD.2" spec-readiness-rubric.md
+Description: Apply v2.4 rubric edits
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: sed -n '1,6p' deprecated/spec-readiness-rubric.v2.2.md | cat -A | sed -n '1,6p'
+Description: Inspect exact deprecated header format
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: sed -n '1,6p' deprecated/spec-readiness-rubric.v2.2.md | od -c | head -12
+Description: Inspect deprecated header bytes
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: python3 - <<'PY'
+import io
+p='deprecated/spec-readiness-rubric.v2.3.md'
+s=io.open(p,encoding='utf-8').read()
+head='# Spec-Readiness Rubric v2.3\n\n'
+assert s.startswith(head) and '**DEPRECATED**' not in s
+io.open(p,'w',encoding='utf-8').write(head+'**DEPRECATED**\n\n'+s[len(head):])
+print('ok')
+PY
+head -4 deprecated/spec-readiness-rubric.v2.3.md; echo "=== all deprecated ==="; for f in deprecated/*.md; do printf '%s :: ' "$f"; sed -n '3p' "$f"; done
+Description: Mark v2.3 copy deprecated
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Now the references. Let me look at the two READMEs before editing them, since the rubric leaving `manuals/` changes what those documents claim.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: cd ~/Projects/flightdeck && echo "### manuals/README 28-42"; sed -n '28,42p' flightdeck/manuals/README.md; echo; echo "### manuals/README 60-82"; sed -n '60,82p' flightdeck/manuals/README.md; echo; echo "### crew/README 25-42"; sed -n '25,42p' flightdeck/flightcrew/crew/README.md
+Description: Read README sections referencing the rubric
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: head -12 flightdeck/flightcrew/MANIFEST.txt; echo "..."; sed -n '255,268p' flightdeck/flightcrew/MANIFEST.txt; echo "=== generator? ==="; grep -rln "MANIFEST" flightdeck/flightcrew/bin flightdeck/flightcrew/checks .claude 2>/dev/null | head
+Description: Inspect MANIFEST structure and any generator
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: grep -n "^#\|checks/" flightdeck/flightcrew/MANIFEST.txt | sed -n '1,60p'
+Description: Find MANIFEST checks section
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Now applying all the reference updates.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: python3 - <<'PY'
+import io
+
+OLD='flightdeck/manuals/rubrics/spec/'
+NEW='flightdeck/flightcrew/checks/rubrics/spec/'
+
+# 1. simple path swaps
+for p in ['.claude/agents/spec-builder.md',
+          'flightdeck/flightcrew/crew/spec-builder.md',
+          'flightdeck/flightcrew/crew/README.md']:
+    s=io.open(p,encoding='utf-8').read()
+    assert OLD in s, p
+    io.open(p,'w',encoding='utf-8').write(s.replace(OLD,NEW))
+    print('swapped', p)
+
+# 2. workflow script uses ${FD}/manuals/...
+p='.claude/workflows/flightcrew-build.js'
+s=io.open(p,encoding='utf-8').read()
+o='${FD}/manuals/rubrics/spec/spec-readiness-rubric.md'
+n='${FD}/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md'
+assert o in s
+io.open(p,'w',encoding='utf-8').write(s.replace(o,n))
+print('swapped', p)
+
+# 3. MANIFEST: move the five rubric lines into the checks section, add v2.3
+p='flightdeck/flightcrew/MANIFEST.txt'
+lines=io.open(p,encoding='utf-8').read().split('\n')
+rub=[l for l in lines if l.startswith(OLD)]
+assert len(rub)==5, rub
+lines=[l for l in lines if not l.startswith(OLD)]
+block=[NEW+'spec-readiness-rubric.md']+[NEW+'deprecated/spec-readiness-rubric.%s.md'%v
+                                        for v in ['v1','v2','v2.1','v2.2','v2.3']]
+anchor='flightdeck/flightcrew/checks/gates/structural-gate.mjs'
+i=lines.index(anchor)
+lines[i+1:i+1]=block
+io.open(p,'w',encoding='utf-8').write('\n'.join(lines))
+print('manifest: moved 5, now', len(block))
+PY
+Description: Update path references across live files
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: python3 - <<'PY'
+import io
+p='flightdeck/manuals/README.md'
+s=io.open(p,encoding='utf-8').read()
+OLD='flightdeck/manuals/rubrics/spec/'
+NEW='flightdeck/flightcrew/checks/rubrics/spec/'
+
+# spec-judge row + historical-paths line: repoint
+s=s.replace('`flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md`  ',
+            '`flightdeck/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md`')
+s=s.replace('The `dev/...` paths quoted inside `flightdeck/manuals/rubrics/spec/`',
+            'The `dev/...` paths quoted inside `flightdeck/flightcrew/checks/rubrics/spec/`')
+
+# Frozen manuals: drop the rubric bullet, it is no longer a manual
+bullet='- `flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md`: the readiness rubric the spec-judge applies; earlier versions under `flightdeck/manuals/rubrics/spec/deprecated/`.\n'
+assert bullet in s
+s=s.replace(bullet,'')
+
+# intro sentence no longer covers a rubric manual
+s=s.replace('the frozen spec, testing, versioning and rubric manuals listed under "Frozen manuals" below',
+            'the frozen spec, testing and versioning manuals listed under "Frozen manuals" below')
+io.open(p,'w',encoding='utf-8').write(s)
+print('remaining old refs:', s.count(OLD))
+PY
+echo "=== check ==="; grep -n "rubric" flightdeck/manuals/README.md
+Description: Update manuals README
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: python3 - <<'PY'
+import io
+old='- the readiness rubric, which encodes the standard it derives from;'
+new='- the readiness rubric `flightdeck/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md`, which encodes the standard it derives from;'
+for p in ['.claude/agents/spec-judge.md','flightdeck/flightcrew/crew/spec-judge.md']:
+    s=io.open(p,encoding='utf-8').read()
+    assert old in s, p
+    io.open(p,'w',encoding='utf-8').write(s.replace(old,new,1))
+    print('pinned', p)
+PY
+diff .claude/agents/spec-judge.md flightdeck/flightcrew/crew/spec-judge.md && echo "COPIES IN SYNC"
+echo "=== any live refs to old path? ==="
+grep -rn "manuals/rubrics" .claude flightdeck --exclude-dir=history 2>/dev/null | grep -v "^flightdeck/launch/specs" || echo "none"
+Description: Pin rubric path into spec-judge, verify no stale refs
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+One consequence worth checking before I report — the rubric's old path appears in `locked_paths` globs.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: for f in flightdeck/launch/*/launch.json; do printf '%s :: ' "$f"; python3 -c "import json,sys;d=json.load(open('$f'));print(d.get('status'), d.get('phase'))" 2>/dev/null; done; echo "=== buildout locked globs ==="; python3 -c "
+import json;d=json.load(open('flightdeck/launch/flightcrew-buildout/launch.json'))
+b=d.get('boundary') or d
+print('enforce:', json.dumps(b.get('enforce_boundary')))
+print('allowed:', json.dumps(b.get('allowed'),indent=1)[:400])
+print('locked:', json.dumps(b.get('locked'),indent=1)[:600])"
+Description: Check launch statuses and locked globs
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: node flightdeck/flightcrew/bin/fc.mjs doctor 2>&1 | tail -25
+Description: Run fc doctor to verify manifest integrity
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: git status --short | grep -v '^??' ; echo "=== untracked new ==="; git status --short | grep '^??' | head
+Description: Summarise working tree changes
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Done. `fc doctor` is green — 230 manifest paths exist, 47 scripts parse, 10 agent definitions parse.
+
+**The question, now v2.4:**
+
+> QDOD.2 (critical) Does every scope entry that resolves to a path fall inside the stated boundary? An entry naming an activity rather than a place has no path to test and is not judged here. (quote the boundary and any entry resolving outside it, or state agreement)
+
+**Moved** to `flightdeck/flightcrew/checks/rubrics/spec/`, `deprecated/` alongside it. Live rubric bumped to v2.4 in both the title and the `Rubric version:` line. The old v2.3 text archived into `deprecated/` with `**DEPRECATED**` at the top, matching the other four.
+
+The calibration record gained a v2.4 entry stating what was retired and why — including that the human grades backing every past QDOD.2 finding were the judge's own output returned, that the question has no verified true positive across v1–v2.3, and that no agreement check has run against v2.4.
+
+**References repointed** — `crew/README.md`, both `spec-builder.md` copies, `MANIFEST.txt` (the five lines moved from the manuals block into the checks block, plus v2.3 added), and the `${FD}/manuals/...` string in `flightcrew-build.js`.
+
+**`manuals/README.md`** needed more than a path swap: the rubric bullet is gone from "Frozen manuals" since it isn't a manual any more, and the intro sentence no longer claims a rubric manual. The `spec-judge` row and the historical-paths line now point at the new home.
+
+**Path pinned into `spec-judge.md`** (both copies, still byte-identical) — the rubric bullet now reads ``the readiness rubric `flightdeck/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md` ``. One insertion, nothing else touched.
+
+**Two things I did not change, deliberately:**
+
+The old path survives as a `locked_paths` glob — `flightdeck/manuals/rubrics/**` — in both launch records, both tests maps, `flightcrew-core/specs/spec.v1.json` and the two workflow scripts. Those are frozen records of what was true at their commit; editing them to match a later move would falsify them. Both launches are `ended` (one abandoned, one accepted-with-reservations) and `fc doctor` reports 0 active, so nothing is enforcing them right now.
+
+But that's the live handoff: **the next tests map must lock `flightdeck/flightcrew/checks/rubrics/**`, not `flightdeck/manuals/rubrics/**`.** Until it does, the rubric sits inside the boundary with nothing guarding it — the exact situation the old QDOD.2 was gesturing at and getting wrong.
+
+Nothing is committed. The scope-path linter gap is untouched, as agreed.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+Ok this is obvious. so interfaces and verification set paths stated in scopes and constraints anyway? this seems more of a dual location finding again, rather than a case we should handle. I wonder how many of my specs are filled with dual statements in this shape.
+A misspelling catch by DOD.2 is what we want. agent instantly fixes.
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Agreed on the misspelling — no linter check. QDOD.2 quotes the boundary and the offending entry side by side, so `manuals/rubrik/` against `flightdeck/manuals/**` reads as a typo at a glance and the agent fixes it in one edit. Cheaper than a part-one check, and it arrives with the context that makes it obvious.
+
+One blind spot to know about: it only catches typos that push the path *outside* the boundary. `manuals/spec/spec-descriptoin.md` is still inside `manuals/**`, so it passes. Not worth building for, just don't expect the question to be a spellchecker.
+
+On the duplication point I think you're over-extending the SC12 insight, and the rubric's own text says so. QGEN.3 exempts exactly this: *"a scope exclusion and the constraint that enforces it are not duplicates."*
+
+The difference is what the two nodes *claim*, not what they name. SC12 and C6 were one requirement written twice — both said "the boundary is these paths", so the second added nothing. But scope naming a path that interfaces also names is two different requirements sharing a noun: IFC says *this artefact has this shape*, scope says *this artefact is inside the work*. You can define a seam you never touch (a reused schema) and touch a file whose shape you never define. Neither sentence implies the other.
+
+QGEN.3's test is "the same requirement expressed in two domains" — same path is not the same requirement.
+
+That said, your worry is worth answering with data rather than reasoning. The pure-restatement shape — a node whose only content is another node's content — is real, it's what SC12 was, and it's advisory-only under QGEN.3 so it's been slipping through unremarked. I can sweep the specs under `flightdeck/launch/` for it and tell you how common it actually is, and whether it clusters in one domain. Say the word.
+
+------------------------------------------------------------
+
+[USER]    💭: none
+Are we settled on our original task? because id rather just commit and move on. im halfay through a spec build that needed QDOD.2 fixed.
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Settled. Committing.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: git restore --staged dev/workspace/filebox/archived/run-problems.md && git add \
+  .claude/agents/spec-builder.md \
+  .claude/agents/spec-judge.md \
+  .claude/workflows/flightcrew-build.js \
+  flightdeck/flightcrew/MANIFEST.txt \
+  flightdeck/flightcrew/crew/README.md \
+  flightdeck/flightcrew/crew/spec-builder.md \
+  flightdeck/flightcrew/crew/spec-judge.md \
+  flightdeck/flightcrew/checks/rubrics \
+  flightdeck/manuals/README.md \
+  flightdeck/manuals/rubrics 2>/dev/null; git status --short | grep -v '^??'
+Description: Stage only the rubric work
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+`git add` aborted — I passed the now-deleted `flightdeck/manuals/rubrics` path and git bailed on the whole pathspec. Redoing:
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: git add \
+  .claude/agents/spec-builder.md \
+  .claude/agents/spec-judge.md \
+  .claude/workflows/flightcrew-build.js \
+  flightdeck/flightcrew/MANIFEST.txt \
+  flightdeck/flightcrew/crew/README.md \
+  flightdeck/flightcrew/crew/spec-builder.md \
+  flightdeck/flightcrew/crew/spec-judge.md \
+  flightdeck/flightcrew/checks/rubrics \
+  flightdeck/manuals/README.md && git status --short
+Description: Stage the rubric work correctly
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: git commit -F- <<'EOF'
+Rewrite QDOD.2 as v2.4 and move the rubric to flightcrew/checks
+
+QDOD.2 asked whether anything excluded by scope lay inside the path
+boundary. That reading was unchanged since v1 and inverted: an exclusion
+is only ever written for territory the boundary admits, so the check fired
+on every correctly-written spec and could not fire on a bad one. The v2.1
+indirection sentence had made three models converge on the false positive
+rather than fix it, and the human grades backing every recorded instance
+were the judge's own output returned, so the question has no verified true
+positive across v1 through v2.3.
+
+It now asks whether every scope entry that resolves to a path falls inside
+the boundary — one test over both lists, with activity-shaped entries not
+judged. Locking a file is gate machinery the spec must not describe under
+QGEN.1; naming the path and placing it inside the boundary is the whole of
+the spec's responsibility, and the test-builder derives locked_paths from
+there.
+
+The rubric moves from manuals/ to flightcrew/checks/rubrics/spec/ beside
+the linter that runs part one, with its deprecated versions; v2.3 is
+archived and marked. spec-judge.md now carries the rubric path rather than
+depending on the dispatch to supply it.
+
+Note for the next tests map: lock flightdeck/flightcrew/checks/rubrics/**,
+not flightdeck/manuals/rubrics/**. The frozen specs, tests maps and ended
+launch records still naming the old glob are left as written.
+
+Claude-Session: https://claude.ai/code/session_01TvUJXUMc6fGZqcosknMZaZ
+EOF
+Description: Commit the rubric repair and move
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+Committed as `93e18c5`, 14 files. Your workspace files and `flightdeck/launch/flightcrew-core/` are untouched and still unstaged.
+
+For the build you're mid-way through: the rubric is at `flightdeck/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md` and `spec-judge.md` now carries that path itself, so a dispatch that omits it still finds it. Your next judge run picks up v2.4.
+
+------------------------------------------------------------
+
+[USER] [SLASH COMMAND]
+/dev-workspace:conversation-capture unknown
+
+------------------------------------------------------------
+
+[ASSISTANT 💬]
+I'll capture this session's transcript.
+
+------------------------------------------------------------
+
+[BASH TOOL]
+Command: ruby ~/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture/scripts/conversation-capture 4f6285bb-97d7-449b-a242-6df5b9879916
+Description: Extract session transcript
+
+------------------------------------------------------------

@@ -78,5 +78,37 @@
     "text": "Diagnosis reaches the next run. Placed: I10, B2 (previous_entry), B28, B29, E1.",
     "state": "closed",
     "closed_by": "B2"
+  },
+  {
+    "id": "Q-later-constraints-dropped",
+    "kind": "tradeoff",
+    "domain": "constraints",
+    "text": "The provider rejected C8 (fail closed), C10 (write bounds), C11 (no network in scripts) and C12 (no session phrases) as not the world's: the first three now live in B5, B32 and D9; the session-phrase rule is dropped. Whether any belongs back as a constraint is to be questioned.",
+    "state": "open",
+    "closed_by": null
+  },
+  {
+    "id": "Q-later-manuals-location",
+    "kind": "gap",
+    "domain": "interfaces",
+    "text": "I11 and I12 place the operators and maintenance manuals at flightdeck/manuals/operators-manual.md and maintenance-manual.md and say each unit writes its section; the paths and the per-unit form are the builder's guess, to be questioned.",
+    "state": "open",
+    "closed_by": null
+  },
+  {
+    "id": "Q-later-config-format",
+    "kind": "tradeoff",
+    "domain": "interfaces",
+    "text": "I6 makes the configurations YAML under flightdeck/.controlcenter/ while C6 makes the system's data JSON; configuration is not a run document, but the split is to be questioned.",
+    "state": "open",
+    "closed_by": null
+  },
+  {
+    "id": "Q-later-flight-deferred",
+    "kind": "gap",
+    "domain": "decisions",
+    "text": "D1 defers the flight dispatcher to a later launch and keeps ten core scripts by path; the script names in B5 are the builder's, to be questioned.",
+    "state": "open",
+    "closed_by": null
   }
 ]

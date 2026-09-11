@@ -1,0 +1,957 @@
+{
+  "schema_version": 1,
+  "name": "flightcrew-core",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial: one check per verification group of spec v1, T1 the acceptance proof read from what the run leaves behind; the assertions live as suites under flightdeck/testbench/suites/ and each check is the wrapper in the run that invokes one",
+  "spec": {
+    "name": "flightcrew-core",
+    "version": 1,
+    "commit": "852b77c"
+  },
+  "previous_versions": [],
+  "acceptance": "T1",
+  "fixture": "flightdeck/testbench/fixtures/",
+  "allowed_paths": [
+    "flightdeck/flightcrew/**",
+    "flightdeck/launch/README.md",
+    "flightdeck/launch/FLIGHTLOG.md",
+    "flightdeck/launch/flightcrew-core/**",
+    "flightdeck/testbench/**",
+    "flightdeck/manuals/launch/**",
+    "flightdeck/manuals/harness/**",
+    "flightdeck/manuals/orchestration/**",
+    "flightdeck/manuals/testing/**",
+    "flightdeck/manuals/README.md",
+    "library/terms.md",
+    ".claude/workflows/**",
+    ".claude/agents/**",
+    ".claude/settings.json",
+    "flightdeck/.controlcenter",
+    ".gitignore",
+    "CLAUDE.md"
+  ],
+  "locked_paths": [
+    "flightdeck/launch/flightcrew-core/runs/run-1/checks/**",
+    "flightdeck/launch/flightcrew-core/specs/**",
+    "flightdeck/testbench/fixtures/**",
+    "flightdeck/testbench/lib/**",
+    "flightdeck/testbench/run-all.mjs",
+    "flightdeck/testbench/suites/acceptance/**",
+    "flightdeck/testbench/suites/constraint-imports/**",
+    "flightdeck/testbench/suites/constraint-json-documents/**",
+    "flightdeck/testbench/suites/constraint-manuals/**",
+    "flightdeck/testbench/suites/constraint-network/**",
+    "flightdeck/testbench/suites/constraint-residue/**",
+    "flightdeck/testbench/suites/constraint-write-boundary/**",
+    "flightdeck/testbench/suites/crew-files/**",
+    "flightdeck/testbench/suites/flight-check-baseline/**",
+    "flightdeck/testbench/suites/flight-check-run/**",
+    "flightdeck/testbench/suites/flight-check-verdicts/**",
+    "flightdeck/testbench/suites/flight-event/**",
+    "flightdeck/testbench/suites/flight-freeze/**",
+    "flightdeck/testbench/suites/flight-install/**",
+    "flightdeck/testbench/suites/flight-launch-init/**",
+    "flightdeck/testbench/suites/flight-merge/**",
+    "flightdeck/testbench/suites/flight-render/**",
+    "flightdeck/testbench/suites/flight-run-new/**",
+    "flightdeck/testbench/suites/flight-validate/**",
+    "flightdeck/testbench/suites/hook-boundary-guard/**",
+    "flightdeck/testbench/suites/hook-check-after-edit/**",
+    "flightdeck/testbench/suites/hook-event-log/**",
+    "flightdeck/testbench/suites/hook-frozen-guard/**",
+    "flightdeck/testbench/suites/hook-locked-guard/**",
+    "flightdeck/testbench/suites/hook-log-guard/**",
+    "flightdeck/testbench/suites/hook-resolution/**",
+    "flightdeck/testbench/suites/hook-return-capture/**",
+    "flightdeck/testbench/suites/hook-time-budget/**",
+    "flightdeck/testbench/suites/hook-worker-gate/**",
+    "flightdeck/testbench/suites/judge-returns/**",
+    "flightdeck/testbench/suites/leaf-protocol/**",
+    "flightdeck/testbench/suites/orchestrator/**",
+    "flightdeck/testbench/suites/return-schemas/**",
+    "flightdeck/testbench/suites/run-schemas/**",
+    "flightdeck/testbench/suites/scribe/**",
+    "flightdeck/testbench/suites/settings-fragment/**",
+    "flightdeck/testbench/suites/steward/**",
+    "flightdeck/testbench/suites/suite-protocol/**",
+    "flightdeck/testbench/suites/terms/**",
+    "flightdeck/testbench/suites/test-builder-artefacts/**",
+    "flightdeck/testbench/suites/workflow-static-scan/**",
+    "flightdeck/testbench/suites/workflows-build/**",
+    "flightdeck/testbench/suites/workflows-contract/**",
+    "flightdeck/testbench/suites/workflows-contracts/**",
+    "flightdeck/testbench/suites/workflows-plan/**",
+    "flightdeck/testbench/suites/workflows-report/**",
+    "flightdeck/testbench/suites/workflows-review/**",
+    "flightdeck/testbench/suites/workflows-verify/**"
+  ],
+  "run_all": "node flightdeck/testbench/run-all.mjs",
+  "baseline": {
+    "commit": "7c5913edc51b51d39b9a69c819ef361e89e80d24",
+    "date": "2026-09-10",
+    "note": "recorded before any of the flightcrew-core surface exists: every feature check fails for the absence of the thing it names, and the three world-state checks pass"
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "acceptance",
+      "covers": [
+        "I1",
+        "I2",
+        "I4",
+        "I8",
+        "I9",
+        "I10",
+        "I13",
+        "I15",
+        "C2",
+        "scope"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T1.mjs",
+      "baseline": {
+        "expect": "fail: the run has not happened, so there is no run folder, report, log entry or diff to read",
+        "observed": "fail: FAIL  the run folder holds the liftoff, the plan, the evidence summary and the report: runs/run-1/liftoff/ holds one liftoff, found 0: expected 1, got 0"
+      },
+      "note": "Read from artefacts, not performed: no suite can hold a Claude Code session. What this proves is that the session left a complete, valid, in-boundary run behind it; the performing of the session stays with the human."
+    },
+    {
+      "id": "T2",
+      "status": "ok",
+      "kind": "structural",
+      "name": "run-all",
+      "covers": [
+        "B87",
+        "C7"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T2.mjs",
+      "baseline": {
+        "expect": "fail: the suites of this map name a system that is not built, so run-all exits 2",
+        "observed": "fail: FAIL acceptance (2/12, 85 ms)"
+      }
+    },
+    {
+      "id": "T3",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight launch init",
+      "covers": [
+        "B1",
+        "B2",
+        "B6",
+        "E2",
+        "I2",
+        "I3"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T3.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B1 launch.json carries the I2 fields, no run and no runs entry: flight launch init: expected exit 0, got null | stdout: (empty) | stderr: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT"
+      }
+    },
+    {
+      "id": "T4",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight run new",
+      "covers": [
+        "B3",
+        "B4",
+        "B5",
+        "B6",
+        "E1",
+        "I1"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T4.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B3 the run branch is cut from the HEAD the command was run on: flight run new: expected exit 0, got null | stdout: (empty) | stderr: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT"
+      },
+      "note": "Nothing is asserted about plan.json, report.json or report.md at the moment a run opens: B4 says the I1 file set and I1's set includes documents written later. See the B4/I1 finding."
+    },
+    {
+      "id": "T5",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight validate",
+      "covers": [
+        "B8",
+        "E11",
+        "E17"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T5.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B8 every fixture document validates, silently, exit 0: flight validate launch.json: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT | : expected exit 0, got null | stdout: (empty) | stderr: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT"
+      }
+    },
+    {
+      "id": "T6",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight check",
+      "covers": [
+        "B9",
+        "B10",
+        "E9",
+        "E10",
+        "I13"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T6.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B9 with no ids, every check of the pinned map runs and the quarantined one is skipped: one evidence file per check of the map: expected [\"T1\",\"T2\",\"T3\",\"T4\",\"T5\",\"T6\",\"T7\"], got []"
+      },
+      "note": "E9's 300-second half is not exercised: a suite cannot wait it out. What is proven is the unspawnable-binary half, the error verdict, and that the checks after an error still run."
+    },
+    {
+      "id": "T7",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "ratio and sheet verdicts",
+      "covers": [
+        "B64",
+        "B65",
+        "E16",
+        "I15"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T7.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B64 a ratio check runs its command trials times and counts the exit-0 runs: ENOENT: no such file or directory, open '/private/var/folders/zz/jj72rqgd5710g7sn64xrn9km0000gn/T/fc-core-foQDvX/flightdeck/launch/sample-core/runs/run-1/evidence/T4.json'"
+      }
+    },
+    {
+      "id": "T8",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight check --baseline",
+      "covers": [
+        "B95",
+        "B96"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T8.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B95 every check of the draft map gets an observed line: T1 observed reads '<pass|fail|error>: <line>': /^(pass|fail|error): \\S/ did not match \"(empty)\""
+      }
+    },
+    {
+      "id": "T9",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight render",
+      "covers": [
+        "B11",
+        "B12",
+        "B74",
+        "E11",
+        "I9"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T9.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight and the dispatch templates are not there",
+        "observed": "fail: FAIL  B11 the dispatch is written at dispatches/<role>-<target>.md: flight render implementer U1: expected exit 0, got null | stdout: (empty) | stderr: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT"
+      },
+      "note": "Nothing is asserted about the filename of a fix dispatch: no argument of flight render carries the fix number. See the I5/I9 finding."
+    },
+    {
+      "id": "T10",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight merge",
+      "covers": [
+        "B13",
+        "B14",
+        "B15",
+        "E12"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T10.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B13 a green unit whose dependencies are in is merged with --no-ff onto the run branch: flight merge U0: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT | : expected exit 0, got null | stdout: (empty) | stderr: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT"
+      }
+    },
+    {
+      "id": "T11",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight install",
+      "covers": [
+        "B16",
+        "B17",
+        "B18",
+        "B19",
+        "B20",
+        "E13",
+        "I11",
+        "I17"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T11.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight and the settings fragment are not there",
+        "observed": "fail: FAIL  B16 every crew file is written under the target, byte-equal: flight install --apply: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT | : expected exit 0, got null | stdout: (empty) | stderr: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT"
+      }
+    },
+    {
+      "id": "T12",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight freeze",
+      "covers": [
+        "B92",
+        "B93",
+        "B94",
+        "I4"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T12.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B92 freezing a spec sets status frozen and commit to HEAD: flight freeze on the spec: expected exit 0, got null | stdout: (empty) | stderr: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT"
+      }
+    },
+    {
+      "id": "T13",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "flight event",
+      "covers": [
+        "B88",
+        "I13"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T13.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there",
+        "observed": "fail: FAIL  B88 one line is appended and the earlier lines are untouched: flight event: expected exit 0, got null | stdout: (empty) | stderr: [core-lib] /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight: spawnSync /Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/bin/flight ENOENT"
+      }
+    },
+    {
+      "id": "T14",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the leaf contract",
+      "covers": [
+        "C3",
+        "I5"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T14.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight and the leaf scripts are not there",
+        "observed": "fail: FAIL  I5 bin/ holds one script per leaf, and bin/flight is executable: bin/flight exists"
+      }
+    },
+    {
+      "id": "T15",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "frozen-guard",
+      "covers": [
+        "B7",
+        "C11",
+        "E3"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T15.mjs",
+      "baseline": {
+        "expect": "fail: hooks/frozen-guard.mjs is not there",
+        "observed": "fail: FAIL  B7 an Edit, a Write and a NotebookEdit at a frozen document are each denied, with the file named: Edit at a frozen spec is denied"
+      },
+      "note": "E3's Bash-redirect half is observable only inside a Claude Code session running the installed settings. What is proven here is the Edit half and that the sandbox denyWrite list carries the same paths the guard refuses."
+    },
+    {
+      "id": "T16",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "locked-guard",
+      "covers": [
+        "B76"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T16.mjs",
+      "baseline": {
+        "expect": "fail: hooks/locked-guard.mjs is not there",
+        "observed": "fail: FAIL  B76 a file matching a locked_paths glob of the pinned map is denied: a locked_paths file is denied"
+      }
+    },
+    {
+      "id": "T17",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "boundary-guard",
+      "covers": [
+        "B77"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T17.mjs",
+      "baseline": {
+        "expect": "fail: hooks/boundary-guard.mjs is not there",
+        "observed": "fail: FAIL  B77 a target outside every unit path of the frozen plan is denied and named: a file outside the plan paths is denied"
+      }
+    },
+    {
+      "id": "T18",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "log-guard",
+      "covers": [
+        "B86"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T18.mjs",
+      "baseline": {
+        "expect": "fail: hooks/log-guard.mjs is not there",
+        "observed": "fail: FAIL  B86 an edit that changes a <fill> line is denied: filling an outcome line through a tool is denied"
+      }
+    },
+    {
+      "id": "T19",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the worker gate",
+      "covers": [
+        "B78",
+        "B79",
+        "B80",
+        "E5"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T19.mjs",
+      "baseline": {
+        "expect": "fail: the worker gate and the crew files that wire it are not there",
+        "observed": "fail: FAIL  B78 a red unit blocks the stop, exit 2, with the failing ids on stderr: a red unit blocks: node:internal/modules/cjs/loader:1433 | throw err; | ^ | Error: Cannot find module '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/hooks/worker-gate.mjs' | at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15) | at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19) | at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22) | at Function._load (node:internal/modules/cjs/loader:1216:25) | at wrapModuleLoad (node:internal/modules/cjs/loader:254:19) | at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) | at node:internal/main/run_main_module:36:49 { | code: 'MODULE_NOT_FOUND', | requireStack: [] | } | Node.js v22.22.3 | : expected 2, got 1"
+      }
+    },
+    {
+      "id": "T20",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "event-log",
+      "covers": [
+        "B81",
+        "B82"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T20.mjs",
+      "baseline": {
+        "expect": "fail: the event schema the appended lines are held to is not there",
+        "observed": "fail: FAIL  B81 every recorded event appends exactly one line: SessionStart appended exactly one line: expected 13, got 12"
+      }
+    },
+    {
+      "id": "T21",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "return-capture",
+      "covers": [
+        "B73",
+        "E4",
+        "I13"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T21.mjs",
+      "baseline": {
+        "expect": "fail: hooks/return-capture.mjs and the return schemas are not there",
+        "observed": "fail: FAIL  B73 a valid worker return is stored at returns/<agent_type>-<unit>.json: exit 0: node:internal/modules/cjs/loader:1433 | throw err; | ^ | Error: Cannot find module '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/hooks/return-capture.mjs' | at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15) | at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19) | at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22) | at Function._load (node:internal/modules/cjs/loader:1216:25) | at wrapModuleLoad (node:internal/modules/cjs/loader:254:19) | at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) | at node:internal/main/run_main_module:36:49 { | code: 'MODULE_NOT_FOUND', | requireStack: [] | } | Node.js v22.22.3 | : expected 0, got 1"
+      }
+    },
+    {
+      "id": "T22",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "check-after-edit",
+      "covers": [
+        "B91"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T22.mjs",
+      "baseline": {
+        "expect": "fail: hooks/check-after-edit.mjs is not there",
+        "observed": "fail: FAIL  B91 a red unit prints its failing ids on stderr and exits 0: the hook never blocks: node:internal/modules/cjs/loader:1433 | throw err; | ^ | Error: Cannot find module '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/hooks/check-after-edit.mjs' | at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15) | at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19) | at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22) | at Function._load (node:internal/modules/cjs/loader:1216:25) | at wrapModuleLoad (node:internal/modules/cjs/loader:254:19) | at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5) | at node:internal/main/run_main_module:36:49 { | code: 'MODULE_NOT_FOUND', | requireStack: [] | } | Node.js v22.22.3 | : expected 0, got 1"
+      }
+    },
+    {
+      "id": "T23",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "hook resolution",
+      "covers": [
+        "C8",
+        "E6",
+        "E7",
+        "E8"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T23.mjs",
+      "baseline": {
+        "expect": "fail: the I6 hook set is not there",
+        "observed": "fail: pass  E7 with the control centre absent no hook writes a file or an event, and only frozen-guard speaks"
+      }
+    },
+    {
+      "id": "T24",
+      "status": "ok",
+      "kind": "invariant",
+      "name": "the hook time budget",
+      "covers": [
+        "C4"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T24.mjs",
+      "baseline": {
+        "expect": "fail: the I6 hook set and the crew files that declare the gate timeout are not there",
+        "observed": "fail: pass  C4 every hook but the worker gate answers within two seconds"
+      }
+    },
+    {
+      "id": "T25",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "the settings fragment",
+      "covers": [
+        "C12",
+        "I6"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T25.mjs",
+      "baseline": {
+        "expect": "fail: hooks/settings.fragment.json is not there",
+        "observed": "fail: pass  I6 event-log is wired for each of the twelve recorded events"
+      }
+    },
+    {
+      "id": "T26",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the crew files",
+      "covers": [
+        "B71",
+        "I7"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T26.mjs",
+      "baseline": {
+        "expect": "fail: the crew roster of I7 is not there",
+        "observed": "fail: FAIL  I7 the roster is exactly the thirteen run roles and the three spec-chain files: crew/ holds one file per role and nothing else: expected [\"adversary\",\"critic\",\"explorer\",\"implementer\",\"interface-builder\",\"judge\",\"orchestrator\",\"planner\",\"scribe\",\"spec-attacker\",\"spec-builder\",\"spec-judge\",\"steward\",\"strong-worker\",\"test-builder\",\"verifier\"], got [\"README\",\"critic\",\"explorer\",\"implementer\",\"orchestrator\",\"planner\",\"spec-attacker\",\"spec-builder\",\"spec-judge\",\"test-builder\",\"verifier\"]"
+      }
+    },
+    {
+      "id": "T27",
+      "status": "ok",
+      "kind": "artefact",
+      "name": "the return schemas",
+      "covers": [
+        "B75",
+        "I8",
+        "I13"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T27.mjs",
+      "baseline": {
+        "expect": "fail: schemas/run/ is not there",
+        "observed": "fail: FAIL  I8 one return schema per subagent role lives under schemas/run/: schemas/run/explorer-return.schema.json exists for explorer"
+      },
+      "note": "The four reused schemas are held to the fields they already carried; nothing is asserted about their carrying target or fix. See the I8 finding."
+    },
+    {
+      "id": "T28",
+      "status": "ok",
+      "kind": "judged",
+      "name": "a role a reader can carry out",
+      "covers": [
+        "B72"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T28.mjs",
+      "baseline": {
+        "expect": "fail: no judge sheet has been written for this check",
+        "observed": "fail: flightdeck/launch/flightcrew-core/runs/run-1/returns/judge-T28.json"
+      },
+      "note": "The subject is the run-chain crew files and their dispatch templates. The rubric is at runs/run-1/checks/rubrics/T28.md and the sheet the judge writes is read at returns/judge-T28.json."
+    },
+    {
+      "id": "T29",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the orchestrator",
+      "covers": [
+        "B21",
+        "B22",
+        "B23",
+        "B62",
+        "B63",
+        "B88",
+        "E14",
+        "E15"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T29.mjs",
+      "baseline": {
+        "expect": "fail: the run has not happened, so there is no orchestrator session and no liftoff in the run folder",
+        "observed": "fail: pass  calibration: every rule holds of the obedient session"
+      },
+      "note": "The calibration cases prove the reading on the two fixture sessions, one obedient and one control; the application cases then read this run's own orchestrator transcript."
+    },
+    {
+      "id": "T30",
+      "status": "ok",
+      "kind": "judged",
+      "name": "the reading handed back",
+      "covers": [
+        "B24"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T30.mjs",
+      "baseline": {
+        "expect": "fail: no judge sheet has been written for this check",
+        "observed": "fail: flightdeck/launch/flightcrew-core/runs/run-1/returns/judge-T30.json"
+      },
+      "note": "The subject is this run's own orchestrator session. The rubric is at runs/run-1/checks/rubrics/T30.md and the sheet the judge writes is read at returns/judge-T30.json."
+    },
+    {
+      "id": "T31",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the scribe",
+      "covers": [
+        "B83",
+        "B84",
+        "B85",
+        "I10"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T31.mjs",
+      "baseline": {
+        "expect": "fail: the run has not happened, so there is no report and no log entry",
+        "observed": "fail: FAIL  B83 report.json is there and holds to the report schema: runs/run-1/report.json exists"
+      }
+    },
+    {
+      "id": "T32",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the steward",
+      "covers": [
+        "B97"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T32.mjs",
+      "baseline": {
+        "expect": "fail: the run has not happened, so no steward return is stored",
+        "observed": "fail: FAIL  B97 this run dispatched the steward and its returns are stored: the run stored at least one steward return under runs/run-1/returns/"
+      }
+    },
+    {
+      "id": "T33",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "where the map and the checks land",
+      "covers": [
+        "B67",
+        "B68",
+        "B69",
+        "B98",
+        "I16"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T33.mjs",
+      "baseline": {
+        "expect": "fail: the test-builder return schema is not there, so the return cannot be held to it",
+        "observed": "fail: pass  B67 the tests map sits beside the spec under specs/, as a numbered version"
+      },
+      "note": "B70 is not asserted here: the {run} token cannot be shown by any map this stage can write. See the unverified entry."
+    },
+    {
+      "id": "T34",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the verdict sheets",
+      "covers": [
+        "B66"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T34.mjs",
+      "baseline": {
+        "expect": "fail: the run has not happened, so no judge sheet is stored",
+        "observed": "fail: FAIL  B66 there is one sheet for every rubric this run carries: a sheet was written for T28"
+      }
+    },
+    {
+      "id": "T35",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "fc-plan",
+      "covers": [
+        "B27",
+        "B28",
+        "B29",
+        "B30"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T35.mjs",
+      "baseline": {
+        "expect": "fail: the workflow suite is not there",
+        "observed": "fail: FAIL  B27 one explorer is dispatched per question in the entry args: ENOENT: no such file or directory, open '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/workflows/fc-plan-feature.js'"
+      }
+    },
+    {
+      "id": "T36",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "fc-contracts",
+      "covers": [
+        "B49",
+        "B50",
+        "E19"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T36.mjs",
+      "baseline": {
+        "expect": "fail: the workflow suite is not there",
+        "observed": "fail: FAIL  B49 the interface-builder is dispatched for the contracts unit of wave 0: ENOENT: no such file or directory, open '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/workflows/fc-contracts.js'"
+      }
+    },
+    {
+      "id": "T37",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "fc-build",
+      "covers": [
+        "B31",
+        "B32",
+        "B33",
+        "B34",
+        "B35",
+        "B36",
+        "B37",
+        "B38",
+        "B39",
+        "B40",
+        "B41",
+        "B42",
+        "B43",
+        "B44",
+        "B45",
+        "B46",
+        "B47",
+        "B48",
+        "B89",
+        "B90"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T37.mjs",
+      "baseline": {
+        "expect": "fail: the workflow suite is not there",
+        "observed": "fail: FAIL  B31 every implementer dispatch is preceded by a steward dispatch of flight render for that unit: ENOENT: no such file or directory, open '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/workflows/fc-build.js'"
+      },
+      "note": "The dispatch pattern is read under a stub that answers a steward read with the plan, so an implementation that fetches the plan through the steward passes and one that finds another route passes too. See the C13/I14 finding on how a workflow obtains the plan."
+    },
+    {
+      "id": "T38",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "fc-verify",
+      "covers": [
+        "B51",
+        "B52",
+        "B53"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T38.mjs",
+      "baseline": {
+        "expect": "fail: the workflow suite is not there",
+        "observed": "fail: FAIL  B51 one judge per sheet check of the pinned map, with that check-s rubric and subject: ENOENT: no such file or directory, open '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/workflows/fc-verify.js'"
+      }
+    },
+    {
+      "id": "T39",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "fc-review",
+      "covers": [
+        "B54",
+        "B55",
+        "B56",
+        "B57",
+        "B58"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T39.mjs",
+      "baseline": {
+        "expect": "fail: the workflow suite is not there",
+        "observed": "fail: FAIL  B54 the critic is dispatched up to the liftoff-s pass count: fc-review could not run: args is not defined"
+      }
+    },
+    {
+      "id": "T40",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "fc-report",
+      "covers": [
+        "B59",
+        "B60",
+        "B61"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T40.mjs",
+      "baseline": {
+        "expect": "fail: the workflow suite is not there",
+        "observed": "fail: FAIL  B59 the scribe is dispatched: ENOENT: no such file or directory, open '/Users/dylangraham/Projects/flightdeck/flightdeck/flightcrew/workflows/fc-report.js'"
+      }
+    },
+    {
+      "id": "T41",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the workflow contract",
+      "covers": [
+        "B25",
+        "B26",
+        "E14",
+        "E19",
+        "I14"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T41.mjs",
+      "baseline": {
+        "expect": "fail: the workflow suite and the liftoff library are not there",
+        "observed": "fail: FAIL  I14 the suite holds one script per workflow I14 names and nothing else: the workflow suite is exactly the nine I14 names: expected [\"fc-build\",\"fc-contracts\",\"fc-plan-agent\",\"fc-plan-audit\",\"fc-plan-feature\",\"fc-plan-migration\",\"fc-report\",\"fc-review\",\"fc-verify\"], got [\"fc-explore\",\"fc-implement\",\"fc-review\"]"
+      }
+    },
+    {
+      "id": "T42",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "the workflow static scan",
+      "covers": [
+        "C13",
+        "E20"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T42.mjs",
+      "baseline": {
+        "expect": "fail: the workflow suite is not there",
+        "observed": "fail: FAIL  C13 the workflow suite passes the static scan: the scan finds nothing: expected [], got [\"agent-type: fc-explore: an agent() call names no agentType\",\"top-level-return: fc-explore: the script does not end with a top-level return\",\"no-filesystem: fc-implement: reaches the filesystem through fs\",\"agent-type: fc-implement: an age…"
+      },
+      "note": "The 'passes a schema on every agent() call whose return it branches on' clause is not scanned: it is not decidable from the text. What is scanned is that an inline schema, where one is passed, is byte-equal to its file. See the C13 finding."
+    },
+    {
+      "id": "T43",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "imports and package machinery",
+      "covers": [
+        "C1"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T43.mjs",
+      "baseline": {
+        "expect": "pass: a world-state check — nothing under flightcrew or testbench reaches outside node built-ins and its own tree, and it must stay that way",
+        "observed": "pass: pass  C1 every import specifier is a node: built-in or a relative path"
+      },
+      "note": "A world-state check: it passes before any implementation exists. Its value is that it must keep passing while the tree is rebuilt."
+    },
+    {
+      "id": "T44",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "the write boundary",
+      "covers": [
+        "C2"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T44.mjs",
+      "baseline": {
+        "expect": "fail: bin/flight is not there, so no leaf can be watched",
+        "observed": "fail: FAIL  C2 no leaf writes outside the run folder, the record, the specs, the log and the control centre: flightdeck/flightcrew/bin/flight is there to run"
+      },
+      "note": "The .gitignore line I17 requires of flight install is allowed here. See the C2/I17 finding."
+    },
+    {
+      "id": "T45",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "the network",
+      "covers": [
+        "C6"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T45.mjs",
+      "baseline": {
+        "expect": "fail: the crew roster that grants the web and the remote is not there",
+        "observed": "fail: pass  C6 no leaf, hook or validator imports a network module"
+      }
+    },
+    {
+      "id": "T46",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "session residue",
+      "covers": [
+        "C5"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T46.mjs",
+      "baseline": {
+        "expect": "fail: the root CLAUDE.md the constraint names does not exist yet",
+        "observed": "fail: pass  C5 no named file carries a session phrase"
+      }
+    },
+    {
+      "id": "T47",
+      "status": "ok",
+      "kind": "invariant",
+      "name": "the manual length",
+      "covers": [
+        "C9"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T47.mjs",
+      "baseline": {
+        "expect": "pass: a world-state check — the three manual folders are already inside the limit and the rewrite must keep them there",
+        "observed": "pass: pass  C9 the three manual folders are there"
+      },
+      "note": "A world-state check: the three manual folders are already inside the limit, and the rewrite must keep them there."
+    },
+    {
+      "id": "T48",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "JSON documents and renderings",
+      "covers": [
+        "C10"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T48.mjs",
+      "baseline": {
+        "expect": "fail: schemas/run/ is not there",
+        "observed": "fail: FAIL  C10 every document of the fixture launch is JSON and holds to the schema its name selects: schemas/run/launch.schema.json exists for launch.json"
+      }
+    },
+    {
+      "id": "T49",
+      "status": "ok",
+      "kind": "artefact",
+      "name": "the run-document schemas",
+      "covers": [
+        "I13",
+        "I15"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T49.mjs",
+      "baseline": {
+        "expect": "fail: schemas/run/ is not there",
+        "observed": "fail: FAIL  I13 every run document has its schema under schemas/run/: schemas/run/launch.schema.json exists"
+      }
+    },
+    {
+      "id": "T50",
+      "status": "ok",
+      "kind": "behavioural",
+      "name": "the suite protocol",
+      "covers": [
+        "I12"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T50.mjs",
+      "baseline": {
+        "expect": "pass: a world-state check — the shared suite runner already keeps the I12 protocol and every suite of this map is built on it",
+        "observed": "pass: pass  I12 a passing suite prints one line per case, a covers line and a count, and exits 0"
+      },
+      "note": "A world-state check: the shared suite runner already keeps the I12 protocol, and every suite this map names is built on it."
+    },
+    {
+      "id": "T51",
+      "status": "ok",
+      "kind": "project-rule",
+      "name": "the testing vocabulary",
+      "covers": [
+        "I16"
+      ],
+      "command": "node flightdeck/launch/flightcrew-core/runs/run-1/checks/T51.mjs",
+      "baseline": {
+        "expect": "fail: library/terms.md still defines check class and defines neither test nor the four homes",
+        "observed": "fail: pass  I16 library/terms.md is there"
+      }
+    }
+  ],
+  "quarantined": [],
+  "unverified": [
+    {
+      "id": "B70",
+      "reason": "No check available to this map can prove it. The {run} token is a property of a map a test-builder writes under the new runner, and this map must run under the current one, which does not expand {run}; the only artefact that could show it is a map produced by a test-builder dispatched inside a run, and no such artefact exists before the run. Provable once flight check expands {run} and a run has dispatched the test-builder against a sample launch.",
+      "decided_by": "human"
+    },
+    {
+      "id": "E18",
+      "reason": "No deterministic check can produce it. The scribe returning assembled false requires dispatching the scribe against a launch with an input removed, which needs a model; the testbench has no probe harness and the conventions forbid a check that is not deterministic. Provable once a probe harness exists that can dispatch one subagent against a fixture, with a declared trials count and threshold.",
+      "decided_by": "human"
+    }
+  ],
+  "retired": []
+}

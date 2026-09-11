@@ -3,45 +3,44 @@
   "schema_version": 1,
   "name": "flightcrew-core",
   "version": 1,
-  "status": "frozen",
-  "commit": "852b77c",
-  "reason": "initial: flightcrew rebuilt as files and native tooling — launch and run folders, JSON documents with schemas, freeze in the document, the runner as leaves, conduct as workflows and their arguments, three verdict kinds, a complete crew with sealed dispatch and schema'd returns, enforcement that fails closed, endings performed, and the human's diagnosis carried into the next run.",
+  "status": "draft",
+  "reason": "initial: flightcrew rebuilt as files and native tooling — a launch with its spec series and numbered runs, JSON documents any view can read, a minimal flight command, liftoffs driving a workflow suite, a complete crew, three verdict kinds, enforcement that fails closed, and an ending that is the human's.",
   "previous_versions": [],
   "intent": {
     "id": "INT",
     "status": "ok",
-    "text": "An AI engineer who has outgrown one-shot chat turns needs a crew of agents that builds what a spec says, beginning with itself, until it can build other things; the product is agent-shaped. Flightcrew v1 was built by a dynamic workflow that wrote its own spec and chose a fully testable command surface as the system's driver, and both recorded runs were driven by hand and transcribed into its format, so nothing it claims about a run has been observed. This version is the human's correction: the accepted foundations are kept, the first attempt's mistakes are corrected, and the result is a simpler system, just as capable, that runs under its own power for the first time. The elements of a run — a valid spec, its tests, the kickoff, the plan, the roles, the units built, verified, attacked and merged, the review, the record of events, the log entry and the clearing of build residue — each exist as files and as Claude Code's own tooling (hooks, agents, workflows, settings), each element stands alone and doesn't need active control. The engineer's vision is front-loaded into frozen documents before building begins. The outcome is discovered not built; workflow state is shaken out progressively, it rests 'hardcoded'; and what a run records is what the next run inherits."
+    "text": "HITL AI engineering falls short for any large or complex task requiring a human's direct time and attention; an orchestrated agent system can solve this problem. The human front-loads their attention and time into a carefully crafted definition of the work, and beyond that an intelligently built automated system makes the work materialise through agents repeatedly attempting to discover the deterministic outcome. If the agents fail the human simply tries again, bringing the previous failures to improve the definition of the work, the tools used, or the agents' assurance of done. This orchestration toolkit is built for a single Claude Code Max subscription user, leveraging the inbuilt harness and steering infrastructure Claude provides; the product is agent-shaped. If a user's idea of a piece of work can be handed over and agents build it for them, this work has been completed."
   },
   "scope": [
     {
       "id": "SC1",
       "status": "ok",
       "kind": "in",
-      "text": "flightdeck/flightcrew/: bin/flight and the leaf scripts under bin/, each runnable by its own path; hooks/ with the hook scripts and settings.fragment.json; crew/ with one file per role; schemas/run/ with every run-document and return schema; templates/dispatch/ with one template per subagent role and one planner template per task kind; workflows/ holding the workflow suite; liftoffs/ holding the liftoff library; verify/ holding the shared libraries and validators (replacing checks/lib, checks/validators and checks/gates); checks/rubrics/ stays as it is. flightdeck/flightcrew/README.md is rewritten to this layout. Superseded v1 files are deleted: bin/fc, bin/fc.mjs, bin/cmd/, bin/worker/, checks/lib, checks/validators, checks/gates, MANIFEST.txt, the v1 hooks that the I6 set replaces, the v1 workflow scripts, templates/kickoff/, the v1 dispatch templates directly under templates/, and every schema directly under schemas/ other than spec.schema.json."
+      "text": "flightdeck/flightcrew/: the core scripts under bin/, hooks/, crew/ (one file per role), schemas/run/, templates/dispatch/, workflows/, liftoffs/, verify/ (replacing checks/lib, checks/validators and checks/gates), and README.md; the superseded v1 runner, hooks, kickoff library, dispatch templates, schemas directly under schemas/ (other than spec.schema.json) and MANIFEST.txt are deleted."
     },
     {
       "id": "SC2",
       "status": "ok",
       "kind": "in",
-      "text": "flightdeck/launch/: README.md, FLIGHTLOG.md, and one folder per launch at launch/<name>/ holding launch.json, specs/ (spec.v<n>.json, tests-map.v<n>.json, interview/) and runs/run-<n>/; flightdeck/.controlcenter and its .gitignore line; launch/flightcrew-core/ is this work's own launch and its runs/run-1/ is produced by flight and the workflows. flightdeck/launch/RUNLOG.md stays as it is; FLIGHTLOG.md is created in the bootstrap. launch/flightcrew-core/launch.json, its runs/run-1/ and FLIGHTLOG.md exist in the I1 layout and validate before any leaf does."
+      "text": "flightdeck/launch/: README.md, FLIGHTLOG.md, one folder per launch at launch/<name>/ holding launch.json, specs/ and runs/run-<n>/; flightdeck/.controlcenter/ (flightcrew.yaml, launch.yaml) and its .gitignore line; launch/flightcrew-core/ is this work's own launch, and its launch.json, runs/run-1/ and FLIGHTLOG.md exist in that layout before any leaf does."
     },
     {
       "id": "SC3",
       "status": "ok",
       "kind": "in",
-      "text": "flightdeck/testbench/: fixtures/, lib/, benches/, and only those suites whose cases cover a leaf, hook, validator, workflow or crew rule this spec names; every other suite is deleted."
+      "text": "flightdeck/testbench/: fixtures/, lib/, benches/, and only the suites that cover a leaf, hook, validator, workflow or crew rule this spec names; every other suite is deleted."
     },
     {
       "id": "SC4",
       "status": "ok",
       "kind": "in",
-      "text": "flightdeck/manuals/launch/, flightdeck/manuals/harness/ and flightdeck/manuals/orchestration/ rewritten to the artefacts, roles, workflows, liftoffs and human readings this spec names with no command sequence in them; flightdeck/manuals/testing/ and library/terms.md aligned to I16; flightdeck/manuals/README.md updated; .claude/workflows/ receives the workflow suite and CLAUDE.md at the repository root receives the constitution block; the markdown kickoff library under flightdeck/flightcrew/templates/kickoff/ is deleted."
+      "text": "flightdeck/manuals/launch/, harness/ and orchestration/ rewritten to the artefacts, roles, workflows, liftoffs and human readings this spec names with no command sequence; manuals/testing/ and library/terms.md aligned to the testing vocabulary; manuals/README.md updated; .claude/workflows/, .claude/agents/, .claude/settings.json and the root CLAUDE.md receive what the install script writes; flightdeck/manuals/operators-manual.md and maintenance-manual.md are written unit by unit."
     },
     {
       "id": "SC5",
       "status": "ok",
       "kind": "out",
-      "text": "Out: flightdeck/launch/flightcrew-buildout/, flightdeck/launch/flightcrew-buildout-2/ and flightdeck/launch/specs/flightcrew-v1/ are untouched pre-layout history."
+      "text": "Out: flightdeck/launch/flightcrew-buildout/, flightdeck/launch/flightcrew-buildout-2/, flightdeck/launch/specs/flightcrew-v1/ and flightdeck/launch/RUNLOG.md are untouched history."
     },
     {
       "id": "SC6",
@@ -53,913 +52,448 @@
       "id": "SC7",
       "status": "ok",
       "kind": "out",
-      "text": "Out: a local web control surface over the run documents, CI configuration, telemetry beyond the events file, any npm package, and installing anything — no global command, no package.json, no symlink into the home directory; flightdeck/blackbox/, flightdeck/hangar/, flightdeck/missions/, flightdeck/radar/, library/ (except terms.md), dev/ and the dev-workspace skill are never written."
+      "text": "Out: a local web view over the run documents, CI configuration, telemetry beyond the events file, any npm package, installing anything beyond what the install script writes into .claude/ and CLAUDE.md, and flightdeck/blackbox/, hangar/, missions/, radar/, library/ (except terms.md), dev/ and the dev-workspace skill."
     },
     {
       "id": "SC8",
       "status": "ok",
       "kind": "out",
-      "text": "Out: copying a spec, a tests map or an interview/ folder into a run folder; rewriting the $id or $schema strings of any schema, template or spec; editing .gitignore beyond the one line for flightdeck/.controlcenter; migrating spec folders on other branches to the new layout."
+      "text": "Out: copying a spec, a tests map or an interview/ folder into a run; rewriting the $id or $schema strings of any schema, template or spec; migrating spec folders on other branches to the new layout."
     }
   ],
   "constraints": [
     {
       "id": "C1",
       "status": "ok",
-      "text": "Every import specifier in every script under flightdeck/flightcrew and flightdeck/testbench is a node: built-in or a relative path resolving inside those two directories; no bare package specifier, package.json, node_modules or lock file exists under them."
+      "text": "Node 22 ES modules importing only node: built-ins or relative paths, for every script under flightdeck/flightcrew and flightdeck/testbench; no package.json, node_modules or lock file."
     },
     {
       "id": "C2",
       "status": "ok",
-      "text": "No leaf, hook, workflow-dispatched agent or validator writes outside the current run folder, its launch's launch.json and specs/ folder, flightdeck/launch/FLIGHTLOG.md, flightdeck/.controlcenter, the paths the run's plan allows, and os.tmpdir(); flight install writes under .claude/ and CLAUDE.md only with --apply."
+      "text": "Claude Code agent files: YAML frontmatter using a combination of name, description, tools, model, disallowedTools, permissionMode, isolation, maxTurns and hooks; hooks declared there run only while that agent acts and its Stop hook fires as SubagentStop."
     },
     {
       "id": "C3",
       "status": "ok",
-      "text": "Every leaf script exits 0 on success, 1 on a usage or environment error and 2 on a failed check or a refused action, prints at most one line on success unless its purpose is a listing or a rendered document, and runs by its own path with bin/flight absent."
+      "text": "Claude Code hooks: PreToolUse, UserPromptSubmit, Stop and SubagentStop can block, by exit 2 or a deny decision; the other events record; the eight-consecutive-block turn ceiling is the built-in stall control, and stderr on exit 0 is shown to nobody."
     },
     {
       "id": "C4",
       "status": "ok",
-      "text": "Each hook, spawned with a minimal envelope for its event against the sample launch, exits within 2000 ms wall-clock taking the best of three runs, except the worker gate, which declares timeout 600 where it is wired."
+      "text": "Claude Code dynamic workflows: a prebuilt JavaScript agent-dispatch and structured-return tool, called by slash command with input args, schema-driven agent returns, custom agent definitions, inbuilt worktrees, model and tier overrides, staged agent progression, parallel concurrency, nested workflows one level deep, repeatable and resumable; no filesystem, shell, clock or randomness."
     },
     {
       "id": "C5",
       "status": "ok",
-      "text": "Every markdown file under flightdeck/flightcrew, flightdeck/manuals, flightdeck/launch/README.md, flightdeck/testbench/README.md and the root CLAUDE.md contains none of the phrases 'this session', 'we decided', 'as discussed', 'earlier today', 'the user asked'."
+      "text": "The Claude Code Bash sandbox: sandbox.filesystem.denyWrite in the installed settings is the only write protection that reaches Bash and its subprocesses."
     },
     {
       "id": "C6",
       "status": "ok",
-      "text": "No leaf, hook or validator script imports node:http, node:https, node:net, node:dgram or node:tls, and none calls fetch; agents reach the network only through the tools their crew files name (the orchestrator gh and git push; the explorer WebFetch and WebSearch)."
+      "text": "JSON files with templates and schemas as the mutable data the system inputs and outputs: every run document validates against a schema under flightdeck/flightcrew/schemas/run/, the spec against flightdeck/flightcrew/schemas/spec.schema.json."
     },
     {
       "id": "C7",
       "status": "ok",
-      "text": "Running node flightdeck/testbench/run-all.mjs leaves the set of entry names directly under os.tmpdir() unchanged and adds no git status line outside flightdeck/testbench/runs/."
+      "text": "Check scripts: prebuilt tests returning a verification verdict, one line per case, exiting 0 or 2; a verdict is one of three — an exit code, a ratio against a threshold declared before any trial, or a verdict sheet against a rubric with a quotation on every answer — per flightdeck/manuals/testing/testing-description.md."
     },
     {
       "id": "C8",
       "status": "ok",
-      "text": "A hook that resolves no launch with a run in progress exits 0 and writes nothing; a guard that resolves one and then cannot read what it needs to decide denies with a reason naming the failure; a recording hook in the same case exits 0 and appends one line to the run's hooks.log; no hook permits by failing."
-    },
-    {
-      "id": "C9",
-      "status": "ok",
-      "text": "Every file under flightdeck/manuals/launch, flightdeck/manuals/harness and flightdeck/manuals/orchestration is at most 150 lines."
-    },
-    {
-      "id": "C10",
-      "status": "ok",
-      "text": "Every document a run reads or writes is a JSON file validating against a schema under flightdeck/flightcrew/schemas/run/ (the spec against flightdeck/flightcrew/schemas/spec.schema.json); a markdown file under a run is a rendering — a dispatch for the agent it is rendered for, a report or plan for a human — and is read back by no script or hook."
-    },
-    {
-      "id": "C11",
-      "status": "ok",
-      "text": "Whether a document is frozen is stated in that document's own status field and enforced by a hook that reads the file it is about to touch; no freeze depends on a run being in progress or a locked-paths list being populated."
-    },
-    {
-      "id": "C12",
-      "status": "ok",
-      "text": "Every path frozen-guard, locked-guard and log-guard deny by a fixed rule — flightdeck/launch/*/specs/**, flightdeck/launch/*/runs/*/checks/** and flightdeck/launch/FLIGHTLOG.md — is also listed under sandbox.filesystem.denyWrite in the settings flight install writes, so a Bash command or a subprocess cannot write what those guards refuse; the sandbox section ships active. A map's own locked paths and the plan's boundary are held by the guards alone."
-    },
-    {
-      "id": "C13",
-      "status": "ok",
-      "text": "Every workflow script ends with a top-level return of one object, calls no filesystem or shell, uses no Date.now, new Date or Math.random, names an agentType from flightdeck/flightcrew/crew/ on every agent() call, passes a schema on every agent() call whose return it branches on, carries each such schema inline as a literal byte-equal to the I8 file it copies, and nests workflow() at most one level."
+      "text": "Callable scripts: each runs on its own path, prints a single line or its artefact on success, and exits 0 on success, 1 on a usage or environment error, 2 on a failed check or a refused action."
     }
   ],
   "interfaces": [
     {
       "id": "I1",
       "status": "ok",
-      "name": "launch folder",
-      "reuse": null,
-      "text": "flightdeck/launch/<name>/ = { launch.json, specs/ = { spec.v<n>.json, tests-map.v<n>.json, interview/ }, runs/ = { run-<n>/ = { liftoff/ = { <liftoff name>.json }, plan.json, plan.md, events.jsonl, hooks.log, checks/ = { <check scripts>, rubrics/ = { <T>.md } }, evidence/, dispatches/, returns/, report.json, report.md } } }; <name> is the launch name and <n> a positive integer; a folder under flightdeck/launch/ without launch.json is not a launch."
+      "name": "spec.json",
+      "reuse": "flightdeck/flightcrew/schemas/spec.schema.json",
+      "text": "spec.v<n>.json under flightdeck/launch/<name>/specs/. Schema: flightdeck/flightcrew/schemas/spec.schema.json. Template: flightdeck/flightcrew/templates/spec.template.json. Communicates: the nine domains, every one present unless a reason is stated; ids immutable after the first freeze; the node change scheme (status ok|new|changed with notes); retired nodes visible across versions; draft or frozen, draft editable and frozen locked by the human's freeze with the commit named; version series for improvable retries."
     },
     {
       "id": "I2",
       "status": "ok",
       "name": "launch.json",
       "reuse": null,
-      "text": "flightdeck/flightcrew/schemas/run/launch.schema.json: { schema_version: 1, name: string, created: date, spec: { version: int }, tests_map: { version: int } | null, test_dir: string (the project's own test folder, repository-relative), current_run: int|null, runs: [ { n: int, branch: string ('run/<name>-<n>'), base_commit: hex, lock_commit: hex|null, started: iso } ] }. An index of what spans runs; the frozen files carry their own commits, the log entry carries a run's outcome, and the run folder carries everything else."
+      "text": "launch.json at flightdeck/launch/<name>/. Schema: flightdeck/flightcrew/schemas/run/launch.schema.json. Template: flightdeck/flightcrew/templates/launch.template.json. Communicates: name, created, the spec and tests-map versions in force, test_dir (the project's own test folder), current_run, and per run its number, branch 'run/<name>-<n>', base_commit, lock_commit and started. Fields: { schema_version: 1, name: string, created: date, spec: { version: int }, tests_map: { version: int } | null, test_dir: string, current_run: int|null, runs: [ { n: int, branch: string, base_commit: hex, lock_commit: hex|null, started: iso } ] }. The folder around it holds specs/ (spec and map series, interview/) and runs/run-<n>/ (liftoff/, plan.json, plan.md, events.jsonl, hooks.log, checks/ with rubrics/, evidence/, dispatches/, returns/, report.json, report.md)."
     },
     {
       "id": "I3",
       "status": "ok",
-      "name": ".controlcenter",
-      "reuse": null,
-      "text": "flightdeck/.controlcenter: one 'KEY=value' line per key, git-ignored, holding LAUNCH_DIRECTORY=<repository-relative launch folder>; written by flight launch init and flight run new, editable by hand; every hook and leaf resolves the run in progress as LAUNCH_DIRECTORY plus that launch's launch.json.current_run, and a worktree resolves the file from the main checkout."
+      "name": "tests-map.json",
+      "reuse": "flightdeck/flightcrew/schemas/run/tests-map.schema.json",
+      "text": "tests-map.v<n>.json under flightdeck/launch/<name>/specs/. Schema: flightdeck/flightcrew/schemas/run/tests-map.schema.json. Template: flightdeck/flightcrew/templates/tests-map.template.json. Communicates: the checks a run is proven by, each with id T<n>, kind, verdict 'exit'|'ratio'|'sheet', covers, command (run from the repository root, {run} expanded to the run folder), depends_on globs, baseline, and for ratio trials and threshold, for sheet a rubric path; locked_paths, quarantined, unverified and retired lists; draft or frozen as I1."
     },
     {
       "id": "I4",
       "status": "ok",
-      "name": "frozen documents",
-      "reuse": null,
-      "text": "A document with top-level status: 'draft'|'frozen' and, when frozen, commit: <7 to 40 hex characters>: the spec and tests-map files under specs/ (fields already in their schemas) and a run's plan.json once fc-plan-<kind> has returned. A frozen file is never edited; a revision is the next-numbered file, and a tests map is never revised inside a run."
+      "name": "plan.json",
+      "reuse": "flightdeck/flightcrew/schemas/run/plan.schema.json",
+      "text": "plan.json at runs/run-<n>/. Schema: flightdeck/flightcrew/schemas/run/plan.schema.json. Template: flightdeck/flightcrew/templates/plan.template.json. Communicates: the run's approach, waves (serial or parallel) and units — id, name, kind contracts|feature|integration|proof, spec_refs, checks, owner role, paths, depends_on, scout flag — and risks; frozen as I1 once written; plan.md rendered from it."
     },
     {
       "id": "I5",
       "status": "ok",
-      "name": "flight",
+      "name": "liftoff.json",
       "reuse": null,
-      "text": "flightdeck/flightcrew/bin/flight <leaf> [args], a dispatcher that only routes to flightdeck/flightcrew/bin/<leaf>.mjs. Leaves and the artefact each writes: launch init <name> [--test-dir <path>] → the launch folder with its record, specs/spec.v1.json from flightdeck/flightcrew/templates/spec.template.json, the interview folder and flightdeck/.controlcenter, and no run; run new <name> → runs/run-<n>/ (run-1 included), its branch run/<name>-<n> created from HEAD, the record's current_run and runs entry, and flightdeck/.controlcenter; check [T<n>... | --unit <id>] [--baseline] → one evidence file per check run and evidence/summary.json, or with --baseline the map's baseline.observed fields; event <json> → one line appended to events.jsonl with source leaf; render <role> <target> [--fill <path to a JSON object>] → dispatches/<role>-<target>.md, the fill's unit fields read from plan.json when <target> is a unit id and every other slot from the --fill object; merge <unit> → the unit branch merged; freeze <path> → the document with status frozen and commit set to HEAD, and for a spec or map the version pin in launch.json; validate <path> and lint spec <path> → one 'error: <message> — [<rule>]' line per violation on stdout; install [--apply --target <dir> [--force]] → the I17 install set."
+      "text": "A liftoff under flightdeck/flightcrew/liftoffs/<name>.json, copied to runs/run-<n>/liftoff/<name>.json. Schema: flightdeck/flightcrew/schemas/run/liftoff.schema.json. Template: flightdeck/flightcrew/templates/liftoff.template.json. Communicates: the recipe a run is conducted by — name, task feature|migration|audit|agent, the sequence of workflows with each one's args, sessions (streams of units per seat, empty for one seat), models per tier, review policy (critic passes, adversary per unit), runtime settings, notes; passed to every workflow as args = { launch, run, liftoff, entry }; named in the log entry as '<name> @ <git log -1 of the library file>'."
     },
     {
       "id": "I6",
       "status": "ok",
-      "name": "hooks and settings fragment",
-      "reuse": "https://code.claude.com/docs/en/hooks",
-      "text": "flightdeck/flightcrew/hooks/settings.fragment.json wires the global hooks: event-log (SessionStart, SessionEnd, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, PostToolUseFailure, PermissionDenied, PreCompact, PostCompact, Stop, WorktreeRemove); frozen-guard, locked-guard, boundary-guard and log-guard (PreToolUse, matcher Edit|Write|NotebookEdit); return-capture (SubagentStop); check-after-edit (PostToolUse, matcher Edit|Write, wired only in the frontmatter of implementer, strong-worker and interface-builder: runs flight check --unit for the unit named in the agent's last return-in-progress or dispatch and prints the failing ids on stderr, never blocking). permissions.allow lists Agent(<name>) for each crew file, Workflow(<name>) for each workflow, Bash rules for the flight dispatcher, the leaf scripts under flightdeck/flightcrew/bin/, git status, diff, log, rev-parse, switch, worktree list, git push and gh pr create; sandbox.filesystem.denyWrite lists flightdeck/launch/*/specs/**, flightdeck/launch/*/runs/*/checks/** and flightdeck/launch/FLIGHTLOG.md; worktree.baseRef is head. The worker gate lives in the frontmatter of implementer, strong-worker and interface-builder, not in the fragment. When a run resolves, every deny decision a guard prints is paired with one event named <guard>_denied, and every worker-gate run appends exactly one of stop_block, check_run or stalled; with no run resolved no event is written. Hooks read the stdin envelope and answer with a permissionDecision, a systemMessage, or exit 2 with the reason on stderr."
+      "name": "configurations",
+      "reuse": null,
+      "text": "Configurations under flightdeck/.controlcenter/, git-ignored: flightcrew.yaml, global system configuration and a placeholder for later global settings; launch.yaml, launch-based configuration holding current_active_launch: <repository-relative launch folder>, written by the init and run-new scripts and editable by hand; every hook and script resolves the run in progress from launch.yaml plus launch.json.current_run, and a worktree reads the main checkout's copy."
     },
     {
       "id": "I7",
       "status": "ok",
-      "name": "crew file",
-      "reuse": "https://code.claude.com/docs/en/sub-agents",
-      "text": "flightdeck/flightcrew/crew/<role>.md for explorer, planner, orchestrator, steward, interface-builder, implementer, strong-worker, adversary, verifier, critic, judge, scribe, test-builder; flightdeck/flightcrew/crew/spec-builder.md, flightdeck/flightcrew/crew/spec-judge.md and flightdeck/flightcrew/crew/spec-attacker.md as they stand. Frontmatter carries name, description, tools, model (never inherit), and for subagents maxTurns; disallowedTools naming Write and Edit on every role that must not write; isolation: worktree on implementer and strong-worker; hooks carrying the PostToolUse check-after-edit and the SubagentStop worker gate on implementer, strong-worker and interface-builder. The body of every subagent role ends with a fenced JSON block showing its return and contains the sentence 'Your inputs are only those named in the dispatch'. spec-builder and test-builder are session agents: they hold AskUserQuestion and no maxTurns. The steward holds Bash only, runs one leaf or git invocation per dispatch and returns its exit and output. The orchestrator's tools include Bash with gh and git push; the explorer's include WebFetch and WebSearch."
+      "name": "events.jsonl",
+      "reuse": "flightdeck/flightcrew/schemas/run/event.schema.json",
+      "text": "events.jsonl at runs/run-<n>/. Schema: flightdeck/flightcrew/schemas/run/event.schema.json. Communicates: one object per line — ts, event, launch, run, source hook|leaf|role, session_id, agent_id, agent_type, detail — event being a hook event name or frozen_denied, locked_denied, boundary_denied, log_denied, return, return_invalid, stop_block, check_run, stalled, unit_merged, workflow_end; hooks.log beside it holds '<iso ts> <hook> <message>' lines."
     },
     {
       "id": "I8",
       "status": "ok",
-      "name": "returns",
-      "reuse": null,
-      "text": "One return schema per subagent role under flightdeck/flightcrew/schemas/run/. Reused as they stand: flightdeck/flightcrew/schemas/run/explorer-return.schema.json, flightdeck/flightcrew/schemas/run/worker-return.schema.json (implementer, strong-worker), flightdeck/flightcrew/schemas/run/verifier-verdict.schema.json, flightdeck/flightcrew/schemas/run/critic-findings.schema.json. New: flightdeck/flightcrew/schemas/run/planner-return.schema.json = the plan object of I13; flightdeck/flightcrew/schemas/run/interface-builder-return.schema.json = worker-return with halt.kind extended by 'spec-contradiction'; flightdeck/flightcrew/schemas/run/adversary-return.schema.json = critic-findings plus unit: string; flightdeck/flightcrew/schemas/run/judge-return.schema.json = the verdict sheet of I15; flightdeck/flightcrew/schemas/run/scribe-return.schema.json = { target: string, report: string, log_entry: string, assembled: boolean, missing: [string] }; flightdeck/flightcrew/schemas/run/steward-return.schema.json = { target: string, command: string, exit: int, stdout_tail: [string], stderr_tail: [string] }; flightdeck/flightcrew/schemas/run/test-builder-return.schema.json = { map: string, checks: [ { id: string, kind: string, verdict: 'exit'|'ratio'|'sheet', covers: [string], command: string } ], unverified: [ { id: string, reason: string } ], spec_findings: [ { node: string, kind: string, text: string } ] }. Every return carries target: string (the worker shapes carry it as unit) and fix: int|null (the fix number for a fix dispatch, else null) and is stored at runs/run-<n>/returns/<role>-<target>.json, a fix return at <role>-<target>-fix-<k>.json, <target> being the unit id for a worker, interface-builder, strong-worker or adversary, X<n> for an explorer, pass-<n> for a critic, verifier or judge pass, 'plan' for the planner, 'report' for the scribe, 'map' for the test-builder (which writes its own return file, being a session agent), the leaf name for the steward, and T<n> for a judge sheet."
+      "name": "evidence",
+      "reuse": "flightdeck/flightcrew/schemas/run/check-result.schema.json",
+      "text": "evidence/<T>.json and evidence/summary.json at runs/run-<n>/. Schemas: flightdeck/flightcrew/schemas/run/check-result.schema.json (id, command, cwd, exit, verdict, stdout_tail, stderr_tail, duration_ms, ran_at, commit, covers, plus observed { passes, trials } for a ratio and sheet: path for a sheet) and flightdeck/flightcrew/schemas/run/evidence-summary.schema.json = { ran_at: iso, commit: hex, counts: { pass, fail, error, skipped: int }, checks: [ { id, verdict, covers } ], boundary: { base: hex, outside: [string] }, locked: { changed: [string] } }. Communicates: the raw result of every check and the run's verification state."
     },
     {
       "id": "I9",
       "status": "ok",
-      "name": "dispatch",
+      "name": "report and log",
       "reuse": null,
-      "text": "flightdeck/flightcrew/templates/dispatch/<role>.template.md for every subagent role, and planner-<kind>.template.md for each task kind feature, migration, audit and agent carrying that kind's cutting rules, wave-0 obligation and risks, rendered by flight render to runs/run-<n>/dispatches/<role>-<target>.md from the role file, the template and the fill; the fill is the plan unit named by <target> where one exists, plus the --fill object the caller passes (flightdeck/flightcrew/schemas/run/fill.schema.json: { question?: string, rubric?: string, subject?: string, evidence?: string, leaf?: string, previous_findings?: object }), which a workflow supplies through the steward dispatch that runs the render. Line 1 is '<role> · <target>'. Slots: {{launch}}, {{run}}, {{target}}, {{intent}}, {{scope}}, {{constraints}}, {{interfaces}}, {{decisions}} (each the texts of that domain, one per line), {{spec_refs}} (the texts of the nodes the target names), {{checks}} (one '<id>: <covers>' line per check), {{paths}} and {{depends_on}} (one glob or unit id per line), {{previous_findings}} (the open findings as critic-findings JSON, fix dispatches only), {{question}} (explorer only), {{rubric}} and {{subject}} (the rubric file's text and the subject path, judge only), {{evidence}} (the failed unit's check output and return, strong-worker only), {{leaf}} (the invocation, steward only), {{return_shape}} (the role's return schema). A fix dispatch is rendered from the role's own template with {{previous_findings}} filled to dispatches/<role>-<target>-fix-<k>.md. A template names only these slots; a rendered dispatch contains no text of a B or E node outside spec_refs and no check command text."
+      "text": "report.json at runs/run-<n>/ and flightdeck/launch/FLIGHTLOG.md. Schema: flightdeck/flightcrew/schemas/run/report.schema.json = { launch, run, header: { spec, kickoff, cost, started, ended }, ledger: [ '[recorded|checked|reviewed|stated] <text>' ], verification: { counts, unverified, quarantined, boundary, locked }, review: { passes, open, resolved }, phases: [ { workflow, ended } ], agents: [ { agent_type, count } ], failures: [ { event, ts, detail } ], notes: string }, rendered to report.md. Template: flightdeck/flightcrew/templates/report.template.md. The log: entries newest first headed '## <YYYY-MM-DD> · <launch> · run-<n>' with lines spec, kickoff, cost, symptom, pr (scribe-written) then outcome, seen on, cause, fixed on, change, watch, kept, reservation, promote (human-owned, '<fill>' until written). Template: flightdeck/flightcrew/templates/runlog-entry.template.md."
     },
     {
       "id": "I10",
       "status": "ok",
-      "name": "FLIGHTLOG.md",
-      "reuse": null,
-      "text": "flightdeck/launch/FLIGHTLOG.md: '# Flight log', a preamble paragraph, then entries newest first. Entry = '## <YYYY-MM-DD> · <launch> · run-<n>' followed by one '<field>: <text>' line per field, in this order: spec, kickoff (the liftoff name @ commit), cost, symptom, pr (scribe-written; pr reads the pull request URL or '—'), then outcome, seen on, cause, fixed on, change, watch, kept, reservation, promote (human-owned, reading '<fill>' until written). outcome is one of accepted, abandoned, partial, and is the human's word after merging or rejecting the pull request."
+      "name": "terms",
+      "reuse": "library/terms.md",
+      "text": "library/terms.md: the common vocabulary; each build unit names its terms here and every major system area is included."
     },
     {
       "id": "I11",
       "status": "ok",
-      "name": "CLAUDE.md",
+      "name": "operators manual",
       "reuse": null,
-      "text": "The repository root CLAUDE.md holds a section '# Flightcrew' ending at the next '# ' heading or end of file, written whole by flight install: 'Launches live under flightdeck/launch/<name>/; a run is runs/run-<n>/ (see flightdeck/launch/README.md)', 'Frozen: any JSON file whose status is frozen; locked: specs/**, runs/*/checks/** and the pinned map's locked paths', 'Checks: flightdeck/flightcrew/bin/flight check', 'A role reads its own dispatch and nothing else'."
+      "text": "flightdeck/manuals/operators-manual.md: each unit describes how to operate its part of the machinery."
     },
     {
       "id": "I12",
       "status": "ok",
-      "name": "suite protocol",
+      "name": "maintenance manual",
       "reuse": null,
-      "text": "flightdeck/testbench/suites/<name>/run.mjs: no arguments required; prints one line per case as 'pass  <case>' or 'FAIL  <case>' and a final '<n>/<m> passed'; exit 0 when all pass, 2 otherwise; flightdeck/testbench/run-all.mjs runs every suite in name order, prints one line per suite, and exits 2 if any suite exits non-zero."
-    },
-    {
-      "id": "I13",
-      "status": "ok",
-      "name": "run documents",
-      "reuse": null,
-      "text": "Run documents and their schemas: plan.json → flightdeck/flightcrew/schemas/run/plan.schema.json as it stands with the unit flag pilot renamed scout; gates, abandon_triggers, kickoff_version, shape, models, expected_cost and budget_turns removed; and status: 'draft'|'frozen' and commit added; evidence/<T>.json → flightdeck/flightcrew/schemas/run/check-result.schema.json as it stands (id, command, cwd, exit, verdict, stdout_tail, stderr_tail, duration_ms, ran_at, commit, covers, phase) plus the I15 fields observed and sheet; evidence/summary.json → flightdeck/flightcrew/schemas/run/evidence-summary.schema.json = { ran_at: iso, commit: hex, counts: { pass: int, fail: int, error: int, skipped: int }, checks: [ { id: string, verdict: string, covers: [string] } ], boundary: { base: hex, outside: [string] }, locked: { changed: [string] } }; events.jsonl → flightdeck/flightcrew/schemas/run/event.schema.json as it stands with phase removed, run: int added, source one of hook|leaf|role, event one of the hook event names or frozen_denied, locked_denied, boundary_denied, log_denied, return, return_invalid, stop_block, check_run, stalled, unit_merged, workflow_end, and detail keys limited to tool_name, file_path, command, error, tool_error_code, permission_denial_reason, stop_reason, trigger, task_id, task_title, reason, mode, prompt, transcript_path, worktree_path, agent_id, agent_type, unit, workflow; returns/<role>-<target>.invalid.json → flightdeck/flightcrew/schemas/run/invalid-return.schema.json = { agent_id: string, agent_type: string, raw: string, errors: [string] }; report.json → flightdeck/flightcrew/schemas/run/report.schema.json = { launch: string, run: int, header: { spec: string, kickoff: string, cost: string ('<agents> agents · <minutes> minutes' from SubagentStart counts and first and last event times), started: iso, ended: iso }, ledger: [string] (each line '[recorded|checked|reviewed|stated] <text>', the bracketed word being its provenance mark), verification: { counts: <evidence-summary counts as above>, unverified: [string], quarantined: [string] (the ids the pinned map lists under quarantined), boundary: [string], locked: [string] }, review: { passes: int, open: [string], resolved: [string] }, phases: [ { workflow: string, ended: iso } ] (one per workflow_end event), agents: [ { agent_type: string, count: int } ], failures: [ { event: string, ts: iso, detail: object } ], notes: string }. hooks.log lines are '<iso ts> <hook name> <message>'."
-    },
-    {
-      "id": "I14",
-      "status": "ok",
-      "name": "liftoffs and workflows",
-      "reuse": "https://code.claude.com/docs/en/workflows",
-      "text": "A liftoff is one file under flightdeck/flightcrew/liftoffs/<name>.json → flightdeck/flightcrew/schemas/run/liftoff.schema.json = { name: string, task: 'feature'|'migration'|'audit'|'agent', sequence: [ { workflow: string, args: <the entry args of that workflow> } ], sessions: [ { name: string, units: [string] } ] (empty for one seat), models: { explore: string, unit: string, strong: string, critic: string, judge: string }, review: { critic_passes: int, adversary_per_unit: boolean }, settings: object, notes: string }; the library ships with at least three liftoffs, settings holds only keys the workflow runtime accepts as call options (model, effort, isolation, budget) and nothing else. The log entry's kickoff line is '<liftoff name> @ <commit>', the commit being git log -1 of the library file. The workflow suite under flightdeck/flightcrew/workflows/, installed to .claude/workflows/, each script's meta.name equal to its file name, each receiving args = { launch: string, run: int, liftoff: <the liftoff object>, entry: <its entry args> } and returning one object. Entry args: fc-plan-<kind> { questions: [string] }; fc-contracts {}; fc-build { standalone: boolean, waves: [string]|null (only these wave ids when set), session: string|null (only the units of that liftoff sessions entry when set) }; fc-verify {}; fc-review { passes: int|null (overrides liftoff.review.critic_passes when set) }; fc-report {}. A workflow runs a leaf or a git command by dispatching the steward with the invocation and reading its exit from the return. Results: flightdeck/flightcrew/workflows/fc-plan-feature.js, flightdeck/flightcrew/workflows/fc-plan-migration.js, flightdeck/flightcrew/workflows/fc-plan-audit.js, flightdeck/flightcrew/workflows/fc-plan-agent.js (explorers then planner with that kind's template) → { plan: string, explorers: int, halt: <worker-return halt>|null }; flightdeck/flightcrew/workflows/fc-contracts.js (interface-builder on wave 0 and its checks) → { unit: string, green: boolean, halt: <worker-return halt>|null }; flightdeck/flightcrew/workflows/fc-build.js (implementers by wave, scouts first, strong-worker on a stall or red, adversary per unit, merge through the steward; then workflow('fc-verify') and workflow('fc-review') unless args.entry.standalone) → { units: [ { id: string, status: 'green'|'red'|'stalled'|'halt'|'unmerged', merged: boolean, halt: <worker-return halt>|null } ], verify: <the fc-verify result>|null, review: <the fc-review result>|null, stopped: null | { unit: string, check: string } }; flightdeck/flightcrew/workflows/fc-verify.js (judge per sheet check, verifier running flight check) → { green: boolean, refuted: boolean, failing: [string] }; flightdeck/flightcrew/workflows/fc-review.js (critic passes, fix dispatches, re-verify) → { passes: int, open: [string], resolved: [string] }; flightdeck/flightcrew/workflows/fc-report.js (scribe report and log stub, worktrees removed) → { report: string, log_entry: boolean, worktrees_removed: int, error: string|null }. Any workflow given args failing its schema returns { refused: string }."
-    },
-    {
-      "id": "I15",
-      "status": "ok",
-      "name": "verdicts",
-      "reuse": null,
-      "text": "Three verdict kinds. A check id is T<n>, <n> a positive integer unique within a map. In flightdeck/flightcrew/schemas/run/tests-map.schema.json each check carries verdict: 'exit'|'ratio'|'sheet' (replacing class), kind as it stands, depends_on: [glob] (paths whose change invalidates the check, locked with it), baseline { expect, observed } as it stands (observed written by flight check --baseline), and for ratio { trials: int, threshold: number } and for sheet { rubric: string, a path under runs/run-<n>/checks/rubrics/ }; allowed_paths and gate_only are removed (the plan owns the boundary); fixture and run_all stay. A command runs with cwd the repository root and {run} expanded to the repository-relative run folder; a path in a command is any token containing a slash. In flightdeck/flightcrew/schemas/run/check-result.schema.json a result carries verdict: 'pass'|'fail'|'error'|'skipped' plus for ratio observed: { passes: int, trials: int } and for sheet sheet: string (path). A sheet check's command prints the path of the judge's return for that check, returns/judge-<T>.json, which fc-verify has the judge write before the verifier runs flight check. The verdict sheet → flightdeck/flightcrew/schemas/run/judge-return.schema.json = { rubric: string, subject: string, answers: [ { question: string, answer: 'yes'|'no', quote: string } ], verdict: 'pass'|'fail' }, an answer with an empty quote invalidating the sheet."
-    },
-    {
-      "id": "I16",
-      "status": "ok",
-      "name": "testing vocabulary",
-      "reuse": "library/terms.md",
-      "text": "library/terms.md defines: test — an assertion owned by the project, in its own framework, invoked by a check and never written by a run; check — the wrapper a tests map names, which runs something and returns a verdict a gate reads; verdict — an exit code, a ratio against a threshold declared before any trial, or a verdict sheet against a rubric; check class is removed and verdict kind replaces it. Checks live at runs/run-<n>/checks/, the tests-map series beside the spec under specs/, fixtures and benches under flightdeck/testbench/, shared libraries under flightdeck/flightcrew/verify/."
-    },
-    {
-      "id": "I17",
-      "status": "ok",
-      "name": "install set",
-      "reuse": null,
-      "text": "The install set flight install --apply --target <dir> writes: <dir>/agents/flightcrew/<role>.md for every file under flightdeck/flightcrew/crew/ and the three spec-chain files, byte-equal; <dir>/workflows/<name>.js for every workflow of the suite, byte-equal; <dir>/settings.json with the fragment's hooks, sandbox and worktree entries merged in and permissions.allow holding one Agent(<name>) per crew file and one Workflow(<name>) per workflow; the I11 block in the root CLAUDE.md; and the line 'flightdeck/.controlcenter' in .gitignore."
+      "text": "flightdeck/manuals/maintenance-manual.md: each unit describes how to maintain its part of the machinery."
     }
   ],
   "behaviours": [
     {
       "id": "B1",
       "status": "ok",
-      "text": "[deterministic] flight launch init <name> creates launch.json per I2 with created, current_run null, test_dir from --test-dir and runs empty, an empty specs/interview/, and no run folder."
+      "text": "[deterministic] A launch is opened from an idea as one folder holding its spec series and its numbered runs, so that every attempt at one piece of work shares an address and the interval before a spec exists has one too."
     },
     {
       "id": "B2",
       "status": "ok",
-      "text": "[deterministic] flight launch init writes specs/spec.v1.json from flightdeck/flightcrew/templates/spec.template.json with schema_version 1, name <name>, version 1 and status draft filled."
+      "text": "[deterministic] A run opens only against a frozen spec and tests map and, after the first, a fully written previous log entry, on its own branch cut from the branch the human is on, so that a retry is a new experiment against an improved setup and never a resumed one."
     },
     {
       "id": "B3",
       "status": "ok",
-      "text": "[deterministic] flight run new <name> creates the branch run/<name>-<n> from the current HEAD."
+      "text": "[deterministic] A frozen document refuses every edit from every tool, the refusal read from the document's own status, so that the freeze holds whether or not any run is in progress."
     },
     {
       "id": "B4",
       "status": "ok",
-      "text": "[deterministic] flight run new <name>, given the newest spec and tests map under specs/ frozen and, for n greater than 1, the previous run's FLIGHTLOG entry fully written, creates runs/run-<n>/ with the I1 file set and empty events.jsonl and hooks.log."
+      "text": "[deterministic] Every document a run holds validates against its schema at every moment of the run, so that a view layer can read the run's state from the files alone."
     },
     {
       "id": "B5",
       "status": "ok",
-      "text": "[deterministic] flight run new, after creating the run folder, appends { n, branch, base_commit HEAD, lock_commit null, started } to launch.json.runs and sets current_run to n."
+      "text": "[deterministic] The core scripts — init, run-new, freeze, check, render, merge, validate, lint, event, install — each write one artefact inside the launch folder (or under .claude/ and CLAUDE.md for install with --apply), make no network call, and run alone by their own path; no command a human types advances a run."
     },
     {
       "id": "B6",
       "status": "ok",
-      "text": "[deterministic] flight launch init and flight run new each end by writing LAUNCH_DIRECTORY=<launch folder> to flightdeck/.controlcenter."
+      "text": "[statistical] A liftoff pasted into the orchestrator session drives the run through the workflows it names, one per human instruction, the orchestrator reporting each result and what to read next, so that a run with different tooling is a different liftoff and not a different workflow."
     },
     {
       "id": "B7",
       "status": "ok",
-      "text": "[deterministic] frozen-guard, on a PreToolUse for Edit, Write or NotebookEdit whose target is a JSON file with a top-level status of frozen, prints a deny decision naming the file, with no launch resolved, with .controlcenter absent, and inside a worktree alike."
+      "text": "[deterministic] The plan workflow explores the codebase and ends with a frozen plan for the human to read, cut by the task kind the liftoff names."
     },
     {
       "id": "B8",
       "status": "ok",
-      "text": "[deterministic] flight validate <path>, given a document, validates it against the schema its filename selects, printing the I5 error lines and exiting 2 on any error and 0 with no output otherwise."
+      "text": "[deterministic] The contracts workflow builds the wave-0 seams first and halts on a spec–codebase contradiction rather than adapting around it, so that no later worker inherits a guessed seam."
     },
     {
       "id": "B9",
       "status": "ok",
-      "text": "[deterministic] flight check runs the checks it is given — every non-quarantined check of the pinned tests map, the listed T<n> ids, or with --unit the checks of that plan unit — serially, each as /bin/sh -c with {run} expanded and cwd the repository root, under a 300 second limit."
+      "text": "[deterministic] A scout unit is built to green before the rest of its wave is dispatched, so that the implementation run can be found working before the fan-out spends anything."
     },
     {
       "id": "B10",
       "status": "ok",
-      "text": "[deterministic] flight check rebuilds evidence/summary.json per I13 from every evidence file present, computing boundary against launch.json.runs[current].lock_commit with the plan's unit paths plus the run folder as the allowed set, and locked against the map's locked_paths, its depends_on paths and runs/run-<n>/checks/."
+      "text": "[deterministic] A unit whose worker returns red or stalls gets one attempt by a stronger worker from a clean worktree holding the evidence and not the approach; a second failure stops the run naming the unit and the check that kept failing."
     },
     {
       "id": "B11",
       "status": "ok",
-      "text": "[deterministic] flight render <role> <target> writes dispatches/<role>-<target>.md per I9, using the planner-<kind>.template.md named by the run's liftoff for the planner."
+      "text": "[deterministic] Every green unit is attacked by an adversary before it lands and lands only when no blocking finding stands, after at most one fix by its own worker."
     },
     {
       "id": "B12",
       "status": "ok",
-      "text": "[deterministic] flight render commits the rendered dispatch on the run branch before exiting, so that git log -1 on its path resolves on the run branch."
+      "text": "[deterministic] After the last unit lands, verification reruns every check and a verifier tries to refute the green; then critics review the diff against the spec, fixes go back to the unit's worker, and the loop ends with no blocking finding open or at the pass cap the liftoff sets."
     },
     {
       "id": "B13",
       "status": "ok",
-      "text": "[deterministic] flight merge <unit>, given a green return whose branch exists, the checked-out branch equal to the run's branch in launch.json and every depends_on unit already merged, merges the unit branch with --no-ff, runs the unit's checks, and commits when every check passes."
+      "text": "[deterministic] The run ends with the report and the log stub written, every worktree of the run removed with its branch kept, and a pull request opened from the run branch; merging, rejecting, deleting branches and the diagnosis are the human's."
     },
     {
       "id": "B14",
       "status": "ok",
-      "text": "[deterministic] flight merge, after its merge commit, appends a unit_merged event."
+      "text": "[deterministic] The previous run's log entry reaches the next run as content in its liftoff copy, and the keys that differ from the previous run are recorded, so that a retry differs by an attributable change."
     },
     {
       "id": "B15",
       "status": "ok",
-      "text": "[deterministic] flight merge, after its merge commit, removes the unit's worktree and branch."
+      "text": "[deterministic] Checks are written by the test-builder into the run before implementation, with the map beside the spec, and are locked against the run; a check returns an exit, a ratio or a sheet and every gate reads all three."
     },
     {
       "id": "B16",
       "status": "ok",
-      "text": "[deterministic] flight install --apply --target <dir> writes the I17 install set."
+      "text": "[deterministic] A judge produces a verdict sheet against a rubric with a quotation on every answer, and an uncited sheet fails."
     },
     {
       "id": "B17",
       "status": "ok",
-      "text": "[deterministic] flight install --apply, finding a CLAUDE.md Flightcrew block, replaces it rather than adding a second."
+      "text": "[deterministic] Each role's reach — tools, model, isolation, its own hooks — is declared in its own crew file and nothing it can do exceeds it; the installed settings are derived from the crew folder."
     },
     {
       "id": "B18",
       "status": "ok",
-      "text": "[deterministic] flight install --apply, finding no CLAUDE.md, creates it holding the Flightcrew block."
+      "text": "[deterministic] The explorer answers one narrow question with a cited answer and never receives the plan or a unit's work."
     },
     {
       "id": "B19",
       "status": "ok",
-      "text": "[deterministic] flight install --apply, finding the .gitignore line present, adds nothing."
+      "text": "[deterministic] The planner turns the frozen spec, map and explorer answers into the plan and writes nothing else."
     },
     {
       "id": "B20",
       "status": "ok",
-      "text": "[deterministic] flight install --apply, finding no .gitignore or no line, writes the line."
+      "text": "[deterministic] The orchestrator invokes workflows on the human's word, records what they return, and writes no run document itself."
     },
     {
       "id": "B21",
       "status": "ok",
-      "text": "[deterministic] The orchestrator, handed a liftoff, writes it unchanged to runs/run-<n>/liftoff/<name>.json before invoking the first workflow of its sequence."
+      "text": "[deterministic] The steward runs one leaf or git invocation for a workflow and returns its exit and output, so that workflows touch disk only through it."
     },
     {
       "id": "B22",
       "status": "ok",
-      "text": "[deterministic] The orchestrator invokes the liftoff's sequence in its stated order."
+      "text": "[deterministic] The interface-builder writes wave-0 seams without behaviour and halts on a contradiction with the spec."
     },
     {
       "id": "B23",
       "status": "ok",
-      "text": "[deterministic] The orchestrator invokes each sequence entry only on a new human instruction."
+      "text": "[deterministic] The implementer builds one unit in its own worktree until the unit's checks pass and cannot finish red."
     },
     {
       "id": "B24",
       "status": "ok",
-      "text": "[judged] The orchestrator, after each workflow returns, reports its result and names what the human should read next."
+      "text": "[deterministic] The strong-worker retries one failed unit once on the stronger tier from a clean state."
     },
     {
       "id": "B25",
       "status": "ok",
-      "text": "[deterministic] Each workflow of I14, invoked with its I14 args, returns the I14 result object for its name."
+      "text": "[judged] The adversary attacks one completed unit for what its checks missed and where it narrowed scope."
     },
     {
       "id": "B26",
       "status": "ok",
-      "text": "[deterministic] Each workflow of I14 dispatches nothing after the point I14 names as its end."
+      "text": "[deterministic] The verifier reruns the checks on the merged branch and tries to refute the green rather than confirm it."
     },
     {
       "id": "B27",
       "status": "ok",
-      "text": "[deterministic] fc-plan-<kind> dispatches one explorer per question in its entry args."
+      "text": "[judged] The critic reviews the diff against the spec and returns one finding per gap, never a fix."
     },
     {
       "id": "B28",
       "status": "ok",
-      "text": "[deterministic] fc-plan-<kind> dispatches the planner with the planner-<kind> template and the explorer returns after the explorers return."
+      "text": "[deterministic] The scribe assembles the report and the log stub from the run's records with every ledger line marked recorded, checked, reviewed or stated, and reports what it could not assemble."
     },
     {
       "id": "B29",
       "status": "ok",
-      "text": "[deterministic] fc-plan-<kind> returns with plan.json written by the planner's return."
+      "text": "[deterministic] The test-builder is a session the human starts against the frozen spec and a run, writes the map and the checks, and asks the human where the spec is silent."
     },
     {
       "id": "B30",
       "status": "ok",
-      "text": "[deterministic] fc-plan-<kind>, after plan.json is written, dispatches the steward with flight freeze on it."
+      "text": "[deterministic] Every subagent receives a sealed dispatch rendered from its role file, a template and the fill, committed before it is spawned, so that what is not a slot cannot reach it and a worktree sees it."
     },
     {
       "id": "B31",
       "status": "ok",
-      "text": "[deterministic] fc-build dispatches every implementer with a dispatch rendered by a steward dispatch of flight render."
+      "text": "[deterministic] Every return is validated at the handoff against the role's schema by a hook that holds the agent until it validates, and is stored in the run."
     },
     {
       "id": "B32",
       "status": "ok",
-      "text": "[deterministic] fc-build dispatches every implementer and strong-worker with isolation worktree."
+      "text": "[deterministic] A locked path, a frozen document, the human-owned lines of the log and the plan's boundary are refused to every tool and to the shell, and a guard that cannot decide refuses."
     },
     {
       "id": "B33",
       "status": "ok",
-      "text": "[deterministic] fc-build runs the scout units of a wave to green before dispatching the rest of that wave."
+      "text": "[deterministic] A worker cannot end its turn red: its own gate runs the unit's checks; on the fifth consecutive block it records a stall and lets the worker return so the workflow can act."
     },
     {
       "id": "B34",
       "status": "ok",
-      "text": "[deterministic] fc-build, on a red or stalled return for a unit, dispatches strong-worker once for that unit."
+      "text": "[deterministic] Every hook event is recorded in the run's event log with its source, and a session starting on a run in progress is told which launch and run it is in."
     },
     {
       "id": "B35",
       "status": "ok",
-      "text": "[deterministic] A strong-worker dispatch carries model args.liftoff.models.strong."
-    },
-    {
-      "id": "B36",
-      "status": "ok",
-      "text": "[deterministic] A strong-worker dispatch runs from a clean worktree branched from the run branch, not the failed worker's."
-    },
-    {
-      "id": "B37",
-      "status": "ok",
-      "text": "[deterministic] A strong-worker dispatch carries the failed unit's check output and return."
-    },
-    {
-      "id": "B38",
-      "status": "ok",
-      "text": "[deterministic] A strong-worker dispatch carries no text of the failed worker's transcript or approach."
-    },
-    {
-      "id": "B39",
-      "status": "ok",
-      "text": "[deterministic] fc-build, on a second red or stalled return for the same unit, dispatches nothing further."
-    },
-    {
-      "id": "B40",
-      "status": "ok",
-      "text": "[deterministic] fc-build, when it stops on a unit, merges the green units already returned."
-    },
-    {
-      "id": "B41",
-      "status": "ok",
-      "text": "[deterministic] fc-build, when it stops on a unit, dispatches nothing further."
-    },
-    {
-      "id": "B42",
-      "status": "ok",
-      "text": "[deterministic] fc-build, when it stops on a unit, returns with stopped naming the unit and the failing check, and verify and review null."
-    },
-    {
-      "id": "B43",
-      "status": "ok",
-      "text": "[deterministic] fc-build, when args.liftoff.review.adversary_per_unit is true, dispatches adversary for every green unit before merge."
-    },
-    {
-      "id": "B44",
-      "status": "ok",
-      "text": "[deterministic] fc-build, on a blocking adversary finding, dispatches one fix dispatch of the same worker for that unit."
-    },
-    {
-      "id": "B45",
-      "status": "ok",
-      "text": "[deterministic] fc-build, after a fix dispatch, dispatches the adversary once more for that unit."
-    },
-    {
-      "id": "B46",
-      "status": "ok",
-      "text": "[deterministic] fc-build leaves a unit unmerged, status unmerged, while its second adversary pass reports a blocking finding."
-    },
-    {
-      "id": "B47",
-      "status": "ok",
-      "text": "[deterministic] fc-build, unless args.entry.standalone is true, calls workflow('fc-verify') after its last merge and carries the result in its own."
-    },
-    {
-      "id": "B48",
-      "status": "ok",
-      "text": "[deterministic] fc-build, after a green fc-verify result and unless args.entry.standalone is true, calls workflow('fc-review') and carries the result in its own."
-    },
-    {
-      "id": "B49",
-      "status": "ok",
-      "text": "[deterministic] fc-contracts, on an interface-builder return with halt.kind spec-contradiction, dispatches nothing after it."
-    },
-    {
-      "id": "B50",
-      "status": "ok",
-      "text": "[deterministic] fc-contracts, when it stops on a spec-contradiction, returns with that return as its halt."
-    },
-    {
-      "id": "B51",
-      "status": "ok",
-      "text": "[deterministic] fc-verify dispatches the judge once per sheet check of the pinned map with that check's rubric and subject."
-    },
-    {
-      "id": "B52",
-      "status": "ok",
-      "text": "[deterministic] fc-verify, after the judge returns, dispatches the verifier against the merged run branch."
-    },
-    {
-      "id": "B53",
-      "status": "ok",
-      "text": "[deterministic] fc-verify returns green only when every verdict of the verifier's flight check passes and the verifier does not refute."
-    },
-    {
-      "id": "B54",
-      "status": "ok",
-      "text": "[deterministic] fc-review dispatches the critic up to args.liftoff.review.critic_passes times."
-    },
-    {
-      "id": "B55",
-      "status": "ok",
-      "text": "[deterministic] fc-review returns the open and resolved finding ids of its last pass, a finding being resolved when the next critic pass no longer reports it."
-    },
-    {
-      "id": "B56",
-      "status": "ok",
-      "text": "[deterministic] fc-review, between critic passes, dispatches one fix dispatch per blocking finding to the unit's worker in a fresh worktree on a branch <unit>-fix-<k> from the run branch."
-    },
-    {
-      "id": "B57",
-      "status": "ok",
-      "text": "[deterministic] fc-review, on a green fix return, dispatches the steward with flight merge for the fix branch."
-    },
-    {
-      "id": "B58",
-      "status": "ok",
-      "text": "[deterministic] fc-review, after the fix dispatches of a pass, dispatches a verifier rerun before the next critic pass."
-    },
-    {
-      "id": "B59",
-      "status": "ok",
-      "text": "[deterministic] fc-report dispatches the scribe."
-    },
-    {
-      "id": "B60",
-      "status": "ok",
-      "text": "[deterministic] fc-report, after the scribe returns, dispatches the steward to remove every remaining worktree of the run with git worktree remove."
-    },
-    {
-      "id": "B61",
-      "status": "ok",
-      "text": "[deterministic] The worktree removal of fc-report deletes no branch: each removed worktree's branch still exists afterwards."
-    },
-    {
-      "id": "B62",
-      "status": "ok",
-      "text": "[deterministic] The orchestrator, after fc-report returns, opens a pull request from the run branch with the report linked."
-    },
-    {
-      "id": "B63",
-      "status": "ok",
-      "text": "[deterministic] The orchestrator reports the pull request URL to the human."
-    },
-    {
-      "id": "B64",
-      "status": "ok",
-      "text": "[deterministic] flight check, for a check with verdict ratio, runs the command trials times, counts exit-0 runs as passes, and writes observed { passes, trials } with verdict pass when passes / trials ≥ threshold and fail otherwise."
-    },
-    {
-      "id": "B65",
-      "status": "ok",
-      "text": "[deterministic] flight check, for a check with verdict sheet, reads the path the command prints, validates the file against flightdeck/flightcrew/schemas/run/judge-return.schema.json, and writes that sheet's verdict and path."
-    },
-    {
-      "id": "B66",
-      "status": "ok",
-      "text": "[deterministic] The judge role, dispatched with the {{rubric}} slot and a subject path, returns a verdict sheet per I15 with a non-empty quote on every answer."
-    },
-    {
-      "id": "B67",
-      "status": "ok",
-      "text": "[deterministic] The test-builder, given the frozen spec, writes the tests map to specs/tests-map.v<n>.json."
-    },
-    {
-      "id": "B68",
-      "status": "ok",
-      "text": "[deterministic] The test-builder, given the frozen spec, writes every check script under runs/run-<n>/checks/."
-    },
-    {
-      "id": "B69",
-      "status": "ok",
-      "text": "[deterministic] The test-builder writes every sheet check's rubric under runs/run-<n>/checks/rubrics/<T>.md."
-    },
-    {
-      "id": "B70",
-      "status": "ok",
-      "text": "[deterministic] The test-builder names every check script in the map's command strings by the {run} token."
-    },
-    {
-      "id": "B71",
-      "status": "ok",
-      "text": "[deterministic] Every crew file satisfies I7, and a parse of the files finds no field I7 requires absent and no value I7 forbids."
-    },
-    {
-      "id": "B72",
-      "status": "ok",
-      "text": "[judged] Every crew file names only inputs its dispatch template supplies, only commands its tools can run, and no write its tools forbid; a reader holding one role file and its template finds no instruction the role cannot carry out."
-    },
-    {
-      "id": "B73",
-      "status": "ok",
-      "text": "[deterministic] return-capture, on SubagentStop for an agent_type that has a return schema and a last_assistant_message whose fenced JSON validates against it, writes the object to runs/run-<n>/returns/<agent_type>-<target>.json, <target> read from the return's target field (unit for the worker shapes), with -fix-<k> appended when the return's fix field is set."
-    },
-    {
-      "id": "B74",
-      "status": "ok",
-      "text": "[deterministic] flight render succeeds for every subagent role and every planner kind against the sample launch, and the dispatch produced contains every I9 slot's content."
-    },
-    {
-      "id": "B75",
-      "status": "ok",
-      "text": "[deterministic] Every return fixture under flightdeck/testbench/fixtures/ validates against its role's I8 schema."
-    },
-    {
-      "id": "B76",
-      "status": "ok",
-      "text": "[deterministic] locked-guard, given a run in progress whose launch.json pins a tests map, prints a deny decision for an Edit, Write or NotebookEdit whose target matches a locked path or a depends_on path of that map or lies under runs/run-<n>/checks/, and prints nothing for any other target."
-    },
-    {
-      "id": "B77",
-      "status": "ok",
-      "text": "[deterministic] boundary-guard, given a frozen plan.json in the run, prints a deny decision for an Edit, Write or NotebookEdit whose target lies outside the plan's allowed paths and the run folder, and prints nothing for a target inside them."
-    },
-    {
-      "id": "B78",
-      "status": "ok",
-      "text": "[deterministic] worker-gate, the SubagentStop hook in the frontmatter of implementer, strong-worker and interface-builder, runs flight check --unit for the unit named in the agent's last_assistant_message return (unit field) and exits 2 with the failing ids and their last 20 output lines on stderr when any verdict is fail or error."
-    },
-    {
-      "id": "B79",
-      "status": "ok",
-      "text": "[deterministic] worker-gate exits 0 when every check of the unit passes."
-    },
-    {
-      "id": "B80",
-      "status": "ok",
-      "text": "[deterministic] worker-gate, on the fifth consecutive stop_block for one agent_id with no check_run between, appends a stalled event (in place of a stop_block) naming the unit and the failing check ids and exits 0, so the worker returns and the workflow reads the stall."
-    },
-    {
-      "id": "B81",
-      "status": "ok",
-      "text": "[deterministic] event-log appends exactly one line per recorded hook event to runs/run-<n>/events.jsonl, validating against flightdeck/flightcrew/schemas/run/event.schema.json with source hook and the detail keys I13 allows."
-    },
-    {
-      "id": "B82",
-      "status": "ok",
-      "text": "[deterministic] event-log on SessionStart, given a run in progress, prints a systemMessage naming the launch and the run number."
-    },
-    {
-      "id": "B83",
-      "status": "ok",
-      "text": "[deterministic] The scribe writes report.json per I13 from the run's liftoff, events.jsonl, evidence/ and returns/, every ledger line carrying its provenance mark."
-    },
-    {
-      "id": "B84",
-      "status": "ok",
-      "text": "[deterministic] The scribe renders report.md from report.json."
-    },
-    {
-      "id": "B85",
-      "status": "ok",
-      "text": "[deterministic] The scribe, from report.json, inserts the run's FLIGHTLOG entry per I10 with the scribe-written lines filled and the human-owned lines reading <fill>."
-    },
-    {
-      "id": "B86",
-      "status": "ok",
-      "text": "[deterministic] log-guard denies any Edit, Write or NotebookEdit to flightdeck/launch/FLIGHTLOG.md except one that only inserts a new entry per I10 or only fills an existing entry's pr line."
-    },
-    {
-      "id": "B87",
-      "status": "ok",
       "text": "[deterministic] node flightdeck/testbench/run-all.mjs exits 0."
-    },
-    {
-      "id": "B88",
-      "status": "ok",
-      "text": "[deterministic] The orchestrator, after each workflow returns, appends a workflow_end event through flight event naming the workflow and its result."
-    },
-    {
-      "id": "B89",
-      "status": "ok",
-      "text": "[deterministic] fc-build, on a halt return for a unit, dispatches nothing further for that unit."
-    },
-    {
-      "id": "B90",
-      "status": "ok",
-      "text": "[deterministic] fc-build carries a halted unit in its result as status halt with the halt object."
-    },
-    {
-      "id": "B91",
-      "status": "ok",
-      "text": "[deterministic] check-after-edit, after an Edit or Write by a building role, runs flight check --unit for the agent's unit and prints the failing ids on stderr, exiting 0."
-    },
-    {
-      "id": "B92",
-      "status": "ok",
-      "text": "[deterministic] flight freeze on a spec or tests map under specs/ sets that file's status to frozen and its commit to HEAD."
-    },
-    {
-      "id": "B93",
-      "status": "ok",
-      "text": "[deterministic] flight freeze on a spec or tests map writes that file's version pin into launch.json."
-    },
-    {
-      "id": "B94",
-      "status": "ok",
-      "text": "[deterministic] flight freeze on a tests map sets the current run's lock_commit in launch.json to HEAD."
-    },
-    {
-      "id": "B95",
-      "status": "ok",
-      "text": "[deterministic] flight check --baseline runs every check of a draft map and writes each check's baseline.observed as '<pass|fail|error>: <first non-empty output line>' into the map."
-    },
-    {
-      "id": "B96",
-      "status": "ok",
-      "text": "[deterministic] flight check --baseline writes no evidence file."
-    },
-    {
-      "id": "B97",
-      "status": "ok",
-      "text": "[deterministic] The steward, dispatched with one leaf or git invocation, runs it from the repository root and returns its exit code and output tails per I8."
-    },
-    {
-      "id": "B98",
-      "status": "ok",
-      "text": "[deterministic] The test-builder writes its own return to runs/run-<n>/returns/test-builder-map.json validating against flightdeck/flightcrew/schemas/run/test-builder-return.schema.json."
     }
   ],
   "edges": [
     {
       "id": "E1",
       "status": "ok",
-      "text": "flight run new is run while the newest spec or map under specs/ has status draft, or for n greater than 1 while the previous run's FLIGHTLOG entry is absent or still carries a '<fill>' line: it exits 2 naming the draft file or the unfilled field, and writes nothing."
+      "text": "the run-new script is run while the spec or map is draft, or while the previous log entry is absent or still carries a '<fill>' line: it exits 2 naming the file or the field and writes nothing; the init script on an existing name exits 1."
     },
     {
       "id": "E2",
       "status": "ok",
-      "text": "flight launch init is run for a name whose folder exists: it exits 1 with 'launch exists'."
+      "text": "A frozen file is rewritten through a Bash redirect under the installed settings: the write fails and the file is unchanged; the same edit through the Edit tool is denied."
     },
     {
       "id": "E3",
       "status": "ok",
-      "text": "A frozen spec is rewritten through a Bash redirect in a session running the installed settings: the write fails under the sandbox and the file is unchanged; the same edit through the Edit tool is denied by frozen-guard."
+      "text": "A return does not parse or fails its schema: the hook holds the agent once with the errors; on the second failure it stores the raw message as an invalid return and lets the agent go."
     },
     {
       "id": "E4",
       "status": "ok",
-      "text": "return-capture receives a last_assistant_message with no fenced JSON or JSON failing the schema: on the first occurrence for an agent_id it exits 2 with the errors on stderr and stores nothing; on the second it writes returns/<agent_type>-<target>.invalid.json per I13, appends return_invalid, and exits 0."
+      "text": "A worker's gate cannot find the unit's checks — no map pinned, the map unreadable, or the return names no unit: it blocks with the reason rather than passing."
     },
     {
       "id": "E5",
       "status": "ok",
-      "text": "worker-gate cannot find the unit's checks — line 1 of the dispatch names no unit, no map is pinned, or the map is unreadable: it exits 2 with the reason on stderr and appends a stop_block event."
+      "text": "flightdeck/.controlcenter/launch.yaml is absent or names a launch with no run in progress: every hook exits 0 writing nothing, except the frozen-document guard, which still refuses; every script that needs a run exits 1 naming the file."
     },
     {
       "id": "E6",
       "status": "ok",
-      "text": "A guard resolves a run in progress and then fails to parse launch.json, the pinned map or the plan: it prints a deny decision naming the file; event-log in the same case exits 0 and appends one line to hooks.log."
+      "text": "A hook gets stdin that is not JSON, no project directory, a folder under flightdeck/launch/ without launch.json, or an event it does not record: it exits 0, prints nothing and writes nothing."
     },
     {
       "id": "E7",
       "status": "ok",
-      "text": "flightdeck/.controlcenter is absent, names a folder without launch.json, or names a launch whose current_run is null: every hook writes no file and no event and, except frozen-guard, prints nothing; frozen-guard still prints its deny for a frozen target; every flight leaf that needs a run exits 1 naming the file."
+      "text": "A check's command cannot spawn or exceeds 300 seconds: its verdict is error naming the cause and the remaining checks still run; a ratio below threshold is fail; a sheet missing, invalid or uncited is error."
     },
     {
       "id": "E8",
       "status": "ok",
-      "text": "A hook receives stdin that is not a JSON object, or runs with $CLAUDE_PROJECT_DIR unset or pointing at a directory without flightdeck/launch/, or an unlisted hook_event_name: it exits 0, prints nothing to stdout, and writes no event."
+      "text": "A workflow receives args failing the liftoff schema or a draft plan, or is invoked while the run is stopped: it returns { refused: <reason> } and dispatches nothing."
     },
     {
       "id": "E9",
       "status": "ok",
-      "text": "A check's command names a binary that does not exist or exceeds 300 seconds: its verdict is error, its stderr_tail names the command and the cause, and the remaining checks still run."
+      "text": "A worker returns a halt (blocked, budget, boundary, unsatisfiable, test-contradicts-spec): no stronger attempt is made; the unit is carried as halted with its reason."
     },
     {
       "id": "E10",
       "status": "ok",
-      "text": "flight check finds any verdict fail or error, or a non-empty boundary outside list or locked changed list in the summary: it exits 2; otherwise 0."
+      "text": "The pull request cannot be opened: the orchestrator reports the failure and the run branch name; the report, the log stub and the cleanup stand."
     },
     {
       "id": "E11",
       "status": "ok",
-      "text": "flight render is asked for a role with no template, a planner kind with no template, or a unit target absent from plan.json, or flight validate is given a path that is neither a schema'd document nor a launch folder: it exits 1 naming the role, kind, target or path and writes nothing."
+      "text": "the merge script meets a red check or a conflict: it aborts, leaves branch, worktree and working tree as they were, and exits 2 naming the ids or paths."
     },
     {
       "id": "E12",
       "status": "ok",
-      "text": "flight merge finds a red unit check or a merge conflict: it aborts the merge, leaves the branch, worktree and working tree as they were, and exits 2 naming the failing ids or the conflicting paths."
+      "text": "the install script finds a target file or settings key that differs: it lists the conflicts, writes nothing and exits 2 unless --force; without --apply it prints the planned writes and writes nothing."
     },
     {
       "id": "E13",
       "status": "ok",
-      "text": "flight install is run without --apply: it prints the planned writes, one path per line, and writes nothing; with --apply it finds a settings.json key the fragment sets holding a different value, an agent or workflow file with different content, or a Flightcrew block whose text differs: it lists the conflicting paths and keys, writes nothing, and exits 2 unless --force is passed."
+      "text": "A tests map names a check path outside the run's checks/, flightdeck/testbench/ or launch.json.test_dir, or a ratio without trials and threshold, or a sheet without a rubric: the validate script exits 2 naming the check."
     },
     {
       "id": "E14",
       "status": "ok",
-      "text": "A workflow receives args that fail its schema, or a liftoff fails flightdeck/flightcrew/schemas/run/liftoff.schema.json when the orchestrator is handed it: the workflow returns { refused: <errors> } and dispatches nothing, and the orchestrator writes nothing and reports the errors."
-    },
-    {
-      "id": "E15",
-      "status": "ok",
-      "text": "The orchestrator cannot open the pull request after fc-report (no remote, or the command fails): it reports the failure and the run branch name to the human and opens nothing; the report, the log stub and the worktree removal stand."
-    },
-    {
-      "id": "E16",
-      "status": "ok",
-      "text": "A ratio check's observed rate falls below threshold, or a sheet check's command prints no path or a path whose file fails flightdeck/flightcrew/schemas/run/judge-return.schema.json or carries an empty quote: the verdict is fail, error or error respectively."
-    },
-    {
-      "id": "E17",
-      "status": "ok",
-      "text": "flight validate is run on a tests map whose check command names a path outside runs/run-<n>/checks/, flightdeck/testbench/ or launch.json.test_dir, or whose ratio check lacks trials or threshold, or whose sheet check lacks rubric: it exits 2 naming the check."
-    },
-    {
-      "id": "E18",
-      "status": "ok",
-      "text": "The scribe finds an input it needs absent or unparsable: it returns assembled false naming the missing inputs and writes no report."
-    },
-    {
-      "id": "E19",
-      "status": "ok",
-      "text": "fc-build is invoked while plan.json is absent or draft, or fc-contracts while the plan carries no unit of kind contracts: it returns { refused: <reason> } and dispatches nothing."
-    },
-    {
-      "id": "E20",
-      "status": "ok",
-      "text": "A workflow's inline return schema differs from the I8 file it copies: the C13 static scan fails naming the workflow and the schema."
+      "text": "The scribe finds an input absent or unparsable: it returns what is missing and writes no report."
     }
   ],
   "decisions": [
     {
       "id": "D1",
       "status": "ok",
-      "text": "Node ES modules with zero dependencies and no package.json, because the harness must run identically on any machine with Node 22 and git; hooks, leaves and workflows are JavaScript so one testbench covers them."
+      "text": "A small command surface: core scripts callable by themselves, no dispatcher and nothing that advances a run; a flight command wrapping them is deferred to a later launch, because the first attempt's runner became the system and its tests tested the runner."
     },
     {
       "id": "D2",
       "status": "ok",
-      "text": "The runner is named flight and is a thin dispatcher over leaves that run by their own path, because nothing may depend on the dispatcher and no command a human types advances a run."
+      "text": "Claude Code's native harness carries the conduct — agent files for roles, hooks for enforcement and recording, dynamic workflows for sequence and fan-out, the sandbox for the shell — because a mechanism the harness enforces cannot be forgotten by an agent."
     },
     {
       "id": "D3",
       "status": "ok",
-      "text": "The launch is the unit of work and the run the unit of attempt: launch/<name>/ holds the spec series and every run, runs are numbered and never reopened, and the log is FLIGHTLOG.md beside all launches, because two attempts at one piece of work must share an address."
+      "text": "Every run document is JSON with a schema and every state a human owns is a field in one, because a view layer over the files is a later launch and this one fixes what it will read."
     },
     {
       "id": "D4",
       "status": "ok",
-      "text": "A launch is opened from an idea before any spec is frozen and holds no run until one is frozen; flight run new opens each attempt and cuts its branch from the branch the human is on at that moment, because a branch cut before the spec is frozen is based on a commit the run cannot use."
+      "text": "The launch is the unit of work and the run the unit of attempt; a run has no phase field and no gate switch, because a run is the workflows invoked and what the human read between them."
     },
     {
       "id": "D5",
       "status": "ok",
-      "text": "A run has no phase field and no gate switch: it is a liftoff's sequence of workflows, each ending where a human reads what it wrote and tells the orchestrator to invoke the next, because a phase a program advances and a gate a human flips were the spine the first attempt built itself around and neither is in the sources."
+      "text": "Budgets belong to the workflow runtime and the agent files; the liftoff carries the sequence, the overrides and the settings, because tooling is a failure axis and a different liftoff is cheaper than a different workflow."
     },
     {
       "id": "D6",
       "status": "ok",
-      "text": "The liftoff is a JSON recipe in a library, naming the workflow sequence, its overrides and settings, pasted into the orchestrator session, because tooling is a failure axis and a run that needs different tooling gets a different liftoff, not a different workflow; the markdown kickoff parts end and the task parts become planner templates."
+      "text": "After the report everything is the human's — the pull request's fate, the branches, the diagnosis and the retry — because the sources put every step after the final review in the human's hands."
     },
     {
       "id": "D7",
       "status": "ok",
-      "text": "The gate that holds a worker red is the SubagentStop hook in the worker's own frontmatter, not the session Stop hook, and it counts its own blocks and writes a stalled event before Claude Code's eight-block override, because the override displays nothing and a stall must reach the workflow as a return."
+      "text": "The spec chain and its rubric are unchanged and this launch's own run-1 is hand-made, because the first carries calibration evidence and the second predates the tools that would make it."
     },
     {
       "id": "D8",
       "status": "ok",
-      "text": "plan.json is the source of truth and plan.md is rendered from it, because a hand-edited copy drifts and machine consumers need the structured form."
+      "text": "The two v1 attempt folders and RUNLOG.md stay as history, because no flightcrew run produced them and migrating them would edit frozen maps for nothing."
     },
     {
       "id": "D9",
       "status": "ok",
-      "text": "Worktree isolation is requested per agent() call for implementer and strong-worker only, the settings set worktree.baseRef to head, a rendered dispatch is committed before the worker is spawned, and WorktreeCreate is not hooked, because a worktree branches from HEAD and a command hook there replaces Claude Code's own worktree creation."
-    },
-    {
-      "id": "D10",
-      "status": "ok",
-      "text": "Hooks run in place from flightdeck/flightcrew/hooks/ through $CLAUDE_PROJECT_DIR and are never copied, because a copied hook loses its relative imports and a second copy drifts."
-    },
-    {
-      "id": "D11",
-      "status": "ok",
-      "text": "The spec chain and its rubric corpus are unchanged because they carry calibration evidence this launch cannot reproduce; spec-builder is a session agent and spec-judge and spec-attacker are subagents it dispatches, which is why their files declare inputs differently from the run chain."
-    },
-    {
-      "id": "D12",
-      "status": "ok",
-      "text": "The two v1 attempt folders and the old spec folder stay as history rather than being migrated, because migrating means editing two frozen maps and two records for evidence no flightcrew run produced."
-    },
-    {
-      "id": "D13",
-      "status": "ok",
-      "text": "The tests map lives beside the spec under specs/ and the checks it names live in the run, joined by the {run} token in each command, because the map is a versioned series that absorbs the log's decisions while checks change between runs."
-    },
-    {
-      "id": "D14",
-      "status": "ok",
-      "text": "After the report, everything is the human's: reading the report, merging or rejecting the pull request, deleting branches, writing the diagnosis and starting the next run; the system's part of an ending is the report, the log stub, the worktrees removed and the pull request opened, because the sources put every step after the final review in the human's hands and no remote automation is in scope."
-    },
-    {
-      "id": "D15",
-      "status": "ok",
-      "text": "B71, B72, B74, B75, B87, B22, B23 and B24 have no edge of their own because each is a whole-set property with one violating result — a file that fails the parse, the reading, the render, the schema, the pacing rule or the run — and that result is the check's failure line."
-    },
-    {
-      "id": "D16",
-      "status": "ok",
-      "text": "This run's schemas and dispatch templates live under schemas/run/ and templates/dispatch/, and the crew stays flat under crew/ as the source of truth for every agent, because the spec schema and template must sit outside the folders the run rewrites while a role file's folder is what install and the dispatch list read."
-    },
-    {
-      "id": "D17",
-      "status": "ok",
-      "text": "The run in progress is resolved from flightdeck/.controlcenter rather than by scanning for an active record or reading an environment variable, because a file a launch command writes is the variable made durable, and a worktree reads the main checkout's copy so workers need nothing of their own."
-    },
-    {
-      "id": "D18",
-      "status": "ok",
-      "text": "Budgets — concurrency, agents, tokens, turns — belong to the workflow runtime and the agent files, because the runtime enforces them without consulting the agent and a ceilings object in a document is a number nothing reads."
-    },
-    {
-      "id": "D19",
-      "status": "ok",
-      "text": "A merged unit's worktree and branch are removed by flight merge and the run's remaining worktrees by fc-report with their branches kept, because the runtime removes a worktree by itself only when it finishes without changes and deletes the branch when it does, so a run's own cleanup must be explicit and must not lose a red unit's evidence."
-    },
-    {
-      "id": "D20",
-      "status": "ok",
-      "text": "Workflows run leaves and git through a steward role that holds Bash alone, because a workflow script cannot touch disk, the orchestrator is not inside it, and giving a building role the leaf would let it merge its own work."
-    },
-    {
-      "id": "D21",
-      "status": "ok",
-      "text": "This launch's own launch.json, run-1 and FLIGHTLOG.md predate the leaves that would create them, because the tools that open a launch and a run are themselves deliverables of the run; every later launch is opened by flight launch init and every later run by flight run new."
+      "text": "Every guard fails closed — a guard that cannot decide refuses, a recorder that cannot record stays silent — and scripts write only inside the launch, FLIGHTLOG.md and .controlcenter, because a guard that permits by failing and a script that writes anywhere were the first attempt's two silent holes; both are proven by B32 and B5."
     }
   ],
   "verification": {
     "id": "VER",
     "status": "ok",
-    "text": "Checks are written by the test-builder from this spec into runs/run-1/checks/ of flightdeck/launch/flightcrew-core before implementation and are locked against it (I6, B76); each is a script per I12 reusing flightdeck/testbench/fixtures and lib. B1, B2, B3, B4, B5, B6, E1, E2, E7: on a temporary git repository, run flight launch init and flight run new (for run-1 and run-2) against frozen and draft fixtures and a filled, an unfilled and a missing log entry, and assert every I1 file, every I2 field, the branch and its base, the .controlcenter line, that flight validate accepts the written spec, and the refusals; spawn a hook and a leaf with .controlcenter absent, stale and null. B7, E3: spawn frozen-guard with Edit envelopes at a frozen fixture with and without .controlcenter and inside a worktree and assert the deny; with the installed settings in a temporary project run a Bash redirect at the frozen file and assert it fails. B8, B9, E11, E17: run flight validate on every fixture document, mutated copies, the sample launch, a stray path and maps with out-of-rail commands and missing ratio or sheet fields, and assert the error lines and exits. B9, B10, B64, B65, E9, E10, E16: run flight check against a sample map holding exit, ratio and sheet checks with passing, failing, unspawnable, below-threshold, pathless and quoteless cases and assert the spawn arguments and limit, each evidence file against I15, the summary against I13, and the exits. B11, B12, B74, E11: run flight render for every role and planner kind, an unknown role, an unknown kind and an absent target and assert line 1, every slot's content, the absence of other node texts and command text, git log -1 on the dispatch path, and the refusals. B13, B14, B15, E12: on a temporary repository with a unit branch, run flight merge in the green, red and conflict cases and assert the merge commit, the unit_merged event, the removed worktree and branch, and the untouched state on abort. B16, B17, B18, B19, B20, E13: run flight install against a temporary target with and without --apply, --force, a conflicting file, an existing Flightcrew block and an existing .gitignore line, and assert every I17 entry, the single block, the single line, and the dry-run and conflict outputs. B21, B22, B23, E14: on an orchestrator transcript fixture and its events.jsonl, with a valid and an invalid liftoff, assert the copied liftoff is byte-equal to the fixture, the workflow_end events follow the liftoff's sequence, every workflow invocation is preceded by a human turn, and the invalid liftoff is refused; B24: a judged check — a judge sheet against a rubric under runs/run-1/checks/rubrics/ over the same transcript, verdict pass. B25, B26, B27, B28, B29, B30, B31, B32, B33, B34, B35, B36, B37, B38, B39, B40, B41, B42, B43, B44, B45, B46, B47, B48, B49, B50, B51, B52, B53, B54, B55, B56, B57, B58, B59, B60, B61, B62, B63, E14, E15, E19: run every workflow of the suite under a stub of the workflow runtime (agent() answered from return fixtures, workflow() answered from result fixtures) with valid and invalid args, an absent and a draft plan, red, green, stalled and spec-contradiction returns, a blocking adversary finding, standalone true and false, and a failing pull-request command, and assert the dispatch order, the dispatch form and isolation, the scout ordering, the strong-worker dispatch, its model and its content, the stop on a second stall, the adversary, fix and unmerged outcomes, each nested call and its condition, the critic pass count, the fix and verifier dispatches, the worktree removal and the surviving branches, the pull request call, the error field, and every I14 result. B66: dispatch judge against a fixture subject and rubric and assert the stored sheet validates and a quoteless sheet is refused by E16. B67, B68, B69, B70: run the test-builder against the sample spec in a temporary launch and assert the map's location, every check's location, every rubric's location and the {run} token. B71, B75: parse every crew file and assert I7 field by field; validate every return fixture against I8. B72: a judged check — a judge sheet against the rubric runs/run-1/checks/rubrics/<T>.md over the run-chain role files and their templates, verdict pass. B73, E4: spawn return-capture with valid, invalid and repeated-invalid SubagentStop envelopes and assert the stored file, the return and return_invalid events, and the exits. B76, B77, B78, B79, B80, E5, E6, E8, C8: spawn locked-guard, boundary-guard, worker-gate and event-log against the sample launch with targets inside and outside the locked, depends_on and allowed sets and the liftoff folder, red and green units, no map, an unreadable launch.json, bad stdin, no project dir and an unlisted event, then five red gate runs for one agent_id, and assert every decision, exit, paired event (I6) and the stalled event. B81, B82: spawn event-log with each recorded event and on SessionStart and assert the lines against flightdeck/flightcrew/schemas/run/event.schema.json and the systemMessage. B83, B84, B85, E18: dispatch scribe against a sample run with complete and with missing inputs and assert report.json against I13 with its provenance marks, report.md, the log entry per I10, and the assembled-false return. B86: spawn log-guard with edits that change a <fill> line, a human-owned line, insert a new entry and fill the pr line, and assert deny, deny, permit, permit. B87, C1–C7, C9–C13: the constraint checks of the v1 testbench re-pointed at the new paths plus the denyWrite superset check, the no-markdown-read check, the workflow static scan and a scan of every suite for the v1 runner names. The end-to-end proof is a real run: in a Claude Code session with the installed settings on a temporary repository holding flightdeck/testbench/fixtures/sample-project, the orchestrator is started on a launch made by flight launch init, whose sample spec and map are frozen by flight freeze and whose run-1 is opened by flight run new; the human pastes a library liftoff and instructs each entry of its sequence in turn, reading the plan and the seams between; the proof passes when every dispatch under dispatches/ has a return under returns/ captured by return-capture, every hook event in events.jsonl carries source hook and every workflow has a workflow_end event, the report and the log stub exist with the human-owned lines reading <fill>, no worktree of the run remains, fc-report's result names a pull request or E15's failure, and flight validate accepts the run folder; then flight run new refuses until the entry's human-owned lines are filled and opens run-2 once they are. The whole set runs with node flightdeck/testbench/run-all.mjs, which exits 0, and a critic pass over the diff against this spec returns no blocking correctness gap. B88, B89, B90, B91, B92, B93, B94, B95, B96, B97, B98, E20: append workflow_end through flight event and assert the line; run fc-build under the stub with a halt return and assert the status; spawn check-after-edit against a red unit and assert the stderr and exit 0; run flight freeze on a spec and a map fixture and assert the headers, the pins and lock_commit; run flight check --baseline on a draft map and assert observed; dispatch steward with a leaf invocation and assert its return; run the test-builder and assert its own return file; mutate an inline schema and assert the scan fails."
+    "text": "The test-builder writes the checks into flightdeck/launch/flightcrew-core/runs/run-1/checks/ before implementation, with the map at specs/tests-map.v1.json, and the run locks them; each is a script per C7 reusing flightdeck/testbench/fixtures and lib, and every check names the behaviours and edges it covers. Deterministic: B1, B2, E1 — run the init and run-new scripts on a temporary repository against frozen and draft fixtures and filled, unfilled and absent log entries and assert the folder, launch.json, the branch and its base, launch.yaml and the refusals. B3, E2 — an Edit envelope at a frozen fixture is denied with and without a run, and a Bash redirect under the installed settings fails. B4 — the validate script accepts every document of the sample launch and rejects mutated copies. B5, E11, E12, E13 — every core script runs by path, exits per C8, writes only where B5 allows and makes no network call, and the merge, install and validate refusals hold. B7, B8, B9, B10, B11, B12, B13, B14, E8, E9 — each workflow runs under a stub of the runtime with agent() and workflow() answered from fixtures, and the transcript and events.jsonl are asserted for the trajectory invariants: the scout's return precedes its wave, one stronger attempt then a stop naming unit and check, an adversary dispatch before every merge and at most one fix, verify then review after the last merge, the report, log stub, worktree removal and pull-request call at the end, the previous entry and the changed keys in the liftoff copy, and the refusals. B15, B16, E7 — the check script over a sample map with exit, ratio and sheet checks in passing, failing, unspawnable, below-threshold and uncited cases; a judge dispatch against a fixture rubric whose sheet validates and whose uncited sheet is refused. B17, B18, B19, B20, B21, B22, B23, B24, B26, B28, B29, E14, I10, I11, I12 — every unit's terms, operator and maintenance entries present; every crew file parsed against C2 and each role's reach; the explorer, planner, steward, interface-builder, implementer, strong-worker, verifier, scribe and test-builder each dispatched against a fixture and their returns asserted, the orchestrator against a transcript fixture, and the scribe also against a run with a missing input. B30, B31, E3 — the render script for every role asserted for line 1, slot content and the commit; return-capture with valid, invalid and repeated-invalid envelopes. B32, B33, B34, E4, E5, E6, C8 — every guard, the worker gate and event-log spawned against the sample launch with targets inside and outside the locked and allowed sets, red and green units, five consecutive blocks, no map, an unreadable record, no launch.yaml, bad stdin and an unlisted event, asserting every decision, exit and event. B35 and C1, C5, C6, C8 — the constraint checks of the testbench re-pointed at the new paths, the denyWrite superset check, the no-markdown-read check and the workflow static scan for C4. Statistical: B6 — five scripted orchestrator sessions on the sample launch with a liftoff of three entries, each passing when every workflow runs in the liftoff's order and none runs without a human turn before it, with at least four of five passing. Judged: B25, B27 — a judge sheet against a rubric under runs/run-1/checks/rubrics/ over an adversary return and a critic return on fixture diffs, verdict pass. The end-to-end proof is a real run: in a Claude Code session with the installed settings on a temporary repository holding flightdeck/testbench/fixtures/sample-project, the human runs the init script, freezes the sample spec and map with the freeze script, runs the run-new script, pastes a library liftoff into the orchestrator and instructs each entry in turn, reading the plan and the seams between; it passes when every dispatch has a captured return, every hook event carries source hook, the report and log stub exist with the human-owned lines reading <fill>, no worktree of the run remains, a pull request or E10's failure is reported, the validate script accepts the run folder, and the run-new script refuses until the entry is filled and opens run-2 once it is. node flightdeck/testbench/run-all.mjs runs the whole set and exits 0."
   },
   "acceptance": {
     "id": "ACC",
     "status": "ok",
-    "text": "node flightdeck/testbench/run-all.mjs exits 0 with every check the tests map names passing. flightdeck/launch/flightcrew-core/runs/run-1/ holds liftoff/<name>.json, plan.json, evidence/summary.json, report.json and the dispatches and returns this run produced, validating with flight validate, and flightdeck/launch/FLIGHTLOG.md holds this run's entry with its human-owned fields reading <fill>. A critic pass over the diff against this spec returns no blocking correctness gap. The locked result of evidence/summary.json is empty. The diff touches only flightdeck/flightcrew/bin/**, flightdeck/flightcrew/hooks/**, flightdeck/flightcrew/crew/**, flightdeck/flightcrew/schemas/run/**, flightdeck/flightcrew/templates/dispatch/**, flightdeck/flightcrew/templates/kickoff/**, flightdeck/flightcrew/workflows/**, flightdeck/flightcrew/liftoffs/**, flightdeck/flightcrew/verify/**, flightdeck/flightcrew/checks/**, flightdeck/flightcrew/README.md, flightdeck/launch/README.md, flightdeck/launch/FLIGHTLOG.md, flightdeck/launch/flightcrew-core/**, flightdeck/testbench/**, flightdeck/manuals/launch/**, flightdeck/manuals/harness/**, flightdeck/manuals/orchestration/**, flightdeck/manuals/testing/**, flightdeck/manuals/README.md, library/terms.md, .claude/workflows/**, flightdeck/.controlcenter, .gitignore, .claude/settings.json, .claude/agents/**, CLAUDE.md, plus the deletions SC1 names."
+    "text": "Every deterministic check green as exit codes, the statistical threshold of B6 met, the judged sheets of B25 and B27 passed with cited evidence, and node flightdeck/testbench/run-all.mjs exits 0. flightdeck/launch/flightcrew-core/runs/run-1/ holds its liftoff copy, plan.json, evidence/summary.json with an empty locked list, report.json and the run's dispatches and returns, all validating, and flightdeck/launch/FLIGHTLOG.md holds this run's entry with its human-owned lines reading <fill>. A critic pass over the diff against this spec returns no blocking gap, and one full transcript of the end-to-end run, chosen by the reviewer and not the producer, has been read by the human. The diff touches only flightdeck/flightcrew/**, flightdeck/launch/README.md, flightdeck/launch/FLIGHTLOG.md, flightdeck/launch/flightcrew-core/**, flightdeck/.controlcenter/, flightdeck/testbench/**, flightdeck/manuals/launch/**, flightdeck/manuals/harness/**, flightdeck/manuals/orchestration/**, flightdeck/manuals/testing/**, flightdeck/manuals/README.md, flightdeck/manuals/operators-manual.md, flightdeck/manuals/maintenance-manual.md, library/terms.md, .claude/workflows/**, .claude/agents/**, .claude/settings.json, .gitignore and CLAUDE.md."
   },
   "open_questions": [],
   "retired": []

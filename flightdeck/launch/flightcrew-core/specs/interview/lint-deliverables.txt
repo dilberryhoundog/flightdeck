@@ -1,14 +1,8 @@
 # Paths this spec names that do not exist yet; pass each to the linter as --deliverable.
-flightdeck/flightcrew/bin/flight
-flightdeck/flightcrew/verify
-flightdeck/flightcrew/liftoffs
-flightdeck/.controlcenter
-flightdeck/flightcrew/schemas/run
-flightdeck/flightcrew/templates/dispatch
+flightdeck/flightcrew/bin/flight  flightdeck/flightcrew/verify  flightdeck/flightcrew/liftoffs  flightdeck/flightcrew.yml
+flightdeck/flightcrew/schemas/run  flightdeck/flightcrew/templates/dispatch
 flightdeck/flightcrew/crew/{steward,judge,scribe,adversary,strong-worker,interface-builder}.md
-flightdeck/flightcrew/schemas/run/{launch,liftoff,evidence-summary,report,invalid-return,steward-return,fill,planner-return,interface-builder-return,adversary-return,judge-return,scribe-return,test-builder-return,explorer-return,worker-return,verifier-verdict,critic-findings,plan,tests-map,check-result,event}.schema.json
-flightdeck/flightcrew/workflows/{fc-plan-feature,fc-plan-migration,fc-plan-audit,fc-plan-agent,fc-contracts,fc-build,fc-verify,fc-review,fc-report}.js
-flightdeck/flightcrew/hooks/{frozen-guard,locked-guard,log-guard,return-capture,worker-gate,check-after-edit}.mjs
-.claude/workflows  .claude/settings.json  .claude/agents  .gitignore  CLAUDE.md
-flightdeck/launch/FLIGHTLOG.md  flightdeck/launch/flightcrew-core/launch.json  flightdeck/launch/flightcrew-core/runs/run-1
-run-folder tokens: launch.json plan.json plan.md report.json report.md events.jsonl hooks.log evidence/summary.json specs/ specs/spec.v1.json runs/ runs/run-1/ runs/run-1/checks/ runs/run-1/checks/rubrics/ interview/ checks/ evidence/ dispatches/ returns/ liftoff/ rubrics/
+flightdeck/flightcrew/schemas/run/{launch,liftoff,evidence-summary,report,tests-map,plan,event,check-result}.schema.json
+.claude/workflows  .claude/settings.json  .claude/agents  .gitignore  CLAUDE.md  flightdeck/launch/FLIGHTLOG.md
+flightdeck/launch/flightcrew-core/launch.json  flightdeck/launch/flightcrew-core/runs/run-1
+run-folder tokens: launch.json plan.json plan.md report.json report.md events.jsonl hooks.log evidence/summary.json specs/ specs/spec.v1.json specs/tests-map.v1.json runs/ runs/run-1/ runs/run-1/checks/ runs/run-1/checks/rubrics/ interview/ checks/ evidence/ dispatches/ returns/ liftoff/ rubrics/

@@ -1,0 +1,30 @@
+{
+  "target": "map",
+  "fix": null,
+  "map": "flightdeck/launch/sample-core/specs/tests-map.v1.json",
+  "checks": [
+    {
+      "id": "T1",
+      "kind": "behavioural",
+      "verdict": "exit",
+      "covers": [
+        "B1",
+        "B2"
+      ],
+      "command": "sh {run}/checks/ok.sh"
+    }
+  ],
+  "unverified": [
+    {
+      "id": "E3",
+      "reason": "no observable outcome distinguishes it"
+    }
+  ],
+  "spec_findings": [
+    {
+      "node": "B4",
+      "kind": "imprecise",
+      "text": "the threshold is not stated"
+    }
+  ]
+}

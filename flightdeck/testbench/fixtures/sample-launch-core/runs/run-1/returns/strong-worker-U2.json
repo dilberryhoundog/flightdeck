@@ -1,0 +1,29 @@
+{
+  "unit": "U2",
+  "status": "green",
+  "branch": "sample-core/edges",
+  "worktree": ".worktrees/U2-strong",
+  "spec_refs": [
+    "E1",
+    "E2"
+  ],
+  "checks": [
+    {
+      "id": "T2",
+      "verdict": "pass"
+    },
+    {
+      "id": "T7",
+      "verdict": "pass"
+    }
+  ],
+  "artefacts": [
+    "src/export/index.mjs"
+  ],
+  "commits": [
+    "bbbbbbb"
+  ],
+  "iterations": 4,
+  "halt": null,
+  "notes": "warning reuse settled against E1"
+}

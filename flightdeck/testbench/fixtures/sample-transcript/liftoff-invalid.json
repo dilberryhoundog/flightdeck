@@ -1,0 +1,11 @@
+{
+  "name": "broken",
+  "task": "refactor",
+  "sessions": [],
+  "models": {},
+  "review": {
+    "critic_passes": "two"
+  },
+  "settings": {},
+  "notes": ""
+}

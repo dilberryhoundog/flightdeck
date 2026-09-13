@@ -1,0 +1,47 @@
+{
+  "name": "sample",
+  "task": "feature",
+  "sequence": [
+    {
+      "workflow": "fc-plan-feature",
+      "args": {
+        "questions": [
+          "How does the exporter shape a project?"
+        ]
+      }
+    },
+    {
+      "workflow": "fc-contracts",
+      "args": {}
+    },
+    {
+      "workflow": "fc-build",
+      "args": {
+        "standalone": false,
+        "waves": null,
+        "session": null
+      }
+    },
+    {
+      "workflow": "fc-report",
+      "args": {}
+    }
+  ],
+  "sessions": [],
+  "models": {
+    "explore": "haiku",
+    "unit": "sonnet",
+    "strong": "opus",
+    "critic": "opus",
+    "judge": "opus"
+  },
+  "review": {
+    "critic_passes": 2,
+    "adversary_per_unit": true
+  },
+  "settings": {
+    "model": "sonnet",
+    "effort": "medium"
+  },
+  "notes": "fixture liftoff: one of each workflow kind, adversary on, two critic passes"
+}

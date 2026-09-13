@@ -1,0 +1,24 @@
+{
+  "target": "T5",
+  "fix": null,
+  "rubric": "flightdeck/launch/sample-core/runs/run-1/checks/rubrics/T5.md",
+  "subject": "src/export/index.mjs",
+  "answers": [
+    {
+      "question": "Does the export carry every project section in the order the reference project lists them?",
+      "answer": "yes",
+      "quote": "for (const section of project.sections) out.push(renderSection(section));"
+    },
+    {
+      "question": "Does every warning appear once, with its own text rather than a code?",
+      "answer": "yes",
+      "quote": "warnings.map((w) => `- ${w.text}`)"
+    },
+    {
+      "question": "Does the document open with the project title and no scaffolding above it?",
+      "answer": "yes",
+      "quote": "const head = `# ${project.title}`;"
+    }
+  ],
+  "verdict": "pass"
+}

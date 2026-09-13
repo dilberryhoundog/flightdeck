@@ -1,0 +1,10 @@
+{
+  "target": "check",
+  "fix": null,
+  "command": "flightdeck/flightcrew/bin/flight check T1",
+  "exit": 0,
+  "stdout_tail": [
+    "1/1 checks passed"
+  ],
+  "stderr_tail": []
+}

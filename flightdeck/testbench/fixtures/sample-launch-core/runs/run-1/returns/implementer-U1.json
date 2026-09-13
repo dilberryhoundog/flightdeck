@@ -1,0 +1,25 @@
+{
+  "unit": "U1",
+  "status": "green",
+  "branch": "sample-core/exporter-core",
+  "worktree": ".worktrees/U1",
+  "spec_refs": [
+    "B1",
+    "B2"
+  ],
+  "checks": [
+    {
+      "id": "T1",
+      "verdict": "pass"
+    }
+  ],
+  "artefacts": [
+    "src/export/index.mjs"
+  ],
+  "commits": [
+    "aaaaaaa"
+  ],
+  "iterations": 3,
+  "halt": null,
+  "notes": "the document builder reads the reference project directly"
+}

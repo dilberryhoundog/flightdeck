@@ -1,0 +1,17 @@
+{
+  "target": "U1",
+  "fix": null,
+  "unit": "U1",
+  "verdict": "pass",
+  "pass": 1,
+  "findings": [
+    {
+      "id": "F2",
+      "severity": "minor",
+      "node": "B1",
+      "unit": "U1",
+      "text": "an empty section list is untested",
+      "evidence": "src/export/index.mjs:12"
+    }
+  ]
+}

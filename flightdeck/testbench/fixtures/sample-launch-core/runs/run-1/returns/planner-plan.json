@@ -1,0 +1,45 @@
+{
+  "target": "plan",
+  "fix": null,
+  "plan": {
+    "schema_version": 1,
+    "status": "draft",
+    "launch": "sample-core",
+    "spec": {
+      "name": "export-html",
+      "version": 1,
+      "commit": "a1b2c3d"
+    },
+    "approach": "Contracts first, then the document and its edges in parallel, then the proof.",
+    "waves": [
+      {
+        "id": "W0",
+        "mode": "serial",
+        "units": [
+          "U0"
+        ]
+      }
+    ],
+    "units": [
+      {
+        "id": "U0",
+        "name": "contracts",
+        "kind": "contracts",
+        "spec_refs": [
+          "I1"
+        ],
+        "checks": [
+          "T3"
+        ],
+        "owner": "interface-builder",
+        "paths": [
+          "src/export/**"
+        ],
+        "depends_on": []
+      }
+    ],
+    "risks": [
+      "the reference project is the only fixture"
+    ]
+  }
+}

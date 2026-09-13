@@ -1,0 +1,12 @@
+{"ts":"2026-09-10T00:00:01Z","event":"SessionStart","launch":"sample-core","run":1,"source":"hook","detail":{"mode":"startup"},"session_id":"sess-1"}
+{"ts":"2026-09-10T00:01:00Z","event":"SubagentStart","launch":"sample-core","run":1,"source":"hook","detail":{"agent_type":"explorer"},"session_id":"sess-1","agent_id":"a1","agent_type":"explorer"}
+{"ts":"2026-09-10T00:04:00Z","event":"SubagentStop","launch":"sample-core","run":1,"source":"hook","detail":{"agent_type":"explorer"},"session_id":"sess-1","agent_id":"a1","agent_type":"explorer"}
+{"ts":"2026-09-10T00:04:01Z","event":"return","launch":"sample-core","run":1,"source":"hook","detail":{"agent_type":"explorer"},"agent_id":"a1","agent_type":"explorer"}
+{"ts":"2026-09-10T00:05:00Z","event":"workflow_end","launch":"sample-core","run":1,"source":"role","detail":{"workflow":"fc-plan-feature"}}
+{"ts":"2026-09-10T00:20:00Z","event":"SubagentStart","launch":"sample-core","run":1,"source":"hook","detail":{"agent_type":"implementer"},"session_id":"sess-1","agent_id":"a2","agent_type":"implementer"}
+{"ts":"2026-09-10T00:31:00Z","event":"stop_block","launch":"sample-core","run":1,"source":"hook","detail":{"unit":"U1","reason":"T1 fail"},"agent_id":"a2","agent_type":"implementer"}
+{"ts":"2026-09-10T00:38:00Z","event":"check_run","launch":"sample-core","run":1,"source":"hook","detail":{"unit":"U1"},"agent_id":"a2","agent_type":"implementer"}
+{"ts":"2026-09-10T00:39:00Z","event":"unit_merged","launch":"sample-core","run":1,"source":"leaf","detail":{"unit":"U1"}}
+{"ts":"2026-09-10T00:40:00Z","event":"locked_denied","launch":"sample-core","run":1,"source":"hook","detail":{"tool_name":"Edit","file_path":"tests/export/behaviours.test.mjs"}}
+{"ts":"2026-09-10T00:55:00Z","event":"workflow_end","launch":"sample-core","run":1,"source":"role","detail":{"workflow":"fc-build"}}
+{"ts":"2026-09-10T01:00:00Z","event":"SessionEnd","launch":"sample-core","run":1,"source":"hook","detail":{"reason":"clear"},"session_id":"sess-1"}

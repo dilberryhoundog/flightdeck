@@ -1,0 +1,62 @@
+{
+  "launch": "sample-core",
+  "run": 1,
+  "header": {
+    "spec": "specs/spec.v1.json @ a1b2c3d",
+    "kickoff": "sample @ a1b2c3d",
+    "cost": "6 agents · 60 minutes",
+    "started": "2026-09-10T00:00:01Z",
+    "ended": "2026-09-10T01:00:00Z"
+  },
+  "ledger": [
+    "[recorded] 6 agents ran across two workflows",
+    "[checked] T1 passed and T2 failed at the last evidence run",
+    "[reviewed] critic pass 1 left F1 open",
+    "[stated] the warning shape is not settled"
+  ],
+  "verification": {
+    "counts": {
+      "pass": 1,
+      "fail": 1,
+      "error": 0,
+      "skipped": 1
+    },
+    "unverified": [
+      "E3"
+    ],
+    "quarantined": [
+      "T6"
+    ],
+    "boundary": [],
+    "locked": []
+  },
+  "review": {
+    "passes": 1,
+    "open": [
+      "F1"
+    ],
+    "resolved": []
+  },
+  "phases": [
+    {
+      "workflow": "fc-plan-feature",
+      "ended": "2026-09-10T00:05:00Z"
+    },
+    {
+      "workflow": "fc-build",
+      "ended": "2026-09-10T00:55:00Z"
+    }
+  ],
+  "agents": [
+    {
+      "agent_type": "explorer",
+      "count": 1
+    },
+    {
+      "agent_type": "implementer",
+      "count": 2
+    }
+  ],
+  "failures": [],
+  "notes": "fixture report"
+}

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "name": "export-html",
+  "version": 1,
+  "status": "frozen",
+  "commit": "a1b2c3d",
+  "reason": "fixture: one check of every verdict kind, plus a quarantined id, for the checks that exercise flight check",
+  "spec": {
+    "name": "export-html",
+    "version": 1,
+    "commit": "a1b2c3d"
+  },
+  "previous_versions": [],
+  "acceptance": "T1",
+  "fixture": "tests/export/fixtures/reference-project.json",
+  "locked_paths": [
+    "tests/export/**",
+    "flightdeck/launch/sample-core/specs/**"
+  ],
+  "run_all": "sh {run}/checks/ok.sh",
+  "baseline": {
+    "commit": "a1b2c3d",
+    "date": "2026-09-10",
+    "note": "fixture baselines are written by hand and never re-run"
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "status": "ok",
+      "kind": "behavioural",
+      "verdict": "exit",
+      "covers": [
+        "B1",
+        "B2"
+      ],
+      "command": "sh {run}/checks/ok.sh",
+      "depends_on": [
+        "tests/export/**"
+      ],
+      "baseline": {
+        "expect": "fail: feature absent",
+        "observed": "fail: exportProject is not defined"
+      }
+    },
+    {
+      "id": "T2",
+      "status": "ok",
+      "kind": "behavioural",
+      "verdict": "exit",
+      "covers": [
+        "B3"
+      ],
+      "command": "sh {run}/checks/fail.sh",
+      "depends_on": [
+        "tests/export/**"
+      ],
+      "baseline": {
+        "expect": "fail: feature absent",
+        "observed": "fail: exportProject is not defined"
+      }
+    },
+    {
+      "id": "T3",
+      "status": "ok",
+      "kind": "structural",
+      "verdict": "exit",
+      "covers": [
+        "I1"
+      ],
+      "command": "no-such-binary-fc-core --version",
+      "depends_on": [
+        "tests/export/**"
+      ],
+      "baseline": {
+        "expect": "fail: feature absent",
+        "observed": "fail: exportProject is not defined"
+      }
+    },
+    {
+      "id": "T4",
+      "status": "ok",
+      "kind": "statistical",
+      "verdict": "ratio",
+      "covers": [
+        "B4"
+      ],
+      "command": "sh {run}/checks/ratio.sh",
+      "depends_on": [
+        "tests/export/**"
+      ],
+      "baseline": {
+        "expect": "fail: feature absent",
+        "observed": "fail: exportProject is not defined"
+      },
+      "trials": 4,
+      "threshold": 0.5
+    },
+    {
+      "id": "T5",
+      "status": "ok",
+      "kind": "judged",
+      "verdict": "sheet",
+      "covers": [
+        "B5"
+      ],
+      "command": "sh {run}/checks/sheet.sh {run}",
+      "depends_on": [
+        "tests/export/**"
+      ],
+      "baseline": {
+        "expect": "fail: feature absent",
+        "observed": "fail: exportProject is not defined"
+      },
+      "rubric": "{run}/checks/rubrics/T5.md"
+    },
+    {
+      "id": "T6",
+      "status": "ok",
+      "kind": "behavioural",
+      "verdict": "exit",
+      "covers": [
+        "E1"
+      ],
+      "command": "sh {run}/checks/ok.sh",
+      "depends_on": [
+        "tests/export/**"
+      ],
+      "baseline": {
+        "expect": "fail: feature absent",
+        "observed": "fail: exportProject is not defined"
+      }
+    },
+    {
+      "id": "T7",
+      "status": "ok",
+      "kind": "behavioural",
+      "verdict": "exit",
+      "covers": [
+        "E2"
+      ],
+      "command": "sh {run}/checks/unit-two.sh",
+      "depends_on": [
+        "tests/export/**"
+      ],
+      "baseline": {
+        "expect": "fail: feature absent",
+        "observed": "fail: exportProject is not defined"
+      }
+    }
+  ],
+  "quarantined": [
+    {
+      "id": "T6",
+      "since": "2026-09-10",
+      "reason": "fixture: an id that runs with verdict skipped"
+    }
+  ],
+  "unverified": [
+    {
+      "id": "E3",
+      "reason": "fixture: a node no check proves",
+      "decided_by": "human"
+    }
+  ],
+  "retired": []
+}

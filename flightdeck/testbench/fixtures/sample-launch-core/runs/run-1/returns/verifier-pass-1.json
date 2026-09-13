@@ -1,0 +1,13 @@
+{
+  "refuted": false,
+  "checks_rerun": [
+    {
+      "id": "T1",
+      "verdict": "pass"
+    }
+  ],
+  "reasons": [],
+  "unverified": [],
+  "test_file_changes": [],
+  "outside_boundary": []
+}

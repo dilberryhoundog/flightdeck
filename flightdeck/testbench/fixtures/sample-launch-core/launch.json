@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "name": "sample-core",
+  "created": "2026-09-10",
+  "spec": {
+    "version": 1
+  },
+  "tests_map": {
+    "version": 1
+  },
+  "test_dir": "tests/export",
+  "current_run": 1,
+  "runs": [
+    {
+      "n": 1,
+      "branch": "run/sample-core-1",
+      "base_commit": "0000000000000000000000000000000000000000",
+      "lock_commit": "0000000000000000000000000000000000000000",
+      "started": "2026-09-10T00:00:00Z"
+    }
+  ]
+}

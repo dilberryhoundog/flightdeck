@@ -1,0 +1,4 @@
+{"ts":"2026-09-10T00:21:00.000Z","event":"workflow_end","launch":"sample-core","run":1,"source":"role","detail":{"workflow":"fc-plan-feature"}}
+{"ts":"2026-09-10T00:46:00.000Z","event":"workflow_end","launch":"sample-core","run":1,"source":"role","detail":{"workflow":"fc-contracts"}}
+{"ts":"2026-09-10T02:21:00.000Z","event":"workflow_end","launch":"sample-core","run":1,"source":"role","detail":{"workflow":"fc-build"}}
+{"ts":"2026-09-10T02:46:00.000Z","event":"workflow_end","launch":"sample-core","run":1,"source":"role","detail":{"workflow":"fc-report"}}

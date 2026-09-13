@@ -1,0 +1,14 @@
+{
+  "verdict": "pass",
+  "pass": 1,
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "node": "B2",
+      "unit": "U1",
+      "text": "the warning order is not the project order",
+      "evidence": "src/export/index.mjs:41"
+    }
+  ]
+}

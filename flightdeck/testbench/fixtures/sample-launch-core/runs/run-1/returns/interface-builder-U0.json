@@ -1,0 +1,27 @@
+{
+  "target": "U0",
+  "fix": null,
+  "unit": "U0",
+  "status": "green",
+  "branch": "sample-core/contracts",
+  "worktree": ".worktrees/U0",
+  "spec_refs": [
+    "I1",
+    "I2"
+  ],
+  "checks": [
+    {
+      "id": "T3",
+      "verdict": "pass"
+    }
+  ],
+  "artefacts": [
+    "src/export/index.mjs"
+  ],
+  "commits": [
+    "ccccccc"
+  ],
+  "iterations": 2,
+  "halt": null,
+  "notes": "signatures fixed"
+}

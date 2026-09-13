@@ -1,0 +1,3 @@
+# Flight log
+
+One entry per run, newest first, across every launch under `flightdeck/launch/`. The scribe inserts an entry from the run's `report.json` at the end of a run and fills the `spec`, `kickoff`, `cost`, `symptom` and `pr` lines; the remaining lines — `outcome`, `seen on`, `cause`, `fixed on`, `change`, `watch`, `kept`, `reservation` and `promote` — are the human's and read `<fill>` until written. `outcome` is one of `accepted`, `abandoned` or `partial`, and is written after the run's pull request is merged or rejected. A run is not opened until the previous run's entry carries no `<fill>` line. Nothing edits an entry once it is written except a fill of its own `pr` line; the file is otherwise append-at-the-top only.

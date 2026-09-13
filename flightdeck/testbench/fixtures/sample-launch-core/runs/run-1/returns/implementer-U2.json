@@ -1,0 +1,27 @@
+{
+  "unit": "U2",
+  "status": "red",
+  "branch": "sample-core/edges",
+  "worktree": ".worktrees/U2",
+  "spec_refs": [
+    "E1",
+    "E2"
+  ],
+  "checks": [
+    {
+      "id": "T2",
+      "verdict": "fail"
+    },
+    {
+      "id": "T7",
+      "verdict": "fail"
+    }
+  ],
+  "artefacts": [
+    "src/export/index.mjs"
+  ],
+  "commits": [],
+  "iterations": 8,
+  "halt": null,
+  "notes": "the warning shape is not settled"
+}

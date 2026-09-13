@@ -1,0 +1,14 @@
+{
+  "id": "X1",
+  "question": "How does the exporter shape a project?",
+  "stage": "spec",
+  "answer": "The reference project carries title, sections and warnings; the exporter reads all three.",
+  "confidence": "high",
+  "pointers": [
+    {
+      "path": "tests/export/fixtures/reference-project.json",
+      "why": "the shape every check reads"
+    }
+  ],
+  "candidates": []
+}

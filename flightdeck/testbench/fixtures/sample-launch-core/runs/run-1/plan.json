@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "status": "frozen",
+  "commit": "a1b2c3d",
+  "launch": "sample-core",
+  "spec": {
+    "name": "export-html",
+    "version": 1,
+    "commit": "a1b2c3d"
+  },
+  "approach": "Fix the exporter contract in wave 0, build the document and its edges in parallel, and land the acceptance proof last; nothing outside src/export/ changes.",
+  "waves": [
+    {
+      "id": "W0",
+      "mode": "serial",
+      "units": [
+        "U0"
+      ]
+    },
+    {
+      "id": "W1",
+      "mode": "parallel",
+      "units": [
+        "U1",
+        "U2"
+      ]
+    },
+    {
+      "id": "W2",
+      "mode": "serial",
+      "units": [
+        "U3"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "U0",
+      "name": "contracts",
+      "kind": "contracts",
+      "spec_refs": [
+        "I1",
+        "I2"
+      ],
+      "checks": [
+        "T1"
+      ],
+      "owner": "interface-builder",
+      "paths": [
+        "src/export/**"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "U1",
+      "name": "exporter-core",
+      "kind": "feature",
+      "spec_refs": [
+        "B1",
+        "B2"
+      ],
+      "checks": [
+        "T1"
+      ],
+      "owner": "implementer",
+      "paths": [
+        "src/export/**"
+      ],
+      "depends_on": [
+        "U0"
+      ],
+      "scout": true
+    },
+    {
+      "id": "U2",
+      "name": "edges",
+      "kind": "feature",
+      "spec_refs": [
+        "E1",
+        "E2"
+      ],
+      "checks": [
+        "T2",
+        "T7"
+      ],
+      "owner": "implementer",
+      "paths": [
+        "src/export/**"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U3",
+      "name": "proof",
+      "kind": "proof",
+      "spec_refs": [
+        "B1"
+      ],
+      "checks": [
+        "T1"
+      ],
+      "owner": "implementer",
+      "paths": [
+        "src/export/**"
+      ],
+      "depends_on": [
+        "U1",
+        "U2"
+      ]
+    }
+  ],
+  "risks": [
+    "The reference project is the only fixture; a shape it does not carry is unproven."
+  ]
+}

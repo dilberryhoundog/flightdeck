@@ -1,0 +1,8 @@
+{
+  "target": "report",
+  "fix": null,
+  "report": "flightdeck/launch/sample-core/runs/run-1/report.json",
+  "log_entry": "## 2026-09-10 · sample-core · run-1",
+  "assembled": true,
+  "missing": []
+}

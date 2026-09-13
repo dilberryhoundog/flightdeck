@@ -1,0 +1,24 @@
+{
+  "unit": "U2",
+  "status": "green",
+  "branch": "sample-core/edges-fix-1",
+  "worktree": ".worktrees/U2-fix-1",
+  "spec_refs": [
+    "E1"
+  ],
+  "checks": [
+    {
+      "id": "T2",
+      "verdict": "pass"
+    }
+  ],
+  "artefacts": [
+    "src/export/index.mjs"
+  ],
+  "commits": [
+    "ddddddd"
+  ],
+  "iterations": 2,
+  "halt": null,
+  "notes": "F1 resolved"
+}

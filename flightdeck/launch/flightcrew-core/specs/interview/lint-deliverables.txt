@@ -1,8 +1,0 @@
-# Paths this spec names that do not exist yet; pass each to the linter as --deliverable.
-flightdeck/flightcrew/bin/flight  flightdeck/flightcrew/verify  flightdeck/flightcrew/liftoffs  flightdeck/flightcrew.yml
-flightdeck/flightcrew/schemas/run  flightdeck/flightcrew/templates/dispatch
-flightdeck/flightcrew/crew/{steward,judge,scribe,adversary,strong-worker,interface-builder}.md
-flightdeck/flightcrew/schemas/run/{launch,liftoff,evidence-summary,report,tests-map,plan,event,check-result}.schema.json
-.claude/workflows  .claude/settings.json  .claude/agents  .gitignore  CLAUDE.md  flightdeck/launch/FLIGHTLOG.md
-flightdeck/launch/flightcrew-core/launch.json  flightdeck/launch/flightcrew-core/runs/run-1
-run-folder tokens: launch.json plan.json plan.md report.json report.md events.jsonl hooks.log evidence/summary.json specs/ specs/spec.v1.json specs/tests-map.v1.json runs/ runs/run-1/ runs/run-1/checks/ runs/run-1/checks/rubrics/ interview/ checks/ evidence/ dispatches/ returns/ liftoff/ rubrics/

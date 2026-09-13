@@ -1,0 +1,32 @@
+{
+  "$schema": "orchestration/schemas/spec.schema.json",
+  "schema_version": 1,
+  "name": "flightcrew-characterization",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial: a characterization suite over every part of flightcrew that the flightcrew-core rebuild keeps, written at the human-observable boundary against the system as it stands, so the rebuild is guarded by checks and its own spec describes only what differs.",
+  "previous_versions": [],
+  "intent": {
+    "id": "INT",
+    "status": "ok",
+    "text": "Flightcrew is about to be rebuilt in place: the fc runner goes, workflows take over the conduct of a run, and the launch and run layout changes. Most of the system stays: the spec chain and its rubric, the validators and linter, the schemas, the crew roles that survive, the hooks that guard frozen and locked paths, the dispatch and return contracts, and the testbench itself. Nothing today states what that surviving behaviour is at the boundary a human observes, so the rebuild would be judged only by the deltas it names, and a kept part could shift without anyone noticing. This launch produces a characterization suite: one conformance test per kept behaviour, written against the system as it exists at this commit, runnable under the existing testbench protocol, with agent-shaped behaviours tagged by check class rather than deformed into scripts. The rebuild then runs these checks throughout its build, drift in a kept part shows as a red check, and the flightcrew-core spec is free to describe only what differs, the way a feature spec in any codebase leans on the existing test suite. It is also the first run of a launch under the v1 tooling, which is itself evidence for the rebuild. Success: the suite is green against the pre-rebuild system, every kept part named in the flightcrew-core scope has a test, and a deliberate change to any kept part turns its test red."
+  },
+  "scope": [],
+  "constraints": [],
+  "interfaces": [],
+  "behaviours": [],
+  "edges": [],
+  "decisions": [],
+  "verification": {
+    "id": "VER",
+    "status": "ok",
+    "text": ""
+  },
+  "acceptance": {
+    "id": "ACC",
+    "status": "ok",
+    "text": ""
+  },
+  "open_questions": [],
+  "retired": []
+}

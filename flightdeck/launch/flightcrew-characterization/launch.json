@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "name": "flightcrew-characterization",
+  "created": "2026-09-11",
+  "spec": { "version": 1 },
+  "tests_map": null,
+  "test_dir": "flightdeck/testbench",
+  "current_run": null,
+  "runs": []
+}

@@ -1,0 +1,39 @@
+{
+  "marker": "P-documents",
+  "domain": "scope",
+  "problem": "Run documents and the log. The spec shape is untouched. launch.json changes almost entirely; the tests map gains a verdict field; the plan loses gates and ceilings and gains a scout flag; events lose phase and gain run; evidence and check results stay; RUNLOG.md becomes FLIGHTLOG.md with the same diagnosis fields. You said: just write the test and let the test-builder reshape it after the core spec freezes.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "For a document whose shape changes, what does the suite pin now?",
+      "why": "Pinning the whole current shape gives the test-builder a complete test to reshape; pinning only survivors gives it less to undo but leaves today's document half-described.",
+      "options": [
+        {
+          "value": "The whole current shape: a conforming and a refused document per schema as it stands today; the test-builder reshapes on its turn.",
+          "recommended": true
+        },
+        {
+          "value": "Only the invariants that survive: contiguous ids, frozen status, baseline recorded, fill markers, one evidence file per check.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "Is the run log's contract a kept behaviour: an entry per run with the human's diagnosis fields (seen on, cause, fixed on, change, watch, kept, promote), a symptom pre-filled and never hand-written, and no new run opening while a fill line stands?",
+      "why": "The file is renamed and the entry is written by a role instead of a command, but the fields and the blocking rule are the method's, not the runner's.",
+      "options": [
+        {
+          "value": "Kept: pin the entry fields and the blocking rule against RUNLOG.md as it is today.",
+          "recommended": true
+        },
+        {
+          "value": "Not kept: the log is redesigned with the layout; leave it out.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

@@ -1,0 +1,39 @@
+{
+  "marker": "P-dispatch-returns",
+  "domain": "scope",
+  "problem": "Dispatch and returns. Four dispatch templates, a three-layer render (role file, project template, per-unit fill) and four return schemas (worker-return with halt kinds, explorer-return, critic-findings, verifier-verdict) exist, with a validator and fc return storing returns. The core spec keeps the sealed dispatch, commits it before spawn, captures the return by hook, and moves the schemas under schemas/run.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Are the four return shapes kept as they are, so the suite pins their fields?",
+      "why": "The core spec reuses all four schemas by path. If their fields are stable, a conforming and a non-conforming document per shape is a cheap deterministic pin; if halt kinds or fields will change, only the rule that a return validates is stable.",
+      "options": [
+        {
+          "value": "Kept as they are: pin each shape with a conforming and a refused document.",
+          "recommended": true
+        },
+        {
+          "value": "Expected to change: pin only that every return validates against a schema and an invalid one is refused.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "Is today's rendering the kept behaviour, or only the sealed-dispatch rule?",
+      "why": "Today fc worker render fills the template from the plan unit; the rule is that nothing outside a slot reaches the worker and the rendered prompt is a file.",
+      "options": [
+        {
+          "value": "The rule: a rendered dispatch contains only slot content from its three layers and is written as a file; the suite proves that through today's render.",
+          "recommended": true
+        },
+        {
+          "value": "Today's rendering exactly: pin the template text and the filled output.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

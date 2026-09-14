@@ -1,0 +1,54 @@
+{
+  "marker": "P-workflows",
+  "domain": "scope",
+  "problem": "Workflows. Three fc-* scripts exist under flightcrew/workflows (explore, implement, review) and two build scripts under .claude/workflows written for the v1 build. The core spec replaces them with a suite of workflows driven by liftoffs. Round 1 also decided this launch's own run is conducted by a workflow you ask Claude to run directly.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Are the existing workflow scripts goes entirely, or do the behaviours inside fc-implement count as kept?",
+      "why": "fc-implement already does pilot-first, chunked fan-out, stop on a red return and validated returns. If those are the behaviours the new build workflow must reproduce, characterizing them now against fc-implement gives the rebuild a target; if the scripts are simply replaced, nothing is pinned.",
+      "options": [
+        {
+          "value": "Kept behaviours: characterize pilot-first, fan-out in chunks, stop on red, and return validation against fc-implement as it stands.",
+          "recommended": true
+        },
+        {
+          "value": "Goes entirely: no workflow behaviour is characterized; the core spec defines the new suite from scratch.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "The workflow authoring contract (meta literal first, no filesystem, shell, clock or randomness, args binding, return shapes inlined as literals) is enforced today by a static scan. Is that contract a kept rule the suite pins?",
+      "why": "It is a harness constraint rather than flightcrew's invention, and every future workflow must satisfy it; a static scan is cheap and deterministic.",
+      "options": [
+        {
+          "value": "Kept: pin the authoring contract with a static scan over every workflow file present.",
+          "recommended": true
+        },
+        {
+          "value": "Not in this suite; the runtime already enforces it.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "text": "Which workflow conducts this launch's own run?",
+      "why": "Round 1 chose a directly invoked workflow over the v1 tooling. The v1 suites were built by a hand-written flightcrew-targets.js with five test-builders in parallel, each refuted and fixed once; fc-implement expects a plan and rendered dispatches.",
+      "options": [
+        {
+          "value": "A hand-written workflow for this run in the shape of flightcrew-targets.js: fixtures first, then test-builders in parallel each refuted once.",
+          "recommended": true
+        },
+        {
+          "value": "fc-implement, fed units and rendered dispatches, so the run also exercises the existing workflow.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

@@ -1,0 +1,58 @@
+{
+  "marker": "P-crew",
+  "domain": "scope",
+  "problem": "The crew. Ten role files live in flightcrew/crew and eleven in .claude/agents (adversary exists only there). The spec chain is byte-frozen. The core spec keeps explorer, planner, orchestrator, implementer, verifier, critic and test-builder, adds steward, adversary, interface-builder, scribe and a stronger-tier retry, and declares each role's reach in its own file with the installed settings derived from the crew folder.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "What does a characterization test of a role file assert?",
+      "why": "A role file is a harness document. Its frontmatter is a contract (the fields the constitution requires, the tools it may hold, isolation and permission mode); its body is prose. Live behaviour is the test-builder's and the judge's business, not this suite's.",
+      "options": [
+        {
+          "value": "Frontmatter contract plus the roster separations: required fields present, tools within the role's declared reach, the sees and must-not-see table honoured by what the dispatch names.",
+          "recommended": true
+        },
+        {
+          "value": "Frontmatter contract only.",
+          "recommended": false
+        },
+        {
+          "value": "Also body invariants, such as the orchestrator holding no Write or Edit and carrying an initialPrompt.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "Are the seven surviving role bodies kept as they are, or rewritten around workflows?",
+      "why": "If kept, the suite may pin body-level facts; if rewritten, only the frontmatter contract and the separations are stable enough to pin.",
+      "options": [
+        {
+          "value": "Rewritten: pin only the contract and the separations.",
+          "recommended": true
+        },
+        {
+          "value": "Kept near-verbatim: pin body invariants too.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "text": "adversary.md exists only in .claude/agents, not in flightcrew/crew. Is it a kept role or a stray from the v1 build?",
+      "why": "The core spec names an adversary role; crew/ is the source of truth for roles.",
+      "options": [
+        {
+          "value": "A kept role that never made it into crew/; the suite treats crew/ as the source and the stray as a defect to note.",
+          "recommended": true
+        },
+        {
+          "value": "A stray; ignore it.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

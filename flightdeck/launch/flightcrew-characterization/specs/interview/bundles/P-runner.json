@@ -1,0 +1,43 @@
+{
+  "marker": "P-runner",
+  "domain": "scope",
+  "problem": "The runner. fc has nineteen commands today. The core spec keeps ten scripts by path, defers a flight wrapper, and says no command a human types advances a run. Some of fc's current behaviour survives under those scripts: validate and lint verdicts, check's evidence per check, render's sealed dispatch, distribute's copy into .claude. The suite needs your stance on whether any of that is the runner's behaviour or the system's.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Is the runner in the suite at all?",
+      "why": "A suite that pins fc's commands is the v1 mistake again. A suite that pins only the effects (a spec that breaks an invariant is refused naming it; a check run leaves one evidence file per check) survives the runner's removal because the test-builder re-points the command later.",
+      "options": [
+        {
+          "value": "No. fc is goes. The suite characterizes the effects that survive it, invoked through fc for now, with the invocation isolated so it can be re-pointed.",
+          "recommended": true
+        },
+        {
+          "value": "Yes, for the commands with a named successor (validate, lint, check, worker render, distribute): pin them as they are, path and output included.",
+          "recommended": false
+        },
+        {
+          "value": "Neither. Nothing runner-adjacent is in the suite; documents, crew, hooks and workflows only.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "fc distribute copies crew files, the hook settings fragment and the workflows into .claude. The core spec's install derives the same surface from the crew folder. Is that derivation a kept behaviour?",
+      "why": "If kept, the suite pins today's distribute effect (what lands in .claude and that it matches the source). If goes, the installed surface is characterized only as files that exist.",
+      "options": [
+        {
+          "value": "Kept: the installed .claude surface is derived from flightcrew's folders and matches them; pin that effect.",
+          "recommended": true
+        },
+        {
+          "value": "Goes: install is new; the suite ignores distribute and .claude.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

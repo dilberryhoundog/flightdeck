@@ -1,0 +1,58 @@
+{
+  "marker": "P-enforcement",
+  "domain": "scope",
+  "problem": "Enforcement. Six hook scripts exist, wired into settings at run time by distribute, with a no-op rule (stay silent when unsure a run is in progress) and an ask decision on ambiguity. The core spec moves hooks into role frontmatter, reads freeze from the document's own status, adds the Bash sandbox, drops phases, and says every guard fails closed. You said this is not settled.",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Do the six hook scripts stay as implementations with only their wiring moving, or are they rewritten with only their effects kept?",
+      "why": "The answer decides whether the suite drives today's scripts with synthetic events and pins their decisions, or pins only the observable effects and leaves the mechanism to the rebuild.",
+      "options": [
+        {
+          "value": "Effects only: an edit to a locked path is denied, a red stop is held, an edit triggers the structural check, events are appended; the suite proves each effect and does not care which script produced it.",
+          "recommended": true
+        },
+        {
+          "value": "Scripts stay: pin the six scripts' decisions and outputs as they are.",
+          "recommended": false
+        },
+        {
+          "value": "Unsettled: leave enforcement out of this suite and let the core spec carry it whole.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "Today a guard that cannot be sure it speaks for a run stays silent, and on ambiguity prints ask. The core spec says a guard that cannot decide refuses. Which is the kept behaviour?",
+      "why": "Pinning today's silence would pin the hole the rebuild is meant to close; pinning refusal would fail against today's system.",
+      "options": [
+        {
+          "value": "Neither is pinned: the suite covers guard decisions only when a run is unambiguously in progress, and the fail-closed rule is a core delta.",
+          "recommended": true
+        },
+        {
+          "value": "Pin today's no-op and ask behaviour as the current truth, with a defect note.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "text": "Locked paths remain a mechanism beside the frozen status field. Today lock-guard reads paths.locked from launch.json by phase. Is locked-path refusal a kept behaviour to characterize?",
+      "why": "The source of the locked list changes (the tests map's dependencies rather than launch.json), the effect does not.",
+      "options": [
+        {
+          "value": "Kept as an effect: an edit to a path the run has locked is refused; the suite feeds the list from wherever today's guard reads it.",
+          "recommended": true
+        },
+        {
+          "value": "Skip it: the locked list's source changes enough that the test would be rewritten anyway.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

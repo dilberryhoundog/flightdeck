@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""Render one interview round page from bundle files.
+usage: python3 render.py <round-n> <bundle.json>... -> pages/round-<n>.html
+Radio names are scoped by bundle marker; every question has an Other text box; each bundle has a comment box;
+Copy answers yields markdown: ## <marker> / ### Q<n> / answer: ... / other: ... / bundle comment: ...
+"""
+import json, sys, html, os
+esc = html.escape
+rnd, files = sys.argv[1], sys.argv[2:]
+here = os.path.dirname(os.path.abspath(__file__))
+out = os.path.join(here, 'pages', f'round-{rnd}.html')
+parts = []
+for f in files:
+    b = json.load(open(f)); m = b['marker']
+    qs = []
+    for q in b['questions']:
+        opts = ''.join(f'<label><input type="radio" name="{esc(m)}_{esc(q["id"])}" value="{esc(o["value"])}"> {esc(o["value"])}{" <em>(recommended)</em>" if o.get("recommended") else ""}</label>' for o in q['options'])
+        qs.append(f'''<div class="q" data-q="{esc(q["id"])}"><h3>{esc(q["id"])} <span>{esc(q.get("node",""))}</span></h3><p>{esc(q["text"])}</p><p class="why">{esc(q["why"])}</p>{opts}<textarea name="{esc(m)}_{esc(q["id"])}_other" placeholder="Other / comment"></textarea></div>''')
+    bc = f'<textarea name="{esc(m)}_bc" placeholder="Bundle comment"></textarea>' if b.get('allow_bundle_comment') else ''
+    parts.append(f'<div class="bundle" data-marker="{esc(m)}"><h2>bundle <code>{esc(m)}</code> · {esc(b["domain"])}</h2><p class="problem">{esc(b["problem"])}</p>{"".join(qs)}{bc}</div>')
+page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>interview round {rnd}</title><style>
+:root{{--bg:#0f1115;--panel:#171a21;--line:#2a2f3a;--fg:#e6e6e6;--dim:#9aa3b2;--acc:#7cc4ff;--rec:#3ddc97}}
+body{{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg)}}
+header{{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 24px;display:flex;gap:16px;align-items:center}}
+header h1{{font-size:16px;margin:0;flex:1}} button{{background:var(--acc);color:#000;border:0;border-radius:6px;padding:6px 12px;font-weight:600;cursor:pointer}}
+main{{max-width:960px;margin:0 auto;padding:24px}}
+.bundle{{border:1px solid var(--line);border-radius:12px;padding:6px 18px 14px;margin:18px 0}} .bundle>h2{{font-size:14px;letter-spacing:.06em;color:var(--dim)}} .bundle>h2 code{{color:var(--rec)}}
+.problem{{color:var(--dim)}} .q{{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:12px 0}}
+.q h3{{margin:0 0 6px;font-size:13px;color:var(--acc)}} .q h3 span{{color:var(--dim);font-weight:normal;margin-left:8px}} .why{{color:var(--dim);font-size:13px}}
+label{{display:block;padding:6px 8px;border:1px solid var(--line);border-radius:6px;margin:6px 0;cursor:pointer}} label em{{color:var(--rec);font-style:normal}}
+textarea{{width:100%;box-sizing:border-box;background:#0b0d11;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:8px;min-height:38px;font:inherit;margin-top:6px}}
+#out{{white-space:pre-wrap;background:#0b0d11;border:1px solid var(--line);border-radius:8px;padding:12px;font:12.5px ui-monospace,monospace;display:none}}
+</style></head><body><header><h1>interview round {rnd}</h1><button onclick="copyAll()">Copy answers</button></header><main>{"".join(parts)}<div id="out"></div></main>
+<script>
+function collect(){{const L=[];document.querySelectorAll('.bundle').forEach(b=>{{const m=b.dataset.marker;L.push('## '+m);b.querySelectorAll('.q').forEach(q=>{{const id=q.dataset.q;const r=q.querySelector('input:checked');const o=q.querySelector('textarea').value.trim();L.push('### '+id);L.push('answer: '+(r?r.value:'(none)'));if(o)L.push('other: '+o);}});const bc=b.querySelector('textarea[name$="_bc"]');if(bc&&bc.value.trim())L.push('bundle comment: '+bc.value.trim());L.push('');}});return L.join('\\n');}}
+async function copyAll(){{const t=collect();try{{await navigator.clipboard.writeText(t);}}catch(e){{}}const o=document.getElementById('out');o.textContent=t;o.style.display='block';o.scrollIntoView({{behavior:'smooth'}});}}
+</script></body></html>'''
+os.makedirs(os.path.dirname(out), exist_ok=True); open(out,'w').write(page); print('rendered', out)

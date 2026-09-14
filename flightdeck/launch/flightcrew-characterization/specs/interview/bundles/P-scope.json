@@ -1,0 +1,61 @@
+{
+  "marker": "P-scope",
+  "domain": "scope",
+  "problem": "The scope names what the characterization covers and where its run lives, but four of its nodes rest on a choice the sources do not make.",
+  "questions": [
+    {
+      "id": "Q1",
+      "node": "SC8",
+      "text": "fc launch new creates its own folder, flightdeck/launch/<spec.name>-1/, beside the new-layout folder that holds this spec. Where does this launch's run live?",
+      "why": "The v1 tooling copies the spec into a launch folder it names and resolves the active launch by scanning for launch.json; the new-layout folder already carries one.",
+      "options": [
+        {"value": "Accept the sibling v1 folder as the run's home; the new-layout folder keeps the spec series and interview only, and nothing is retrofitted.", "recommended": true},
+        {"value": "Something else: say how the run should be opened.", "recommended": false}
+      ]
+    },
+    {
+      "id": "Q2",
+      "node": "SC10",
+      "text": "When a characterization test finds that a kept part behaves wrongly today, what does the suite do?",
+      "why": "Standard characterization pins what the system does, not what it should do; the rebuild then knows the wart is there. Skipping loses the coverage; fixing contradicts the no-change rule.",
+      "options": [
+        {"value": "Pin the current behaviour as the passing case, with a note in the suite naming it as a defect to carry to the core spec.", "recommended": true},
+        {"value": "Leave that case out and record the defect in the run report for the core spec to absorb.", "recommended": false},
+        {"value": "Fix it in this launch after all; SC10 is loosened to allow defect repairs.", "recommended": false}
+      ]
+    },
+    {
+      "id": "Q3",
+      "node": "SC12",
+      "text": "Thirty tracked suites already exist and most test the runner's commands rather than the observable boundary. How do they relate to the characterization suites?",
+      "why": "A boundary-level tracked suite is already a characterization; a runner-shaped one proves the wrong thing and would be deleted with the runner.",
+      "options": [
+        {"value": "Reference a tracked suite where it already proves the behaviour at the boundary; write a fresh suite only where the tracked one is runner-shaped.", "recommended": true},
+        {"value": "Write a fresh characterization suite for every kept part regardless, so the set stands on its own when the runner suites go.", "recommended": false}
+      ]
+    },
+    {
+      "id": "Q4",
+      "node": "SC4",
+      "text": "No hooks are installed in this project's .claude/settings.json today. How are the enforcement behaviours characterized?",
+      "why": "The existing hooks-* suites drive each hook script with a synthetic event and read its decision; a live session would prove the wiring too but is agent-shaped and slow.",
+      "options": [
+        {"value": "Drive the hook scripts with synthetic events, as the tracked hooks-* suites do; the wiring into settings is the rebuild's install step, not a kept behaviour.", "recommended": true},
+        {"value": "Install the settings fragment first and characterize through a live Claude Code session as well.", "recommended": false}
+      ]
+    },
+    {
+      "id": "Q5",
+      "node": "SC2 SC5",
+      "text": "The spec chain and the crew are agent-shaped. How far does their characterization go?",
+      "why": "Role files, dispatch rendering and return shapes are deterministic; the judge's verdicts are not. The rubric bench under flightdeck/testbench/benches/rubrics/spec/ already holds human-graded drafts, so one judged check has golden material without a new grading session.",
+      "options": [
+        {"value": "Deterministic only: frontmatter, dispatch rendering, return shapes, rubric and template bytes; no live agent runs in this launch.", "recommended": false},
+        {"value": "Deterministic plus one judged check: a live spec-judge run over the bench's graded drafts, its verdict sheet compared to the bench's human grades.", "recommended": true},
+        {"value": "Live checks for every agent-shaped role, each with its own scenario set.", "recommended": false}
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

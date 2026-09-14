@@ -3,10 +3,52 @@
   "problems": [
     {
       "marker": "P-scope",
-      "state": "open",
-      "summary": "Run home under v1 tooling, defects in kept parts, relation to tracked suites, hook characterization, depth for agent-shaped subjects.",
+      "state": "closed",
+      "summary": "Round 1: run conducted by a directly invoked workflow, not v1 tooling; a wholly new suite aimed at harness documents. Q3 folded into Q2; Q4 and Q5 withdrawn as verification questions.",
       "bundle": "bundles/P-scope.json",
       "page": "pages/round-1.html"
+    },
+    {
+      "marker": "P-runner",
+      "state": "open",
+      "summary": "The runner.",
+      "bundle": "bundles/P-runner.json",
+      "page": "pages/round-2.html"
+    },
+    {
+      "marker": "P-workflows",
+      "state": "open",
+      "summary": "Workflows.",
+      "bundle": "bundles/P-workflows.json",
+      "page": "pages/round-2.html"
+    },
+    {
+      "marker": "P-enforcement",
+      "state": "open",
+      "summary": "Enforcement.",
+      "bundle": "bundles/P-enforcement.json",
+      "page": "pages/round-2.html"
+    },
+    {
+      "marker": "P-crew",
+      "state": "open",
+      "summary": "The crew.",
+      "bundle": "bundles/P-crew.json",
+      "page": "pages/round-2.html"
+    },
+    {
+      "marker": "P-dispatch-returns",
+      "state": "open",
+      "summary": "Dispatch and returns.",
+      "bundle": "bundles/P-dispatch-returns.json",
+      "page": "pages/round-2.html"
+    },
+    {
+      "marker": "P-documents",
+      "state": "open",
+      "summary": "Run documents and the log.",
+      "bundle": "bundles/P-documents.json",
+      "page": "pages/round-2.html"
     }
   ]
 }

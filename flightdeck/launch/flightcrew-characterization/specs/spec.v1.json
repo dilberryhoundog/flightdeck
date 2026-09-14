@@ -11,7 +11,80 @@
     "status": "ok",
     "text": "Flightcrew is about to be rebuilt in place: the fc runner goes, workflows take over the conduct of a run, and the launch and run layout changes. Most of the system stays: the spec chain and its rubric, the validators and linter, the schemas, the crew roles that survive, the hooks that guard frozen and locked paths, the dispatch and return contracts, and the testbench itself. Nothing today states what that surviving behaviour is at the boundary a human observes, so the rebuild would be judged only by the deltas it names, and a kept part could shift without anyone noticing. This launch produces a characterization suite: one conformance test per kept behaviour, written against the system as it exists at this commit, runnable under the existing testbench protocol, with agent-shaped behaviours tagged by check class rather than deformed into scripts. The rebuild then runs these checks throughout its build, drift in a kept part shows as a red check, and the flightcrew-core spec is free to describe only what differs, the way a feature spec in any codebase leans on the existing test suite. It is also the first run of a launch under the v1 tooling, which is itself evidence for the rebuild. Success: the suite is green against the pre-rebuild system, every kept part named in the flightcrew-core scope has a test, and a deliberate change to any kept part turns its test red."
   },
-  "scope": [],
+  "scope": [
+    {
+      "id": "SC1",
+      "status": "ok",
+      "kind": "in",
+      "text": "flightdeck/testbench/suites/: the characterization suites, one directory per kept part, each a run.mjs under the testbench suite protocol (one pass or FAIL line per case, a covers line naming this spec's ids, exit 0 or 2, a temporary repository built from fixtures, nothing written into the checkout), with whatever new fixture under flightdeck/testbench/fixtures/ or helper under flightdeck/testbench/lib/ a suite needs."
+    },
+    {
+      "id": "SC2",
+      "status": "ok",
+      "kind": "in",
+      "text": "Subject, the spec chain: flightdeck/flightcrew/schemas/spec.schema.json, flightdeck/flightcrew/templates/spec.template.json, the spec validator and the readiness linter, flightdeck/flightcrew/checks/rubrics/spec/spec-readiness-rubric.md, the spec-builder, spec-judge and spec-attacker role files, and the versioning rules of flightdeck/manuals/versioning/ (a frozen file is never edited, a change is a new version file, removed nodes go to the retired list, ids stay contiguous)."
+    },
+    {
+      "id": "SC3",
+      "status": "ok",
+      "kind": "in",
+      "text": "Subject, the run document shapes that carry into the rebuild: the tests-map, plan, check-result, event, worker-return, explorer-return, critic-findings and verifier-verdict schemas and their validators, characterized as shapes, a conforming document accepted and a non-conforming one refused with the fault named, at whatever path the schema lives."
+    },
+    {
+      "id": "SC4",
+      "status": "ok",
+      "kind": "in",
+      "text": "Subject, the enforcement the rebuild keeps under new implementations: a frozen document refuses an edit, a locked path refuses an edit while a launch is active, a write outside the launch boundary is refused, a subagent's return is captured and validated against its schema, a worker cannot end its turn with its checks red, a structural check runs after every edit of a registered extension, and every hook event is recorded; characterized by observable effect (denied or allowed, the file that appears) and never by the hook file's name."
+    },
+    {
+      "id": "SC5",
+      "status": "ok",
+      "kind": "in",
+      "text": "Subject, the crew that survives: the explorer, planner, orchestrator, implementer, verifier, critic and test-builder role files with the frontmatter the constitution requires, the sealed dispatch rendered from a role file, a project template and a per-unit fill so that nothing outside a slot reaches the worker, and each role's return shape."
+    },
+    {
+      "id": "SC6",
+      "status": "ok",
+      "kind": "in",
+      "text": "Subject, the check leaf and the script convention: a check run executes every check of a pinned tests map, writes one evidence file per check and a summary, and exits by the outcome; every callable script exits 0 on success, 1 on a usage or environment error and 2 on a failed check or refused action, and prints one line or its artefact on success."
+    },
+    {
+      "id": "SC7",
+      "status": "ok",
+      "kind": "in",
+      "text": "Subject, the testbench itself: run-all's protocol (every suite in name order, an underscore-prefixed directory skipped, --only, the log per suite and the summary in runs/, temp-directory and git-status hygiene, exit 0, 1 or 2), the suite protocol, and fixtures as locked targets copied and mutated in a temporary repository."
+    },
+    {
+      "id": "SC8",
+      "status": "ok",
+      "kind": "in",
+      "text": "This launch's own run under the v1 tooling: opened with fc launch new against this spec, its plan, evidence, report and log entry wherever that tooling writes them, and the suites landing in flightdeck/testbench/ through the run's pull request."
+    },
+    {
+      "id": "SC9",
+      "status": "ok",
+      "kind": "out",
+      "text": "Out, not characterized because the rebuild deletes or replaces it whole: the fc dispatcher and every command that advances a run (launch new, activate, phase, gate, end, pin, kickoff, escalate, note, land; plan write; distribute; doctor; budget; report; runlog; the critic, verifier and worker wrappers), the kickoff library and its validator, the acceptance, contracts and structural gates, MANIFEST.txt, the v1 workflows under flightdeck/flightcrew/workflows/ and .claude/workflows/, the v1 launch.json fields phase, gates, ceilings and paths, the RUNLOG.md entry shape, and the flightcrew-buildout and flightcrew-buildout-2 launch folders."
+    },
+    {
+      "id": "SC10",
+      "status": "ok",
+      "kind": "out",
+      "text": "Out: any change to a kept part. Nothing under flightdeck/flightcrew/, flightdeck/manuals/, .claude/ or the thirty tracked suites is fixed, renamed, moved or rewritten by this launch; a defect the characterization finds in a kept part is recorded in the suite, not repaired."
+    },
+    {
+      "id": "SC11",
+      "status": "ok",
+      "kind": "out",
+      "text": "Out: every flightcrew-core delta. No workflow, liftoff, steward, adversary or scout role, ratio or sheet verdict, launch and run folder layout, .controlcenter configuration, FLIGHTLOG.md entry or edit to the flightcrew-core spec on its branch."
+    },
+    {
+      "id": "SC12",
+      "status": "ok",
+      "kind": "out",
+      "text": "Out: the thirty tracked suites are neither edited nor duplicated; where one already proves a kept behaviour at the observable boundary, the characterization suite for that part names it in its covers line instead of restating it."
+    }
+  ],
   "constraints": [],
   "interfaces": [],
   "behaviours": [],

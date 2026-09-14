@@ -1,4 +1,12 @@
 {
   "launch": "flightcrew-characterization",
-  "problems": []
+  "problems": [
+    {
+      "marker": "P-scope",
+      "state": "open",
+      "summary": "Run home under v1 tooling, defects in kept parts, relation to tracked suites, hook characterization, depth for agent-shaped subjects.",
+      "bundle": "bundles/P-scope.json",
+      "page": "pages/round-1.html"
+    }
+  ]
 }

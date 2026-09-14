@@ -1,54 +1,30 @@
 {
   "launch": "flightcrew-characterization",
+  "note": "Rounds 1 and 2 (keep-or-goes interview) superseded on 2026-09-14 by the pivot to a suite over the whole system as it stands; see superseded/round-1-2/.",
   "problems": [
     {
-      "marker": "P-scope",
+      "marker": "P-scope-decisions",
       "state": "closed",
-      "summary": "Round 1: run conducted by a directly invoked workflow, not v1 tooling; a wholly new suite aimed at harness documents. Q3 folded into Q2; Q4 and Q5 withdrawn as verification questions.",
-      "bundle": "bundles/P-scope.json",
-      "page": "pages/round-1.html"
+      "summary": "Fate of the thirty existing suites; whether manuals and library are parts; where run findings versus suite findings go.",
+      "bundle": "bundles/P-scope-decisions.json",
+      "page": "pages/round-3.html",
+      "closed_by": "SC1 SC3 SC8"
     },
     {
-      "marker": "P-runner",
-      "state": "open",
-      "summary": "The runner.",
-      "bundle": "bundles/P-runner.json",
-      "page": "pages/round-2.html"
+      "marker": "P-constraints",
+      "state": "closed",
+      "summary": "Spend ceiling for live trials; what a live probe may never do.",
+      "bundle": "bundles/P-constraints.json",
+      "page": "pages/round-4.html",
+      "closed_by": "C5 C8 D8 D9"
     },
     {
-      "marker": "P-workflows",
-      "state": "open",
-      "summary": "Workflows.",
-      "bundle": "bundles/P-workflows.json",
-      "page": "pages/round-2.html"
-    },
-    {
-      "marker": "P-enforcement",
-      "state": "open",
-      "summary": "Enforcement.",
-      "bundle": "bundles/P-enforcement.json",
-      "page": "pages/round-2.html"
-    },
-    {
-      "marker": "P-crew",
-      "state": "open",
-      "summary": "The crew.",
-      "bundle": "bundles/P-crew.json",
-      "page": "pages/round-2.html"
-    },
-    {
-      "marker": "P-dispatch-returns",
-      "state": "open",
-      "summary": "Dispatch and returns.",
-      "bundle": "bundles/P-dispatch-returns.json",
-      "page": "pages/round-2.html"
-    },
-    {
-      "marker": "P-documents",
-      "state": "open",
-      "summary": "Run documents and the log.",
-      "bundle": "bundles/P-documents.json",
-      "page": "pages/round-2.html"
+      "marker": "P-attack-1",
+      "state": "closed",
+      "summary": "Attacker pass 1: eighteen findings, twelve blocking.",
+      "bundle": "bundles/P-attack-1.json",
+      "page": "pages/round-5.html",
+      "closed_by": "round 5"
     }
   ]
 }

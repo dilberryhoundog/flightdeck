@@ -1,0 +1,18 @@
+{
+  "marker": "P-scope-decisions",
+  "domain": "scope",
+  "problem": "Three lines in the perimeter are yours to draw, not mine: what happens to the thirty existing suites, whether the manuals and the library count as parts of the system the suite proves, and how the run's own findings about flightcrew's tooling are kept apart from the suite's findings about flightcrew.",
+  "questions": [
+    {"id":"Q1","node":"SC1 D6","text":"The thirty tracked suites test the runner's commands with exit codes. What happens to them?","why":"You said earlier the existing tests must keep working, and later that the suite should be built properly for the whole lot. Both can hold, but the perimeter has to say which.","options":[
+      {"value":"They may be absorbed, merged or replaced by the new suite; the only rule is that nothing they proved stops being proved.","recommended":true},
+      {"value":"They stay as they are and the new suite is built beside them; nothing in suites/ that exists today is edited.","recommended":false}]},
+    {"id":"Q2","node":"SC2","text":"Do the manuals under flightdeck/manuals/ and the documents under library/ count as parts of flightcrew the suite proves?","why":"A manual can be checked structurally (it renders, every path it names exists, every command it quotes parses) and by artefact (the spec manuals are byte-frozen). That is real coverage but it widens 'every part' beyond the code.","options":[
+      {"value":"Yes: manuals and library documents are parts; the suite proves their paths and commands resolve and the frozen ones are unchanged.","recommended":true},
+      {"value":"No: the suite covers flightdeck/flightcrew/, the installed .claude surface and the launch conventions only.","recommended":false}]},
+    {"id":"Q3","node":"SC3 D4","text":"The run will produce two kinds of finding: what the suite learns about flightcrew, and what the run learns about flightcrew's tooling by using it. Where does each go?","why":"Mixing them in one place is the thing that made the earlier run logs hard to mine.","options":[
+      {"value":"Suite findings live in the suites as defect notes and in the report; tooling findings live in the run log entry you write, under its diagnosis fields.","recommended":true},
+      {"value":"Both in the run log entry; the suite carries no defect notes.","recommended":false}]}
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

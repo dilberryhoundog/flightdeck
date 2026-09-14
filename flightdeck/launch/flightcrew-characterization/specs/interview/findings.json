@@ -1,0 +1,57 @@
+{
+  "dispatches": [
+    {
+      "n": 1,
+      "role": "spec-judge",
+      "result": "returned",
+      "findings": [
+        "QGEN.1",
+        "QCON.1",
+        "QCON.2",
+        "QIFC.1",
+        "QBEH.2",
+        "QPRI.1",
+        "QVER.2",
+        "QDOD.1",
+        "QDOD.2"
+      ],
+      "advisories": [
+        "QGEN.3",
+        "QINT.3",
+        "QEDG.3",
+        "QDOD.3"
+      ],
+      "applied": "all nine failing questions; intent line kept by the owner's decision (QINT.3); B5 edge added as E7 (QEDG.3)"
+    },
+    {
+      "n": 2,
+      "role": "spec-judge",
+      "result": "returned",
+      "findings": [
+        "QGEN.1",
+        "QCON.1",
+        "QIFC.1",
+        "QBEH.2",
+        "QPRI.1",
+        "QDOD.1"
+      ],
+      "advisories": [
+        "QGEN.3",
+        "QEDG.3",
+        "QDOD.3"
+      ],
+      "applied": "all six and the advisories; D5 replaced by C10; probe removed as an identifier; I4 report added; B6, B7, B8 split; D9 tail removed; transcripts named in SC3 and VER; D7/D8 duplicate (builder's renumbering error) repaired; E8-E10 added; continuity rule removed from SC1",
+      "overruled_by_owner": [
+        "QGEN.1 on the intent line 'the first work flightcrew runs on itself'",
+        "QIFC.1 on the verdict sheet: the owner ruled the sheet is the judge's contract, not an interface",
+        "QDOD.3: the addendum requires the transcript read"
+      ]
+    },
+    {
+      "n": 3,
+      "role": "spec-attacker",
+      "result": "18 findings, 12 blocking",
+      "applied": "all eighteen per round 5 answers: trials recorded once and suites offline (A1, A8); scenario sets with per-scenario ratio lines, declared N, verdict file, threshold stated before counted trials (A10, A14, A17); continuity by case name (A2); inventory rule (A7); MANIFEST.txt the one changing file (A3); agents moved by the owner and C10 kept (A4); spec copied to the tooling's home (A5); defects file replaces the report section (A11); calibration out of scope, SC9 (A9); rubric, sheet and judge in the set folder (A12); header or usage line cited where no manual (A15); E3 names the sheet path (A18); meta-checks under an underscore folder, locked and allowed paths (A6); must as regex (A13); transcript copied into the launch folder (A16)"
+    }
+  ]
+}

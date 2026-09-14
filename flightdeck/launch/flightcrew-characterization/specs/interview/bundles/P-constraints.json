@@ -1,0 +1,17 @@
+{
+  "marker": "P-constraints",
+  "domain": "constraints",
+  "problem": "Constraints are the conditions that were true before this work and outlive it. Six are read straight from the manuals and the harness. Two are yours: what a live trial may cost, and what a live probe may never do.",
+  "questions": [
+    {"id":"Q1","node":"C5","text":"Is there a ceiling on what the run may spend on live trials, and if so in what unit?","why":"Statistical and judged checks run real sessions. The addendum says keep scenario sets small; a number turns that into a check the run can be held to.","options":[
+      {"value":"No number in the spec; the test-builder keeps scenario sets small and the run log records what was spent.","recommended":true},
+      {"value":"A ceiling in scenarios: at most N scenarios in the whole suite, each run at most k times (give N and k in the comment).","recommended":false},
+      {"value":"A ceiling in tokens or dollars for the whole run (give it in the comment).","recommended":false}]},
+    {"id":"Q2","node":"C8","text":"A live probe exercises the real system: it can open worktrees, cut branches, run hooks and commands. What must it never do?","why":"C8 as drafted forbids reaching a remote. Anything else forbidden has to be written, because a probe that can do a thing will eventually do it.","options":[
+      {"value":"Never reach a remote (push, pull request, fetch) and never write outside a temporary repository; that is the whole list.","recommended":true},
+      {"value":"Also never start a live session at all; probes drive scripts with synthetic envelopes only.","recommended":false},
+      {"value":"Something else: name it in the comment.","recommended":false}]}
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

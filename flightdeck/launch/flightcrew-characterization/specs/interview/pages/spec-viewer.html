@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>spec viewer · flightcrew-characterization · v1 · draft</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --fg:#e6e6e6; --dim:#9aa3b2; --acc:#7cc4ff; --rec:#3ddc97; --bad:#ff7c7c; }
+  body { margin:0; font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--fg); }
+  header { position:sticky; top:0; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 24px; display:flex; gap:16px; align-items:center; z-index:2; }
+  header h1 { font-size:16px; margin:0; flex:1; }
+  button { background:var(--acc); color:#000; border:0; border-radius:6px; padding:6px 12px; font-weight:600; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--acc); border:1px solid var(--acc); }
+  main { max-width:1000px; margin:0 auto; padding:24px; }
+  .lead { color:var(--dim); font-size:14px; margin:0 0 16px; }
+  nav { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+  nav a { color:var(--acc); font-size:13px; text-decoration:none; border:1px solid var(--line); border-radius:6px; padding:3px 8px; }
+  .domain { border:1px solid var(--line); border-radius:12px; padding:6px 18px 14px; margin:18px 0; }
+  .domain > h2 { font-size:14px; letter-spacing:.06em; color:var(--dim); margin:10px 0 4px; display:flex; align-items:center; gap:12px; }
+  .domain > h2 em { color:var(--rec); font-style:normal; }
+  .domain > h2 button { margin-left:auto; font-size:12px; }
+  .node { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:12px 0; }
+  .node[data-dec="agree"] { border-color:var(--rec); }
+  .node[data-dec="disagree"] { border-color:var(--bad); }
+  .node h3 { margin:0 0 6px; font-size:13px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .node h3 span { color:var(--acc); font-family:ui-monospace, monospace; font-size:14px; }
+  .tag { color:var(--dim); font-size:12px; background:#0b0d11; padding:1px 6px; border-radius:4px; }
+  .text { margin:6px 0; }
+  .note { color:var(--dim); font-size:13px; margin:4px 0 0; }
+  .ctl { display:flex; gap:8px; align-items:flex-start; margin-top:10px; flex-wrap:wrap; }
+  .dec { background:transparent; color:var(--dim); border:1px solid var(--line); }
+  .dec.on.agree { background:var(--rec); color:#000; border-color:var(--rec); }
+  .dec.on.disagree { background:var(--bad); color:#000; border-color:var(--bad); }
+  textarea { flex:1; min-width:260px; box-sizing:border-box; background:#0b0d11; color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:8px; min-height:38px; font:inherit; }
+  #out { white-space:pre-wrap; background:#0b0d11; border:1px solid var(--line); border-radius:8px; padding:12px; font:12.5px ui-monospace, monospace; display:none; }
+  .toast { position:fixed; bottom:20px; right:20px; background:var(--rec); color:#000; padding:8px 14px; border-radius:6px; display:none; font-weight:600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>spec viewer · flightcrew-characterization · v1 · draft</h1>
+  <button class="ghost" onclick="preview()">Preview all</button>
+  <button onclick="copyAll()">Copy all</button>
+</header>
+<main>
+<p class="lead">initial: a complete test suite over flightcrew exactly as it stands, built with all seven classes of check and the rules for agent-shaped work, so the coming refactor can lean on it the way any refactor leans on its tests.</p>
+<nav><a href="#intent">Intent</a><a href="#scope">Scope</a><a href="#constraints">Constraints</a><a href="#interfaces">Interfaces</a><a href="#behaviours">Behaviours</a><a href="#edges">Edges</a><a href="#decisions">Decisions</a><a href="#verification">Verification</a><a href="#acceptance">Acceptance</a></nav>
+<section id="intent" class="domain" data-domain="intent">
+<h2>Intent <em>1</em> <button onclick="copyDomain('intent')">Copy intent</button></h2>
+<div class="node" data-id="INT" data-dec="">
+  <h3><span>INT</span><span class="tag">status: ok</span></h3>
+  <p class="text">Flightcrew&#x27;s test suite checks only its runner&#x27;s commands. Nothing exercises a role, a hook or a workflow the way a working session does, because the manuals for testing agent-shaped work came after the build. Flightcrew is about to be refactored, and without a suite that describes it whole, every part the refactor touches is changed blind. This work builds that suite over flightcrew exactly as it stands, every part, using the full range of checks. This run utilises flightcrew for the first time, so the run&#x27;s own faults become valuable for later improvements. Success: one command proves every part of flightcrew green, breaking any part turns its check red, and the run that built the suite can be read end to end.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="scope" class="domain" data-domain="scope">
+<h2>Scope <em>9</em> <button onclick="copyDomain('scope')">Copy scope</button></h2>
+<div class="node" data-id="SC1" data-dec="">
+  <h3><span>SC1</span><span class="tag">status: ok</span> <span class="tag">kind: in</span></h3>
+  <p class="text">The test suite, under flightdeck/testbench/: new suites, fixtures, helpers and scenario material, and the tests map for this spec beside it. The suite runner, its README and the thirty suites already there may be absorbed, merged or replaced as the whole suite takes shape.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC2" data-dec="">
+  <h3><span>SC2</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">Out, read and exercised but never changed: everything under flightdeck/flightcrew/ as it stands (the runner and its commands, the six hooks, the crew, the schemas, the templates, the check libraries, validators, gates and rubric, the workflow scripts), the surface it installs into .claude/ and the project instructions, and the launch folder conventions under flightdeck/launch/. This is the subject of the suite. The one file that changes is flightdeck/flightcrew/MANIFEST.txt, which reflects the files present and changes as suites are added or replaced.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC3" data-dec="">
+  <h3><span>SC3</span><span class="tag">status: ok</span> <span class="tag">kind: in</span></h3>
+  <p class="text">This work&#x27;s own run: the frozen spec copied to flightdeck/launch/specs/flightcrew-characterization/ as its home for the current tooling, the launch folder that tooling creates, its plan, evidence, report and events, the one session transcript the reviewer chooses copied into that launch folder, and its entry in flightdeck/launch/RUNLOG.md, kept whole as evidence whether the run succeeds or not. The interview stays under flightdeck/launch/flightcrew-characterization/specs/. What the suite learns about flightcrew is written in the suites as defect notes and in the defects file; what the run learns about flightcrew&#x27;s tooling by using it is written in the log entry&#x27;s diagnosis fields by the human.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC4" data-dec="">
+  <h3><span>SC4</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">No repair. A defect the suite finds in any part of flightcrew is pinned as that part&#x27;s current behaviour and named as a defect in the suite and the defects file; nothing under flightdeck/flightcrew/, flightdeck/manuals/, library/, .claude/ or CLAUDE.md is fixed, renamed, moved or rewritten, with one exception: flightdeck/flightcrew/MANIFEST.txt changes to reflect the files present.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC5" data-dec="">
+  <h3><span>SC5</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">No test for behaviour that does not exist today, and nothing from the refactor: the flightcrew-core spec, its branch, its layout, workflows, liftoffs and roles are not read and not tested.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC6" data-dec="">
+  <h3><span>SC6</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">The two earlier launch folders under flightdeck/launch/, the earlier entries in RUNLOG.md, the spec series at flightdeck/launch/specs/flightcrew-v1/ and the rubric bench under flightdeck/testbench/benches/ are history and are not touched.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC7" data-dec="">
+  <h3><span>SC7</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">No new tooling: no CI, no package, no command added to the runner, and no helper placed anywhere but flightdeck/testbench/.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC8" data-dec="">
+  <h3><span>SC8</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">The manuals under flightdeck/manuals/ and the documents under library/ are not parts the suite proves; they are read for their rules and left alone.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="SC9" data-dec="">
+  <h3><span>SC9</span><span class="tag">status: ok</span> <span class="tag">kind: out</span></h3>
+  <p class="text">Calibrating a rubric is outside this work: the human-graded examples and the calibration record a rubric needs are supplied by the human as inputs, and no unit of this work grades material or calibrates an instrument.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="constraints" class="domain" data-domain="constraints">
+<h2>Constraints <em>10</em> <button onclick="copyDomain('constraints')">Copy constraints</button></h2>
+<div class="node" data-id="C1" data-dec="">
+  <h3><span>C1</span><span class="tag">status: ok</span></h3>
+  <p class="text">Every script in the suite is a Node 22 ES module importing only Node built-ins or relative paths; no package.json, node_modules or lock file anywhere under flightdeck/.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C2" data-dec="">
+  <h3><span>C2</span><span class="tag">status: ok</span></h3>
+  <p class="text">The testbench suite protocol as it stands: a suite is suites/&lt;name&gt;/run.mjs taking no arguments, printing one pass or FAIL line per case, one covers line, and a final count, exiting 0 or 2; it runs every command under test against a temporary repository built from fixtures and writes nothing into the checkout; run-all runs every suite, enforces temp-directory and git-status hygiene, and exits 0, 1 or 2.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C3" data-dec="">
+  <h3><span>C3</span><span class="tag">status: ok</span></h3>
+  <p class="text">The testing manuals and the rubric guide fix what a check may be: every check is one of the seven kinds in flightdeck/manuals/testing/testing-description.md and returns one of its three verdicts; a check is written to flightdeck/manuals/testing/testing-conventions.md; every check on a part whose output a model produces carries one of the four classes in flightdeck/manuals/spec/verification-addendum.md; every rubric and verdict sheet has the form in flightdeck/manuals/testing/rubric-guide.md, where every question is answered yes from the material and a question the judge cannot answer yes to is the finding.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C4" data-dec="">
+  <h3><span>C4</span><span class="tag">status: ok</span></h3>
+  <p class="text">Claude Code as it is: hooks receive a JSON envelope on stdin and answer by stdout and exit code, with only PreToolUse, UserPromptSubmit, Stop and SubagentStop able to block; agent definitions are markdown with YAML frontmatter; workflow scripts run in a runtime with no filesystem, shell, clock or randomness; a live session or subagent can be started but not scripted from outside.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C5" data-dec="">
+  <h3><span>C5</span><span class="tag">status: ok</span></h3>
+  <p class="text">A statistical or judged check runs a fixed scenario set whose trials and threshold are stated before the counted trials run and never derived from them, and no trial or judge run by the suite uses fable; opus is the ceiling, without exception.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C6" data-dec="">
+  <h3><span>C6</span><span class="tag">status: ok</span></h3>
+  <p class="text">The current tooling&#x27;s rules hold over the run&#x27;s outputs: the run&#x27;s documents sit inside one launch folder under flightdeck/launch/, its log entry sits in flightdeck/launch/RUNLOG.md, and the spec and its pinned copies are byte-identical from the freeze to the landing commit.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C7" data-dec="">
+  <h3><span>C7</span><span class="tag">status: ok</span></h3>
+  <p class="text">The spec chain and its rubric are calibration material: flightdeck/flightcrew/crew/spec-builder.md, spec-judge.md, spec-attacker.md, flightdeck/flightcrew/checks/rubrics/, flightdeck/flightcrew/schemas/spec.schema.json and flightdeck/flightcrew/templates/spec.template.json are read and exercised and never changed in a byte.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C8" data-dec="">
+  <h3><span>C8</span><span class="tag">status: ok</span></h3>
+  <p class="text">Nothing the suite runs reaches a remote repository: no push, no pull request, no fetch; a live trial that would open a pull request or push a branch runs against a temporary repository with no remote, and no trial writes outside a temporary repository. No suite starts a model session; trials are recorded once and every suite reads their records.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C9" data-dec="">
+  <h3><span>C9</span><span class="tag">status: ok</span></h3>
+  <p class="text">The part manuals are the stated behaviour of every part: flightdeck/manuals/harness/ (hooks.md, workflows.md, permissions.md, claude-code-facts.md), flightdeck/manuals/launch/launch-anatomy.md, flightdeck/manuals/orchestration/ (crew.md, kickoff.md, planning.md, review.md, endings.md, run-log.md, run-report.md), the README beside the hooks, the crew and the workflows, and library/flightcrew/creating-harness-documents.md for what a role file must contain. Where a part and its manual disagree, the suite pins the part and the defect line names the manual and its line, or, for a part with no manual (a schema, template, validator, gate or command), the part&#x27;s own header comment or usage line.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="C10" data-dec="">
+  <h3><span>C10</span><span class="tag">status: ok</span></h3>
+  <p class="text">The six hook scripts are wired in the project&#x27;s .claude/settings.json through the fragment flightcrew ships, and flightdeck/flightcrew/bin/fc doctor --target .claude passes against it, so that a session in the repository is recorded and guarded.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="interfaces" class="domain" data-domain="interfaces">
+<h2>Interfaces <em>4</em> <button onclick="copyDomain('interfaces')">Copy interfaces</button></h2>
+<div class="node" data-id="I1" data-dec="">
+  <h3><span>I1</span><span class="tag">status: ok</span> <span class="tag">name: tests map</span> <span class="tag">reuse: flightdeck/flightcrew/schemas/tests-map.schema.json</span></h3>
+  <p class="text">flightdeck/launch/flightcrew-characterization/specs/tests-map.v1.json, beside this spec, in the shape of its schema: every check on the suite with id, the seven-class kind, the addendum class, the spec ids it covers, the command that runs it and its baseline, plus the quarantined, unverified and retired lists; its locked paths name only the checks&#x27; own suites and flightdeck/testbench/fixtures/, and its allowed paths name the rest of flightdeck/testbench/ and flightdeck/flightcrew/MANIFEST.txt. It is the one list the gate, the report and every suite author share.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I2" data-dec="">
+  <h3><span>I2</span><span class="tag">status: ok</span> <span class="tag">name: suite output</span> <span class="tag">reuse: flightdeck/testbench/README.md</span></h3>
+  <p class="text">What every suite prints and returns, shared by every suite, run-all, the map&#x27;s commands and the report. Lines, in order: one per case, &#x27;pass  &lt;case&gt;&#x27; or &#x27;FAIL  &lt;case&gt;: &lt;reason&gt;&#x27;, where a case that pins a defect is named &#x27;&lt;case&gt; [defect]&#x27; and is preceded by a line &#x27;defect: &lt;what the behaviour should be&gt; (&lt;manual path&gt;:&lt;line&gt; | &lt;part path&gt;:&lt;header line&gt;)&#x27;; one &#x27;covers: &lt;ids&gt;&#x27; line naming this spec&#x27;s ids separated by single spaces; for a statistical suite one &#x27;ratio: &lt;scenario&gt; &lt;passes&gt;/&lt;N&gt; inconclusive &lt;n&gt; threshold &lt;k&gt;/&lt;N&gt; tier &lt;model&gt;&#x27; line per scenario, where N is the declared trials and an inconclusive trial counts as not passing; for a judged suite one &#x27;sheet: &lt;path&gt; judge &lt;model&gt;&#x27; line; one final &#x27;&lt;n&gt;/&lt;m&gt; passed&#x27; line. Exit 0 when every case passes and 2 otherwise; a ratio below its threshold and a refused sheet are FAIL cases, so a gate that reads exit codes reads all three verdicts. The defects file is every &#x27;defect:&#x27; line from every suite, with its suite and case name.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I3" data-dec="">
+  <h3><span>I3</span><span class="tag">status: ok</span> <span class="tag">name: scenario set</span></h3>
+  <p class="text">A scenario set is a folder flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/ holding flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/set.json = { covers: [string], tier: &#x27;opus&#x27;|&#x27;sonnet&#x27;|&#x27;haiku&#x27;, judge: &#x27;opus&#x27;|&#x27;sonnet&#x27;|&#x27;haiku&#x27;|null }, and for a judged set flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/rubric.md in the guide&#x27;s form, and one folder per scenario, flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/, holding flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/scenario.json = { trials: integer, threshold: integer, control: boolean, start: { prompt: string, files: { &lt;path&gt;: &lt;content&gt; } }, must: [string], must_not: [string] }, where each must and must_not entry is a regular expression matched against the concatenated record files of a trial; and, per trial, five record files under flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/trials/&lt;n&gt;/: transcript.jsonl, events.jsonl, hooks.log, tier.txt naming the model that ran, verdict.txt written by the deterministic check over the records as pass, fail or inconclusive with its reason, and for a judged set flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/trials/&lt;n&gt;/sheet.md, the judge&#x27;s verdict sheet for that trial. It is the object the scenario&#x27;s author, the trial that runs it, the deterministic checks over the records and the judge all read.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="I4" data-dec="">
+  <h3><span>I4</span><span class="tag">status: ok</span> <span class="tag">name: defects file</span></h3>
+  <p class="text">defects.md in the run&#x27;s evidence folder, written by the run and never re-rendered by the tooling, one line per defect as &#x27;&lt;suite&gt; · &lt;case&gt; · &lt;defect text&gt; · &lt;reference&gt;&#x27;, so that the suite&#x27;s findings about flightcrew are read together in one place the report cannot drop.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="behaviours" class="domain" data-domain="behaviours">
+<h2>Behaviours <em>12</em> <button onclick="copyDomain('behaviours')">Copy behaviours</button></h2>
+<div class="node" data-id="B1" data-dec="">
+  <h3><span>B1</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Every part of flightcrew is named by at least one case, where a part is a subcommand as the runner&#x27;s usage lists them, a hook, a role file, a schema, a template, a validator, a gate or a workflow script listed in flightdeck/flightcrew/MANIFEST.txt, or a file distribute writes into .claude/, and a case names a part by its repository-relative path or its subcommand token, so that the list of parts with no case is empty and a part added later shows up as uncovered.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B2" data-dec="">
+  <h3><span>B2</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Breaking any part on purpose turns at least one case red that names that part, so that the suite is shown to hold every part in place and not merely to run over it.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B3" data-dec="">
+  <h3><span>B3</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Every suite&#x27;s output follows the suite output protocol line by line, so that one reader reads every suite the same way.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B4" data-dec="">
+  <h3><span>B4</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The whole suite runs green from one command on the commit it was built against, so that a human sees the whole of flightcrew proven at once.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B5" data-dec="">
+  <h3><span>B5</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Every check declares one of the seven kinds and one addendum class, so that the classes the first build lacked are present by name and countable.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B6" data-dec="">
+  <h3><span>B6</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Every statistical check has a scenario set stating its trials, its threshold, at least one control and a tier at or below opus, so that a ratio is an experiment declared before it ran.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B7" data-dec="">
+  <h3><span>B7</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Every trial&#x27;s records name the tier that ran it, so that ratios from different tiers are never compared as one.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B8" data-dec="">
+  <h3><span>B8</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Every judged check has a rubric in the guide&#x27;s form in its scenario set&#x27;s folder, so that a judge is handed an instrument and not a question.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B9" data-dec="">
+  <h3><span>B9</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] A verdict sheet is refused when its shape, a quotation or the judging model is missing, so that a judged verdict is never read before it is shown to be a verdict.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B10" data-dec="">
+  <h3><span>B10</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] A defect the suite finds is pinned as the part&#x27;s current behaviour and marked with its defect line, so that the suite says what the system does and separately what it should do.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B11" data-dec="">
+  <h3><span>B11</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] The defects file lists every defect the suite marked, so that the refactor receives the system&#x27;s faults as one list rather than discovering them.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="B12" data-dec="">
+  <h3><span>B12</span><span class="tag">status: ok</span></h3>
+  <p class="text">[deterministic] Nothing the thirty earlier suites proved stops being proved: every case name they carry appears in the new suite, verbatim or under a committed mapping file, so that absorbing or replacing them loses no ground.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="edges" class="domain" data-domain="edges">
+<h2>Edges <em>10</em> <button onclick="copyDomain('edges')">Copy edges</button></h2>
+<div class="node" data-id="E1" data-dec="">
+  <h3><span>E1</span><span class="tag">status: ok</span></h3>
+  <p class="text">A part has no case, or its only cases stay green when it is broken: the coverage check fails naming the part, and the suite is not green until a red-able case exists.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E2" data-dec="">
+  <h3><span>E2</span><span class="tag">status: ok</span></h3>
+  <p class="text">A scenario&#x27;s trials are all inconclusive because the model never attempted the provoked action: every trial&#x27;s verdict file says inconclusive, none counts toward the threshold, the check fails naming the scenario, and the ratio line carries the inconclusive count.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E3" data-dec="">
+  <h3><span>E3</span><span class="tag">status: ok</span></h3>
+  <p class="text">A verdict sheet arrives with a missing quotation, a question answered outside yes or no, no judging model, or a shape the rubric did not fix: it is refused before its content is read and the judged check fails naming the question where there is one and the sheet path otherwise.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E4" data-dec="">
+  <h3><span>E4</span><span class="tag">status: ok</span></h3>
+  <p class="text">A scenario set names fable as its tier or its judge: the check is refused before any trial runs, naming the cap.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E5" data-dec="">
+  <h3><span>E5</span><span class="tag">status: ok</span></h3>
+  <p class="text">A suite writes anywhere in the checkout, leaves a file in the temporary directory, or leaves the checkout&#x27;s settings changed: run-all fails on hygiene naming the suite.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E6" data-dec="">
+  <h3><span>E6</span><span class="tag">status: ok</span></h3>
+  <p class="text">An earlier suite is absorbed or replaced and one of its case names appears neither in the new suite nor in the mapping file: the continuity check fails naming the case.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E7" data-dec="">
+  <h3><span>E7</span><span class="tag">status: ok</span></h3>
+  <p class="text">A case marked as a defect fails on the current behaviour, or a defect line has no marked case beneath it: the suite fails naming the case, because a defect note that does not match today&#x27;s behaviour describes nothing.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E8" data-dec="">
+  <h3><span>E8</span><span class="tag">status: ok</span></h3>
+  <p class="text">A suite&#x27;s output departs from the protocol, a line out of order, malformed or missing: the protocol check fails naming the suite and the line.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E9" data-dec="">
+  <h3><span>E9</span><span class="tag">status: ok</span></h3>
+  <p class="text">A check in the tests map carries no kind or no class: the map is refused naming the check.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="E10" data-dec="">
+  <h3><span>E10</span><span class="tag">status: ok</span></h3>
+  <p class="text">A defect line exists in a suite and the defects file does not carry it: the defects check fails naming the suite and case.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="decisions" class="domain" data-domain="decisions">
+<h2>Decisions <em>8</em> <button onclick="copyDomain('decisions')">Copy decisions</button></h2>
+<div class="node" data-id="D1" data-dec="">
+  <h3><span>D1</span><span class="tag">status: ok</span></h3>
+  <p class="text">The suite covers the whole system as it stands rather than a chosen subset, because which parts survive the refactor is the refactor&#x27;s decision, and a refactor leans on the entire test surface: tests over what stays hold it in place, tests over what changes change with it, tests over what is removed go with it.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D2" data-dec="">
+  <h3><span>D2</span><span class="tag">status: ok</span></h3>
+  <p class="text">The suite is built with the seven classes of check and the three verdicts from the testing manuals, and agent-shaped parts follow the verification addendum, because the first build used exit-code scripts for everything and that is the gap this work closes.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D3" data-dec="">
+  <h3><span>D3</span><span class="tag">status: ok</span></h3>
+  <p class="text">Statistical and judged checks are used only where no cheaper class can falsify the behaviour, because every trial spends tokens and the run has one subscription behind it.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D4" data-dec="">
+  <h3><span>D4</span><span class="tag">status: ok</span></h3>
+  <p class="text">The run&#x27;s own record is kept whole, mistakes included, rather than tidied, because the first run of flightcrew on itself is wanted as evidence for the refactor and a tidied record is not evidence.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D5" data-dec="">
+  <h3><span>D5</span><span class="tag">status: ok</span></h3>
+  <p class="text">The existing thirty suites are not a settled asset: they test the runner&#x27;s commands with exit codes and were written without the testing manuals, so the new suite may absorb or replace them.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D6" data-dec="">
+  <h3><span>D6</span><span class="tag">status: ok</span></h3>
+  <p class="text">Judged checks run on opus against a rubric calibrated with fable, because the owner&#x27;s own testing found opus judges as well as fable once the rubric has been strengthened by it, and a judge&#x27;s reliability comes from the instrument, not the tier.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D7" data-dec="">
+  <h3><span>D7</span><span class="tag">status: ok</span></h3>
+  <p class="text">Statistical scenarios are premade at a fair difficulty and run on opus or below, with their threshold tuned so that opus stands in for fable, because a fair scenario capped at opus still reproduces the harder real run and the tier cap keeps every trial affordable.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+<div class="node" data-id="D8" data-dec="">
+  <h3><span>D8</span><span class="tag">status: ok</span></h3>
+  <p class="text">Under the current tooling a gate reads exit codes only, so the ratio and the sheet live in the suite output beside the exit code, because the tooling&#x27;s result shape has no place for them and leaving those classes out would repeat the first build&#x27;s gap.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="verification" class="domain" data-domain="verification">
+<h2>Verification <em>1</em> <button onclick="copyDomain('verification')">Copy verification</button></h2>
+<div class="node" data-id="VER" data-dec="">
+  <h3><span>VER</span><span class="tag">status: ok</span></h3>
+  <p class="text">The checks on the suite are suites under an underscore-prefixed folder that run-all skips, run only by the tests map&#x27;s commands, written and locked before any suite is built; the suites are built until those checks pass; every check here is a check on the suite, not on flightcrew. Every suite is offline: it reads committed records and starts no model. B1: the inventory is flightdeck/flightcrew/MANIFEST.txt filtered to B1&#x27;s categories plus the runner&#x27;s subcommands from its usage and the files distribute writes, matched against every suite&#x27;s case names by path or subcommand token; the unmatched list must be empty, and E1 fails it naming the part. B2: for every part in that inventory, the part is altered in a temporary copy of the repository (a script&#x27;s exit code inverted, a hook&#x27;s decision flipped, a schema rule removed, a role file&#x27;s frontmatter field dropped, a template slot renamed, a workflow&#x27;s meta removed) and the offline suites are run there; at least one case must go red naming the part; parts with no meaningful alteration are listed as exempt in the sweep&#x27;s fixture. B3 and E8: every suite&#x27;s output is matched line by line against the suite output protocol, including the ratio and sheet lines where the class requires them. B4: node flightdeck/testbench/run-all.mjs exits 0 on the commit the suite was built against; E5 is the same run&#x27;s hygiene failing on any write, leak or settings change. B5 and E9: the tests map and every suite are read and every check carries a kind and a class. B6: every scenario set is read for its tier and every scenario for trials, threshold and control, with at least one control per set; B7: every trial folder holds its tier file naming a model at or below opus and its verdict file; E4 is a set naming fable as tier or judge being refused before a trial; E2 is a scenario set run where every trial is inconclusive and the check failing as inconclusive with the count on its ratio line. B8: every judged set&#x27;s rubric file is checked against the guide&#x27;s form; B9 and E3 is a sheet with a missing quotation, an answer outside yes or no, no judging model or a broken shape being refused before its content is read. B10 and E7: every case named [defect] passes on the current behaviour and has its defect line above it, and every defect line has a marked case beneath it. B11 and E10: the defects file equals the set of defect lines across every suite. B12 and E6: every case name of the thirty earlier suites, as they stood at this spec&#x27;s commit, is found in the new suite&#x27;s case names or in the committed mapping file. The critic pass the current tooling runs after the checks are green reviews the change against this spec and returns its findings. End to end, the intent&#x27;s three acts performed by the reviewer on a fresh checkout at the run&#x27;s landing commit: one command runs the whole suite green; one part of the reviewer&#x27;s choosing is broken and the suite goes red naming it; and one session transcript of the run, chosen by the reviewer and not by the builders, is read from beginning to end with the run&#x27;s folder, events, hook log, report and log entry.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section><section id="acceptance" class="domain" data-domain="acceptance">
+<h2>Acceptance <em>1</em> <button onclick="copyDomain('acceptance')">Copy acceptance</button></h2>
+<div class="node" data-id="ACC" data-dec="">
+  <h3><span>ACC</span><span class="tag">status: ok</span></h3>
+  <p class="text">The run is accepted when: every check named in verification is green as an exit code on the landing commit, B1 to B12 and E1 to E10 each proven by a named case; every statistical suite&#x27;s ratio line meets its threshold with the tier named; every judged suite&#x27;s sheet line points at a sheet with a quotation on every answer and the judging model named; no file outside flightdeck/testbench/, flightdeck/flightcrew/MANIFEST.txt, flightdeck/launch/specs/flightcrew-characterization/, the run&#x27;s own launch folder and flightdeck/launch/RUNLOG.md changed between the freeze and the landing commit, and the spec chain, rubric, schema and template are byte-identical; the suite, the tests map and the report are delivered and the run&#x27;s log entry is stubbed; the critic pass returned no blocking finding; and one full transcript of the run, chosen by the reviewer and not by the builders, has been read by the human. The human gives the final word by merging or rejecting the run&#x27;s pull request and writing the log entry&#x27;s diagnosis lines, which is where what the run learned about the tooling is recorded.</p>
+  <div class="ctl">
+    <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
+    <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
+    <textarea placeholder="Comment (disagree = further discussion)"></textarea>
+  </div>
+</div>
+</section>
+<section><h2 style="font-size:14px;color:var(--dim)">Preview</h2><div id="out"></div></section>
+</main>
+<div class="toast" id="toast">Copied</div>
+<script>
+function pick(btn) {
+  const node = btn.closest('.node');
+  const was = btn.classList.contains('on');
+  node.querySelectorAll('.dec').forEach(b => b.classList.remove('on'));
+  if (!was) { btn.classList.add('on'); node.dataset.dec = btn.dataset.v; } else { node.dataset.dec = ''; }
+}
+function collectDomain(sec) {
+  const lines = ['## ' + sec.dataset.domain];
+  sec.querySelectorAll('.node').forEach(n => {
+    const c = n.querySelector('textarea')?.value.trim();
+    lines.push('### ' + n.dataset.id);
+    lines.push('decision: ' + (n.dataset.dec || '(undecided)'));
+    if (c) lines.push('comment: ' + c);
+  });
+  lines.push('');
+  return lines.join('\n');
+}
+function collectAll() {
+  return [...document.querySelectorAll('.domain')].filter(s => s.dataset.domain !== 'retired').map(collectDomain).join('\n');
+}
+async function put(t) {
+  try { await navigator.clipboard.writeText(t); } catch (e) { const o = document.getElementById('out'); o.textContent = t; o.style.display = 'block'; o.scrollIntoView({behavior:'smooth'}); return; }
+  const s = document.getElementById('toast'); s.style.display = 'block'; setTimeout(() => s.style.display = 'none', 1500);
+}
+function copyDomain(key) { put(collectDomain(document.querySelector(`.domain[data-domain="${key}"]`))); }
+function copyAll() { put(collectAll()); }
+function preview() { const o = document.getElementById('out'); o.textContent = collectAll(); o.style.display = 'block'; o.scrollIntoView({behavior:'smooth'}); }
+</script>
+</body>
+</html>

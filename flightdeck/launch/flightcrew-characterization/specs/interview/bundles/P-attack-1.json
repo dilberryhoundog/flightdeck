@@ -1,0 +1,297 @@
+{
+  "marker": "P-attack-1",
+  "domain": "mixed",
+  "problem": "Eighteen attacker findings, twelve blocking. Each question below carries my proposal as the recommended option; pick it, another, or write your own.",
+  "questions": [
+    {
+      "id": "A1",
+      "node": "C8 I3 B4",
+      "text": "Live trials versus the network ban and fc check rerunning every command at every gate. Who runs a trial and when?",
+      "why": "A model call is a network call; fc check reruns map commands at baseline, every gate and the stop gate.",
+      "options": [
+        {
+          "value": "Trials and judge runs happen once, outside the suite, and their records are committed; every suite is offline over records; C8 says a model call is made only by a trial, never by a suite.",
+          "recommended": true
+        },
+        {
+          "value": "The suite command starts the trial or judge itself each run; C8 exempts model calls.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A8",
+      "node": "B2 VER",
+      "text": "The mutation sweep would run the whole suite once per part inside run-all.",
+      "why": "Statistical and judged suites per mutation would be ruinous if live; offline they are cheap.",
+      "options": [
+        {
+          "value": "The sweep is one suite that runs the other suites' offline cases in a temporary copy, never a trial; parts with no meaningful mutation are exempt by an explicit list in the sweep's fixture.",
+          "recommended": true
+        },
+        {
+          "value": "The sweep is a separate command the reviewer runs once, outside run-all.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A10",
+      "node": "I2 I3 B6",
+      "text": "Ratio denominator, inconclusive trials, and what groups scenarios into a set with a control.",
+      "why": "I3 has one folder per scenario and no set; a suite prints one ratio line.",
+      "options": [
+        {
+          "value": "Denominator is the declared N, inconclusive counts as not passing; a set is a folder of scenarios sharing one tier, with one ratio line per scenario.",
+          "recommended": true
+        },
+        {
+          "value": "Denominator is the conclusive count; one ratio line per suite.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A14",
+      "node": "E2 I3",
+      "text": "Who marks a trial inconclusive and where is it recorded?",
+      "why": "No record file carries a verdict today.",
+      "options": [
+        {
+          "value": "A fifth record file, verdict.txt, written by the deterministic check over the records.",
+          "recommended": true
+        },
+        {
+          "value": "The judge marks it in the sheet.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A17",
+      "node": "C5 D7",
+      "text": "A threshold tuned for opus implies pilot results, but C5 forbids deriving a threshold from results.",
+      "why": "The rule wants pre-commitment.",
+      "options": [
+        {
+          "value": "The threshold is fixed at authoring from the scenario's difficulty; C5 reads 'stated before the counted trials run'.",
+          "recommended": true
+        },
+        {
+          "value": "Allow a declared pilot of n trials whose results set the threshold, then the counted trials.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "node": "B12 E6 I2",
+      "text": "Covers lines carry this spec's ids; the thirty old suites cite flightcrew-v1 ids, so continuity by id is meaningless.",
+      "why": "Continuity must be expressed as something both suites share.",
+      "options": [
+        {
+          "value": "Continuity of cases: every case name the thirty suites carry appears in the new suite, verbatim or under a committed mapping file; 'commands' dropped.",
+          "recommended": true
+        },
+        {
+          "value": "Drop B12 and E6; D5 already says the old suites are not a settled asset.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A7",
+      "node": "B1 VER",
+      "text": "The inventory has no listing rule, no granularity, no match rule.",
+      "why": "B1 and B2 both depend on it.",
+      "options": [
+        {
+          "value": "Inventory = MANIFEST.txt filtered to B1's categories; a runner command is a subcommand as fc's usage lists them; the .claude surface is what distribute writes; a case names a part by its repository-relative path or subcommand token in the case name.",
+          "recommended": true
+        },
+        {
+          "value": "Inventory = every file under flightdeck/flightcrew/ and .claude/; a case names a part by path only.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A3",
+      "node": "SC1 SC4 C10",
+      "text": "MANIFEST.txt lists every existing suite file and must not change, so replacing a suite fails doctor and the manifest suite.",
+      "why": "Frozen thing versus the freedom SC1 gives.",
+      "options": [
+        {
+          "value": "Pin it as a defect; SC1 says suites are added and superseded, never deleted, until the refactor.",
+          "recommended": true
+        },
+        {
+          "value": "Allow MANIFEST.txt to change in this launch as the one exception to SC4.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A4",
+      "node": "C10 SC2",
+      "text": "fc doctor expects agents under .claude/agents/flightcrew/; they sit at the top level; C10 is false as written.",
+      "why": "Cannot be made true without touching .claude.",
+      "options": [
+        {
+          "value": "C10 names only the hooks and settings; the agents location is pinned as a defect.",
+          "recommended": true
+        },
+        {
+          "value": "Move the agents into .claude/agents/flightcrew/ before the run as a setup act, like the fragment merge, and keep C10 whole.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A5",
+      "node": "SC3 C6 ACC",
+      "text": "The v1 tooling expects the spec at flightdeck/launch/specs/<name>/ and pins that path; the draft lives in the new-layout folder.",
+      "why": "fc launch new will make a second folder and pin a path that does not exist.",
+      "options": [
+        {
+          "value": "Copy the frozen spec to flightdeck/launch/specs/flightcrew-characterization/ before the run as its canonical home for the v1 tooling; name it in SC3 and the boundary; the new-layout folder keeps the interview.",
+          "recommended": true
+        },
+        {
+          "value": "Move the whole specs folder there and drop the new-layout folder for this launch.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A11",
+      "node": "I4 B11 E10",
+      "text": "fc report re-renders report.md with a fixed heading list; a hand-added Defects section is dropped.",
+      "why": "The report is out of scope and unchanged.",
+      "options": [
+        {
+          "value": "The defect list is its own file, defects.md in the run's evidence folder, written by the run; I4 becomes that file.",
+          "recommended": true
+        },
+        {
+          "value": "Carry defects through fc launch note into the report's notes section.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A9",
+      "node": "C5 D6",
+      "text": "D6 calibrates the rubric with fable; C5 bans fable without exception.",
+      "why": "Calibration is your act, outside the run.",
+      "options": [
+        {
+          "value": "C5 reads 'no trial or judge run by the suite uses fable'; calibration with fable is yours and the human-graded examples are named as your input in SC3.",
+          "recommended": true
+        },
+        {
+          "value": "Calibrate on opus too; D6 drops 'with fable'.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A12",
+      "node": "B8 B9 E4",
+      "text": "Rubrics, sheets and the judge model have no address.",
+      "why": "B8, B9 and E4 cannot be checked without one.",
+      "options": [
+        {
+          "value": "Rubric as rubric.md in the scenario set's folder; sheet as sheet.md under each trial folder; the judge model in the set's json.",
+          "recommended": true
+        },
+        {
+          "value": "Rubrics under flightdeck/testbench/fixtures/rubrics/<name>.md; sheets beside the suite's evidence.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A15",
+      "node": "C9 I2 E7",
+      "text": "Defect lines cite a manual line, but schemas, templates, validators, gates and commands have no manual.",
+      "why": "A defect line needs a reference for every part.",
+      "options": [
+        {
+          "value": "Cite the part's own header comment or usage line where no manual exists.",
+          "recommended": true
+        },
+        {
+          "value": "Cite the tests-map check id instead.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A18",
+      "node": "B9 E3",
+      "text": "A sheet-level refusal (missing model, broken shape) has no question to name.",
+      "why": "E3 says 'naming the question'.",
+      "options": [
+        {
+          "value": "E3 names the question where there is one and the sheet path otherwise.",
+          "recommended": true
+        },
+        {
+          "value": "Split E3 into a question-level and a sheet-level edge.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A6",
+      "node": "VER I1 C2",
+      "text": "Where the meta-checks live, and the lock rule locks the suites the map names, so the builders could not write them.",
+      "why": "run-all would recurse if the run-all check is itself a suite.",
+      "options": [
+        {
+          "value": "Meta-checks are suites under an underscore-prefixed folder run-all skips, run only by the map's commands; locked paths name only those and the fixtures; allowed paths name the rest of testbench.",
+          "recommended": true
+        },
+        {
+          "value": "Meta-checks live outside testbench, under the run's launch folder as checks/.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A13",
+      "node": "I3",
+      "text": "What a must or must_not string matches against.",
+      "why": "The deterministic check over records needs a rule.",
+      "options": [
+        {
+          "value": "A regular expression matched against the concatenated record files.",
+          "recommended": true
+        },
+        {
+          "value": "A tool name or hook decision matched against events.jsonl only.",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "A16",
+      "node": "SC3 ACC",
+      "text": "Session transcripts live outside the repository.",
+      "why": "The reviewer chooses one to read.",
+      "options": [
+        {
+          "value": "The run copies the reviewer's chosen transcript into the launch folder; SC3 says so.",
+          "recommended": true
+        },
+        {
+          "value": "Read in place outside the landing commit; SC3 says transcripts are not in the repository.",
+          "recommended": false
+        }
+      ]
+    }
+  ],
+  "allow_bundle_comment": true,
+  "state": "open"
+}

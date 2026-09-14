@@ -1,0 +1,11 @@
+flightdeck/launch/flightcrew-characterization/specs/tests-map.v1.json
+flightdeck/testbench/fixtures/scenarios/set.json
+flightdeck/testbench/fixtures/scenarios/scenario.json
+flightdeck/testbench/fixtures/scenarios/trials/transcript.jsonl
+flightdeck/testbench/fixtures/scenarios/trials/events.jsonl
+flightdeck/testbench/fixtures/scenarios/trials/hooks.log
+flightdeck/testbench/fixtures/scenarios/trials/tier.txt
+flightdeck/testbench/fixtures/scenarios/trials/verdict.txt
+defects.md
+flightdeck/testbench/fixtures/scenarios/rubric.md
+flightdeck/testbench/fixtures/scenarios/trials/sheet.md

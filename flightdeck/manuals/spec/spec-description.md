@@ -44,7 +44,7 @@ Constraints are the conditions the result must satisfy no matter how it is achie
 
 ## Interfaces and contracts
 
-Interfaces fix the seams: the exact shapes through which the work will meet everything around it. Once agreed, a seam is a promise, and each side of it can proceed on the promise alone.
+Interfaces are the common locations and languages: the exact shapes through which the work will meet everything around it. The lens is that of the isolated build agent; An interface is built first so that the agent cannot invent its own version, amongst other agent attempts. If it can be built once by a single isolated agent, then it is not an interface and belongs elsewhere. Once decided, a seam is a promise, and each side of it can proceed on the promise alone. Interfaces belong to *many*. An interface is like the town square, not owned, shared, where many meet and speak together. 
 
 **In this domain:** function and method signatures; API endpoints, payloads and error shapes; data schemas and file formats; command-line arguments; events and messages; names, units, encodings and identifier formats; the props and slots of interface components; and the human-facing shapes too — the layout of a report, the fields of a form, the format of a handoff between teams.
 

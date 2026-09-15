@@ -157,7 +157,7 @@ const cases = [];
 for (const event of RECORDED) {
   cases.push({
     id: `records-${event}`,
-    covers: ['B5', 'I5'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const active = mkActiveLaunch();
       const envelopeObj = recordedEnvelope(active.root, event);
@@ -170,7 +170,7 @@ for (const event of RECORDED) {
 
 cases.push({
   id: 'one-line-per-invocation',
-  covers: ['B5'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const before = parseEvents(readText(eventsPath(active.launchDir)));
@@ -186,7 +186,7 @@ cases.push({
 
 cases.push({
   id: 'phase-follows-launch-json',
-  covers: ['B5', 'I5'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     setPhase(active.launchDir, 'implement');
@@ -198,7 +198,7 @@ cases.push({
 
 cases.push({
   id: 'detail-keys-hold-under-noisy-envelope',
-  covers: ['B5', 'I5'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const envelopeObj = {
@@ -216,7 +216,7 @@ cases.push({
 for (const event of UNLISTED) {
   cases.push({
     id: `ignores-${event}`,
-    covers: ['B5'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const active = mkActiveLaunch();
       const before = readText(eventsPath(active.launchDir));
@@ -230,7 +230,7 @@ for (const event of UNLISTED) {
 
 cases.push({
   id: 'session-start-system-message',
-  covers: ['B52'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const envelopeObj = recordedEnvelope(active.root, 'SessionStart');
@@ -245,7 +245,7 @@ cases.push({
 
 cases.push({
   id: 'session-start-system-message-names-current-phase',
-  covers: ['B52'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     setPhase(active.launchDir, 'implement');
@@ -258,7 +258,7 @@ cases.push({
 
 cases.push({
   id: 'flightcrew-launch-none-silences-every-hook',
-  covers: ['B52'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const env = { ...active.env, FLIGHTCREW_LAUNCH: 'none' };
@@ -282,7 +282,7 @@ cases.push({
 
 cases.push({
   id: 'flightcrew-launch-none-fc-needs-launch',
-  covers: ['B52'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const env = { ...active.env, FLIGHTCREW_LAUNCH: 'none' };
@@ -296,7 +296,7 @@ cases.push({
 
 cases.push({
   id: 'event-line-is-single-line-json',
-  covers: ['I5'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const before = readText(eventsPath(active.launchDir));

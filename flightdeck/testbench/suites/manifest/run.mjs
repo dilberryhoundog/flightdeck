@@ -81,7 +81,7 @@ function entries() {
 await suite('manifest', [
   {
     id: 'manifest-exists-with-path-lines',
-    covers: ['I13'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const lines = entries();
       assert(lines.length > 0, 'MANIFEST.txt lists at least one path');
@@ -92,7 +92,7 @@ await suite('manifest', [
   },
   {
     id: 'every-path-exists-and-is-non-empty',
-    covers: ['B38'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const problems = [];
       for (const line of entries()) {
@@ -110,7 +110,7 @@ await suite('manifest', [
   },
   {
     id: 'paths-are-repository-relative-under-flightdeck',
-    covers: ['I13'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const problems = [];
       for (const line of entries()) {
@@ -122,7 +122,7 @@ await suite('manifest', [
   },
   {
     id: 'lists-every-file-the-scope-names',
-    covers: ['I13'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const listed = new Set(entries());
       const missing = REQUIRED.filter((p) => !listed.has(p));
@@ -131,7 +131,7 @@ await suite('manifest', [
   },
   {
     id: 'no-launch-folder-other-than-specs-and-the-buildout',
-    covers: ['I13'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const offenders = entries().filter((line) => line.startsWith('flightdeck/launch/') && !LAUNCH_ALLOWED.some((ok) => line === ok || line.startsWith(ok)));
       assertEq(offenders, [], 'launch folders listed that are neither launch/specs nor the buildout');

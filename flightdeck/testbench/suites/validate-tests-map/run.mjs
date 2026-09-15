@@ -82,7 +82,7 @@ function asVersion2(map) {
 await suite('validate-tests-map', [
   {
     id: 'positive-sample-map',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap(() => undefined);
       expectClean(validate(L), 'the sample launch\'s pinned map');
@@ -90,7 +90,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-1-id-without-prefix',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.checks[4].id = 'X5'; });
       expectRule(validate(L), 'tm-invariant-1', 'X5');
@@ -98,7 +98,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-2-duplicate-id',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.checks[4].id = 'T4'; });
       expectRule(validate(L), 'tm-invariant-2', 'T4');
@@ -106,7 +106,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-3-id-hole',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.checks[4].id = 'T7'; });
       expectRule(validate(L), 'tm-invariant-3');
@@ -114,7 +114,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-4-v1-check-not-ok',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         m.checks[1].status = 'changed';
@@ -125,7 +125,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-4-v1-carries-retired',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         m.retired = [{ id: 'T6', at: 1, covers: ['B1'], note: 'a v1 map has nothing to retire' }];
@@ -135,7 +135,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-5-non-ok-without-note',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         const as = asVersion2(m);
@@ -148,7 +148,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-6-frozen-without-commit',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { delete m.commit; });
       expectRule(validate(L), 'tm-invariant-6');
@@ -156,7 +156,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-6-draft-with-commit',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.status = 'draft'; });
       expectRule(validate(L), 'tm-invariant-6');
@@ -164,7 +164,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-7-retired-at-above-version',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         const as = asVersion2(m);
@@ -176,7 +176,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-7-retired-at-below-two',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         const as = asVersion2(m);
@@ -188,7 +188,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-8-retired-covers-not-remapped',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         const as = asVersion2(m);
@@ -201,7 +201,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-8-retired-covers-remapped-is-clean',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         const as = asVersion2(m);
@@ -215,7 +215,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-9-lineage-missing-earlier-version',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         const as = asVersion2(m);
@@ -227,7 +227,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-9-lineage-not-newest-first',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         asVersion2(m);
@@ -241,7 +241,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-10-acceptance-not-T1',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.acceptance = 'T2'; });
       expectRule(validate(L), 'tm-invariant-10');
@@ -249,7 +249,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-11-observed-word-differs',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.checks[1].baseline.observed = 'fail: TAP version 13'; });
       expectRule(validate(L), 'tm-invariant-11', 'T2');
@@ -257,7 +257,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-12-spec-pin-not-frozen',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m, launch, specDir) => {
         const spec = readJson(path.join(specDir, SPEC_FILE));
@@ -270,7 +270,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-12-waived-under-allow-draft',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m, launch, specDir) => {
         const spec = readJson(path.join(specDir, SPEC_FILE));
@@ -289,7 +289,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-13-empty-allowed-paths',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.allowed_paths = []; });
       expectRule(validate(L), 'tm-invariant-13', 'allowed_paths');
@@ -297,7 +297,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'tm-invariant-13-empty-locked-paths',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.locked_paths = []; });
       expectRule(validate(L), 'tm-invariant-13', 'locked_paths');
@@ -305,7 +305,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'validator-script-accepts-the-pinned-map',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       assert(exists(VALIDATOR), `${VALIDATOR} does not exist; B23 names validate-tests-map as the thing under test`);
       const L = launchWithMap(() => undefined);
@@ -314,7 +314,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'validator-script-names-tm-invariant-1',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       assert(exists(VALIDATOR), `${VALIDATOR} does not exist; B23 names validate-tests-map as the thing under test`);
       const L = launchWithMap((m) => { m.checks[4].id = 'X5'; });
@@ -323,7 +323,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'coverage-rule-live-node-uncovered',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => { m.checks[4].covers = ['C2']; });
       const result = validate(L);
@@ -334,7 +334,7 @@ await suite('validate-tests-map', [
   },
   {
     id: 'coverage-rule-satisfied-by-unverified',
-    covers: ['B23'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithMap((m) => {
         m.checks[4].covers = ['C2'];

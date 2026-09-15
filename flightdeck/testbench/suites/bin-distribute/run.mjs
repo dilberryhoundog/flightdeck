@@ -57,7 +57,7 @@ function assertApplied(target) {
 await suite('bin-distribute', [
   {
     id: 'dry-run-lists-and-writes-nothing',
-    covers: ['B29'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const target = tmp('fc-distribute-dry');
       const r = distribute(target);
@@ -70,7 +70,7 @@ await suite('bin-distribute', [
   },
   {
     id: 'apply-copies-crew-and-workflows-only',
-    covers: ['B29'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const target = tmp('fc-distribute-apply');
       const r = distribute(target, '--apply');
@@ -80,7 +80,7 @@ await suite('bin-distribute', [
   },
   {
     id: 'apply-prints-fragment-gitignore-and-constitution',
-    covers: ['B29'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const target = tmp('fc-distribute-print');
       const r = distribute(target, '--apply');
@@ -100,7 +100,7 @@ await suite('bin-distribute', [
   },
   {
     id: 'apply-twice-with-identical-content-succeeds',
-    covers: ['E10'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const target = tmp('fc-distribute-again');
       assertExit(distribute(target, '--apply'), 0, 'first apply');
@@ -111,7 +111,7 @@ await suite('bin-distribute', [
   },
   {
     id: 'conflict-lists-paths-copies-nothing-exits-2',
-    covers: ['E10'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const target = tmp('fc-distribute-conflict');
       assertExit(distribute(target, '--apply'), 0, 'first apply');
@@ -130,7 +130,7 @@ await suite('bin-distribute', [
   },
   {
     id: 'force-overwrites-conflicts',
-    covers: ['E10'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const target = tmp('fc-distribute-force');
       assertExit(distribute(target, '--apply'), 0, 'first apply');

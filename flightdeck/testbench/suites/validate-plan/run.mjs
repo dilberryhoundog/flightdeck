@@ -58,7 +58,7 @@ function expectRefused(result, token, what) {
 await suite('validate-plan', [
   {
     id: 'positive-sample-plan',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan();
       const result = validate(L);
@@ -69,7 +69,7 @@ await suite('validate-plan', [
   },
   {
     id: 'check-id-absent-from-map',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.units[3].checks = ['T99']; });
       expectRefused(validate(L), /T99/, 'a unit naming check T99, absent from the pinned map');
@@ -77,7 +77,7 @@ await suite('validate-plan', [
   },
   {
     id: 'spec-ref-absent-from-spec',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.units[3].spec_refs = ['B99']; });
       expectRefused(validate(L), /B99/, 'a unit naming spec ref B99, absent from the pinned spec');
@@ -85,7 +85,7 @@ await suite('validate-plan', [
   },
   {
     id: 'abandon-triggers-empty',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.abandon_triggers = []; });
       expectRefused(validate(L), /abandon_triggers|abandon triggers/, 'an empty abandon_triggers list');
@@ -93,7 +93,7 @@ await suite('validate-plan', [
   },
   {
     id: 'parallel-wave-exceeds-implementers-concurrent',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan(undefined, (lj) => { lj.ceilings.implementers_concurrent = 1; });
       expectRefused(validate(L), /W1|implementers_concurrent/, 'parallel wave W1 holding two units above implementers_concurrent 1');
@@ -101,7 +101,7 @@ await suite('validate-plan', [
   },
   {
     id: 'budget-turns-exceeds-turns-per-agent',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.units[1].budget_turns = 26; });
       expectRefused(validate(L), /U1|budget_turns/, 'unit U1 with budget_turns 26 above turns_per_agent 25');
@@ -109,7 +109,7 @@ await suite('validate-plan', [
   },
   {
     id: 'budget-turns-exceeds-implementer-maxturns',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.units[1].budget_turns = 300; }, (lj) => { lj.ceilings.turns_per_agent = 400; });
       expectRefused(validate(L), /U1|budget_turns|turns_per_agent|maxTurns/, 'unit U1 with budget_turns 300 above the implementer maxTurns');
@@ -117,7 +117,7 @@ await suite('validate-plan', [
   },
   {
     id: 'expected-agents-exceeds-ceiling',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.expected_cost.agents = 13; });
       expectRefused(validate(L), /expected_cost|agents/, 'expected_cost.agents 13 above ceilings.agents 12');
@@ -125,7 +125,7 @@ await suite('validate-plan', [
   },
   {
     id: 'unit-without-checks',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.units[3].checks = []; });
       expectRefused(validate(L), /U3|checks/, 'unit U3 with no checks');
@@ -133,7 +133,7 @@ await suite('validate-plan', [
   },
   {
     id: 'shape-differs-from-kickoff-part',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.shape = 'workflow'; });
       expectRefused(validate(L), /shape/, 'shape workflow against kickoff part shape-session');
@@ -141,7 +141,7 @@ await suite('validate-plan', [
   },
   {
     id: 'depends-on-names-later-wave',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.units[0].depends_on = ['U3']; });
       expectRefused(validate(L), /U0|U3|depends_on/, 'unit U0 depending on U3 from a later wave');
@@ -149,7 +149,7 @@ await suite('validate-plan', [
   },
   {
     id: 'no-contracts-unit-in-w0',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { p.units[0].kind = 'feature'; });
       expectRefused(validate(L), /contracts|W0|U0/, 'a serial W0 without a contracts unit and no no_contracts reason');
@@ -157,7 +157,7 @@ await suite('validate-plan', [
   },
   {
     id: 'validator-script-accepts-the-sample-plan',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       assert(exists(VALIDATOR), `${VALIDATOR} does not exist; B24 names validate-plan as the thing under test`);
       const L = launchWithPlan();
@@ -169,7 +169,7 @@ await suite('validate-plan', [
   },
   {
     id: 'validator-script-refuses-a-check-absent-from-the-map',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       assert(exists(VALIDATOR), `${VALIDATOR} does not exist; B24 names validate-plan as the thing under test`);
       const L = launchWithPlan((p) => { p.units[3].checks = ['T99']; });
@@ -178,7 +178,7 @@ await suite('validate-plan', [
   },
   {
     id: 'first-parallel-wave-without-pilot',
-    covers: ['B24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithPlan((p) => { delete p.units[1].pilot; });
       expectRefused(validate(L), /pilot|W1/, 'the first parallel wave holding no pilot unit');

@@ -39,7 +39,7 @@ function section(text, heading) {
 await suite('bin-plan', [
   {
     id: 'render-writes-headings-in-order',
-    covers: ['B21'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithoutPlanMd();
       const r = render(L);
@@ -60,7 +60,7 @@ await suite('bin-plan', [
   },
   {
     id: 'render-one-table-row-per-unit',
-    covers: ['B21'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithoutPlanMd();
       assertExit(render(L), 0, 'fc plan render');
@@ -78,7 +78,7 @@ await suite('bin-plan', [
   },
   {
     id: 'render-is-deterministic',
-    covers: ['B21'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithoutPlanMd();
       assertExit(render(L), 0, 'first render');
@@ -94,7 +94,7 @@ await suite('bin-plan', [
   },
   {
     id: 'render-invalid-plan-exits-2-without-writing',
-    covers: ['B21'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithoutPlanMd();
       const plan = readJson(L.planJson);
@@ -111,7 +111,7 @@ await suite('bin-plan', [
   },
   {
     id: 'render-schema-invalid-plan-exits-2',
-    covers: ['B21'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWithoutPlanMd();
       const plan = readJson(L.planJson);

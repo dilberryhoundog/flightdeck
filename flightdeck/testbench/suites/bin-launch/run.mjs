@@ -142,7 +142,7 @@ await suite('bin-launch', [
   // ── launch new ──
   {
     id: 'new-creates-launch-folder',
-    covers: ['B1', 'I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const r = newLaunch(repo, 'L1');
@@ -160,7 +160,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-copies-only-the-named-spec-file',
-    covers: ['B1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -171,7 +171,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-records-launch-json-fields',
-    covers: ['B2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const h = head(repo.root);
@@ -202,7 +202,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-draft-spec-records-null-spec-commit',
-    covers: ['B2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const rel = draftSpec(repo);
@@ -216,7 +216,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-untracked-spec-records-null-file-commit',
-    covers: ['B2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const rel = addSpec(repo, 'untracked-spec', null, false);
@@ -228,7 +228,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-previous-launch-newest-same-spec',
-    covers: ['B2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -239,7 +239,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-previous-launch-null-for-other-spec',
-    covers: ['B2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -252,7 +252,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-existing-name-exits-1',
-    covers: ['E18'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -263,7 +263,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-flags-branch-allow-kickoff',
-    covers: ['I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1', ['--branch', 'feat/x', '--allow', 'src/**', '--allow', 'docs/**', '--kickoff', 'base+shape-workflow+task-migration']);
@@ -281,7 +281,7 @@ await suite('bin-launch', [
   },
   {
     id: 'new-kickoff-assembled-and-validates',
-    covers: ['B32', 'I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -311,7 +311,7 @@ await suite('bin-launch', [
   // ── launch activate ──
   {
     id: 'activate-sets-active',
-    covers: ['B3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -322,7 +322,7 @@ await suite('bin-launch', [
   },
   {
     id: 'activate-refused-while-another-active',
-    covers: ['B3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -336,7 +336,7 @@ await suite('bin-launch', [
   },
   {
     id: 'activate-non-draft-status-exits-1',
-    covers: ['E20'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -349,7 +349,7 @@ await suite('bin-launch', [
   },
   {
     id: 'activate-draft-spec-needs-allow-draft',
-    covers: ['E7'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const rel = draftSpec(repo);
@@ -366,7 +366,7 @@ await suite('bin-launch', [
   },
   {
     id: 'activate-draft-map-needs-allow-draft',
-    covers: ['E7'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -385,7 +385,7 @@ await suite('bin-launch', [
   // ── launch pin tests-map and launch kickoff ──
   {
     id: 'pin-draft-map-refused-without-flag',
-    covers: ['E15'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -400,7 +400,7 @@ await suite('bin-launch', [
   },
   {
     id: 'pin-draft-map-with-flag-records-pins',
-    covers: ['E15', 'B49'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -420,7 +420,7 @@ await suite('bin-launch', [
   },
   {
     id: 'pin-frozen-map-sets-paths-lock-and-kickoff',
-    covers: ['B49', 'I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = freezeMap(mkLaunchRepo());
       newLaunch(repo, 'L1');
@@ -446,7 +446,7 @@ await suite('bin-launch', [
   },
   {
     id: 'kickoff-rerenders-and-lists-prior-reports',
-    covers: ['B49'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = freezeMap(mkLaunchRepo());
       newLaunch(repo, 'L0');
@@ -479,7 +479,7 @@ await suite('bin-launch', [
   // ── launch selection: status, no launch, FLIGHTCREW_LAUNCH, two active ──
   {
     id: 'status-prints-launch',
-    covers: ['I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       const r = fc(['launch', 'status'], { cwd: L.root, env: L.env });
@@ -494,7 +494,7 @@ await suite('bin-launch', [
   },
   {
     id: 'no-active-launch-exits-1',
-    covers: ['E1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const r = fc(['launch', 'status'], { cwd: repo.root });
@@ -511,7 +511,7 @@ await suite('bin-launch', [
   },
   {
     id: 'flightcrew-launch-none-disables',
-    covers: ['B52', 'E1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       const env = { ...L.env, FLIGHTCREW_LAUNCH: 'none' };
@@ -525,7 +525,7 @@ await suite('bin-launch', [
   },
   {
     id: 'flightcrew-launch-missing-folder-exits-1',
-    covers: ['E3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       const r = fc(['launch', 'status'], { cwd: L.root, env: { ...L.env, FLIGHTCREW_LAUNCH: 'ghost-launch' } });
@@ -535,7 +535,7 @@ await suite('bin-launch', [
   },
   {
     id: 'missing-launch-folder-silences-every-hook',
-    covers: ['E3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       const env = { ...L.env, FLIGHTCREW_LAUNCH: 'ghost-launch' };
@@ -556,7 +556,7 @@ await suite('bin-launch', [
   },
   {
     id: 'two-active-launches-exit-1-naming-both',
-    covers: ['E6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       newLaunch(L, 'L2');
@@ -569,7 +569,7 @@ await suite('bin-launch', [
   },
   {
     id: 'two-active-launches-silence-recorders-and-ask-guards',
-    covers: ['E6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       newLaunch(L, 'L2');
@@ -589,7 +589,7 @@ await suite('bin-launch', [
   },
   {
     id: 'launch-override-selects-one-of-two',
-    covers: ['E6', 'I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       newLaunch(L, 'L2');
@@ -604,7 +604,7 @@ await suite('bin-launch', [
   },
   {
     id: 'fc-shim-runs-by-path',
-    covers: ['I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       const r = sh(`"${FC}" launch status`, { cwd: L.root, env: L.env });
@@ -617,7 +617,7 @@ await suite('bin-launch', [
   },
   {
     id: 'unknown-command-exits-1',
-    covers: ['I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       fcPresent();
       const L = mkActiveLaunch();
@@ -633,7 +633,7 @@ await suite('bin-launch', [
   // ── launch phase ──
   {
     id: 'phase-next-appends-event',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = pinnedLaunch();
       const before = events(L.root, L.name).length;
@@ -652,7 +652,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-skip-is-illegal-unless-forced',
-    covers: ['E22', 'B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = pinnedLaunch();
       const r = fc(['launch', 'phase', 'contracts'], { cwd: L.root });
@@ -672,7 +672,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-plan-refused-draft-pin-without-allow-draft',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -691,7 +691,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-plan-refused-baseline-disagreement',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const mapFile = path.join(repo.root, repo.mapPath);
@@ -709,7 +709,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-plan-refused-invalid-launch',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = pinnedLaunch();
       patchLaunch(L.root, L.name, (j) => { j.ceilings.stop_blocks = 9; });
@@ -720,7 +720,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-plan-refused-invalid-kickoff',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = pinnedLaunch();
       const p = path.join(L.dir, 'kickoff.md');
@@ -734,7 +734,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-review-refused-without-summary',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       fcPresent();
       const L = activeAtHead((j) => { j.phase = 'verify'; });
@@ -745,7 +745,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-review-refused-stale-summary',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       fcPresent();
       const L = mkActiveLaunch();
@@ -758,7 +758,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-review-refused-red-counts',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = activeAtHead((j) => { j.phase = 'verify'; });
       assertExit(fc(['verify'], { cwd: L.root, env: L.env }), 0, 'precondition: fc verify');
@@ -773,7 +773,7 @@ await suite('bin-launch', [
   },
   {
     id: 'phase-review-accepted-with-green-evidence',
-    covers: ['B47'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = activeAtHead((j) => { j.phase = 'verify'; });
       assertExit(fc(['verify'], { cwd: L.root, env: L.env }), 0, 'precondition: fc verify');
@@ -788,7 +788,7 @@ await suite('bin-launch', [
   // ── launch gate ──
   {
     id: 'gate-g1-approve-moves-to-contracts',
-    covers: ['B35'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L.root, L.launch, (j) => { j.phase = 'plan'; j.gates.G1 = { status: 'pending', at: null }; });
@@ -809,7 +809,7 @@ await suite('bin-launch', [
   },
   {
     id: 'gate-g2-approve-moves-to-implement',
-    covers: ['B35'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = activeAtHead((j) => {
         j.phase = 'contracts';
@@ -830,7 +830,7 @@ await suite('bin-launch', [
   },
   {
     id: 'gate-g2-refused-w0-check-not-run-since-lock',
-    covers: ['B35'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = activeAtHead((j) => { j.phase = 'contracts'; j.gates.G2 = { status: 'pending', at: null }; });
       assertExit(fc(['check', 'T3'], { cwd: L.root, env: L.env }), 0, 'precondition: T3 evidence at the old HEAD');
@@ -846,7 +846,7 @@ await suite('bin-launch', [
   },
   {
     id: 'gate-g2-refused-w0-check-error',
-    covers: ['B35'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = activeAtHead((j) => { j.phase = 'contracts'; j.gates.G2 = { status: 'pending', at: null }; });
       patchLaunch(L.root, L.launch, (j) => { j.lock_commit = rootCommit(L.root); });
@@ -864,7 +864,7 @@ await suite('bin-launch', [
   },
   {
     id: 'gate-already-decided-exits-1-unless-forced',
-    covers: ['E12'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L.root, L.launch, (j) => { j.phase = 'plan'; });
@@ -885,7 +885,7 @@ await suite('bin-launch', [
   },
   {
     id: 'gate-exit-records-and-prints-end-hint',
-    covers: ['I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L.root, L.launch, (j) => { j.phase = 'plan'; j.gates.G1 = { status: 'pending', at: null }; });
@@ -904,7 +904,7 @@ await suite('bin-launch', [
   // ── launch escalate ──
   {
     id: 'escalate-writes-file-and-event',
-    covers: ['B41'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       const before = events(L.root, L.launch).length;
@@ -924,7 +924,7 @@ await suite('bin-launch', [
   },
   {
     id: 'escalate-cleared-by-gate-phase-and-end',
-    covers: ['B41'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L.root, L.launch, (j) => { j.phase = 'plan'; j.gates.G1 = { status: 'pending', at: null }; });
@@ -946,7 +946,7 @@ await suite('bin-launch', [
   },
   {
     id: 'escalate-invalid-kind-exits-1',
-    covers: ['I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       fcPresent();
       const L = mkActiveLaunch();
@@ -964,7 +964,7 @@ await suite('bin-launch', [
   // ── launch note and plan write ──
   {
     id: 'note-appends-and-report-prints-notes',
-    covers: ['B54'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -986,7 +986,7 @@ await suite('bin-launch', [
   },
   {
     id: 'plan-write-stores-and-renders',
-    covers: ['B54'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L.root, L.launch, (j) => { j.phase = 'plan'; });
@@ -1009,7 +1009,7 @@ await suite('bin-launch', [
   },
   {
     id: 'plan-write-invalid-exits-2-without-writing',
-    covers: ['B54'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L.root, L.launch, (j) => { j.phase = 'plan'; });
@@ -1036,7 +1036,7 @@ await suite('bin-launch', [
   // ── launch end ──
   {
     id: 'end-partial-writes-units',
-    covers: ['B44'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1051,7 +1051,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-partial-refuses-dependency-outside-list',
-    covers: ['B44'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1066,7 +1066,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-partial-refuses-unit-without-green-return-or-merge',
-    covers: ['B44'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1084,7 +1084,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-partial-refuses-open-blocking-finding',
-    covers: ['B44'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1098,7 +1098,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-partial-requires-units',
-    covers: ['I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       fcPresent();
       const L = endedPhaseReport();
@@ -1112,7 +1112,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-accepted-stale-evidence-exits-2',
-    covers: ['B45'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L.root, L.launch, (j) => { j.phase = 'report'; });
@@ -1128,7 +1128,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-accepted-at-head',
-    covers: ['B45'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1153,7 +1153,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-accepted-with-reservations-at-head',
-    covers: ['B45'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1167,7 +1167,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-abandoned-records-and-renders',
-    covers: ['B45', 'I1'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L.root, L.launch, (j) => { j.phase = 'report'; });
@@ -1185,7 +1185,7 @@ await suite('bin-launch', [
   },
   {
     id: 'end-accepted-dirty-allowed-paths-exits-2',
-    covers: ['E24'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1202,7 +1202,7 @@ await suite('bin-launch', [
   // ── launch land ──
   {
     id: 'land-writes-landed',
-    covers: ['B50'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1218,7 +1218,7 @@ await suite('bin-launch', [
   },
   {
     id: 'land-refused-without-green-evidence-at-commit',
-    covers: ['B50'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);
@@ -1239,7 +1239,7 @@ await suite('bin-launch', [
   },
   {
     id: 'land-evidence-commit-flag',
-    covers: ['B50'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedPhaseReport();
       checkAll(L);

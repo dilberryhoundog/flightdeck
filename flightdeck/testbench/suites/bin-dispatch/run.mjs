@@ -110,7 +110,7 @@ const mergeInProgress = (root) => exists(path.join(root, '.git', 'MERGE_HEAD'));
 await suite('bin-dispatch', [
   {
     id: 'worker-render-prompt-first-line-and-always-present-nodes',
-    covers: ['B27'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const r = fcAt(l, ['worker', 'render', 'U1']);
@@ -126,7 +126,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-render-carries-only-the-units-b-and-e-nodes',
-    covers: ['B27'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const texts = specTexts(l);
@@ -144,7 +144,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-render-lists-checks-by-id-with-covers-run-line-and-gate-only-mark-never-commands',
-    covers: ['B27'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const commands = mapCommands(l);
@@ -170,7 +170,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-render-exits-1-outside-phase-implement',
-    covers: ['B27'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const ok = fcAt(l, ['worker', 'render', 'U1']);
@@ -186,7 +186,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-render-unknown-unit-or-missing-plan-exits-1-naming-it',
-    covers: ['E19'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const unknown = fcAt(l, ['worker', 'render', 'U9']);
@@ -200,7 +200,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'return-worker-stores-at-returns-unit-and-appends-a-return-event',
-    covers: ['B28'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const stored = path.join(returnsDir(l), 'U1.json');
@@ -223,7 +223,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'return-rejects-an-invalid-file-with-exit-2-storing-nothing',
-    covers: ['B28'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const stored = path.join(returnsDir(l), 'U1.json');
@@ -246,7 +246,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'return-stores-explorer-verifier-and-critic-at-their-fixed-paths',
-    covers: ['B28'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('review');
       const explorer = { id: 'X2', question: 'Which file renders a page?', stage: 'planning', answer: 'src/export/index.mjs renders every page in renderPage.', confidence: 'probable', pointers: ['src/export/index.mjs'], candidates: [] };
@@ -277,7 +277,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-return-alias-behaves-as-return-worker-with-unit',
-    covers: ['B28'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const stored = path.join(returnsDir(l), 'U2.json');
@@ -299,7 +299,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-merge-green-path-merges-no-ff-runs-checks-commits-appends-unit-merged-and-cleans-up',
-    covers: ['B43'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const unit = makeUnitBranch(l, 'U1', (src) => `${src}\n// exporter-core: merged through fc worker merge\n`);
@@ -330,7 +330,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-merge-aborts-and-exits-2-naming-the-failing-check',
-    covers: ['B43'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const unit = makeUnitBranch(l, 'U1', (src) => src.replace('`<title>${text(name)}</title>`', '`<title>broken</title>`'));
@@ -350,7 +350,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-merge-aborts-and-exits-2-naming-the-conflicting-path',
-    covers: ['B43'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const unit = makeUnitBranch(l, 'U1', (src) => src.replace("const STYLE = 'body{", "const STYLE = 'body{color:#111;"));
@@ -368,7 +368,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'worker-merge-refuses-a-missing-red-or-unmerged-dependency-return-and-changes-nothing',
-    covers: ['E23', 'B43'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready('implement');
       const unit = makeUnitBranch(l, 'U3', (src) => `${src}\n// proof unit\n`);
@@ -404,7 +404,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'critic-render-writes-a-sealed-prompt-with-spec-diff-summary-and-locked-list-only',
-    covers: ['B48'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       // The commit before the launch folder existed, so the folder's own addition falls inside the diff range and must be excluded by fc critic render.
@@ -447,7 +447,7 @@ await suite('bin-dispatch', [
   },
   {
     id: 'critic-render-exits-1-outside-phase-review-or-with-stale-summary',
-    covers: ['B48'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       const lock = headSha(l.root);

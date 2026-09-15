@@ -32,7 +32,7 @@ const work = tmp('validate-spec');
 
 const list = cases.map((c) => ({
   id: c.name,
-  covers: ['B22'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const spec = readJson(GOLDENS[c.base]);
     c.mutate?.(spec);

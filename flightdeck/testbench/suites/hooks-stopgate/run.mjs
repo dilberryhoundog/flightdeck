@@ -130,7 +130,7 @@ const cases = [];
 // ── B9: phase verify, red acceptance ─────────────────────────────────────────
 cases.push({
   id: 'verify-red-blocks-with-id-code-and-output',
-  covers: ['B9'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     setCheck(active, 'T1', RED_T1);
@@ -142,7 +142,7 @@ cases.push({
 
 cases.push({
   id: 'verify-red-counts-consecutive-blocks',
-  covers: ['B9', 'B10'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     setCheck(active, 'T1', RED_T1);
@@ -154,7 +154,7 @@ cases.push({
 
 cases.push({
   id: 'verify-red-last-twenty-lines',
-  covers: ['B9'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     setCheck(active, 'T1', 'sh -c \'i=1; while [ $i -le 30 ]; do echo line$i; i=$((i+1)); done; exit 5\'');
@@ -168,7 +168,7 @@ cases.push({
 
 cases.push({
   id: 'verify-green-appends-check-run',
-  covers: ['B9', 'B10'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     assertGreen(gate(active), 'T1', 'shipped acceptance passes');
@@ -177,7 +177,7 @@ cases.push({
 
 cases.push({
   id: 'verify-green-resets-count',
-  covers: ['B10'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     setCheck(active, 'T1', RED_T1);
@@ -192,7 +192,7 @@ cases.push({
 
 cases.push({
   id: 'verify-phase-or-gate-event-resets-count',
-  covers: ['B10'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     setCheck(active, 'T1', RED_T1);
@@ -209,7 +209,7 @@ cases.push({
 
 cases.push({
   id: 'verify-runs-only-the-acceptance-check',
-  covers: ['B9'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     const marker = path.join(active.launchDir, 'non-acceptance.marker');
@@ -229,7 +229,7 @@ cases.push({
 // ── B10: stall at the cap ─────────────────────────────────────────────────────
 cases.push({
   id: 'stall-at-stop-blocks-ceiling',
-  covers: ['B10'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     patchLaunch(active, (l) => { l.ceilings.stop_blocks = 3; });
@@ -247,7 +247,7 @@ cases.push({
 
 cases.push({
   id: 'stall-at-cap-eight',
-  covers: ['B10'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     patchLaunch(active, (l) => { l.ceilings.stop_blocks = 8; });
@@ -260,7 +260,7 @@ cases.push({
 // ── B11: other phases ─────────────────────────────────────────────────────────
 cases.push({
   id: 'other-phases-no-op',
-  covers: ['B11'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     for (const phase of ['targets', 'plan', 'implement', 'review', 'report', 'ended']) {
       const active = launchIn(phase);
@@ -281,7 +281,7 @@ cases.push({
 // ── B40: phase contracts ──────────────────────────────────────────────────────
 cases.push({
   id: 'contracts-green-appends-check-run',
-  covers: ['B40'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('contracts');
     assertGreen(gate(active), 'T3', 'W0 unit checks pass and the boundary is clean');
@@ -290,7 +290,7 @@ cases.push({
 
 cases.push({
   id: 'contracts-runs-only-w0-checks',
-  covers: ['B40'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('contracts');
     setCheck(active, 'T1', RED_T1);
@@ -301,7 +301,7 @@ cases.push({
 
 cases.push({
   id: 'contracts-red-w0-check-blocks',
-  covers: ['B40'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('contracts');
     setCheck(active, 'T3', 'sh -c "echo contract broken; exit 4"');
@@ -313,7 +313,7 @@ cases.push({
 
 cases.push({
   id: 'contracts-error-verdict-blocks',
-  covers: ['B40'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('contracts');
     setCheck(active, 'T3', 'no-such-binary-for-flightcrew-tests --check');
@@ -326,7 +326,7 @@ cases.push({
 
 cases.push({
   id: 'contracts-expected-failure-does-not-block',
-  covers: ['B40'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('contracts');
     setCheck(active, 'T3', 'sh -c "echo not built yet; exit 1"', 'fail: the contract is not yet implemented');
@@ -338,7 +338,7 @@ cases.push({
 
 cases.push({
   id: 'contracts-boundary-red-blocks',
-  covers: ['B40'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('contracts');
     writeText(path.join(active.root, 'scripts', 'stray.mjs'), 'export const stray = true;\n');
@@ -351,7 +351,7 @@ cases.push({
 
 cases.push({
   id: 'contracts-no-contracts-falls-back-to-t1',
-  covers: ['B40'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('contracts');
     const planPath = path.join(active.launchDir, 'plan.json');
@@ -370,7 +370,7 @@ cases.push({
 // ── B41: escalation releases the gate ────────────────────────────────────────
 cases.push({
   id: 'escalation-file-releases-stop-gate',
-  covers: ['B41'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     setCheck(active, 'T1', RED_T1);
@@ -387,7 +387,7 @@ cases.push({
 
 cases.push({
   id: 'escalation-file-releases-contracts-gate',
-  covers: ['B41'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('contracts');
     setCheck(active, 'T3', RED_T1);
@@ -400,7 +400,7 @@ cases.push({
 
 cases.push({
   id: 'fc-escalate-writes-file-and-event',
-  covers: ['B41'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     setCheck(active, 'T1', RED_T1);
@@ -424,7 +424,7 @@ cases.push({
 
 cases.push({
   id: 'fc-gate-removes-escalation',
-  covers: ['B41'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     assertExit(fc(['launch', 'escalate', 'blocked', '--detail', 'waiting'], { cwd: active.root, env: active.env }), 0, 'fc launch escalate');
@@ -436,7 +436,7 @@ cases.push({
 
 cases.push({
   id: 'fc-phase-removes-escalation',
-  covers: ['B41'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('report');
     assertExit(fc(['launch', 'escalate', 'halt', '--detail', 'halting'], { cwd: active.root, env: active.env }), 0, 'fc launch escalate');
@@ -448,7 +448,7 @@ cases.push({
 
 cases.push({
   id: 'fc-end-removes-escalation',
-  covers: ['B41'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = launchIn('verify');
     assertExit(fc(['launch', 'escalate', 'trigger', '--detail', 'abandon trigger fired'], { cwd: active.root, env: active.env }), 0, 'fc launch escalate');

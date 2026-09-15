@@ -57,7 +57,7 @@ function expectClean(result, what) {
 await suite('validate-launch', [
   {
     id: 'positive-sample-launch',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith();
       expectClean(validate(L), 'the sample launch without --resolve-commits');
@@ -65,7 +65,7 @@ await suite('validate-launch', [
   },
   {
     id: 'status-outside-enumeration',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => { lj.status = 'bogus'; });
       expectRefused(validate(L), /status/, 'status bogus');
@@ -73,7 +73,7 @@ await suite('validate-launch', [
   },
   {
     id: 'phase-outside-enumeration',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => { lj.phase = 'bogus'; });
       expectRefused(validate(L), /phase/, 'phase bogus');
@@ -81,7 +81,7 @@ await suite('validate-launch', [
   },
   {
     id: 'spec-path-does-not-exist',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => { lj.spec.path = 'specs/export-html/spec.v9.json'; });
       expectRefused(validate(L), /spec\.v9\.json/, 'a spec path that does not exist');
@@ -89,7 +89,7 @@ await suite('validate-launch', [
   },
   {
     id: 'spec-commit-differs-from-pinned-file',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => { lj.spec.commit = 'ffffff0'; });
       expectRefused(validate(L), /ffffff0|a1b2c3d/, 'spec.commit ffffff0 against the pinned file header a1b2c3d');
@@ -97,7 +97,7 @@ await suite('validate-launch', [
   },
   {
     id: 'stop-blocks-above-eight',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => { lj.ceilings.stop_blocks = 9; });
       expectRefused(validate(L), /stop_blocks/, 'ceilings.stop_blocks 9');
@@ -105,7 +105,7 @@ await suite('validate-launch', [
   },
   {
     id: 'boundary-enforced-without-lock-commit',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => { lj.lock_commit = null; });
       expectRefused(validate(L), /lock_commit/, 'phase review with enforce_boundary true and no lock_commit');
@@ -113,7 +113,7 @@ await suite('validate-launch', [
   },
   {
     id: 'boundary-enforced-with-empty-allowed-paths',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => { lj.paths.allowed = []; });
       expectRefused(validate(L), /allowed/, 'phase review with enforce_boundary true and empty allowed paths');
@@ -121,7 +121,7 @@ await suite('validate-launch', [
   },
   {
     id: 'targets-phase-permits-unlocked-launch',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => {
         lj.phase = 'targets';
@@ -135,7 +135,7 @@ await suite('validate-launch', [
   },
   {
     id: 'hash-shape-checked-without-resolve-commits',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith((lj) => { lj.base_commit = 'not-a-hash'; });
       expectRefused(validate(L), /base_commit|not-a-hash/, 'base_commit that is not a hex hash');
@@ -143,7 +143,7 @@ await suite('validate-launch', [
   },
   {
     id: 'validator-script-accepts-the-sample-launch',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       assert(exists(VALIDATOR), `${VALIDATOR} does not exist; B25 names validate-launch as the thing under test`);
       const L = launchWith();
@@ -152,7 +152,7 @@ await suite('validate-launch', [
   },
   {
     id: 'validator-script-refuses-a-status-outside-the-enumeration',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       assert(exists(VALIDATOR), `${VALIDATOR} does not exist; B25 names validate-launch as the thing under test`);
       const L = launchWith((lj) => { lj.status = 'bogus'; });
@@ -161,7 +161,7 @@ await suite('validate-launch', [
   },
   {
     id: 'resolve-commits-rejects-unknown-hashes',
-    covers: ['B25'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = launchWith();
       const result = validate(L, ['--resolve-commits']);

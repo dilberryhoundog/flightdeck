@@ -130,7 +130,7 @@ const cases = [];
 // ── lock-guard: B6 ────────────────────────────────────────────────────────────
 cases.push({
   id: 'lock-edit-locked-denied',
-  covers: ['B6', 'I7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const { result, added } = runGuard('lock-guard', active, editOf(active.root, LOCKED));
@@ -142,7 +142,7 @@ cases.push({
 
 cases.push({
   id: 'lock-write-locked-denied',
-  covers: ['B6'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const target = 'tests/export/new-check.test.mjs';
@@ -154,7 +154,7 @@ cases.push({
 
 cases.push({
   id: 'lock-notebook-locked-denied',
-  covers: ['B6', 'I7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const target = 'tests/export/notes.ipynb';
@@ -166,7 +166,7 @@ cases.push({
 
 cases.push({
   id: 'lock-launch-spec-copy-denied',
-  covers: ['B6'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const target = `flightdeck/launch/${active.launch}/specs/export-html/spec.v1.json`;
@@ -182,7 +182,7 @@ cases.push({
 
 cases.push({
   id: 'lock-unlocked-target-silent',
-  covers: ['B6'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     for (const envelopeObj of [editOf(active.root, ALLOWED), writeOf(active.root, OUTSIDE), notebookOf(active.root, 'src/export/scratch.ipynb'), editOf(active.root, `flightdeck/launch/${active.launch}/notes.md`)]) {
@@ -195,7 +195,7 @@ cases.push({
 
 cases.push({
   id: 'lock-every-phase-except-targets',
-  covers: ['B6'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     for (const phase of ['plan', 'contracts', 'implement', 'verify', 'review', 'report']) {
@@ -209,7 +209,7 @@ cases.push({
 
 cases.push({
   id: 'lock-phase-targets-silent',
-  covers: ['B6'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'targets'; });
@@ -221,7 +221,7 @@ cases.push({
 
 cases.push({
   id: 'lock-relative-path-absolutised-against-cwd',
-  covers: ['B6', 'I7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const cwd = path.join(active.root, 'tests');
@@ -236,7 +236,7 @@ cases.push({
 
 cases.push({
   id: 'lock-worktree-target-relative-to-worktree-root',
-  covers: ['B6', 'I7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const wt = addWorktree(active, 'w1');
@@ -262,7 +262,7 @@ cases.push({
 // ── boundary-guard: B7 ────────────────────────────────────────────────────────
 cases.push({
   id: 'boundary-outside-denied',
-  covers: ['B7', 'I7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const { result, added } = runGuard('boundary-guard', active, editOf(active.root, OUTSIDE));
@@ -280,7 +280,7 @@ cases.push({
 
 cases.push({
   id: 'boundary-inside-silent',
-  covers: ['B7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     for (const file of [ALLOWED, 'src/export/new-module.mjs', 'tests/export/fixtures/other.json', `flightdeck/launch/${active.launch}/notes.md`, `flightdeck/launch/${active.launch}/returns/U9.json`]) {
@@ -293,7 +293,7 @@ cases.push({
 
 cases.push({
   id: 'boundary-enforced-phases',
-  covers: ['B7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     for (const phase of ['contracts', 'implement', 'verify', 'review']) {
@@ -310,7 +310,7 @@ cases.push({
 
 cases.push({
   id: 'boundary-phase-targets',
-  covers: ['B7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'targets'; });
@@ -329,7 +329,7 @@ cases.push({
 
 cases.push({
   id: 'boundary-not-enforced-silent',
-  covers: ['B7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'implement'; l.paths.enforce_boundary = false; });
@@ -341,7 +341,7 @@ cases.push({
 
 cases.push({
   id: 'boundary-worktree-target-relative-to-worktree-root',
-  covers: ['B7', 'I7'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const wt = addWorktree(active, 'w2');
@@ -367,7 +367,7 @@ cases.push({
 // ── B53: ambiguous launch → ask ───────────────────────────────────────────────
 cases.push({
   id: 'two-active-launches-ask',
-  covers: ['B53'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     const second = addSecondActiveLaunch(active);
@@ -387,7 +387,7 @@ cases.push({
 
 cases.push({
   id: 'two-active-launches-env-selects-one',
-  covers: ['B53'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     addSecondActiveLaunch(active);
@@ -400,7 +400,7 @@ cases.push({
 
 cases.push({
   id: 'unreadable-launch-json-ask',
-  covers: ['B53'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     writeText(launchPath(active), '{ "schema_version": 1, "name": "export-html-1", "status": "active", "phase": "review", ');
@@ -426,7 +426,7 @@ function fireTrigger(active) {
 
 cases.push({
   id: 'trigger-fired-guards-deny-everything',
-  covers: ['B42'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'implement'; });
@@ -443,7 +443,7 @@ cases.push({
 
 cases.push({
   id: 'trigger-cleared-by-newer-gate-event',
-  covers: ['B42'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'implement'; });
@@ -459,7 +459,7 @@ cases.push({
 
 cases.push({
   id: 'trigger-cleared-by-newer-escalation-or-end',
-  covers: ['B42'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     for (const [event, detail] of [['escalation', { kind: 'trigger', detail: 'trigger reviewed' }], ['launch_end', { outcome: 'abandoned' }]]) {
       const active = mkActiveLaunch();
@@ -477,7 +477,7 @@ cases.push({
 
 cases.push({
   id: 'trigger-older-than-gate-does-not-fire',
-  covers: ['B42'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'implement'; });
@@ -492,7 +492,7 @@ cases.push({
 
 cases.push({
   id: 'trigger-fired-fc-worker-render-exits-2',
-  covers: ['B42'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'implement'; });
@@ -508,7 +508,7 @@ cases.push({
 
 cases.push({
   id: 'trigger-fired-fc-worker-merge-exits-2',
-  covers: ['B42'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'implement'; });
@@ -521,7 +521,7 @@ cases.push({
 
 cases.push({
   id: 'trigger-fired-fc-launch-phase-exits-2',
-  covers: ['B42'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'implement'; });
@@ -540,7 +540,7 @@ cases.push({
 
 cases.push({
   id: 'trigger-fired-fc-launch-phase-ended-allowed',
-  covers: ['B42'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = mkActiveLaunch();
     patchLaunch(active, (l) => { l.phase = 'report'; });

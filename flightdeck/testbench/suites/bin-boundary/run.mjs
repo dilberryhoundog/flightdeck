@@ -110,7 +110,7 @@ function fcAt(l, args) {
 await suite('bin-boundary', [
   {
     id: 'boundary-lists-changed-marks-outside-excludes-worktrees-and-runs-exits-2',
-    covers: ['B14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const lock = readJson(launchJsonPath(l)).lock_commit;
@@ -131,7 +131,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'boundary-exits-0-with-empty-outside-when-every-change-is-inside',
-    covers: ['B14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       append(l.root, 'src/export/index.mjs', '\n// change inside the allowed paths\n');
@@ -145,7 +145,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'boundary-base-falls-back-to-base-commit-and-honours-the-base-flag',
-    covers: ['B14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       // Two commits after the launch was made, in two separate launches: fc boundary writes inside the launch folder, so a second invocation against the
       // same launch would see its own output in the changed set.
@@ -180,7 +180,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'locked-lists-changes-under-locked-paths-and-exits-2',
-    covers: ['B15'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const expected = makeChanges(l);
@@ -195,7 +195,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'locked-exits-0-with-empty-list-when-no-locked-path-changed',
-    covers: ['B15'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       append(l.root, 'src/export/index.mjs', '\n// change inside the allowed paths\n');
@@ -209,7 +209,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'budget-counts-beside-ceilings-and-exits-0-within-them',
-    covers: ['B16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const before = events(l).raw;
@@ -234,7 +234,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'budget-exits-2-and-appends-trigger-when-agents-exceed-the-ceiling',
-    covers: ['B16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       editLaunch(l, (lj) => { lj.ceilings.agents = 3; });
@@ -250,7 +250,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'budget-counts-consecutive-stop-blocks-against-gate-iterations',
-    covers: ['B16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const extra = [];
@@ -270,7 +270,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'budget-reports-tokens-unobserved-without-usage-events',
-    covers: ['B16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const kept = readText(eventsPath(l)).split('\n').filter((line) => line.trim() !== '' && !line.includes('"event":"usage"'));
@@ -282,7 +282,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'budget-treats-an-absent-events-file-as-empty',
-    covers: ['B16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       fs.rmSync(eventsPath(l));
@@ -296,7 +296,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'events-usage-appends-a-usage-event',
-    covers: ['B51'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const before = events(l).raw;
@@ -320,7 +320,7 @@ await suite('bin-boundary', [
   },
   {
     id: 'events-summary-prints-counts-by-event-per-agent-and-unparseable',
-    covers: ['B51'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const clean = fcAt(l, ['events', 'summary']);

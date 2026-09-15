@@ -35,7 +35,7 @@ function suiteLines(stdout, names) {
 await suite('run-all', [
   {
     id: 'runs-every-suite-in-name-order-one-line-each-exit-0',
-    covers: ['B33', 'I9'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const names = ['suite-c', 'suite-a', 'suite-b'];
       const tb = mkTestbench(Object.fromEntries(names.map((n) => [n, PASS])));
@@ -49,7 +49,7 @@ await suite('run-all', [
   },
   {
     id: 'exits-2-when-a-suite-exits-2',
-    covers: ['B33', 'I9'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const tb = mkTestbench({ 'suite-a': PASS, 'suite-b': FAIL });
       const r = tb.run();
@@ -62,7 +62,7 @@ await suite('run-all', [
   },
   {
     id: 'exits-2-when-a-suite-crashes',
-    covers: ['B33'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const tb = mkTestbench({ 'suite-a': PASS, 'suite-b': CRASH });
       const r = tb.run();
@@ -72,7 +72,7 @@ await suite('run-all', [
   },
   {
     id: 'a-real-suite-follows-the-protocol',
-    covers: ['I9'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const file = path.join(SUITES, 'manifest', 'run.mjs');
       assert(exists(file), 'suites/manifest/run.mjs exists');

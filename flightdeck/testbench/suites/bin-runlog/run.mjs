@@ -110,7 +110,7 @@ function assertDiagnosisFields(lines) {
 await suite('bin-runlog', [
   {
     id: 'stub-creates-run-log-with-accepted-entry',
-    covers: ['B20'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedByHand('accepted');
       assert(!exists(runlogPath(L)), 'no RUNLOG.md before the stub');
@@ -129,7 +129,7 @@ await suite('bin-runlog', [
   },
   {
     id: 'stub-inserts-after-first-heading-newest-first',
-    covers: ['B20'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = endedByHand('accepted');
       const older = '## 2026-01-01 · older-spec · older-1\nspec: older-spec v1 @ 0000000\nkickoff: base@1+shape-session@1+task-feature@1\noutcome: accepted\ncost: 1 agent · 0 stop blocks · 5 minutes · not recorded\nkept: yes\nreservation: none\n';
@@ -148,7 +148,7 @@ await suite('bin-runlog', [
   },
   {
     id: 'stub-abandoned-carries-diagnosis-fields',
-    covers: ['B20'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       patchLaunch(L, (j) => { j.phase = 'report'; });
@@ -169,7 +169,7 @@ await suite('bin-runlog', [
   },
   {
     id: 'stub-partial-lists-landed-and-abandoned-units',
-    covers: ['B20'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = atHead();
       greenEvidence(L);
@@ -189,7 +189,7 @@ await suite('bin-runlog', [
   },
   {
     id: 'end-accepted-inserts-accepted-entry',
-    covers: ['B20'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = atHead();
       greenEvidence(L);

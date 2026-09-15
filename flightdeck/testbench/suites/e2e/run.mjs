@@ -59,7 +59,7 @@ function sameCommit(a, b) {
 function step(id, fn) {
   return {
     id,
-    covers: ['B34'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       if (state.failed) throw new Error(`not reached: step '${state.failed}' failed first`);
       try {

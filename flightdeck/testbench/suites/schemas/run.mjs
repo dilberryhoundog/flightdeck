@@ -108,7 +108,7 @@ function validateReturn(L, rel, kind) {
 await suite('schemas', [
   ...SCHEMA_FILES.map(([name, node]) => ({
     id: `${name.replace('.schema.json', '')}-schema-parses`,
-    covers: [node],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const s = schema(name);
       assert(s && typeof s === 'object' && !Array.isArray(s), `${name} is not a JSON object`);
@@ -117,7 +117,7 @@ await suite('schemas', [
   })),
   {
     id: 'tests-map-schema-description-lists-invariants',
-    covers: ['I3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const s = schema('tests-map.schema.json');
       const text = String(s.description ?? '');
@@ -127,14 +127,14 @@ await suite('schemas', [
   },
   {
     id: 'launch-sample-validates',
-    covers: ['I2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('launch.schema.json', launchDoc('launch.json'), 'sample-launch/launch.json');
     },
   },
   {
     id: 'launch-schema-rejects-status-outside-enum',
-    covers: ['I2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('launch.json');
       doc.status = 'bogus';
@@ -143,7 +143,7 @@ await suite('schemas', [
   },
   {
     id: 'launch-schema-rejects-stop-blocks-above-eight',
-    covers: ['I2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('launch.json');
       doc.ceilings.stop_blocks = 9;
@@ -152,7 +152,7 @@ await suite('schemas', [
   },
   {
     id: 'launch-schema-requires-base-commit',
-    covers: ['I2'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('launch.json');
       delete doc.base_commit;
@@ -161,21 +161,21 @@ await suite('schemas', [
   },
   {
     id: 'pinned-frozen-map-validates',
-    covers: ['I3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('tests-map.schema.json', launchDoc('specs/export-html/tests-map.v1.json'), 'the pinned frozen sample map');
     },
   },
   {
     id: 'draft-map-validates',
-    covers: ['I3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('tests-map.schema.json', readJson(path.join(SAMPLE_SPEC, 'tests-map.v1.json')), 'the draft sample map');
     },
   },
   {
     id: 'tests-map-schema-rejects-status-outside-enum',
-    covers: ['I3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('specs/export-html/tests-map.v1.json');
       doc.status = 'pending';
@@ -184,7 +184,7 @@ await suite('schemas', [
   },
   {
     id: 'tests-map-schema-requires-checks',
-    covers: ['I3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('specs/export-html/tests-map.v1.json');
       delete doc.checks;
@@ -193,7 +193,7 @@ await suite('schemas', [
   },
   {
     id: 'tests-map-schema-rejects-check-kind-outside-enum',
-    covers: ['I3'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('specs/export-html/tests-map.v1.json');
       doc.checks[0].kind = 'manual';
@@ -202,21 +202,21 @@ await suite('schemas', [
   },
   {
     id: 'launch-plan-validates',
-    covers: ['I4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('plan.schema.json', launchDoc('plan.json'), 'sample-launch/plan.json');
     },
   },
   {
     id: 'spec-folder-plan-sample-validates',
-    covers: ['I4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('plan.schema.json', readJson(path.join(SAMPLE_SPEC, 'plan.sample.json')), 'sample-spec/plan.sample.json');
     },
   },
   {
     id: 'plan-schema-rejects-shape-outside-enum',
-    covers: ['I4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('plan.json');
       doc.shape = 'bogus';
@@ -225,7 +225,7 @@ await suite('schemas', [
   },
   {
     id: 'plan-schema-rejects-wave-mode-outside-enum',
-    covers: ['I4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('plan.json');
       doc.waves[0].mode = 'staggered';
@@ -234,7 +234,7 @@ await suite('schemas', [
   },
   {
     id: 'plan-schema-requires-abandon-triggers',
-    covers: ['I4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('plan.json');
       delete doc.abandon_triggers;
@@ -243,7 +243,7 @@ await suite('schemas', [
   },
   {
     id: 'plan-schema-rejects-unit-kind-outside-enum',
-    covers: ['I4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('plan.json');
       doc.units[0].kind = 'chore';
@@ -252,7 +252,7 @@ await suite('schemas', [
   },
   {
     id: 'event-sample-lines-validate',
-    covers: ['I5'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const lines = readText(path.join(SAMPLE_LAUNCH, 'events.jsonl')).split('\n').filter((l) => l.trim() !== '');
       assert(lines.length > 0, 'sample events.jsonl is empty');
@@ -261,7 +261,7 @@ await suite('schemas', [
   },
   {
     id: 'event-schema-rejects-source-outside-enum',
-    covers: ['I5'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = firstEvent();
       doc.source = 'other';
@@ -270,7 +270,7 @@ await suite('schemas', [
   },
   {
     id: 'event-schema-requires-ts',
-    covers: ['I5'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = firstEvent();
       delete doc.ts;
@@ -279,7 +279,7 @@ await suite('schemas', [
   },
   {
     id: 'event-schema-rejects-string-detail',
-    covers: ['I5'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = firstEvent();
       doc.detail = 'text';
@@ -288,14 +288,14 @@ await suite('schemas', [
   },
   ...CHECK_RESULTS.map((id) => ({
     id: `check-result-sample-${id}-validates`,
-    covers: ['I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('check-result.schema.json', launchDoc(`evidence/${id}.json`), `evidence/${id}.json`);
     },
   })),
   {
     id: 'check-result-schema-rejects-verdict-outside-enum',
-    covers: ['I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('evidence/T1.json');
       doc.verdict = 'maybe';
@@ -304,7 +304,7 @@ await suite('schemas', [
   },
   {
     id: 'check-result-schema-rejects-string-exit',
-    covers: ['I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('evidence/T1.json');
       doc.exit = 'zero';
@@ -313,7 +313,7 @@ await suite('schemas', [
   },
   {
     id: 'check-result-schema-requires-commit',
-    covers: ['I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('evidence/T1.json');
       delete doc.commit;
@@ -322,35 +322,35 @@ await suite('schemas', [
   },
   {
     id: 'explorer-return-sample-validates',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('explorer-return.schema.json', launchDoc('returns/explore-X1.json'), 'returns/explore-X1.json');
     },
   },
   ...WORKER_UNITS.map((u) => ({
     id: `worker-return-sample-${u}-validates`,
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('worker-return.schema.json', launchDoc(`returns/${u}.json`), `returns/${u}.json`);
     },
   })),
   {
     id: 'verifier-verdict-sample-validates',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('verifier-verdict.schema.json', launchDoc('returns/verify-1.json'), 'returns/verify-1.json');
     },
   },
   {
     id: 'critic-findings-sample-validates',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       expectValid('critic-findings.schema.json', launchDoc('review/pass-1.json'), 'review/pass-1.json');
     },
   },
   {
     id: 'explorer-return-rejects-confidence-outside-enum',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('returns/explore-X1.json');
       doc.confidence = 'sure';
@@ -359,7 +359,7 @@ await suite('schemas', [
   },
   {
     id: 'worker-return-rejects-status-outside-enum',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('returns/U0.json');
       doc.status = 'amber';
@@ -368,7 +368,7 @@ await suite('schemas', [
   },
   {
     id: 'worker-return-rejects-halt-kind-outside-enum',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('returns/U0.json');
       doc.status = 'halt';
@@ -378,7 +378,7 @@ await suite('schemas', [
   },
   {
     id: 'verifier-verdict-rejects-string-refuted',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('returns/verify-1.json');
       doc.refuted = 'no';
@@ -387,7 +387,7 @@ await suite('schemas', [
   },
   {
     id: 'critic-findings-rejects-finding-kind-outside-enum',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('review/pass-1.json');
       doc.findings[0].kind = 'nitpick';
@@ -396,7 +396,7 @@ await suite('schemas', [
   },
   {
     id: 'critic-findings-rejects-severity-outside-enum',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const doc = launchDoc('review/pass-1.json');
       doc.findings[0].severity = 'cosmetic';
@@ -405,7 +405,7 @@ await suite('schemas', [
   },
   ...RETURN_KINDS.map(([rel, kind]) => ({
     id: `fc-validate-return-accepts-${rel.replace(/[/.]/g, '-').replace(/-json$/, '')}-as-${kind}`,
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       const result = validateReturn(L, rel, kind);
@@ -415,7 +415,7 @@ await suite('schemas', [
   })),
   {
     id: 'fc-validate-return-rejects-by-schema-keyword',
-    covers: ['I8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const L = mkActiveLaunch();
       const file = path.join(L.launchDir, 'returns', 'U0.json');
@@ -430,7 +430,7 @@ await suite('schemas', [
   },
   {
     id: 'fragment-hook-commands-run-in-place',
-    covers: ['I14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const frag = fragment();
       assert(frag.hooks && typeof frag.hooks === 'object', 'settings.fragment.json has no hooks object');
@@ -450,7 +450,7 @@ await suite('schemas', [
   },
   {
     id: 'fragment-wires-each-hook-to-its-events',
-    covers: ['I14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const frag = fragment();
       const names = (event) => commandsFor(frag, event).map((c) => HOOK_COMMAND.exec(String(c.command))?.[1]);
@@ -473,7 +473,7 @@ await suite('schemas', [
   },
   {
     id: 'fragment-stop-hook-timeout-600',
-    covers: ['I14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const frag = fragment();
       const gate = commandsFor(frag, 'Stop').find((c) => HOOK_COMMAND.exec(String(c.command))?.[1] === 'stop-gate');
@@ -483,7 +483,7 @@ await suite('schemas', [
   },
   {
     id: 'fragment-worktree-baseref-head',
-    covers: ['I14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const frag = fragment();
       assertEq(frag.worktree?.baseRef, 'head', 'worktree.baseRef');
@@ -491,7 +491,7 @@ await suite('schemas', [
   },
   {
     id: 'fragment-permissions-allow',
-    covers: ['I14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const frag = fragment();
       const allow = frag.permissions?.allow;
@@ -504,7 +504,7 @@ await suite('schemas', [
   },
   {
     id: 'fragment-permissions-deny-and-sandbox-example',
-    covers: ['I14'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const frag = fragment();
       const deny = frag.permissions?.deny;

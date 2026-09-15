@@ -125,7 +125,7 @@ const LAST_EVENT_TS = '2026-08-30T11:52:00Z';
 await suite('bin-evidence', [
   {
     id: 'evidence-html-is-self-contained',
-    covers: ['B19'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const html = render(l);
@@ -141,7 +141,7 @@ await suite('bin-evidence', [
   },
   {
     id: 'hostile-check-output-is-shown-verbatim-and-escaped-never-injected',
-    covers: ['B19', 'B37'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const hostile = ['<script>alert(1)</script>', '<link rel="stylesheet" href="https://example.invalid/x.css">', 'href="https://example.invalid/page"', 'background: url(https://example.invalid/i.png) @import "x"'];
@@ -165,7 +165,7 @@ await suite('bin-evidence', [
   },
   {
     id: 'one-pre-element-per-evidence-file-with-command-exit-and-tails',
-    covers: ['B37'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       writeJson(path.join(evidenceDir(l), 'T6.json'), {
@@ -189,7 +189,7 @@ await suite('bin-evidence', [
   },
   {
     id: 'named-sections-present-and-header-names-phase-and-last-event-time',
-    covers: ['B37'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const html = render(l);
@@ -215,7 +215,7 @@ await suite('bin-evidence', [
   },
   {
     id: 'every-named-section-shows-a-dash-when-empty',
-    covers: ['B37'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       fs.rmSync(path.join(l.launchDir, 'events.jsonl'));
@@ -231,7 +231,7 @@ await suite('bin-evidence', [
   },
   {
     id: 'changed-since-lock-lists-each-path-with-added-and-removed-counts',
-    covers: ['B37'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       fs.appendFileSync(path.join(l.root, 'src/export/index.mjs'), '\n// evidence probe line one\n// evidence probe line two\n');

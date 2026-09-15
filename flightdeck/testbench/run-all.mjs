@@ -2,10 +2,12 @@
 // Usage: node flightdeck/testbench/run-all.mjs [--only <substring>]; exit 0 when every suite passes and hygiene holds, 1 on a usage or environment error (including a missing or empty suites directory: a run with no suites is an environment error, never a vacuous pass), 2 otherwise.
 //
 // Suite protocol (spec I9): a suite takes no arguments, prints 'pass  <case>' or 'FAIL  <case>: <reason>' per case and '<n>/<m> passed' last, and exits 0 or 2.
-// Hygiene (spec C7): every child suite runs with TMPDIR set to a private directory created under os.tmpdir() for this run, so each suite's os.tmpdir() is that directory; any entry left in it after the last suite is a leak and fails the run, and the directory is removed so the set of entry names under the real os.tmpdir() is unchanged. The output of 'git status --porcelain' at the repository root is snapshotted before the first suite and after the last; any new status line outside flightdeck/testbench/runs/ fails the run. Scoping the temp check to a private directory keeps it deterministic when other processes use the machine's temp directory at the same time.
+// Hygiene: every child suite runs with TMPDIR set to a private directory created under os.tmpdir() for this run, so each suite's os.tmpdir() is that directory. Before and after each suite run-all takes the entries of that directory, the output of 'git status --porcelain' at the repository root, and a content hash of .claude/settings.json (so a settings file that was already modified and is changed again is still caught; other already-dirty files are not hashed, because a live session's hooks append to the active launch's events while the suite runs). A new temp entry, a new status line outside flightdeck/testbench/runs/ or a changed settings file is charged to the suite that just ran and printed as 'hygiene: FAIL <suite>: <what it left>'; any of them fails the run with exit 2. The private directory is removed at the end so the set of entry names under the real os.tmpdir() is unchanged. Scoping the temp check to a private directory keeps it deterministic when other processes use the machine's temp directory at the same time.
+// Output lines, in order: one '<ok|FAIL> <suite> (<passed>/<total>, <ms> ms)' per suite, then either 'hygiene: ok' or one 'hygiene: FAIL <suite>: ...' line per suite that broke hygiene (and 'hygiene: FAIL run-all: ...' when the private directory could not be removed).
 // Directories starting with '_' or without a run.mjs are skipped. Each suite's full output is kept at testbench/runs/<suite>.log.
 
 import { spawnSync } from 'node:child_process';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -70,10 +72,43 @@ function childEnv() {
   return env;
 }
 
+const SETTINGS_REL = '.claude/settings.json';
+
+function fileHash(rel) {
+  try {
+    const full = path.join(REPO, rel);
+    if (!fs.statSync(full).isFile()) return null;
+    return crypto.createHash('sha256').update(fs.readFileSync(full)).digest('hex');
+  } catch {
+    return 'absent';
+  }
+}
+
 function snapshot() {
   const status = spawnSync('git', ['status', '--porcelain'], { cwd: REPO, encoding: 'utf8', env: childEnv(), maxBuffer: 64 * 1024 * 1024 });
   const lines = status.status === 0 ? status.stdout.split('\n').filter((line) => line !== '') : [];
-  return { git: new Set(lines) };
+  const hashes = new Map();
+  hashes.set(SETTINGS_REL, fileHash(SETTINGS_REL));
+  return { git: new Set(lines), hashes, tmp: new Set(leakedEntries()) };
+}
+
+function inRuns(p) {
+  return p === RUNS_REL || p === RUNS_REL.slice(0, -1) || p.startsWith(RUNS_REL);
+}
+
+/** What a suite left behind between two snapshots: new temp entries, new status lines outside runs/, changed files. */
+function hygieneDiff(before, after) {
+  const newTmp = [...after.tmp].filter((entry) => !before.tmp.has(entry)).sort();
+  const newGit = [...after.git].filter((line) => !before.git.has(line)).filter((line) => !inRuns(statusPath(line))).sort();
+  const changed = [];
+  for (const [p, hash] of before.hashes) {
+    if (fileHash(p) !== hash && !newGit.some((line) => statusPath(line) === p)) changed.push(p);
+  }
+  const parts = [];
+  if (newTmp.length) parts.push(`new tmpdir entries: ${newTmp.join(', ')}`);
+  if (newGit.length) parts.push(`new git status lines: ${newGit.join(', ')}`);
+  if (changed.length) parts.push(`changed files: ${changed.sort().join(', ')}`);
+  return { newTmp, newGit, changed, parts };
 }
 
 function leakedEntries() {
@@ -148,33 +183,26 @@ function main() {
   if (suites.length === 0) usage('no suites found under flightdeck/testbench/suites');
 
   privateTmp = fs.mkdtempSync(path.join(os.tmpdir(), 'fc-runall-'));
-  const before = snapshot();
   const results = [];
+  const faults = [];
+  let before = snapshot();
   for (const name of suites) {
     const r = runSuite(name);
     results.push(r);
     out(`${r.ok ? 'ok' : 'FAIL'} ${r.name} (${r.passed}/${r.total}, ${r.ms} ms)`);
+    const after = snapshot();
+    const diff = hygieneDiff(before, after);
+    if (diff.parts.length) faults.push({ suite: name, new_tmpdir_entries: diff.newTmp, new_status_lines: diff.newGit, changed_files: diff.changed, text: diff.parts.join('; ') });
+    before = after;
   }
-  const after = snapshot();
 
-  const newTmp = leakedEntries();
   removePrivateTmp();
-  if (fs.existsSync(privateTmp)) newTmp.push(path.basename(privateTmp));
-  const newGit = [...after.git]
-    .filter((line) => !before.git.has(line))
-    .filter((line) => {
-      const p = statusPath(line);
-      return !(p === RUNS_REL || p === RUNS_REL.slice(0, -1) || p.startsWith(RUNS_REL));
-    })
-    .sort();
-  const hygieneOk = newTmp.length === 0 && newGit.length === 0;
+  if (fs.existsSync(privateTmp)) faults.push({ suite: 'run-all', new_tmpdir_entries: [path.basename(privateTmp)], new_status_lines: [], changed_files: [], text: `private temp directory not removed: ${path.basename(privateTmp)}` });
+  const hygieneOk = faults.length === 0;
   if (hygieneOk) {
     out('hygiene: ok');
   } else {
-    const parts = [];
-    if (newTmp.length) parts.push(`new tmpdir entries: ${newTmp.join(', ')}`);
-    if (newGit.length) parts.push(`new git status lines: ${newGit.join(', ')}`);
-    out(`hygiene: FAIL ${parts.join('; ')}`);
+    for (const fault of faults) out(`hygiene: FAIL ${fault.suite}: ${fault.text}`);
   }
 
   const failed = results.some((r) => !r.ok);
@@ -184,7 +212,7 @@ function main() {
     repo: REPO,
     only,
     suites: results,
-    hygiene: { ok: hygieneOk, new_tmpdir_entries: newTmp, new_status_lines: newGit },
+    hygiene: { ok: hygieneOk, faults: faults.map(({ text, ...rest }) => rest) },
     exit,
   };
   try {

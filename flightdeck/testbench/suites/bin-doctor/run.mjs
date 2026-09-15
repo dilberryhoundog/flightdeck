@@ -48,7 +48,7 @@ function firstHook(settings) {
 await suite('bin-doctor', [
   {
     id: 'doctor-passes-on-the-repository',
-    covers: ['B30'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const r = doctor(null);
       assertExit(r, 0, 'fc doctor on the built repository');
@@ -60,7 +60,7 @@ await suite('bin-doctor', [
   },
   {
     id: 'two-active-launches-exit-2',
-    covers: ['B30'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const active = mkActiveLaunch();
       const second = 'export-html-2';
@@ -80,7 +80,7 @@ await suite('bin-doctor', [
   },
   {
     id: 'doctor-passes-on-a-prepared-target',
-    covers: ['B30'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const { target } = prepareTarget();
       assertExit(doctor(target), 0, 'fc doctor --target on a prepared target');
@@ -88,7 +88,7 @@ await suite('bin-doctor', [
   },
   {
     id: 'target-missing-hook-command-exits-2',
-    covers: ['B30'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const { target, settings } = prepareTarget();
       const missing = firstHook(settings);
@@ -104,7 +104,7 @@ await suite('bin-doctor', [
   },
   {
     id: 'target-agent-not-byte-equal-exits-2',
-    covers: ['B30'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const { target, crew } = prepareTarget();
       const file = path.join(target, 'agents', 'flightcrew', crew[0]);
@@ -116,7 +116,7 @@ await suite('bin-doctor', [
   },
   {
     id: 'target-baseref-not-head-exits-2',
-    covers: ['B30'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const { target, settings } = prepareTarget();
       settings.worktree = { baseRef: 'fresh' };
@@ -126,7 +126,7 @@ await suite('bin-doctor', [
   },
   {
     id: 'target-crew-name-collision-exits-2',
-    covers: ['B30'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const { target } = prepareTarget();
       writeText(path.join(target, 'agents', 'local', 'my-critic.md'), '---\nname: critic\ndescription: A local agent that reuses a crew name.\ntools: Read\nmodel: sonnet\n---\n\nBody.\n');

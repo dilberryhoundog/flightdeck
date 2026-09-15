@@ -44,7 +44,7 @@ function orderedItems(body) {
 await suite('crew', [
   {
     id: 'every-crew-file-carries-name-description-tools-model',
-    covers: ['I10'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const files = crewFiles();
       for (const name of ALL) assertIncludes(files, `${name}.md`, 'role file present');
@@ -61,7 +61,7 @@ await suite('crew', [
   },
   {
     id: 'max-turns-on-every-role-except-the-four-named',
-    covers: ['I10'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       for (const name of ALL) {
         const { fields } = role(name);
@@ -75,7 +75,7 @@ await suite('crew', [
   },
   {
     id: 'implementer-isolation-and-accept-edits',
-    covers: ['I10'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const implementer = role('implementer').fields;
       assertEq(implementer.isolation, 'worktree', 'implementer isolation');
@@ -86,7 +86,7 @@ await suite('crew', [
   },
   {
     id: 'orchestrator-initial-prompt-names-launch-status-and-kickoff',
-    covers: ['I10', 'B31'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const { fields } = role('orchestrator');
       assert(typeof fields.initialPrompt === 'string' && fields.initialPrompt.length > 0, 'orchestrator carries initialPrompt');
@@ -96,7 +96,7 @@ await suite('crew', [
   },
   {
     id: 'new-roles-end-with-a-fenced-json-return-block',
-    covers: ['I10'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       for (const name of NEW) {
         const body = role(name).body.trimEnd();
@@ -111,7 +111,7 @@ await suite('crew', [
   },
   {
     id: 'explorer-verifier-critic-hold-no-write-or-edit',
-    covers: ['B31'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       for (const name of READ_ONLY) {
         const tools = toolList(role(name).fields.tools);
@@ -122,7 +122,7 @@ await suite('crew', [
   },
   {
     id: 'critic-mandate',
-    covers: ['B31'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const body = role('critic').body;
       const lower = body.toLowerCase();
@@ -149,14 +149,14 @@ await suite('crew', [
   },
   {
     id: 'new-roles-state-their-inputs-sentence',
-    covers: ['B31'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       for (const name of NEW) assertIncludes(role(name).body, INPUTS_SENTENCE, `${name} body carries the inputs sentence`);
     },
   },
   {
     id: 'new-roles-match-the-roster',
-    covers: ['B31', 'I10'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       for (const [name, expected] of Object.entries(ROSTER)) {
         const { fields } = role(name);

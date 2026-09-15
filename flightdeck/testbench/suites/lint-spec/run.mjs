@@ -74,7 +74,7 @@ const IMPRESSION = 'exportProject should be fast and robust, handle large projec
 await suite('lint-spec', [
   {
     id: 'positive-sample-spec',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec();
       expectClean(lint(R), 'the sample spec with --repo at the sample project');
@@ -82,7 +82,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-domains-empty-domain-without-decision',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => { s.decisions = []; });
       expectRule(lint(R), 'lint-domains', 'decisions');
@@ -90,7 +90,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-open-questions',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => { s.open_questions = [{ id: 'Q1', text: 'Should the exporter also emit a table of contents?' }]; });
       expectRule(lint(R), 'lint-open-questions', 'Q1');
@@ -98,7 +98,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-sequential-id-hole',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => {
         s.behaviours[4].id = 'B7';
@@ -109,7 +109,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-out-list-no-out-scope',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => { s.scope[2].kind = 'in'; });
       expectRule(lint(R), 'lint-out-list');
@@ -117,7 +117,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-artefacts-unresolved-path',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => { s.interfaces[0].text += ' The helper src/export/missing-helper.mjs is also exported.'; });
       expectRule(lint(R), 'lint-artefacts', 'src/export/missing-helper.mjs');
@@ -125,7 +125,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-artefacts-satisfied-by-deliverable',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => { s.interfaces[0].text += ' The helper src/export/missing-helper.mjs is also exported.'; });
       expectClean(lint(R, ['--deliverable', 'src/export/missing-helper.mjs']), 'a spec whose unresolved artefact is listed by --deliverable', 'lint-artefacts');
@@ -133,7 +133,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-commands-run-missing-script',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => {
         s.verification.text = s.verification.text.replace('node scripts/export-smoke.mjs', 'node scripts/nonexistent-smoke.mjs');
@@ -143,7 +143,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-claimed-behaviour-absent-from-verification',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => {
         s.verification.text = s.verification.text.replace('B1, B2, B3, B4 and B5', 'B1, B2, B3 and B4');
@@ -153,7 +153,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-boundary-acceptance-without-path-token',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => {
         s.acceptance.text = s.acceptance.text.replace('the diff touches only src/export/ and tests/export/', 'the diff touches only the exporter and its tests');
@@ -163,7 +163,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-class-tags-agent-shaped-without-tags',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => { s.intent.text += ' The exporter is agent-shaped: an agent drives it from a brief.'; });
       expectRule(lint(R), 'lint-class-tags');
@@ -171,7 +171,7 @@ await suite('lint-spec', [
   },
   {
     id: 'lint-class-tags-satisfied-when-tagged',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => {
         s.intent.text += ' The exporter is agent-shaped: an agent drives it from a brief.';
@@ -182,7 +182,7 @@ await suite('lint-spec', [
   },
   {
     id: 'linter-script-accepts-the-sample-spec',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       assert(exists(LINTER), `${LINTER} does not exist; B26 names spec-readiness-lint as the thing under test`);
       const R = repoWithSpec();
@@ -191,7 +191,7 @@ await suite('lint-spec', [
   },
   {
     id: 'linter-script-names-lint-open-questions',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       assert(exists(LINTER), `${LINTER} does not exist; B26 names spec-readiness-lint as the thing under test`);
       const R = repoWithSpec((s) => { s.open_questions = [{ id: 'Q1', text: 'Should the exporter also emit a table of contents?' }]; });
@@ -200,7 +200,7 @@ await suite('lint-spec', [
   },
   {
     id: 'warn-impression-does-not-fail',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => { s.behaviours[0].text = IMPRESSION; });
       expectWarning(lint(R), 'warn-impression', 'a behaviour written as impressions');
@@ -208,7 +208,7 @@ await suite('lint-spec', [
   },
   {
     id: 'warn-length-does-not-fail',
-    covers: ['B26'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const R = repoWithSpec((s) => {
         const sentence = 'The document carries one section per page, in the order of project.pages, each holding the page title in an h2 element and every block in order. ';

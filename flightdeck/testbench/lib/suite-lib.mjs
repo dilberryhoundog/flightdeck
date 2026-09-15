@@ -1,7 +1,9 @@
 // testbench/lib/suite-lib.mjs — shared helpers for every suite under flightdeck/testbench/suites/: locations, process runners, temp directories, fixture builders and assertions.
 // Usage: import { suite, fc, hook, sh, tmp, mkLaunchRepo, mkActiveLaunch, assert, assertEq, assertMatch, assertIncludes, assertExit } from '../../lib/suite-lib.mjs'; then await suite('<name>', [{ id, covers: ['B1'], fn: async () => {} }]).
 //
-// Contract (spec I9): a suite prints 'pass  <case>' or 'FAIL  <case>: <reason>' per case, one 'covers: <ids>' line, then '<n>/<m> passed', and exits 0 when every case passed, else 2. It never exits 1 and never crashes: uncaught errors become a FAIL line and exit 2.
+// Contract (the suite output protocol): a suite prints, in order, one 'pass  <case>' or 'FAIL  <case>: <reason>' line per case; one 'covers: <ids>' line naming the spec ids its cases cover, separated by single spaces; one 'ratio: <scenario> <passes>/<N> inconclusive <n> threshold <k>/<N> tier <model>' line per case carrying a ratio; one 'sheet: <path> judge <model>' line per case carrying a sheet; then '<n>/<m> passed'; and exits 0 when every case passed, else 2. It never exits 1 and never crashes: uncaught errors become a FAIL line and exit 2.
+// A case that pins a defect carries defect: { should: '<what the behaviour should be>', ref: '<manual path>:<line>' or '<part path>:<header line>' }; its line is preceded by 'defect: <should> (<ref>)' and its name gains the suffix ' [defect]'.
+// A statistical case carries ratio: { scenario, passes, trials, inconclusive, threshold, tier } and fails when passes < threshold (an inconclusive trial counts as not passing); a judged case carries sheet: { path, judge } and its fn throws when the sheet is refused.
 // Every temporary directory comes from tmp() and lives directly under os.tmpdir(); it is removed at exit whatever happens, so run-all's hygiene check sees no new entries.
 // Child processes run with the parent environment minus CLAUDE_PROJECT_DIR, FLIGHTCREW_ROOT and FLIGHTCREW_LAUNCH, so a suite decides explicitly which launch root the thing under test sees; pass env to set them.
 
@@ -367,14 +369,25 @@ export async function suite(name, cases) {
   current.passed = 0;
   current.running = true;
   const covers = new Set();
+  const ratios = [];
+  const sheets = [];
   for (const [index, c] of list.entries()) {
-    const id = c && typeof c.id === 'string' && c.id ? c.id : `case-${index + 1}`;
+    const base = c && typeof c.id === 'string' && c.id ? c.id : `case-${index + 1}`;
     for (const ref of c?.covers ?? []) covers.add(String(ref));
+    const defect = c?.defect;
+    const id = defect ? `${base} [defect]` : base;
+    if (defect) out(`defect: ${oneLine(defect.should ?? '')} (${defect.ref ?? ''})`);
+    if (c?.ratio) ratios.push(c.ratio);
+    if (c?.sheet) sheets.push(c.sheet);
     let timer = null;
     try {
-      if (!c || typeof c.fn !== 'function') throw new Error('case has no fn');
+      if (!c || (typeof c.fn !== 'function' && !c.ratio)) throw new Error('case has no fn');
+      if (c.ratio) {
+        const r = c.ratio;
+        if (!(Number(r.passes) >= Number(r.threshold))) throw new Error(`ratio ${r.passes}/${r.trials} is below its threshold ${r.threshold}/${r.trials}`);
+      }
       await Promise.race([
-        Promise.resolve().then(() => c.fn()),
+        Promise.resolve().then(() => (typeof c.fn === 'function' ? c.fn() : undefined)),
         new Promise((_, reject) => {
           timer = setTimeout(() => reject(new Error(`timeout after ${TIMEOUT_MS} ms`)), TIMEOUT_MS);
         }),
@@ -388,6 +401,8 @@ export async function suite(name, cases) {
     }
   }
   out(`covers: ${[...covers].sort(idCompare).join(' ')}`);
+  for (const r of ratios) out(`ratio: ${r.scenario} ${r.passes}/${r.trials} inconclusive ${r.inconclusive ?? 0} threshold ${r.threshold}/${r.trials} tier ${r.tier}`);
+  for (const sh of sheets) out(`sheet: ${sh.path} judge ${sh.judge}`);
   out(`${current.passed}/${current.total} passed`);
   current.running = false;
   cleanupTmp();

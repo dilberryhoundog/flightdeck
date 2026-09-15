@@ -88,7 +88,7 @@ const cases = [];
 for (const name of HOOK_NAMES) {
   cases.push({
     id: `no-launch-folder-${name}`,
-    covers: ['B4', 'C8', 'I7'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       writeText(path.join(repo.root, 'src', 'export', 'broken.mjs'), 'export const broken = ;\n');
@@ -103,7 +103,7 @@ for (const name of HOOK_NAMES) {
 for (const name of HOOK_NAMES) {
   cases.push({
     id: `no-active-launch-${name}`,
-    covers: ['B4', 'C8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const active = armedActiveLaunch();
       const launchJson = path.join(active.launchDir, 'launch.json');
@@ -122,7 +122,7 @@ for (const name of HOOK_NAMES) {
 for (const name of HOOK_NAMES) {
   cases.push({
     id: `project-dir-unset-${name}`,
-    covers: ['C8', 'B4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const active = armedActiveLaunch();
       const result = hook(name, armedEnvelope(active.root, name), { cwd: active.root, env: { CLAUDE_PROJECT_DIR: null, FLIGHTCREW_ROOT: null } });
@@ -135,7 +135,7 @@ for (const name of HOOK_NAMES) {
 for (const name of HOOK_NAMES) {
   cases.push({
     id: `project-dir-without-launch-${name}`,
-    covers: ['C8', 'E13'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const empty = tmp('fc-empty');
       const result = hook(name, armedEnvelope(empty, name), { cwd: empty, env: { CLAUDE_PROJECT_DIR: empty, FLIGHTCREW_ROOT: empty } });
@@ -148,7 +148,7 @@ for (const name of HOOK_NAMES) {
 for (const name of HOOK_NAMES) {
   cases.push({
     id: `repo-without-flightdeck-launch-${name}`,
-    covers: ['E13', 'C8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const root = initRepo(tmp('fc-bare-repo'));
       writeText(path.join(root, 'flightdeck', 'README.md'), '# no launch directory here\n');
@@ -162,7 +162,7 @@ for (const name of HOOK_NAMES) {
 // E13, fc clause: a root resolves but carries no flightdeck/launch directory.
 cases.push({
   id: 'fc-root-without-flightdeck-launch',
-  covers: ['E13'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const empty = tmp('fc-empty');
     const result = fc(['launch', 'status'], { cwd: empty, env: { CLAUDE_PROJECT_DIR: empty, FLIGHTCREW_ROOT: empty } });
@@ -174,7 +174,7 @@ cases.push({
 // E13, fc clause: no root resolves by any rule — flightcrew itself sits outside a repository and cwd is not in one either.
 cases.push({
   id: 'fc-no-root-resolves',
-  covers: ['E13'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const island = tmp('fc-island');
     copyDir(path.join(FD, 'flightcrew'), path.join(island, 'flightcrew'));
@@ -193,7 +193,7 @@ cases.push({
 for (const name of HOOK_NAMES) {
   cases.push({
     id: `flightcrew-launch-none-${name}`,
-    covers: ['B4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const active = armedActiveLaunch();
       const eventsBefore = readText(path.join(active.launchDir, 'events.jsonl'));
@@ -208,7 +208,7 @@ for (const name of HOOK_NAMES) {
 for (const name of HOOK_NAMES) {
   cases.push({
     id: `bad-stdin-active-launch-${name}`,
-    covers: ['E5', 'I7'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const active = armedActiveLaunch();
       const before = hooksLogLines(active.launchDir);
@@ -223,7 +223,7 @@ for (const name of HOOK_NAMES) {
 
 cases.push({
   id: 'bad-stdin-json-array-event-log',
-  covers: ['E5'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = armedActiveLaunch();
     const before = hooksLogLines(active.launchDir);
@@ -235,7 +235,7 @@ cases.push({
 
 cases.push({
   id: 'bad-stdin-empty-lock-guard',
-  covers: ['E5'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = armedActiveLaunch();
     const before = hooksLogLines(active.launchDir);
@@ -249,7 +249,7 @@ cases.push({
 for (const name of HOOK_NAMES) {
   cases.push({
     id: `bad-stdin-no-launch-${name}`,
-    covers: ['E5', 'B4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const result = hook(name, 'not json at all', { cwd: repo.root, env: { CLAUDE_PROJECT_DIR: repo.root, FLIGHTCREW_ROOT: repo.root } });
@@ -265,7 +265,7 @@ for (const name of HOOK_NAMES) {
 // I7: the envelope may carry fields beyond the common ones (agent fields, tool_use_id, tool_result) and still be handled.
 cases.push({
   id: 'envelope-with-agent-fields-no-launch',
-  covers: ['I7', 'B4'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const repo = mkLaunchRepo();
     const env = { CLAUDE_PROJECT_DIR: repo.root, FLIGHTCREW_ROOT: repo.root };
@@ -280,7 +280,7 @@ cases.push({
 // E14: stop-gate cannot run its gate.
 cases.push({
   id: 'stop-gate-no-map-pinned',
-  covers: ['E14'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = armedActiveLaunch();
     const launchJson = path.join(active.launchDir, 'launch.json');
@@ -298,7 +298,7 @@ cases.push({
 
 cases.push({
   id: 'stop-gate-map-file-missing',
-  covers: ['E14'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = armedActiveLaunch();
     const launchJson = path.join(active.launchDir, 'launch.json');
@@ -314,7 +314,7 @@ cases.push({
 
 cases.push({
   id: 'stop-gate-unreadable-launch',
-  covers: ['E14'],
+  covers: ['SC2', 'C2'],
   fn: async () => {
     const active = armedActiveLaunch();
     writeText(path.join(active.launchDir, 'launch.json'), '{ "schema_version": 1, "name": "export-html-1", "status": "active", "phase": ');

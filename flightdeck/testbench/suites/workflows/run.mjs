@@ -30,7 +30,7 @@ function schemaFiles() {
 await suite('workflows', [
   {
     id: 'passes-node-module-check',
-    covers: ['B39'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       for (const s of scripts()) {
         const r = sh(`"${process.execPath}" --experimental-default-type=module --check "${s.file}"`);
@@ -40,7 +40,7 @@ await suite('workflows', [
   },
   {
     id: 'first-statement-is-export-const-meta-with-name-equal-to-filename',
-    covers: ['B39'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       for (const s of scripts()) {
         assert(/^export const meta$/.test(firstStatement(s.src)), `${s.name}: first statement is 'export const meta' (found '${firstStatement(s.src)}')`);
@@ -51,7 +51,7 @@ await suite('workflows', [
   },
   {
     id: 'no-date-now-new-date-or-math-random',
-    covers: ['B39'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const problems = [];
       for (const s of scripts()) for (const token of FORBIDDEN) if (s.src.includes(token)) problems.push(`${s.name} contains ${token}`);
@@ -60,7 +60,7 @@ await suite('workflows', [
   },
   {
     id: 'schema-literals-equal-the-schema-files',
-    covers: ['B39'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const schemas = schemaFiles();
       for (const s of scripts()) {

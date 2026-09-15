@@ -77,7 +77,7 @@ function firstRow(lines) {
 await suite('bin-report', [
   {
     id: 'report-has-the-eight-headings-in-order',
-    covers: ['B17', 'I12'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       const md = render(l);
@@ -93,7 +93,7 @@ await suite('bin-report', [
   },
   {
     id: 'report-header-carries-spec-kickoff-started-ended-outcome-cost-agents-phases',
-    covers: ['I12'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       const head = header(render(l));
@@ -109,7 +109,7 @@ await suite('bin-report', [
   },
   {
     id: 'report-header-shows-allow-draft-landed-accepted-and-abandoned-when-set',
-    covers: ['I12'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       editLaunch(l, (lj) => {
@@ -129,7 +129,7 @@ await suite('bin-report', [
   },
   {
     id: 'report-verification-section-carries-the-four-lines-with-evidence-present',
-    covers: ['B17'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       const md = render(l);
@@ -150,7 +150,7 @@ await suite('bin-report', [
   },
   {
     id: 'report-placeholders-when-summary-review-plan-and-events-are-absent',
-    covers: ['B17'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       fs.rmSync(path.join(l.launchDir, 'evidence', 'summary.json'));
@@ -179,7 +179,7 @@ await suite('bin-report', [
   },
   {
     id: 'report-carries-no-acceptance-verdict-strings',
-    covers: ['B18'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       const full = render(l).toLowerCase();
@@ -192,7 +192,7 @@ await suite('bin-report', [
   },
   {
     id: 'malformed-event-line-is-counted-as-unparseable-and-exit-stays-0',
-    covers: ['E4'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       fs.appendFileSync(eventsPath(l), 'this line is not json {\n');
@@ -208,7 +208,7 @@ await suite('bin-report', [
   },
   {
     id: 'absent-events-file-is-treated-as-empty-by-summary-budget-and-report',
-    covers: ['E21'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = mkActiveLaunch();
       fs.rmSync(eventsPath(l));

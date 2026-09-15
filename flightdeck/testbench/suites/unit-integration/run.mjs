@@ -59,7 +59,7 @@ function entries() {
 await suite('unit-integration', [
   {
     id: 'every-shipped-file-is-listed-in-the-manifest',
-    covers: ['I13'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const listed = new Set(entries().map((line) => line.replace(/^flightdeck\//, '')));
       const missing = shippedFiles().filter((rel) => !listed.has(rel));
@@ -68,7 +68,7 @@ await suite('unit-integration', [
   },
   {
     id: 'the-manifest-lists-no-run-output',
-    covers: ['I13'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const offenders = entries()
         .map((line) => line.replace(/^flightdeck\//, ''))
@@ -78,7 +78,7 @@ await suite('unit-integration', [
   },
   {
     id: 'the-gate-modules-the-stop-gate-loads-export-run',
-    covers: ['B9'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const hook = readText(path.join(FD, 'flightcrew', 'hooks', 'stop-gate.mjs'));
       assert(/checks\/gates\//.test(hook), 'stop-gate.mjs loads its gates from flightcrew/checks/gates/');
@@ -96,7 +96,7 @@ await suite('unit-integration', [
   },
   {
     id: 'every-manifest-path-is-inside-the-repository',
-    covers: ['B38'],
+    covers: ['SC2', 'C2'],
     fn: () => {
       const problems = [];
       for (const line of entries()) {

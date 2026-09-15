@@ -70,7 +70,7 @@ function split(kickoff) {
 await suite('templates', [
   {
     id: 'kickoff-parts-start-with-version-comment',
-    covers: ['I11'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const files = fs.readdirSync(KICKOFF).filter((f) => f.endsWith('.md') && f !== 'README.md').sort();
       for (const required of REQUIRED_PARTS) assertIncludes(files, `${required}.md`, 'library part present');
@@ -82,7 +82,7 @@ await suite('templates', [
   },
   {
     id: 'kickoff-equals-header-plus-parts-in-order',
-    covers: ['I11'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -105,7 +105,7 @@ await suite('templates', [
   },
   {
     id: 'kickoff-version-joins-part-versions',
-    covers: ['I11'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -122,7 +122,7 @@ await suite('templates', [
   },
   {
     id: 'kickoff-header-draft-spec-reads-draft',
-    covers: ['I11'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const rel = draftSpec(repo);
@@ -133,7 +133,7 @@ await suite('templates', [
   },
   {
     id: 'kickoff-prior-reports-lists-same-spec-reports',
-    covers: ['I11'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L0');
@@ -152,7 +152,7 @@ await suite('templates', [
   },
   {
     id: 'roles-names-are-backticked-crew-names',
-    covers: ['I11'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const base = partText('base');
       const lines = base.split('\n');
@@ -172,7 +172,7 @@ await suite('templates', [
   },
   {
     id: 'validate-accepts-fresh-kickoff-with-no-map',
-    covers: ['E16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -184,7 +184,7 @@ await suite('templates', [
   },
   {
     id: 'validate-rejects-missing-spec-path',
-    covers: ['E16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -196,7 +196,7 @@ await suite('templates', [
   },
   {
     id: 'validate-rejects-missing-tests-map-path',
-    covers: ['E16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -211,7 +211,7 @@ await suite('templates', [
   },
   {
     id: 'validate-rejects-bad-spec-commit',
-    covers: ['E16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -237,7 +237,7 @@ await suite('templates', [
   },
   {
     id: 'validate-draft-commit-needs-allow-draft',
-    covers: ['E16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       const rel = draftSpec(repo);
@@ -253,7 +253,7 @@ await suite('templates', [
   },
   {
     id: 'validate-rejects-unresolved-prior-report',
-    covers: ['E16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');
@@ -265,7 +265,7 @@ await suite('templates', [
   },
   {
     id: 'validate-rejects-unknown-role-name',
-    covers: ['E16'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const repo = mkLaunchRepo();
       newLaunch(repo, 'L1');

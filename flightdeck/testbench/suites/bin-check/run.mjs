@@ -105,7 +105,7 @@ function schemaProblems(schema, doc) {
 await suite('bin-check', [
   {
     id: 'check-all-runs-every-live-check-and-exits-0',
-    covers: ['B12', 'I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       clearEvidence(l);
@@ -132,7 +132,7 @@ await suite('bin-check', [
   },
   {
     id: 'check-all-exits-2-on-a-failing-verdict',
-    covers: ['B12'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       editMap(pinnedMapPath(l), (map) => { check(map, 'T4').command = 'echo failing on purpose; exit 1'; });
@@ -150,7 +150,7 @@ await suite('bin-check', [
   },
   {
     id: 'check-all-records-skipped-for-quarantined-ids-without-affecting-exit',
-    covers: ['B12'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       editMap(pinnedMapPath(l), (map) => {
@@ -170,7 +170,7 @@ await suite('bin-check', [
   },
   {
     id: 'check-subset-rebuilds-summary-from-the-evidence-files-present',
-    covers: ['B12'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       clearEvidence(l);
@@ -190,7 +190,7 @@ await suite('bin-check', [
   },
   {
     id: 'evidence-file-validates-and-carries-command-exit-commit-phase-covers',
-    covers: ['B13', 'I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       clearEvidence(l);
@@ -224,7 +224,7 @@ await suite('bin-check', [
   },
   {
     id: 'evidence-tails-are-the-last-forty-lines-of-each-stream',
-    covers: ['B13'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       editMap(pinnedMapPath(l), (map) => {
@@ -243,7 +243,7 @@ await suite('bin-check', [
   },
   {
     id: 'check-runs-with-flightcrew-launch-in-env-and-cwd-launch-root-or-cwd-flag',
-    covers: ['I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       editMap(pinnedMapPath(l), (map) => { map.checks.push(extraCheck('echo "$FLIGHTCREW_LAUNCH"; pwd', 'pass: export-html-1')); });
@@ -262,7 +262,7 @@ await suite('bin-check', [
   },
   {
     id: 'checks-run-serially-in-map-order',
-    covers: ['I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       editMap(pinnedMapPath(l), (map) => {
@@ -285,7 +285,7 @@ await suite('bin-check', [
   },
   {
     id: 'missing-binary-is-verdict-error-others-still-run-exit-2',
-    covers: ['E2', 'I6'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const bad = 'definitely-missing-binary-4f2e --version';
@@ -308,7 +308,7 @@ await suite('bin-check', [
   },
   {
     id: 'pin-mismatch-exits-1-and-runs-nothing',
-    covers: ['E8'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       for (const [label, mutate] of [
         ['commit', (map) => { map.spec.commit = 'ffffff0'; }],
@@ -328,7 +328,7 @@ await suite('bin-check', [
   },
   {
     id: 'no-tests-map-pinned-exits-1',
-    covers: ['E11'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const lj = readJson(launchJsonPath(l));
@@ -343,7 +343,7 @@ await suite('bin-check', [
   },
   {
     id: 'unknown-check-id-exits-1-naming-it-and-runs-nothing',
-    covers: ['E17'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       clearEvidence(l);
@@ -359,7 +359,7 @@ await suite('bin-check', [
   },
   {
     id: 'baseline-writes-observed-commit-and-date-into-the-draft-map-and-no-evidence',
-    covers: ['B36'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const draft = path.join(l.root, l.mapPath);
@@ -388,7 +388,7 @@ await suite('bin-check', [
   },
   {
     id: 'baseline-records-fail-and-error-words-and-exits-2-when-a-command-cannot-spawn',
-    covers: ['B36'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       const draft = path.join(l.root, l.mapPath);
@@ -407,7 +407,7 @@ await suite('bin-check', [
   },
   {
     id: 'verify-runs-check-boundary-locked-budget-in-order-and-exits-0-when-clean',
-    covers: ['B46'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       clearEvidence(l);
@@ -429,7 +429,7 @@ await suite('bin-check', [
   },
   {
     id: 'verify-exits-2-when-boundary-is-red-and-still-writes-every-file',
-    covers: ['B46'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       clearEvidence(l);
@@ -447,7 +447,7 @@ await suite('bin-check', [
   },
   {
     id: 'verify-exits-2-when-a-check-fails',
-    covers: ['B46'],
+    covers: ['SC2', 'C2'],
     fn: async () => {
       const l = ready();
       editMap(pinnedMapPath(l), (map) => { check(map, 'T4').command = 'echo failing on purpose; exit 1'; });

@@ -1,0 +1,19 @@
+{
+  "id": "X3",
+  "stage": "planning",
+  "question": "How is flightdeck/flightcrew/MANIFEST.txt kept, and what exactly do the checks require of it when new files are added under flightdeck/testbench/? Report: whether MANIFEST.txt is written by hand or by an fc command (name the command and its source file if one exists); its line format and ordering; what the locked check flightdeck/testbench/suites/_checks/manifest-reflects-testbench/run.mjs requires (every file under flightdeck/testbench/ listed? every listed path exists? sorted?); what the existing suite case every-shipped-file-is-listed-in-the-manifest (in the unit-integration suite) requires; and whether two branches that each add their own new testbench files would both need to edit MANIFEST.txt, so that parallel units would conflict on it.",
+  "answer": "MANIFEST.txt is written by hand; no fc command generates it (doctor.mjs only validates). Format: one repository-relative path per line, with comments (lines starting #) and blank lines ignored, organized by logical section headers. manifest-reflects-testbench/run.mjs (lines 1-23) requires: every listed path exists and is not empty; every file under flightdeck/testbench/ is listed in MANIFEST.txt. The unit-integration case every-shipped-file-is-listed-in-the-manifest (lines 61-77) requires: every file under flightcrew/, launch/, manuals/, and testbench/ is listed (excluding run-output like test results and evidence), and all listed paths resolve inside the repository. Two branches each adding new testbench files would both need to edit the same MANIFEST.txt, causing a merge conflict, since it is a shared hand-edited manifest with no automated generation.",
+  "confidence": "certain",
+  "pointers": [
+    "flightdeck/flightcrew/MANIFEST.txt:1-4 — format definition as comments in the file",
+    "flightdeck/testbench/suites/_checks/manifest-reflects-testbench/run.mjs:1-2,11-23 — check requirements for testbench/ files and path existence",
+    "flightdeck/testbench/suites/unit-integration/run.mjs:1-2,61-67,98-108 — case requirement for all shipped files and path resolution",
+    "flightdeck/flightcrew/bin/cmd/doctor.mjs:189-210 — checkManifest validates but does not write MANIFEST.txt"
+  ],
+  "candidates": [
+    {
+      "domain": "infrastructure",
+      "text": "MANIFEST.txt maintenance is a merge-conflict vector when parallel branches add new files under in-scope directories; consider whether automated generation from a config or directory scan would reduce friction in concurrent workflows."
+    }
+  ]
+}

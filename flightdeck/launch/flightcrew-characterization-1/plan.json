@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "launch": "flightcrew-characterization-1",
+  "spec": {
+    "name": "flightcrew-characterization",
+    "version": 1,
+    "commit": "ee8c08847e73b20250447836b24333e9e6ca79fb"
+  },
+  "kickoff_version": "base@3+shape-workflow@2+task-feature@2",
+  "shape": "workflow",
+  "expected_cost": {
+    "agents": 12,
+    "minutes": 220
+  },
+  "models": {
+    "explore": "haiku",
+    "unit": "opus",
+    "critic": "fable"
+  },
+  "approach": "The run absorbs the thirty existing suites rather than replacing them: wave 0 fixes the shared surface every suite compiles against (the suite output protocol so T12 is green, run-all hygiene naming the suite for T30, a defect-line helper in lib/suite-lib.mjs, the naming rule and no-rename rule in README.md, an empty case-map.json, and the MANIFEST.txt lines unit-integration is missing), then four parallel feature units each own the suite folders of one part category and make every part of that category named by a case and red under the locked sweep alteration, proven by that category's sweep-* checks; the proof unit lists every added file in MANIFEST.txt, writes the defects file from every defect line, and lands T1 with the eight suite-group checks. Two judgement calls: no scenario set is built (D3 permits the statistical and judged checks to pass empty, C8 forbids a suite starting a session, and the remaining agent and minute budget has no room for live trials), and no verifier pass is planned (the sweeps and group checks are deterministic and fc verify re-runs them on the merged branch; the eighth remaining agent is held as the one reserve for a review-phase fix or a re-dispatch of a unit that returns red at its budget), so the run carries one critic pass, not two.",
+  "waves": [
+    {
+      "id": "W0",
+      "mode": "serial",
+      "units": [
+        "U0"
+      ]
+    },
+    {
+      "id": "W1",
+      "mode": "parallel",
+      "units": [
+        "U1",
+        "U2",
+        "U3",
+        "U4"
+      ]
+    },
+    {
+      "id": "W2",
+      "mode": "serial",
+      "units": [
+        "U5"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "U0",
+      "name": "contracts",
+      "kind": "contracts",
+      "spec_refs": [
+        "I2",
+        "I1",
+        "C2",
+        "B3",
+        "B12",
+        "E5",
+        "SC2"
+      ],
+      "checks": [
+        "T12",
+        "T30",
+        "T38",
+        "T28",
+        "T31",
+        "T54"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/testbench/README.md",
+        "flightdeck/testbench/run-all.mjs",
+        "flightdeck/testbench/case-map.json",
+        "flightdeck/testbench/lib/**",
+        "flightdeck/testbench/suites/*/run.mjs",
+        "flightdeck/testbench/suites/run-all/**",
+        "flightdeck/testbench/suites/constraints/**",
+        "flightdeck/flightcrew/MANIFEST.txt"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "U1",
+      "name": "subcommands",
+      "kind": "feature",
+      "spec_refs": [
+        "B1",
+        "B2",
+        "B3",
+        "B12"
+      ],
+      "checks": [
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T8",
+        "T9",
+        "T12",
+        "T28"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/testbench/suites/bin-boundary/**",
+        "flightdeck/testbench/suites/bin-check/**",
+        "flightdeck/testbench/suites/bin-dispatch/**",
+        "flightdeck/testbench/suites/bin-distribute/**",
+        "flightdeck/testbench/suites/bin-doctor/**",
+        "flightdeck/testbench/suites/bin-evidence/**",
+        "flightdeck/testbench/suites/bin-launch/**",
+        "flightdeck/testbench/suites/bin-plan/**",
+        "flightdeck/testbench/suites/bin-report/**",
+        "flightdeck/testbench/suites/bin-runlog/**",
+        "flightdeck/testbench/suites/e2e/**",
+        "flightdeck/testbench/suites/lint-spec/**",
+        "flightdeck/testbench/suites/manifest/**"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U2",
+      "name": "hooks-templates",
+      "kind": "feature",
+      "spec_refs": [
+        "B1",
+        "B2",
+        "B3",
+        "B12"
+      ],
+      "checks": [
+        "T10",
+        "T11",
+        "T44",
+        "T45",
+        "T46",
+        "T47",
+        "T12",
+        "T28"
+      ],
+      "owner": "implementer",
+      "budget_turns": 20,
+      "paths": [
+        "flightdeck/testbench/suites/hooks-eventlog/**",
+        "flightdeck/testbench/suites/hooks-guards/**",
+        "flightdeck/testbench/suites/hooks-noop/**",
+        "flightdeck/testbench/suites/hooks-stopgate/**",
+        "flightdeck/testbench/suites/hooks-structural/**",
+        "flightdeck/testbench/suites/hook-timing/**",
+        "flightdeck/testbench/suites/templates/**"
+      ],
+      "depends_on": [
+        "U0"
+      ],
+      "pilot": true
+    },
+    {
+      "id": "U3",
+      "name": "roles-workflows-distributed",
+      "kind": "feature",
+      "spec_refs": [
+        "B1",
+        "B2",
+        "B10",
+        "B3",
+        "B12",
+        "C9"
+      ],
+      "checks": [
+        "T40",
+        "T41",
+        "T50",
+        "T51",
+        "T52",
+        "T53",
+        "T24",
+        "T35",
+        "T12",
+        "T28"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/testbench/suites/crew/**",
+        "flightdeck/testbench/suites/workflows/**"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U4",
+      "name": "schemas-validators-gates",
+      "kind": "feature",
+      "spec_refs": [
+        "B1",
+        "B2",
+        "B3",
+        "B12"
+      ],
+      "checks": [
+        "T42",
+        "T43",
+        "T48",
+        "T49",
+        "T12",
+        "T28"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/testbench/suites/schemas/**",
+        "flightdeck/testbench/suites/validate-launch/**",
+        "flightdeck/testbench/suites/validate-plan/**",
+        "flightdeck/testbench/suites/validate-spec/**",
+        "flightdeck/testbench/suites/validate-tests-map/**",
+        "flightdeck/testbench/suites/unit-integration/**"
+      ],
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U5",
+      "name": "proof",
+      "kind": "proof",
+      "spec_refs": [
+        "B1",
+        "B2",
+        "B4",
+        "B10",
+        "B11",
+        "I4",
+        "SC2",
+        "SC4",
+        "C1",
+        "C9"
+      ],
+      "checks": [
+        "T1",
+        "T2",
+        "T26",
+        "T38",
+        "T37",
+        "T54",
+        "T55",
+        "T56",
+        "T57",
+        "T58",
+        "T59",
+        "T60",
+        "T61",
+        "T12",
+        "T28",
+        "T24",
+        "T35",
+        "T31"
+      ],
+      "owner": "implementer",
+      "budget_turns": 25,
+      "paths": [
+        "flightdeck/testbench/**",
+        "flightdeck/flightcrew/MANIFEST.txt",
+        "flightdeck/launch/flightcrew-characterization-1/evidence/defects.md"
+      ],
+      "depends_on": [
+        "U0",
+        "U1",
+        "U2",
+        "U3",
+        "U4"
+      ]
+    }
+  ],
+  "risks": [
+    {
+      "text": "U1 (subcommands) holds 35 of the 107 parts and six gate-only sweeps in 25 turns, the widest unit by far; the e2e suite runs the full fc sequence, so carrying tokens in its 23 step names covers many parts in one edit, and if U1 returns red at budget the one reserve agent is spent re-dispatching its remainder rather than on a review fix",
+      "reaction": "mitigate",
+      "source": "X1"
+    },
+    {
+      "text": "flightdeck/flightcrew/MANIFEST.txt is hand-kept and every new testbench file must be listed, so only U0 and U5 write it: a W1 unit that adds a file leaves it unlisted until the proof unit, and T38 is expected red between W1 and W2; W1 units prefer edits to existing run.mjs files over new files",
+      "reaction": "mitigate",
+      "source": "X3"
+    },
+    {
+      "text": "I4 puts the defects file at flightdeck/launch/flightcrew-characterization-1/evidence/defects.md, outside paths.allowed (flightdeck/testbench/, MANIFEST.txt); fc validate plan admits the path, but boundary-guard.mjs may deny the proof unit the write, and fc launch pin discards --allow so the boundary cannot be widened after the pin; the human confirms at G1 how the file gets written, the fallback being that the human writes it from the proof unit return",
+      "reaction": "mitigate",
+      "source": "spec"
+    },
+    {
+      "text": "Every sweep-* check is gate_only and runs up to 240 s, six of them in U1 and four in U2 and U4, so an implementer can afford about two full sweep passes inside its turn budget; sweeps are run once after all naming edits, chunk by chunk, and the stop gate does not hold the turn on gate_only checks, so each unit runs its sweeps by hand before returning",
+      "reaction": "mitigate",
+      "source": "spec"
+    },
+    {
+      "text": "E1 second clause: an existing case that names a part may stay green under the locked alteration where the alteration is not an exit-code inversion (hook decision flipped, template first slot renamed, schema top-level required removed, workflow meta removed); U2 is the pilot because hooks and templates are the categories where this is most likely, and its return shows whether naming alone suffices or new asserting cases are needed",
+      "reaction": "watch",
+      "source": "spec"
+    },
+    {
+      "text": "## 2026-09-03 · flightcrew-v1 · flightcrew-buildout: two locked cases asserted values no faithful implementation could produce; here a locked sweep alteration may have no faithful case that can detect it (a template whose first slot is not observable, a workflow whose meta no suite reads), and the exempt list at suites/_checks/fixtures/sweep-exempt.json is locked and empty so the build cannot exempt the part; the reaction is fc launch escalate wrong-check, never an edit under _checks",
+      "reaction": "abandon",
+      "source": "runlog"
+    },
+    {
+      "text": "## 2026-09-04 · flightcrew-v1 · flightcrew-buildout-2: the tests map was re-pinned mid-build and F10 found untracked files absent from the critic sealed diff; here the map changes only by a human re-pin (a spec gap is escalated, not improvised) and every unit commits every file it adds before returning so the critic sees it",
+      "reaction": "mitigate",
+      "source": "runlog"
+    },
+    {
+      "text": "No scenario set is built: T16 to T23 pass empty under D3, so the statistical and judged classes exist in the map by kind and class only; the intent asks for the full range of checks and the human decides at G1 whether an empty statistical and judged class is acceptable for this run, since C8 forbids a suite starting a session and the remaining budget has no room for live trials",
+      "reaction": "watch",
+      "source": "spec"
+    },
+    {
+      "text": "hook-timing (group 6, T59) asserts hook performance and may flake while four sweeps load the machine at once; a red T59 whose FAIL line is a timing case is re-run once before it counts",
+      "reaction": "watch",
+      "source": "X2"
+    },
+    {
+      "text": "The agent ceiling is exactly met: 4 spent, 6 implementers, 1 critic pass, 1 reserve; a second critic pass and a verifier do not fit, and a blocking critic finding needing more than the one reserve dispatch ends the run partial rather than exceeding the ceiling",
+      "reaction": "watch",
+      "source": "spec"
+    },
+    {
+      "text": "Two parts straddle unit ownership: spec-readiness-lint.mjs (a validator, U4 sweep T48/T49) is exercised by the lint-spec suite U1 owns, and fc locked and fc return have no dedicated suite; U4 names the validator by path in validate-spec, U1 names fc locked in bin-boundary and fc return in bin-dispatch or e2e, so no unit edits another unit suite in W1",
+      "reaction": "mitigate",
+      "source": "X2"
+    },
+    {
+      "text": "T12 and T28 are green at W0 and are listed on every W1 unit to hold it (protocol kept, no earlier case name lost), not to prove it; the proof of each W1 unit is its sweep chunks, and the no-rename rule in README (earlier names kept verbatim, naming cases added beside them) is what keeps T28 green without a shared case-map.json",
+      "reaction": "mitigate",
+      "source": "spec"
+    }
+  ],
+  "gates": {
+    "G1": "The human checks: every W1 unit owns disjoint suite folders and its sweep chunks fall wholly inside the parts its suites can name; MANIFEST.txt is written only by U0 and U5; the two judgement calls stand (no scenario set under D3, one critic pass and no verifier inside 12 agents); the defects file path outside paths.allowed has an agreed way to be written; expected cost 12 agents and 220 minutes including the 30 already spent; fc validate plan exits 0 and plan.md is at most 120 lines.",
+    "G2": "The contracts branch shows: T12 green (every suite prints the protocol line by line and its covers line names only this spec ids), T30 green (run-all hygiene names the suite that left the stray), T38 green (case-map.json, README.md and the two files unit-integration misses are listed in MANIFEST.txt), T28 green (no earlier case name lost), T54 green (group 1 with unit-integration passing); README.md states the naming rule from X1, the no-rename rule, the covers convention and the defect-line helper exported by lib/suite-lib.mjs; nothing under suites/_checks/ or flightdeck/flightcrew/ other than MANIFEST.txt changed.",
+    "G3": "The report shows: T1 green; every sweep-* check (T4 to T11, T40 to T53) green and T2 with an empty unmatched list; T54 to T61 all green so run-all is green as one command; T26 green with evidence/defects.md equal to every defect line printed (the crew roster defect at least); T24, T35, T28, T37 and T38 green; the critic pass returned no blocking finding; fc budget inside every ceiling; and the reviewer has performed the three acts on a fresh checkout at the landing commit: run-all green, one part of their choosing broken and named red, one session transcript read end to end."
+  },
+  "abandon_triggers": [
+    {
+      "trigger": "fc budget shows agents at 12 while U5 (proof) has not returned green",
+      "observable_by": "fc budget"
+    },
+    {
+      "trigger": "a W0 check (T12, T30 or T38) is still red after three stop-gate blocks on the contracts unit",
+      "observable_by": "evidence page flightdeck/launch/flightcrew-characterization-1/evidence.html"
+    },
+    {
+      "trigger": "any deny event from lock-guard.mjs or boundary-guard.mjs on a path under flightdeck/testbench/suites/_checks/ or flightdeck/flightcrew/ other than MANIFEST.txt",
+      "observable_by": "hook events in flightdeck/launch/flightcrew-characterization-1/events.jsonl and the evidence page"
+    },
+    {
+      "trigger": "a sweep check stays red across three gate iterations with the unit return naming a part no faithful case can turn red (wrong-check)",
+      "observable_by": "evidence page and fc launch escalate wrong-check"
+    },
+    {
+      "trigger": "fc budget shows minutes past 240 or stop blocks at 8",
+      "observable_by": "fc budget"
+    },
+    {
+      "trigger": "the pilot U2 returns red or partial at its turn budget, so the rest of W1 never starts",
+      "observable_by": "evidence page, the U2 worker return"
+    }
+  ]
+}

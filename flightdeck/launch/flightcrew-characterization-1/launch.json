@@ -2,7 +2,7 @@
   "schema_version": 1,
   "name": "flightcrew-characterization-1",
   "status": "active",
-  "phase": "plan",
+  "phase": "implement",
   "created": "2026-09-15",
   "spec": {
     "name": "flightcrew-characterization",
@@ -61,12 +61,13 @@
   },
   "gates": {
     "G1": {
-      "status": "pending",
-      "at": null
+      "status": "approved",
+      "at": "2026-09-15T14:47:37.537Z"
     },
     "G2": {
-      "status": "pending",
-      "at": null
+      "status": "approved",
+      "at": "2026-09-15T15:00:15.580Z",
+      "note": "contracts unit dispatched in implement: worker render refuses phase contracts"
     },
     "G3": {
       "status": "pending",

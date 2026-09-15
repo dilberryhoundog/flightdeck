@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>spec viewer · flightcrew-characterization · v1 · draft</title>
+<title>spec viewer · flightcrew-characterization · v1 · frozen</title>
 <style>
   :root { --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --fg:#e6e6e6; --dim:#9aa3b2; --acc:#7cc4ff; --rec:#3ddc97; --bad:#ff7c7c; }
   body { margin:0; font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--fg); }
@@ -37,7 +37,7 @@
 </head>
 <body>
 <header>
-  <h1>spec viewer · flightcrew-characterization · v1 · draft</h1>
+  <h1>spec viewer · flightcrew-characterization · v1 · frozen</h1>
   <button class="ghost" onclick="preview()">Preview all</button>
   <button onclick="copyAll()">Copy all</button>
 </header>
@@ -234,7 +234,7 @@
 <h2>Interfaces <em>4</em> <button onclick="copyDomain('interfaces')">Copy interfaces</button></h2>
 <div class="node" data-id="I1" data-dec="">
   <h3><span>I1</span><span class="tag">status: ok</span> <span class="tag">name: tests map</span> <span class="tag">reuse: flightdeck/flightcrew/schemas/tests-map.schema.json</span></h3>
-  <p class="text">flightdeck/launch/flightcrew-characterization/specs/tests-map.v1.json, beside this spec, in the shape of its schema: every check on the suite with id, the seven-class kind, the addendum class, the spec ids it covers, the command that runs it and its baseline, plus the quarantined, unverified and retired lists; its locked paths name only the checks&#x27; own suites and flightdeck/testbench/fixtures/, and its allowed paths name the rest of flightdeck/testbench/ and flightdeck/flightcrew/MANIFEST.txt. It is the one list the gate, the report and every suite author share.</p>
+  <p class="text">flightdeck/launch/specs/flightcrew-characterization/tests-map.v1.json, beside the frozen spec&#x27;s tooling home, in the shape of its schema: every check on the suite with id, the seven-class kind, the addendum class, the spec ids it covers, the command that runs it and its baseline, plus the quarantined, unverified and retired lists. Its locked paths name the checks&#x27; own suites under flightdeck/testbench/suites/_checks/, the three sample fixtures under flightdeck/testbench/fixtures/ and the map file itself; its allowed paths name the rest of flightdeck/testbench/, including flightdeck/testbench/fixtures/scenarios/, and flightdeck/flightcrew/MANIFEST.txt. It is the one list the gate, the report and every suite author share.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -252,7 +252,7 @@
 </div>
 <div class="node" data-id="I3" data-dec="">
   <h3><span>I3</span><span class="tag">status: ok</span> <span class="tag">name: scenario set</span></h3>
-  <p class="text">A scenario set is a folder flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/ holding flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/set.json = { covers: [string], tier: &#x27;opus&#x27;|&#x27;sonnet&#x27;|&#x27;haiku&#x27;, judge: &#x27;opus&#x27;|&#x27;sonnet&#x27;|&#x27;haiku&#x27;|null }, and for a judged set flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/rubric.md in the guide&#x27;s form, and one folder per scenario, flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/, holding flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/scenario.json = { trials: integer, threshold: integer, control: boolean, start: { prompt: string, files: { &lt;path&gt;: &lt;content&gt; } }, must: [string], must_not: [string] }, where each must and must_not entry is a regular expression matched against the concatenated record files of a trial; and, per trial, five record files under flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/trials/&lt;n&gt;/: transcript.jsonl, events.jsonl, hooks.log, tier.txt naming the model that ran, verdict.txt written by the deterministic check over the records as pass, fail or inconclusive with its reason, and for a judged set flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/trials/&lt;n&gt;/sheet.md, the judge&#x27;s verdict sheet for that trial. It is the object the scenario&#x27;s author, the trial that runs it, the deterministic checks over the records and the judge all read.</p>
+  <p class="text">A scenario set is a folder flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/ holding flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/set.json = { covers: [string], tier: &#x27;opus&#x27;|&#x27;sonnet&#x27;|&#x27;haiku&#x27;, judge: &#x27;opus&#x27;|&#x27;sonnet&#x27;|&#x27;haiku&#x27;|null }, and for a judged set flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/rubric.md in the guide&#x27;s form, and one folder per scenario, flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/, holding flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/scenario.json = { trials: integer, threshold: integer, control: boolean, start: { prompt: string, files: { &lt;path&gt;: &lt;content&gt; } }, must: [string], must_not: [string] }, where each must and must_not entry is a regular expression matched against the concatenated record files of a trial; and, per trial, five record files under flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/trials/&lt;n&gt;/: transcript.jsonl, events.jsonl, hooks.log, tier.txt naming the model that ran, verdict.txt written by the deterministic check over the records as pass, fail or inconclusive with its reason, and for a judged set flightdeck/testbench/fixtures/scenarios/&lt;set&gt;/&lt;scenario&gt;/trials/&lt;n&gt;/sheet.md, the judge&#x27;s verdict sheet for that trial, whose first line is &#x27;judge: &lt;model&gt;&#x27;. It is the object the scenario&#x27;s author, the trial that runs it, the deterministic checks over the records and the judge all read.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -261,7 +261,7 @@
 </div>
 <div class="node" data-id="I4" data-dec="">
   <h3><span>I4</span><span class="tag">status: ok</span> <span class="tag">name: defects file</span></h3>
-  <p class="text">defects.md in the run&#x27;s evidence folder, written by the run and never re-rendered by the tooling, one line per defect as &#x27;&lt;suite&gt; · &lt;case&gt; · &lt;defect text&gt; · &lt;reference&gt;&#x27;, so that the suite&#x27;s findings about flightcrew are read together in one place the report cannot drop.</p>
+  <p class="text">flightdeck/launch/&lt;L&gt;/evidence/defects.md, where &lt;L&gt; is the launch whose flightdeck/launch/&lt;L&gt;/launch.json names this spec, written by the run and never re-rendered by the tooling, one line per defect as &#x27;&lt;suite&gt; · &lt;case&gt; · &lt;defect text&gt; · &lt;reference&gt;&#x27;, so that the suite&#x27;s findings about flightcrew are read together in one place the report cannot drop.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -272,7 +272,7 @@
 <h2>Behaviours <em>12</em> <button onclick="copyDomain('behaviours')">Copy behaviours</button></h2>
 <div class="node" data-id="B1" data-dec="">
   <h3><span>B1</span><span class="tag">status: ok</span></h3>
-  <p class="text">[deterministic] Every part of flightcrew is named by at least one case, where a part is a subcommand as the runner&#x27;s usage lists them, a hook, a role file, a schema, a template, a validator, a gate or a workflow script listed in flightdeck/flightcrew/MANIFEST.txt, or a file distribute writes into .claude/, and a case names a part by its repository-relative path or its subcommand token, so that the list of parts with no case is empty and a part added later shows up as uncovered.</p>
+  <p class="text">[deterministic] Every part of flightcrew is named by at least one case, where a part is a subcommand as the runner&#x27;s usage lists them, a hook, a role file, a schema, a template, a validator, a gate or a workflow script listed in flightdeck/flightcrew/MANIFEST.txt, or a file distribute writes into .claude/, and a case names a part by its repository-relative path or by its subcommand token as the runner&#x27;s usage prints it (&#x27;fc &lt;command&gt;&#x27; or &#x27;fc &lt;command&gt; &lt;sub&gt;&#x27;, space-separated), so that the list of parts with no case is empty and a part added later shows up as uncovered.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -344,7 +344,7 @@
 </div>
 <div class="node" data-id="B9" data-dec="">
   <h3><span>B9</span><span class="tag">status: ok</span></h3>
-  <p class="text">[deterministic] A verdict sheet is refused when its shape, a quotation or the judging model is missing, so that a judged verdict is never read before it is shown to be a verdict.</p>
+  <p class="text">[deterministic] A verdict sheet whose shape, a quotation or the judging model is missing is a FAIL case naming the sheet path, and no answer from that sheet counts, so that a judged verdict is never trusted before it is shown to be a verdict.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -371,7 +371,7 @@
 </div>
 <div class="node" data-id="B12" data-dec="">
   <h3><span>B12</span><span class="tag">status: ok</span></h3>
-  <p class="text">[deterministic] Nothing the thirty earlier suites proved stops being proved: every case name they carry appears in the new suite, verbatim or under a committed mapping file, so that absorbing or replacing them loses no ground.</p>
+  <p class="text">[deterministic] Nothing the thirty earlier suites proved stops being proved: every case name they carry appears in the new suite, verbatim or under the committed mapping file flightdeck/testbench/case-map.json, so that absorbing or replacing them loses no ground.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -400,7 +400,7 @@
 </div>
 <div class="node" data-id="E3" data-dec="">
   <h3><span>E3</span><span class="tag">status: ok</span></h3>
-  <p class="text">A verdict sheet arrives with a missing quotation, a question answered outside yes or no, no judging model, or a shape the rubric did not fix: it is refused before its content is read and the judged check fails naming the question where there is one and the sheet path otherwise.</p>
+  <p class="text">A verdict sheet arrives with a missing quotation, a question answered outside yes or no, no judging model, or a shape the rubric did not fix: it is a FAIL case naming the question where there is one and the sheet path otherwise, and none of its answers count.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -409,7 +409,7 @@
 </div>
 <div class="node" data-id="E4" data-dec="">
   <h3><span>E4</span><span class="tag">status: ok</span></h3>
-  <p class="text">A scenario set names fable as its tier or its judge: the check is refused before any trial runs, naming the cap.</p>
+  <p class="text">A scenario set names fable as its tier or its judge: the check is refused before any trial runs, naming the set and the ceiling, opus.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -418,7 +418,7 @@
 </div>
 <div class="node" data-id="E5" data-dec="">
   <h3><span>E5</span><span class="tag">status: ok</span></h3>
-  <p class="text">A suite writes anywhere in the checkout, leaves a file in the temporary directory, or leaves the checkout&#x27;s settings changed: run-all fails on hygiene naming the suite.</p>
+  <p class="text">A suite writes anywhere in the checkout, leaves a file in the temporary directory, or leaves the checkout&#x27;s .claude/settings.json changed: run-all fails on hygiene naming the suite.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -436,7 +436,7 @@
 </div>
 <div class="node" data-id="E7" data-dec="">
   <h3><span>E7</span><span class="tag">status: ok</span></h3>
-  <p class="text">A case marked as a defect fails on the current behaviour, or a defect line has no marked case beneath it: the suite fails naming the case, because a defect note that does not match today&#x27;s behaviour describes nothing.</p>
+  <p class="text">A case marked as a defect fails on the current behaviour, or a defect line has no marked case beneath it: the check on the suite fails naming the suite and case, because a defect note that does not match today&#x27;s behaviour describes nothing.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -492,7 +492,7 @@
 </div>
 <div class="node" data-id="D3" data-dec="">
   <h3><span>D3</span><span class="tag">status: ok</span></h3>
-  <p class="text">Statistical and judged checks are used only where no cheaper class can falsify the behaviour, because every trial spends tokens and the run has one subscription behind it.</p>
+  <p class="text">Statistical and judged checks are used only where no cheaper class can falsify the behaviour, and no class is required to exist: where the builders find no part that needs a live scenario, the checks over scenarios and sheets pass empty, because every trial spends tokens and the run has one subscription behind it.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>
@@ -548,7 +548,7 @@
 <h2>Verification <em>1</em> <button onclick="copyDomain('verification')">Copy verification</button></h2>
 <div class="node" data-id="VER" data-dec="">
   <h3><span>VER</span><span class="tag">status: ok</span></h3>
-  <p class="text">The checks on the suite are suites under an underscore-prefixed folder that run-all skips, run only by the tests map&#x27;s commands, written and locked before any suite is built; the suites are built until those checks pass; every check here is a check on the suite, not on flightcrew. Every suite is offline: it reads committed records and starts no model. B1: the inventory is flightdeck/flightcrew/MANIFEST.txt filtered to B1&#x27;s categories plus the runner&#x27;s subcommands from its usage and the files distribute writes, matched against every suite&#x27;s case names by path or subcommand token; the unmatched list must be empty, and E1 fails it naming the part. B2: for every part in that inventory, the part is altered in a temporary copy of the repository (a script&#x27;s exit code inverted, a hook&#x27;s decision flipped, a schema rule removed, a role file&#x27;s frontmatter field dropped, a template slot renamed, a workflow&#x27;s meta removed) and the offline suites are run there; at least one case must go red naming the part; parts with no meaningful alteration are listed as exempt in the sweep&#x27;s fixture. B3 and E8: every suite&#x27;s output is matched line by line against the suite output protocol, including the ratio and sheet lines where the class requires them. B4: node flightdeck/testbench/run-all.mjs exits 0 on the commit the suite was built against; E5 is the same run&#x27;s hygiene failing on any write, leak or settings change. B5 and E9: the tests map and every suite are read and every check carries a kind and a class. B6: every scenario set is read for its tier and every scenario for trials, threshold and control, with at least one control per set; B7: every trial folder holds its tier file naming a model at or below opus and its verdict file; E4 is a set naming fable as tier or judge being refused before a trial; E2 is a scenario set run where every trial is inconclusive and the check failing as inconclusive with the count on its ratio line. B8: every judged set&#x27;s rubric file is checked against the guide&#x27;s form; B9 and E3 is a sheet with a missing quotation, an answer outside yes or no, no judging model or a broken shape being refused before its content is read. B10 and E7: every case named [defect] passes on the current behaviour and has its defect line above it, and every defect line has a marked case beneath it. B11 and E10: the defects file equals the set of defect lines across every suite. B12 and E6: every case name of the thirty earlier suites, as they stood at this spec&#x27;s commit, is found in the new suite&#x27;s case names or in the committed mapping file. The critic pass the current tooling runs after the checks are green reviews the change against this spec and returns its findings. End to end, the intent&#x27;s three acts performed by the reviewer on a fresh checkout at the run&#x27;s landing commit: one command runs the whole suite green; one part of the reviewer&#x27;s choosing is broken and the suite goes red naming it; and one session transcript of the run, chosen by the reviewer and not by the builders, is read from beginning to end with the run&#x27;s folder, events, hook log, report and log entry.</p>
+  <p class="text">The checks on the suite are suites under an underscore-prefixed folder that run-all skips, run only by the tests map&#x27;s commands, written and locked before any suite is built; the suites are built until those checks pass; every check here is a check on the suite, not on flightcrew. Every suite is offline: it reads committed records and starts no model. B1: the inventory is flightdeck/flightcrew/MANIFEST.txt filtered to B1&#x27;s categories plus the runner&#x27;s subcommands from its usage and the files distribute writes, matched against every suite&#x27;s case names by path or subcommand token; the unmatched list must be empty, and E1 fails it naming the part. B2: for every part in that inventory, the part is altered in a temporary copy of the repository (a script&#x27;s exit code inverted, a hook&#x27;s decision flipped, a schema rule removed, a role file&#x27;s frontmatter field dropped, a template slot renamed, a workflow&#x27;s meta removed) and the offline suites are run there; at least one case must go red naming the part; parts with no meaningful alteration are listed as exempt in the sweep&#x27;s fixture. B3 and E8: every suite&#x27;s output is matched line by line against the suite output protocol, including the ratio and sheet lines where the class requires them. B4: node flightdeck/testbench/run-all.mjs exits 0 on the commit the suite was built against; E5 is the same run&#x27;s hygiene failing on any write, leak or settings change. B5 and E9: the tests map is read and every check carries a kind and a class. B6: every scenario set is read for its tier and every scenario for trials, threshold and control, with at least one control per set; B7: every trial folder holds its tier file naming a model at or below opus and its verdict file; E4 is a set naming fable as tier or judge being refused before a trial; E2 is a scenario set run where every trial is inconclusive and the check failing as inconclusive with the count on its ratio line. B8: every judged set&#x27;s rubric file is checked against the guide&#x27;s form; B9 and E3: a sheet with a missing quotation, an answer outside yes or no, no judging model or a broken shape is a FAIL case naming the sheet path or the question, with none of its answers counted. B10 and E7: every case named [defect] passes on the current behaviour and has its defect line above it, and every defect line has a marked case beneath it, the check naming the suite and case otherwise. B11 and E10: the defects file equals the set of defect lines across every suite. B12 and E6: every case name of the thirty earlier suites, as they stood at this spec&#x27;s commit, is found in the new suite&#x27;s case names or in flightdeck/testbench/case-map.json. The critic pass the current tooling runs after the checks are green reviews the change against this spec and returns its findings. End to end, the intent&#x27;s three acts performed by the reviewer on a fresh checkout at the run&#x27;s landing commit: one command runs the whole suite green; one part of the reviewer&#x27;s choosing is broken and the suite goes red naming it; and one session transcript of the run, chosen by the reviewer and not by the builders, is read from beginning to end with the run&#x27;s folder, events, hook log, report and log entry.</p>
   <div class="ctl">
     <button class="dec agree" data-v="agree" onclick="pick(this)">agree</button>
     <button class="dec disagree" data-v="disagree" onclick="pick(this)">disagree</button>

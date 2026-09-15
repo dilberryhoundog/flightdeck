@@ -3,7 +3,8 @@
   "schema_version": 1,
   "name": "flightcrew-characterization",
   "version": 1,
-  "status": "draft",
+  "status": "frozen",
+  "commit": "ee8c08847e73b20250447836b24333e9e6ca79fb",
   "reason": "initial: a complete test suite over flightcrew exactly as it stands, built with all seven classes of check and the rules for agent-shaped work, so the coming refactor can lean on it the way any refactor leans on its tests.",
   "previous_versions": [],
   "intent": {
@@ -125,7 +126,7 @@
       "status": "ok",
       "name": "tests map",
       "reuse": "flightdeck/flightcrew/schemas/tests-map.schema.json",
-      "text": "flightdeck/launch/flightcrew-characterization/specs/tests-map.v1.json, beside this spec, in the shape of its schema: every check on the suite with id, the seven-class kind, the addendum class, the spec ids it covers, the command that runs it and its baseline, plus the quarantined, unverified and retired lists; its locked paths name only the checks' own suites and flightdeck/testbench/fixtures/, and its allowed paths name the rest of flightdeck/testbench/ and flightdeck/flightcrew/MANIFEST.txt. It is the one list the gate, the report and every suite author share."
+      "text": "flightdeck/launch/specs/flightcrew-characterization/tests-map.v1.json, beside the frozen spec's tooling home, in the shape of its schema: every check on the suite with id, the seven-class kind, the addendum class, the spec ids it covers, the command that runs it and its baseline, plus the quarantined, unverified and retired lists. Its locked paths name the checks' own suites under flightdeck/testbench/suites/_checks/, the three sample fixtures under flightdeck/testbench/fixtures/ and the map file itself; its allowed paths name the rest of flightdeck/testbench/, including flightdeck/testbench/fixtures/scenarios/, and flightdeck/flightcrew/MANIFEST.txt. It is the one list the gate, the report and every suite author share."
     },
     {
       "id": "I2",
@@ -139,21 +140,21 @@
       "status": "ok",
       "name": "scenario set",
       "reuse": null,
-      "text": "A scenario set is a folder flightdeck/testbench/fixtures/scenarios/<set>/ holding flightdeck/testbench/fixtures/scenarios/<set>/set.json = { covers: [string], tier: 'opus'|'sonnet'|'haiku', judge: 'opus'|'sonnet'|'haiku'|null }, and for a judged set flightdeck/testbench/fixtures/scenarios/<set>/rubric.md in the guide's form, and one folder per scenario, flightdeck/testbench/fixtures/scenarios/<set>/<scenario>/, holding flightdeck/testbench/fixtures/scenarios/<set>/<scenario>/scenario.json = { trials: integer, threshold: integer, control: boolean, start: { prompt: string, files: { <path>: <content> } }, must: [string], must_not: [string] }, where each must and must_not entry is a regular expression matched against the concatenated record files of a trial; and, per trial, five record files under flightdeck/testbench/fixtures/scenarios/<set>/<scenario>/trials/<n>/: transcript.jsonl, events.jsonl, hooks.log, tier.txt naming the model that ran, verdict.txt written by the deterministic check over the records as pass, fail or inconclusive with its reason, and for a judged set flightdeck/testbench/fixtures/scenarios/<set>/<scenario>/trials/<n>/sheet.md, the judge's verdict sheet for that trial. It is the object the scenario's author, the trial that runs it, the deterministic checks over the records and the judge all read."
+      "text": "A scenario set is a folder flightdeck/testbench/fixtures/scenarios/<set>/ holding flightdeck/testbench/fixtures/scenarios/<set>/set.json = { covers: [string], tier: 'opus'|'sonnet'|'haiku', judge: 'opus'|'sonnet'|'haiku'|null }, and for a judged set flightdeck/testbench/fixtures/scenarios/<set>/rubric.md in the guide's form, and one folder per scenario, flightdeck/testbench/fixtures/scenarios/<set>/<scenario>/, holding flightdeck/testbench/fixtures/scenarios/<set>/<scenario>/scenario.json = { trials: integer, threshold: integer, control: boolean, start: { prompt: string, files: { <path>: <content> } }, must: [string], must_not: [string] }, where each must and must_not entry is a regular expression matched against the concatenated record files of a trial; and, per trial, five record files under flightdeck/testbench/fixtures/scenarios/<set>/<scenario>/trials/<n>/: transcript.jsonl, events.jsonl, hooks.log, tier.txt naming the model that ran, verdict.txt written by the deterministic check over the records as pass, fail or inconclusive with its reason, and for a judged set flightdeck/testbench/fixtures/scenarios/<set>/<scenario>/trials/<n>/sheet.md, the judge's verdict sheet for that trial, whose first line is 'judge: <model>'. It is the object the scenario's author, the trial that runs it, the deterministic checks over the records and the judge all read."
     },
     {
       "id": "I4",
       "status": "ok",
       "name": "defects file",
       "reuse": null,
-      "text": "defects.md in the run's evidence folder, written by the run and never re-rendered by the tooling, one line per defect as '<suite> · <case> · <defect text> · <reference>', so that the suite's findings about flightcrew are read together in one place the report cannot drop."
+      "text": "flightdeck/launch/<L>/evidence/defects.md, where <L> is the launch whose flightdeck/launch/<L>/launch.json names this spec, written by the run and never re-rendered by the tooling, one line per defect as '<suite> · <case> · <defect text> · <reference>', so that the suite's findings about flightcrew are read together in one place the report cannot drop."
     }
   ],
   "behaviours": [
     {
       "id": "B1",
       "status": "ok",
-      "text": "[deterministic] Every part of flightcrew is named by at least one case, where a part is a subcommand as the runner's usage lists them, a hook, a role file, a schema, a template, a validator, a gate or a workflow script listed in flightdeck/flightcrew/MANIFEST.txt, or a file distribute writes into .claude/, and a case names a part by its repository-relative path or its subcommand token, so that the list of parts with no case is empty and a part added later shows up as uncovered."
+      "text": "[deterministic] Every part of flightcrew is named by at least one case, where a part is a subcommand as the runner's usage lists them, a hook, a role file, a schema, a template, a validator, a gate or a workflow script listed in flightdeck/flightcrew/MANIFEST.txt, or a file distribute writes into .claude/, and a case names a part by its repository-relative path or by its subcommand token as the runner's usage prints it ('fc <command>' or 'fc <command> <sub>', space-separated), so that the list of parts with no case is empty and a part added later shows up as uncovered."
     },
     {
       "id": "B2",
@@ -193,7 +194,7 @@
     {
       "id": "B9",
       "status": "ok",
-      "text": "[deterministic] A verdict sheet is refused when its shape, a quotation or the judging model is missing, so that a judged verdict is never read before it is shown to be a verdict."
+      "text": "[deterministic] A verdict sheet whose shape, a quotation or the judging model is missing is a FAIL case naming the sheet path, and no answer from that sheet counts, so that a judged verdict is never trusted before it is shown to be a verdict."
     },
     {
       "id": "B10",
@@ -208,7 +209,7 @@
     {
       "id": "B12",
       "status": "ok",
-      "text": "[deterministic] Nothing the thirty earlier suites proved stops being proved: every case name they carry appears in the new suite, verbatim or under a committed mapping file, so that absorbing or replacing them loses no ground."
+      "text": "[deterministic] Nothing the thirty earlier suites proved stops being proved: every case name they carry appears in the new suite, verbatim or under the committed mapping file flightdeck/testbench/case-map.json, so that absorbing or replacing them loses no ground."
     }
   ],
   "edges": [
@@ -225,17 +226,17 @@
     {
       "id": "E3",
       "status": "ok",
-      "text": "A verdict sheet arrives with a missing quotation, a question answered outside yes or no, no judging model, or a shape the rubric did not fix: it is refused before its content is read and the judged check fails naming the question where there is one and the sheet path otherwise."
+      "text": "A verdict sheet arrives with a missing quotation, a question answered outside yes or no, no judging model, or a shape the rubric did not fix: it is a FAIL case naming the question where there is one and the sheet path otherwise, and none of its answers count."
     },
     {
       "id": "E4",
       "status": "ok",
-      "text": "A scenario set names fable as its tier or its judge: the check is refused before any trial runs, naming the cap."
+      "text": "A scenario set names fable as its tier or its judge: the check is refused before any trial runs, naming the set and the ceiling, opus."
     },
     {
       "id": "E5",
       "status": "ok",
-      "text": "A suite writes anywhere in the checkout, leaves a file in the temporary directory, or leaves the checkout's settings changed: run-all fails on hygiene naming the suite."
+      "text": "A suite writes anywhere in the checkout, leaves a file in the temporary directory, or leaves the checkout's .claude/settings.json changed: run-all fails on hygiene naming the suite."
     },
     {
       "id": "E6",
@@ -245,7 +246,7 @@
     {
       "id": "E7",
       "status": "ok",
-      "text": "A case marked as a defect fails on the current behaviour, or a defect line has no marked case beneath it: the suite fails naming the case, because a defect note that does not match today's behaviour describes nothing."
+      "text": "A case marked as a defect fails on the current behaviour, or a defect line has no marked case beneath it: the check on the suite fails naming the suite and case, because a defect note that does not match today's behaviour describes nothing."
     },
     {
       "id": "E8",
@@ -277,7 +278,7 @@
     {
       "id": "D3",
       "status": "ok",
-      "text": "Statistical and judged checks are used only where no cheaper class can falsify the behaviour, because every trial spends tokens and the run has one subscription behind it."
+      "text": "Statistical and judged checks are used only where no cheaper class can falsify the behaviour, and no class is required to exist: where the builders find no part that needs a live scenario, the checks over scenarios and sheets pass empty, because every trial spends tokens and the run has one subscription behind it."
     },
     {
       "id": "D4",
@@ -308,7 +309,7 @@
   "verification": {
     "id": "VER",
     "status": "ok",
-    "text": "The checks on the suite are suites under an underscore-prefixed folder that run-all skips, run only by the tests map's commands, written and locked before any suite is built; the suites are built until those checks pass; every check here is a check on the suite, not on flightcrew. Every suite is offline: it reads committed records and starts no model. B1: the inventory is flightdeck/flightcrew/MANIFEST.txt filtered to B1's categories plus the runner's subcommands from its usage and the files distribute writes, matched against every suite's case names by path or subcommand token; the unmatched list must be empty, and E1 fails it naming the part. B2: for every part in that inventory, the part is altered in a temporary copy of the repository (a script's exit code inverted, a hook's decision flipped, a schema rule removed, a role file's frontmatter field dropped, a template slot renamed, a workflow's meta removed) and the offline suites are run there; at least one case must go red naming the part; parts with no meaningful alteration are listed as exempt in the sweep's fixture. B3 and E8: every suite's output is matched line by line against the suite output protocol, including the ratio and sheet lines where the class requires them. B4: node flightdeck/testbench/run-all.mjs exits 0 on the commit the suite was built against; E5 is the same run's hygiene failing on any write, leak or settings change. B5 and E9: the tests map and every suite are read and every check carries a kind and a class. B6: every scenario set is read for its tier and every scenario for trials, threshold and control, with at least one control per set; B7: every trial folder holds its tier file naming a model at or below opus and its verdict file; E4 is a set naming fable as tier or judge being refused before a trial; E2 is a scenario set run where every trial is inconclusive and the check failing as inconclusive with the count on its ratio line. B8: every judged set's rubric file is checked against the guide's form; B9 and E3 is a sheet with a missing quotation, an answer outside yes or no, no judging model or a broken shape being refused before its content is read. B10 and E7: every case named [defect] passes on the current behaviour and has its defect line above it, and every defect line has a marked case beneath it. B11 and E10: the defects file equals the set of defect lines across every suite. B12 and E6: every case name of the thirty earlier suites, as they stood at this spec's commit, is found in the new suite's case names or in the committed mapping file. The critic pass the current tooling runs after the checks are green reviews the change against this spec and returns its findings. End to end, the intent's three acts performed by the reviewer on a fresh checkout at the run's landing commit: one command runs the whole suite green; one part of the reviewer's choosing is broken and the suite goes red naming it; and one session transcript of the run, chosen by the reviewer and not by the builders, is read from beginning to end with the run's folder, events, hook log, report and log entry."
+    "text": "The checks on the suite are suites under an underscore-prefixed folder that run-all skips, run only by the tests map's commands, written and locked before any suite is built; the suites are built until those checks pass; every check here is a check on the suite, not on flightcrew. Every suite is offline: it reads committed records and starts no model. B1: the inventory is flightdeck/flightcrew/MANIFEST.txt filtered to B1's categories plus the runner's subcommands from its usage and the files distribute writes, matched against every suite's case names by path or subcommand token; the unmatched list must be empty, and E1 fails it naming the part. B2: for every part in that inventory, the part is altered in a temporary copy of the repository (a script's exit code inverted, a hook's decision flipped, a schema rule removed, a role file's frontmatter field dropped, a template slot renamed, a workflow's meta removed) and the offline suites are run there; at least one case must go red naming the part; parts with no meaningful alteration are listed as exempt in the sweep's fixture. B3 and E8: every suite's output is matched line by line against the suite output protocol, including the ratio and sheet lines where the class requires them. B4: node flightdeck/testbench/run-all.mjs exits 0 on the commit the suite was built against; E5 is the same run's hygiene failing on any write, leak or settings change. B5 and E9: the tests map is read and every check carries a kind and a class. B6: every scenario set is read for its tier and every scenario for trials, threshold and control, with at least one control per set; B7: every trial folder holds its tier file naming a model at or below opus and its verdict file; E4 is a set naming fable as tier or judge being refused before a trial; E2 is a scenario set run where every trial is inconclusive and the check failing as inconclusive with the count on its ratio line. B8: every judged set's rubric file is checked against the guide's form; B9 and E3: a sheet with a missing quotation, an answer outside yes or no, no judging model or a broken shape is a FAIL case naming the sheet path or the question, with none of its answers counted. B10 and E7: every case named [defect] passes on the current behaviour and has its defect line above it, and every defect line has a marked case beneath it, the check naming the suite and case otherwise. B11 and E10: the defects file equals the set of defect lines across every suite. B12 and E6: every case name of the thirty earlier suites, as they stood at this spec's commit, is found in the new suite's case names or in flightdeck/testbench/case-map.json. The critic pass the current tooling runs after the checks are green reviews the change against this spec and returns its findings. End to end, the intent's three acts performed by the reviewer on a fresh checkout at the run's landing commit: one command runs the whole suite green; one part of the reviewer's choosing is broken and the suite goes red naming it; and one session transcript of the run, chosen by the reviewer and not by the builders, is read from beginning to end with the run's folder, events, hook log, report and log entry."
   },
   "acceptance": {
     "id": "ACC",

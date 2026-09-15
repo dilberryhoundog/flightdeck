@@ -9,3 +9,5 @@ flightdeck/testbench/fixtures/scenarios/trials/verdict.txt
 defects.md
 flightdeck/testbench/fixtures/scenarios/rubric.md
 flightdeck/testbench/fixtures/scenarios/trials/sheet.md
+flightdeck/testbench/case-map.json
+flightdeck/testbench/fixtures/scenarios/

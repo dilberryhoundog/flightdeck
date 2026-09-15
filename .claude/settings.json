@@ -2,5 +2,197 @@
   "enabledPlugins": {
     "dev-workspace@DBHD-dev-workspace": true
   },
-  "outputStyle": "concise"
+  "outputStyle": "concise",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          },
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/session-end.mjs"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "TaskCreated": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "PermissionDenied": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/lock-guard.mjs"
+          },
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/boundary-guard.mjs"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/structural-check.mjs"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/event-log.mjs"
+          },
+          {
+            "type": "command",
+            "command": "/Users/dylangraham/.local/share/mise/installs/node/22.22.3/bin/node \"$CLAUDE_PROJECT_DIR\"/flightdeck/flightcrew/hooks/stop-gate.mjs",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  },
+  "worktree": {
+    "baseRef": "head"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(node flightdeck/flightcrew/bin/fc *)",
+      "Bash(flightdeck/flightcrew/bin/fc *)",
+      "Bash(./flightdeck/flightcrew/bin/fc *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git rev-parse *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git worktree list *)",
+      "Agent(spec-builder)",
+      "Agent(spec-judge)",
+      "Agent(spec-attacker)",
+      "Agent(explorer)",
+      "Agent(test-builder)",
+      "Agent(planner)",
+      "Agent(orchestrator)",
+      "Agent(implementer)",
+      "Agent(verifier)",
+      "Agent(critic)",
+      "Workflow(fc-implement)",
+      "Workflow(fc-review)",
+      "Workflow(fc-explore)"
+    ],
+    "deny": [
+      "Edit(flightdeck/launch/*/specs/**)",
+      "Edit(flightdeck/launch/specs/**)"
+    ]
+  }
 }

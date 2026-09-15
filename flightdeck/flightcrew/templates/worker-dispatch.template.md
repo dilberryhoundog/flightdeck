@@ -24,7 +24,7 @@ Build this unit and nothing else. Everything you may act on is below, and auto-l
 ## Checks that prove it
 {{checks}}
 Run them in your worktree with: run fc check {{check_ids}}
-In full, from the root of your own worktree: ./flightdeck/flightcrew/bin/fc check {{check_ids}} --launch {{launch}}. The leading ./ matters, because it runs the copy inside your worktree rather than the main checkout outside it, and nothing puts fc on PATH. Select the launch with the --launch flag after the command; a command that begins with an environment assignment is refused.
+In full, from the root of your own worktree: node flightdeck/flightcrew/bin/fc.mjs check {{check_ids}} --launch {{launch}}. Select the launch with the --launch flag after the command; a command that begins with an environment assignment is refused.
 A check marked gate only is one of the ids above and is run here like the rest; it is also re-run by the run's own gate. The commands behind these ids are not yours to read or change; run them by id and read the output.
 
 ## Paths

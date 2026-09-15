@@ -2,7 +2,8 @@
   "schema_version": 1,
   "name": "flightcrew-characterization",
   "version": 1,
-  "status": "draft",
+  "status": "frozen",
+  "commit": "b3740ce8164ad252c4b5647ed365f113caea81e1",
   "reason": "initial: the checks on the characterization suite, derived from spec v1 and written before any suite is built",
   "spec": {
     "name": "flightcrew-characterization",
@@ -25,9 +26,9 @@
   ],
   "run_all": "for d in flightdeck/testbench/suites/_checks/*/; do [ -f \"$d/run.mjs\" ] && echo \"== $d\" && node \"$d/run.mjs\"; done",
   "baseline": {
-    "commit": "03b462b4cc1e7e3eb0960c5ceb5316e9c8f3f152",
+    "commit": "b3740ce8164ad252c4b5647ed365f113caea81e1",
     "date": "2026-09-15",
-    "note": "observed at 03b462b with the check files and MANIFEST.txt uncommitted: 29 checks fail (T1 T2 T4 T5 T6 T7 T8 T9 T10 T11 T12 T26 T30 T40 T41 T42 T43 T44 T45 T46 T47 T48 T49 T50 T51 T52 T53 T54 T57), 32 pass as world-state, check-apparatus or D3-empty checks; every observed first word matches its expect; the whole baseline ran cold in 248 s, no command near 300 s"
+    "note": "observed at b3740ce: 29 checks fail (T1 T2 T4 T5 T6 T7 T8 T9 T10 T11 T12 T26 T30 T40 T41 T42 T43 T44 T45 T46 T47 T48 T49 T50 T51 T52 T53 T54 T57), 32 pass as world-state, check-apparatus or D3-empty checks; every observed first word matches its expect; the whole baseline ran cold in 247 s, no command near 300 s"
   },
   "checks": [
     {

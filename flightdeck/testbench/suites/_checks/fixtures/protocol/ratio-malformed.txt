@@ -1,0 +1,4 @@
+pass  fc check runs every check
+covers: B6
+ratio: refuses-locked-edit 4/5 threshold 4/5 tier opus
+1/1 passed

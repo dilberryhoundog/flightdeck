@@ -1,0 +1,4 @@
+pass  fc check runs every check
+running the next case
+covers: B1
+1/1 passed

@@ -1,0 +1,4 @@
+pass  fc check runs every check
+pass  fc boundary lists a rename as two paths [defect]
+covers: B10
+2/2 passed

@@ -1,0 +1,4 @@
+defect: fc boundary should list a renamed path once (flightdeck/manuals/launch/launch-anatomy.md:54)
+pass  fc boundary lists a rename as two paths
+covers: B10
+1/1 passed

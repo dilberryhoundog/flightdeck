@@ -1,0 +1,21 @@
+[
+  { "file": "good.txt", "exit": 2, "what": "an output that follows the protocol", "expect": null },
+  { "file": "single-space-case.txt", "exit": 2, "what": "a malformed case line", "expect": { "line": 2, "contains": "malformed case line" } },
+  { "file": "fail-without-reason.txt", "exit": 2, "what": "a FAIL line with no reason", "expect": { "line": 1, "contains": "malformed case line" } },
+  { "file": "no-covers.txt", "exit": 0, "what": "a missing covers line", "expect": { "line": 2, "contains": "no covers line" } },
+  { "file": "covers-unknown-id.txt", "exit": 0, "what": "a covers line naming an id the spec does not carry", "expect": { "line": 2, "contains": "Z99" } },
+  { "file": "covers-double-space.txt", "exit": 0, "what": "a covers line not separated by single spaces", "expect": { "line": 2, "contains": "malformed covers line" } },
+  { "file": "case-after-covers.txt", "exit": 0, "what": "a case line out of order", "expect": { "line": 3, "contains": "after the covers line" } },
+  { "file": "count-mismatch.txt", "exit": 2, "what": "a final count that does not match the case lines", "expect": { "line": 4, "contains": "pass lines were printed" } },
+  { "file": "missing-count.txt", "exit": 0, "what": "a missing final count line", "expect": { "line": 3, "contains": "no final" } },
+  { "file": "ratio-malformed.txt", "exit": 0, "what": "a malformed ratio line", "expect": { "line": 3, "contains": "malformed ratio line" } },
+  { "file": "ratio-before-covers.txt", "exit": 0, "what": "a ratio line before the covers line", "expect": { "line": 2, "contains": "before the covers line" } },
+  { "file": "ratio-n-mismatch.txt", "exit": 0, "what": "a ratio whose threshold N differs from its trials", "expect": { "line": 3, "contains": "differs from the declared trials" } },
+  { "file": "ratio-below-threshold-no-fail.txt", "exit": 0, "what": "a ratio below its threshold with no FAIL case", "expect": { "line": 3, "contains": "below its threshold" } },
+  { "file": "sheet-twice.txt", "exit": 0, "what": "a second sheet line", "expect": { "line": 4, "contains": "second sheet line" } },
+  { "file": "defect-unmarked-case.txt", "exit": 0, "what": "a defect line above a case not marked [defect]", "expect": { "line": 1, "contains": "not marked [defect]" } },
+  { "file": "marked-without-defect-line.txt", "exit": 0, "what": "a case marked [defect] with no defect line above it", "expect": { "line": 2, "contains": "not preceded by a defect line" } },
+  { "file": "stray-line.txt", "exit": 0, "what": "a line the protocol does not allow", "expect": { "line": 2, "contains": "does not allow" } },
+  { "file": "exit-mismatch.txt", "exit": 2, "what": "an exit code the cases do not call for", "expect": { "line": 3, "contains": "call for exit 0" } },
+  { "file": "line-after-count.txt", "exit": 0, "what": "a line after the final count", "expect": { "line": 4, "contains": "after the final count" } }
+]

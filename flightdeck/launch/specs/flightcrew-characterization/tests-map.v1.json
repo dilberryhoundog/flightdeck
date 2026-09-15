@@ -1,0 +1,1066 @@
+{
+  "schema_version": 1,
+  "name": "flightcrew-characterization",
+  "version": 1,
+  "status": "draft",
+  "reason": "initial: the checks on the characterization suite, derived from spec v1 and written before any suite is built",
+  "spec": {
+    "name": "flightcrew-characterization",
+    "version": 1,
+    "commit": "ee8c08847e73b20250447836b24333e9e6ca79fb"
+  },
+  "previous_versions": [],
+  "acceptance": "T1",
+  "fixture": "flightdeck/testbench/suites/_checks/fixtures/",
+  "allowed_paths": [
+    "flightdeck/testbench/",
+    "flightdeck/flightcrew/MANIFEST.txt"
+  ],
+  "locked_paths": [
+    "flightdeck/testbench/suites/_checks/",
+    "flightdeck/testbench/fixtures/sample-launch/",
+    "flightdeck/testbench/fixtures/sample-project/",
+    "flightdeck/testbench/fixtures/sample-spec/",
+    "flightdeck/launch/specs/flightcrew-characterization/tests-map.v1.json"
+  ],
+  "run_all": "for d in flightdeck/testbench/suites/_checks/*/; do [ -f \"$d/run.mjs\" ] && echo \"== $d\" && node \"$d/run.mjs\"; done",
+  "baseline": {
+    "commit": "03b462b4cc1e7e3eb0960c5ceb5316e9c8f3f152",
+    "date": "2026-09-15",
+    "note": "observed at 03b462b with the check files and MANIFEST.txt uncommitted: 29 checks fail (T1 T2 T4 T5 T6 T7 T8 T9 T10 T11 T12 T26 T30 T40 T41 T42 T43 T44 T45 T46 T47 T48 T49 T50 T51 T52 T53 T54 T57), 32 pass as world-state, check-apparatus or D3-empty checks; every observed first word matches its expect; the whole baseline ran cold in 248 s, no command near 300 s"
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "acceptance",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/acceptance/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: no case of any suite names flightdeck/flightcrew/hooks/lock-guard.mjs, so breaking it can turn no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/hooks/lock-guard.mjs turns a case naming it red: no case of any suite names flightdeck/flightcrew/hooks/lock-guard.mjs"
+      },
+      "note": "The acceptance check: the reviewer's second act with the part fixed as lock-guard.mjs. The first act (the whole suite green) is proven by the suite-group checks T54 to T61 together, because the whole suite does not fit one command inside fc check's 300-second limit; the stop gate in phase verify therefore holds the turn on this act only, and fc verify and fc launch land hold the rest. Stops inside a 240-second budget and fails naming what was left undone."
+    },
+    {
+      "id": "T2",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "part-coverage",
+      "covers": [
+        "B1"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/part-coverage/run.mjs",
+      "baseline": {
+        "expect": "fail: the thirty existing suites name almost no part by its repository-relative path or its space-separated usage token",
+        "observed": "fail: pass  the inventory holds parts of every category B1 names"
+      },
+      "note": "Reads the parallel name index: every suite run six at a time for its case names, cached under the tree fingerprint, inside a 240-second budget."
+    },
+    {
+      "id": "T3",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "part-coverage-selftest",
+      "covers": [
+        "E1"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/part-coverage-selftest/run.mjs",
+      "baseline": {
+        "expect": "pass: apparatus: the coverage checker and the sweep are locked with this map, so their refusals of an unnamed part, a part whose cases stay green, and a part with no alteration hold before any suite is built",
+        "observed": "pass: pass  a hook added to MANIFEST.txt with no case is reported by its path"
+      },
+      "note": "World-state for the check apparatus: E1 is a behaviour of the coverage check and the sweep, which are written here, not by the build. Passes at baseline by design."
+    },
+    {
+      "id": "T4",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-subcommands-1",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-subcommands-1/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 1 of 6 of the subcommands is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking fc boundary turns a case naming it red: no case names fc boundary"
+      },
+      "note": "Gate only. Chunk 1 of 6 of the subcommands, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T5",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-subcommands-2",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-subcommands-2/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 2 of 6 of the subcommands is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking fc doctor turns a case naming it red: no case names fc doctor"
+      },
+      "note": "Gate only. Chunk 2 of 6 of the subcommands, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T6",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-subcommands-3",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-subcommands-3/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 3 of 6 of the subcommands is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking fc launch end turns a case naming it red: no case names fc launch end"
+      },
+      "note": "Gate only. Chunk 3 of 6 of the subcommands, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T7",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-subcommands-4",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-subcommands-4/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 4 of 6 of the subcommands is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking fc launch note turns a case naming it red: no case names fc launch note"
+      },
+      "note": "Gate only. Chunk 4 of 6 of the subcommands, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T8",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-subcommands-5",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-subcommands-5/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 5 of 6 of the subcommands is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking fc plan render turns a case naming it red: no case names fc plan render"
+      },
+      "note": "Gate only. Chunk 5 of 6 of the subcommands, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T9",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-subcommands-6",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-subcommands-6/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 6 of 6 of the subcommands is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking fc validate turns a case naming it red: no case names fc validate"
+      },
+      "note": "Gate only. Chunk 6 of 6 of the subcommands, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T10",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-hooks-1",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-hooks-1/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 1 of 2 of the hook scripts is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/hooks/boundary-guard.mjs turns a case naming it red: no case names flightdeck/flightcrew/hooks/boundary-guard.mjs"
+      },
+      "note": "Gate only. Chunk 1 of 2 of the hook scripts, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T11",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-hooks-2",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-hooks-2/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 2 of 2 of the hook scripts is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/hooks/session-end.mjs turns a case naming it red: no case names flightdeck/flightcrew/hooks/session-end.mjs"
+      },
+      "note": "Gate only. Chunk 2 of 2 of the hook scripts, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T12",
+      "status": "ok",
+      "kind": "artefact",
+      "class": "deterministic",
+      "name": "output-protocol",
+      "covers": [
+        "B3",
+        "I2",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/output-protocol/run.mjs",
+      "baseline": {
+        "expect": "fail: the existing suites print covers lines naming flightcrew-v1 ids this spec does not carry",
+        "observed": "fail: FAIL  suite bin-boundary follows the suite output protocol: 1 departures from the protocol: bin-boundary: line 13: covers names ids this spec does not carry: B14 B15 B16 B51"
+      }
+    },
+    {
+      "id": "T13",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "output-protocol-selftest",
+      "covers": [
+        "E8"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/output-protocol-selftest/run.mjs",
+      "baseline": {
+        "expect": "pass: apparatus: the protocol reader is locked with this map and reports each malformed, out-of-order or missing line of its fixtures with the suite and line",
+        "observed": "pass: pass  an output that follows the protocol reads clean"
+      },
+      "note": "World-state for the check apparatus: E8 is a behaviour of the protocol check itself. Passes at baseline by design."
+    },
+    {
+      "id": "T14",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "map-kind-class",
+      "covers": [
+        "B5",
+        "C3"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/map-kind-class/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: every check in this map carries one of the seven kinds and one of the four classes",
+        "observed": "pass: pass  every check in the tests map carries a kind and a class"
+      },
+      "note": "World-state: the map is written with a kind and class on every check; VER reads the map only."
+    },
+    {
+      "id": "T15",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "map-kind-class-selftest",
+      "covers": [
+        "E9"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/map-kind-class-selftest/run.mjs",
+      "baseline": {
+        "expect": "pass: apparatus: the map checker refuses fixture maps missing a kind or a class, naming the check",
+        "observed": "pass: pass  a map whose every check carries a kind and a class is admitted"
+      },
+      "note": "World-state for the check apparatus. Passes at baseline by design."
+    },
+    {
+      "id": "T16",
+      "status": "ok",
+      "kind": "artefact",
+      "class": "deterministic",
+      "name": "scenario-declarations",
+      "covers": [
+        "B6",
+        "I3"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/scenario-declarations/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: no scenario set or suite line exists yet, so the check passes empty as D3 allows",
+        "observed": "pass: pass  every scenario set and scenario matches the scenario set interface"
+      },
+      "note": "World-state under D3: holds empty and reads every set and ratio line once they exist."
+    },
+    {
+      "id": "T17",
+      "status": "ok",
+      "kind": "artefact",
+      "class": "deterministic",
+      "name": "trial-records",
+      "covers": [
+        "B7",
+        "I3"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/trial-records/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: no scenario set or suite line exists yet, so the check passes empty as D3 allows",
+        "observed": "pass: pass  every trial folder holds its records and names its tier"
+      },
+      "note": "World-state under D3: holds empty and reads every trial folder once one exists, including the judge: line of each sheet.md."
+    },
+    {
+      "id": "T18",
+      "status": "ok",
+      "kind": "artefact",
+      "class": "deterministic",
+      "name": "rubric-form",
+      "covers": [
+        "B8",
+        "C3"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/rubric-form/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: no scenario set or suite line exists yet, so the check passes empty as D3 allows",
+        "observed": "pass: pass  every judged set's rubric.md is in the rubric guide's form"
+      },
+      "note": "World-state under D3: holds empty and reads every judged set and sheet line once they exist."
+    },
+    {
+      "id": "T19",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "sheet-refusal",
+      "covers": [
+        "B9",
+        "E3",
+        "C3"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sheet-refusal/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "pass: world-state: no scenario set or suite line exists yet, so the check passes empty as D3 allows",
+        "observed": "pass: pass  no suite prints a sheet line, so no sheet is broken"
+      },
+      "note": "World-state under D3. Gate only once judged suites exist: four snapshot copies per judged suite."
+    },
+    {
+      "id": "T20",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "all-inconclusive",
+      "covers": [
+        "E2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/all-inconclusive/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "pass: world-state: no scenario set or suite line exists yet, so the check passes empty as D3 allows",
+        "observed": "pass: pass  no suite prints a ratio line, so no scenario is run all-inconclusive"
+      },
+      "note": "World-state under D3. Gate only once statistical suites exist: one snapshot copy."
+    },
+    {
+      "id": "T21",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "fable-refusal",
+      "covers": [
+        "E4",
+        "C5"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/fable-refusal/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "pass: world-state: no scenario set or suite line exists yet, so the check passes empty as D3 allows",
+        "observed": "pass: pass  no statistical or judged suite reads a scenario set, so no set is given fable"
+      },
+      "note": "World-state under D3. Gate only once sets are read: two snapshot copies."
+    },
+    {
+      "id": "T22",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "fable-cap-records",
+      "covers": [
+        "C5"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/fable-cap-records/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: no scenario set, trial record, ratio line or sheet line names fable; holds vacuously until sets exist",
+        "observed": "pass: pass  no scenario set names fable as its tier or its judge"
+      },
+      "note": "World-state constraint check: it passes before the build because nothing yet names fable."
+    },
+    {
+      "id": "T23",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "threshold-precommitment",
+      "covers": [
+        "C5"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/threshold-precommitment/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: no scenario has trial records, so no declaration can follow its trials; holds vacuously until sets exist",
+        "observed": "pass: pass  every scenario's trials and threshold were committed before its first trial record"
+      },
+      "note": "World-state constraint check."
+    },
+    {
+      "id": "T24",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "defect-markers",
+      "covers": [
+        "B10"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/defect-markers/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: no suite marks a defect yet, so every marker present is sound; holds vacuously",
+        "observed": "pass: pass  every defect marker pins current behaviour and pairs with its defect line"
+      },
+      "note": "World-state rule check over whatever defect markers exist. The spec does not require the suite to mark any defect (see the spec finding on B10 and B11); T25 shows the checker goes red on a bad marker."
+    },
+    {
+      "id": "T25",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "defect-markers-selftest",
+      "covers": [
+        "E7"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/defect-markers-selftest/run.mjs",
+      "baseline": {
+        "expect": "pass: apparatus: the marker checker reports a failing marked case and an unpaired defect line, naming the case",
+        "observed": "pass: pass  a sound defect marker is admitted"
+      },
+      "note": "World-state for the check apparatus. Passes at baseline by design."
+    },
+    {
+      "id": "T26",
+      "status": "ok",
+      "kind": "artefact",
+      "class": "deterministic",
+      "name": "defects-file",
+      "covers": [
+        "B11",
+        "I4"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/defects-file/run.mjs",
+      "baseline": {
+        "expect": "fail: no evidence/defects.md exists in a launch folder whose launch.json names flightcrew-characterization",
+        "observed": "fail: FAIL  the defects file exists in the evidence folder of this spec's launch: no evidence/defects.md in any launch folder whose launch.json names flightcrew-characterization"
+      }
+    },
+    {
+      "id": "T27",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "defects-file-selftest",
+      "covers": [
+        "E10"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/defects-file-selftest/run.mjs",
+      "baseline": {
+        "expect": "pass: apparatus: the defects-file checker reports a printed defect the file does not carry, naming the suite and case",
+        "observed": "pass: pass  the suites of the fixture print two defects"
+      },
+      "note": "World-state for the check apparatus. Passes at baseline by design."
+    },
+    {
+      "id": "T28",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "continuity",
+      "covers": [
+        "B12"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/continuity/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: the thirty earlier suites stand unchanged and still print every case name in the golden",
+        "observed": "pass: pass  the golden holds the case names of thirty earlier suites"
+      },
+      "note": "World-state preservation check: it holds before the build and must keep holding as suites are absorbed or replaced. The golden fixtures/earlier-cases.txt is generated output a human inspects before freezing."
+    },
+    {
+      "id": "T29",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "continuity-selftest",
+      "covers": [
+        "E6"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/continuity-selftest/run.mjs",
+      "baseline": {
+        "expect": "pass: apparatus: the continuity checker reports an earlier case name found neither in the suite nor in the mapping, naming the case",
+        "observed": "pass: pass  names carried verbatim or through a mapping to a printed case are admitted"
+      },
+      "note": "World-state for the check apparatus. Passes at baseline by design."
+    },
+    {
+      "id": "T30",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "runall-hygiene",
+      "covers": [
+        "E5",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/runall-hygiene/run.mjs",
+      "baseline": {
+        "expect": "fail: run-all detects each hygiene fault but its hygiene line names the stray path, not the suite that left it",
+        "observed": "fail: pass  run-all passes a suite set that keeps hygiene"
+      }
+    },
+    {
+      "id": "T31",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "imports-and-packages",
+      "covers": [
+        "C1"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/imports-and-packages/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: every script under flightdeck/testbench/ imports only node built-ins or relative paths and no package file exists under flightdeck/",
+        "observed": "pass: pass  every script of the suite imports only Node built-ins or relative paths and is an ES module"
+      },
+      "note": "World-state constraint check."
+    },
+    {
+      "id": "T32",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "spec-copies",
+      "covers": [
+        "C6"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/spec-copies/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: both copies of spec.v1.json equal the frozen spec and no launch folder has changed since the freeze",
+        "observed": "pass: pass  every copy of spec.v1.json for this spec is byte-identical to the frozen spec"
+      },
+      "note": "World-state constraint check."
+    },
+    {
+      "id": "T33",
+      "status": "ok",
+      "kind": "artefact",
+      "class": "deterministic",
+      "name": "spec-chain-bytes",
+      "covers": [
+        "C7"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/spec-chain-bytes/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: the spec chain, rubrics, spec schema and spec template are unchanged since ee8c088",
+        "observed": "pass: pass  the spec chain, rubrics, spec schema and spec template are byte-identical to the spec commit"
+      },
+      "note": "World-state constraint check."
+    },
+    {
+      "id": "T34",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "no-remote-no-model",
+      "covers": [
+        "C8"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/no-remote-no-model/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: no existing suite pushes, fetches, pulls, calls gh for a remote or starts claude, and no suite script imports a network module",
+        "observed": "pass: pass  no suite run pushes, pulls, fetches, calls gh or starts claude"
+      },
+      "note": "World-state constraint check. The guard shims are on PATH for every suite run the checks make, so a later suite that reaches a remote is refused and recorded."
+    },
+    {
+      "id": "T35",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "defect-references",
+      "covers": [
+        "C9"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/defect-references/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: no defect line is printed yet, so every reference resolves; holds vacuously",
+        "observed": "pass: pass  every defect line references a stated behaviour line that exists"
+      },
+      "note": "World-state rule check over whatever defect lines exist."
+    },
+    {
+      "id": "T36",
+      "status": "ok",
+      "kind": "structural",
+      "class": "deterministic",
+      "name": "hooks-wired",
+      "covers": [
+        "C10"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/hooks-wired/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: fc doctor --target .claude passes and all six hook scripts are commands in .claude/settings.json",
+        "observed": "pass: pass  fc doctor --target .claude exits 0"
+      },
+      "note": "World-state constraint check."
+    },
+    {
+      "id": "T37",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "scope-untouched",
+      "covers": [
+        "scope"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/scope-untouched/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: nothing out of scope changed between ee8c088 and the working tree",
+        "observed": "pass: pass  nothing under flightdeck/flightcrew/ changed except MANIFEST.txt"
+      },
+      "note": "World-state boundary check derived from SC2, SC4, SC6 and SC8."
+    },
+    {
+      "id": "T38",
+      "status": "ok",
+      "kind": "project-rule",
+      "class": "deterministic",
+      "name": "manifest-reflects-testbench",
+      "covers": [
+        "scope"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/manifest-reflects-testbench/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: every file under flightdeck/testbench/, the check files included, is listed in MANIFEST.txt",
+        "observed": "pass: pass  every path MANIFEST.txt lists exists and is not empty"
+      },
+      "note": "World-state check derived from SC2 and SC4: MANIFEST.txt reflects the files present. The check files are listed with the map."
+    },
+    {
+      "id": "T39",
+      "status": "ok",
+      "kind": "structural",
+      "class": "deterministic",
+      "name": "tests-map-valid",
+      "covers": [
+        "I1"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/tests-map-valid/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: this map validates against the tests-map schema and its invariants",
+        "observed": "pass: pass  fc validate tests-map exits 0 on the tests map"
+      },
+      "note": "World-state structure check on the map this spec names as I1."
+    },
+    {
+      "id": "T40",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-roles-1",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-roles-1/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 1 of 2 of the role files is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/crew/critic.md turns a case naming it red: no case names flightdeck/flightcrew/crew/critic.md"
+      },
+      "note": "Gate only. Chunk 1 of 2 of the role files, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T41",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-roles-2",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-roles-2/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 2 of 2 of the role files is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/crew/spec-attacker.md turns a case naming it red: no case names flightdeck/flightcrew/crew/spec-attacker.md"
+      },
+      "note": "Gate only. Chunk 2 of 2 of the role files, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T42",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-schemas-1",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-schemas-1/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 1 of 2 of the schemas is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/schemas/check-result.schema.json turns a case naming it red: no case names flightdeck/flightcrew/schemas/check-result.schema.json"
+      },
+      "note": "Gate only. Chunk 1 of 2 of the schemas, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T43",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-schemas-2",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-schemas-2/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 2 of 2 of the schemas is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/schemas/plan.schema.json turns a case naming it red: no case names flightdeck/flightcrew/schemas/plan.schema.json"
+      },
+      "note": "Gate only. Chunk 2 of 2 of the schemas, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T44",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-templates-1",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-templates-1/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 1 of 4 of the templates is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/templates/constitution-fragment.md turns a case naming it red: no case names flightdeck/flightcrew/templates/constitution-fragment.md"
+      },
+      "note": "Gate only. Chunk 1 of 4 of the templates, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T45",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-templates-2",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-templates-2/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 2 of 4 of the templates is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/templates/kickoff/shape-session.md turns a case naming it red: no case names flightdeck/flightcrew/templates/kickoff/shape-session.md"
+      },
+      "note": "Gate only. Chunk 2 of 4 of the templates, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T46",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-templates-3",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-templates-3/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 3 of 4 of the templates is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/templates/kickoff/task-feature.md turns a case naming it red: no case names flightdeck/flightcrew/templates/kickoff/task-feature.md"
+      },
+      "note": "Gate only. Chunk 3 of 4 of the templates, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T47",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-templates-4",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-templates-4/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 4 of 4 of the templates is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/templates/runlog-entry.template.md turns a case naming it red: no case names flightdeck/flightcrew/templates/runlog-entry.template.md"
+      },
+      "note": "Gate only. Chunk 4 of 4 of the templates, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T48",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-validators-gates-1",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-validators-gates-1/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 1 of 2 of the validators and gates is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/checks/gates/acceptance-gate.mjs turns a case naming it red: no case names flightdeck/flightcrew/checks/gates/acceptance-gate.mjs"
+      },
+      "note": "Gate only. Chunk 1 of 2 of the validators and gates, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T49",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-validators-gates-2",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-validators-gates-2/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 2 of 2 of the validators and gates is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/checks/validators/validate-kickoff.mjs turns a case naming it red: no case names flightdeck/flightcrew/checks/validators/validate-kickoff.mjs"
+      },
+      "note": "Gate only. Chunk 2 of 2 of the validators and gates, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T50",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-workflows-1",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-workflows-1/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 1 of 1 of the workflow scripts is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking flightdeck/flightcrew/workflows/fc-explore.js turns a case naming it red: no case names flightdeck/flightcrew/workflows/fc-explore.js"
+      },
+      "note": "Gate only. Chunk 1 of 1 of the workflow scripts, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T51",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-distributed-1",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-distributed-1/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 1 of 3 of the distributed .claude files is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking .claude/agents/flightcrew/critic.md turns a case naming it red: no case names .claude/agents/flightcrew/critic.md"
+      },
+      "note": "Gate only. Chunk 1 of 3 of the distributed .claude files, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T52",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-distributed-2",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-distributed-2/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 2 of 3 of the distributed .claude files is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking .claude/agents/flightcrew/planner.md turns a case naming it red: no case names .claude/agents/flightcrew/planner.md"
+      },
+      "note": "Gate only. Chunk 2 of 3 of the distributed .claude files, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T53",
+      "status": "ok",
+      "kind": "invariant",
+      "class": "deterministic",
+      "name": "sweep-distributed-3",
+      "covers": [
+        "B2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/sweep-distributed-3/run.mjs",
+      "gate_only": true,
+      "baseline": {
+        "expect": "fail: not every part of chunk 3 of 3 of the distributed .claude files is named by a case by path or space-separated usage token, so a break of an unnamed part turns no naming case red",
+        "observed": "fail: FAIL  breaking .claude/agents/flightcrew/test-builder.md turns a case naming it red: no case names .claude/agents/flightcrew/test-builder.md"
+      },
+      "note": "Gate only. Chunk 3 of 3 of the distributed .claude files, sorted by name. The name index picks the naming suites; one unaltered copy and one altered copy per part, up to four at once, inside a 240-second budget."
+    },
+    {
+      "id": "T54",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "suite-group-1",
+      "covers": [
+        "B4",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/suite-group-1/run.mjs",
+      "baseline": {
+        "expect": "fail: unit-integration fails every-shipped-file-is-listed-in-the-manifest on two files present before this map (the canonical spec copy and manuals/testing/rubric-guide.md)",
+        "observed": "fail: pass  suite bin-boundary of group 1 of 8 exits 0"
+      },
+      "note": "Group 1 of 8: the suites run-all runs, sorted and dealt round-robin, run serially in the checkout. Green together, the eight groups are the whole suite green. Inside a 240-second budget."
+    },
+    {
+      "id": "T55",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "suite-group-2",
+      "covers": [
+        "B4",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/suite-group-2/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: the existing suites of this group pass cleanly today; the group stays green only while the rebuilt suite keeps them green",
+        "observed": "pass: pass  suite bin-check of group 2 of 8 exits 0"
+      },
+      "note": "Group 2 of 8: the suites run-all runs, sorted and dealt round-robin, run serially in the checkout. Green together, the eight groups are the whole suite green. Inside a 240-second budget."
+    },
+    {
+      "id": "T56",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "suite-group-3",
+      "covers": [
+        "B4",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/suite-group-3/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: the existing suites of this group pass cleanly today; the group stays green only while the rebuilt suite keeps them green",
+        "observed": "pass: pass  suite bin-dispatch of group 3 of 8 exits 0"
+      },
+      "note": "Group 3 of 8: the suites run-all runs, sorted and dealt round-robin, run serially in the checkout. Green together, the eight groups are the whole suite green. Inside a 240-second budget."
+    },
+    {
+      "id": "T57",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "suite-group-4",
+      "covers": [
+        "B4",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/suite-group-4/run.mjs",
+      "baseline": {
+        "expect": "fail: crew fails new-roles-match-the-roster (explorer maxTurns 48 where the roster says 12), a defect present at the spec commit",
+        "observed": "fail: pass  suite bin-distribute of group 4 of 8 exits 0"
+      },
+      "note": "Group 4 of 8: the suites run-all runs, sorted and dealt round-robin, run serially in the checkout. Green together, the eight groups are the whole suite green. Inside a 240-second budget."
+    },
+    {
+      "id": "T58",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "suite-group-5",
+      "covers": [
+        "B4",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/suite-group-5/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: the existing suites of this group pass cleanly today; the group stays green only while the rebuilt suite keeps them green",
+        "observed": "pass: pass  suite bin-doctor of group 5 of 8 exits 0"
+      },
+      "note": "Group 5 of 8: the suites run-all runs, sorted and dealt round-robin, run serially in the checkout. Green together, the eight groups are the whole suite green. Inside a 240-second budget."
+    },
+    {
+      "id": "T59",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "suite-group-6",
+      "covers": [
+        "B4",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/suite-group-6/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: the existing suites of this group pass cleanly today; the group stays green only while the rebuilt suite keeps them green",
+        "observed": "pass: pass  suite bin-evidence of group 6 of 8 exits 0"
+      },
+      "note": "Group 6 of 8: the suites run-all runs, sorted and dealt round-robin, run serially in the checkout. Green together, the eight groups are the whole suite green. Inside a 240-second budget."
+    },
+    {
+      "id": "T60",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "suite-group-7",
+      "covers": [
+        "B4",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/suite-group-7/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: the existing suites of this group pass cleanly today; the group stays green only while the rebuilt suite keeps them green",
+        "observed": "pass: pass  suite bin-launch of group 7 of 8 exits 0"
+      },
+      "note": "Group 7 of 8: the suites run-all runs, sorted and dealt round-robin, run serially in the checkout. Green together, the eight groups are the whole suite green. Inside a 240-second budget."
+    },
+    {
+      "id": "T61",
+      "status": "ok",
+      "kind": "behavioural",
+      "class": "deterministic",
+      "name": "suite-group-8",
+      "covers": [
+        "B4",
+        "C2"
+      ],
+      "command": "node flightdeck/testbench/suites/_checks/suite-group-8/run.mjs",
+      "baseline": {
+        "expect": "pass: world-state: the existing suites of this group pass cleanly today; the group stays green only while the rebuilt suite keeps them green",
+        "observed": "pass: pass  suite bin-plan of group 8 of 8 exits 0"
+      },
+      "note": "Group 8 of 8: the suites run-all runs, sorted and dealt round-robin, run serially in the checkout. Green together, the eight groups are the whole suite green. Inside a 240-second budget."
+    }
+  ],
+  "quarantined": [],
+  "unverified": [
+    {
+      "id": "C6",
+      "reason": "The run-log entry C6 places in flightdeck/launch/RUNLOG.md is written by fc launch end, which runs only after review and green evidence; a check requiring the entry would hold the run red before it could end. Unverifiable by design; the human reads it at gate 3. The other parts of C6 are T32.",
+      "decided_by": "human"
+    },
+    {
+      "id": "C4",
+      "reason": "C4 states facts about Claude Code itself (the hook envelope and blocking events, agent file format, the workflow runtime, sessions not scriptable from outside). A check on the suite cannot prove a property of Claude Code; only a live session could, and C8 forbids any suite from starting one. The suite relies on these facts; it does not prove them.",
+      "decided_by": "human"
+    }
+  ],
+  "retired": []
+}

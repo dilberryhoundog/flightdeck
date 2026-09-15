@@ -1,0 +1,3 @@
+{ "checks": [
+  { "id": "T3", "kind": "unit", "class": "fuzzy", "covers": ["B4"], "command": "true", "baseline": { "expect": "pass: x", "observed": "" } }
+] }

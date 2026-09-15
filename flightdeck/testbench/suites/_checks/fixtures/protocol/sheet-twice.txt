@@ -1,0 +1,5 @@
+pass  the sheet is admitted
+covers: B8
+sheet: flightdeck/testbench/fixtures/scenarios/a/sheet.md judge opus
+sheet: flightdeck/testbench/fixtures/scenarios/b/sheet.md judge opus
+1/1 passed

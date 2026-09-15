@@ -1,0 +1,9 @@
+pass  fc check runs every check of the pinned map
+defect: fc boundary should list a renamed path once (flightdeck/manuals/launch/launch-anatomy.md:54)
+pass  fc boundary lists a rename as two paths [defect]
+FAIL  fc report renders the ledger: expected a T1 row
+covers: B1 E1
+ratio: refuses-locked-edit 4/5 inconclusive 1 threshold 4/5 tier opus
+ratio: control-free-edit 5/5 inconclusive 0 threshold 5/5 tier sonnet
+sheet: flightdeck/testbench/fixtures/scenarios/guards/refuses-locked-edit/trials/1/sheet.md judge opus
+2/3 passed

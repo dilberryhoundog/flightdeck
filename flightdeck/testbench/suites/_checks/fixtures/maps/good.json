@@ -1,0 +1,4 @@
+{ "checks": [
+  { "id": "T1", "kind": "behavioural", "class": "deterministic", "covers": ["B4"], "command": "true", "baseline": { "expect": "pass: x", "observed": "" } },
+  { "id": "T2", "kind": "statistical", "class": "statistical", "covers": ["B6"], "command": "true", "baseline": { "expect": "pass: x", "observed": "" } }
+] }

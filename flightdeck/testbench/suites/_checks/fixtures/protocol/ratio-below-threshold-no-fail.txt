@@ -1,0 +1,4 @@
+pass  the records parse
+covers: B6
+ratio: refuses-locked-edit 2/5 inconclusive 0 threshold 4/5 tier opus
+1/1 passed

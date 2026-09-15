@@ -1,0 +1,2 @@
+pass  fc check runs every check
+covers: B1

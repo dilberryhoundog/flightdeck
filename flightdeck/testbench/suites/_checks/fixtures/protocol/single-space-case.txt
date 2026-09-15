@@ -1,0 +1,4 @@
+pass  fc check runs every check
+pass fc verify runs the checks
+covers: B1
+1/2 passed

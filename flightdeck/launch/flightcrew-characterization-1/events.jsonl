@@ -1,0 +1,5 @@
+{"ts":"2026-09-15T13:01:10.550Z","event":"phase","launch":"flightcrew-characterization-1","phase":"plan","source":"fc","detail":{"from":"targets","to":"plan","forced":false}}
+{"ts":"2026-09-15T13:01:34.063Z","event":"Stop","launch":"flightcrew-characterization-1","phase":"plan","source":"hook","session_id":"9b679556-bc7e-41f9-ac82-f82c0eb136de","detail":{}}
+{"ts":"2026-09-15T13:01:37.279Z","event":"SubagentStop","launch":"flightcrew-characterization-1","phase":"plan","source":"hook","session_id":"9b679556-bc7e-41f9-ac82-f82c0eb136de","agent_id":"a8f5be860974f2695","detail":{}}
+{"ts":"2026-09-15T13:04:37.935Z","event":"SubagentStop","launch":"flightcrew-characterization-1","phase":"plan","source":"hook","session_id":"9b679556-bc7e-41f9-ac82-f82c0eb136de","agent_id":"a5c4247f0ac64dded","detail":{}}
+{"ts":"2026-09-15T13:13:56.827Z","event":"SessionStart","launch":"flightcrew-characterization-1","phase":"plan","source":"hook","session_id":"593aa930-7bd0-436a-8e41-9f866de8a148","agent_type":"orchestrator","detail":{}}

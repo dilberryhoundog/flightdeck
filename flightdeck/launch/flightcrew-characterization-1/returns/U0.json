@@ -1,0 +1,24 @@
+{
+  "unit": "U0",
+  "status": "halt",
+  "branch": "flightcrew-characterization-1/contracts",
+  "worktree": "/Users/dylangraham/Projects/flightdeck/.claude/worktrees/agent-a077a665aef6878e4",
+  "spec_refs": [
+    "I2",
+    "I1",
+    "C2",
+    "B3",
+    "B12",
+    "E5",
+    "SC2"
+  ],
+  "checks": [],
+  "artefacts": [],
+  "commits": [],
+  "iterations": 0,
+  "halt": {
+    "kind": "blocked",
+    "detail": "The worktree isolation guard refuses the check command. The command was run exactly as dispatched, `./flightdeck/flightcrew/bin/fc check T12 T30 T38 T28 T31 T54 --launch flightcrew-characterization-1`, with the working directory confirmed as the worktree root (pwd and git rev-parse --show-toplevel both return /Users/dylangraham/Projects/flightdeck/.claude/worktrees/agent-a077a665aef6878e4). The guard's refusal: 'this command runs a string through fc, which can't be verified to stay inside the worktree. Refusing to run it — a worktree-isolated agent's git operations must target its own worktree.' Without a way to run the checks, no change can be proven green. I did not try to get around it by calling the check scripts directly or reading their source."
+  },
+  "notes": "No files were edited and nothing was committed. The only change is the new branch flightcrew-characterization-1/contracts, created from 0c5e8c4 and left in place. To continue, the permission setup must allow a worktree-isolated agent to run ./flightdeck/flightcrew/bin/fc check; then this unit can be dispatched again."
+}

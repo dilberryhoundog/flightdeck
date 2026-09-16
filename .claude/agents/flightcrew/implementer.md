@@ -3,7 +3,7 @@ name: implementer
 description: Builds one unit of a launch inside its own worktree until that unit's checks pass, touching only the paths the unit owns. Use it once per unit in a wave; it returns a worker-return naming its branch, worktree, checks and commits.
 tools: Read, Grep, Glob, Bash, Write, Edit
 model: opus
-#maxTurns: 60
+maxTurns: 200
 isolation: worktree
 permissionMode: acceptEdits
 color: green

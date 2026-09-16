@@ -3,7 +3,7 @@ name: explorer
 description: Answers one narrow, factual question about a codebase or a document with a short cited answer. Use it whenever a spec, plan or dispatch requires a fact that is not stated in it and must be read out of the codebase or a document; it returns an explorer-return JSON object with pointers.
 tools: Read, Grep, Glob, Bash
 model: haiku
-maxTurns: 48
+#maxTurns: 48
 color: cyan
 ---
 

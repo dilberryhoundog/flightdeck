@@ -3,7 +3,7 @@ name: critic
 description: Reviews a launch's diff against the spec it was built from and reports the gaps it finds, never fixing anything. Use once per review pass on a green run; it returns critic-findings with a verdict and one finding per gap.
 tools: Read, Grep, Glob, Bash
 model: fable
-maxTurns: 20
+#maxTurns: 20
 color: red
 ---
 

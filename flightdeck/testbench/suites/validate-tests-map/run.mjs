@@ -2,7 +2,7 @@
 // Usage: node flightdeck/testbench/suites/validate-tests-map/run.mjs   (no arguments; prints pass/FAIL per case and '<n>/<m> passed'; exits 0 or 2)
 
 import path from 'node:path';
-import { suite, mkActiveLaunch, fc, sh, FD, readJson, writeJson, exists, assert, assertExit } from '../../lib/suite-lib.mjs';
+import { suite, defect, mkActiveLaunch, fc, sh, FD, readJson, writeJson, exists, assert, assertExit } from '../../lib/suite-lib.mjs';
 
 const VALIDATOR = path.join(FD, 'flightcrew', 'checks', 'validators', 'validate-tests-map.mjs');
 const SPEC_DIR = ['specs', 'export-html'];
@@ -343,4 +343,35 @@ await suite({ name: 'validate-tests-map', covers: ['B1', 'B2'] }, [
       expectClean(validate(L), 'a map whose uncovered node is listed in unverified');
     },
   },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-tests-map.mjs exits 0 on the pinned sample map',
+    fn: async () => {
+      const result = validateScript(launchWithMap(() => undefined));
+      expectClean(result, 'the pinned sample map, running the validator script as a child process');
+      assert(/^ok: tests-map\.v1\.json is a valid tests map$/m.test(result.stdout), `no ok line on stdout: ${tail(`${result.stdout}${result.stderr}`)}`);
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-tests-map.mjs exits 2 on a map carrying one check id twice',
+    fn: async () => {
+      const result = validateScript(launchWithMap((m) => { m.checks[4].id = 'T4'; }));
+      expectRule(result, 'tm-invariant-2', 'T4');
+    },
+  },
+  defect({
+    id: 'flightdeck/flightcrew/checks/validators/validate-tests-map.mjs judges coverage against the --spec file although the pinned spec sits beside the map',
+    should: 'validate-tests-map.mjs reads the spec.v<version>.json beside the map first and falls back to --spec only when neither that file nor the launch spec path resolves',
+    ref: 'flightdeck/flightcrew/checks/validators/validate-tests-map.mjs:8',
+    fn: async () => {
+      const L = launchWithMap(() => undefined);
+      assert(exists(path.join(L.specDir, SPEC_FILE)), `the pinned spec ${SPEC_FILE} sits beside the map`);
+      const other = readJson(path.join(L.specDir, SPEC_FILE));
+      other.behaviours.push({ id: 'B6', status: 'ok', text: 'A behaviour only the --spec copy carries.' });
+      const otherPath = path.join(L.root, 'elsewhere', SPEC_FILE);
+      writeJson(otherPath, other);
+      expectClean(validateScript(L), 'the pinned map judged against the spec beside it');
+      const result = validateScript(L, ['--spec', otherPath]);
+      expectRule(result, 'tm-coverage', 'B6');
+    },
+  }),
 ]);

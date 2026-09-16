@@ -4,7 +4,7 @@
   "name": "flightcrew-characterization",
   "version": 1,
   "status": "frozen",
-  "commit": "60417f0980d4add09d58d1060792046667fe156e",
+  "commit": "c40c10917e63ef874b33edd853ebf70130c97e0a",
   "reason": "initial: a complete test suite over flightcrew exactly as it stands, built with all seven classes of check and the rules for agent-shaped work, so the coming refactor can lean on it the way any refactor leans on its tests.",
   "previous_versions": [],
   "intent": {

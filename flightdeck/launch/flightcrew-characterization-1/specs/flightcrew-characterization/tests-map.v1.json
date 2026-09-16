@@ -8,7 +8,7 @@
   "spec": {
     "name": "flightcrew-characterization",
     "version": 1,
-    "commit": "60417f0980d4add09d58d1060792046667fe156e"
+    "commit": "c40c10917e63ef874b33edd853ebf70130c97e0a"
   },
   "previous_versions": [],
   "acceptance": "T1",

@@ -197,6 +197,7 @@ flightdeck/testbench/suites/hooks-eventlog/run.mjs
 flightdeck/testbench/suites/hooks-guards/run.mjs
 flightdeck/testbench/suites/hooks-structural/run.mjs
 flightdeck/testbench/suites/hooks-stopgate/run.mjs
+flightdeck/testbench/suites/hooks-decisions/run.mjs
 flightdeck/testbench/suites/bin-check/run.mjs
 flightdeck/testbench/suites/bin-boundary/run.mjs
 flightdeck/testbench/suites/bin-report/run.mjs
@@ -226,6 +227,7 @@ flightdeck/testbench/suites/hook-timing/run.mjs
 flightdeck/testbench/suites/schemas/run.mjs
 flightdeck/testbench/suites/schemas/mini-schema.mjs
 flightdeck/testbench/suites/templates/run.mjs
+flightdeck/testbench/suites/templates-slots/run.mjs
 flightdeck/testbench/suites/manifest/run.mjs
 flightdeck/testbench/suites/workflows/run.mjs
 flightdeck/testbench/suites/workflows/extract.mjs

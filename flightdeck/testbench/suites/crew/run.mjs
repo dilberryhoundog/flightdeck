@@ -242,7 +242,7 @@ await suite({ name: 'crew', covers: ['B1', 'B2'] }, [
   defect({
     id: 'new-roles-match-the-roster',
     should: 'explorer, implementer, verifier and critic carry the roster turns 12, 25, 15 and 20, but explorer, verifier and critic carry no maxTurns and implementer carries 200',
-    ref: `${README_REL}:11`,
+    ref: `${README_REL}:16`,
     fn: () => {
       for (const [name, expected] of Object.entries(ROSTER)) {
         const { fields } = role(name);

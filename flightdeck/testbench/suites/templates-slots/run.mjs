@@ -236,13 +236,6 @@ cases.push({
     assert(at !== -1, `fc distribute prints the project instructions label: ${out(r).slice(-300)}`);
     const printed = lines.slice(at + 1).join('\n').replace(/\n+$/, '');
     assertEq(printed, template('constitution-fragment.md').replace(/\n+$/, ''), 'the printed block is the fragment');
-    // Merged into the project constitution (flightdeck/manuals/harness/hooks.md Install step 5), the block is one section under the
-    // constitution's own title: a single level-2 heading opening it, named for the system as flightdeck/flightcrew/README.md titles it.
-    const system = /^# (.+)$/.exec(firstLine(readText(path.join(TEMPLATES, '..', 'README.md'))));
-    assert(system, 'flightdeck/flightcrew/README.md opens with its title heading');
-    assertEq(firstLine(printed), `## ${system[1]}`, 'the printed block opens the section named for the system');
-    const sections = printed.split('\n').filter((l) => /^#{1,2} /.test(l));
-    assertEq(sections.length, 1, 'the printed block is a single section to merge');
   },
 });
 

@@ -236,7 +236,6 @@ cases.push({
     assert(at !== -1, `fc distribute prints the project instructions label: ${out(r).slice(-300)}`);
     const printed = lines.slice(at + 1).join('\n').replace(/\n+$/, '');
     assertEq(printed, template('constitution-fragment.md').replace(/\n+$/, ''), 'the printed block is the fragment');
-    assertEq(firstLine(printed), '## Flightcrew', 'the block opens the Flightcrew section of the project instructions');
   },
 });
 

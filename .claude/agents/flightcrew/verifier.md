@@ -3,7 +3,7 @@ name: verifier
 description: Re-runs a launch's checks on the merged branch and tries to refute the green result rather than confirm it. Use after every unit has landed and fc verify reports green; it returns a verifier-verdict saying whether the green survived.
 tools: Read, Grep, Glob, Bash
 model: sonnet
-maxTurns: 15
+#maxTurns: 15
 color: orange
 ---
 

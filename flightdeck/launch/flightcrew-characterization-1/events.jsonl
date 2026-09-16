@@ -143,3 +143,4 @@
 {"ts":"2026-09-16T07:58:58.603Z","event":"Stop","launch":"flightcrew-characterization-1","phase":"implement","source":"hook","session_id":"9b679556-bc7e-41f9-ac82-f82c0eb136de","detail":{}}
 {"ts":"2026-09-16T07:59:01.523Z","event":"SubagentStop","launch":"flightcrew-characterization-1","phase":"implement","source":"hook","session_id":"9b679556-bc7e-41f9-ac82-f82c0eb136de","agent_id":"a7591eea519828a69","detail":{}}
 {"ts":"2026-09-16T10:34:12.642Z","event":"Stop","launch":"flightcrew-characterization-1","phase":"implement","source":"hook","session_id":"9b679556-bc7e-41f9-ac82-f82c0eb136de","detail":{}}
+{"ts":"2026-09-16T10:47:57.894Z","event":"launch_end","launch":"flightcrew-characterization-1","phase":"ended","source":"fc","detail":{"outcome":"abandoned","at":"implement"}}

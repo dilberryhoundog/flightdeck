@@ -1,7 +1,0 @@
-{
-  "at": "2026-09-15T15:30:32.601Z",
-  "kind": "budget",
-  "detail": "U0 (contracts, second dispatch) spent its 25-turn budget (ceilings.turns_per_agent 25) and stopped without delivering a worker return, so no return exists to store with fc return worker and no check result was reported. Observed in its worktree /Users/dylangraham/Projects/flightdeck/.claude/worktrees/agent-ac534194b5ef700d4: branch flightcrew-characterization-1/contracts holds one commit, 95a8cae 'U0 contracts: suite output protocol, per-suite run-all hygiene, manifest', changing 31 files (MANIFEST.txt, testbench README.md, lib/suite-lib.mjs, run-all.mjs and 27 suites' run.mjs, all inside U0's paths), plus an uncommitted evidence.html change and an untracked evidence/ folder under the launch folder. Whether T12 T30 T38 T28 T31 T54 are green on that branch is not known. Nothing merged; dispatch stopped.",
-  "phase": "implement",
-  "launch": "flightcrew-characterization-1"
-}

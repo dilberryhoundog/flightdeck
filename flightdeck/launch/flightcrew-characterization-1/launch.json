@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "name": "flightcrew-characterization-1",
-  "status": "active",
-  "phase": "implement",
+  "status": "abandoned",
+  "phase": "ended",
   "created": "2026-09-15",
   "spec": {
     "name": "flightcrew-characterization",
@@ -74,6 +74,6 @@
       "at": null
     }
   },
-  "outcome": null,
-  "ended": null
+  "outcome": "abandoned",
+  "ended": "2026-09-16T10:47:57.893Z"
 }

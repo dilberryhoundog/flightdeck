@@ -56,7 +56,7 @@ function entries() {
     .filter((line) => line !== '' && !line.startsWith('#'));
 }
 
-await suite('unit-integration', [
+await suite({ name: 'unit-integration', covers: ['B1', 'B2'] }, [
   {
     id: 'every-shipped-file-is-listed-in-the-manifest',
     covers: ['I13'],

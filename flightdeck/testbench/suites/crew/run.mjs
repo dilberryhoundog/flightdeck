@@ -41,7 +41,7 @@ function orderedItems(body) {
   return body.split('\n').map((line) => /^\s*\d+[.)]\s+(.*)$/.exec(line)).filter(Boolean).map((m) => m[1].toLowerCase());
 }
 
-await suite('crew', [
+await suite({ name: 'crew', covers: ['B1', 'B2'] }, [
   {
     id: 'every-crew-file-carries-name-description-tools-model',
     covers: ['I10'],

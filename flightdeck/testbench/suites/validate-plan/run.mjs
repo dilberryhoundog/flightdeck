@@ -55,7 +55,7 @@ function expectRefused(result, token, what) {
   assert(named.some((e) => token.test(e.message)), `no error message matches ${token} for ${what}; output: ${tail(out)}`);
 }
 
-await suite('validate-plan', [
+await suite({ name: 'validate-plan', covers: ['B1', 'B2'] }, [
   {
     id: 'positive-sample-plan',
     covers: ['B24'],

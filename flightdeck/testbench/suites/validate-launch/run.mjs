@@ -54,7 +54,7 @@ function expectClean(result, what) {
   assert(errors.length === 0, `unexpected error lines on ${what}: ${tail(out)}`);
 }
 
-await suite('validate-launch', [
+await suite({ name: 'validate-launch', covers: ['B1', 'B2'] }, [
   {
     id: 'positive-sample-launch',
     covers: ['B25'],

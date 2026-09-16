@@ -458,4 +458,4 @@ cases.push({
   },
 });
 
-await suite('hooks-stopgate', cases);
+await suite({ name: 'hooks-stopgate', covers: ['B1', 'B2'] }, cases);

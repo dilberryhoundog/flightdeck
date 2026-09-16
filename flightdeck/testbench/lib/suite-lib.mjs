@@ -1,7 +1,11 @@
-// testbench/lib/suite-lib.mjs — shared helpers for every suite under flightdeck/testbench/suites/: locations, process runners, temp directories, fixture builders and assertions.
-// Usage: import { suite, fc, hook, sh, tmp, mkLaunchRepo, mkActiveLaunch, assert, assertEq, assertMatch, assertIncludes, assertExit } from '../../lib/suite-lib.mjs'; then await suite('<name>', [{ id, covers: ['B1'], fn: async () => {} }]).
+// testbench/lib/suite-lib.mjs — shared helpers for every suite under flightdeck/testbench/suites/: locations, process runners, temp directories, fixture builders, assertions, the case reporter and the defect-case helper.
+// Usage: import { suite, defect, fc, hook, sh, tmp, mkLaunchRepo, mkActiveLaunch, assert, assertEq, assertMatch, assertIncludes, assertExit } from '../../lib/suite-lib.mjs'; then await suite({ name: '<name>', covers: ['B1', 'B2'] }, [{ id, fn: async () => {} }, defect({ id, should, ref, fn })]).
 //
-// Contract (spec I9): a suite prints 'pass  <case>' or 'FAIL  <case>: <reason>' per case, one 'covers: <ids>' line, then '<n>/<m> passed', and exits 0 when every case passed, else 2. It never exits 1 and never crashes: uncaught errors become a FAIL line and exit 2.
+// Contract (spec flightcrew-characterization v1, I2; flightdeck/testbench/README.md): a suite prints 'pass  <case>' or 'FAIL  <case>: <reason>' per case,
+// where a case built by defect() is named '<case> [defect]' and its line is immediately preceded by 'defect: <should> (<ref>)';
+// then one 'covers: <ids>' line, then '<n>/<m> passed', and exits 0 when every case passed, else 2. It never exits 1 and never
+// crashes: an uncaught error becomes a FAIL line for the running case, followed by the covers and count lines, and exit 2.
+// The covers line is the suite's declared covers (default B1 B2), with B10 added when any case is a defect case; a case's own covers field is not read.
 // Every temporary directory comes from tmp() and lives directly under os.tmpdir(); it is removed at exit whatever happens, so run-all's hygiene check sees no new entries.
 // Child processes run with the parent environment minus CLAUDE_PROJECT_DIR, FLIGHTCREW_ROOT and FLIGHTCREW_LAUNCH, so a suite decides explicitly which launch root the thing under test sees; pass env to set them.
 
@@ -56,7 +60,7 @@ function oneLine(error, limit = 800) {
 
 // ── temp directories and cleanup ─────────────────────────────────────────────
 const tmpDirs = new Set();
-const current = { name: null, total: 0, passed: 0, running: false };
+const current = { name: null, covers: ['B1', 'B2'], passed: 0, printed: 0, running: false, case: null };
 let armed = false;
 
 function cleanupTmp() {
@@ -72,8 +76,12 @@ function cleanupTmp() {
 
 function failHard(label, error) {
   try {
-    out(`FAIL  ${label}: ${oneLine(error)}`);
-    if (current.running) out(`${current.passed}/${current.total} passed`);
+    const running = current.case;
+    if (running && running.defectLine) out(running.defectLine);
+    out(`FAIL  ${running ? running.name : label}: ${oneLine(error)}`);
+    current.printed += 1;
+    out(`covers: ${current.covers.join(' ')}`);
+    out(`${current.passed}/${current.printed} passed`);
   } catch {
     // stdout gone; exit code still carries the verdict
   }
@@ -351,6 +359,13 @@ export function assertExit(result, code, msg = 'exit code') {
 }
 
 // ── the suite runner ─────────────────────────────────────────────────────────
+/** The covers every suite over flightcrew's parts declares: B1 (its cases name parts) and B2 (they turn red when a part breaks). */
+export const PART_COVERS = Object.freeze(['B1', 'B2']);
+/** The id added to the covers line of a suite that marks a defect. */
+export const DEFECT_COVERS = 'B10';
+export const DEFECT_MARK = ' [defect]';
+const DEFECT_REF = /^([^\s()]+):([1-9]\d*)$/;
+
 function idCompare(a, b) {
   const pa = /^([A-Za-z]+)(\d*)$/.exec(a) ?? [a, a, ''];
   const pb = /^([A-Za-z]+)(\d*)$/.exec(b) ?? [b, b, ''];
@@ -358,20 +373,60 @@ function idCompare(a, b) {
   return (Number(pa[2]) || 0) - (Number(pb[2]) || 0) || (a < b ? -1 : a > b ? 1 : 0);
 }
 
-/** Runs cases sequentially with a 120 s timeout each, prints the protocol lines, cleans up, and exits 0 or 2. */
-export async function suite(name, cases) {
+/**
+ * A case that pins a defect: flightcrew's behaviour today, asserted by fn, which disagrees with what a manual, header comment or
+ * usage line says. `id` is the case name without its mark; `should` is what the behaviour should be, one line; `ref` is
+ * '<repository-relative path>:<line>' of the stated behaviour (a manual C9 lists, or for a part with no manual a line inside the
+ * part's leading header comment or usage). suite() prints 'defect: <should> (<ref>)' immediately before the '<id> [defect]' case line.
+ * A malformed should or ref, or a ref to a missing file or line, makes the case FAIL unmarked, naming the fault.
+ */
+export function defect({ id, should, ref, fn } = {}) {
+  const bare = String(id ?? '').endsWith(DEFECT_MARK) ? String(id).slice(0, -DEFECT_MARK.length) : String(id ?? '');
+  return { id: bare, defect: { should, ref }, fn };
+}
+
+function defectFault(d) {
+  if (typeof d.should !== 'string' || d.should.trim() === '' || /[\r\n]/.test(d.should)) return 'should is not one non-empty line';
+  const m = DEFECT_REF.exec(String(d.ref ?? ''));
+  if (!m) return `ref '${d.ref}' is not '<path>:<line>'`;
+  let text;
+  try {
+    text = fs.readFileSync(path.join(REPO, m[1]), 'utf8');
+  } catch {
+    return `ref '${d.ref}' names a file that does not exist`;
+  }
+  const lines = text.split('\n');
+  if (lines[lines.length - 1] === '') lines.pop();
+  if (Number(m[2]) > lines.length) return `ref '${d.ref}' names a line past the end of ${m[1]} (${lines.length} lines)`;
+  return null;
+}
+
+/**
+ * Runs cases sequentially with a 120 s timeout each, prints the protocol lines, cleans up, and exits 0 or 2.
+ * `spec` is { name, covers } or a name string (covers PART_COVERS). A case is { id, fn } or a defect() case.
+ */
+export async function suite(spec, cases) {
   arm();
+  const name = typeof spec === 'string' ? spec : spec?.name;
+  const declared = typeof spec === 'object' && spec !== null && Array.isArray(spec.covers) ? spec.covers.map(String) : [...PART_COVERS];
   const list = Array.isArray(cases) ? cases : [];
+  const covers = new Set(declared);
+  if (list.some((c) => c && c.defect)) covers.add(DEFECT_COVERS);
   current.name = name;
-  current.total = list.length;
+  current.covers = [...covers].sort(idCompare);
   current.passed = 0;
+  current.printed = 0;
   current.running = true;
-  const covers = new Set();
   for (const [index, c] of list.entries()) {
     const id = c && typeof c.id === 'string' && c.id ? c.id : `case-${index + 1}`;
-    for (const ref of c?.covers ?? []) covers.add(String(ref));
+    const fault = c && c.defect ? defectFault(c.defect) : null;
+    const marked = Boolean(c && c.defect) && fault === null;
+    const caseName = marked ? `${id}${DEFECT_MARK}` : id;
+    const defectLine = marked ? `defect: ${c.defect.should.trim()} (${c.defect.ref})` : null;
+    current.case = { name: caseName, defectLine };
     let timer = null;
     try {
+      if (fault) throw new Error(`defect helper: ${fault}`);
       if (!c || typeof c.fn !== 'function') throw new Error('case has no fn');
       await Promise.race([
         Promise.resolve().then(() => c.fn()),
@@ -380,16 +435,20 @@ export async function suite(name, cases) {
         }),
       ]);
       current.passed += 1;
-      out(`pass  ${id}`);
+      if (defectLine) out(defectLine);
+      out(`pass  ${caseName}`);
     } catch (error) {
-      out(`FAIL  ${id}: ${oneLine(error)}`);
+      if (defectLine) out(defectLine);
+      out(`FAIL  ${caseName}: ${oneLine(error)}`);
     } finally {
+      current.printed += 1;
+      current.case = null;
       if (timer) clearTimeout(timer);
     }
   }
-  out(`covers: ${[...covers].sort(idCompare).join(' ')}`);
-  out(`${current.passed}/${current.total} passed`);
+  out(`covers: ${current.covers.join(' ')}`);
+  out(`${current.passed}/${current.printed} passed`);
   current.running = false;
   cleanupTmp();
-  process.exit(current.passed === current.total ? 0 : 2);
+  process.exit(current.passed === current.printed ? 0 : 2);
 }

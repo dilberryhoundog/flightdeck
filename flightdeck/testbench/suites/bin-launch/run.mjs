@@ -138,7 +138,7 @@ function checkAll(L) {
 const endedPhaseReport = (patch) => activeAtHead((j) => { j.phase = 'report'; if (patch) patch(j); });
 
 // ── cases ─────────────────────────────────────────────────────────────────────
-await suite('bin-launch', [
+await suite({ name: 'bin-launch', covers: ['B1', 'B2'] }, [
   // ── launch new ──
   {
     id: 'new-creates-launch-folder',

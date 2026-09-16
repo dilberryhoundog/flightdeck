@@ -107,7 +107,7 @@ function fcAt(l, args) {
 }
 
 // ── cases ────────────────────────────────────────────────────────────────────
-await suite('bin-boundary', [
+await suite({ name: 'bin-boundary', covers: ['B1', 'B2'] }, [
   {
     id: 'boundary-lists-changed-marks-outside-excludes-worktrees-and-runs-exits-2',
     covers: ['B14'],

@@ -72,7 +72,7 @@ function step(id, fn) {
   };
 }
 
-await suite('e2e', [
+await suite({ name: 'e2e', covers: ['B1', 'B2'] }, [
   step('setup-temporary-repository', () => {
     state.repo = mkLaunchRepo();
     assert(exists(path.join(state.repo.root, state.repo.specPath)), 'sample spec is at its canonical home');

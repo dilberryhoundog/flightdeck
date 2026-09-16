@@ -58,4 +58,4 @@ const list = cases.map((c) => ({
   },
 }));
 
-await suite('validate-spec', list);
+await suite({ name: 'validate-spec', covers: ['B1', 'B2'] }, list);

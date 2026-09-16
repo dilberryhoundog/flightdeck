@@ -122,7 +122,7 @@ function evidenceIds(l) {
 const LAST_EVENT_TS = '2026-08-30T11:52:00Z';
 
 // ── cases ────────────────────────────────────────────────────────────────────
-await suite('bin-evidence', [
+await suite({ name: 'bin-evidence', covers: ['B1', 'B2'] }, [
   {
     id: 'evidence-html-is-self-contained',
     covers: ['B19'],

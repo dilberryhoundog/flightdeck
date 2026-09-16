@@ -312,4 +312,4 @@ cases.push({
   },
 });
 
-await suite('hooks-eventlog', cases);
+await suite({ name: 'hooks-eventlog', covers: ['B1', 'B2'] }, cases);

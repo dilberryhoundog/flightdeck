@@ -105,7 +105,7 @@ function validateReturn(L, rel, kind) {
   return fc(['validate', 'return', path.join(L.launchDir, rel), '--kind', kind], { cwd: L.root, env: { ...L.env, FLIGHTCREW_LAUNCH: L.launch } });
 }
 
-await suite('schemas', [
+await suite({ name: 'schemas', covers: ['B1', 'B2'] }, [
   ...SCHEMA_FILES.map(([name, node]) => ({
     id: `${name.replace('.schema.json', '')}-schema-parses`,
     covers: [node],

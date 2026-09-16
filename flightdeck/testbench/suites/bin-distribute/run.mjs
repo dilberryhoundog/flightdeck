@@ -54,7 +54,7 @@ function assertApplied(target) {
   assertEq(listFiles(target), expected, 'the target holds exactly the crew and workflow copies (no hook, schema, template or manifest file)');
 }
 
-await suite('bin-distribute', [
+await suite({ name: 'bin-distribute', covers: ['B1', 'B2'] }, [
   {
     id: 'dry-run-lists-and-writes-nothing',
     covers: ['B29'],

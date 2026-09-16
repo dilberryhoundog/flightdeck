@@ -1,28 +1,46 @@
-// testbench/suites/run-all/run.mjs — T23 (spec B33, I9): a copy of testbench/run-all.mjs in a temporary testbench runs every suites/*/run.mjs in name order, prints one line per suite, and exits 0 when all pass and 2 when any exits non-zero; one real suite is checked against the suite protocol.
+// testbench/suites/run-all/run.mjs — a copy of testbench/run-all.mjs in a temporary testbench runs every suites/*/run.mjs in name order, prints one line per suite, exits 0 when all pass and 2 when any exits non-zero, and fails on hygiene naming the suite that left an entry in its temporary directory, wrote into the checkout or changed the checkout's .claude/settings.json; one real suite is checked against the suite output protocol.
 // Usage: node flightdeck/testbench/suites/run-all/run.mjs; exit 0 when every case passes, 2 otherwise.
 //
-// Scope note: the run-all hygiene rule (a suite that leaves an entry under os.tmpdir() or a git status line outside runs/ fails the run) is constraint C7, proved by suites/constraints; B33 fixes only the exit codes and the per-suite lines, so no case here asserts hygiene.
+// Spec flightcrew-characterization v1: C2 (run-all runs every suite, enforces hygiene, exits 0, 1 or 2) and E5 (a hygiene failure names the suite). The case names before the hygiene cases are carried from the earlier suite verbatim.
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { suite, sh, tmp, initRepo, FD, SUITES, writeText, exists, assert, assertEq, assertMatch, assertExit } from '../../lib/suite-lib.mjs';
+import { suite, sh, tmp, initRepo, FD, SUITES, writeText, exists, assert, assertEq, assertMatch, assertIncludes, assertExit } from '../../lib/suite-lib.mjs';
 
 const RUN_ALL = path.join(FD, 'testbench', 'run-all.mjs');
 
 const PASS = "for (const l of ['pass  one', 'pass  two', '2/2 passed']) console.log(l);\nprocess.exit(0);\n";
 const FAIL = "for (const l of ['pass  one', 'FAIL  two: expected failure', '1/2 passed']) console.log(l);\nprocess.exit(2);\n";
 const CRASH = "throw new Error('this suite crashes before printing anything');\n";
+const REPO_OF_SUITE = "import fs from 'node:fs';\nimport os from 'node:os';\nimport path from 'node:path';\nimport { fileURLToPath } from 'node:url';\nconst root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..');\n";
+const LEAK = `${REPO_OF_SUITE}fs.writeFileSync(path.join(os.tmpdir(), 'left-by-a-suite.txt'), 'left\\n');\n${PASS}`;
+const STRAY = `${REPO_OF_SUITE}fs.writeFileSync(path.join(root, 'stray-from-a-suite.txt'), 'stray\\n');\n${PASS}`;
+const SETTINGS = `${REPO_OF_SUITE}fs.appendFileSync(path.join(root, '.claude', 'settings.json'), '\\n');\n${PASS}`;
 
 /** A temporary repository holding flightdeck/testbench/run-all.mjs (copied) and the given fake suites, committed. */
-function mkTestbench(suites) {
+function mkTestbench(suites, files = {}) {
   assert(exists(RUN_ALL), 'flightdeck/testbench/run-all.mjs exists');
   const root = tmp('fc-runall');
   const tb = path.join(root, 'flightdeck', 'testbench');
   fs.mkdirSync(path.join(tb, 'suites'), { recursive: true });
   fs.copyFileSync(RUN_ALL, path.join(tb, 'run-all.mjs'));
   for (const [name, body] of Object.entries(suites)) writeText(path.join(tb, 'suites', name, 'run.mjs'), body);
+  for (const [rel, text] of Object.entries(files)) writeText(path.join(root, rel), text);
   initRepo(root);
   return { root, tb, run: () => sh(`"${process.execPath}" "${path.join(tb, 'run-all.mjs')}"`, { cwd: root }) };
+}
+
+/** Runs a testbench of one clean suite and one offender and asserts the hygiene failure names the offender and not the clean suite. */
+function assertHygieneNames(offender, body, files = {}) {
+  const tb = mkTestbench({ 'suite-a': PASS, [offender]: body }, files);
+  const r = tb.run();
+  assertExit(r, 2, `run-all with ${offender}`);
+  const hygiene = r.stdout.split('\n').filter((l) => l.startsWith('hygiene:'));
+  assertEq(hygiene.length, 1, 'one hygiene line');
+  assertMatch(hygiene[0], /^hygiene: FAIL /, 'the hygiene line says FAIL');
+  assert(hygiene[0].includes(offender), `the hygiene line names ${offender}: ${hygiene[0]}`);
+  assert(!hygiene[0].includes('suite-a'), `the hygiene line does not name the clean suite: ${hygiene[0]}`);
+  return hygiene[0];
 }
 
 function suiteLines(stdout, names) {
@@ -32,7 +50,7 @@ function suiteLines(stdout, names) {
   return { lines, perSuite };
 }
 
-await suite('run-all', [
+await suite({ name: 'run-all', covers: ['C2', 'E5'] }, [
   {
     id: 'runs-every-suite-in-name-order-one-line-each-exit-0',
     covers: ['B33', 'I9'],
@@ -87,6 +105,36 @@ await suite('run-all', [
       const passed = caseLines.filter((l) => l.startsWith('pass  ')).length;
       assertEq(passed, Number(count[1]), 'the count agrees with the pass lines');
       assertEq(r.code, passed === Number(count[2]) ? 0 : 2, 'exit 0 when all pass, else 2');
+    },
+  },
+  {
+    id: 'hygiene-fails-naming-the-suite-that-leaves-a-tmpdir-entry',
+    fn: () => {
+      const line = assertHygieneNames('suite-b-leaks', LEAK);
+      assertIncludes(line, 'left-by-a-suite.txt', 'the hygiene line names the leaked entry');
+    },
+  },
+  {
+    id: 'hygiene-fails-naming-the-suite-that-writes-into-the-checkout',
+    fn: () => {
+      const line = assertHygieneNames('suite-b-writes', STRAY);
+      assertIncludes(line, 'stray-from-a-suite.txt', 'the hygiene line names the stray path');
+    },
+  },
+  {
+    id: 'hygiene-fails-naming-the-suite-that-changes-claude-settings',
+    fn: () => {
+      const line = assertHygieneNames('suite-b-settings', SETTINGS, { '.claude/settings.json': '{}\n' });
+      assertIncludes(line, '.claude/settings.json', 'the hygiene line names the settings file');
+    },
+  },
+  {
+    id: 'hygiene-ok-when-every-suite-keeps-hygiene',
+    fn: () => {
+      const tb = mkTestbench({ 'suite-a': PASS, 'suite-b': PASS }, { '.claude/settings.json': '{}\n' });
+      const r = tb.run();
+      assertExit(r, 0, 'run-all with clean suites');
+      assertIncludes(r.stdout, 'hygiene: ok', 'the hygiene line says ok');
     },
   },
 ]);

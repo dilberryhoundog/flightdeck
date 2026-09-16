@@ -551,4 +551,4 @@ cases.push({
   },
 });
 
-await suite('hooks-guards', cases);
+await suite({ name: 'hooks-guards', covers: ['B1', 'B2'] }, cases);

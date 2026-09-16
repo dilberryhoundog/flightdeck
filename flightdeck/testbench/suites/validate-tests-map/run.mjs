@@ -79,7 +79,7 @@ function asVersion2(map) {
   return 'tests-map.v2.json';
 }
 
-await suite('validate-tests-map', [
+await suite({ name: 'validate-tests-map', covers: ['B1', 'B2'] }, [
   {
     id: 'positive-sample-map',
     covers: ['B23'],

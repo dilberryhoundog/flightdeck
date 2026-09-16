@@ -1,9 +1,9 @@
-// testbench/run-all.mjs — runs every flightdeck/testbench/suites/*/run.mjs in name order, prints one line per suite, checks hygiene, and records testbench/runs/last.json.
+// testbench/run-all.mjs — runs every flightdeck/testbench/suites/*/run.mjs in name order, prints one line per suite, checks hygiene after each suite and charges any fault to that suite, and records testbench/runs/last.json.
 // Usage: node flightdeck/testbench/run-all.mjs [--only <substring>]; exit 0 when every suite passes and hygiene holds, 1 on a usage or environment error (including a missing or empty suites directory: a run with no suites is an environment error, never a vacuous pass), 2 otherwise.
 //
-// Suite protocol (spec I9): a suite takes no arguments, prints 'pass  <case>' or 'FAIL  <case>: <reason>' per case and '<n>/<m> passed' last, and exits 0 or 2.
-// Hygiene (spec C7): every child suite runs with TMPDIR set to a private directory created under os.tmpdir() for this run, so each suite's os.tmpdir() is that directory; any entry left in it after the last suite is a leak and fails the run, and the directory is removed so the set of entry names under the real os.tmpdir() is unchanged. The output of 'git status --porcelain' at the repository root is snapshotted before the first suite and after the last; any new status line outside flightdeck/testbench/runs/ fails the run. Scoping the temp check to a private directory keeps it deterministic when other processes use the machine's temp directory at the same time.
-// Directories starting with '_' or without a run.mjs are skipped. Each suite's full output is kept at testbench/runs/<suite>.log.
+// Suite protocol (spec flightcrew-characterization v1, I2 and C2; flightdeck/testbench/README.md): a suite takes no arguments, prints its case lines, one covers line and '<n>/<m> passed' last, and exits 0 or 2. run-all reads only the final count line and the exit code.
+// Hygiene (spec E5, C2): every child suite runs with TMPDIR set to a private directory created under os.tmpdir() for this run. After each suite, run-all compares three things with their state before that suite: the entries of the private directory (a new entry is a leak; it is removed so the next suite starts clean), the 'git status --porcelain' lines at the repository root outside flightdeck/testbench/runs/ (a new line is a write into the checkout), and the bytes of the checkout's .claude/settings.json (any change, creation or removal). Each fault is charged to the suite that ran just before it was seen, and the closing line 'hygiene: FAIL <suite>: <fault>; …' names every such suite. The private directory is removed at the end, so the set of entry names under the real os.tmpdir() is unchanged.
+// Directories starting with '_' (the locked check apparatus under suites/_checks/) or without a run.mjs are skipped. Each suite's full output is kept at testbench/runs/<suite>.log.
 
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -19,6 +19,7 @@ const RUNS = path.join(HERE, 'runs');
 const RUNS_REL = 'flightdeck/testbench/runs/';
 const SUITE_TIMEOUT_MS = 30 * 60 * 1000;
 const SCRUBBED = ['CLAUDE_PROJECT_DIR', 'FLIGHTCREW_ROOT', 'FLIGHTCREW_LAUNCH'];
+const SETTINGS_REL = '.claude/settings.json';
 
 function out(line) {
   const buf = Buffer.from(`${line}\n`);
@@ -70,13 +71,28 @@ function childEnv() {
   return env;
 }
 
-function snapshot() {
-  const status = spawnSync('git', ['status', '--porcelain'], { cwd: REPO, encoding: 'utf8', env: childEnv(), maxBuffer: 64 * 1024 * 1024 });
-  const lines = status.status === 0 ? status.stdout.split('\n').filter((line) => line !== '') : [];
-  return { git: new Set(lines) };
+function statusPath(line) {
+  let p = line.slice(3);
+  const arrow = p.indexOf(' -> ');
+  if (arrow >= 0) p = p.slice(arrow + 4);
+  if (p.startsWith('"') && p.endsWith('"')) p = p.slice(1, -1);
+  return p;
 }
 
-function leakedEntries() {
+function insideRuns(line) {
+  const p = statusPath(line);
+  return p === RUNS_REL || p === RUNS_REL.slice(0, -1) || p.startsWith(RUNS_REL);
+}
+
+function readSettings() {
+  try {
+    return fs.readFileSync(path.join(REPO, SETTINGS_REL));
+  } catch {
+    return null;
+  }
+}
+
+function tmpEntries() {
   try {
     return fs.readdirSync(privateTmp).sort();
   } catch {
@@ -84,20 +100,50 @@ function leakedEntries() {
   }
 }
 
+/** The state hygiene compares around each suite: git status lines outside runs/, the settings bytes, and the private temp entries. */
+function snapshot() {
+  const status = spawnSync('git', ['status', '--porcelain'], { cwd: REPO, encoding: 'utf8', env: childEnv(), maxBuffer: 64 * 1024 * 1024 });
+  const lines = status.status === 0 ? status.stdout.split('\n').filter((line) => line !== '' && !insideRuns(line)) : [];
+  return { git: new Set(lines), settings: readSettings(), tmp: new Set(tmpEntries()) };
+}
+
 function removePrivateTmp() {
   try {
     fs.rmSync(privateTmp, { recursive: true, force: true });
   } catch {
-    // best effort; a leftover private directory is reported below
+    // best effort; a leftover private directory is reported by main
   }
 }
 
-function statusPath(line) {
-  let p = line.slice(3);
-  const arrow = p.indexOf(' -> ');
-  if (arrow >= 0) p = p.slice(arrow + 4);
-  if (p.startsWith('"') && p.endsWith('"')) p = p.slice(1, -1);
-  return p;
+function sameBytes(a, b) {
+  if (a === null || b === null) return a === b;
+  return a.equals(b);
+}
+
+/** The hygiene faults between two snapshots, as { tmpdir, checkout, settings } lists; leaked entries are removed. */
+function faultsBetween(before, after) {
+  const tmpdir = [...after.tmp].filter((name) => !before.tmp.has(name)).sort();
+  for (const name of tmpdir) {
+    try {
+      fs.rmSync(path.join(privateTmp, name), { recursive: true, force: true });
+    } catch {
+      // best effort; the entry is reported either way
+    }
+  }
+  const settingsChanged = !sameBytes(before.settings, after.settings);
+  const checkout = [...after.git]
+    .filter((line) => !before.git.has(line))
+    .filter((line) => !(settingsChanged && statusPath(line) === SETTINGS_REL))
+    .sort();
+  return { tmpdir, checkout, settings: settingsChanged ? [SETTINGS_REL] : [] };
+}
+
+function describeFaults(f) {
+  const parts = [];
+  if (f.tmpdir.length) parts.push(`left entries in its temporary directory: ${f.tmpdir.join(', ')}`);
+  if (f.checkout.length) parts.push(`wrote into the checkout: ${f.checkout.join(', ')}`);
+  if (f.settings.length) parts.push(`changed the checkout's ${SETTINGS_REL}`);
+  return parts.join('; ');
 }
 
 function listSuites(only) {
@@ -148,34 +194,25 @@ function main() {
   if (suites.length === 0) usage('no suites found under flightdeck/testbench/suites');
 
   privateTmp = fs.mkdtempSync(path.join(os.tmpdir(), 'fc-runall-'));
-  const before = snapshot();
   const results = [];
+  const offenders = [];
+  let before = snapshot();
   for (const name of suites) {
     const r = runSuite(name);
+    const after = snapshot();
+    const faults = faultsBetween(before, after);
+    const described = describeFaults(faults);
+    r.hygiene = { ok: described === '', new_tmpdir_entries: faults.tmpdir, new_status_lines: faults.checkout, settings_changed: faults.settings.length > 0 };
+    if (described !== '') offenders.push(`${name}: ${described}`);
     results.push(r);
     out(`${r.ok ? 'ok' : 'FAIL'} ${r.name} (${r.passed}/${r.total}, ${r.ms} ms)`);
+    before = snapshot();
   }
-  const after = snapshot();
 
-  const newTmp = leakedEntries();
   removePrivateTmp();
-  if (fs.existsSync(privateTmp)) newTmp.push(path.basename(privateTmp));
-  const newGit = [...after.git]
-    .filter((line) => !before.git.has(line))
-    .filter((line) => {
-      const p = statusPath(line);
-      return !(p === RUNS_REL || p === RUNS_REL.slice(0, -1) || p.startsWith(RUNS_REL));
-    })
-    .sort();
-  const hygieneOk = newTmp.length === 0 && newGit.length === 0;
-  if (hygieneOk) {
-    out('hygiene: ok');
-  } else {
-    const parts = [];
-    if (newTmp.length) parts.push(`new tmpdir entries: ${newTmp.join(', ')}`);
-    if (newGit.length) parts.push(`new git status lines: ${newGit.join(', ')}`);
-    out(`hygiene: FAIL ${parts.join('; ')}`);
-  }
+  if (fs.existsSync(privateTmp)) offenders.push(`run-all: could not remove its private temporary directory ${path.basename(privateTmp)}`);
+  const hygieneOk = offenders.length === 0;
+  out(hygieneOk ? 'hygiene: ok' : `hygiene: FAIL ${offenders.join('; ')}`);
 
   const failed = results.some((r) => !r.ok);
   const exit = failed || !hygieneOk ? 2 : 0;
@@ -184,7 +221,7 @@ function main() {
     repo: REPO,
     only,
     suites: results,
-    hygiene: { ok: hygieneOk, new_tmpdir_entries: newTmp, new_status_lines: newGit },
+    hygiene: { ok: hygieneOk, faults: offenders },
     exit,
   };
   try {

@@ -133,6 +133,7 @@ flightdeck/launch/specs/flightcrew-v1/tests-map.v1.json
 flightdeck/launch/specs/flightcrew-v1/tests-map.v2.json
 flightdeck/launch/specs/flightcrew-v1/design.md
 flightdeck/launch/specs/flightcrew-characterization/tests-map.v1.json
+flightdeck/launch/specs/flightcrew-characterization/spec.v1.json
 
 # ── launch: this system's own first run; its evidence and events are not listed
 # because they are rewritten every time a command runs.
@@ -149,6 +150,7 @@ flightdeck/testbench/README.md
 flightdeck/testbench/run-all.mjs
 flightdeck/testbench/runs/.gitignore
 flightdeck/testbench/lib/suite-lib.mjs
+flightdeck/testbench/case-map.json
 flightdeck/testbench/fixtures/sample-project/README.md
 flightdeck/testbench/fixtures/sample-project/scripts/export-invariants.mjs
 flightdeck/testbench/fixtures/sample-project/scripts/export-smoke.mjs
@@ -360,5 +362,6 @@ flightdeck/manuals/spec/spec-conventions.md
 flightdeck/manuals/spec/verification-addendum.md
 flightdeck/manuals/testing/testing-description.md
 flightdeck/manuals/testing/testing-conventions.md
+flightdeck/manuals/testing/rubric-guide.md
 flightdeck/manuals/versioning/spec-versioning.md
 flightdeck/manuals/versioning/tests-map-versioning.md

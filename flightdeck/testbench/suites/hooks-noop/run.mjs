@@ -325,4 +325,4 @@ cases.push({
   },
 });
 
-await suite('hooks-noop', cases);
+await suite({ name: 'hooks-noop', covers: ['B1', 'B2'] }, cases);

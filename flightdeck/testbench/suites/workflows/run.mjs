@@ -27,7 +27,7 @@ function schemaFiles() {
   return fs.readdirSync(SCHEMAS).filter((f) => f.endsWith('.json')).sort().map((f) => ({ name: f, json: readJson(path.join(SCHEMAS, f)) }));
 }
 
-await suite('workflows', [
+await suite({ name: 'workflows', covers: ['B1', 'B2'] }, [
   {
     id: 'passes-node-module-check',
     covers: ['B39'],

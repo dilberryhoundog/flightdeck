@@ -2,7 +2,7 @@
 // Usage: node flightdeck/testbench/suites/validate-plan/run.mjs   (no arguments; prints pass/FAIL per case and '<n>/<m> passed'; exits 0 or 2)
 
 import path from 'node:path';
-import { suite, mkActiveLaunch, fc, sh, FD, readJson, writeJson, exists, assert, assertExit } from '../../lib/suite-lib.mjs';
+import { suite, mkActiveLaunch, fc, sh, FD, readJson, writeJson, readText, writeText, exists, assert, assertExit } from '../../lib/suite-lib.mjs';
 
 const VALIDATOR = path.join(FD, 'flightcrew', 'checks', 'validators', 'validate-plan.mjs');
 const RULE = /^(plan-rule-\d+|required|additionalProperties|enum|type|minItems|pattern|minimum|maximum|minLength)$/;
@@ -43,6 +43,16 @@ const q = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
 /** The validator script itself, run as a program on the plan, in the launch's context (design section 2 names it as the thing under test). */
 function validateScript(L) {
   return sh([process.execPath, VALIDATOR, L.planPath].map(q).join(' '), { cwd: L.root, env: { ...L.env, FLIGHTCREW_LAUNCH: L.launch } });
+}
+
+const KICKOFF_VALIDATOR = path.join(FD, 'flightcrew', 'checks', 'validators', 'validate-kickoff.mjs');
+
+/** validate-kickoff.mjs run as a program on the sample launch's kickoff.md, after an optional rewrite of its text. */
+function kickoffScript(rewrite) {
+  const L = mkActiveLaunch();
+  const file = path.join(L.launchDir, 'kickoff.md');
+  if (rewrite) writeText(file, rewrite(readText(file)));
+  return sh([process.execPath, KICKOFF_VALIDATOR, file].map(q).join(' '), { cwd: L.root, env: { ...L.env, FLIGHTCREW_LAUNCH: L.launch } });
 }
 
 /** The plan must be refused (exit 2) with at least one 'error: … — [<rule>]' line whose message matches token. */
@@ -182,6 +192,38 @@ await suite({ name: 'validate-plan', covers: ['B1', 'B2'] }, [
     fn: async () => {
       const L = launchWithPlan((p) => { delete p.units[1].pilot; });
       expectRefused(validate(L), /pilot|W1/, 'the first parallel wave holding no pilot unit');
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-plan.mjs exits 0 on the sample plan',
+    fn: async () => {
+      const result = validateScript(launchWithPlan());
+      assertExit(result, 0, 'validate-plan.mjs as a child process on the sample plan');
+      assert(/^ok: plan\.json is a valid plan$/m.test(result.stdout), `no ok line on stdout: ${tail(`${result.stdout}${result.stderr}`)}`);
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-plan.mjs exits 2 on a plan with no abandon trigger',
+    fn: async () => {
+      const result = validateScript(launchWithPlan((p) => { p.abandon_triggers = []; }));
+      expectRefused(result, /abandon_triggers/, 'an empty abandon_triggers, run through the validator script');
+      assert(/— \[plan-rule-6\]\s*$/m.test(result.stderr), `no plan-rule-6 error line on stderr: ${tail(result.stderr)}`);
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-kickoff.mjs exits 0 on the sample kickoff',
+    fn: async () => {
+      const result = kickoffScript();
+      assertExit(result, 0, 'validate-kickoff.mjs as a child process on the sample kickoff.md');
+      assert(/^ok: kickoff\.md is a valid kickoff$/m.test(result.stdout), `no ok line on stdout: ${tail(`${result.stdout}${result.stderr}`)}`);
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-kickoff.mjs exits 2 when Roles names an agent with no crew file',
+    fn: async () => {
+      const result = kickoffScript((text) => text.replace('`planner`', '`stowaway`'));
+      assertExit(result, 2, 'validate-kickoff.mjs on a kickoff whose Roles names stowaway');
+      assert(/^error: .*`stowaway`.* — \[kickoff-rule-5\]\s*$/m.test(result.stderr), `no kickoff-rule-5 line naming stowaway: ${tail(result.stderr)}`);
     },
   },
 ]);

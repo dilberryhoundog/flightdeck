@@ -203,6 +203,7 @@ flightdeck/testbench/suites/bin-report/run.mjs
 flightdeck/testbench/suites/bin-evidence/run.mjs
 flightdeck/testbench/suites/bin-runlog/run.mjs
 flightdeck/testbench/suites/bin-plan/run.mjs
+flightdeck/testbench/suites/sub-commands/run.mjs
 flightdeck/testbench/suites/validate-spec/run.mjs
 flightdeck/testbench/suites/validate-spec/cases.mjs
 flightdeck/testbench/suites/validate-spec/README.md

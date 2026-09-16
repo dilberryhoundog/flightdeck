@@ -71,7 +71,7 @@ function expectWarning(result, id, what) {
 
 const IMPRESSION = 'exportProject should be fast and robust, handle large projects gracefully, and produce clean, readable, user-friendly HTML that looks good, works well and feels intuitive in most browsers, with appropriate and reasonable performance.';
 
-await suite('lint-spec', [
+await suite({ name: 'lint-spec', covers: ['B1', 'B2'] }, [
   {
     id: 'positive-sample-spec',
     covers: ['B26'],

@@ -91,4 +91,4 @@ cases.push({
   },
 });
 
-await suite('hook-timing', cases);
+await suite({ name: 'hook-timing', covers: ['B1', 'B2'] }, cases);

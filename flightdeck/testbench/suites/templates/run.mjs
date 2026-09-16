@@ -67,7 +67,7 @@ function split(kickoff) {
   return { header: kickoff.slice(0, i), rest: kickoff.slice(i) };
 }
 
-await suite('templates', [
+await suite({ name: 'templates', covers: ['B1', 'B2'] }, [
   {
     id: 'kickoff-parts-start-with-version-comment',
     covers: ['I11'],

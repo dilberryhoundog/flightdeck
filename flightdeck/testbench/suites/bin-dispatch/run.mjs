@@ -107,7 +107,7 @@ const branchExists = (root, name) => git(root, `rev-parse --verify -q refs/heads
 const mergeInProgress = (root) => exists(path.join(root, '.git', 'MERGE_HEAD'));
 
 // ── cases ────────────────────────────────────────────────────────────────────
-await suite('bin-dispatch', [
+await suite({ name: 'bin-dispatch', covers: ['B1', 'B2'] }, [
   {
     id: 'worker-render-prompt-first-line-and-always-present-nodes',
     covers: ['B27'],

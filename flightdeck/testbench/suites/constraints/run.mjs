@@ -91,7 +91,7 @@ function mkTestbench(suites) {
   return { root, run: () => sh(`"${process.execPath}" "${path.join(tb, 'run-all.mjs')}"`, { cwd: root }) };
 }
 
-await suite('constraints', [
+await suite({ name: 'constraints', covers: ['C1', 'C2', 'C8'] }, [
   {
     id: 'C1-imports-are-node-builtins-or-relative-inside-scope',
     covers: ['C1'],

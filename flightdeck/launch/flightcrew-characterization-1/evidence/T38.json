@@ -1,0 +1,21 @@
+{
+  "id": "T38",
+  "command": "node flightdeck/testbench/suites/_checks/manifest-reflects-testbench/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  every path MANIFEST.txt lists exists and is not empty",
+    "pass  every file under flightdeck/testbench/ is listed in MANIFEST.txt",
+    "covers: scope",
+    "2/2 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 67,
+  "ran_at": "2026-09-15T14:51:11.920Z",
+  "commit": "dc3f13cc5d7a37f19b4ebdc3531b70d47eb479bb",
+  "covers": [
+    "scope"
+  ],
+  "phase": "contracts"
+}

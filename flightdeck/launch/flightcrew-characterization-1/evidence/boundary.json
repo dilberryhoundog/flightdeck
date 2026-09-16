@@ -1,0 +1,130 @@
+{
+  "base": "266b10f239d3191e53a7dacaafc9685d86824403",
+  "changed": [
+    {
+      "path": ".claude/settings.json",
+      "added": 62,
+      "removed": 1
+    },
+    {
+      "path": "dev/workspace/filebox/spec.md",
+      "added": 68,
+      "removed": 0
+    },
+    {
+      "path": "dev/workspace/history/3b316953_flightcrew-core-tests-map-v1.txt",
+      "added": 8977,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/escalation.json",
+      "added": 7,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/events.jsonl",
+      "added": 54,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence.html",
+      "added": 223,
+      "removed": 6
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence/T12.json",
+      "added": 51,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence/T28.json",
+      "added": 51,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence/T30.json",
+      "added": 24,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence/T31.json",
+      "added": 21,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence/T38.json",
+      "added": 21,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence/T54.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence/budget.json",
+      "added": 44,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/evidence/summary.json",
+      "added": 64,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/kickoff.md",
+      "added": 46,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/launch.json",
+      "added": 81,
+      "removed": 3
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/notes.md",
+      "added": 3,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/plan.json",
+      "added": 371,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/plan.md",
+      "added": 46,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/report.md",
+      "added": 47,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/returns/explore-X1.json",
+      "added": 26,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/returns/explore-X2.json",
+      "added": 16,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/flightcrew-characterization-1/returns/explore-X3.json",
+      "added": 19,
+      "removed": 0
+    },
+    {
+      "path": "flightdeck/launch/specs/flightcrew-characterization/tests-map.v1.json",
+      "added": 1,
+      "removed": 1
+    }
+  ],
+  "outside": [
+    ".claude/settings.json",
+    "dev/workspace/filebox/spec.md",
+    "dev/workspace/history/3b316953_flightcrew-core-tests-map-v1.txt"
+  ]
+}

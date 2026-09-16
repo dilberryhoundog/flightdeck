@@ -1,0 +1,21 @@
+{
+  "id": "T31",
+  "command": "node flightdeck/testbench/suites/_checks/imports-and-packages/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 0,
+  "verdict": "pass",
+  "stdout_tail": [
+    "pass  every script of the suite imports only Node built-ins or relative paths and is an ES module",
+    "pass  no package.json, node_modules or lock file exists under flightdeck/",
+    "covers: C1",
+    "2/2 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 75,
+  "ran_at": "2026-09-15T14:51:11.853Z",
+  "commit": "dc3f13cc5d7a37f19b4ebdc3531b70d47eb479bb",
+  "covers": [
+    "C1"
+  ],
+  "phase": "contracts"
+}

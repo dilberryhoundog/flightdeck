@@ -67,7 +67,7 @@
         "T54"
       ],
       "owner": "implementer",
-      "budget_turns": 25,
+      "budget_turns": 60,
       "paths": [
         "flightdeck/testbench/README.md",
         "flightdeck/testbench/run-all.mjs",
@@ -101,7 +101,7 @@
         "T28"
       ],
       "owner": "implementer",
-      "budget_turns": 25,
+      "budget_turns": 60,
       "paths": [
         "flightdeck/testbench/suites/bin-boundary/**",
         "flightdeck/testbench/suites/bin-check/**",
@@ -142,7 +142,7 @@
         "T28"
       ],
       "owner": "implementer",
-      "budget_turns": 20,
+      "budget_turns": 60,
       "paths": [
         "flightdeck/testbench/suites/hooks-eventlog/**",
         "flightdeck/testbench/suites/hooks-guards/**",
@@ -182,7 +182,7 @@
         "T28"
       ],
       "owner": "implementer",
-      "budget_turns": 25,
+      "budget_turns": 60,
       "paths": [
         "flightdeck/testbench/suites/crew/**",
         "flightdeck/testbench/suites/workflows/**"
@@ -210,7 +210,7 @@
         "T28"
       ],
       "owner": "implementer",
-      "budget_turns": 25,
+      "budget_turns": 60,
       "paths": [
         "flightdeck/testbench/suites/schemas/**",
         "flightdeck/testbench/suites/validate-launch/**",
@@ -260,7 +260,7 @@
         "T31"
       ],
       "owner": "implementer",
-      "budget_turns": 25,
+      "budget_turns": 60,
       "paths": [
         "flightdeck/testbench/**",
         "flightdeck/flightcrew/MANIFEST.txt",

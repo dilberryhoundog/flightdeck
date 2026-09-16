@@ -1,0 +1,26 @@
+{
+  "id": "T54",
+  "command": "node flightdeck/testbench/suites/_checks/suite-group-1/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 2,
+  "verdict": "fail",
+  "stdout_tail": [
+    "pass  suite bin-boundary of group 1 of 8 exits 0",
+    "pass  suite bin-report of group 1 of 8 exits 0",
+    "pass  suite hooks-noop of group 1 of 8 exits 0",
+    "FAIL  suite unit-integration of group 1 of 8 exits 0: exit 2: FAIL every-shipped-file-is-listed-in-the-manifest: files under flightcrew/, launch/, manuals/ or testbench/ with no MANIFEST.txt line: expected [], got [\"launch/specs/flightcrew-characterization/spec.v1.json\",\"manuals/testing/rubric-guide.md\"]",
+    "pass  the suites of group 1 of 8 leave no entry in their temporary directory",
+    "pass  the suites of group 1 of 8 leave the checkout's git status unchanged",
+    "covers: B4 C2",
+    "5/6 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 22094,
+  "ran_at": "2026-09-15T14:51:34.015Z",
+  "commit": "dc3f13cc5d7a37f19b4ebdc3531b70d47eb479bb",
+  "covers": [
+    "B4",
+    "C2"
+  ],
+  "phase": "contracts"
+}

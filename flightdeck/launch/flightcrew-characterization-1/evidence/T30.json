@@ -1,0 +1,24 @@
+{
+  "id": "T30",
+  "command": "node flightdeck/testbench/suites/_checks/runall-hygiene/run.mjs",
+  "cwd": "/Users/dylangraham/Projects/flightdeck",
+  "exit": 2,
+  "verdict": "fail",
+  "stdout_tail": [
+    "pass  run-all passes a suite set that keeps hygiene",
+    "FAIL  run-all fails on hygiene naming a suite that writes into the checkout: no hygiene line names bb-writes-checkout: hygiene: FAIL new git status lines: ?? flightdeck/stray-from-a-suite.txt",
+    "FAIL  run-all fails on hygiene naming a suite that leaves a file in the temporary directory: no hygiene line names bb-leaks-tmpdir: hygiene: FAIL new tmpdir entries: left-by-a-suite.txt",
+    "FAIL  run-all fails on hygiene naming a suite that leaves the checkout's settings changed: no hygiene line names bb-changes-settings: hygiene: FAIL new git status lines: M .claude/settings.json",
+    "covers: E5 C2",
+    "1/4 passed"
+  ],
+  "stderr_tail": [],
+  "duration_ms": 7449,
+  "ran_at": "2026-09-15T14:51:11.777Z",
+  "commit": "dc3f13cc5d7a37f19b4ebdc3531b70d47eb479bb",
+  "covers": [
+    "E5",
+    "C2"
+  ],
+  "phase": "contracts"
+}

@@ -49,13 +49,13 @@
     ".sh": "sh -n {file}"
   },
   "ceilings": {
-    "agents": 12,
+    "agents": 20,
     "implementers_concurrent": 4,
-    "turns_per_agent": 25,
+    "turns_per_agent": 75,
     "gate_iterations": 3,
     "stop_blocks": 8,
     "critic_passes": 2,
-    "minutes": 240,
+    "minutes": 640,
     "tokens": null,
     "expected_tokens": null
   },

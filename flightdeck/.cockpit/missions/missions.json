@@ -14,7 +14,5 @@
       "closed": null
     }
   ],
-  "future": [
-    { "title": "Survey run/flightcrew-characterization-2 and learn launch anatomy", "raised_by": "pilot", "raised_on": "2026-09-17", "note": "Depends on P001 approval." }
-  ]
+  "incubator": "incubator/incubator.json"
 }

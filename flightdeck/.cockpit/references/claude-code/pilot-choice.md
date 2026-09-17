@@ -1,8 +1,12 @@
 # Pilot's Choice of Instrument
 
-Decided 2026-09-17. Revisit when agent teams leave experimental status or when a mission needs parallel long-lived crew.
+Decided 2026-09-17, revised the same evening on the commander's order: the teams flag is now set in the pilot's settings. "The env flag is your link to the outside world. Be bold, learn it from the beginning."
 
-## Default: single session dispatching subagents
+## Two instruments, both live
+
+Subagents via the Agent tool for bounded reads and single units. Agent teams for anything parallel or long-lived. The pilot learns teams by using them on real missions, starting with research and review teams as the docs advise.
+
+## Subagents: when and why
 
 The pilot runs as one session and dispatches crew through the Agent tool. Reasons:
 
@@ -16,7 +20,7 @@ The pilot runs as one session and dispatches crew through the Agent tool. Reason
 - A mission needs several crew working in parallel over a long stretch with cross-talk (competing hypotheses, multi-angle review).
 - The commander wants to watch and steer teammates directly in the agent panel.
 
-Requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` and an interactive session. Propose through `base/` before enabling; it is a settings change.
+Enabled by `base/settings/pilot.settings.json`. Interactive sessions only, so teams exist only when the commander invokes the pilot through `base/bin/pilot.sh`. Teammates never enter the cockpit; the guard hook in the pilot's settings applies to the pilot's own tools, and teammates receive an explicit do-not-write rule in their spawn prompt.
 
 ## When to use session messaging
 

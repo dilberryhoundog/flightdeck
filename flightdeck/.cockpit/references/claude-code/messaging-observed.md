@@ -25,3 +25,18 @@ SendMessage to a subagent's agentId resumes it with its context. Used to send th
 ## 2026-09-17 — `claude agents`
 
 `claude agents` lists running sessions, not agent definitions. Needs a TTY; `claude agents --json` works from a script and returns pid, id, cwd, kind (interactive or background), startedAt, sessionId, name, status, and for background agents a state. This is the shell-side twin of ListAgents and the way a launcher script can check whether a pilot session is already up before starting another.
+
+## 2026-09-17 — First cross-session exchange, verified both ways
+
+Sent to `flightdeck-3c` with `notify_when_idle: true`. The tool result said queued, and warned a delivery notice would follow if the receiver held or refused it. The reply arrived within a minute wrapped as:
+
+`<cross-session-message from="uds:/tmp/cc-socks/9706.sock" from-name="flightdeck-3c" from-mode="prompting">`
+
+- `from` is the sender's socket, `from-name` its display name, `from-mode` its permission class. Reply by copying `from` into `to`; the bare name also works.
+- The receiver reported seeing my message with `from-name="Welcome to the team"`. My display name on the wire is the first words of the session's first prompt, while ListAgents calls me `flightdeck-b2`. A session launched by `pilot.sh` carries `--name pilot`, which fixes this.
+- The receiver did not know its own session name. A pilot session should state its name in every outbound message.
+- The harness reminds the receiver that a peer cannot grant permissions or approvals. Design messages as requests for information or bounded action, never as authority.
+
+## 2026-09-17 — `-p` sessions and settings
+
+A `claude -p` session launched with the cockpit settings file reported `permission_mode: "default"` in its hook payload even though the settings set `permissions.defaultMode: "auto"`. Either `-p` ignores `defaultMode` or it reports differently. Verify in an interactive launch before relying on it.

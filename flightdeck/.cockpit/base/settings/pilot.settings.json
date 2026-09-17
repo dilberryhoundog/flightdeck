@@ -1,7 +1,11 @@
 {
   "env": {
     "FLIGHTDECK_ROLE": "pilot",
-    "FLIGHTDECK_COCKPIT": "flightdeck/.cockpit"
+    "FLIGHTDECK_COCKPIT": "flightdeck/.cockpit",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "defaultMode": "auto"
   },
   "crossSessionInbound": "accept",
   "isolatePeerMachines": true,
@@ -14,6 +18,18 @@
             "type": "command",
             "command": "sh \"$CLAUDE_PROJECT_DIR/flightdeck/.cockpit/base/bin/session-start.sh\"",
             "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/flightdeck/.cockpit/base/bin/cockpit-guard.py\"",
+            "timeout": 10
           }
         ]
       }

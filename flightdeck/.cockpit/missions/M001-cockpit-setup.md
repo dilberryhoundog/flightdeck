@@ -31,7 +31,11 @@
 - [x] Learn the `--settings` flag: what it accepts, file path delivery, precedence, what a settings file can carry. Filed in `references/claude-code/settings-and-launch.md`, tested in `launch-tests.md`.
 - [x] Learn ListAgents and SendMessage in practice. Filed in `references/claude-code/messaging-observed.md`. Arrival shape still to observe from a real peer.
 - [x] Build a first toolset: `base/settings/pilot.settings.json`, `base/bin/pilot.sh`, `base/bin/session-start.sh`. Draft until the commander has invoked it.
-- [ ] Questions put to the commander and answers recorded.
+- [x] Questions put to the commander and answers recorded (D002 to D006).
+- [x] Cross-session message exchanged with `flightdeck-3c` in both directions; wrapper shape recorded.
+- [x] Write guard enforcing mandate one, permission mode auto, agent teams flag: all in `base/settings/pilot.settings.json`, tested.
+- [x] Mission incubator opened with three sparks.
+- [ ] Agent teams learned by running one (spark S003; needs an interactive pilot session).
 - [ ] Toolset tested by the commander invoking the pilot.
 
 ## Crew dispatched

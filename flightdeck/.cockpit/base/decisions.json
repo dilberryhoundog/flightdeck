@@ -10,5 +10,11 @@
       "by": "commander",
       "proposal": null
     }
+    ,
+    { "id": "D002", "date": "2026-09-17", "subject": "Cross-session test message", "decision": "Approved. All sessions on the machine are the commander's.", "by": "commander", "proposal": null },
+    { "id": "D003", "date": "2026-09-17", "subject": "Cockpit write rule", "decision": "Enforce mechanically. Implemented as the PreToolUse guard in the pilot's settings.", "by": "commander", "proposal": null },
+    { "id": "D004", "date": "2026-09-17", "subject": "Pilot permission mode", "decision": "auto", "by": "commander", "proposal": null },
+    { "id": "D005", "date": "2026-09-17", "subject": "Agent teams", "decision": "Enable the experimental flag in the pilot's settings now. Learn teams from the beginning.", "by": "commander", "proposal": null },
+    { "id": "D006", "date": "2026-09-17", "subject": "Pilot invocation", "decision": "A launcher script inside the cockpit is fine for now. End game: a launcher inside a HUD page (spark S001).", "by": "commander", "proposal": null }
   ]
 }

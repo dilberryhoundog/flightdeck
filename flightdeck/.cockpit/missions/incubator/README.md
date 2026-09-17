@@ -1,0 +1,13 @@
+# Mission Incubator
+
+Sparks, not missions. The commander gives the pilot very little at first; a spark records it before the picture is clear. Sparks collect momentum as evidence and context attach to them. When one is clear enough to state orders, objectives and a launch, it matures into a mission in the manifest and its spark file moves to `matured/`.
+
+`incubator.json` is the index. Each spark is a markdown file `S###-slug.md`.
+
+## Spark file shape
+
+- Header: id, title, raised by, raised on, heat (cold, warm, hot).
+- The spark: the commander's words or the pilot's observation, near-verbatim.
+- What it would take: the pilot's current best guess, revised as it grows.
+- Momentum: dated notes as context accrues. Newest at the bottom.
+- Matures when: the condition that turns it into a mission.

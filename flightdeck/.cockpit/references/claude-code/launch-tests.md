@@ -24,4 +24,12 @@ Command: `--append-system-prompt-file flightdeck/.cockpit/CLAUDE.md --name pilot
 
 ## Decision
 
-The launcher uses `--settings` for env, messaging policy and hooks, `--append-system-prompt-file` for the persona, `--name pilot` for addressability, and `--add-dir` for the cockpit. No `--agent`: the pilot needs the full tool set and the default prompt. Tool restriction by definition is kept in reserve for crew, not the pilot. See `base/bin/pilot.sh`.
+The launcher uses `--settings` for env (including the agent teams flag), permission mode auto, messaging policy and hooks (session start context, write guard), `--append-system-prompt-file` for the persona, `--name pilot` for addressability, and `--add-dir` for the cockpit. No `--agent`: the pilot needs the full tool set and the default prompt. Tool restriction by definition is kept in reserve for crew, not the pilot. See `base/bin/pilot.sh`.
+
+## T5 — PreToolUse guard from the settings file
+
+`hooks.PreToolUse` with matcher `Write|Edit|MultiEdit|NotebookEdit|Bash` running `base/bin/cockpit-guard.py`. A `-p` session asked to write into the cockpit succeeded; asked to write `flightdeck/guard-test.txt` it was refused with the guard's message, and no file appeared. **Verified.** Exit 2 blocks and the stderr text reaches the model.
+
+Observed payload: `{"session_id","transcript_path","cwd","prompt_id","permission_mode","hook_event_name":"PreToolUse","tool_name","tool_input":{...},"tool_use_id"}`. The Write tool sends an absolute `file_path`.
+
+Limits of the guard: Bash coverage is a heuristic over redirections, `sed -i` and a list of write commands. Scripts passed to `python3` or `node` are not inspected. Invalid hook JSON is allowed through. The mandate still stands as an order; the guard catches the obvious slips.

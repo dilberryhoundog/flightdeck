@@ -1,0 +1,20 @@
+# Auditor findings (Opus), 2026-09-18
+
+A1 to A8 condensed from the idle notification, which was truncated mid-A9. A9 to A16 resent in full on request.
+
+- **A1 (high)** `base/bin/pilot.sh:48` — the check against a second pilot never matches. It greps `"name":"pilot"`, but `claude agents --json` prints `"name": "..."` with a space. Fix: parse with python3 or `grep '"name": *"pilot"'`.
+- **A2 (high)** `base/bin/cockpit-guard.py` — defects confirmed by probe: relative paths resolve against the project dir, not the payload `cwd`, and `cd x &&` is ignored; sed expressions and `$VAR/...` are read as paths; `->` inside quotes is taken for a redirect; commands are split without regard to quotes; `cp` source paths are checked; `git rm`, `git checkout -- file`, `FOO=1 rm`, `find -delete` and `xargs rm` are missed; a non-dict `tool_input` crashes with exit 1, which allows the call. Fix: use the payload cwd, `shlex`, check destinations only, cover git writes, block on internal error.
+- **A3 (high)** The guard applies to teammates too; it blocked the auditor's Bash calls. `notepad/claude-code/pilot-choice.md:23` wrongly says pilot-only. Team crew therefore cannot execute P002 or P003, which need writes outside the cockpit.
+- **A4 (high)** `quarters/pilot/pilot.md:33` "not done until its checklist is ticked and the log says so" contradicts `commander.md:43` and the M001 lesson that the commander closes missions.
+- **A5 (high)** Crew protocol rule 8 not honoured: M001 lists 2 dispatches of at least 6; `crew.json` counts stale; no `general-purpose` role.
+- **A6 (medium)** `crew.json:23` casts `worker` as general hands outside the cockpit, but the worker definition only takes one rendered plan unit. P002 and P003 plan to use it for doc edits. Add a general writer role.
+- **A7 (medium)** Mandate 5 drift: all four JSON manifests say updated 2026-09-17; M001 omits the 09-18 work; `decisions.json` has no 09-18 decisions.
+- **A8 (medium)** `commander.md:21` duplicates D002 to D006 from `decisions.json`. Keep verbatim orders in the dossier and decisions in JSON, linked by id. `decisions.json:12-13` has inconsistent formatting.
+- **A9 (medium)** P001 to P003 will stay "awaiting" indefinitely; S002 already parks P001. Add a `parked` status and ask the commander before using it.
+- **A10 (medium)** `session-start.sh`: line 10 builds log_name from today's date, so a resume on a later day opens a second log; line 16 sorts logs by filename, not time; line 18 counts proposals with a whitespace-dependent grep.
+- **A11 (medium)** The session start order is stated twice and the lists differ (`CLAUDE.md:3` and `:47-51`). Keep one list.
+- **A12 (medium, check against the docs)** A subdirectory CLAUDE.md loads when an agent reads files there, so crew reading the cockpit may receive "You are the pilot". Candidate fix: move the persona to `base/pilot-prompt.md` and leave a short cockpit CLAUDE.md telling other readers they are crew.
+- **A13 (medium)** `notepad/team/README.md` contradicts records/README (filing in the pilot's own words) and the crew protocol (cockpit always off limits). Point to CLAUDE.md instead.
+- **A14 (low)** Stale indexes and references: records/claude-code/README (misses settings-and-launch.md, title still "References"), notepad README (T1-T6, should be T1-T8), settings README (no model or effortLevel), bin README ("POSIX sh, no dependencies", but the guard is Python), pilot.md:42, today's log line 35 (wrong reading path), logs README time-heading format not followed.
+- **A15 (low)** Tracked `base/bin/__pycache__/*.pyc`; model set in both settings and pilot.sh; `--add-dir` redundant; pilot.sh finds the root from the cwd, not the script path; directory conventions (`missions/completed/`, `incubator/matured/` referenced but missing, `base/proposals/done/` exists).
+- **A16 (medium)** Gaps: (a) `pilot.sh resume` never tested, and `--name` may not persist, so `--resume pilot` may fail; (b) no end-of-session check, and the log index entry is only added at session end; (c) no team-run template (brief skeleton, roster section, shutdown checklist); (d) CLI version not printed per session.

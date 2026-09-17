@@ -35,13 +35,15 @@
 - [x] Cross-session message exchanged with `flightdeck-3c` in both directions; wrapper shape recorded.
 - [x] Write guard enforcing mandate one, permission mode auto, agent teams flag: all in `base/settings/pilot.settings.json`, tested.
 - [x] Mission incubator opened with three sparks.
-- [ ] Agent teams learned by running one (spark S003; needs an interactive pilot session).
+- [ ] Agent teams learned by running one (spark S003). First team spawned 2026-09-18.
 - [ ] Toolset tested by the commander invoking the pilot.
 
 ## Crew dispatched
 
 - 2026-09-17 — harness-guide (`claude-code-guide`): research agent teams, session messaging, subagents. Returned. Filed.
 - 2026-09-17 — explorer (`Explore`): survey flightcrew, launch, testbench, manuals, agents, archives, git history. Returned. Filed as `notepad/flightcrew/survey-2026-09-17.md` with digest `state-2026-09-17.md`.
+- 2026-09-18 — explorer (`general-purpose`, Sonnet, unnamed subagent): sort `references/` into official, scratch and mixed. Returned. Plan verified; it misclassed `cc.keep` and missed two embedded scratch passages.
+- 2026-09-18 — first agent team (S003), commander's order: `auditor` (general-purpose, Opus) cockpit cleanup suggestions; `docs-scout` (claude-code-guide, Sonnet) official best practices; `red-team` (adversary, Sonnet) attacks both. Auditor and scout message red-team. Returned and shut down. Manifest C006 to C008; all dispatches backfilled in `logs/crew-manifest.json` as C001 to C008.
 
 ## Outcome
 

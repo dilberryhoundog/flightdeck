@@ -30,14 +30,14 @@ Facts behind these rules are in `records/claude-code/agent-teams.md` and `subage
 5. **Verify before acting.** A crew report is model output. Check its claims against the files before moving, filing or reporting anything.
 6. **File to the notepad first.** Crew reports land in `notepad/`. Promotion to `records/` follows `records/README.md`.
 7. **Small teams, shut down when done.** Three teammates at most until a team run has shown more is worth it. One team per session; teammates do not survive `pilot.sh resume`.
-8. **Record the dispatch.** Every dispatch goes in the mission file's crew section and the crew role's dossier under `## Observed`.
+8. **Record the dispatch.** Every dispatch gets an entry in `logs/crew-manifest.json` when it is spawned, completed when it returns: type, model, mode, purpose, access, outcome and the pilot's verification. The mission file's crew section points at the manifest ids.
 
 ## Layout
 
 - `cockpit.keep` — the commander's founding orders for this post. Do not edit.
 - `quarters/` — identities: `pilot/` (who I am), `commander/` (who I serve), `crew/` (dossiers on each crew role).
 - `missions/` — `missions.json` manifest, one open markdown per mission in the root, `completed/` for finished ones, `incubator/` for sparks that are not yet missions.
-- `logs/` — the pilot's log. One file per session, `YYYY-MM-DD_<session>.md`, newest entries at the bottom. `index.json` lists the files with their session ids.
+- `logs/` — the pilot's log. One file per session, `YYYY-MM-DD_<session>.md`, newest entries at the bottom. `index.json` lists the files with their session ids. `crew-manifest.json` records every crew dispatch.
 - `base/` — base of operations. Proposals awaiting the commander's approval, the record of decisions, the pilot's settings file and the scripts that launch and guard the pilot session.
 - `records/` — the source of truth that lasts across sessions. Official docs with named sources, and codebase findings only when a specialist teammate researched them for a purpose. Protect it; see `records/README.md`.
 - `notepad/` — scratch: test runs, observations, opinions, working notes that probably won't matter in a few sessions. Nothing here is authoritative. The commander also permits scratch in the `.claude` folder, a side room to the cockpit.

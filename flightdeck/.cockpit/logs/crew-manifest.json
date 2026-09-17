@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "updated": "2026-09-18",
+  "fields": {
+    "id": "C### in dispatch order",
+    "date": "YYYY-MM-DD, local",
+    "session": "first eight characters of the pilot's session id",
+    "mission": "mission or spark id",
+    "mode": "subagent (no name, one report) | teammate (named, mailbox) | fork",
+    "name": "teammate name, null for an unnamed subagent",
+    "agent_type": "subagent_type passed to the Agent tool",
+    "model": "model named in the spawn; null if not recorded",
+    "purpose": "one line: what the crew member was sent to do",
+    "access": "read and write scope granted in the brief",
+    "delivery": "how the result came back and to whom",
+    "outcome": "returned | truncated | failed | shut down",
+    "verified": "the pilot's check of the report: what held, what was wrong",
+    "filed": "where the report was filed",
+    "cost": "tokens, tool uses or duration when the harness reported them; null otherwise"
+  },
+  "dispatches": [
+    { "id": "C001", "date": "2026-09-17", "session": "a61606de", "mission": "M001", "mode": "subagent", "name": null, "agent_type": "claude-code-guide", "model": null, "purpose": "Research agent teams, session messaging, fork agents and worktree isolation from official docs.", "access": "web and docs; no writes", "delivery": "final report to pilot", "outcome": "returned", "verified": "Sourced facts with versions; not individually tested.", "filed": "records/claude-code/agent-teams.md, session-messaging.md, subagents.md", "cost": null },
+    { "id": "C002", "date": "2026-09-17", "session": "a61606de", "mission": "M001", "mode": "subagent", "name": null, "agent_type": "Explore", "model": null, "purpose": "Survey flightcrew, launch, testbench, manuals, agents, archives and git history.", "access": "repo read, cockpit excluded; no writes", "delivery": "final report to pilot", "outcome": "returned", "verified": "Not checked in depth.", "filed": "notepad/flightcrew/survey-2026-09-17.md", "cost": null },
+    { "id": "C003", "date": "2026-09-17", "session": "a61606de", "mission": "M001", "mode": "subagent", "name": null, "agent_type": "claude-code-guide", "model": null, "purpose": "Research the --settings flag, launch flags, agent definitions and resume behaviour.", "access": "web and docs; no writes", "delivery": "final report to pilot", "outcome": "returned", "verified": "Flat hook shape claim was wrong (caught by test T2). Its --agent replaces-prompt claim was right (T7), though T3 wrongly doubted it.", "filed": "records/claude-code/settings-and-launch.md", "cost": null },
+    { "id": "C004", "date": "2026-09-17", "session": "a61606de", "mission": "M001", "mode": "subagent", "name": null, "agent_type": "claude-code-guide", "model": null, "purpose": "Second, in-depth pass on agent teams docs.", "access": "web and docs; no writes", "delivery": "final report to pilot", "outcome": "returned", "verified": "Its no-TeamCreate claim held in the 2026-09-18 team run.", "filed": "records/claude-code/agent-teams.md", "cost": null },
+    { "id": "C005", "date": "2026-09-18", "session": "8e74fffb", "mission": "M001", "mode": "subagent", "name": null, "agent_type": "general-purpose", "model": "sonnet", "purpose": "Sort references/ into official, scratch and mixed, with a move plan.", "access": "read records/ only (commander authorised); no writes", "delivery": "final report to pilot", "outcome": "returned", "verified": "Mostly right. Misclassed the commander's cc.keep as scratch; missed two scratch passages inside official files.", "filed": "applied as moves; report not kept", "cost": "74k tokens, 10 tool uses, 113s" },
+    { "id": "C006", "date": "2026-09-18", "session": "8e74fffb", "mission": "S003", "mode": "teammate", "name": "auditor", "agent_type": "general-purpose", "model": "opus", "purpose": "Suggest cleanup and improvement opportunities inside the cockpit.", "access": "read whole cockpit (commander authorised); no writes", "delivery": "SendMessage to red-team and final report to pilot; idle result truncated at A9, resent on request", "outcome": "shut down", "verified": "A1, A2 bypasses, A3 text, A4 and A15 pyc confirmed by the pilot. Red-team: 11 stand, 3 weakened, A15 mostly falls.", "filed": "notepad/team-run-2026-09-18/auditor.md", "cost": null },
+    { "id": "C007", "date": "2026-09-18", "session": "8e74fffb", "mission": "S003", "mode": "teammate", "name": "docs-scout", "agent_type": "claude-code-guide", "model": "sonnet", "purpose": "Find official Anthropic best practices bearing on cockpit cleanup.", "access": "read CLAUDE.md, records README, settings, pilot.sh (commander authorised); web; no writes", "delivery": "SendMessage to red-team and final report to pilot", "outcome": "shut down", "verified": "All six carry URLs. S4 sandbox snippet extrapolated allowWrite and ignores .git writes; S1 unclear for an appended prompt file. Missed the subdirectory CLAUDE.md hazard on the page it cited.", "filed": "notepad/team-run-2026-09-18/docs-scout.md", "cost": null },
+    { "id": "C008", "date": "2026-09-18", "session": "8e74fffb", "mission": "S003", "mode": "teammate", "name": "red-team", "agent_type": "adversary", "model": "sonnet", "purpose": "Attack auditor and docs-scout findings; verdict and ranked actions.", "access": "read cockpit (commander authorised); web to check claims; no writes", "delivery": "waited for two teammate messages; final report to pilot, truncated at A12, resent on request", "outcome": "shut down", "verified": "Checked files and fetched docs itself. Confirmed A12 from docs. Caught the A5 staleness and the S4 extrapolation. Did not answer the S1 append-file or S4 .git questions.", "filed": "notepad/team-run-2026-09-18/red-team.md", "cost": null }
+  ]
+}

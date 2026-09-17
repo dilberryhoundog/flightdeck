@@ -14,4 +14,4 @@ Name the features, demand sources per fact, demand "not documented" over guesses
 
 ## Improvements
 
-- Second dispatch (settings research) returned two wrong claims: a flat hook shape that does not fire, and that `--agent` replaces the system prompt. Both caught by test. Rule: any harness-guide claim the pilot will build on gets a throwaway `claude -p --model haiku` test first.
+- Second dispatch (settings research) returned two wrong claims: a flat hook shape that does not fire (caught by test). Its claim that `--agent` replaces the system prompt was doubted by test T3 but confirmed by token measurement T7 on 2026-09-18. Rule: any harness-guide claim the pilot will build on gets a throwaway `claude -p --model haiku` test first.

@@ -1,41 +1,37 @@
 {
   "version": 1,
-  "updated": "2026-09-17",
+  "updated": "2026-09-18",
   "roster": [
     {
       "role": "explorer",
       "agent_type": "Explore",
       "dossier": "explorer.md",
-      "purpose": "Read-only survey of repo terrain. Returns conclusions, not file dumps.",
-      "dispatched": 1
+      "purpose": "Read-only survey of repo terrain. Returns conclusions, not file dumps."
     },
     {
       "role": "harness-guide",
       "agent_type": "claude-code-guide",
       "dossier": "harness-guide.md",
-      "purpose": "Answers questions about Claude Code, the Agent SDK and the API from official docs.",
-      "dispatched": 1
+      "purpose": "Answers questions about Claude Code, the Agent SDK and the API from official docs."
     },
     {
       "role": "worker",
       "agent_type": "worker",
       "dossier": "worker.md",
-      "purpose": "Implements exactly one unit against pre-written checks. The pilot's hands outside the cockpit.",
-      "dispatched": 0
+      "purpose": "Implements exactly one unit against pre-written checks. The pilot's hands outside the cockpit."
     },
     {
       "role": "reviewer",
       "agent_type": "reviewer",
       "dossier": "reviewer.md",
-      "purpose": "Judges finished work against a frozen spec from a fresh context.",
-      "dispatched": 0
+      "purpose": "Judges finished work against a frozen spec from a fresh context."
     },
     {
       "role": "adversary",
       "agent_type": "adversary",
       "dossier": "adversary.md",
-      "purpose": "Attacks a document against stated criteria and returns ranked findings.",
-      "dispatched": 0
+      "purpose": "Attacks a document against stated criteria and returns ranked findings."
     }
-  ]
+  ],
+  "dispatches": "../../logs/crew-manifest.json"
 }

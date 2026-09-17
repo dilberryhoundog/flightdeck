@@ -6,4 +6,5 @@ Scratch space. Nothing here is authoritative and anything may be deleted. Notepa
 - `claude-code/messaging-observed.md` — observations of live ListAgents and SendMessage traffic.
 - `claude-code/pilot-choice.md` — the pilot's choice of instruments and the launcher implication.
 - `flightcrew/` — first survey of the flightcrew system (2026-09-17), digest and opinion, awaiting relevance.
+- `team-run-2026-09-18/` — first agent team: auditor and docs-scout findings, red-team verdicts, observations of team mechanics.
 - `team/` — the pilot's working practices for staffing and dispatching crew.

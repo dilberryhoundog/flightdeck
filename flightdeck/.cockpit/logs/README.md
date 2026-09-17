@@ -4,4 +4,8 @@ One file per session, `YYYY-MM-DD_<session>.md`, where `<session>` is the first 
 
 Entry shape: `## HH:MM — M### — short title`, then what happened, what changed, what is next. Facts, not narrative.
 
+## Crew manifest
+
+`crew-manifest.json` records every crew dispatch, subagent or teammate: type, model, mode, purpose, access, delivery, outcome, the pilot's verification of the report, where it was filed and cost. Field meanings are in the file. Entries are added at spawn and completed on return. Over time it shows which crew shapes work; a shape that recurs and performs is recruited into `quarters/crew/` with a dossier.
+
 Finding the session id: the SessionStart hook payload carries `session_id`, and `claude agents --json` lists it for running sessions. The hook prints it into the opening context as `[cockpit] session=...`.

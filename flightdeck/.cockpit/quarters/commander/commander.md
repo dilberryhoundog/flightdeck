@@ -29,6 +29,8 @@ Recorded verbatim or near-verbatim from the commander. Newest at the bottom.
 - 2026-09-18 — On the launcher: "your launcher your fix. make it work." On records: flightcrew understanding stays in records. "Protect your records, they are source of truth, lasting across many sessions. The notepad stuff for things that probably won't matter in a few sessions."
 - 2026-09-18 — On records: "every good pilot protects their records. A source is good for official documentation. but for codebase sources... ensure only well researched (by special teammates) sources go in there for a purpose." `records/flightcrew/` is for learnings to come; first-look surveys stay in the notepad.
 - 2026-09-18 — "Promotion from notepad into records is the pathway. Accumulation of notepad entries may guide the creation of a researched record." Asked for the agent team protocol in CLAUDE.md.
+- 2026-09-18 — Order: spawn an Opus teammate to suggest cleanup and improvements inside the cockpit, a Sonnet teammate to search official Anthropic docs for best practices bearing on cleanup, and a third teammate as adversary to their findings. "This will test the function." Note: "flightcrew is the foundations of an orchestration system from claude code best practices. this is why the cockpit and your role exists."
+- 2026-09-18 — Asked for a manifest of teammate invocations (type, model, purpose and more) to build a picture of teammate shapes over time. Not in quarters: quarters describes individuals, recruited after they make repeated appearances in the manifest.
 
 ## Preferences
 

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-17",
+  "updated": "2026-09-18",
   "decisions": [
     {
       "id": "D001",
@@ -9,12 +9,86 @@
       "decision": "The pilot starts fresh. Prior mission files are not read.",
       "by": "commander",
       "proposal": null
+    },
+    {
+      "id": "D002",
+      "date": "2026-09-17",
+      "subject": "Cross-session test message",
+      "decision": "Approved. All sessions on the machine are the commander's.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D003",
+      "date": "2026-09-17",
+      "subject": "Cockpit write rule",
+      "decision": "Enforce mechanically. Implemented as the PreToolUse guard in the pilot's settings.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D004",
+      "date": "2026-09-17",
+      "subject": "Pilot permission mode",
+      "decision": "auto",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D005",
+      "date": "2026-09-17",
+      "subject": "Agent teams",
+      "decision": "Enable the experimental flag in the pilot's settings now. Learn teams from the beginning.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D006",
+      "date": "2026-09-17",
+      "subject": "Pilot invocation",
+      "decision": "A launcher script inside the cockpit is fine for now. End game: a launcher inside a HUD page (spark S001).",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D007",
+      "date": "2026-09-18",
+      "subject": "Pilot model and effort",
+      "decision": "Pilot's launcher and settings are the pilot's to fix. Fable at medium effort, pinned in settings and on resume.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D008",
+      "date": "2026-09-18",
+      "subject": "Records and notepad",
+      "decision": "references/ renamed records/. Records are the protected source of truth across sessions: official docs with sources, and codebase findings only from purpose-led specialist research. Promotion from the notepad is the pathway in. Scratch goes in notepad/ or the .claude side room.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D009",
+      "date": "2026-09-18",
+      "subject": "Crew protocol and crew manifest",
+      "decision": "Crew protocol kept with the pilot's instructions. Every dispatch recorded in logs/crew-manifest.json; quarters/crew recruits from recurring shapes in the manifest.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D010",
+      "date": "2026-09-18",
+      "subject": "First agent team findings",
+      "decision": "Pilot's work: fix pilot.sh duplicate check (A1) and guard bypasses (A2); A3, A4, the stale-index batch and the sandbox finding at the pilot's discretion.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D011",
+      "date": "2026-09-18",
+      "subject": "Cockpit CLAUDE.md and pilot quarters",
+      "decision": "CLAUDE.md is folder instructions for any agent arriving in the cockpit: purpose, rules, how to find things. The pilot's persona moves into quarters/pilot (identity, job description), structured at the pilot's choice.",
+      "by": "commander",
+      "proposal": null
     }
-    ,
-    { "id": "D002", "date": "2026-09-17", "subject": "Cross-session test message", "decision": "Approved. All sessions on the machine are the commander's.", "by": "commander", "proposal": null },
-    { "id": "D003", "date": "2026-09-17", "subject": "Cockpit write rule", "decision": "Enforce mechanically. Implemented as the PreToolUse guard in the pilot's settings.", "by": "commander", "proposal": null },
-    { "id": "D004", "date": "2026-09-17", "subject": "Pilot permission mode", "decision": "auto", "by": "commander", "proposal": null },
-    { "id": "D005", "date": "2026-09-17", "subject": "Agent teams", "decision": "Enable the experimental flag in the pilot's settings now. Learn teams from the beginning.", "by": "commander", "proposal": null },
-    { "id": "D006", "date": "2026-09-17", "subject": "Pilot invocation", "decision": "A launcher script inside the cockpit is fine for now. End game: a launcher inside a HUD page (spark S001).", "by": "commander", "proposal": null }
   ]
 }

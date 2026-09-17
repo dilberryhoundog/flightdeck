@@ -1,9 +1,38 @@
 {
   "version": 1,
-  "updated": "2026-09-17",
+  "updated": "2026-09-18",
   "sparks": [
-    { "id": "S001", "title": "Launcher inside a HUD page", "file": "S001-hud-launcher.md", "raised_by": "commander", "raised_on": "2026-09-17", "heat": "warm" },
-    { "id": "S002", "title": "Learn launch anatomy from run/flightcrew-characterization-2", "file": "S002-learn-launch-anatomy.md", "raised_by": "pilot", "raised_on": "2026-09-17", "heat": "warm" },
-    { "id": "S003", "title": "First agent team, run from the pilot's seat", "file": "S003-first-agent-team.md", "raised_by": "commander", "raised_on": "2026-09-17", "heat": "hot" }
+    {
+      "id": "S001",
+      "title": "Launcher inside a HUD page",
+      "file": "S001-hud-launcher.md",
+      "raised_by": "commander",
+      "raised_on": "2026-09-17",
+      "heat": "warm"
+    },
+    {
+      "id": "S002",
+      "title": "Learn launch anatomy from run/flightcrew-characterization-2",
+      "file": "S002-learn-launch-anatomy.md",
+      "raised_by": "pilot",
+      "raised_on": "2026-09-17",
+      "heat": "warm"
+    },
+    {
+      "id": "S003",
+      "title": "First agent team, run from the pilot's seat",
+      "file": "S003-first-agent-team.md",
+      "raised_by": "commander",
+      "raised_on": "2026-09-17",
+      "heat": "ran"
+    },
+    {
+      "id": "S004",
+      "title": "OS sandbox as a second write fence",
+      "file": "S004-os-sandbox-write-fence.md",
+      "raised_by": "pilot",
+      "raised_on": "2026-09-18",
+      "heat": "cool"
+    }
   ]
 }

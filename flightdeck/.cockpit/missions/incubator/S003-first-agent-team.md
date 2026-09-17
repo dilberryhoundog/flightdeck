@@ -1,7 +1,7 @@
 # S003 — First agent team, run from the pilot's seat
 
 - **Raised by:** commander, 2026-09-17
-- **Heat:** hot
+- **Heat:** ran
 
 ## The spark
 
@@ -15,6 +15,7 @@ A small research or review task with clear file boundaries, three teammates at m
 
 - 2026-09-17 — Docs researched in depth (two harness-guide passes). Flag set. Not yet run.
 - 2026-09-18 — Confirmed the flag is live in pilot sessions; a teammate is an Agent call with a `name`, no TeamCreate tool. Crew protocol written into CLAUDE.md; rule 7 (three at most) awaits this run's evidence.
+- 2026-09-18 — Ran on the commander's order: auditor (Opus), docs-scout (Sonnet), red-team (adversary, Sonnet). Mailbox, waiting on messages, idle notices and shutdown all worked; long results truncate. See `notepad/team-run-2026-09-18/` and manifest C006 to C008. Ready to mature once the commander names a real mission for a team.
 
 ## Matures when
 

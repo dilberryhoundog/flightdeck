@@ -20,7 +20,7 @@ The pilot runs as one session and dispatches crew through the Agent tool. Reason
 - A mission needs several crew working in parallel over a long stretch with cross-talk (competing hypotheses, multi-angle review).
 - The commander wants to watch and steer teammates directly in the agent panel.
 
-Enabled by `base/settings/pilot.settings.json`. Interactive sessions only, so teams exist only when the commander invokes the pilot through `base/bin/pilot.sh`. Teammates never enter the cockpit; the guard hook in the pilot's settings applies to the pilot's own tools, and teammates receive an explicit do-not-write rule in their spawn prompt.
+Enabled by `base/settings/pilot.settings.json`. Interactive sessions only, so teams exist only when the commander invokes the pilot through `base/bin/pilot.sh`. Teammates never write in the cockpit. The guard hook in the pilot's settings fires for teammates too (observed 2026-09-18 by the auditor teammate), so its write fence applies to crew spawned from the pilot's session; crew that must write outside the cockpit need a different launch. Spawn prompts still carry an explicit do-not-write rule.
 
 ## When to use session messaging
 

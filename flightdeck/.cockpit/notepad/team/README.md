@@ -1,15 +1,7 @@
 # Team Practices
 
-How the pilot staffs and runs missions. Written from experience; each practice cites the mission where it was learned.
+Working practices for staffing crew, from experience. Rules that have settled live in the crew protocol in `../../quarters/pilot/job.md`; this file keeps only practice notes not yet there.
 
-## Dispatch brief
-
-Every crew brief contains: the ordered areas to cover, a do-not-read list that always includes `flightdeck/.cockpit/`, the report format, a length cap, and the mission id. Crew never receive the pilot's context; what they need is written into the brief. (M001)
-
-## Reading versus writing crew
-
-Explorers read and report. Workers write. Never ask an explorer to write or a worker to explore. (M001)
-
-## Filing
-
-A crew report is filed by the pilot into `notepad/<subject>/`, or into `records/<subject>/` when it is an official source finding in the pilot's own words, with the raw report kept only if it adds evidence. The log records that it was filed. (M001)
+- **Reading versus writing crew.** Explorers read and report. Workers write. Never ask an explorer to write or a worker to explore. (M001)
+- **Long reports come by message.** An idle notification truncates a long final result; brief teammates to send long reports to the pilot by SendMessage. (S003, 2026-09-18)
+- **Ask the question in the brief.** Red-team left two of the pilot's questions unanswered because they were not in its brief. Put open questions into the adversary's criteria. (S003, 2026-09-18)

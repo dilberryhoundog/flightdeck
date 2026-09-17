@@ -65,3 +65,23 @@ Interactive sessions in tmux; the welcome header prints model and effort (e.g. "
 - `base/bin/pilot.sh` launched for real (no message sent): Fable 5.1, medium, auto mode, named `pilot`.
 
 Launcher consequence: resume adds `--model fable` only. Probe transcripts left behind are named `pilot-probe`.
+
+**Superseded by T12:** the two-flag reading below is wrong; the growth was the second file replacing the first.
+
+## T9 — Appended prompt files: several flags, no imports (2026-09-18)
+
+First API call input tokens, `claude -p --model haiku --tools ""`, measured three ways from `~/.claude/scratch-pilot/`: one small appended file 43,766; the same plus a second `--append-system-prompt-file` holding a 400-line filler file 49,054; one appended file containing an `@` import of that filler file 43,785. **Verified:** repeated `--append-system-prompt-file` flags each deliver their file; an `@` import inside an appended file does not expand. `pilot.sh` therefore appends identity, job and the commander's dossier one flag each.
+
+## T10 — Resume by name (2026-09-18)
+
+`claude -p --name resume-probe-7 "Reply ok"`, then `claude -p --resume resume-probe-7`. Both returned the same session id. **Verified:** `--resume <name>` finds a session named with `--name` in print mode. `pilot.sh resume` relies on this.
+
+## T11 — Duplicate-pilot check (2026-09-18)
+
+With this session named `pilot`, `pilot.sh` exited 2 with its refusal message. The old grep never matched because `claude agents --json` pretty-prints `"name": "pilot"`; the check now parses the JSON.
+
+## T12 — Repeated append flags keep only the last file (2026-09-18)
+
+Behaviour test, not tokens (token totals drifted by hundreds between identical runs as git status changed). Three appended files each carry one rule: first word ALPHA, include BRAVO, last word CHARLIE. With three `--append-system-prompt-file` flags, two runs replied "Hello, ready to help you CHARLIE." and "Hello there friend I'm here. CHARLIE": only the last file applied. With one `--append-system-prompt "$(cat a b c)"`: "ALPHA hello BRAVO welcome CHARLIE". **Verified:** a repeated `--append-system-prompt-file` keeps only the last file; a single joined `--append-system-prompt` delivers all. T9's `@` import finding is unaffected. `pilot.sh` now joins identity, job and the commander's dossier into one value.
+
+Lesson: a token delta shows that something changed, not what. Test delivery by behaviour.

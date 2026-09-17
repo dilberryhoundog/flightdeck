@@ -4,17 +4,32 @@
 ROOT="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 COCKPIT="$ROOT/flightdeck/.cockpit"
 PAYLOAD=$(cat)
-SOURCE=$(printf "%s" "$PAYLOAD" | sed -n 's/.*"source": *"\([a-z]*\)".*/\1/p')
-SID=$(printf "%s" "$PAYLOAD" | sed -n 's/.*"session_id": *"\([0-9a-f-]*\)".*/\1/p')
-echo "[cockpit] source=${SOURCE:-unknown}"
-echo "[cockpit] session=${SID:-unknown} log_name=$(date +%F)_$(printf "%.8s" "${SID:-unknown}").md"
-echo "[cockpit] branch=$(git -C "$ROOT" branch --show-current 2>/dev/null)"
-if [ -f "$COCKPIT/missions/missions.json" ]; then
-  CUR=$(sed -n 's/.*"current": *"\([^"]*\)".*/\1/p' "$COCKPIT/missions/missions.json")
-  echo "[cockpit] current_mission=${CUR:-none}"
-fi
-LATEST=$(ls "$COCKPIT/logs"/20*.md 2>/dev/null | sort | tail -1)
-[ -n "$LATEST" ] && echo "[cockpit] latest_log=${LATEST#$ROOT/}"
-AWAITING=$(grep -c '"status": "awaiting"' "$COCKPIT/base/proposals.json" 2>/dev/null)
-echo "[cockpit] proposals_awaiting=${AWAITING:-0}"
-echo "[cockpit] Follow the session start procedure in flightdeck/.cockpit/CLAUDE.md before acting."
+python3 - "$PAYLOAD" "$ROOT" "$COCKPIT" "$(claude --version 2>/dev/null | cut -d' ' -f1)" "$(git -C "$ROOT" branch --show-current 2>/dev/null)" "$(date +%F)" <<'EOF'
+import json, sys
+raw, root, cockpit, cli, branch, today = sys.argv[1:7]
+def load(path):
+    try:
+        return json.load(open(path))
+    except Exception:
+        return {}
+try:
+    payload = json.loads(raw)
+except Exception:
+    payload = {}
+sid = payload.get("session_id") or "unknown"
+short = sid[:8]
+logs = load(cockpit + "/logs/index.json").get("logs", [])
+mine = [l for l in logs if l.get("session_id") == sid or l.get("session") == short]
+# A resumed session keeps its log, even on a later day.
+log_name = mine[-1]["file"] if mine else "%s_%s.md" % (today, short)
+print("[cockpit] source=%s cli=%s" % (payload.get("source", "unknown"), cli or "unknown"))
+print("[cockpit] session=%s log_name=%s indexed=%s" % (sid, log_name, "yes" if mine else "no"))
+print("[cockpit] branch=%s" % branch)
+print("[cockpit] current_mission=%s" % (load(cockpit + "/missions/missions.json").get("current") or "none"))
+others = [l for l in logs if l not in mine]
+if others:
+    print("[cockpit] latest_log=flightdeck/.cockpit/logs/%s" % others[-1]["file"])
+awaiting = [p["id"] for p in load(cockpit + "/base/proposals.json").get("proposals", []) if p.get("status") == "awaiting"]
+print("[cockpit] proposals_awaiting=%d %s" % (len(awaiting), " ".join(awaiting)))
+print("[cockpit] Follow the session start procedure in flightdeck/.cockpit/quarters/pilot/job.md before acting.")
+EOF

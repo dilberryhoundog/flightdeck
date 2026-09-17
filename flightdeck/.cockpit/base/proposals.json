@@ -1,9 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-09-17",
+  "updated": "2026-09-18",
   "proposals": [
-    { "id": "P001", "title": "Survey run/flightcrew-characterization-2 before any new launch", "status": "awaiting", "file": "proposals/P001-survey-characterization-run-2.md", "raised": "2026-09-17", "mission": "M001" },
-    { "id": "P002", "title": "Decide the canonical home for crew role definitions", "status": "awaiting", "file": "proposals/P002-decide-canonical-crew-source.md", "raised": "2026-09-17", "mission": "M001" },
-    { "id": "P003", "title": "Repair STRUCTURE.md and liftoff.template.yaml paths", "status": "awaiting", "file": "proposals/P003-repair-stale-structure-docs.md", "raised": "2026-09-17", "mission": "M001" }
+    {
+      "id": "P001",
+      "title": "Survey run/flightcrew-characterization-2 before any new launch",
+      "status": "awaiting",
+      "file": "proposals/P001-survey-characterization-run-2.md",
+      "raised": "2026-09-17",
+      "mission": "M001"
+    },
+    {
+      "id": "P002",
+      "title": "Decide the canonical home for crew role definitions",
+      "status": "awaiting",
+      "file": "proposals/P002-decide-canonical-crew-source.md",
+      "raised": "2026-09-17",
+      "mission": "M001"
+    },
+    {
+      "id": "P003",
+      "title": "Repair STRUCTURE.md and liftoff.template.yaml paths",
+      "status": "awaiting",
+      "file": "proposals/P003-repair-stale-structure-docs.md",
+      "raised": "2026-09-17",
+      "mission": "M001"
+    }
   ]
 }

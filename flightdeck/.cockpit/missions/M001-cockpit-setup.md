@@ -12,10 +12,10 @@
 ## Objectives
 
 - [x] Create the `cockpit` branch and carry the cockpit scaffold onto it.
-- [x] Write `CLAUDE.md` with the pilot's mandates, layout, session start and session end.
+- [x] Write `CLAUDE.md` with the pilot's mandates, layout, session start and session end. Restructured 2026-09-18: CLAUDE.md is folder instructions for any arrival; the pilot's persona lives in `quarters/pilot/`.
 - [x] Research agent teams and session messaging; file under `records/claude-code/`.
 - [x] Decide the pilot's default instrument (`notepad/claude-code/pilot-choice.md`).
-- [x] Pilot identity (`quarters/pilot/pilot.md`).
+- [x] Pilot identity (`quarters/pilot/identity.md`, `job.md`).
 - [x] Commander dossier (`quarters/commander/commander.md`).
 - [x] Crew roster and first dossiers (`quarters/crew/`).
 - [x] Mission manifest and this file.
@@ -35,7 +35,8 @@
 - [x] Cross-session message exchanged with `flightdeck-3c` in both directions; wrapper shape recorded.
 - [x] Write guard enforcing mandate one, permission mode auto, agent teams flag: all in `base/settings/pilot.settings.json`, tested.
 - [x] Mission incubator opened with three sparks.
-- [ ] Agent teams learned by running one (spark S003). First team spawned 2026-09-18.
+- [x] Agent teams learned by running one (spark S003). First team ran 2026-09-18; observations in `notepad/team-run-2026-09-18/`.
+- [x] Team findings actioned on the commander's orders: launcher check (A1), guard rewrite with table test (A2), persona moved to quarters (A12), A3, A4, index and hook batch. Sandbox raised as spark S004.
 - [ ] Toolset tested by the commander invoking the pilot.
 
 ## Crew dispatched

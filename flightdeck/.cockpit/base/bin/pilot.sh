@@ -12,18 +12,24 @@
 # On resume the model saved in the transcript beats the settings file (effort does not;
 # it still comes from settings), so resume adds --model fable unless the caller passed --model.
 #
-# Everything the persona needs is passed by path from the cockpit each time,
-# because command-line flags do not persist across --resume.
+# The pilot's quarters (identity, job) and the commander's dossier are joined into one
+# --append-system-prompt value. A repeated --append-system-prompt-file keeps only the last
+# file, and an @ import inside an appended file does not expand (notepad tests T9, T12).
+# Everything is passed by path each time, because flags do not persist across --resume.
 set -e
 ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
 COCKPIT="$ROOT/flightdeck/.cockpit"
 NAME="pilot"
 MODEL="fable"
 SETTINGS="$COCKPIT/base/settings/pilot.settings.json"
-PROMPT="$COCKPIT/CLAUDE.md"
+IDENTITY="$COCKPIT/quarters/pilot/identity.md"
+JOB="$COCKPIT/quarters/pilot/job.md"
+COMMANDER="$COCKPIT/quarters/commander/commander.md"
 
 [ -f "$SETTINGS" ] || { echo "pilot.sh: missing $SETTINGS" >&2; exit 1; }
-[ -f "$PROMPT" ]   || { echo "pilot.sh: missing $PROMPT" >&2; exit 1; }
+for f in "$IDENTITY" "$JOB" "$COMMANDER"; do
+  [ -f "$f" ] || { echo "pilot.sh: missing $f" >&2; exit 1; }
+done
 
 # Pull mode and --check out of the arguments; keep everything else, in order, as pass-through.
 MODE=start; CHECK=; HAS_MODEL=; FIRST=1
@@ -45,19 +51,28 @@ case "$MODE" in
     RESUME=1
     [ -n "$HAS_MODEL" ] || ADD_MODEL=1 ;;
   start)
-    if [ -z "$CHECK" ] && claude agents --json 2>/dev/null | grep -q "\"name\":\"$NAME\""; then
+    if [ -z "$CHECK" ] && claude agents --json 2>/dev/null | python3 -c 'import json,sys; sys.exit(0 if any(a.get("name")==sys.argv[1] for a in json.load(sys.stdin)) else 1)' "$NAME"; then
       echo "pilot.sh: a session named '$NAME' is already running. Use 'pilot.sh resume' or message it." >&2
       exit 2
     fi ;;
 esac
 
+PERSONA=$(cat "$IDENTITY"; printf '\n\n'; cat "$JOB"; printf '\n\n'; cat "$COMMANDER")
+
 run() {
-  if [ -n "$CHECK" ]; then printf '%s ' "$@"; echo; exit 0; fi
+  if [ -n "$CHECK" ]; then
+    for a in "$@"; do
+      if [ "$a" = "$PERSONA" ]; then printf '<identity.md+job.md+commander.md> '; else printf '%s ' "$a"; fi
+    done
+    echo; exit 0
+  fi
   cd "$ROOT"
   exec "$@"
 }
 
-run claude --settings "$SETTINGS" --append-system-prompt-file "$PROMPT" --name "$NAME" --add-dir "$COCKPIT" \
+run claude --settings "$SETTINGS" \
+  --append-system-prompt "$PERSONA" \
+  --name "$NAME" --add-dir "$COCKPIT" \
   ${RESUME:+--resume} ${RESUME:+"$NAME"} \
   ${ADD_MODEL:+--model} ${ADD_MODEL:+"$MODEL"} \
   "$@"

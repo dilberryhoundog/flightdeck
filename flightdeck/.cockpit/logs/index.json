@@ -1,6 +1,19 @@
 {
   "version": 2,
   "logs": [
-    { "date": "2026-09-17", "session": "a61606de", "session_id": "a61606de-fd71-42a7-942f-a8e8d776bce3", "file": "2026-09-17_a61606de.md", "summary": "First day. Pilot recruited, branch cockpit created, cockpit scaffolded, flightcrew surveyed, settings and messaging learned and tested, launcher and write guard built, incubator opened." }
+    {
+      "date": "2026-09-17",
+      "session": "a61606de",
+      "session_id": "a61606de-fd71-42a7-942f-a8e8d776bce3",
+      "file": "2026-09-17_a61606de.md",
+      "summary": "First day. Pilot recruited, branch cockpit created, cockpit scaffolded, flightcrew surveyed, settings and messaging learned and tested, launcher and write guard built, incubator opened."
+    },
+    {
+      "date": "2026-09-18",
+      "session": "8e74fffb",
+      "session_id": "8e74fffb-afd1-4cf1-9c2a-24ec1b56ba56",
+      "file": "2026-09-18_8e74fffb.md",
+      "summary": "In progress. Fable launcher, records vs notepad, crew protocol and manifest, first agent team, persona moved to quarters, guard rewrite."
+    }
   ]
 }

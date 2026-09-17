@@ -31,6 +31,7 @@ Recorded verbatim or near-verbatim from the commander. Newest at the bottom.
 - 2026-09-18 — "Promotion from notepad into records is the pathway. Accumulation of notepad entries may guide the creation of a researched record." Asked for the agent team protocol in CLAUDE.md.
 - 2026-09-18 — Order: spawn an Opus teammate to suggest cleanup and improvements inside the cockpit, a Sonnet teammate to search official Anthropic docs for best practices bearing on cleanup, and a third teammate as adversary to their findings. "This will test the function." Note: "flightcrew is the foundations of an orchestration system from claude code best practices. this is why the cockpit and your role exists."
 - 2026-09-18 — Asked for a manifest of teammate invocations (type, model, purpose and more) to build a picture of teammate shapes over time. Not in quarters: quarters describes individuals, recruited after they make repeated appearances in the manifest.
+- 2026-09-18 — On the team findings: A1 and A2 "pilots work". A12: "Good find sir. The quarters has special room for the pilot and I think some of claude.md was masquarading as the agent body." Extract into pilot quarters as the pilot chooses (identity, job description). "Claude.md convention is project or folder instructions. after reading that file upon arival all agents should know they are in the cockpit, they should know the rules, how to find things, the purpose of the place etc." A3 to S4: the pilot's call.
 
 ## Preferences
 

@@ -23,7 +23,7 @@
 - [x] Base of operations: proposals queue and decisions record.
 - [x] Crew survey of flightcrew returned and filed under `references/flightcrew/`.
 - [x] First proposals raised in `base/` from the survey (P001, P002, P003).
-- [ ] Cockpit committed and branch pushed.
+- [x] Cockpit committed and branch pushed (ed132bd, 43538c9 on origin/cockpit).
 - [ ] Commander reviews the cockpit.
 
 ## Crew dispatched

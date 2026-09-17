@@ -27,6 +27,7 @@ Recorded verbatim or near-verbatim from the commander. Newest at the bottom.
 - 2026-09-18 — "You have my permission to access your .claude folder also for scratchpads etc. consider it a side room to the cockpit."
 - 2026-09-18 — Correction: the claude-code references mixed long-term references with scratch findings. Keep the `Source:` convention so only official findings are recorded. Rename `references/` to `records/`. Scratch goes in `notepad/`. Use a Sonnet teammate to help clean up.
 - 2026-09-18 — On the launcher: "your launcher your fix. make it work." On records: flightcrew understanding stays in records. "Protect your records, they are source of truth, lasting across many sessions. The notepad stuff for things that probably won't matter in a few sessions."
+- 2026-09-18 — On records: "every good pilot protects their records. A source is good for official documentation. but for codebase sources... ensure only well researched (by special teammates) sources go in there for a purpose." `records/flightcrew/` is for learnings to come; first-look surveys stay in the notepad.
 
 ## Preferences
 

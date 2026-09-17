@@ -6,11 +6,11 @@
 
 ## Problem
 
-Main has the parts of a run but no completed launch and no orchestrator (`records/flightcrew/state-2026-09-17.md`, flags 1 and 7). The nearest complete picture of a launch is on `run/flightcrew-characterization-2` (+76 commits, run 2 report: 58 of 61 checks green, six defects pinned). The pilot cannot manage launches and runs without knowing what one looks like.
+Main has the parts of a run but no completed launch and no orchestrator (`notepad/flightcrew/state-2026-09-17.md`, flags 1 and 7). The nearest complete picture of a launch is on `run/flightcrew-characterization-2` (+76 commits, run 2 report: 58 of 61 checks green, six defects pinned). The pilot cannot manage launches and runs without knowing what one looks like.
 
 ## Proposal
 
-Dispatch an explorer to survey `run/flightcrew-characterization-2` and `flightcrew-characterization-2/roles-workflows-distributed` read-only: the launch folder anatomy, the fc CLI, hooks, workflows, the run report and the pinned defects. File the result under `records/flightcrew/`. No writes to the repo.
+Dispatch an explorer to survey `run/flightcrew-characterization-2` and `flightcrew-characterization-2/roles-workflows-distributed` read-only: the launch folder anatomy, the fc CLI, hooks, workflows, the run report and the pinned defects. File the result under `notepad/flightcrew/`. No writes to the repo.
 
 ## Risk
 

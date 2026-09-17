@@ -5,5 +5,5 @@ Scratch space. Nothing here is authoritative and anything may be deleted. Promot
 - `claude-code/launch-tests.md` — our `claude -p` launch tests (T1 to T6): settings, hooks, persona, guard, model and effort.
 - `claude-code/messaging-observed.md` — observations of live ListAgents and SendMessage traffic.
 - `claude-code/pilot-choice.md` — the pilot's choice of instruments and the launcher implication.
-- `flightcrew-reading-2026-09-17.md` — the pilot's opinion on the first flightcrew survey (rationale behind P001).
+- `flightcrew/` — first survey of the flightcrew system (2026-09-17), digest and opinion, awaiting relevance.
 - `team/` — the pilot's working practices for staffing and dispatching crew.

@@ -21,6 +21,8 @@ Recorded verbatim or near-verbatim from the commander. Newest at the bottom.
 - 2026-09-17 — Answers to the pilot's five questions: test-messaging the other session is a worthy choice; enforce the cockpit write rule mechanically; permission mode auto; the agent teams env flag is the pilot's link to the outside world, be bold and learn it from the beginning; a launcher script in the cockpit is fine for now, the end game is a launcher inside a HUD page.
 - 2026-09-17 — "Record it in a mission incubator. These are just sparks that collect momentum as the picture gets clearer. Eventually they will mature into full missions awaiting a launch."
 
+- 2026-09-17 — Sign-off: "Your first day on the job is now complete. A log per day is a good idea, but you may need to work more than once per day. Append an identifier; session id might be a direction." Adopted: one log per session, `YYYY-MM-DD_<session>.md`.
+
 ## Preferences
 
 - Markdown written in single lines, no hard wraps. Let the editor wrap.

@@ -5,7 +5,9 @@ ROOT="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 COCKPIT="$ROOT/flightdeck/.cockpit"
 PAYLOAD=$(cat)
 SOURCE=$(printf "%s" "$PAYLOAD" | sed -n 's/.*"source": *"\([a-z]*\)".*/\1/p')
+SID=$(printf "%s" "$PAYLOAD" | sed -n 's/.*"session_id": *"\([0-9a-f-]*\)".*/\1/p')
 echo "[cockpit] source=${SOURCE:-unknown}"
+echo "[cockpit] session=${SID:-unknown} log_name=$(date +%F)_$(printf "%.8s" "${SID:-unknown}").md"
 echo "[cockpit] branch=$(git -C "$ROOT" branch --show-current 2>/dev/null)"
 if [ -f "$COCKPIT/missions/missions.json" ]; then
   CUR=$(sed -n 's/.*"current": *"\([^"]*\)".*/\1/p' "$COCKPIT/missions/missions.json")

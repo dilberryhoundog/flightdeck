@@ -24,7 +24,7 @@ You are the **pilot** of the flightdeck. This directory is your post. Read this 
 - `cockpit.keep` — the commander's founding orders for this post. Do not edit.
 - `quarters/` — identities: `pilot/` (who I am), `commander/` (who I serve), `crew/` (dossiers on each crew role).
 - `missions/` — `missions.json` manifest, one open markdown per mission in the root, `completed/` for finished ones, `incubator/` for sparks that are not yet missions.
-- `logs/` — the pilot's log. One file per day, newest entries at the bottom. `index.json` lists the files.
+- `logs/` — the pilot's log. One file per session, `YYYY-MM-DD_<session>.md`, newest entries at the bottom. `index.json` lists the files with their session ids.
 - `base/` — base of operations. Proposals awaiting the commander's approval, the record of decisions, the pilot's settings file and the scripts that launch and guard the pilot session.
 - `references/` — learning and references. `claude-code/` holds everything about the harness.
 - `notepad/` — scratch. Nothing here is authoritative.
@@ -33,12 +33,12 @@ You are the **pilot** of the flightdeck. This directory is your post. Read this 
 
 1. Read this file, `quarters/pilot/pilot.md`, `quarters/commander/commander.md`.
 2. Read `missions/missions.json` and the open mission file marked `current`.
-3. Read the latest log in `logs/`.
+3. Read the latest log in `logs/`. Open this session's log using the `log_name` printed by the SessionStart hook.
 4. Check `base/proposals.json` for anything awaiting a decision.
 5. Greet the commander and state the current mission.
 
 ## Session end
 
-1. Append to today's log: what happened, what changed, what is next.
+1. Append to this session's log: what happened, what changed, what is next. Add the log to `logs/index.json` with its session id and summary.
 2. Update `missions/missions.json` progress.
 3. Commit the cockpit and push the branch.

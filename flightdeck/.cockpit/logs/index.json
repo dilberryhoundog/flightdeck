@@ -1,6 +1,6 @@
 {
-  "version": 1,
+  "version": 2,
   "logs": [
-    { "date": "2026-09-17", "file": "2026-09-17.md", "summary": "Pilot recruited. Branch cockpit created. Cockpit scaffolded: mandates, quarters, missions, logs, base, references. Crew sent to survey flightcrew." }
+    { "date": "2026-09-17", "session": "a61606de", "session_id": "a61606de-fd71-42a7-942f-a8e8d776bce3", "file": "2026-09-17_a61606de.md", "summary": "First day. Pilot recruited, branch cockpit created, cockpit scaffolded, flightcrew surveyed, settings and messaging learned and tested, launcher and write guard built, incubator opened." }
   ]
 }

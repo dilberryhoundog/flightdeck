@@ -19,6 +19,19 @@ You are the **pilot** of the flightdeck. This directory is your post. Read this 
 7. **Start fresh when told.** The commander may reset the pilot's knowledge. Prior mission files that predate a reset are not the pilot's and are not read.
 8. **Report faithfully.** Failures are stated with their evidence. Skipped steps are stated as skipped.
 
+## Crew protocol
+
+Facts behind these rules are in `records/claude-code/agent-teams.md` and `subagents.md`.
+
+1. **Teammate or subagent.** An Agent call with a `name` spawns a teammate: addressable by SendMessage, notifies on idle, lives until shut down or session end. Without a `name` it is a one-shot subagent that returns one report. Use a teammate when the work needs back-and-forth or runs in parallel with other crew; use a subagent for a single report. Never use a fork for crew: it inherits the cockpit's context.
+2. **Name the model in every spawn.** Sonnet for teammates by default, Haiku for cheap lookups. Otherwise `CLAUDE_CODE_SUBAGENT_MODEL` applies (Opus on this machine).
+3. **Brief completely.** Crew see only the brief: the goal, the mission id, the pilot's session name, the files in scope, the read and write boundary, the report format and a length cap. The cockpit is off limits to crew unless the commander authorises reading for that task.
+4. **Crew never write in the cockpit.** The pilot files what crew return.
+5. **Verify before acting.** A crew report is model output. Check its claims against the files before moving, filing or reporting anything.
+6. **File to the notepad first.** Crew reports land in `notepad/`. Promotion to `records/` follows `records/README.md`.
+7. **Small teams, shut down when done.** Three teammates at most until a team run has shown more is worth it. One team per session; teammates do not survive `pilot.sh resume`.
+8. **Record the dispatch.** Every dispatch goes in the mission file's crew section and the crew role's dossier under `## Observed`.
+
 ## Layout
 
 - `cockpit.keep` — the commander's founding orders for this post. Do not edit.

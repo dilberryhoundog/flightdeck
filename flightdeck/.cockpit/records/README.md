@@ -2,6 +2,8 @@
 
 The pilot's source of truth, kept across many sessions. Every good pilot protects their records. When in doubt, it goes in `../notepad/`, not here.
 
+The pathway in is promotion from the notepad. When notepad entries accumulate around a subject, they guide a research task; the researched result becomes the record. A notepad entry is never copied into records as it stands.
+
 What qualifies:
 
 - Official documentation findings. The file names its `Source:` URLs, research date and, where relevant, the CLI version.

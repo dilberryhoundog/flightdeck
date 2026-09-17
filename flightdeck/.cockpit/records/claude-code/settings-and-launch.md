@@ -1,6 +1,6 @@
 # Settings and Launching a Persona Session
 
-Sources: https://code.claude.com/docs/en/settings.md, settings-reference.md, cli-reference, sub-agents.md, sessions.md, hooks.md (researched 2026-09-17 by harness-guide, CLI 2.1.274). Facts marked **verified** were tested from the cockpit; see `launch-tests.md`.
+Sources: https://code.claude.com/docs/en/settings.md, settings-reference.md, cli-reference, sub-agents.md, sessions.md, hooks.md (researched 2026-09-17 by harness-guide, CLI 2.1.274).
 
 ## `--settings <file-or-json>`
 
@@ -54,7 +54,3 @@ Any settings file, including one passed by `--settings`, may define hooks. Shape
 
 - `--resume [name-or-id]`, `--continue` (most recent in this directory), `--fork-session` (new id, copied transcript), `--session-id <uuid>`.
 - Settings files on disk are re-read at resume. Command-line flags are not: `--settings`, `--agent`, `--system-prompt`, `--append-system-prompt`, `--mcp-config`, `--add-dir`, `--plugin-dir`, `--name` must all be passed again. Permission mode, model and agent are restored from the transcript unless overridden.
-
-## Implication for the cockpit
-
-A launcher must pass the same flags every time, on first launch and on resume. A settings file by path carries hooks, permissions, env and messaging policy. The persona itself comes from either an agent definition (replaces the system prompt, restricts tools) or an appended system prompt file (keeps the default prompt). The choice is tested in `launch-tests.md`.

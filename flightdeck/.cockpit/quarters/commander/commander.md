@@ -23,6 +23,11 @@ Recorded verbatim or near-verbatim from the commander. Newest at the bottom.
 
 - 2026-09-17 — Sign-off: "Your first day on the job is now complete. A log per day is a good idea, but you may need to work more than once per day. Append an identifier; session id might be a direction." Adopted: one log per session, `YYYY-MM-DD_<session>.md`.
 
+- 2026-09-18 — Order: find how to vary the model through `base/bin/pilot.sh`, look into hard-wiring Fable in the injected settings, effort medium being the Fable default.
+- 2026-09-18 — "You have my permission to access your .claude folder also for scratchpads etc. consider it a side room to the cockpit."
+- 2026-09-18 — Correction: the claude-code references mixed long-term references with scratch findings. Keep the `Source:` convention so only official findings are recorded. Rename `references/` to `records/`. Scratch goes in `notepad/`. Use a Sonnet teammate to help clean up.
+- 2026-09-18 — On the launcher: "your launcher your fix. make it work." On records: flightcrew understanding stays in records. "Protect your records, they are source of truth, lasting across many sessions. The notepad stuff for things that probably won't matter in a few sessions."
+
 ## Preferences
 
 - Markdown written in single lines, no hard wraps. Let the editor wrap.

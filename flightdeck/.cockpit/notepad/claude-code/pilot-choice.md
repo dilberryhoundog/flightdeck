@@ -32,3 +32,8 @@ Enabled by `base/settings/pilot.settings.json`. Interactive sessions only, so te
 - Never use `subagent_type: "fork"` for crew. A fork carries the cockpit's context out of the cockpit.
 - Use `isolation: "worktree"` for crew that write code and whose changes should be reviewed before landing.
 - Continue a crew member via SendMessage for follow-ups rather than spawning fresh; it keeps their context.
+
+
+## Launcher implication (moved from records/claude-code/settings-and-launch.md, 2026-09-18)
+
+A launcher must pass the same flags every time, on first launch and on resume. A settings file by path carries hooks, permissions, env and messaging policy. The persona itself comes from either an agent definition (replaces the system prompt, restricts tools) or an appended system prompt file (keeps the default prompt). The choice is tested in `launch-tests.md`.

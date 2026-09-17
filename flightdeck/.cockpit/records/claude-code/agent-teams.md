@@ -1,6 +1,6 @@
 # Agent Teams
 
-Source: https://code.claude.com/docs/en/agent-teams.md and linked pages (researched 2026-09-17 in two passes by harness-guide, CLI 2.1.274). Nothing here is verified by test yet; the pilot's first team run will annotate this file.
+Source: https://code.claude.com/docs/en/agent-teams.md and linked pages (researched 2026-09-17 in two passes by harness-guide, CLI 2.1.274).
 
 ## What
 
@@ -8,7 +8,7 @@ Multiple Claude Code sessions coordinated by a lead. Teammates have their own co
 
 ## Enable
 
-`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in the settings `env` block or the shell. Interactive sessions only. The cockpit's `base/settings/pilot.settings.json` sets it.
+`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in the settings `env` block or the shell. Interactive sessions only.
 
 ## Lifecycle from the lead's seat
 

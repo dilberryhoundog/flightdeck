@@ -13,23 +13,23 @@
 
 - [x] Create the `cockpit` branch and carry the cockpit scaffold onto it.
 - [x] Write `CLAUDE.md` with the pilot's mandates, layout, session start and session end.
-- [x] Research agent teams and session messaging; file under `references/claude-code/`.
-- [x] Decide the pilot's default instrument (`references/claude-code/pilot-choice.md`).
+- [x] Research agent teams and session messaging; file under `records/claude-code/`.
+- [x] Decide the pilot's default instrument (`notepad/claude-code/pilot-choice.md`).
 - [x] Pilot identity (`quarters/pilot/pilot.md`).
 - [x] Commander dossier (`quarters/commander/commander.md`).
 - [x] Crew roster and first dossiers (`quarters/crew/`).
 - [x] Mission manifest and this file.
 - [x] Logs structure with first entry.
 - [x] Base of operations: proposals queue and decisions record.
-- [x] Crew survey of flightcrew returned and filed under `references/flightcrew/`.
+- [x] Crew survey of flightcrew returned and filed under `records/flightcrew/`.
 - [x] First proposals raised in `base/` from the survey (P001, P002, P003).
 - [x] Cockpit committed and branch pushed (ed132bd, 43538c9 on origin/cockpit).
 - [ ] Commander reviews the cockpit.
 
 ### Phase 2 — interactivity tools (ordered 2026-09-17)
 
-- [x] Learn the `--settings` flag: what it accepts, file path delivery, precedence, what a settings file can carry. Filed in `references/claude-code/settings-and-launch.md`, tested in `launch-tests.md`.
-- [x] Learn ListAgents and SendMessage in practice. Filed in `references/claude-code/messaging-observed.md`. Arrival shape still to observe from a real peer.
+- [x] Learn the `--settings` flag: what it accepts, file path delivery, precedence, what a settings file can carry. Filed in `records/claude-code/settings-and-launch.md`, tested in `launch-tests.md`.
+- [x] Learn ListAgents and SendMessage in practice. Filed in `notepad/claude-code/messaging-observed.md`. Arrival shape still to observe from a real peer.
 - [x] Build a first toolset: `base/settings/pilot.settings.json`, `base/bin/pilot.sh`, `base/bin/session-start.sh`. Draft until the commander has invoked it.
 - [x] Questions put to the commander and answers recorded (D002 to D006).
 - [x] Cross-session message exchanged with `flightdeck-3c` in both directions; wrapper shape recorded.
@@ -41,7 +41,7 @@
 ## Crew dispatched
 
 - 2026-09-17 — harness-guide (`claude-code-guide`): research agent teams, session messaging, subagents. Returned. Filed.
-- 2026-09-17 — explorer (`Explore`): survey flightcrew, launch, testbench, manuals, agents, archives, git history. Returned. Filed as `references/flightcrew/survey-2026-09-17.md` with digest `state-2026-09-17.md`.
+- 2026-09-17 — explorer (`Explore`): survey flightcrew, launch, testbench, manuals, agents, archives, git history. Returned. Filed as `records/flightcrew/survey-2026-09-17.md` with digest `state-2026-09-17.md`.
 
 ## Outcome
 

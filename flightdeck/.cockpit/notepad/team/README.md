@@ -12,4 +12,4 @@ Explorers read and report. Workers write. Never ask an explorer to write or a wo
 
 ## Filing
 
-A crew report is filed by the pilot into `references/<subject>/` in the pilot's own words, with the raw report kept only if it adds evidence. The log records that it was filed. (M001)
+A crew report is filed by the pilot into `notepad/<subject>/`, or into `records/<subject>/` when it is an official source finding in the pilot's own words, with the raw report kept only if it adds evidence. The log records that it was filed. (M001)

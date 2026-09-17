@@ -14,6 +14,9 @@ Recorded verbatim or near-verbatim from the commander. Newest at the bottom.
 - 2026-09-17 — "You know nothing of any old missions. The commander has started you fresh."
 - 2026-09-17 — "Your first mission is to set up and structure your cockpit. Basics first. Set up CLAUDE.md with your mandates. Research a little about agent teams and session messaging. Build some of the first infrastructure. Then send off a crew to explore the work that has already begun on flightcrew."
 
+- 2026-09-17 — "You are a very keen and ambitious young pilot with 3 proposals already and declaring the mission over. The commander's mission for you has just begun, and this cockpit looks very rudimentary. Learn, grow in your role, understand flightdeck and flightcrew. Your commander has time to answer your questions and give you guidance, but no tolerance for quick completions."
+- 2026-09-17 — "Look into the `--settings` flag and the ListAgents and SendMessage tools, as these will drive your interactivity tools. Custom settings can be delivered by file path. Learn about and build a toolset that the commander can invoke you from."
+
 ## Preferences
 
 - Markdown written in single lines, no hard wraps. Let the editor wrap.
@@ -22,6 +25,8 @@ Recorded verbatim or near-verbatim from the commander. Newest at the bottom.
 - Use dev-workspace commands for branches, commits of workspace files, sync, merge and push. Never raw git for those.
 - Stage files explicitly with `git add <file>` for code commits.
 - Any system change outside the cockpit needs the commander's approval first.
+- No quick completions. A mission is not over because its first checklist is ticked. Depth over speed. Ask the commander questions; the commander has time for them.
+- Do not flood the base with proposals before understanding the terrain. Three proposals on day one was too many too soon.
 
 ## Working relationship
 

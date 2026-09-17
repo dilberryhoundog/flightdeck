@@ -1,0 +1,22 @@
+{
+  "env": {
+    "FLIGHTDECK_ROLE": "pilot",
+    "FLIGHTDECK_COCKPIT": "flightdeck/.cockpit"
+  },
+  "crossSessionInbound": "accept",
+  "isolatePeerMachines": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/flightdeck/.cockpit/base/bin/session-start.sh\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

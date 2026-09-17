@@ -1,0 +1,6 @@
+Pilot Missions.
+Created by the pilot or commander
+missions.json is the manifest (keep track of current, completed, and future)
+keep track of the branches the missions are being completed on.
+Each mission is an open markdown in the root.
+move to completed/ when finished

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "updated": "2026-09-17",
+  "current": "M001",
+  "missions": [
+    {
+      "id": "M001",
+      "title": "Set up and structure the cockpit",
+      "status": "in_progress",
+      "file": "M001-cockpit-setup.md",
+      "branch": "cockpit",
+      "assigned_by": "commander",
+      "opened": "2026-09-17",
+      "closed": null
+    }
+  ],
+  "future": [
+    { "title": "Survey run/flightcrew-characterization-2 and learn launch anatomy", "raised_by": "pilot", "raised_on": "2026-09-17", "note": "Depends on P001 approval." }
+  ]
+}

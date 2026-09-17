@@ -6,23 +6,23 @@ Branch workspace context for Claude and humans. Not read by the dev-workspace sc
 
 ## Branch
 
-**Name:**
-**Started:**
+**Name:** cockpit
+**Started:** 2026-09-17
 **Status:**
 
-- [ ] In Progress
+- [x] In Progress
 - [ ] Discard (workspace and branch abandoned)
 - [ ] Complete (ready to merge)
 
 ## Purpose
 
-%% Claude: write a brief purpose statement when creating the workspace %%
+Establish the cockpit: the pilot agent's exclusive post inside `flightdeck/.cockpit/`, from which the pilot oversees the flightdeck, takes charge of missions, launches and runs, improves them iteratively until they succeed, and proposes improvements to the flightdeck system. This branch carries the initial cockpit scaffold (quarters, base, logs, missions, references) and settles the pilot in: identity, commander dossier, crew dossiers, mission manifest.
 
 ## Workflow
 
 - [ ] Quick (direct implementation)
 - [ ] Single plan (plan once, execute)
-- [ ] Multi-stage plan (iterative planning)
+- [x] Multi-stage plan (iterative planning)
 
 ## Track Issues
 

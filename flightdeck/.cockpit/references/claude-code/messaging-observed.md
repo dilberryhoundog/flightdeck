@@ -40,3 +40,7 @@ Sent to `flightdeck-3c` with `notify_when_idle: true`. The tool result said queu
 ## 2026-09-17 — `-p` sessions and settings
 
 A `claude -p` session launched with the cockpit settings file reported `permission_mode: "default"` in its hook payload even though the settings set `permissions.defaultMode: "auto"`. Either `-p` ignores `defaultMode` or it reports differently. Verify in an interactive launch before relying on it.
+
+## 2026-09-17 — Idle notice received
+
+The `notify_when_idle` subscription fired once after `flightdeck-3c` finished its turn. It arrived as a `[Cross-session idle notice]` naming the session, the finish time, and a one-line harness summary of what that session had just done. It is marked as automated, not a person. Useful as a completion signal for a session the pilot has handed work to; the summary line is enough to decide whether to read further.

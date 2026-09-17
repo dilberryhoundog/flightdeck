@@ -8,3 +8,4 @@ Scratch space. Nothing here is authoritative and anything may be deleted. Notepa
 - `flightcrew/` — first survey of the flightcrew system (2026-09-17), digest and opinion, awaiting relevance.
 - `team-run-2026-09-18/` — first agent team: auditor and docs-scout findings, red-team verdicts, observations of team mechanics.
 - `team/` — the pilot's working practices for staffing and dispatching crew.
+- `claude-md-review-2026-09-18/` — second team run: docs-scout (official CLAUDE.md docs, F1 to F21), cockpit-comber (first pass) and claude-md-judge (verdicts applied to CLAUDE.md on 2026-09-18).

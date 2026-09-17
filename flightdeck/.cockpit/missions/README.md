@@ -4,7 +4,7 @@
 
 Each open mission is a markdown file in this directory named `M###-slug.md`. When a mission completes, the pilot moves the file to `completed/` and updates the manifest's `file` path and `closed` date.
 
-Ideas that are not yet missions live in `incubator/` as sparks. See `incubator/README.md`. The manifest points at the incubator index.
+Missions are reserved for bigger-scoped work: something the commander has said, or something the pilot has eventually noticed and the commander has taken up. Ideas that are not yet missions live in `incubator/` as sparks; the incubator is the pre-step, and not every spark is promoted. See `incubator/README.md`. Bug reports, minor fixes and loose ends are not missions; they go to `../workshop/`, and a mission sweeps in the ones that align with it. The manifest points at the incubator index and the workshop index.
 
 Mission ids are sequential and never reused.
 

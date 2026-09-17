@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "updated": "2026-09-18",
+  "fields": {
+    "id": "W### in the order raised",
+    "title": "one line",
+    "raised": "YYYY-MM-DD",
+    "source": "where it came from: a log, a crew finding, a test, the commander",
+    "status": "open | swept | fixed | dropped",
+    "swept_into": "mission id when swept, else null",
+    "resolved": "date and where the fix or drop is recorded, else null",
+    "file": "W###-slug.md when notes exist, else null"
+  },
+  "items": [
+    {
+      "id": "W001",
+      "title": "Incubator README says heat is cold, warm, hot; sparks S004 and S005 use cool",
+      "raised": "2026-09-18",
+      "source": "pilot, session 49f87e44",
+      "status": "open",
+      "swept_into": null,
+      "resolved": null,
+      "file": null
+    },
+    {
+      "id": "W002",
+      "title": "Live-check F7 and F12: does the cockpit CLAUDE.md load on demand for a session started at the repo root, and do its imports expand there",
+      "raised": "2026-09-18",
+      "source": "docs-scout C009, verification pending in notepad/claude-md-review-2026-09-18/docs-scout.md",
+      "status": "open",
+      "swept_into": null,
+      "resolved": null,
+      "file": null
+    },
+    {
+      "id": "W003",
+      "title": "A15: consider --add-dir in the launcher so the pilot session sees the cockpit as a working directory",
+      "raised": "2026-09-18",
+      "source": "auditor C006 finding A15, weakened by red-team; not actioned",
+      "status": "open",
+      "swept_into": null,
+      "resolved": null,
+      "file": null
+    },
+    {
+      "id": "W004",
+      "title": "A16c: a template for team-run report folders once a second run exists; two runs now exist",
+      "raised": "2026-09-18",
+      "source": "auditor C006 finding A16c; notepad/team-run-2026-09-18 and claude-md-review-2026-09-18",
+      "status": "open",
+      "swept_into": null,
+      "resolved": null,
+      "file": null
+    },
+    {
+      "id": "W005",
+      "title": "Confirm the guard no longer blocks relative Bash write paths when cwd is inside the cockpit (defect seen 2026-09-18 before the A2 rewrite)",
+      "raised": "2026-09-18",
+      "source": "log 2026-09-18_8e74fffb, session start section; base/bin/test_cockpit_guard.py",
+      "status": "open",
+      "swept_into": null,
+      "resolved": null,
+      "file": null
+    },
+    {
+      "id": "W006",
+      "title": "Effort level could not be read headlessly; find a measurable check for effortLevel on a launched pilot",
+      "raised": "2026-09-18",
+      "source": "log 2026-09-18_8e74fffb, T6 in notepad/claude-code/launch-tests.md",
+      "status": "open",
+      "swept_into": null,
+      "resolved": null,
+      "file": null
+    },
+    {
+      "id": "W007",
+      "title": "Test whether a shut-down teammate can be resumed by name with its context intact, and whether it counts against the teammate cap",
+      "raised": "2026-09-18",
+      "source": "commander's question 'why do teammates terminate?'; SendMessage tool text says a name keeps working after an agent completes. Briefly spark S005, moved here on the commander's order: a minor change is not a mission",
+      "status": "open",
+      "swept_into": null,
+      "resolved": null,
+      "file": null
+    }
+  ]
+}

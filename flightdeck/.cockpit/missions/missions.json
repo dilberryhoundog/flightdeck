@@ -14,5 +14,6 @@
       "closed": null
     }
   ],
-  "incubator": "incubator/incubator.json"
+  "incubator": "incubator/incubator.json",
+  "workshop": "../workshop/workshop.json"
 }

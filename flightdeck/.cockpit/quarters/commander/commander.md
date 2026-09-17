@@ -33,6 +33,11 @@ Recorded verbatim or near-verbatim from the commander. Newest at the bottom.
 - 2026-09-18 — Asked for a manifest of teammate invocations (type, model, purpose and more) to build a picture of teammate shapes over time. Not in quarters: quarters describes individuals, recruited after they make repeated appearances in the manifest.
 - 2026-09-18 — On the team findings: A1 and A2 "pilots work". A12: "Good find sir. The quarters has special room for the pilot and I think some of claude.md was masquarading as the agent body." Extract into pilot quarters as the pilot chooses (identity, job description). "Claude.md convention is project or folder instructions. after reading that file upon arival all agents should know they are in the cockpit, they should know the rules, how to find things, the purpose of the place etc." A3 to S4: the pilot's call.
 
+- 2026-09-18 — On crew rule 2: one Sonnet recommendation was not a rule that all crew be Sonnet. Choose the model for the work.
+- 2026-09-18 — "I have big plans for teammates over longer running sessions." Shutting down teammates as they finish interferes and removes the second pass and the back-and-forth, which is the killer function. Clean up periodically, only once it is clear the team itself is finished, not individual teammates.
+
+- 2026-09-18 — "Missions are drifting into bug reports and minor fixes." Set up `workshop/` where the pilot leaves things to get fixed; similar fixes can be swept into missions if they align; a workshop team can run the fixes and bugs through. Missions are reserved for the bigger-scoped stuff the pilot has come across the commander saying or eventually noticed. The incubator is a good pre-step; not everyone gets promoted.
+
 ## Preferences
 
 - Markdown written in single lines, no hard wraps. Let the editor wrap.

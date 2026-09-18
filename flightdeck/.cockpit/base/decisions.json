@@ -113,7 +113,8 @@
       "subject": "P005 rulings",
       "decision": "Amended. The test suite's purpose is a rails-style test folder that protects and defines the infrastructure, light enough that runs do not require retuning it, able to travel with flightdeck when distributable. The core's exact shape is not defined this far out. The pilot flies the mission and does no work; the pilot presides over the room where the spec is thrashed out and never holds the finer details. Teams are the pilot's, crews are flightcrew's; dispatch records teams under dispatch/cockpit/, dispatch/flightcrew/ and so on; a launch succeeds as teams converging: prebuild, build, review and cleanup.",
       "by": "commander, commanders-desk/out-advice/DS001.md",
-      "proposal": "P005"
+      "proposal": "P005",
+      "superseded_by": "commander O041, 2026-09-18: team dispatches as JSON per room (dispatch/cockpit.json)"
     },
     {
       "id": "D015",

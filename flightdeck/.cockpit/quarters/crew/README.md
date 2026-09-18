@@ -1,10 +1,9 @@
 # Crew Quarters
 
-One dossier per crew role. A dossier records: the role, how it works (tools, inputs, outputs), how the pilot dispatches it, where it performs well, where it is stretched or under-performing, and ideas to improve it. Suggest new roles when a gap forms over time.
+Dossiers on every agent the pilot has dispatched, so a seat can be repeated, replicated or improved. `crew.json` is the manifest across all crews. Three rooms:
 
-`crew.json` is the roster. Each entry points at its dossier and records the harness agent type used to dispatch it.
+- `flightcrew/` — flightcrew's own crew, the roles that fly launches (spec-builder, explorer, and the rest as they are dispatched). Each dossier carries a `## What to watch for` section so the pilot can judge the role's output.
+- `team/` — the seats the pilot's teams use: readers, writers, critics, adversaries, verifiers.
+- `general/` — harness-provided agents used as they come: the docs guide, the doc reviewer, Explore subagents.
 
-Crew are recruited here from the team records in `../../dispatch/`: when a seat shape (agent type, model, purpose) recurs across team files and performs, it earns a dossier. Dispatches before the dispatch room are in the frozen `../../logs/crew-manifest.json`. Individual dispatches live in the manifest, not here.
-
-Dossiers are written by the pilot from observed dispatches. A dossier without a `## Observed` section has not yet been used on a mission.
-- `spec-builder.md` — the spec-builder role, with a `## What to watch for` section (altitude, interfaces, constraints, invented mechanisms) so the pilot can judge a spec-builder's writing.
+Dossier shape: title (the seat name), one purpose line, `## How to dispatch` (scope, boundary, report form: enough to spawn the seat from), `## Record` (at most a sentence or two of evidence), `## Next time` (the instructions). Identity (agent type, model) lives in `crew.json` only; teams flown are derived from `../../dispatch/cockpit.json`. Flightcrew dossiers add `## What to watch for`. A proposed new role is a row in `crew.json`'s `proposed` list until it is dispatched. A seat earns a dossier the first time it is dispatched, and the dossier is updated after every team it flies in. Favourite combinations of seats are rosters in `../../dispatch/rosters.json`. `crew.keep` is the commander's note for this room.

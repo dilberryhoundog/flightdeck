@@ -16,3 +16,9 @@ Give an ordered list of areas to cover, a breadth setting ("medium" or "very tho
 
 - Worth it: an ordered area list plus a length cap. The report came back structured exactly as asked.
 - Next time ask for branch-level surveys with commit ranges named, since the interesting work sat on unmerged branches.
+
+## What to watch for
+
+- Returns conclusions, not file dumps; an explorer that pastes files has failed its brief.
+- Each dispatch costs about 100k tokens; the brief names one seam or question.
+- If spawned by a teammate, its hand-back goes to the lead, not the teammate.

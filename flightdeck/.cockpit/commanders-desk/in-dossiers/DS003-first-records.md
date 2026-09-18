@@ -1,7 +1,7 @@
 # DS003 — Seven records from your own words, ready for your review
 
 - **Written:** 2026-09-18 by the pilot (Ace), session dcb75456
-- **From:** team T006 (`dispatch/cockpit/T006-topics-and-records.md`); drafts at `notepad/research-2026-09-18/records-final/`; topic store at `logs/topics/` (27 topics, 203 statements)
+- **From:** team T006 (`dispatch/cockpit.json` T006); drafts at `notepad/research-2026-09-18/records-final/`; topic store at `logs/topics/` (27 topics, 203 statements)
 - **Mission:** M001
 - **Proposals arising:** P009 (land the seven records)
 
@@ -21,7 +21,7 @@ Your ruling on DS002 was applied whole. A record is now one topic, in its curren
 
 ## What you should know before reading
 
-- **Two things came from you today, not from a transcript:** order O039 on launches per feature, and O040, your yes on the three rules. The records cite them by id and the header says so.
+- **Two things came from you today, not from a transcript:** order O039 on launches per feature, and O040, your yes on the three rules. The records cite them by id and the header says so. The adversary verified that the records match the orders file word for word; whether the orders file records what you said is yours to check, since no transcript covers it. Both entries are in `quarters/commander/orders.json`.
 - **Two supersessions were read too widely and corrected by the adversary:** "there is no gates, only workflows" abolished the gate switch, not gates; and the launch file had vanished from the set with it. Both restored from your own lines.
 - **Three unsettled things stay unsettled** rather than being filled: who writes the run log, how a gate is cleared, when a launch is done. Each record says "ask".
 - **The register has no commander topic** and is distilled from the previous team's verified source, which is what a register is for.
@@ -37,4 +37,4 @@ Your ruling on DS002 was applied whole. A record is now one topic, in its curren
 - The topic store: `logs/topics/` (README states the schema and the timeless-topics rule).
 - The adversary's passes: `notepad/research-2026-09-18/adversary-*.md`.
 - Terrain per topic: `notepad/research-2026-09-18/discovery/`.
-- The team record, with outcome and lessons: `dispatch/cockpit/T006-topics-and-records.md`.
+- The team record, with outcome and lessons: `dispatch/cockpit.json` T006.

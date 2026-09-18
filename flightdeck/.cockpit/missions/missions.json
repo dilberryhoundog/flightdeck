@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-18",
+  "updated": "2026-09-19",
   "current": "M001",
   "missions": [
     {
@@ -11,7 +11,8 @@
       "branch": "cockpit",
       "assigned_by": "commander",
       "opened": "2026-09-17",
-      "closed": null
+      "closed": null,
+      "progress": "Phase 3 in flight: recon done, topic store and seven records drafted (DS003/P009 awaiting the commander), teams integrated; agent body and doctrine landing outstanding"
     }
   ],
   "incubator": "incubator/incubator.json",

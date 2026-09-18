@@ -16,7 +16,7 @@
       "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O006",
       "date": "2026-09-18",
       "statement": "All sessions are mine. Be polite but authoritative, you are the pilot of this flight.\"",
-      "context": "Answering how the pilot should address the commander.",
+      "context": "Answering how the pilot should address other sessions' agents.",
       "superseded_by": null
     },
     {

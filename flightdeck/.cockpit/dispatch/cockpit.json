@@ -1,0 +1,307 @@
+{
+  "version": 1,
+  "updated": "2026-09-19",
+  "room": "cockpit",
+  "teams": [
+    {
+      "id": "T001",
+      "date": "2026-09-18",
+      "session": "dcb75456",
+      "mission": "M001",
+      "purpose": "Recon flightcrew's terrain, history and doctrine; verify harness claims against official docs; cut candidate epic missions",
+      "roster": "recon",
+      "seats": [
+        {
+          "name": "runs-recon",
+          "reason": "judging what a launch and a run look like is synthesis",
+          "returns": "launch anatomy, run mechanics, run-2 result, unfinished intent, 17 harness claims; addendum after reading its explorers"
+        },
+        {
+          "name": "lineage-historian",
+          "reason": "mining branch seams for missions is judgement",
+          "returns": "five seams, reconciliation, eight candidate missions; revised after reading its explorers"
+        },
+        {
+          "name": "doctrine-recon",
+          "reason": "doctrine documents are distilled prose; clerical reading",
+          "returns": "doctrine briefing with drift table"
+        },
+        {
+          "name": "docs-verifier",
+          "reason": "official-docs lookup",
+          "returns": "alignment practices (six sources); three verification batches"
+        },
+        {
+          "name": "mission-cutter",
+          "reason": "cutting missions with goals and done conditions is synthesis",
+          "returns": "campaign and eight candidate missions"
+        }
+      ],
+      "subagents": [
+        {
+          "agent_type": "Explore",
+          "model": "sonnet",
+          "count": 7,
+          "spawned_by": "lineage-historian (5), runs-recon (2)",
+          "note": "hand-backs reached the lead only; raw reports under notepad/recon-2026-09-18/raw/"
+        }
+      ],
+      "shape": "three readers in parallel; verifier fetched alignment practices at once and verified claims as readers landed; cutter waited for all four",
+      "outcome": "Filed and verified under notepad/recon-2026-09-18/, distilled into DS001. Pilot corrected: the tip is the run-2 branch (pilot's own briefing error); spec-altitude added after the fork not deleted; interfaces rewrite never reached the tip; two remote-lag figures; no local branch named origin. Failures: two reports truncated (briefs said `pilot`, in-team address is `team-lead`); seven explorer hand-backs went to the lead only. Second pass changed both readers' reports materially.",
+      "lessons": [
+        "address the lead as team-lead; give a scratchpad path for long reports",
+        "teammate subagents hand back to the lead only; either the teammate reads directly or the lead relays",
+        "Sonnet on doctrine reading produced two directional misreads of git diffs; blob comparison by the pilot caught them",
+        "keep the whole team alive to the end; the second pass was where the value was",
+        "Explore subagents cost about 100k tokens each; seven was a large hidden spend"
+      ],
+      "status": "finished"
+    },
+    {
+      "id": "T002",
+      "date": "2026-09-18",
+      "session": "dcb75456",
+      "mission": "M001",
+      "purpose": "Certified research team: turn the recon and the genesis sources into records, contested and verified, run past the commander before landing",
+      "roster": "certified-research",
+      "seats": [
+        {
+          "name": "source-reader",
+          "reason": "genesis documents are written prose; clerical reading",
+          "returns": "what the genesis says the system is; divergences; addendum on the two unread constitution documents"
+        },
+        {
+          "name": "transcript-miner",
+          "reason": "extracting the commander's definitions from long transcripts is judgement",
+          "returns": "definitions, architecture, decisions, taste, quoted and dated; three method warnings"
+        },
+        {
+          "name": "records-writer",
+          "reason": "writing records that extract rather than copy is synthesis under a rule",
+          "returns": "five documents; contested and revised; ruled source material by the commander"
+        },
+        {
+          "name": "docs-verifier",
+          "reason": "official-docs lookup",
+          "returns": "verification of every harness claim in each draft"
+        },
+        {
+          "name": "adversary",
+          "reason": "a record reaches the commander already contested once",
+          "returns": "about fifty findings across two passes; four withdrawn in writing"
+        }
+      ],
+      "subagents": [],
+      "shape": "two readers in parallel to the writer and the lead; writer drafted, sent each draft to adversary and verifier, revised, delivered to the lead",
+      "outcome": "Five documents drafted, contested and revised in one session; the commander ruled them fully referenced source material, not records (DS002), and set the good-record docspec. Filed at notepad/research-2026-09-18/source/. Adversary withdrew four findings (false framing under a true id; true claim called overreach; correct code claim challenged on a header comment; verbatim quote called fabricated after stopping at the first match). Writer caught its own reversed model-tier claim. Verifier discarded its first pass after the fetch summariser invented a figure. Delivery intact via team-lead and scratchpad files.",
+      "lessons": [
+        "this is the certified research shape: readers, a writer that re-verifies, an Opus adversary, a docs verifier on raw pages, the pilot ruling",
+        "check for a second occurrence before calling a quote fabricated; re-run every negative across spellings",
+        "a writer must contest the adversary with evidence; returning to the source saved a correct sentence",
+        "a WebFetch answer is model output over the page, not the page",
+        "transcript quotation needs three warnings in the brief: agent returns hide in user blocks; commissioned documents are not the commander's prose; pasted exchanges carry seams",
+        "consolidate the lead's fixes into one message; rulings crossing with revisions cost rounds",
+        "two seats should not share a name across teams; a dead seat revives when addressed",
+        "state they/them for anyone whose pronouns are not given"
+      ],
+      "status": "finished"
+    },
+    {
+      "id": "T003",
+      "date": "2026-09-18",
+      "session": "dcb75456",
+      "mission": "M001",
+      "purpose": "Critique the pilot's cockpit work of the day and the approved plan from two angles: fit with the cockpit's purpose and corpus; bulk that can be trimmed without losing function",
+      "roster": "mini-adversary",
+      "seats": [
+        {
+          "name": "fit-critic",
+          "reason": "fit with purpose is judgement",
+          "returns": "13 then 7 findings; three high, all against the plan"
+        },
+        {
+          "name": "trim-critic",
+          "reason": "measuring bulk against function is judgement",
+          "returns": "17 findings; the three biggest recurring costs named"
+        }
+      ],
+      "subagents": [],
+      "shape": "two independent angles in parallel, no cross-talk by design; each re-read after the room changed under it",
+      "outcome": "Plan reshaped on the fit-critic's three high findings (crew cannot write where the plan sends them; docspec would restate rule 2; a third home for the commander's words). Trim-critic's three top cuts made: orders to JSON, session log capped, map trimmed. Second passes found seven pointer breaks from the dispatch rebuild, all fixed.",
+      "lessons": [
+        "two independent angles found different things; keep them independent",
+        "run the critique before building: every high finding was against the plan, not the files",
+        "tell critics at dispatch that the ground may move and to re-read before reporting",
+        "a change made in one room must be made in every room that points into it"
+      ],
+      "status": "finished"
+    },
+    {
+      "id": "T004",
+      "date": "2026-09-18",
+      "session": "8e74fffb",
+      "mission": "M001",
+      "purpose": "First agent team: cockpit cleanup suggestions, official best practices, adversary on both (spark S003)",
+      "roster": null,
+      "seats": [
+        {
+          "name": "auditor",
+          "reason": "judgement over the cockpit",
+          "returns": "findings A1 to A16"
+        },
+        {
+          "name": "docs-scout",
+          "reason": "official-docs lookup",
+          "returns": "sourced findings"
+        },
+        {
+          "name": "red-team",
+          "reason": "attack both reports",
+          "returns": "verdict and ranked actions"
+        }
+      ],
+      "subagents": [],
+      "shape": "auditor and scout in parallel, both messaging the red-team; red-team ruled; all three shut down as first reports landed",
+      "outcome": "Findings actioned on the commander's orders: launcher check, guard rewrite with table test, persona moved to quarters, index and hook batch; sandbox raised as S004. Reports at notepad/team-run-2026-09-18/. Recorded retrospectively.",
+      "lessons": [
+        "produced crew rule 6 (keep teammates alive) and later the Opus-adversary clause of rule 2"
+      ],
+      "status": "finished"
+    },
+    {
+      "id": "T005",
+      "date": "2026-09-18",
+      "session": "49f87e44",
+      "mission": "M001",
+      "purpose": "CLAUDE.md review: official docs on CLAUDE.md, cockpit comb, judge and redraft",
+      "roster": null,
+      "seats": [
+        {
+          "name": "docs-scout",
+          "reason": "official-docs lookup",
+          "returns": "21 findings"
+        },
+        {
+          "name": "cockpit-comber",
+          "reason": "comb the cockpit for CLAUDE.md material",
+          "returns": "too thin; went idle before the scout's message; reassigned"
+        },
+        {
+          "name": "claude-md-judge",
+          "reason": "line-by-line judgement",
+          "returns": "verdicts and the revised CLAUDE.md"
+        }
+      ],
+      "subagents": [],
+      "shape": "scout first; comber was to receive the scout's findings and did not wait; judge replaced the comber",
+      "outcome": "CLAUDE.md rebuilt with rules 1 to 11, the crew protocol and session procedures; quarters trimmed to persona; import ruling. Reports at notepad/claude-md-review-2026-09-18/. Recorded retrospectively.",
+      "lessons": [
+        "a teammate that must wait for another's message needs that said in its brief",
+        "a judgement seat on Sonnet was under-powered; crew rule 2"
+      ],
+      "status": "finished"
+    },
+    {
+      "id": "T006",
+      "date": "2026-09-18",
+      "session": "dcb75456",
+      "mission": "M001",
+      "purpose": "Strengthened research team (DS002 advice): mine the commander's statements into timeless topics, distil records under the docspec, validated, compared and contested",
+      "roster": "topics-and-records",
+      "seats": [
+        {
+          "name": "topic-extractor",
+          "reason": "deciding what is a timeless topic and what is chatter is judgement",
+          "returns": "27 topics, 203 statements, byte-verbatim, verified twice"
+        },
+        {
+          "name": "record-writer",
+          "reason": "distilling a topic into a record under six tests is synthesis",
+          "returns": "six records and one register; built a citation-resolving check"
+        },
+        {
+          "name": "discovery",
+          "reason": "fetching repo terrain to validate references is retrieval",
+          "returns": "27 per-topic terrain notes, four batch reports"
+        },
+        {
+          "name": "validator",
+          "reason": "adjudicating disputed claims against official sources is lookup",
+          "returns": "adjudications on request; nested-subagent clause cut"
+        },
+        {
+          "name": "adversary",
+          "reason": "adversary and comparer in one seat",
+          "returns": "about forty findings across four passes; six withdrawn in writing"
+        }
+      ],
+      "subagents": [],
+      "shape": "extractor first; discovery and validator as topics landed; writer drafted once topics were stable, sent each draft to adversary and validator, revised, delivered; the lead filed topics and put records to the commander as DS003",
+      "outcome": "Topic store filed (27 topics, 203 statements). Seven records drafted at notepad/research-2026-09-18/records-final/, dossier DS003, proposal P009. Two over-broad supersessions caught and narrowed. Two commander rulings obtained in session (O039, O040). Pilot's own errors caught by seats: two turn-opener line numbers in a ruling, one wrong advice-file attribution, one over-broad supersession ruling. The writer's script found one wrong citation in 83 that four passes had not.",
+      "lessons": [
+        "the topic store is the right intermediate: it caught a superseded claim the writer had just added and made every quote checkable with one command",
+        "a summarising fetch can establish a presence but never an absence; check every negative against raw HTML",
+        "anchor findings on quoted text, not line numbers",
+        "a wrong citation is present and a missing one is absent; only a script that resolves each citation against its line catches it",
+        "a writer that applies a disputed ruling in its weakest true form and sends the question up is what gets the commander to answer it",
+        "brief every seat with the full read scope it will need; lifting boundaries mid-run cost rounds",
+        "two seats should not share a name across teams",
+        "extend a verifier and prove it fails on a bad input before trusting its pass"
+      ],
+      "status": "finished; records await the commander's ruling on P009"
+    },
+    {
+      "id": "T007",
+      "date": "2026-09-18",
+      "session": "dcb75456",
+      "mission": "M001",
+      "purpose": "One-shot doc-reviewer on the records docspec in CLAUDE.md rule 2 and records/README.md",
+      "roster": null,
+      "seats": [
+        {
+          "name": "doc-reviewer",
+          "reason": "durability audit of an agent-facing document",
+          "returns": "four defects, all fixed"
+        }
+      ],
+      "subagents": [],
+      "shape": "one-shot subagent",
+      "outcome": "Four defects: record style defined only by exemplar; 'the library' undefined; two sourcing requirements unreconciled; a soft line cap. All fixed before the writer drafted.",
+      "lessons": [
+        "run the doc-reviewer on any docspec before a team drafts against it"
+      ],
+      "status": "finished"
+    },
+    {
+      "id": "T008",
+      "date": "2026-09-18",
+      "session": "dcb75456",
+      "mission": "M001",
+      "purpose": "Mini-adversary pass on the teams integration: dispatch as JSON per room, rosters, crew rooms and dossiers",
+      "roster": "mini-adversary",
+      "seats": [
+        {
+          "name": "fit-critic",
+          "reason": "fit with the cockpit's purpose and the commander's teams direction",
+          "returns": "findings, three to fix first, verdict"
+        },
+        {
+          "name": "trim-critic",
+          "reason": "bulk and duplication between dispatch entries, rosters, dossiers and the manifest",
+          "returns": "findings with what is lost per cut, top three"
+        }
+      ],
+      "subagents": [],
+      "shape": "independent, parallel, no cross-talk",
+      "outcome": "fit-critic 14 findings, trim-critic 10, agreeing on one defect: a seat's identity written by hand into four files and already drifted three times. Applied: crew.json owns identity; dispatch seats are name, reason, returns; rosters are name lists; dossiers cut to purpose, how to dispatch, record, next time; five retired dossiers deleted with their status carried in the manifest; two turn-opener citations in the spec-builder dossier fixed; rules 7 and 10 name every store; status enums honoured; room indexes added. JSON 857 to 501 lines.",
+      "lessons": [
+        "one owner per fact: the manifest owns who a seat is, the team entry owns what a team did, the dossier owns how to brief it, the README explains",
+        "a dossier briefs a seat; history goes in the team entry",
+        "a change in one room is a change in every room that points into it, again",
+        "run the mini-adversary roster on any structural rebuild before logging off"
+      ],
+      "status": "finished"
+    }
+  ],
+  "convention": "Seat identity (agent type, model) is in ../quarters/crew/crew.json; a seat here is name, reason, returns. Ids assigned once, never renumbered."
+}

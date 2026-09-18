@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "updated": "2026-09-19",
+  "convention": "Favourite setups for repeat dispatch. A roster is a list of seat names (identity in ../quarters/crew/crew.json, brief in the seat's dossier) and one line of shape. Teams flown from a roster are found in cockpit.json by the roster field.",
+  "rosters": [
+    {
+      "name": "recon",
+      "purpose": "survey unknown terrain and cut candidate missions",
+      "seats": [
+        "runs-recon",
+        "lineage-historian",
+        "doctrine-recon",
+        "docs-verifier",
+        "mission-cutter"
+      ],
+      "shape": "readers in parallel, verifier from the start, cutter waits for all; readers do not spawn subagents"
+    },
+    {
+      "name": "mini-adversary",
+      "purpose": "critique the pilot's own work before building",
+      "seats": [
+        "fit-critic",
+        "trim-critic"
+      ],
+      "shape": "independent, parallel, no cross-talk; warn that the ground may move"
+    },
+    {
+      "name": "topics-and-records",
+      "purpose": "mine the commander's statements into topics and distil records",
+      "seats": [
+        "topic-extractor",
+        "record-writer",
+        "discovery",
+        "validator",
+        "adversary"
+      ],
+      "shape": "extractor first; discovery and validator as topics land; writer once topics are stable; adversary on every draft"
+    }
+  ]
+}

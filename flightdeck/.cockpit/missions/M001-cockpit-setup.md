@@ -53,11 +53,12 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 
 ### Phase 3 — brief, cut, fill (ordered 2026-09-18)
 
-- [x] Team T001 assembled 2026-09-18: five seats on the commander's revised rule 6 (`dispatch/cockpit/T001-recon.md`).
+- [x] Team T001 assembled 2026-09-18: five seats on the commander's revised rule 6 (`dispatch/cockpit.json` T001).
 - [x] Pilot briefed on flightcrew and the commander's work so far; reports filed in `notepad/recon-2026-09-18/`, each verified.
 - [ ] Recon of the library and manuals summarised for a pilot (`notepad/recon-2026-09-18/doctrine-recon.md`, ready); commander approves; promoted to `records/flightcrew/`.
 - [ ] Terrain cut into eight candidate epic missions with goals and definitions of done (`notepad/recon-2026-09-18/mission-cutter.md`, ready); commander approves which earn a place.
 - [ ] Approved missions filled out with team findings.
+- [ ] Teams integrated as the pilot's first feature (ordered 2026-09-18): team dispatches recorded as JSON per room (`dispatch/cockpit.json`); every agent dispatched has a filled dossier under `quarters/crew/{flightcrew,team,general}/`; `quarters/crew/crew.json` is the manifest of every teammate across every crew; favourite setups stored as named rosters in `dispatch/rosters.json` for repeat dispatch. Done 2026-09-18 for every agent flown in session dcb75456; rosters for the four team shapes flown.
 - [ ] The pilot has an agent body (ordered 2026-09-18): the role scoping (fly the mission, do no work, manage teams, preside over the room) and the session-start procedure live in an agent definition launched as the session agent, so CLAUDE.md stays general and crew in the cockpit never mistake themselves for the pilot. Harness fact already verified today: `initialPrompt` fires for a session started with `--agent`.
 - [ ] Doctrine discovery and integration: T002's five documents ruled source material (DS002); T006 built the topic store (27 topics, 203 statements) and seven records under the docspec (DS003, P009); landing awaits the commander's review.
 

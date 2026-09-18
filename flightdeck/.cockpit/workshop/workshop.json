@@ -122,7 +122,7 @@
     },
     {
       "id": "W016",
-      "title": "Carry buildout's late doctrine forward: spec-altitude.md and the interfaces rewrite (1c81888) exist only on flightcrew-buildout; decide their home when the suite merges. Altitude summary already in quarters/crew/spec-builder.md",
+      "title": "Carry buildout's late doctrine forward: spec-altitude.md and the interfaces rewrite (1c81888) exist only on flightcrew-buildout; decide their home when the suite merges. Altitude summary already in quarters/crew/flightcrew/spec-builder.md",
       "raised": "2026-09-18",
       "source": "doctrine-recon C014; T002 doctrine source",
       "status": "open"
@@ -168,6 +168,14 @@
       "raised": "2026-09-18",
       "source": "T006 discovery, models-and-cost topic",
       "status": "open"
+    },
+    {
+      "id": "W023",
+      "title": "Keep the T006 record-writer's citation check as a cockpit tool (base/bin): for every <session>:<line> in a record, resolve the line from the transcript by git show and confirm the quoted words are on it; it found one miss in 83 that four passes had not. Also resolve line numbers written into topic context prose (the extractor's extension)",
+      "raised": "2026-09-18",
+      "source": "T006 record-writer and adversary",
+      "status": "open",
+      "recurring": true
     }
   ]
 }

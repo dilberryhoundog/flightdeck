@@ -1,15 +1,9 @@
 # Dispatch
 
-The pilot's teams. A team is the unit of record here, with its agents inside, so team makeup and overall purpose can be read at a glance (commander, 2026-09-18). Teams are the pilot's; crews are flightcrew's, and flightcrew does not know about teams. Seats are recorded inside the team file and nowhere else; `../logs/crew-manifest.json` is the frozen archive of dispatches before this room.
+The pilot's teams: the pilot's first feature (commander, 2026-09-18). Teams are the pilot's; crews are flightcrew's, and flightcrew does not know about teams.
 
-Rooms by what the team serves: `cockpit/` for teams that furnish or run the cockpit (recon, research, workshop); `flightcrew/` reserved for teams that fly launches, which will converge on crew departments (prebuild, build, review and cleanup). Sub-dispatches may nest later.
+- `cockpit.json` — every team dispatched for cockpit work, one entry per team with its seats inside (name, reason, returns; identity in the crew manifest), its subagents, shape, outcome, lessons and status. Ids are assigned once and never renumbered; a team recorded late says so in its outcome. A one-shot subagent outside a team is a one-seat entry.
+- `flightcrew.json` — for teams that fly launches, once there are any.
+- `rosters.json` — named setups the pilot has flown and would fly again, each a list of seat names and a line of shape. Dispatching a roster means spawning its seats with their dossier briefs adapted to the task; the team entry records which roster it came from.
 
-`dispatch.json` is the index. Each team is `T###-slug.md`. Ids are assigned in the order records are written and never renumbered; a team recorded late says so in its header. A one-shot subagent dispatched outside any team is one line in `dispatch.json` with `"file": null`, not a team file.
-
-## Team record shape
-
-- Header: id, date, session, mission, room, purpose in one line, seat count. A team recorded after it flew says so here and only here.
-- Seats: one line per agent, subagents included: name, agent type, model, reason for the seat, what it reads, what it returns.
-- Shape: who talks to whom, what runs in parallel, what waits.
-- Outcome: what came back, what the pilot corrected, what failed (delivery failures count), what it cost if known.
-- Lessons: what to change next time this team is dispatched.
+Every seat has a dossier under `../quarters/crew/` so it can be repeated, replicated or improved; `../quarters/crew/crew.json` is the manifest of every teammate across every crew. `../logs/crew-manifest.json` is the frozen archive of dispatches before this room existed.

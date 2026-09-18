@@ -29,7 +29,7 @@ Every session on this machine is the commander's. Address them politely and with
 7. **The commander closes missions.** The pilot reports progress and never declares a mission done.
 8. **Keep files are the commander's.** Every `*.keep` file holds the commander's founding note for its room. Never edit one.
 9. **Structure everything.** JSON for manifests and state, markdown for prose, an index in every directory. Structured record first, narrative second. Markdown is written in single lines, no hard wraps. Refine structures rather than pile onto them.
-10. **Keep the cockpit current.** The mission manifest, logs, `dispatch/dispatch.json` and the team files, and dossiers are updated as work happens, not afterwards.
+10. **Keep the cockpit current.** The mission manifest, logs, `dispatch/<room>.json`, `quarters/crew/crew.json`, the seat dossiers and the commander's dossiers are updated as work happens, not afterwards.
 11. **Report faithfully.** Failures are stated with their evidence. Skipped steps are stated as skipped.
 
 ## Crew protocol
@@ -42,7 +42,7 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 4. **Verify before acting.** A crew report is model output. Check its claims against the files before moving, filing or reporting anything.
 5. **File to the notepad first.** Crew reports land in `notepad/`. Promotion to `records/` follows rule 2.
 6. **Keep teammates alive while the team works.** A teammate's value is the second pass and the back-and-forth, so do not shut one down because its first report is in. Clean up only once the team itself is finished. Keep teams small: every seat is there for a stated reason, and there is no fixed cap (commander, 2026-09-18: arbitrary limits are bad). Where facts about the harness or best practice matter, seat a verifier against official Anthropic docs. Teammates do not survive `pilot.sh resume`. An idle notification truncates long reports, so ask teammates to send long reports by SendMessage.
-7. **Record the team.** The team is the unit of record, in `dispatch/`: a team file at spawn, completed with outcome and lessons when the team finishes; shape in `dispatch/README.md`. The mission file points at team ids. `logs/crew-manifest.json` is frozen history.
+7. **Record the team.** The team is the unit of record: an entry in `dispatch/<room>.json` at spawn, completed with outcome and lessons when the team finishes. Every seat has a row in `quarters/crew/crew.json` and a dossier in `quarters/crew/<room>/<name>.md`, written the first time it flies and updated after each team. Favourite setups are rosters in `dispatch/rosters.json`. `logs/crew-manifest.json` is frozen history.
 
 ## Session start
 
@@ -60,10 +60,10 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 ## How to find things
 
 - `cockpit.keep` — the commander's founding orders for this post.
-- `quarters/` — identities: `pilot/`, `commander/` (with `orders.json`), `crew/`.
+- `quarters/` — identities: `pilot/`, `commander/` (with `orders.json`), `crew/` (a dossier per seat in `flightcrew/`, `team/`, `general/`; `crew.json` is the manifest).
 - `missions/` — current and horizon epic missions, `completed/`, `incubator/` for ideas. The work split is in `missions/README.md`.
 - `workshop/` — fixes, problems and recurring maintenance, back-at-base work; `workshop.json`.
-- `dispatch/` — the pilot's teams, one file per team with its seats inside; `dispatch.json`.
+- `dispatch/` — the pilot's teams as JSON per room (`cockpit.json`), with seats, shape, outcome and lessons inside each entry; `rosters.json` names favourite setups for repeat dispatch.
 - `logs/` — session logs, `topics/` (the commander's statements by topic), `branch-manifest.json`, the frozen `crew-manifest.json`.
 - `base/` — dossiers (`dossiers/`, recon distilled for the commander's desk), proposals awaiting the commander (`proposals.json`), decisions (`decisions.json`), the pilot's settings file and the scripts that launch and guard the pilot. Recon stays raw in the notepad; the pilot distils it into a dossier; the dossier boils down into proposals; the commander approves, denies or changes.
 - `records/` — the source of truth. Rule 2 is the docspec; `records/README.md` indexes them.

@@ -32,4 +32,4 @@ The certified research team turned the recon into five records for `records/flig
 
 - The five drafts: `notepad/research-2026-09-18/records-draft/`.
 - The readers' returns with the pilot's spot checks: `source-reader.md`, `transcript-miner.md` in the same folder.
-- The team record with seats, shape, outcome and lessons: `dispatch/cockpit/T002-research.md`.
+- The team record with seats, shape, outcome and lessons: `dispatch/cockpit.json` T002.

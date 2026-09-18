@@ -1,6 +1,6 @@
 # Workshop
 
-Small fixes, defects and loose ends the pilot has come across. Not missions. A mission is reserved for bigger-scoped work the commander has said or the pilot has eventually noticed; the incubator is the pre-step for those, and not every spark is promoted. Everything smaller is left here to get fixed.
+Little fixes, problems to fix, maintenance work: what gets done when not out completing epic missions, back-at-base work (commander, 2026-09-18). Not missions. A mission is reserved for bigger-scoped work the commander has said or the pilot has eventually noticed; the incubator is the pre-step for those, and not every spark is promoted. Everything smaller is left here to get fixed.
 
 `workshop.json` is the index. Each item has an id `W###`, a title, where it came from, its status and where it was fixed. An item gets its own file `W###-slug.md` only when the fix needs notes longer than a line.
 

@@ -89,6 +89,14 @@
       "decision": "CLAUDE.md is folder instructions for any agent arriving in the cockpit: purpose, rules, how to find things. The pilot's persona moves into quarters/pilot (identity, job description), structured at the pilot's choice.",
       "by": "commander",
       "proposal": null
+    },
+    {
+      "id": "D012",
+      "date": "2026-09-18",
+      "subject": "Day-one proposals P001 to P003",
+      "decision": "Left to the pilot. P001 superseded by the ordered recon team; P002 and P003 withdrawn to the workshop as W008 and W009.",
+      "by": "commander, executed by the pilot",
+      "proposal": "P001, P002, P003"
     }
   ]
 }

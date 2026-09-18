@@ -5,6 +5,18 @@
 - **Assigned by:** commander
 - **Opened:** 2026-09-17
 
+## Goal
+
+The pilot oversees and manages launches and runs from the cockpit, reporting to and from the commander; improves the flightdeck system by proposing changes up the chain; and keeps the cockpit structured and maintained in service of that. A messy cockpit jeopardises missions. Missions are epic: aim high, do not bog down in details or low-quality mission setup, and follow best practices for long-range agent alignment (a stated goal, a statement of what done looks like). Added 2026-09-18 on the commander's advice.
+
+## What done looks like
+
+- The pilot can be logged on and off, and can call teammates without disrupting other crew. (Achieved 2026-09-18.)
+- Notepad, records, quarters, missions and base each have a settled shape, and base is the base of operations.
+- The pilot is briefed on flightcrew and on the commander's work so far, and the briefing that matters to a pilot is in `records/` with the commander's approval.
+- The terrain is cut into epic missions, each with a goal and a definition of done, approved by the commander and filled out with team findings.
+- The commander closes the mission.
+
 ## Orders
 
 "Your first mission is to set up and structure your cockpit. Basics first. Set up CLAUDE.md with your mandates. Research a little about agent teams and session messaging. Build some of the first infrastructure. Then send off a crew to explore the work that has already begun on flightcrew."
@@ -37,7 +49,15 @@
 - [x] Mission incubator opened with three sparks.
 - [x] Agent teams learned by running one (spark S003). First team ran 2026-09-18; observations in `notepad/team-run-2026-09-18/`.
 - [x] Team findings actioned on the commander's orders: launcher check (A1), guard rewrite with table test (A2), persona moved to quarters (A12), A3, A4, index and hook batch. Sandbox raised as spark S004.
-- [ ] Toolset tested by the commander invoking the pilot.
+- [x] Toolset tested by the commander invoking the pilot. Sessions 8e74fffb, 49f87e44 and dcb75456 launched by `pilot.sh`; logged on and off across sessions on 2026-09-18.
+
+### Phase 3 — brief, cut, fill (ordered 2026-09-18)
+
+- [x] Team assembled 2026-09-18: runs-recon (C012, Opus), lineage-historian (C013, Opus), doctrine-recon (C014, Sonnet), docs-verifier (C015, claude-code-guide Sonnet), mission-cutter (C016, Opus). Five seats on the commander's revised rule 6.
+- [x] Pilot briefed on flightcrew and the commander's work so far; reports filed in `notepad/recon-2026-09-18/`, each verified.
+- [ ] Recon of the library and manuals summarised for a pilot (`notepad/recon-2026-09-18/doctrine-recon.md`, ready); commander approves; promoted to `records/flightcrew/`.
+- [ ] Terrain cut into eight candidate epic missions with goals and definitions of done (`notepad/recon-2026-09-18/mission-cutter.md`, ready); commander approves which earn a place.
+- [ ] Approved missions filled out with team findings.
 
 ## Crew dispatched
 
@@ -46,11 +66,13 @@
 - 2026-09-18 — explorer (`general-purpose`, Sonnet, unnamed subagent): sort `references/` into official, scratch and mixed. Returned. Plan verified; it misclassed `cc.keep` and missed two embedded scratch passages.
 - 2026-09-18 — first agent team (S003), commander's order: `auditor` (general-purpose, Opus) cockpit cleanup suggestions; `docs-scout` (claude-code-guide, Sonnet) official best practices; `red-team` (adversary, Sonnet) attacks both. Auditor and scout message red-team. Returned and shut down. Manifest C006 to C008; all dispatches backfilled in `logs/crew-manifest.json` as C001 to C008.
 
+- 2026-09-18 — recon team (phase 3), commander's order: five teammates, manifest C012 to C016. Topology briefed from the commander's account in `notepad/flightcrew/topology-2026-09-18.md`.
+
 ## Outcome
 
 Pending.
 
-## Lessons
+## Battle scars (lessons, appended as they happen)
 
 - Declared the mission complete after one pass. The commander corrected this: the mission had only begun. Rudimentary structure is not a finished cockpit. Do not call a mission done; the commander does.
 

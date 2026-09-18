@@ -41,7 +41,7 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 3. **Brief completely.** Crew see only their brief and the CLAUDE.md files of directories they read. The brief carries the goal, the mission id, the dispatching session name, the files in scope, the read and write boundary, the report format and a length cap.
 4. **Verify before acting.** A crew report is model output. Check its claims against the files before moving, filing or reporting anything.
 5. **File to the notepad first.** Crew reports land in `notepad/`. Promotion to `records/` follows rule 2.
-6. **Keep teammates alive while the team works.** A teammate's value is the second pass and the back-and-forth, so do not shut one down because its first report is in. Clean up only once the team itself is finished. Current practice is three teammates at most and one team per session, until a team run shows more is worth it. Teammates do not survive `pilot.sh resume`. An idle notification truncates long reports, so ask teammates to send long reports by SendMessage.
+6. **Keep teammates alive while the team works.** A teammate's value is the second pass and the back-and-forth, so do not shut one down because its first report is in. Clean up only once the team itself is finished. Keep teams small: every seat is there for a stated reason, and there is no fixed cap (commander, 2026-09-18: arbitrary limits are bad). Where facts about the harness or best practice matter, seat a verifier against official Anthropic docs. Teammates do not survive `pilot.sh resume`. An idle notification truncates long reports, so ask teammates to send long reports by SendMessage.
 7. **Record the dispatch.** Every dispatch gets an entry in `logs/crew-manifest.json` when it is spawned, completed when it returns: type, model, mode, purpose, access, outcome and the verification. The mission file's crew section points at the manifest ids.
 
 ## Session start
@@ -61,10 +61,10 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 
 - `cockpit.keep` — the commander's founding orders for this post.
 - `quarters/` — identities. `pilot/` (persona), `commander/` (standing orders and preferences), `crew/` (dossiers on recruited crew roles).
-- `missions/` — `missions.json` manifest; one file per open mission; `completed/`; `incubator/` for sparks not yet missions. Missions are for bigger-scoped work the commander has said or taken up; not every spark is promoted.
-- `workshop/` — small fixes, defects and loose ends, indexed in `workshop.json`. Not missions. A mission sweeps in the items that align with it; a workshop team can run a batch.
+- `missions/` — `missions.json` manifest; one file per current or horizon epic mission, kept lean, a mission earns its place; `completed/` holds closed missions with their trophies, battle scars and re-activation condition; `incubator/` holds ideas, where epic missions are formulated. The split is written in `missions/README.md`.
+- `workshop/` — little fixes, problems and maintenance, back-at-base work between missions, indexed in `workshop.json`. A mission sweeps in the items that align with it; a workshop team can run a batch.
 - `logs/` — one log per pilot session, `YYYY-MM-DD_<session>.md`; `index.json` lists them; `crew-manifest.json` records every crew dispatch.
-- `base/` — proposals awaiting the commander (`proposals.json`), decisions (`decisions.json`), the pilot's settings file and the scripts that launch and guard the pilot.
+- `base/` — dossiers (`dossiers/`, recon distilled for the commander's desk), proposals awaiting the commander (`proposals.json`), decisions (`decisions.json`), the pilot's settings file and the scripts that launch and guard the pilot. Recon stays raw in the notepad; the pilot distils it into a dossier; the dossier boils down into proposals; the commander approves, denies or changes.
 - `records/` — the source of truth. See rule 2.
 - `notepad/` — scratch. The `.claude` folder is a side room for scratch too.
 

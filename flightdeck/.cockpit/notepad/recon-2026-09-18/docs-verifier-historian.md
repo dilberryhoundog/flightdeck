@@ -1,0 +1,13 @@
+# docs-verifier: verification of lineage-historian — M001
+
+Crew report, C015 job 2 batch 3, received 2026-09-18. Not independently checked by the pilot; sources are official pages. Notable for the cockpit: the concurrent subagent limit (20) and spawn depth (3) are documented, and today's team ran eleven agents at once under that limit.
+
+1. A subagent with no Write tool cannot write files at all; needs a stdin-reading command instead. Verdict: confirmed (core claim), unsupported (workaround detail). Docs: `tools` is a hard allowlist — "Claude Code removes every other built-in tool... whether inherited or listed in the `tools` field" — so Write is genuinely unavailable if omitted. The specific "needs a command that reads stdin" design workaround isn't addressed by docs either way; that's an implementation choice, not a documented requirement. Source: https://code.claude.com/docs/en/sub-agents.
+
+2. Worktree isolation refuses a shell shim script but allows `node file.mjs` directly — is there a documented rule distinguishing executable types? Verdict: unsupported. Docs describe isolation enforcement in terms of git-command-shape verification only: Claude Code "blocks a Bash or Monitor command when it can't verify from the command text that any git the command runs stays inside the worktree," including when "the command name is computed at runtime or the syntax can't be parsed." Nothing distinguishes a shell-shim wrapper from a direct interpreter invocation as such — the block (if any) would follow from whether the command's git usage is parseable, not the executable's shape. Source: https://code.claude.com/docs/en/worktrees.
+
+3. Subagents spawned by a running agent count toward a documented ceiling/concurrency limit. Verdict: confirmed. Two separate limits apply: `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` (default 20) — "when 20 subagents are running in a session, spawning another... fails with `Concurrent subagent limit reached`" — and `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` (default 3) — "a subagent can spawn subagents of its own, up to three layers below the main conversation." Nested subagents count toward the concurrent-running total while active. Source: https://code.claude.com/docs/en/sub-agents.
+
+4. `model: fable` and the `fable` alias are valid today for subagent frontmatter and teammate spawns. Verdict: confirmed. `fable` is a documented model alias alongside `sonnet`, `opus`, `haiku`; "Neither Fable model is the account-type default on any plan or provider. Select one explicitly." Requires Claude Code v2.1.257+ for Fable 5.1, and availability depends on plan/seat/org. Source: https://code.claude.com/docs/en/model-config, https://code.claude.com/docs/en/sub-agents.
+
+Date checked: 2026-09-18. Standing by.

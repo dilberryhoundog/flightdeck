@@ -33,6 +33,22 @@
       "raised_by": "pilot",
       "raised_on": "2026-09-18",
       "heat": "cool"
+    },
+    {
+      "id": "S006",
+      "title": "Teams built by mining the crew dispatch records",
+      "file": "S006-teams-from-dispatch-records.md",
+      "raised_by": "commander",
+      "raised_on": "2026-09-18",
+      "heat": "hot"
+    },
+    {
+      "id": "S007",
+      "title": "Record and mine the commander's decisions",
+      "file": "S007-commander-decision-mining.md",
+      "raised_by": "commander",
+      "raised_on": "2026-09-18",
+      "heat": "hot"
     }
   ]
 }

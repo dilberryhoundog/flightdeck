@@ -1,6 +1,6 @@
 # P001 — Survey run/flightcrew-characterization-2 before any new launch
 
-- **Status:** awaiting
+- **Status:** superseded 2026-09-18, see decisions.json D012
 - **Raised:** 2026-09-17
 - **Mission:** M001
 

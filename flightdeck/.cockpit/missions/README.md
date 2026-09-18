@@ -4,7 +4,14 @@
 
 Each open mission is a markdown file in this directory named `M###-slug.md`. When a mission completes, the pilot moves the file to `completed/` and updates the manifest's `file` path and `closed` date.
 
-Missions are reserved for bigger-scoped work: something the commander has said, or something the pilot has eventually noticed and the commander has taken up. Ideas that are not yet missions live in `incubator/` as sparks; the incubator is the pre-step, and not every spark is promoted. See `incubator/README.md`. Bug reports, minor fixes and loose ends are not missions; they go to `../workshop/`, and a mission sweeps in the ones that align with it. The manifest points at the incubator index and the workshop index.
+## The work split (commander, 2026-09-18)
+
+- **Workshop** (`../workshop/`): little fixes, problems to fix, maintenance. Work done when not out completing epic missions. Back-at-base work.
+- **Incubator** (`incubator/`): ideas, not work and not complete missions. Where epic missions are formulated. The pilot looks over it regularly for ideas that combine into an epic mission.
+- **Missions** (this directory): the current and horizon epic missions. Kept lean. A mission earns its place; the store stays fresh and sharp. There is no shelf, so a mission that is not earning its place is completed, returned to the incubator as an idea, or abandoned.
+- **Completed** (`completed/`): a mission moves here when it completes. Its file records the trophies (wins), the battle scars (losses and mistakes), and whether and how it can be re-activated.
+
+The manifest points at the incubator index and the workshop index.
 
 Mission ids are sequential and never reused.
 
@@ -15,4 +22,6 @@ Mission ids are sequential and never reused.
 3. Objectives: a checklist. Ticked as done.
 4. Crew dispatched: who, when, for what, outcome.
 5. Outcome: written at close.
-6. Lessons: what to improve in the flightdeck or the cockpit.
+6. Trophies: the wins, written at close.
+7. Battle scars: the losses and mistakes, written at close. During the mission this section is `Lessons`, appended as they happen.
+8. Re-activation: whether the mission can be re-activated, and what would trigger it. `none` if it cannot.

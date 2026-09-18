@@ -5,26 +5,68 @@
     {
       "id": "P001",
       "title": "Survey run/flightcrew-characterization-2 before any new launch",
-      "status": "awaiting",
+      "status": "superseded",
       "file": "proposals/P001-survey-characterization-run-2.md",
       "raised": "2026-09-17",
-      "mission": "M001"
+      "mission": "M001",
+      "decided": "2026-09-18",
+      "note": "superseded: the recon team ordered 2026-09-18 covers the run branches with the commander's approval already given"
     },
     {
       "id": "P002",
       "title": "Decide the canonical home for crew role definitions",
-      "status": "awaiting",
+      "status": "withdrawn",
       "file": "proposals/P002-decide-canonical-crew-source.md",
       "raised": "2026-09-17",
-      "mission": "M001"
+      "mission": "M001",
+      "decided": "2026-09-18",
+      "note": "withdrawn to the workshop as W008: too small for a proposal, a mission on flightcrew structure will sweep it"
     },
     {
       "id": "P003",
       "title": "Repair STRUCTURE.md and liftoff.template.yaml paths",
-      "status": "awaiting",
+      "status": "withdrawn",
       "file": "proposals/P003-repair-stale-structure-docs.md",
       "raised": "2026-09-17",
-      "mission": "M001"
+      "mission": "M001",
+      "decided": "2026-09-18",
+      "note": "withdrawn to the workshop as W009: a fix, not a proposal"
+    },
+    {
+      "id": "P004",
+      "title": "Open three missions now, two on the horizon, incubate the three launches",
+      "status": "awaiting",
+      "file": "proposals/P004-open-missions-from-the-cut.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "DS001"
+    },
+    {
+      "id": "P005",
+      "title": "The pilot's rulings on the cutter's nine open questions",
+      "status": "awaiting",
+      "file": "proposals/P005-rulings-on-the-open-questions.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "DS001"
+    },
+    {
+      "id": "P006",
+      "title": "Promote three recon briefings to records",
+      "status": "awaiting",
+      "file": "proposals/P006-promote-briefings-to-records.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "DS001"
+    },
+    {
+      "id": "P007",
+      "title": "Branch hygiene: prune contained branches, push stale remotes",
+      "status": "awaiting",
+      "file": "proposals/P007-branch-hygiene.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "DS001"
     }
   ]
 }

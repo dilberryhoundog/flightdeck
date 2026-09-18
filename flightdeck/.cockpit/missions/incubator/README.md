@@ -1,6 +1,6 @@
 # Mission Incubator
 
-Sparks, not missions. The commander gives the pilot very little at first; a spark records it before the picture is clear. Sparks collect momentum as evidence and context attach to them. When one is clear enough to state orders, objectives and a launch, it matures into a mission in the manifest and its spark file moves to `matured/`. Not every spark is promoted; a spark that turns out to be a small fix goes to `../../workshop/`, and comes back only if it combines with others into something mission-sized. One that stops mattering is closed where it lies.
+Ideas, not work and not missions (commander, 2026-09-18). This is where epic missions are formulated: the pilot looks over the incubator regularly for ideas that combine into an epic mission. Sparks, not missions. The commander gives the pilot very little at first; a spark records it before the picture is clear. Sparks collect momentum as evidence and context attach to them. When one is clear enough to state orders, objectives and a launch, it matures into a mission in the manifest and its spark file moves to `matured/`. Not every spark is promoted; a spark that turns out to be a small fix goes to `../../workshop/`, and comes back only if it combines with others into something mission-sized. One that stops mattering is closed where it lies.
 
 `incubator.json` is the index. Each spark is a markdown file `S###-slug.md`.
 

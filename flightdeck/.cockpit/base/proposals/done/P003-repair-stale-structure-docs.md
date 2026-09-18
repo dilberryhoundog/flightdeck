@@ -1,6 +1,6 @@
 # P003 — Repair STRUCTURE.md and liftoff.template.yaml paths
 
-- **Status:** awaiting
+- **Status:** withdrawn 2026-09-18, see decisions.json D012
 - **Raised:** 2026-09-17
 - **Mission:** M001
 

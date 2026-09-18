@@ -1,0 +1,26 @@
+# P007 — Branch hygiene: prune contained branches, push stale remotes, delete the stray backup
+
+- **Status:** awaiting
+- **Raised:** 2026-09-18
+- **Mission:** M001
+- **Dossier:** DS001
+
+## Problem
+
+Nine local branches are confirmed contained in their successors and add noise to every topology read: `flightcrew-buildout-v1`, `run/flightcrew-core-1`, `run/flightcrew-characterization-1`, `flightcrew-characterization-2/contracts`, `flightcrew-characterization-2/roles-workflows-distributed`, and six `worktree-wf_*`. Three remotes are stale: `origin/flightcrew-buildout` seven behind, `origin/flightcrew-characterization` missing run 2, `origin/main` two behind. `spec.v1.backup.json` sits beside its live file on `engage-crew`.
+
+## Proposal
+
+Outside the cockpit, so the commander's approval is required. Delete the nine contained branches locally. Push `flightcrew-buildout` and `main` with dev-workspace push. Leave `flightcrew-characterization` until M002 merges run 2. Leave `flightcrew-characterization-1/contracts` alone: it is a decision inside M002. The backup file is deleted as part of M002's sweep, not now.
+
+## Risk
+
+Branch deletion of contained refs loses nothing; the commits remain reachable and the reflog holds the names for the retention period. Reversible.
+
+## Crew plan
+
+One workshop crew on Sonnet with the exact branch list and the containment check to re-run before each delete. The pilot verifies with `git branch` and `dev-workspace push --check`.
+
+## Decision
+
+Pending.

@@ -1,0 +1,65 @@
+{
+  "id": "state-and-freezing",
+  "title": "State, freezing and gates",
+  "scope": "Where the system keeps its state, what freezing a document means, and who moves a run from one stage to the next. Excludes the workflow machinery that carries the state (see workflows-and-liftoffs).",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "8fdc3b29:5320",
+      "date": "2026-09-08",
+      "statement": "State lives in the docs themselves... freezing / approval written in the doc itself gating the next agent.",
+      "context": "Answering what the first build run had been expected to produce instead of a state-keeping command.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:5435",
+      "date": "2026-09-08",
+      "statement": "we have more than one \"state\" the system needs to handle. freezing is one type. a document is \"frozen\" it becomes immutable, especially if attached to a commit. this can then be deterministically ensured by locking those files.",
+      "context": "Distinguishing the two kinds of state after the fc command was found to hold both.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:5436",
+      "date": "2026-09-08",
+      "statement": "The other state is phase state. user gates etc. no problems with a a single json page handling this.",
+      "context": "Same turn, on the second kind. Superseded only in part: what 9b679556:3257 to 3260 overturns is the human flipping gate switches in launch.json as state machinery, \"it was his idea not mine\". It leaves standing both gates as human decision points (9b679556:3271) and launch.json as an index that names the current run and gives a failed launch a new attempt (the later sentences of this same line, and 9b679556:3913).",
+      "superseded_by": "9b679556:3257"
+    },
+    {
+      "ref": "9b679556:3257",
+      "date": "2026-09-09",
+      "statement": "there is no gates, only workflows.",
+      "context": "Answering a question round about how gate state should be recorded.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:3260",
+      "date": "2026-09-09",
+      "statement": "workflow agents write things. when they finish I check em. then if im happy I say to the orchestrator, yep do the next workflow.",
+      "context": "Same answer, describing what actually happens between workflows.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:3273",
+      "date": "2026-09-09",
+      "statement": "An orchestrator session invokes the workflows in order, stops at each gate, and reports; the human clears the gate in launch.json.",
+      "context": "Same turn: a selected option rather than their own wording, and marked unsettled in the comment beneath it, \"this i haven't found an answer for. worthy question though. imma go with the orch session.\" For the gates that remain see endings, 9b679556:3271.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2991",
+      "date": "2026-09-09",
+      "statement": "\"state is shaken out of the system progressively\" is closer and i would probably take it in that form. freezing can be human managed if they can easily access it. workflows handle a huge amount of state natively that the previous build didn't utilise. agent frontmatter handle state (eg hooks) that the previous builder didn't utilise.",
+      "context": "Correcting a proposed wording for the state flip in the intent.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7325",
+      "date": "2026-09-09",
+      "statement": "Freeze or Draft;  Draft is editable, Frozen is user based locking.",
+      "context": "Rewriting the spec interface node, listing what the spec document must support.",
+      "superseded_by": null
+    }
+  ]
+}

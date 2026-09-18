@@ -1,0 +1,58 @@
+{
+  "id": "iteration-and-failure-axes",
+  "title": "Iteration, retries and the failure axes",
+  "scope": "Why a run is repeated rather than perfected, the three axes to change between attempts, the run log that carries findings forward, and what happens when an agent stalls. Excludes the spec versioning mechanics (see the-spec).",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "8fdc3b29:181",
+      "date": "2026-09-08",
+      "statement": "A HUUUUGE principle of orchestrated runs is iterated improvment. abandon failed runs. runs should accumulate many retries until they succeed, rather than one shotting.",
+      "context": "Interrupting a proposal that would have given each retry its own launch folder.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:204",
+      "date": "2026-09-08",
+      "statement": "then the importance of a runlog was highlighted to transfer all other \"findings\" over to the new instance, this allows us to \"overwrite\" alot of the run-assets per instance.",
+      "context": "Explaining what has to survive between run instances.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:206",
+      "date": "2026-09-08",
+      "statement": "this lines up well with the three failure axis principle; look at context, verification or tooling for improving the run.",
+      "context": "Closing the point about what a new run instance changes.",
+      "superseded_by": null
+    },
+    {
+      "ref": "bab64608:1767",
+      "date": "2026-09-03",
+      "statement": "the fundamental principle is for the user to complete a runlog and then that is presented in version 2 and the \"decisions\" can be absorbed. the only advice i could give is instead of running infront of the user present them a list of considerations for their run log once the run ends.",
+      "context": "Telling the live build run to stop versioning the next run before this one had ended.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:3966",
+      "date": "2026-09-09",
+      "statement": "a stall should engage a second stronger agent. if that stalls the run is stopped.",
+      "context": "Answering how the system should handle a worker that stops making progress.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:3004",
+      "date": "2026-09-09",
+      "statement": "decomposing. uses cheap build agent retrying attempts, instead of expensive agents single shotting.",
+      "context": "Naming what else belonged in the intent besides front-loading.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2780",
+      "date": "2026-09-09",
+      "statement": "Its a principle. you have a go at laying out the ground work, then decide if the groundwork produced what you want. If it didn't update it.",
+      "context": "Asked how the system knows its groundwork was good enough.",
+      "superseded_by": null
+    }
+  ]
+}

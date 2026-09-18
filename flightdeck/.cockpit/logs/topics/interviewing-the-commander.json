@@ -1,0 +1,79 @@
+{
+  "id": "interviewing-the-commander",
+  "title": "Interviewing the commander",
+  "scope": "How to draw the vision out of the commander: what to ask, what not to ask, and whose material the questions are about. Excludes the spec the interview produces (see the-spec).",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "9b679556:89",
+      "date": "2026-09-09",
+      "statement": "That interview process failed hard. It was riddled with \"master, what do I do with this node?\" questions that fatigued me.",
+      "context": "Answering how the previous, abandoned interview should be treated.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:93",
+      "date": "2026-09-09",
+      "statement": "Intent is where you ask, \"what work does the user want done and why?\". this should then trigger the agent to produce problems, however I have saved most of the trouble here and produced a core 10 for you. the mechanism for new problems is primarily through interviewing for existing problems. consider problem dumps as reference not a waiting list to be spammed at the user.",
+      "context": "Same answer, defining the intent round.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2012",
+      "date": "2026-09-09",
+      "statement": "The convention here is for the users idea's and vision to be probed, thats what I hold and no agent can access unless you \"draw\" it out of me.",
+      "context": "Stopping an interview round that had asked housekeeping questions.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2013",
+      "date": "2026-09-09",
+      "statement": "This interview reads like an afraid housemaid, \"what should I do with this master?\" \"is this what you want master?\", you are fable 5.1 , the bigest and best model in the world. your job is to write a spec that fulfils the vision of the user, better than the last attempt.",
+      "context": "Same turn, naming the failure mode.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2014",
+      "date": "2026-09-09",
+      "statement": "having got my initial intent you should be probing it. asking why and how.",
+      "context": "Same turn, saying what should have happened instead.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2299",
+      "date": "2026-09-09",
+      "statement": "Im not getting grilled anywhere near enough, roast my shit intent.",
+      "context": "After a second round of questions judged too soft.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2301",
+      "date": "2026-09-09",
+      "statement": "just for the record, the most recent round of questions is grilling me on the shit YOU wrote. let me babyfy it for you. start with MY crappy outcome intention and grill that.",
+      "context": "Same turn, on whose material the questions should be about.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:3662",
+      "date": "2026-09-09",
+      "statement": "ASK ME ABOUT MY IDEAS ON HOW TO SOLVE THE PROBLEMS, dont invent shit and say \"done\"",
+      "context": "After the interviewer invented mechanisms and then asked how to handle them.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2782",
+      "date": "2026-09-09",
+      "statement": "The one thing that the whole line up doesn't know and cannot derterministically check is \"what did the user want to build?\", your job before you try to lay the groundwork for your flightcrew pals is knowing what i want to build.",
+      "context": "Closing a bundle in which only one question of seven had been about the commander's intent.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:2133",
+      "date": "2026-09-09",
+      "statement": "It seems like im trudging through mud and all your questions seem so tedious. \"do you want to keep x y z\" I don't know. I only have a vision for my app, agents are the experts at filtering through walls of text.",
+      "context": "Asking honestly whether the build was too big, midway through the node-by-node pass.",
+      "superseded_by": null
+    }
+  ]
+}

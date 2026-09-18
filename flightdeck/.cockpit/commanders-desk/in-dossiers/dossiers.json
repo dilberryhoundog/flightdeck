@@ -26,6 +26,17 @@
       "proposals": [
         "P008"
       ]
+    },
+    {
+      "id": "DS003",
+      "title": "Seven records from the commander's own words, ready for review",
+      "file": "DS003-first-records.md",
+      "written": "2026-09-18",
+      "from": "notepad/research-2026-09-18/ and logs/topics/",
+      "mission": "M001",
+      "proposals": [
+        "P009"
+      ]
     }
   ]
 }

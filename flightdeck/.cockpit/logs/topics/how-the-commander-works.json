@@ -1,0 +1,58 @@
+{
+  "id": "how-the-commander-works",
+  "title": "How the commander works",
+  "scope": "What the commander can and cannot do in a session: attention, context, what they see of a running system, and what they deliberately withhold. Excludes what they want an agent to do (see what-the-commander-wants-from-an-agent).",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "bab64608:1830",
+      "date": "2026-09-03",
+      "statement": "I cannot make accurate judgements for things i haven't seen. The \"ending for launch 2\" I have no idea what this even is. my job is instead of telling you what to do at every step, but accurately define your goals and constraints, you get to decide how that looks. I cannot be asked like this is HITL.",
+      "context": "Asked mid-run to choose between options for a component the commander had never been shown.",
+      "superseded_by": null
+    },
+    {
+      "ref": "bab64608:1830",
+      "date": "2026-09-03",
+      "statement": "my job is instead of telling you what to do at every step, but accurately define your goals and constraints, you get to decide how that looks. I cannot be asked like this is HITL.",
+      "context": "Same turn, saying what the commander's job is instead.",
+      "superseded_by": null
+    },
+    {
+      "ref": "bab64608:1832",
+      "date": "2026-09-03",
+      "statement": "I have been visiting this screen on and off for over 12hours, every now and then getting a \"glimpse\" of what is happening behind the scenes, and asking a few questions along the way. I do not consider myself having \"the reigns\".",
+      "context": "Same turn, describing what a twelve-hour autonomous run looks like from the commander's chair.",
+      "superseded_by": null
+    },
+    {
+      "ref": "4f6285bb:475",
+      "date": "2026-09-09",
+      "statement": "i haven't read 90 percent of the fluff you wrote above only trying to understand in a single domain, humans can't hold 8 different directives at once.",
+      "context": "After a long multi-part answer during the rubric repair.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2299",
+      "date": "2026-09-09",
+      "statement": "we fuck around too much with sycofancy, i eventually blow a shitton of tokens on nothing and evetually give up. I cannot write an 80 behaviour spec fully verified and scoped with edges.",
+      "context": "Explaining the cost of a soft interview.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:5318",
+      "date": "2026-09-08",
+      "statement": "I expected what was in 'orchestration tools' although I did remove that and the other constitution docs not to spoil the context, and see what the agent came up with.",
+      "context": "Explaining why the constitution documents were absent from the first build run.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:6468",
+      "date": "2026-09-08",
+      "statement": "i had been playing with kickoffs from before the flightcrew build run. I had landed on a 80 setting yaml file. but kept the context clean of this to see what the agent built.",
+      "context": "Explaining why the commander's own kickoff work was kept out of the build run's context.",
+      "superseded_by": null
+    }
+  ]
+}

@@ -1,5 +1,166 @@
 {
-  "version": 1,
-  "updated": "2026-09-18",
-  "topics": []
+  "topics": [
+    {
+      "id": "why-flightcrew-exists",
+      "title": "Why flightcrew exists",
+      "file": "why-flightcrew-exists.json",
+      "statements": 5
+    },
+    {
+      "id": "launch-and-run",
+      "title": "Launches and runs",
+      "file": "launch-and-run.json",
+      "statements": 6
+    },
+    {
+      "id": "iteration-and-failure-axes",
+      "title": "Iteration, retries and the failure axes",
+      "file": "iteration-and-failure-axes.json",
+      "statements": 7
+    },
+    {
+      "id": "tests-and-checks",
+      "title": "Tests and checks",
+      "file": "tests-and-checks.json",
+      "statements": 13
+    },
+    {
+      "id": "the-spec",
+      "title": "The spec",
+      "file": "the-spec.json",
+      "statements": 12
+    },
+    {
+      "id": "altitude",
+      "title": "Altitude: the level a spec is written at",
+      "file": "altitude.json",
+      "statements": 6
+    },
+    {
+      "id": "interfaces",
+      "title": "Interfaces",
+      "file": "interfaces.json",
+      "statements": 6
+    },
+    {
+      "id": "constraints",
+      "title": "Constraints",
+      "file": "constraints.json",
+      "statements": 5
+    },
+    {
+      "id": "state-and-freezing",
+      "title": "State, freezing and gates",
+      "file": "state-and-freezing.json",
+      "statements": 8
+    },
+    {
+      "id": "workflows-and-liftoffs",
+      "title": "Workflows and liftoffs",
+      "file": "workflows-and-liftoffs.json",
+      "statements": 9
+    },
+    {
+      "id": "the-runner",
+      "title": "The runner and the command surface",
+      "file": "the-runner.json",
+      "statements": 7
+    },
+    {
+      "id": "the-control-centre",
+      "title": "The control centre",
+      "file": "the-control-centre.json",
+      "statements": 4
+    },
+    {
+      "id": "the-humans-control-surface",
+      "title": "The human control surface",
+      "file": "the-humans-control-surface.json",
+      "statements": 6
+    },
+    {
+      "id": "endings",
+      "title": "Endings",
+      "file": "endings.json",
+      "statements": 5
+    },
+    {
+      "id": "crews-and-roles",
+      "title": "Crews and roles",
+      "file": "crews-and-roles.json",
+      "statements": 8
+    },
+    {
+      "id": "teams-and-dispatch",
+      "title": "Teams and dispatch",
+      "file": "teams-and-dispatch.json",
+      "statements": 6
+    },
+    {
+      "id": "models-and-cost",
+      "title": "Models, tiers and cost",
+      "file": "models-and-cost.json",
+      "statements": 6
+    },
+    {
+      "id": "interviewing-the-commander",
+      "title": "Interviewing the commander",
+      "file": "interviewing-the-commander.json",
+      "statements": 10
+    },
+    {
+      "id": "how-the-commander-works",
+      "title": "How the commander works",
+      "file": "how-the-commander-works.json",
+      "statements": 7
+    },
+    {
+      "id": "what-the-commander-wants-from-an-agent",
+      "title": "What the commander wants from an agent",
+      "file": "what-the-commander-wants-from-an-agent.json",
+      "statements": 10
+    },
+    {
+      "id": "the-pilot-role",
+      "title": "The pilot",
+      "file": "the-pilot-role.json",
+      "statements": 7
+    },
+    {
+      "id": "missions-and-the-work-split",
+      "title": "Missions and the work split",
+      "file": "missions-and-the-work-split.json",
+      "statements": 6
+    },
+    {
+      "id": "the-library-and-records",
+      "title": "The library, the records and the manuals",
+      "file": "the-library-and-records.json",
+      "statements": 12
+    },
+    {
+      "id": "what-makes-a-good-record",
+      "title": "What makes a good record",
+      "file": "what-makes-a-good-record.json",
+      "statements": 9
+    },
+    {
+      "id": "mining-the-commanders-statements",
+      "title": "Mining the commander's statements",
+      "file": "mining-the-commanders-statements.json",
+      "statements": 9
+    },
+    {
+      "id": "doctrine-and-drift",
+      "title": "Doctrine, sources and drift",
+      "file": "doctrine-and-drift.json",
+      "statements": 8
+    },
+    {
+      "id": "problems-and-the-next-run",
+      "title": "Problems and the next run",
+      "file": "problems-and-the-next-run.json",
+      "statements": 6
+    }
+  ]
 }

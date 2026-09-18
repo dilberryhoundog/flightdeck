@@ -1,0 +1,44 @@
+{
+  "id": "why-flightcrew-exists",
+  "title": "Why flightcrew exists",
+  "scope": "The problem flightcrew is built to solve and the outcome the commander wants from it. Covers the limits of human-in-the-loop work, front-loading the human, and what the system is for. Excludes how any part of it is built.",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "bab64608:29",
+      "date": "2026-09-03",
+      "statement": "As a Human in the loop (HITL) I'm needed for each quality decision turn by turn. building larger projects has become tedious as conversation limits are hit. context is spoiled. time is wasted. one shot is all I get.",
+      "context": "Opening prompt of the one-shot build run that produced flightcrew v1, under the heading \"## Problem\".",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7261",
+      "date": "2026-09-09",
+      "statement": "HITL ai engineering, falls short for any large or complex task requiring a humans direct time and attention, an orchestrated agent system can solve this problem. The human can front load their attention and time into a carefully crafted definition of the work, then with an intelligently built automated system beyond that the work materialises through agents repeatedly attempting to discover the deterministic outcome. If the agents fail the user simply tries again bringing the previous failures to improve the definition of the work, the tools used or the agent's assurance of done. This orchestration toolkit is built for a single Claude Code max subscription user, leveraging the inbuilt harness and steering infrastructure Claude provides. If a users idea of a piece of work can be handed over and agents build it for them, this work has been completed.",
+      "context": "The commander rewriting the spec intent node by hand in a pasted decision block.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:1036",
+      "date": "2026-09-09",
+      "statement": "An agent orchestrated workflow, that front loads the users knowledge before the build and not during. Outcomes improved by iteration, isolated agents attempting work until deterministically done. Verifiable results, user checkpoints, decomposed work, hard stops and restrictions. All prebuilt into an integrated system underpinned by a single document \"language\" that encourages later improvement. The user having advanced as an ai engineer, needs this system to achieve larger scoped and more comlex work, progressing from the standard \"oneshot\" chat turns model.",
+      "context": "Answering what the outcome of the flightcrew-core rebuild should be.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2752",
+      "date": "2026-09-09",
+      "statement": "\"a system whose purpose is to build itself until it can build other things\" is exactly what it is. although we can probably drill down further, as this could mean a HITL system.",
+      "context": "Confirming the interviewer had finally found the intent, after many rejected question rounds.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2998",
+      "date": "2026-09-09",
+      "statement": "Front loaded is chosen because it is broad.",
+      "context": "Asked why the intent says the human is front-loaded rather than some narrower claim.",
+      "superseded_by": null
+    }
+  ]
+}

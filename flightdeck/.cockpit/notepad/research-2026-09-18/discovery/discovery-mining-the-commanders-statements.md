@@ -1,0 +1,4 @@
+# Discovery notes: mining-the-commanders-statements
+
+- The DS002 statements describing this exact team (topic extractor, record writer, discovery/terrain-confirmer, validator) match the live roster: topic-extractor and record-writer are named exactly; I am the "discovery type teammate... dispatched to fetch the surrounding infrastructure terrain" — DS002's own words describe my role verbatim. A `validator` seat is confirmed live on this team (running as `claude-code-guide`) — my earlier note flagging it as missing from the roster was based on a stale roster read; corrected here.
+- DS001's "run it past the commander before landing as a bonafide record" — confirmed built in: every record reaches the commander as a dossier before it lands (per team-lead). Not independently checked against a file artifact, but confirmed as process by the team lead directly.

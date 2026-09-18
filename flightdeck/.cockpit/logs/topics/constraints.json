@@ -1,0 +1,44 @@
+{
+  "id": "constraints",
+  "title": "Constraints",
+  "scope": "What qualifies as a constraint in a flightdeck spec, and the harness facts that make up the real constraint set. Excludes decisions the system makes for itself.",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "9b679556:7008",
+      "date": "2026-09-09",
+      "statement": "constraints:, agent files, workflows, json documents, hooks, subagentstop, etc things that existed in the world before we built flightcrew",
+      "context": "Listing what the constraints domain should have held, after reading the spec manuals.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7305",
+      "date": "2026-09-09",
+      "statement": "No idea what this constraint is??? where in the world did it exist?",
+      "context": "Rejecting a drafted constraint node during the node-by-node pass.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7311",
+      "date": "2026-09-09",
+      "statement": "Not sure this is a constraint??? where did it exist in the world before this system was built",
+      "context": "Rejecting three more drafted constraint nodes in the same pass, each with this same test.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7287",
+      "date": "2026-09-09",
+      "statement": "Claude Code agent file. YAML front matter utilising a combination of name, description, tools, model, disallowedTools, permissionMode, isolation, maxTurns and hooks",
+      "context": "Rewriting the constraint node for agent files.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:5649",
+      "date": "2026-09-09",
+      "statement": "Ive never said that the system can't reach the network. gh and websearch/fetch is fine for who ever needs it. (orch a explorer.",
+      "context": "Correcting a drafted constraint that had cut the system off from the network. Unresolved tension: the harness permissions manual on flightcrew-core states the opposite default.",
+      "superseded_by": null
+    }
+  ]
+}

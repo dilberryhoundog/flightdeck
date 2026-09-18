@@ -86,6 +86,15 @@
       "dossier": "DS002",
       "decided": "2026-09-18",
       "note": "see decisions.json and commanders-desk/out-advice/DS002.md"
+    },
+    {
+      "id": "P009",
+      "title": "Land the seven records",
+      "status": "awaiting",
+      "file": "../commanders-desk/in-proposals/P009-land-the-seven-records.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "DS003"
     }
   ]
 }

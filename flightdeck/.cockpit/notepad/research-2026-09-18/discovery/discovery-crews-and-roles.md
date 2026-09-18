@@ -1,0 +1,7 @@
+# Discovery notes: crews-and-roles
+
+- 9b679556:1038 (four new roles: interface-builder, strong-worker, per-unit adversary, scribe) — CORRECTED: none of the four exist in `crew/` on any live branch. Checked `run/flightcrew-characterization-2`, `flightcrew-core`, and `flightcrew-buildout` — all three have the identical 11-file `crew/` roster (critic, explorer, implementer, orchestrator, planner, spec-attacker, spec-builder, spec-judge, test-builder, verifier, plus README/agents.keep). These four roles are proposed-but-unbuilt on every branch checked.
+- 9b679556:5650 (crew/ is source of truth, FLIGHTLOG into bootstrap, RUNLOG stays) confirmed: crew/ is present and identical across branches; `flightdeck/launch/RUNLOG.md` confirmed in place (see launch-and-run/endings notes).
+- 8fdc3b29:5319 (chained context: spec-builder->test-builder->orchestrator) — not independently verified this pass; would need to read `crew/orchestrator.md` and `crew/test-builder.md` frontmatter/body to confirm the handoff chain is documented there. Flag as unconfirmed, not corrected.
+- Should cite: `flightdeck/flightcrew/crew/README.md` (exists on all three branches) — likely the roster's own description of "where crew files live," directly on-topic and unread this pass.
+- Cross-reference: full model-tier roster for these same 11 roles is in the models-and-cost notes (explorer=haiku, planner/spec-attacker/spec-builder/spec-judge/critic=fable, test-builder/implementer=opus, verifier=sonnet, orchestrator=inherit).

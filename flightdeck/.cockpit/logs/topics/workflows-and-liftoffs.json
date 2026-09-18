@@ -1,0 +1,72 @@
+{
+  "id": "workflows-and-liftoffs",
+  "title": "Workflows and liftoffs",
+  "scope": "Dynamic workflows as the deterministic backbone of a run, how they nest and stand alone, and the liftoff JSON that invokes them. Excludes the runner script (see the-runner).",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "8fdc3b29:7214",
+      "date": "2026-09-08",
+      "statement": "This looks like the place that a vanilla flightcrew (without a runner) would do most of its \"determinstic output\", instead of doing this the builder just bundled it all into the `fc` command and said \"run that\".",
+      "context": "On finding the three dynamic workflows the first builder wrote and then bypassed.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:7217",
+      "date": "2026-09-08",
+      "statement": "instead of all this scripting gymnastics, could we just say. here is run folder, spec and plan. use workflow x with these few modifiers as our kickoff. then we have omakase dynamic workflows instead? this would abolish most of the \"phasing\" state, and command scripting yeah?",
+      "context": "Same turn, asking what workflows could absorb.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7293",
+      "date": "2026-09-09",
+      "statement": "Claude Code Dynamic workflows: A prebuilt javascript agent dispatch and structured return tool. Called by slash command, input args, schema driven agent returns, custom agent definitions, inbuilt worktrees, model and tier overides, staged agent progression, parallel concurrency, nested workflows (1 level), repeatable and resumable. no filesystem, shell, clock or randomness.",
+      "context": "Rewriting the spec constraint node for workflows, listing what the tool can do.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:4133",
+      "date": "2026-09-09",
+      "statement": "Im all for a workflow suite for different purpose.",
+      "context": "After being shown why one build workflow could not cover every kind of run.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:4377",
+      "date": "2026-09-09",
+      "statement": "workflows can call workflows (one level deep). so fc-build (don't call it waves) can call fc-verify and fc-review. but they can also stand alone",
+      "context": "Settling the workflow suite shape.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:4378",
+      "date": "2026-09-09",
+      "statement": "make the liftoff interface a json template that names workflows and arguments. then it can hold the multi session shape.",
+      "context": "Same turn, introducing the liftoff document.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:4403",
+      "date": "2026-09-09",
+      "statement": "when I invoke the liftoff i simply copy the json into the orch session. an it kicks off all the workflows, overides, other settings.",
+      "context": "Correcting the interviewer, who had drafted liftoffs as something the runner executed.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:4405",
+      "date": "2026-09-09",
+      "statement": "the reasoning is tooling is a major failure axis. if a run needs a different tooling setup this can be adjusted easily instead of creating a new workflow.",
+      "context": "Same turn, giving the reason liftoffs are data and not code.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:6468",
+      "date": "2026-09-08",
+      "statement": "I think in the end making a base yaml file but omakase options might be the go.",
+      "context": "Comparing the commander's own 80-setting kickoff file with the one the build run produced.",
+      "superseded_by": null
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Discovery notes: models-and-cost
+
+- bab64608:619/621 (implementers on a retry-tolerant tier, not Fable, because Fable blows budget on retry-until-green) — CONFIRMED exactly: `flightcrew-core:flightdeck/flightcrew/crew/implementer.md:5` sets `model: opus`. Full roster for cross-reference: explorer=haiku, planner/spec-attacker/spec-builder/spec-judge/critic=fable, test-builder=opus, verifier=sonnet, orchestrator=inherit.
+- 9b679556:3965 (explorers cheap, send whenever) — CONFIRMED: explorer.md is the one role on haiku, the cheapest tier.
+- O019 (one Sonnet finding isn't a blanket rule, choose model for the work) — CONFIRMED as the actual roster shape: models are mixed per-role (haiku/sonnet/fable/opus/inherit), not uniform.
+- O035 ("adversary on Opus... research has found opus to keep up as an adversary") — CORRECTED, ACTIONABLE: the live `.claude/agents/adversary.md` (the adversary agent actually available in this session) is set to `model: fable`, not opus. Either O035's ruling was never applied to this file, or it targeted only the flightcrew crew's `critic` role (also fable, `flightcrew-core:flightdeck/flightcrew/crew/critic.md:5`) and the cockpit's separate adversary agent was missed. Worth flagging to whoever owns `.claude/agents/adversary.md` as a fix, not just a record footnote.
+- 9b679556:6336 (bulk adversary passes cost huge tokens, diminishing later-run value) — no specific artifact beyond the model choice above; stands as stated commander reasoning.

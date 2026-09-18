@@ -1,0 +1,5 @@
+# Discovery notes: the-control-centre
+
+- 8fdc3b29:5407/5439 confirmed as doctrine, realized only in the `flightcrew-core` spec, not built anywhere live: `flightcrew-core:flightdeck/launch/flightcrew-core/specs/interview/pages/spec-viewer.html:255` — ".controlcenter/, git-ignored: flightcrew.yaml... launch.yaml... current_active_launch". Confirmed absent from `run/flightcrew-characterization-2` (no `.controlcenter` folder anywhere on that branch, checked via `git ls-tree`).
+- 9b679556:7046/7347 (.controlcenter inert, flightcrew.yml as interface) — CORRECTED on spelling: the spec's actual filename is `flightcrew.yaml` (`spec-viewer.html:255`, `spec.v1.json:147`), though one earlier interview artifact (`lint-deliverables.txt:2`) says `flightcrew.yml` — the spelling is unsettled in-repo itself, not just a topic error.
+- Terrain the topic doesn't cite: `flightcrew-core:flightdeck/launch/flightcrew-core/specs/spec.v1.json:393` — the failure mode when `launch.yaml` is absent ("every hook exits 0 writing nothing, except the frozen-document guard, which still refuses").

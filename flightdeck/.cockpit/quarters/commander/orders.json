@@ -262,6 +262,27 @@
       "text": "\"turn budget was a major problem last run. needs surgery not settled.\" The turn model is broken, not mis-counted; a record states the facts and the flightcrew core mission (S008) changes the model.",
       "session": null,
       "superseded_by": null
+    },
+    {
+      "id": "O038",
+      "date": "2026-09-18",
+      "text": "On the records cap: \"the other end of the scale has weight. we don't want the agent having to load up hundreds of 40 line docs. What is a record? a record of what, a claim, a topic? what would be best for an agent to want to read? if topic then it definitely may need more than 40 lines.\" Ruling adopted: a record is one topic, whole; length is what the topic needs; then amended in session: \"make the trip wire 100 lines, it either is a juicy topic or two topics if it is over 100 lines. 150 line cap.\"",
+      "session": "dcb75456",
+      "superseded_by": null
+    },
+    {
+      "id": "O039",
+      "date": "2026-09-18",
+      "text": "On launches per feature, answering the pilot's question about 9b679556:6718: \"more than one launch can happen for a feature. lets say you do three launches, the same branch will be the launch branch. the three successful run one each launch will progressively PR back to the feature / launch branch. then it is merged back to main.\"",
+      "session": "dcb75456",
+      "superseded_by": null
+    },
+    {
+      "id": "O040",
+      "date": "2026-09-18",
+      "text": "Asked whether the three rules typed at 9b679556:7642 to 7644 (do not restate the whole existing behaviour model; rely on existing tests for unchanged behaviour; define where behaviour differs observably from original) apply to a system of harness tools, as asked at 9b679556:7647: \"yes\".",
+      "session": "dcb75456",
+      "superseded_by": null
     }
   ]
 }

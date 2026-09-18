@@ -1,0 +1,93 @@
+{
+  "id": "the-library-and-records",
+  "title": "The library, the records and the manuals",
+  "scope": "Which document store serves which audience, who maintains each, and how something is promoted into a record. Excludes what makes an individual record good (see what-makes-a-good-record).",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "5ad10754:1285",
+      "date": "2026-08-31",
+      "statement": "manuals = System manuals crews need to regularly do their job.",
+      "context": "Commenting on a transfer map that had moved the doctrine set into manuals.",
+      "superseded_by": null
+    },
+    {
+      "ref": "5ad10754:1286",
+      "date": "2026-08-31",
+      "statement": "library = Information, records of processes or learning that need to persist over time. particularly for humans",
+      "context": "Same comment, on the other store.",
+      "superseded_by": null
+    },
+    {
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "date": "2026-09-18",
+      "statement": "In summary: flighdeck/library = global documentation for all stakeholders and interested parties. .cockpit/records = the pilots most important and trusted records to enable them to do their job specifically and in isolation.",
+      "context": "Written advice, after the recon team confused the library with the pilot's records.",
+      "superseded_by": null
+    },
+    {
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "date": "2026-09-18",
+      "statement": "The library should be maintained by you, although other parties may write and read to/from it. This is the distinction, library is for all, records are yours.",
+      "context": "Same advice, on who owns each store.",
+      "superseded_by": null
+    },
+    {
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "date": "2026-09-18",
+      "statement": "The intention for you is not to replicate library documents but rather extract key findings and \"record\" them as research backed records, to guide the pilot in their tasks.",
+      "context": "Same advice, on what the pilot should do with library material.",
+      "superseded_by": null
+    },
+    {
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O013",
+      "date": "2026-09-18",
+      "statement": "Protect your records, they are source of truth, lasting across many sessions. The notepad stuff for things that probably won't matter in a few sessions.\"",
+      "context": "Order distinguishing records from scratch findings.",
+      "superseded_by": null
+    },
+    {
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O015",
+      "date": "2026-09-18",
+      "statement": "Promotion from notepad into records is the pathway. Accumulation of notepad entries may guide the creation of a researched record.\" Asked for the agent team protocol in CLAUDE.md.",
+      "context": "Order on how something becomes a record.",
+      "superseded_by": null
+    },
+    {
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O014",
+      "date": "2026-09-18",
+      "statement": "every good pilot protects their records. A source is good for official documentation. but for codebase sources... ensure only well researched (by special teammates) sources go in there for a purpose.",
+      "context": "Order on what may be cited as a source in a record.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7362",
+      "date": "2026-09-09",
+      "statement": "library/terms.md: each build unit names its terms here. ensure all major system areas included",
+      "context": "Naming three more documents the rebuild should treat as interfaces.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7363",
+      "date": "2026-09-09",
+      "statement": "operators manual: each unit describes how to \"operate\" that part of the machinery",
+      "context": "Second of those three documents.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:7364",
+      "date": "2026-09-09",
+      "statement": "maintenance manual: each unit describes how to \"maintain\" that part of the machinery",
+      "context": "Third of those three documents.",
+      "superseded_by": null
+    },
+    {
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "date": "2026-09-18",
+      "statement": "It appears the maintenance burden is increasing, the library and now the terms are your teammates. should you keep a maintenance JSON log to remind you of your maintenance tasks?",
+      "context": "Written advice on the growing number of documents the pilot keeps.",
+      "superseded_by": null
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Discovery notes: teams-and-dispatch
+
+- DS001's teams-vs-crews distinction and the dispatch/flightcrew/, dispatch/cockpit/ folder plan — CONFIRMED built exactly: `flightdeck/.cockpit/dispatch/dispatch.json` holds a `teams` array with `id`, `file`, `purpose`, `seats`, `status` per team, and `flightdeck/.cockpit/dispatch/cockpit/` holds T001–T006 team files. T006 (`T006-topics-and-records.md`) is this very team's own dispatch record — the mechanism is confirmed live and self-referential.
+- O032 (dispatch/ folder recording teams not individual teammates) — CONFIRMED as the exact shape of `dispatch.json` above, superseding O017's per-teammate manifest as stated.
+- O020 (don't shut down teammates as they finish, clean up only once the team is finished) — process rule, not independently checkable against a file artifact from terrain alone.
+- O030 ("teams built by mining our dispatch records" as a named epic mission) — not yet present in `flightdeck/.cockpit/missions/missions.json` (only M001 exists); confirmed as doctrine/incubator-stage only. `flightdeck/.cockpit/missions/incubator/S006-teams-from-dispatch-records.md` exists and is almost certainly the incubated form of O030 — cite this file directly instead of leaving the mission unlocated.

@@ -1,0 +1,6 @@
+# Discovery notes: the-runner
+
+- 0fb7c77a:24, 8fdc3b29:5321/5409 confirmed: matches `flightcrew-core:dev/workspace/plans/flightcrew-features.md:17` — "The runner is `flight`: a thin dispatcher over leaf scripts... No command a human types advances a run."
+- 9b679556:1015/7359 (rename to "flight", thin dispatcher, deferred to a later launch) confirmed: `flightcrew-core:flightdeck/launch/flightcrew-core/specs/interview/superseded/bundles/P-scope-runner-as-leaf-tooling.json:24` — exact match, "rename to flight; thin dispatcher; leaves autonomous."
+- CORRECTION/nuance: the actual built runner on the finished tip is still named `fc` (`flightdeck/flightcrew/bin/fc`), not `flight` — confirmed via `run/flightcrew-characterization-2:flightdeck/flightcrew/workflows/README.md`: "The runner is `flightdeck/flightcrew/bin/fc`". The `flight` rename is `flightcrew-core` spec-only, unbuilt (see also `flightcrew-core:flightdeck/launch/flightcrew-core/specs/interview/superseded/spec.v2.old.json:707`).
+- Topic should cite: `flightcrew-core:dev/workspace/filebox/spec/bfb87cff_problem-register-distillation.md:48` — the commander's own checklist item, "fc runner broken up. rename to 'flight', 'init' and 'run new' commands introduced."

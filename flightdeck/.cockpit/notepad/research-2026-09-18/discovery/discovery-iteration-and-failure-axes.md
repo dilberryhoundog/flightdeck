@@ -1,0 +1,5 @@
+# Discovery notes: iteration-and-failure-axes
+
+- 8fdc3b29:181/204/206 (iterate not one-shot, runlog carries findings, three failure axes: context/verification/tooling) confirmed as built practice: `flightcrew-core:flightdeck/manuals/orchestration/run-log.md` is described at `flightdeck/manuals/README.md:49` as covering "the three axes" and the RUNLOG.md entry format.
+- 9b679556:3966 (stall escalates to a second stronger agent, then stops) — HALF-CONFIRMED: `run/flightcrew-characterization-2:flightdeck/manuals/harness/hooks.md:50` — "`stall:` printed and every edit denied: the cap fired and a trigger is recorded; end or exit the launch (`fc launch end abandoned --at verify`)" matches the stop half. The "second stronger agent" retry half maps to the proposed `strong-worker` role, which per crews-and-roles notes is NOT built into `crew/` on any live branch — so this statement is half-built (stop mechanism exists), half-still-doctrine (the stronger-retry role doesn't).
+- bab64608:1767, 0fb7c77a:3004/2780 confirmed consistent with the run-log.md description above; no separate artifact needed.

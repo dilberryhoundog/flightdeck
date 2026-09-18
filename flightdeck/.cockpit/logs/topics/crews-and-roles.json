@@ -1,0 +1,65 @@
+{
+  "id": "crews-and-roles",
+  "title": "Crews and roles",
+  "scope": "The flightcrew roster, what each role guarantees, and where crew files live. Excludes the pilot's own teams (see teams-and-dispatch).",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "0fb7c77a:1034",
+      "date": "2026-09-09",
+      "statement": "\"FlightCrew\" is literally a bunch of agents working together to complete a (flight) mission, so they are important too.",
+      "context": "Correcting an assumption that the interfaces mattered more than the crew.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:5319",
+      "date": "2026-09-08",
+      "statement": "chained internal agent context. spec-builder receives and idea, test-builder receives a spec, orchestrator receives spec, tests and kickoff.",
+      "context": "Describing how context was meant to travel between roles.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:8491",
+      "date": "2026-09-08",
+      "statement": "I think not having an interface builderand a backup scribe is a problem.",
+      "context": "Reviewing the roster the first build run produced.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:8493",
+      "date": "2026-09-08",
+      "statement": "The test builder is probably an interactive session. particulary if you build tests before anything else. also often needs back and forth between spec and tests.",
+      "context": "Same turn, on which roles cannot be fire-and-forget.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:1038",
+      "date": "2026-09-09",
+      "statement": "interface-builder: writes wave-zero seams and halts on a spec–codebase contradiction instead of iterating to green | strong-worker: one retry of a red unit on a stronger tier from a clean state before a human is asked | per-unit adversary: attacks a completed unit before merge for what its checks missed | scribe: assembles the report and log entry and notices when assembly fails",
+      "context": "Choosing which new roles the rebuild should add.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:1054",
+      "date": "2026-09-09",
+      "statement": "a role's own guarantees (worker check-after-edit, read-only roles' write denial) are declared in its frontmatter hooks; global hooks keep only what applies to every role.",
+      "context": "Agreeing that role guarantees belong in the role file rather than in global hooks.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:5650",
+      "date": "2026-09-09",
+      "statement": "crew/ is the source of truth for flightcrew agents. FLIGHTLOG goes into the bootstrap, RUNLOG stays where they are. remove any other redundant files.",
+      "context": "Settling where the crew files live and what else can be deleted.",
+      "superseded_by": null
+    },
+    {
+      "ref": "0fb7c77a:2762",
+      "date": "2026-09-09",
+      "statement": "you are a key member of the flightcrew line up and have already been constrained by the systems requirements",
+      "context": "Reminding the spec builder that it is itself part of the system it is specifying.",
+      "superseded_by": null
+    }
+  ]
+}

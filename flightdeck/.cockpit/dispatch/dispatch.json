@@ -42,14 +42,14 @@
       "file": "cockpit/T006-topics-and-records.md",
       "purpose": "Strengthened research team: mine the commander's transcripts and advice into timeless flightdeck topics, distil the first records under the docspec, contested and validated",
       "seats": 5,
-      "status": "running"
+      "status": "reported, alive for the commander's review"
     },
     {
       "id": "T007",
       "file": null,
       "purpose": "One-shot doc-reviewer (chat-tools:doc-reviewer, Sonnet) on the records docspec in CLAUDE.md rule 2 and records/README.md",
       "seats": 1,
-      "status": "running"
+      "status": "finished"
     }
   ],
   "fields": {

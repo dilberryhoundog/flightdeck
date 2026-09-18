@@ -1,0 +1,51 @@
+{
+  "id": "problems-and-the-next-run",
+  "title": "Problems and the next run",
+  "scope": "How the faults of a finished run are written down and how they drive the next spec. Excludes the spec itself (see the-spec) and the interview that produces it (see interviewing-the-commander).",
+  "record": null,
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "8fdc3b29:21",
+      "date": "2026-09-08",
+      "statement": "The deliverable after exploration and the extraction of my ideas and perspectives, is to provide a \"problem\" document; describing the problem in isolation, why it is a problem, and its affect upon the wider system.",
+      "context": "Opening brief for the session that produced the seven problem documents.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:103",
+      "date": "2026-09-08",
+      "statement": "each document is a \"set\" of problems (what, why, larger) that fit into a single domain like (testing, ~~run~~ structure).",
+      "context": "Settling the shape of a problem document after the first two were reworked.",
+      "superseded_by": null
+    },
+    {
+      "ref": "bfb87cff:17",
+      "date": "2026-09-09",
+      "statement": "Your task is to convert a problem dump into a list of no more than 10 spec related \"problems\" that upon interviewing will drive the creation of a new spec.",
+      "context": "Opening brief for the session that distilled the dumps into a problem register.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:440",
+      "date": "2026-09-09",
+      "statement": "registered \"problems\" name nothing, they orient your questions to cover these \"gaps\". The spec condenses exisiting  and expands non existing.  Our intent is to improve the system so the spec can orient towards that outcome.",
+      "context": "Correcting the interviewer on what a registered problem is for.",
+      "superseded_by": null
+    },
+    {
+      "ref": "9b679556:93",
+      "date": "2026-09-09",
+      "statement": "the mechanism for new problems is primarily through interviewing for existing problems. consider problem dumps as reference not a waiting list to be spammed at the user.",
+      "context": "Answering how new problems should surface during an interview.",
+      "superseded_by": null
+    },
+    {
+      "ref": "8fdc3b29:5495",
+      "date": "2026-09-08",
+      "statement": "i will hand all these to the spec-builder so he can integrate them all in a single pass, intead of getting a hacked up file by somebody without the right egent body.",
+      "context": "On why the problem documents are written and left, not fixed in place.",
+      "superseded_by": null
+    }
+  ]
+}

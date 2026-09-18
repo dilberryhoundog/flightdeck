@@ -59,7 +59,7 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 - [ ] Terrain cut into eight candidate epic missions with goals and definitions of done (`notepad/recon-2026-09-18/mission-cutter.md`, ready); commander approves which earn a place.
 - [ ] Approved missions filled out with team findings.
 - [ ] The pilot has an agent body (ordered 2026-09-18): the role scoping (fly the mission, do no work, manage teams, preside over the room) and the session-start procedure live in an agent definition launched as the session agent, so CLAUDE.md stays general and crew in the cockpit never mistake themselves for the pilot. Harness fact already verified today: `initialPrompt` fires for a session started with `--agent`.
-- [ ] Doctrine discovery and integration (commander, DS001 advice): T002 delivered five contested records (DS002, P008); landing awaits the commander's review.
+- [ ] Doctrine discovery and integration: T002's five documents ruled source material (DS002); T006 built the topic store (27 topics, 203 statements) and seven records under the docspec (DS003, P009); landing awaits the commander's review.
 
 ## Crew dispatched
 

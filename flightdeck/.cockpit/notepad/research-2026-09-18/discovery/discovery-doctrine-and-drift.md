@@ -1,0 +1,5 @@
+# Discovery notes: doctrine-and-drift
+
+- bab64608:49, 8fdc3b29:1383 confirmed: `library/source/orchestrator-pattern/` holds exactly 11 HTML source pages (endings-guide, run-log-guide, spec-guide, kickoff-guide, agents-guide, core-stages-4-7, orchestrator-review, piecing-it-together, planning-guide, review-guide, run-report-guide, verification-guide) on `run/flightcrew-characterization-2` — the "eleven source pages" and "endings guide... very good wayfinder" both check out concretely.
+- DS001/DS002 statements on how to treat the sources (not canon, no divergence-measuring, extract findings not replicate) confirmed present and quoted correctly at `flightdeck/.cockpit/commanders-desk/out-advice/DS001.md` and `DS002.md`. DS002 explicitly: "I don't want divergence measured either... look for relevance in the cannon, has a claim superseded another" — the topic's scope line should reflect this ban on divergence-measuring explicitly; it currently doesn't state it.
+- 8fdc3b29:97 (orchestrator used "his own system", clean slate) — a claim about the first builder's process, not independently checkable against a specific file artifact this pass.

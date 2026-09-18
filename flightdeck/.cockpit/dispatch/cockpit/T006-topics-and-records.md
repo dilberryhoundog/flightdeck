@@ -25,7 +25,7 @@ Extractor first; discovery and validator work as topics land; the writer drafts 
 - The topic store is the right intermediate: it caught a superseded claim the writer had just added, and it made every quote checkable with one command.
 - A summarising fetch can establish a presence but never an absence; every negative is checked against raw HTML.
 - Anchor findings on quoted text, not line numbers; files are live and line numbers rot between attack and revision.
-- Citations name the line the sentence sits on; "same turn" and turn-opener numbers are how errors enter, including from the pilot. A mechanical citation check before landing, not another round of attention.
+- Citations name the line the sentence sits on; "same turn" and turn-opener numbers are how errors enter, including from the pilot. A wrong citation is present and a missing one is absent, so a completeness sweep never sees the wrong one; the check that catches it resolves every citation against its line by script before landing. The writer's script found one miss in 83 that four attentive passes had not.
 - A writer that applies a disputed ruling in its weakest true form and sends the question up is what gets the commander to answer it; the adversary's best finding survived only because of that.
 - Brief every seat with the full read scope it will need (transcripts for the writer, the advice files and orders for the adversary); lifting boundaries mid-run cost rounds.
 - Two seats should not share a name across teams; a dead seat revives when addressed.

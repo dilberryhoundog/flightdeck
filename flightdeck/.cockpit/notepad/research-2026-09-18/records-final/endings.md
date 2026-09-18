@@ -1,4 +1,4 @@
-<!-- DRAFT record, T006, 2026-09-18, contested by the adversary, validated, discovery-checked; awaiting the commander's review (DS003, P009). Removed at landing. -->
+<!-- DRAFT record, T006, 2026-09-18, contested by the adversary, validated, discovery-checked, 83 transcript citations resolved by script; awaiting the commander's review (DS003, P009). Removed at landing. -->
 
 # Endings
 

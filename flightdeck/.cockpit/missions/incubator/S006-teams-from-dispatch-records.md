@@ -26,6 +26,8 @@
 
 - 2026-09-18 — Raised by the commander during the recon team run. Sent to mission-cutter as a commander-stated mission.
 
+- 2026-09-18 — Commander (DS001 advice): teams are the pilot's, crews are flightcrew's; dispatch records teams under `dispatch/cockpit/`, `dispatch/flightcrew/`, `dispatch/**`, with sub-dispatches possible later; converge on crew departments (flightcrew agents for that flow, research teams, repo teams). A launch succeeds as teams converging: prebuild (spec, tests, plan), build (orchestration workflows), review and cleanup (decide done, gather intel, set up the next run, or merge and move on). Not epic alone; converges with S007 on: make the cockpit self-sustaining and self-improving.
+
 ## Matures when
 
 The recon team's mission cuts are approved and the dispatch record has enough team runs to mine.

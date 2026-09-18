@@ -24,6 +24,8 @@
 
 - 2026-09-18 — Raised by the commander during the recon team run. Sent to mission-cutter as a commander-stated mission.
 
+- 2026-09-18 — Commander (DS001 advice): not epic alone; converges with S006 on the epic: make the cockpit self-sustaining and self-improving over time, the agent that operates here getting ever better at administering the system through well-grounded practices and the commander's steering inputs.
+
 ## Matures when
 
 The mission cuts are approved and the daily logs have enough sessions to mine.

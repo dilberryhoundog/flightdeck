@@ -3,7 +3,7 @@
 - **Written:** 2026-09-18 by the pilot (Ace), session dcb75456
 - **From:** `notepad/recon-2026-09-18/` (five teammates, seven explorers, every report verified by the pilot against git or official docs)
 - **Mission:** M001
-- **Proposals arising:** P004 (which missions fly), P005 (rulings on the open questions), P006 (promote briefings to records), P007 (branch hygiene)
+- **Proposals arising:** P004 to P007, all amended by the commander on 2026-09-18 (`notepad/commanders-advice/DS001.md`); reshaped proposals follow
 
 ## The situation in one paragraph
 
@@ -11,7 +11,7 @@ Flightcrew has a finished, unmerged test suite that describes it whole, a held c
 
 ## What a launch is
 
-A launch is one run of one spec, in a folder under `flightdeck/launch/`, produced in a fixed order: the launch record, the pinned spec and tests map, the kickoff rendered from parts, the plan, the returns of each dispatched agent, the event and hook logs, the evidence per check, the critic passes, notes, the report, and finally a ledger entry in the runlog. Phases run targets, plan, contracts, implement, verify, review, report, ended, and three human gates sit at plan, contracts and report. A check is one row of the tests map; a gate is a barrier that reports red checks and leaves the decision to the caller. The one complete example is the buildout-2 launch folder. Detail: `runs-recon.md` sections 1 and 2.
+Corrected by the commander on 2026-09-18: a launch is an intent to complete a piece of work and includes all the infrastructure to do it, the runs (attempts at completing the work), the spec and its versions as runs converge on done, and the run-generated artefacts. What follows is the v1 runner's mechanical view of one run, kept because it is what the commands do today. A run sits in a folder under `flightdeck/launch/`, produced in a fixed order: the launch record, the pinned spec and tests map, the kickoff rendered from parts, the plan, the returns of each dispatched agent, the event and hook logs, the evidence per check, the critic passes, notes, the report, and finally a ledger entry in the runlog. Phases run targets, plan, contracts, implement, verify, review, report, ended, and three human gates sit at plan, contracts and report. A check is one row of the tests map; a gate is a barrier that reports red checks and leaves the decision to the caller. The one complete example is the buildout-2 launch folder. Detail: `runs-recon.md` sections 1 and 2.
 
 ## How the system got here
 
@@ -24,6 +24,8 @@ A launch is one run of one spec, in a folder under `flightdeck/launch/`, produce
 Detail: `lineage-historian.md` (revised), `runs-recon.md` sections 3 to 6, `topology-2026-09-18.md` in `notepad/flightcrew/`.
 
 ## The doctrine
+
+Commander's correction 2026-09-18: the doctrine contains more than the recon found. Its genesis is `library/source/`, a set of local web pages the all-in-one builder replicated the system from, and the orchestration principles derived from them with fitment. These genesis documents must be maintained over time. The library is global documentation for all stakeholders, maintained by the pilot; records are the pilot's trusted extracts.
 
 The four library files, terms, interview conventions, harness-document guide and adversarial mandate, are byte-identical on every branch and are the stable core. The spec doctrine (nine domains, fixed order of completion, freeze before work, judge answers a rubric with quotes never a score, attacker hunts holes, human freezes), the testing doctrine (seven check classes, three verdict types, a four-rung gating ladder) and the versioning doctrine are frozen and unchanged in substance. The manuals layer that explains how the crew is dispatched post-dates main entirely. STRUCTURE.md was deleted on buildout and nothing replaced it. The orchestration principles on constitution-research never reached any later branch, and their own adversarial review found the fan-out order inverted. Detail: `doctrine-recon.md`.
 

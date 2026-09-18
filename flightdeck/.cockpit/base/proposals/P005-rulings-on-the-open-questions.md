@@ -1,6 +1,6 @@
 # P005 — The pilot's rulings on the cutter's nine open questions
 
-- **Status:** awaiting
+- **Status:** amended 2026-09-18 by the commander, see `notepad/commanders-advice/DS001.md` and decisions.json
 - **Raised:** 2026-09-18
 - **Mission:** M001
 - **Dossier:** DS001
@@ -31,4 +31,4 @@ None. Rulings become mission-file text once approved.
 
 ## Decision
 
-Pending.
+Amended by the commander on 2026-09-18. The ruling is recorded in `base/decisions.json`; the commander's words are in `notepad/commanders-advice/DS001.md`. Superseded by the reshaped proposals that follow.

@@ -1,6 +1,6 @@
 # P004 — Open three missions now, two on the horizon, incubate the three launches
 
-- **Status:** awaiting
+- **Status:** amended 2026-09-18 by the commander, see `notepad/commanders-advice/DS001.md` and decisions.json
 - **Raised:** 2026-09-18
 - **Mission:** M001
 - **Dossier:** DS001
@@ -23,4 +23,4 @@ The pilot writes the mission files. Each mission's first launch is the cutter's 
 
 ## Decision
 
-Pending.
+Amended by the commander on 2026-09-18. The ruling is recorded in `base/decisions.json`; the commander's words are in `notepad/commanders-advice/DS001.md`. Superseded by the reshaped proposals that follow.

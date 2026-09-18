@@ -35,38 +35,46 @@
     {
       "id": "P004",
       "title": "Open three missions now, two on the horizon, incubate the three launches",
-      "status": "awaiting",
+      "status": "amended",
       "file": "proposals/P004-open-missions-from-the-cut.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS001"
+      "dossier": "DS001",
+      "decided": "2026-09-18",
+      "note": "see decisions.json and notepad/commanders-advice/DS001.md"
     },
     {
       "id": "P005",
       "title": "The pilot's rulings on the cutter's nine open questions",
-      "status": "awaiting",
+      "status": "amended",
       "file": "proposals/P005-rulings-on-the-open-questions.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS001"
+      "dossier": "DS001",
+      "decided": "2026-09-18",
+      "note": "see decisions.json and notepad/commanders-advice/DS001.md"
     },
     {
       "id": "P006",
       "title": "Promote three recon briefings to records",
-      "status": "awaiting",
+      "status": "amended",
       "file": "proposals/P006-promote-briefings-to-records.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS001"
+      "dossier": "DS001",
+      "decided": "2026-09-18",
+      "note": "see decisions.json and notepad/commanders-advice/DS001.md"
     },
     {
       "id": "P007",
       "title": "Branch hygiene: prune contained branches, push stale remotes",
-      "status": "awaiting",
+      "status": "amended",
       "file": "proposals/P007-branch-hygiene.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS001"
+      "dossier": "DS001",
+      "decided": "2026-09-18",
+      "note": "see decisions.json and notepad/commanders-advice/DS001.md"
     }
   ]
 }

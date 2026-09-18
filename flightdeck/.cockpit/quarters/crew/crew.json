@@ -17,21 +17,31 @@
     {
       "role": "worker",
       "agent_type": "worker",
-      "dossier": "worker.md",
-      "purpose": "Implements exactly one unit against pre-written checks. The pilot's hands outside the cockpit."
+      "dossier": null,
+      "purpose": "Implements exactly one unit against pre-written checks. The pilot's hands outside the cockpit.",
+      "note": "no dossier yet; earns one when its seat shape recurs across team files"
     },
     {
       "role": "reviewer",
       "agent_type": "reviewer",
-      "dossier": "reviewer.md",
-      "purpose": "Judges finished work against a frozen spec from a fresh context."
+      "dossier": null,
+      "purpose": "Judges finished work against a frozen spec from a fresh context.",
+      "note": "no dossier yet; earns one when its seat shape recurs across team files"
     },
     {
       "role": "adversary",
       "agent_type": "adversary",
-      "dossier": "adversary.md",
-      "purpose": "Attacks a document against stated criteria and returns ranked findings."
+      "dossier": null,
+      "purpose": "Attacks a document against stated criteria and returns ranked findings.",
+      "note": "no dossier yet; earns one when its seat shape recurs across team files",
+      "model": "opus (commander's rule)"
+    },
+    {
+      "role": "spec-builder",
+      "agent_type": "spec-builder",
+      "dossier": "spec-builder.md",
+      "purpose": "Turns an intention or rough draft into a self-contained spec through explorers and interview; hands over a draft, never freezes it. Dossier carries what to watch for: altitude, interfaces, constraints, invented mechanisms."
     }
   ],
-  "dispatches": "../../logs/crew-manifest.json"
+  "dispatches": "../../dispatch/dispatch.json (teams; seats inside each team file); ../../logs/crew-manifest.json is the frozen pre-room archive"
 }

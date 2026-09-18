@@ -53,20 +53,24 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 
 ### Phase 3 — brief, cut, fill (ordered 2026-09-18)
 
-- [x] Team assembled 2026-09-18: runs-recon (C012, Opus), lineage-historian (C013, Opus), doctrine-recon (C014, Sonnet), docs-verifier (C015, claude-code-guide Sonnet), mission-cutter (C016, Opus). Five seats on the commander's revised rule 6.
+- [x] Team T001 assembled 2026-09-18: five seats on the commander's revised rule 6 (`dispatch/cockpit/T001-recon.md`).
 - [x] Pilot briefed on flightcrew and the commander's work so far; reports filed in `notepad/recon-2026-09-18/`, each verified.
 - [ ] Recon of the library and manuals summarised for a pilot (`notepad/recon-2026-09-18/doctrine-recon.md`, ready); commander approves; promoted to `records/flightcrew/`.
 - [ ] Terrain cut into eight candidate epic missions with goals and definitions of done (`notepad/recon-2026-09-18/mission-cutter.md`, ready); commander approves which earn a place.
 - [ ] Approved missions filled out with team findings.
+- [ ] The pilot has an agent body (ordered 2026-09-18): the role scoping (fly the mission, do no work, manage teams, preside over the room) and the session-start procedure live in an agent definition launched as the session agent, so CLAUDE.md stays general and crew in the cockpit never mistake themselves for the pilot. Harness fact already verified today: `initialPrompt` fires for a session started with `--agent`.
+- [ ] Doctrine discovery and integration (commander, DS001 advice): T002 delivered five contested records (DS002, P008); landing awaits the commander's review.
 
 ## Crew dispatched
 
 - 2026-09-17 — harness-guide (`claude-code-guide`): research agent teams, session messaging, subagents. Returned. Filed.
 - 2026-09-17 — explorer (`Explore`): survey flightcrew, launch, testbench, manuals, agents, archives, git history. Returned. Filed as `notepad/flightcrew/survey-2026-09-17.md` with digest `state-2026-09-17.md`.
 - 2026-09-18 — explorer (`general-purpose`, Sonnet, unnamed subagent): sort `references/` into official, scratch and mixed. Returned. Plan verified; it misclassed `cc.keep` and missed two embedded scratch passages.
-- 2026-09-18 — first agent team (S003), commander's order: `auditor` (general-purpose, Opus) cockpit cleanup suggestions; `docs-scout` (claude-code-guide, Sonnet) official best practices; `red-team` (adversary, Sonnet) attacks both. Auditor and scout message red-team. Returned and shut down. Manifest C006 to C008; all dispatches backfilled in `logs/crew-manifest.json` as C001 to C008.
+- 2026-09-18 — first agent team T004 (S003), commander's order; and the CLAUDE.md review team T005. Both recorded in `dispatch/`.
 
-- 2026-09-18 — recon team (phase 3), commander's order: five teammates, manifest C012 to C016. Topology briefed from the commander's account in `notepad/flightcrew/topology-2026-09-18.md`.
+- 2026-09-18 — recon team T001 (phase 3), commander's order: five teammates.
+- 2026-09-18 — research team T002, commander's order: five teammates; five records drafted, dossier DS002.
+- 2026-09-18 — mini adversary team T003, commander's order: two Opus critics on the day's cockpit work and the plan. Topology briefed from the commander's account in `notepad/flightcrew/topology-2026-09-18.md`.
 
 ## Outcome
 

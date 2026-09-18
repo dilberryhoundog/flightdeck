@@ -1,6 +1,6 @@
 # P006 — Promote three recon briefings to records
 
-- **Status:** amended 2026-09-18 by the commander, see `notepad/commanders-advice/DS001.md` and decisions.json
+- **Status:** amended 2026-09-18 by the commander, see `commanders-desk/out-advice/DS001.md` and decisions.json
 - **Raised:** 2026-09-18
 - **Mission:** M001
 - **Dossier:** DS001
@@ -23,4 +23,4 @@ The pilot writes the records; a Sonnet reviewer (chat-tools:doc-reviewer) audits
 
 ## Decision
 
-Amended by the commander on 2026-09-18. The ruling is recorded in `base/decisions.json`; the commander's words are in `notepad/commanders-advice/DS001.md`. Superseded by the reshaped proposals that follow.
+Amended by the commander on 2026-09-18. The ruling is recorded in `base/decisions.json`; the commander's words are in `commanders-desk/out-advice/DS001.md`. Superseded by the reshaped proposals that follow.

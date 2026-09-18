@@ -40,12 +40,28 @@
       "file": "S006-teams-from-dispatch-records.md",
       "raised_by": "commander",
       "raised_on": "2026-09-18",
-      "heat": "hot"
+      "heat": "folded into S009"
     },
     {
       "id": "S007",
       "title": "Record and mine the commander's decisions",
       "file": "S007-commander-decision-mining.md",
+      "raised_by": "commander",
+      "raised_on": "2026-09-18",
+      "heat": "folded into S009"
+    },
+    {
+      "id": "S008",
+      "title": "Simplify, improve and update the flightcrew core from the one-shot foundation",
+      "file": "S008-flightcrew-core-epic.md",
+      "raised_by": "commander",
+      "raised_on": "2026-09-18",
+      "heat": "hot"
+    },
+    {
+      "id": "S009",
+      "title": "Make the cockpit self-sustaining and self-improving",
+      "file": "S009-self-sustaining-cockpit.md",
       "raised_by": "commander",
       "raised_on": "2026-09-18",
       "heat": "hot"

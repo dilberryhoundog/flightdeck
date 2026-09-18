@@ -72,7 +72,8 @@
       "subject": "Crew protocol and crew manifest",
       "decision": "Crew protocol kept with the pilot's instructions. Every dispatch recorded in logs/crew-manifest.json; quarters/crew recruits from recurring shapes in the manifest.",
       "by": "commander",
-      "proposal": null
+      "proposal": null,
+      "superseded_by": "commander, 2026-09-18: the dispatch room records teams, not individual crew; crew-manifest.json frozen (CLAUDE.md rule 7)."
     },
     {
       "id": "D010",
@@ -103,7 +104,7 @@
       "date": "2026-09-18",
       "subject": "P004 mission shape",
       "decision": "Amended. Land the suite and the core spec repair are not epic on their own; they converge on one epic: simplify, improve and update the flightcrew core from the one-shot foundation. Decision mining and teams converge on another: make the cockpit self-sustaining and self-improving. Harness truth belongs inside the core mission. Order: fit out the cockpit (M001), then self-sustaining, then the flightcrew build-out.",
-      "by": "commander, notepad/commanders-advice/DS001.md",
+      "by": "commander, commanders-desk/out-advice/DS001.md",
       "proposal": "P004"
     },
     {
@@ -111,7 +112,7 @@
       "date": "2026-09-18",
       "subject": "P005 rulings",
       "decision": "Amended. The test suite's purpose is a rails-style test folder that protects and defines the infrastructure, light enough that runs do not require retuning it, able to travel with flightdeck when distributable. The core's exact shape is not defined this far out. The pilot flies the mission and does no work; the pilot presides over the room where the spec is thrashed out and never holds the finer details. Teams are the pilot's, crews are flightcrew's; dispatch records teams under dispatch/cockpit/, dispatch/flightcrew/ and so on; a launch succeeds as teams converging: prebuild, build, review and cleanup.",
-      "by": "commander, notepad/commanders-advice/DS001.md",
+      "by": "commander, commanders-desk/out-advice/DS001.md",
       "proposal": "P005"
     },
     {
@@ -119,15 +120,15 @@
       "date": "2026-09-18",
       "subject": "P006 records",
       "decision": "Amended. Converge on a certified research team that pulls the recon in with tighter focus, sanitises it for the pilot and configures it as bona fide records. Run every record past the commander before landing. Records are the pilot's; the library is for all, maintained by the pilot with an overview no other entity has. Records extract key findings, never replicate library documents.",
-      "by": "commander, notepad/commanders-advice/DS001.md",
+      "by": "commander, commanders-desk/out-advice/DS001.md",
       "proposal": "P006"
     },
     {
       "id": "D016",
       "date": "2026-09-18",
       "subject": "P007 branches",
-      "decision": "Amended, then corrected. Commit the work first (done, 23a2814). Branch cleanup is a merge cleanup: no branch is deleted until its changes are merged higher; merging the characterization branch starts it. Manifest of every branch and its state in notepad/branch-manifest-2026-09-18.md. Nothing deleted.",
-      "by": "commander, notepad/commanders-advice/DS001.md",
+      "decision": "Amended, then corrected. Commit the work first (done, 23a2814). Branch cleanup is a merge cleanup: no branch is deleted until its changes are merged higher; merging the characterization branch starts it. Manifest of every branch and its state in logs/branch-manifest.json. Nothing deleted.",
+      "by": "commander, commanders-desk/out-advice/DS001.md",
       "proposal": "P007"
     },
     {
@@ -135,8 +136,25 @@
       "date": "2026-09-18",
       "subject": "Launch definition",
       "decision": "A launch is not one run of one spec. It is an intent to complete a piece of work with all the infrastructure to do it: runs (attempts), the spec and its versions converging on done, and run-generated artefacts. Deeper recon of session transcripts ordered for the definition and for the commander's guidance on system shape, architecture and decisions.",
-      "by": "commander, notepad/commanders-advice/DS001.md",
+      "by": "commander, commanders-desk/out-advice/DS001.md",
       "proposal": null
+    },
+    {
+      "id": "D018",
+      "date": "2026-09-18",
+      "subject": "Push machine-only branches",
+      "decision": "Approved: push flightcrew-core, rubric-testing and flightcrew-characterization-1/contracts to origin. \"It is good git hygiene.\" Executed: all three at their local tips on origin, tracking set.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D019",
+      "date": "2026-09-18",
+      "subject": "P008 and the shape of records",
+      "decision": "Not landed as drafted. All five are source material or logs, not timeless records. Records are sharp, authoritative, token-efficient, current-form only, passing a two-years-time test. Commander's guidance: a source log. Doctrine and genesis: no divergence measured, no terms, altitude belongs in the spec-builder crew file, state the principles and tooling the pattern leans on. Harness facts: reads as a log; records claim one harness function each. Launch and run: source material with superseded shapes. Lineage: a JSON terrain log, not a record. Build a docspec for a good record; strengthen the team with a topic extractor, record writer, discovery, comparer and validator; mine the commander's statements into topics and topics into vision records, periodically.",
+      "by": "commander, commanders-desk/out-advice/DS002.md",
+      "proposal": "P008"
     }
-  ]
+  ],
+  "fields_note": "superseded_by: present when a later decision replaces this one; the newer statement wins."
 }

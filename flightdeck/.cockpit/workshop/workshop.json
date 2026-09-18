@@ -5,11 +5,12 @@
     "id": "W### in the order raised",
     "title": "one line",
     "raised": "YYYY-MM-DD",
-    "source": "where it came from: a log, a crew finding, a test, the commander",
+    "source": "where it came from",
     "status": "open | swept | fixed | dropped",
-    "swept_into": "mission id when swept, else null",
-    "resolved": "date and where the fix or drop is recorded, else null",
-    "file": "W###-slug.md when notes exist, else null"
+    "recurring": "true for maintenance that repeats (library, terms, topics, records); absent otherwise",
+    "swept_into": "mission id when swept; absent otherwise",
+    "resolved": "date and where, when fixed or dropped; absent otherwise",
+    "file": "W###-slug.md when notes exist; absent otherwise"
   },
   "items": [
     {
@@ -17,120 +18,135 @@
       "title": "Incubator README says heat is cold, warm, hot; sparks S004 and S005 use cool",
       "raised": "2026-09-18",
       "source": "pilot, session 49f87e44",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W002",
       "title": "Live-check F7 and F12: does the cockpit CLAUDE.md load on demand for a session started at the repo root, and do its imports expand there",
       "raised": "2026-09-18",
       "source": "docs-scout C009, verification pending in notepad/claude-md-review-2026-09-18/docs-scout.md",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W003",
       "title": "A15: consider --add-dir in the launcher so the pilot session sees the cockpit as a working directory",
       "raised": "2026-09-18",
       "source": "auditor C006 finding A15, weakened by red-team; not actioned",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W004",
       "title": "A16c: a template for team-run report folders once a second run exists; two runs now exist",
       "raised": "2026-09-18",
       "source": "auditor C006 finding A16c; notepad/team-run-2026-09-18 and claude-md-review-2026-09-18",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W005",
       "title": "Confirm the guard no longer blocks relative Bash write paths when cwd is inside the cockpit (defect seen 2026-09-18 before the A2 rewrite)",
       "raised": "2026-09-18",
       "source": "log 2026-09-18_8e74fffb, session start section; base/bin/test_cockpit_guard.py",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W006",
       "title": "Effort level could not be read headlessly; find a measurable check for effortLevel on a launched pilot",
       "raised": "2026-09-18",
       "source": "log 2026-09-18_8e74fffb, T6 in notepad/claude-code/launch-tests.md",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W007",
       "title": "Test whether a shut-down teammate can be resumed by name with its context intact, and whether it counts against the teammate cap",
       "raised": "2026-09-18",
       "source": "commander's question 'why do teammates terminate?'; SendMessage tool text says a name keeps working after an agent completes. Briefly spark S005, moved here on the commander's order: a minor change is not a mission",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W008",
       "title": "Decide the canonical home for crew role definitions: worker body exists in crew/worker.md, isolated-worker.md and .claude/agents/worker.md; crew.json ids drift from files",
       "raised": "2026-09-18",
       "source": "proposal P002, withdrawn 2026-09-18",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W009",
       "title": "Repair STRUCTURE.md (radar vs HUD, phantom example-launch, no .controlcenter) and liftoff.template.yaml paths",
       "raised": "2026-09-18",
       "source": "proposal P003, withdrawn 2026-09-18",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W010",
       "title": "Sealed crew roles (critic, explorer, spec-judge, spec-attacker, orchestrator) disown project instructions by prose only; official docs say only `omitClaudeMd: true` (Claude Code v2.1.271+) enforces it, and the tip's claude-code-facts.md omits the field",
       "raised": "2026-09-18",
       "source": "docs-verifier C015 job 2, notepad/recon-2026-09-18/docs-verifier-doctrine.md",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W011",
       "title": "Crew briefs say report to `pilot`; in-team the lead is `team-lead` and `pilot` resolves to the sender's own parent. Two of five teammates fell back to truncated final messages. Fix the brief convention in CLAUDE.md crew rule 3 and add a scratchpad delivery path for long reports",
       "raised": "2026-09-18",
       "source": "session dcb75456, notepad/claude-code/messaging-observed.md",
-      "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "status": "open"
     },
     {
       "id": "W012",
       "title": "Meta-workflows .claude/workflows/flightcrew-build.js and flightcrew-targets.js hardcode REPO='/Users/dylangraham/Projects/flightdeck' (run/flightcrew-characterization-2); portability defect, unpinned",
       "raised": "2026-09-18",
       "source": "runs-recon addendum, notepad/recon-2026-09-18/runs-recon.md",
+      "status": "open"
+    },
+    {
+      "id": "W013",
+      "title": "Terms page maintenance: library/terms.md was meant for build-run agents to add terms; commander (DS002) says a teammate should maintain it at the end of each run. Define the maintenance step and add it to logs/maintenance.json",
+      "raised": "2026-09-18",
+      "source": "commander, out-advice/DS002.md",
       "status": "open",
-      "swept_into": null,
-      "resolved": null,
-      "file": null
+      "recurring": true
+    },
+    {
+      "id": "W014",
+      "title": "Library maintenance: flightdeck/library is for all stakeholders and maintained by the pilot through crew (DS001, DS002). Define what maintenance means (genesis documents kept current, superseded claims marked) and log it in logs/maintenance.json",
+      "raised": "2026-09-18",
+      "source": "commander, out-advice/DS001.md and DS002.md",
+      "status": "open",
+      "recurring": true
+    },
+    {
+      "id": "W015",
+      "title": "Test directly the four harness observations the docs do not settle: strictest-of-two PreToolUse hooks; PATH given to hooks; workflow runtime and `export default`; stall message on exit 0. Source: notepad/recon-2026-09-18/docs-verifier-runs.md",
+      "raised": "2026-09-18",
+      "source": "docs-verifier C015; commander wants no mission built on folklore",
+      "status": "open"
+    },
+    {
+      "id": "W016",
+      "title": "Carry buildout's late doctrine forward: spec-altitude.md and the interfaces rewrite (1c81888) exist only on flightcrew-buildout; decide their home when the suite merges. Altitude summary already in quarters/crew/spec-builder.md",
+      "raised": "2026-09-18",
+      "source": "doctrine-recon C014; T002 doctrine source",
+      "status": "open"
+    },
+    {
+      "id": "W017",
+      "title": "Historical findings from the doctrine record (roster uneven against the model rule, gate G3 without code, cast renamed and split, verification reorganised) are valid for later agent work and were removed from the record on the commander's order; they live in notepad/research-2026-09-18/source/doctrine-and-genesis.md. Sweep into S008 when it flies",
+      "raised": "2026-09-18",
+      "source": "commander, out-advice/DS002.md",
+      "status": "open"
+    },
+    {
+      "id": "W018",
+      "title": "Stale path references after the desk move: 14 files repointed 2026-09-18; verify the startup hook and CLAUDE.md read correctly at next session start",
+      "raised": "2026-09-18",
+      "source": "pilot, session dcb75456",
+      "status": "open"
+    },
+    {
+      "id": "W019",
+      "title": "From quarters/crew/todo.txt (unsigned note, absorbed 2026-09-18): This file should be called the `team` to separate it from the `crew` that runs flightcrew runs. the json file also needs to be renamed.",
+      "raised": "2026-09-18",
+      "source": "quarters/crew/todo.txt",
+      "status": "open"
     }
   ]
 }

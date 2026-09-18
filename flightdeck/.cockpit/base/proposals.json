@@ -6,7 +6,7 @@
       "id": "P001",
       "title": "Survey run/flightcrew-characterization-2 before any new launch",
       "status": "superseded",
-      "file": "proposals/P001-survey-characterization-run-2.md",
+      "file": "../commanders-desk/in-proposals/P001-survey-characterization-run-2.md",
       "raised": "2026-09-17",
       "mission": "M001",
       "decided": "2026-09-18",
@@ -16,7 +16,7 @@
       "id": "P002",
       "title": "Decide the canonical home for crew role definitions",
       "status": "withdrawn",
-      "file": "proposals/P002-decide-canonical-crew-source.md",
+      "file": "../commanders-desk/in-proposals/P002-decide-canonical-crew-source.md",
       "raised": "2026-09-17",
       "mission": "M001",
       "decided": "2026-09-18",
@@ -26,7 +26,7 @@
       "id": "P003",
       "title": "Repair STRUCTURE.md and liftoff.template.yaml paths",
       "status": "withdrawn",
-      "file": "proposals/P003-repair-stale-structure-docs.md",
+      "file": "../commanders-desk/in-proposals/P003-repair-stale-structure-docs.md",
       "raised": "2026-09-17",
       "mission": "M001",
       "decided": "2026-09-18",
@@ -36,45 +36,56 @@
       "id": "P004",
       "title": "Open three missions now, two on the horizon, incubate the three launches",
       "status": "amended",
-      "file": "proposals/P004-open-missions-from-the-cut.md",
+      "file": "../commanders-desk/in-proposals/P004-open-missions-from-the-cut.md",
       "raised": "2026-09-18",
       "mission": "M001",
       "dossier": "DS001",
       "decided": "2026-09-18",
-      "note": "see decisions.json and notepad/commanders-advice/DS001.md"
+      "note": "see decisions.json and commanders-desk/out-advice/DS001.md"
     },
     {
       "id": "P005",
       "title": "The pilot's rulings on the cutter's nine open questions",
       "status": "amended",
-      "file": "proposals/P005-rulings-on-the-open-questions.md",
+      "file": "../commanders-desk/in-proposals/P005-rulings-on-the-open-questions.md",
       "raised": "2026-09-18",
       "mission": "M001",
       "dossier": "DS001",
       "decided": "2026-09-18",
-      "note": "see decisions.json and notepad/commanders-advice/DS001.md"
+      "note": "see decisions.json and commanders-desk/out-advice/DS001.md"
     },
     {
       "id": "P006",
       "title": "Promote three recon briefings to records",
       "status": "amended",
-      "file": "proposals/P006-promote-briefings-to-records.md",
+      "file": "../commanders-desk/in-proposals/P006-promote-briefings-to-records.md",
       "raised": "2026-09-18",
       "mission": "M001",
       "dossier": "DS001",
       "decided": "2026-09-18",
-      "note": "see decisions.json and notepad/commanders-advice/DS001.md"
+      "note": "see decisions.json and commanders-desk/out-advice/DS001.md"
     },
     {
       "id": "P007",
       "title": "Branch hygiene: prune contained branches, push stale remotes",
       "status": "amended",
-      "file": "proposals/P007-branch-hygiene.md",
+      "file": "../commanders-desk/in-proposals/P007-branch-hygiene.md",
       "raised": "2026-09-18",
       "mission": "M001",
       "dossier": "DS001",
       "decided": "2026-09-18",
-      "note": "see decisions.json and notepad/commanders-advice/DS001.md"
+      "note": "see decisions.json and commanders-desk/out-advice/DS001.md"
+    },
+    {
+      "id": "P008",
+      "title": "Land the five research records",
+      "status": "amended",
+      "file": "../commanders-desk/in-proposals/P008-land-the-five-records.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "DS002",
+      "decided": "2026-09-18",
+      "note": "see decisions.json and commanders-desk/out-advice/DS002.md"
     }
   ]
 }

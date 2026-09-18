@@ -52,3 +52,7 @@ lineage-historian (an in-process teammate) spawned Explore subagents. One subage
 ## 2026-09-18, session dcb75456 — the lead's in-team address is `team-lead`, not its session name
 
 Briefs told crew to "send reports to `pilot`". runs-recon and lineage-historian both reported that SendMessage rejected `pilot` as their own parent session, so they fell back to their final message, which the idle notification truncates. doctrine-recon and docs-verifier reached the lead as full `agent-message`s; their route was not stated. The routing metadata on the lead's own sends shows `"sender":"team-lead"`. So: teammates address the lead as `team-lead`; the session name `pilot` is the cross-session address, not the in-team one. Long reports must go by SendMessage to `team-lead` or into the session scratchpad; a final message is truncated in the idle notice. Fix the brief template accordingly (W011).
+
+## 2026-09-18, session dcb75456 — WebFetch summariser hallucinated a docs figure
+
+docs-verifier (T002, claude-code-guide on Sonnet) reports that on a first pass WebFetch's summarising model returned "5 consecutive blocks" for the Stop-hook ceiling and an inflated hook-event count. Re-fetching the raw HTML with curl and grepping confirmed 8 and the documented list. Lesson for the verifier role: a WebFetch answer is model output over the page, not the page. For any number or quoted phrase that will enter a record, confirm against the raw page text. Also noted: the live hooks page documents around 30 hook events; flightcrew's fragment binds fourteen.

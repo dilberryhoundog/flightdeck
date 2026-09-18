@@ -3,7 +3,7 @@
 - **Written:** 2026-09-18 by the pilot (Ace), session dcb75456
 - **From:** `notepad/recon-2026-09-18/` (five teammates, seven explorers, every report verified by the pilot against git or official docs)
 - **Mission:** M001
-- **Proposals arising:** P004 to P007, all amended by the commander on 2026-09-18 (`notepad/commanders-advice/DS001.md`); reshaped proposals follow
+- **Proposals arising:** P004 to P007, all amended by the commander on 2026-09-18 (`commanders-desk/out-advice/DS001.md`); reshaped proposals follow
 
 ## The situation in one paragraph
 
@@ -11,7 +11,7 @@ Flightcrew has a finished, unmerged test suite that describes it whole, a held c
 
 ## What a launch is
 
-Corrected by the commander on 2026-09-18: a launch is an intent to complete a piece of work and includes all the infrastructure to do it, the runs (attempts at completing the work), the spec and its versions as runs converge on done, and the run-generated artefacts. What follows is the v1 runner's mechanical view of one run, kept because it is what the commands do today. A run sits in a folder under `flightdeck/launch/`, produced in a fixed order: the launch record, the pinned spec and tests map, the kickoff rendered from parts, the plan, the returns of each dispatched agent, the event and hook logs, the evidence per check, the critic passes, notes, the report, and finally a ledger entry in the runlog. Phases run targets, plan, contracts, implement, verify, review, report, ended, and three human gates sit at plan, contracts and report. A check is one row of the tests map; a gate is a barrier that reports red checks and leaves the decision to the caller. The one complete example is the buildout-2 launch folder. Detail: `runs-recon.md` sections 1 and 2.
+Corrected by the commander on 2026-09-18: a launch is an intent to complete a piece of work and includes all the infrastructure to do it, the runs (attempts at completing the work), the spec and its versions as runs converge on done, and the run-generated artefacts. What follows is the v1 runner's mechanical view of one run, kept because it is what the commands do today. A run sits in a folder under `../../../launch`, produced in a fixed order: the launch record, the pinned spec and tests map, the kickoff rendered from parts, the plan, the returns of each dispatched agent, the event and hook logs, the evidence per check, the critic passes, notes, the report, and finally a ledger entry in the runlog. Phases run targets, plan, contracts, implement, verify, review, report, ended, and three human gates sit at plan, contracts and report. A check is one row of the tests map; a gate is a barrier that reports red checks and leaves the decision to the caller. The one complete example is the buildout-2 launch folder. Detail: `runs-recon.md` sections 1 and 2.
 
 ## How the system got here
 

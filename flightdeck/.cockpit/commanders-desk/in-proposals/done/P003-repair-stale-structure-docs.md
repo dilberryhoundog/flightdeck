@@ -6,7 +6,7 @@
 
 ## Problem
 
-`flightdeck/STRUCTURE.md` documents `radar/` where the tree has `HUD/`, a `launch/example-launch/` that does not exist, and omits `.controlcenter/` and `.cockpit/`. `flightdeck/flightcrew/templates/liftoff.template.yaml` points at pre-reorganisation paths (`flightdeck/crew.json`, `flightdeck/templates/*`, `flightdeck/runs/`) and names two templates that do not exist (flags 5 and 6). Crew reading these will act on a layout that is not there.
+`../../../../STRUCTURE.md` documents `radar/` where the tree has `HUD/`, a `launch/example-launch/` that does not exist, and omits `.controlcenter/` and `.cockpit/`. `flightdeck/flightcrew/templates/liftoff.template.yaml` points at pre-reorganisation paths (`flightdeck/crew.json`, `flightdeck/templates/*`, `flightdeck/runs/`) and names two templates that do not exist (flags 5 and 6). Crew reading these will act on a layout that is not there.
 
 ## Proposal
 

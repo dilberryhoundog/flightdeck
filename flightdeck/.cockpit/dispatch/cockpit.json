@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "room": "cockpit",
   "teams": [
     {
@@ -299,6 +299,55 @@
         "a dossier briefs a seat; history goes in the team entry",
         "a change in one room is a change in every room that points into it, again",
         "run the mini-adversary roster on any structural rebuild before logging off"
+      ],
+      "status": "finished"
+    },
+    {
+      "id": "T009",
+      "date": "2026-09-19",
+      "session": "4450a586",
+      "mission": "M001",
+      "purpose": "Decision team on record keeping after the commander's DS003 advice: options for how the cockpit keeps brief, current records, and the best one; extended 2026-09-20 after P010's approval to the procedures room scaffold (option-maker, adversary), the rule 2 wording check (adversary) and the four stubs (stub-writer)",
+      "roster": "decision",
+      "seats": [
+        {
+          "name": "cockpit-auditor",
+          "reason": "evidence of how knowledge persists across sessions today and where the pilot drifted",
+          "returns": "six-section audit with file and line"
+        },
+        {
+          "name": "practice-scout",
+          "reason": "official Anthropic guidance on agent memory and just-in-time context, confirmed against raw pages",
+          "returns": "mechanisms with quotes, URLs, load behaviour"
+        },
+        {
+          "name": "option-maker",
+          "reason": "writes the decision paper: three to five whole methods, then a recommendation tested on both reports",
+          "returns": "pass-1 options, final decision paper"
+        },
+        {
+          "name": "adversary",
+          "reason": "attacks the final paper against the goal in the question file",
+          "returns": "ranked findings"
+        },
+        {
+          "name": "stub-writer",
+          "reason": "compress the four ruled drafts into stubs under D020 and P010",
+          "returns": "four stub files, one line each on what was left out"
+        }
+      ],
+      "subagents": [],
+      "shape": "auditor and scout in parallel; option-maker drafts the option space at once and revises when both land; adversary spawned on the final paper",
+      "outcome": "Decision paper (99 lines) recommending vehicle routing with a drift trigger: procedures behind an imported trigger manifest carry the load, constant rules stay in CLAUDE.md, damage rules go to the guard, records on demand from the wide net with one header line under D021, a periodic currency review. Adversary: 23 findings and nine closing items, all answered, verdict stands. Auto memory and hook enforcement were missing options until the adversary named them. Distilled as DS004, raised as P010. Extended after approval (D022): the adversary checked the pilot's rule 2 and records README wording (seven findings, all taken); stub-writer compressed four drafts into stubs the commander read and the pilot landed (D024); option-maker designed the procedures room scaffold and five starting procedures, one adversary pass (four findings taken, three withdrawn once it saw O042). Distilled as DS005; P011 approved whole (D025); the manifest is imported into CLAUDE.md and measured live.",
+      "lessons": [
+        "a decision team of auditor, docs scout, option-maker and adversary fits in one evening; the option-maker drafting from the start and revising on the reports saved a round",
+        "relay the commander's rulings to every seat at once; messages cross, and a seat working from a stale ruling wastes a pass",
+        "the option-maker attacked its own paper while idle and found a staffing defect; say in the brief that this is wanted",
+        "the adversary passing residuals ahead of its closing pass let them be closed in the same revision",
+        "measure a harness claim the paper depends on while the team works (the @ import test), rather than carrying it as a risk",
+        "put the commander's latest order on the subject in every seat's read scope; two adversary findings fell because O042 was left out of its brief",
+        "reusing a live team for the follow-on work (scaffold, wording check) cost no re-briefing; the seats already held the rulings",
+        "a stub writer needs the sibling drafts compared for contradiction; the pilot caught one the seat did not"
       ],
       "status": "finished"
     }

@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "updated": "2026-09-20",
+  "convention": "The index of the room, and the dated events the periodicals are due against. Ids are slugs. The file's Approved line is authoritative; this index mirrors it. status: draft | active | retired. last_run: {date, event} where event is an event kind or 'order'. A periodical is due when the latest event of a kind it names is later than its last_run date.",
+  "events": [],
+  "items": [
+    {
+      "id": "record-keeping",
+      "title": "Record keeping",
+      "branch": "cockpit",
+      "file": "cockpit/record-keeping.md",
+      "trigger": {
+        "kind": "on-demand",
+        "condition": "a drift event"
+      },
+      "roster": null,
+      "approved": "2026-09-20",
+      "status": "active",
+      "updated": "2026-09-20"
+    },
+    {
+      "id": "forming-a-team",
+      "title": "Forming a team",
+      "branch": "cockpit",
+      "file": "cockpit/forming-a-team.md",
+      "trigger": {
+        "kind": "on-demand",
+        "condition": "before forming a team"
+      },
+      "roster": null,
+      "approved": "2026-09-20",
+      "status": "active",
+      "updated": "2026-09-20"
+    },
+    {
+      "id": "notepad-cleanup",
+      "title": "Notepad cleanup",
+      "branch": "cockpit",
+      "file": "cockpit/notepad-cleanup.md",
+      "trigger": {
+        "kind": "periodical",
+        "events": [
+          "mission-phase-close"
+        ]
+      },
+      "roster": null,
+      "approved": "2026-09-20",
+      "last_run": null,
+      "status": "active",
+      "updated": "2026-09-20"
+    },
+    {
+      "id": "currency-review",
+      "title": "Currency review",
+      "branch": "cockpit",
+      "file": "cockpit/currency-review.md",
+      "trigger": {
+        "kind": "periodical",
+        "events": [
+          "launch-close",
+          "mission-phase-close"
+        ]
+      },
+      "roster": null,
+      "approved": "2026-09-20",
+      "last_run": null,
+      "status": "active",
+      "updated": "2026-09-20"
+    },
+    {
+      "id": "topics-update",
+      "title": "Topics update",
+      "branch": "cockpit",
+      "file": "cockpit/topics-update.md",
+      "trigger": {
+        "kind": "periodical",
+        "events": [
+          "mission-phase-close"
+        ]
+      },
+      "roster": null,
+      "approved": "2026-09-20",
+      "last_run": null,
+      "status": "active",
+      "updated": "2026-09-20"
+    }
+  ]
+}

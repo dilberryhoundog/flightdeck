@@ -9,7 +9,8 @@ Reads: the mandate, rule 2, the records, the advice files, the orders file, the 
 ## Record
 
 About ninety findings across two teams; caught the reversed tiering, the invented 'cheap beats strong' quote, three false negatives in the guidance record, the over-broad gates supersession, the vanished launch file. Its misses shared one shape: true evidence, wrong inference, one command short (a framing under a correct id; a first match taken as the only one; a summarising fetch taken as an absence).
+T009 (decision paper): 23 findings and nine closing items, verdict stands with amendments; named two missing options (auto memory, hook enforcement) and an unnamed reversal of DS002; withdrew one finding that ran against a fresh ruling; passed residuals ahead of its closing pass so they closed in one revision.
 
 ## Next time
 
-Always Opus. Brief the full read scope up front (advice files, orders, transcripts). State: raw HTML for negatives; second occurrence before calling a quote absent; anchor findings on quoted text not line numbers.
+Always Opus. Brief the full read scope up front (advice files, orders, transcripts). State: raw HTML for negatives; second occurrence before calling a quote absent; anchor findings on quoted text not line numbers. Put the commander's latest order on the subject in its read scope, and tell it to ask what it has not been shown before claiming something traces to nothing.

@@ -32,18 +32,24 @@ launch/
 
 ## Why runs repeat rather than being perfected
 
-"A HUUUUGE principle of orchestrated runs is iterated improvment. abandon failed runs. runs should accumulate many retries until they succeed, rather than one shotting" (`8fdc3b29:181`).
+"A HUUUUGE principle of orchestrated runs is iterated improvement. abandon failed runs. runs should accumulate many retries until they succeed, rather than one shotting" (`8fdc3b29:181`).
 
 The economics are the point: "decomposing. uses cheap build agent retrying attempts, instead of expensive agents single shotting" (`0fb7c77a:3004`). And the same posture applies within an attempt: "Its a principle. you have a go at laying out the ground work, then decide if the groundwork produced what you want. If it didn't update it" (`0fb7c77a:2780`).
 
-## What a retry changes
+## 3 axis run improvement
 
+<!--
+this is a weak explanation for a key principle. the source html describes the three failure axis as "required" and expands on them individually (only verification is mentioned below). If a run has failed, to be retried it must state a failure of at least one of the three axis, and how it intends to improve that axis.
+-->
 Three axes: "this lines up well with the three failure axis principle; look at context, verification or tooling for improving the run" (`8fdc3b29:206`). A retry that changes none of the three is a repeat, not an attempt.
 
 Verification is one of them, which is why the checks belong to the attempt: "verification is one of the failure axis. checks are therefore a run instance asset. test-builder agent builds new checks and tests after new versioned spec freeze. builds them into new run attempt" (`8fdc3b29:3567`).
 
 ## What carries forward
 
+<!--
+This may have preceeded run folder changes, whereby it is now easy and prefered to retain run assets per run directory. 
+-->
 The run log, and it is what licenses everything else to be thrown away: "then the importance of a runlog was highlighted to transfer all other 'findings' over to the new instance, this allows us to 'overwrite' alot of the run-assets per instance" (`8fdc3b29:204`).
 
 The commander writes it, and the next version absorbs it: "the fundamental principle is for the user to complete a runlog and then that is presented in version 2 and the 'decisions' can be absorbed. the only advice i could give is instead of running infront of the user present them a list of considerations for their run log once the run ends" (`bab64608:1767`). A run ends, then the commander writes the log, then the next version absorbs it. Hand over considerations and do not run ahead.
@@ -72,10 +78,16 @@ This is the single json page the commander allows for phase state, and gates, ph
 
 ## When a run stalls
 
+<!--
+This is per plan unit. unit fails -> spawn stronger agent. -> unit still fails = run fail.
+-->
 "a stall should engage a second stronger agent. if that stalls the run is stopped. if its a workflow it can be handled but im not the expert" (`9b679556:3966`).
 
 ## How a launch proceeds
 
+<!--
+This was the commander spitballing the other day. it is not cannon yet.
+-->
 "a launch succeeds not from a bunch of commands run in sequence, but agent teams all converging on success, like a prebuild (spec and tests and plan), then the build (orch workflows), then review and cleanup (decide done, gather intel, setup next run, or merge and move on)" (`DS001`).
 
 How a run reaches its end is in `endings.md`.

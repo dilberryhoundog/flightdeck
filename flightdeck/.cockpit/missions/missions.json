@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "current": "M001",
   "missions": [
     {
@@ -12,7 +12,7 @@
       "assigned_by": "commander",
       "opened": "2026-09-17",
       "closed": null,
-      "progress": "Phase 3 in flight: recon done, topic store and seven records drafted (DS003/P009 awaiting the commander), teams integrated; agent body and doctrine landing outstanding"
+      "progress": "Phase 3 in flight: record-keeping method adopted (DS004/P010), harness register and four stubs landed, procedures room live with five cockpit procedures (DS005/P011). Outstanding: the pilot's agent body (takes session start and end), the mission cut and doctrine briefing approvals, guard proposal for the unmerged-branch rule; S009 recommended for opening as a horizon mission"
     }
   ],
   "incubator": "incubator/incubator.json",

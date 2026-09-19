@@ -1,0 +1,3 @@
+Pilot routine and procedures defined. the cockpits' logic engine.
+Pilot reads on demand or periodically to invoke cockpit actions.
+trigger manifest kept and @read into claude.md

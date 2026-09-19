@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "convention": "One row per seat; this file owns a seat's identity (name, agent type, model). Its dossier is quarters/crew/<room>/<name>.md; teams flown are derived from ../../dispatch/cockpit.json by seat name. status: active | superseded | retired, with note saying by what.",
   "proposed": [],
   "crew": [
@@ -153,6 +153,34 @@
       "room": "team",
       "agent_type": "general-purpose",
       "model": "opus",
+      "status": "active"
+    },
+    {
+      "name": "cockpit-auditor",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active"
+    },
+    {
+      "name": "practice-scout",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active"
+    },
+    {
+      "name": "option-maker",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active"
+    },
+    {
+      "name": "stub-writer",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
       "status": "active"
     }
   ]

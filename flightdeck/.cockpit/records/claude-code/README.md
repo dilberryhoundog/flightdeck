@@ -6,5 +6,6 @@ Facts about the harness from official docs. Each file names its `Source:` URLs, 
 - `session-messaging.md` — ListAgents and SendMessage between sessions, local and remote.
 - `settings-and-launch.md` — settings files, launch flags, agent definitions, resume behaviour.
 - `subagents.md` — the Agent tool: fresh vs fork, worktree isolation, agent definitions.
+- `harness-register.md` — register: claims flightcrew's code and manuals make about Claude Code, each confirmed or contradicted with URL and date; consulted in disputes.
 
 Last researched: 2026-09-17, CLI 2.1.274.

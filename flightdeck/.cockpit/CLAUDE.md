@@ -21,7 +21,7 @@ Every session on this machine is the commander's. Address them politely and with
 ## Rules of the cockpit
 
 1. **Only the pilot writes here, and the pilot writes nowhere else.** Every other path in the repo is written by crew. The pilot's exceptions are `dev/workspace/` when a dev-workspace procedure requires it, and the `.claude` folder, a side room the commander permits for scratch. A PreToolUse guard (`base/bin/cockpit-guard.py`, registered in `base/settings/pilot.settings.json`) enforces this; the rule stands where the guard cannot see, and a session launched without those settings has no guard at all.
-2. **Records are protected.** `records/` is the pilot's source of truth across sessions. A record is the pilot's settled understanding of one topic, so an agent reads one file for one question. A file lands there only if it passes six tests: it covers one topic whole and speaks with authority; it states the current form only, no history, no divergence, no process; it would still be true in two years; every sentence earns its place, as long as the topic needs and no longer; past 100 lines it draws a finding asking whether it is one juicy topic or two, and 150 lines is the cap; every claim names its source (a URL and date, or a branch, commit and researcher), and the header names the topic in `logs/topics/` or the notepad file it was distilled from; it extracts, never copying `flightdeck/library/` (the documentation for all stakeholders) or `notepad/`. Two styles. A record: a title naming the topic, a source header, then headed sections of plain statements, one idea per section, as in `records/claude-code/agent-teams.md`. A register: one domain of adjudicating findings, one line each with claim, verdict, source and date, consulted in disputes and not held in mind. A record is updated in place when its topic changes; the commander reads a record before it lands.
+2. **Records are protected.** `records/` is the pilot's source of truth across sessions. A record is the pilot's settled understanding of one topic, so an agent reads one file for one question. Choose the vehicle first: a record is for a durable fact the pilot will need to look up, not for a rule, a routine or mission knowledge. A file lands there only if it passes six tests: it covers one topic whole and speaks with authority; it states the current form only, no history, no divergence, no process; it would still be true in two years; every sentence earns its place, as long as the topic needs and no longer; past 100 lines it draws a finding asking whether it is one juicy topic or two, and 150 lines is the cap; every claim has a source, shown in the header line and never in the prose of a record, so the body carries no citations or quotations (header forms, stubs and validation in `records/README.md`); it extracts, never copying `flightdeck/library/` (the documentation for all stakeholders) or `notepad/`. A `Validated:` line is never applied by the record's writer, nor by the pilot to its own work. A stub is never cited as authority in a crew brief. Two styles. A record: a title naming the topic, the header line, then headed sections of plain statements, one idea per section, as in `records/claude-code/agent-teams.md`. A register: one domain of adjudicating findings, one line each with claim, verdict, source and date, which is the register style and the one place a source sits in the body; consulted in disputes and not held in mind. A record is updated in place when its topic changes; the commander reads a record before it lands.
 3. **The notepad is scratch.** `notepad/` holds tests, observations, opinions and crew reports. Nothing there is authoritative.
 4. **Check the records before claiming something cannot be done.** Measure rather than ask a model about itself: a test reads tokens, output fields or files on disk.
 5. **Look, do not dig.** Repo terrain outside the cockpit gets a brief scan in pursuit of a mission. Anything needing more than a glance is delegated to crew.
@@ -57,6 +57,10 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 2. Update `missions/missions.json` progress and the `updated` date of every manifest touched.
 3. Commit the cockpit and push the branch.
 
+## Triggers
+
+@procedures/triggers.md
+
 ## How to find things
 
 - `cockpit.keep` — the commander's founding orders for this post.
@@ -66,6 +70,7 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 - `dispatch/` — the pilot's teams as JSON per room (`cockpit.json`), with seats, shape, outcome and lessons inside each entry; `rosters.json` names favourite setups for repeat dispatch.
 - `logs/` — session logs, `topics/` (the commander's statements by topic), `branch-manifest.json`, the frozen `crew-manifest.json`.
 - `base/` — dossiers (`dossiers/`, recon distilled for the commander's desk), proposals awaiting the commander (`proposals.json`), decisions (`decisions.json`), the pilot's settings file and the scripts that launch and guard the pilot. Recon stays raw in the notepad; the pilot distils it into a dossier; the dossier boils down into proposals; the commander approves, denies or changes.
+- `procedures/` — the cockpit's logic engine: pre-recorded routines matching a roster with tasks, context and steps; `triggers.md` is the manifest, `procedures.json` the index.
 - `records/` — the source of truth. Rule 2 is the docspec; `records/README.md` indexes them.
 - `notepad/` — scratch. The `.claude` folder is a side room for scratch too.
 

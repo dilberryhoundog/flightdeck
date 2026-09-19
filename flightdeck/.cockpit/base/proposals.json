@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-18",
+  "updated": "2026-09-20",
   "proposals": [
     {
       "id": "P001",
@@ -90,11 +90,35 @@
     {
       "id": "P009",
       "title": "Land the seven records",
-      "status": "awaiting",
+      "status": "executed",
       "file": "../commanders-desk/in-proposals/P009-land-the-seven-records.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS003"
+      "dossier": "DS003",
+      "decided": "2026-09-19",
+      "note": "executed as amended: D020, D024"
+    },
+    {
+      "id": "P010",
+      "title": "Adopt the record-keeping method",
+      "status": "approved",
+      "file": "../commanders-desk/in-proposals/P010-adopt-the-record-keeping-method.md",
+      "raised": "2026-09-19",
+      "mission": "M001",
+      "dossier": "DS004",
+      "decided": "2026-09-20",
+      "note": "D022; procedures room to be discussed with the commander before construction; steps 1 to 4 executed 2026-09-20, step 5 (guard proposal) to be raised"
+    },
+    {
+      "id": "P011",
+      "title": "Approve the starting procedures",
+      "status": "executed",
+      "file": "../commanders-desk/in-proposals/P011-approve-the-starting-procedures.md",
+      "raised": "2026-09-20",
+      "mission": "M001",
+      "dossier": "DS005",
+      "decided": "2026-09-20",
+      "note": "D025"
     }
   ]
 }

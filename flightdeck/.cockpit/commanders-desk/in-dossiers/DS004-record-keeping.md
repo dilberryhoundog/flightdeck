@@ -1,0 +1,58 @@
+# DS004 — How the cockpit keeps records: the decision team's answer
+
+- **Written:** 2026-09-19 by the pilot (Ace), session 4450a586
+- **From:** team T009 (`dispatch/cockpit.json` T009); question, reports, paper and both adversary passes at `notepad/decision-2026-09-19/`
+- **Mission:** M001
+- **Proposals arising:** P010 (adopt the method), and P009 executed in the form this dossier gives
+
+## The answer in one paragraph
+
+Stop writing records about the system, write procedures about the job, enforce what can be enforced, and let your trigger manifest and a periodic review make them readable at the right moment. Your on-demand trigger is adopted whole, as the cockpit's rule for writing anything down. What a drift event opens is a question, "which vehicle carries this", and the pilot answers it in the log on the day. On the evidence the answer is usually a procedure, sometimes a one-line rule, sometimes the guard, and least often a record. `records/` stays open for short, sharp, externally checkable records like the four you like, plus the occasional validated local one.
+
+## What the evidence showed
+
+- The four `records/claude-code/` files are the only store in the cockpit cited again across sessions. The topic store, the dossiers after your rulings and the seven drafts were written once and not reopened.
+- Every correction you have given the pilot so far was repaired by a rule, a line in your dossier or a memory, never by a record. Most were about the pilot's conduct (crew models, keeping teammates alive, branch cleanup). Two were doctrinal (records against scratch, what a good record is).
+- The worst record-related failure was the pilot not opening a record that already held the answer. Delivery matters as much as production.
+- Official Anthropic guidance describes your trigger independently: write something down when the same mistake happens twice or a review catches something that should have been known. The same page says "always do X" rules stay in the always-loaded file, multi-step procedures move out, and anything that must be blocked belongs in a hook because instructions are "context, not enforced configuration".
+- Three official memory designs share one shape: a small capped index with one line per topic, and topic files opened on demand. That is your trigger manifest.
+- Measured today: an `@` import in the cockpit `CLAUDE.md` loads with it, to two hops, whether the session starts in the cockpit or reaches it by reading a file there (`notepad/decision-2026-09-19/import-test.md`).
+
+## The method
+
+1. **Trigger.** A drift event: you correct the pilot on something a file could have told it; the same mistake or question recurs; a review catches what should have been known; or you mark a correction costly. No document is written ahead of one. The four stubs you ruled in DS003 are the only exception, and no fifth is written on a forecast.
+2. **Vehicle test, before anything is written.** A constant one-line rule goes in `CLAUDE.md`. A multi-step routine goes in `procedures/` behind a manifest line. An action that causes damage and can be detected goes in the guard. A conduct correction is mirrored in the pilot's auto memory, which loads at every start, but its authoritative home is always a cockpit file, so rule 1's "durable knowledge lives in the cockpit" is unchanged. Mission knowledge goes in the mission file, crew knowledge in the seat's dossier. A record is for a durable fact the pilot will need to look up. Each fact has one home; every other place points to it.
+3. **Procedures.** Trigger condition and steps, nothing else; thirty lines working, fifty capped; written by the pilot on the spot; edited in place on the next drift. A manifest line states a condition ("before forming a team"), never a summary. You approve each procedure together with its manifest line, singly and never in a batch: fifty lines at most, read once. Approving the line alone would approve when a file is opened and not what it says, and procedures are this method's main output, so the content gets your eye too. That approval is also the only limit on the manifest's growth.
+4. **Records.** Written by one crew seat from the wide net: source guides, library, manuals, your directives, with the topic store last and used for fine-tuning, never as the sole source. Plain register, no quotations, no citations in the body. Caps stay at 100 and 150. You read a record before it lands, and the question you are asked is only "is this useful".
+5. **Sourcing, as you ruled (D021).** Every claim has a source; none is named inline. One header line. Web-sourced: the `Source:` line exactly as now. Locally sourced: `Validated: checked against the commander's directives, the flightdeck library and the source guides; T011 validator, 2026-09-19.` Stub: `Stub: existing knowledge only, not validated, not to be cited as authority.` On promotion the stub line is replaced by the line it has earned; a record on both kinds of source carries both lines.
+6. **The stamp is earned.** One Opus seat that did not write the document, and never the pilot on its own work, opens the sources in full and asks of each statement: do the sources say this, and is it a fair reading of what they say in full. Unsupported statements are deleted; an unfair reading goes back to the writer once. The writer's statement-to-source notes serve as the validator's map and stay in the team's notepad folder while the record stands. An edit voids the stamp: re-validate or delete the line.
+7. **Currency.** A periodic review, itself a procedure with a manifest line, run by the pilot at the close of a mission phase and the close of a launch, and whenever you order it. Cheap first: a git log over the library, manuals and source guides since each stamp date, and new entries in `orders.json` and `decisions.json`; only a record or procedure whose sources moved gets a validator, and where the moved source is a new directive of yours the pilot judges which records it touches. For local records, nothing moved costs nothing. Web-sourced records have no such detector: nothing in the cockpit notices a docs page changing. Their currency rides on three weaker things, stated as such: the drift trigger when a record misleads; the CLI version, which the session-start hook prints and the older `Source:` lines name, so a version jump since a record's date is a prompt to re-check it; and at each review one cheap seat re-fetching the cited pages against the record's statements, raw page not summary. So a review is never free: detection is near-free, and the web re-fetch is one cheap seat per review whether or not anything moved. That is the honest price of the records that actually get used.
+
+## What changes in the cockpit
+
+- Rule 2 in `CLAUDE.md` and `records/README.md` lines 3 and 5 change together: the sourcing wording above, the three top-line states, the vehicle test placed before the six tests, a stub permitted to land.
+- `procedures/record-keeping.md` is the first file in your new room, and `procedures/triggers.md` the manifest imported into `CLAUDE.md`.
+- First outputs: the record-keeping procedure; a dispatch procedure taking the multi-step part of team forming while the one-line crew rules stay in `CLAUDE.md`; the unmerged-branch rule proposed for the guard (a change in `base/`, so it comes to you as its own proposal).
+- P009 executes as you ruled: the harness register lands as is; four stubs of fifteen to twenty lines each, no quotations, written by one seat from the drafts, your inline comments and the wide net; two drafts stay in the notepad.
+- The topic store stays, filed into by the pilot as your statements arrive, and is not mined by a team again.
+
+## Decisions that are yours
+
+1. **The reversal of DS002.** DS002 asked for your statements to be mined into vision records periodically. This method follows DS003 and retires team mining for new records, keeping the topic store for fine-tuning. If you meant DS003 to change the timing only, say so and the method leans back toward team-written records on demand.
+2. **Do you read the four stubs before they land?** The team first proposed no, then reversed under the adversary. The pilot recommends you do: about seventy lines in all, new compressions rather than the drafts you annotated, and your read is the one check on `records/` that does not run through the pilot.
+3. **The team id in the stamp.** One token (`T011`) makes the stamp resolve to exactly one team entry. If you want no identifier in a header at all, it drops to seat and date and the ambiguity on a two-team day is accepted.
+4. **`Validated:` as the label.** Chosen over `Sourced:` because it differs visibly from `Source:` in the same position.
+
+## What the pilot does not claim
+
+- That the manifest will be obeyed better than a rule in `CLAUDE.md`. It is a hypothesis. The pilot logs each time a trigger line sends it to a file, but that log records successes and cannot cleanly record misses; the real signal is you catching a drift a manifest line should have caught.
+- That the method checks itself. The pilot judges its own drift, names its own vehicle, decides what counts as structural, decides which records a new directive touches and picks its own validator. Your three inputs are the procedure with its manifest line, the read before a record lands, and marking a correction costly.
+- That it survives a rebuild. If your construction goes far enough to rebuild the cockpit, the right move is to stop writing and keep flying.
+
+## How the team ran
+
+Four seats: cockpit-auditor and practice-scout (Sonnet) in parallel, option-maker (Opus) drafting from the start and revising on both reports, adversary (Opus) on the paper. The adversary raised 23 findings, nine items in its second pass and four in its third; it withdrew two. The paper answers the 23; the pilot ruled on the later items in this dossier rather than send the paper round again (the periodic review's cadence, auto memory as a mirror with its home in the cockpit, procedures approved with their content, the retention of working notes). Its closing verdict: the recommendation stands. The pilot verified the lead claims of each report at source and overruled the option-maker twice (validator on Opus reading for fair reading; team id in the stamp).
+
+## After this dossier
+
+Approved as P010 (D022, D023). The commander's order O042 of 2026-09-20 then widened the procedures room beyond what this dossier describes: a procedure is a pre-recorded routine matching a roster with tasks, context and steps; triggers are of three kinds, on demand, named and periodical; routines the commander names, such as notepad cleanup, are ordered and need no drift event. The room's design is in DS005.

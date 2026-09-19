@@ -48,6 +48,9 @@ The constraint on it: the suite "protects and defines the underlying infrastruct
 
 ## Replacing one component with another
 
+<!--
+the source conversation was more about tests fully covering existing behaviour, so a spec can include only changing behaviours and edges, rather than having to write out all behaviours for each launch/run to replicate (inducing drift and defensivness). the three "rules" are stating this, although rule 1 "not all existing behaviour stated" is a negative mirror of rule 3 "state changed behaviour only", we can do this because of rule 2 "exisiting tests replace stating existing behaviour"
+-->
 Three rules, the commander's. When one component replaces another: "I would not restate the whole exisiting behaviour model" (`9b679556:7642`); "I would rely on existing test for unchanged behaviour" (`9b679556:7643`); "I would define where behaviour differs observably from original" (`9b679556:7644`).
 
 They proposed them in interview, reasoning inside a Rails analogy about replacing Devise with Rails native auth (`9b679556:7640`), and asked in the same turn whether they carry across to a system of harness tools (`9b679556:7647`). They do: the commander confirmed it on 2026-09-18 (`orders.json#O040`). The affirmative sitting in the transcript between the question and that confirmation is a pasted reply from web Claude and is cited nowhere.

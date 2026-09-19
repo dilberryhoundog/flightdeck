@@ -60,7 +60,10 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 - [ ] Approved missions filled out with team findings.
 - [ ] Teams integrated as the pilot's first feature (ordered 2026-09-18): team dispatches recorded as JSON per room (`dispatch/cockpit.json`); every agent dispatched has a filled dossier under `quarters/crew/{flightcrew,team,general}/`; `quarters/crew/crew.json` is the manifest of every teammate across every crew; favourite setups stored as named rosters in `dispatch/rosters.json` for repeat dispatch. Done 2026-09-18 for every agent flown in session dcb75456; rosters for the four team shapes flown.
 - [ ] The pilot has an agent body (ordered 2026-09-18): the role scoping (fly the mission, do no work, manage teams, preside over the room) and the session-start procedure live in an agent definition launched as the session agent, so CLAUDE.md stays general and crew in the cockpit never mistake themselves for the pilot. Harness fact already verified today: `initialPrompt` fires for a session started with `--agent`.
-- [ ] Doctrine discovery and integration: T002's five documents ruled source material (DS002); T006 built the topic store (27 topics, 203 statements) and seven records under the docspec (DS003, P009); landing awaits the commander's review.
+- [x] Doctrine discovery and integration: T002's five documents ruled source material (DS002); T006 built the topic store and seven records (DS003); the commander's advice on DS003 led to decision team T009 and the record-keeping method (DS004, P010 approved 2026-09-20). P009 executed as amended: harness register and four stubs landed, two drafts stay in the notepad. Flightcrew records are now written on demand.
+- [x] Record-keeping method adopted (ordered 2026-09-19, approved 2026-09-20): rule 2 and `records/README.md` rewritten (one header line: `Source:`, `Validated:` or `Stub:`), drift events route to a vehicle, currency by periodic review.
+- [x] Procedures room scaffolded (O042) and the five starting cockpit procedures approved (P011, D025): `procedures/` with the manifest imported into `CLAUDE.md`, confirmed live. The pilot extracts further procedures from live work (O043). Flightcrew branch empty by order.
+- [ ] Guard proposal for the unmerged-branch rule (P010 step 5), a change in `base/`.
 
 ## Crew dispatched
 
@@ -71,6 +74,7 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 
 - 2026-09-18 — recon team T001 (phase 3), commander's order: five teammates.
 - 2026-09-18 — research team T002, commander's order: five teammates; five records drafted, dossier DS002.
+- 2026-09-19 — decision team T009, commander's order: record keeping (DS004), then the procedures room scaffold, rule 2 wording check and four stubs (DS005). Five seats.
 - 2026-09-18 — mini adversary team T003, commander's order: two Opus critics on the day's cockpit work and the plan. Topology briefed from the commander's account in `notepad/flightcrew/topology-2026-09-18.md`.
 
 ## Outcome

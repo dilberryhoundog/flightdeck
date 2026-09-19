@@ -1,3 +1,8 @@
 # Flightcrew Records
 
-Lasting understanding of the flightcrew system, to be built up. Empty until research qualifies under `../README.md`: a specialist teammate researched it for a stated purpose and it names its source commit.
+The system, written on demand under the record-keeping method. Stubs state existing knowledge only and are not cited as authority; each is promoted when work first leans on it.
+
+- `launches-and-runs.md` (stub) — launch and run, why runs repeat, the three failure axes a retry must name, stalls, carrying forward.
+- `state-and-freezing.md` (stub) — state, freezing and gates.
+- `tests-and-checks.md` (stub) — tests against checks, where each lives, specs state only changed behaviour.
+- `endings.md` (stub) — how a run ends, outcomes, the final gate, cleanup.

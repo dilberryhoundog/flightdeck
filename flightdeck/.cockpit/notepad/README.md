@@ -9,3 +9,4 @@ Scratch space. Nothing here is authoritative and anything may be deleted. Notepa
 - `team-run-2026-09-18/` — first agent team: auditor and docs-scout findings, red-team verdicts, observations of team mechanics.
 - `team/` — the pilot's working practices for staffing and dispatching crew.
 - `claude-md-review-2026-09-18/` — second team run: docs-scout (official CLAUDE.md docs, F1 to F21), cockpit-comber (first pass) and claude-md-judge (verdicts applied to CLAUDE.md on 2026-09-18).
+- `decision-2026-09-19/` — decision team T009 on record keeping: the question, auditor and scout reports, the option-maker's paper (v1 and final), two adversary passes, the `@` import live test. Distilled as DS004.

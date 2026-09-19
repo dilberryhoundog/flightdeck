@@ -28,6 +28,13 @@
       "session_id": "dcb75456-6a0f-42a1-a4b4-e57eb29db01e",
       "file": "2026-09-18_dcb75456.md",
       "summary": "Callsign Ace. Recon team T001, research team T002, critics T003/T008, topics-and-records team T006. Commander's desk opened; dossiers DS001 to DS003; work split, dispatch room, orders.json, topics store (27 topics, 203 statements), records docspec (one topic whole, 100/150), seven records drafted awaiting P009. Teams integrated: rosters, crew rooms, 20 dossiers. Session log exceeded the cap set mid-session; two-line entries from the next session."
+    },
+    {
+      "date": "2026-09-19",
+      "session": "4450a586",
+      "session_id": "4450a586-cf84-4dbe-80d3-51c02c8fbe14",
+      "file": "2026-09-19_4450a586.md",
+      "summary": "In progress. DS003 advice (D020); decision team T009 on record keeping: DS004/P010 approved, rule 2 rewritten, harness register and four stubs landed; procedures room designed and built (O042, DS005/P011 approved, O043), manifest imported into CLAUDE.md and confirmed live."
     }
   ]
 }

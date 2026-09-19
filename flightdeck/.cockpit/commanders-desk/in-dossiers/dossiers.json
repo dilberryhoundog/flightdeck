@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-18",
+  "updated": "2026-09-19",
   "dossiers": [
     {
       "id": "DS001",
@@ -36,6 +36,28 @@
       "mission": "M001",
       "proposals": [
         "P009"
+      ]
+    },
+    {
+      "id": "DS004",
+      "title": "How the cockpit keeps records: the decision team's answer",
+      "file": "DS004-record-keeping.md",
+      "written": "2026-09-19",
+      "from": "notepad/decision-2026-09-19/",
+      "mission": "M001",
+      "proposals": [
+        "P010"
+      ]
+    },
+    {
+      "id": "DS005",
+      "title": "The procedures room: scaffold and five starting procedures",
+      "file": "DS005-procedures-room.md",
+      "written": "2026-09-20",
+      "from": "notepad/decision-2026-09-19/procedures-scaffold.md",
+      "mission": "M001",
+      "proposals": [
+        "P011"
       ]
     }
   ]

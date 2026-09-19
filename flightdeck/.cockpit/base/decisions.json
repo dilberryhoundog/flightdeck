@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-18",
+  "updated": "2026-09-20",
   "decisions": [
     {
       "id": "D001",
@@ -155,6 +155,54 @@
       "decision": "Not landed as drafted. All five are source material or logs, not timeless records. Records are sharp, authoritative, token-efficient, current-form only, passing a two-years-time test. Commander's guidance: a source log. Doctrine and genesis: no divergence measured, no terms, altitude belongs in the spec-builder crew file, state the principles and tooling the pattern leans on. Harness facts: reads as a log; records claim one harness function each. Launch and run: source material with superseded shapes. Lineage: a JSON terrain log, not a record. Build a docspec for a good record; strengthen the team with a topic extractor, record writer, discovery, comparer and validator; mine the commander's statements into topics and topics into vision records, periodically.",
       "by": "commander, commanders-desk/out-advice/DS002.md",
       "proposal": "P008"
+    },
+    {
+      "id": "D020",
+      "date": "2026-09-19",
+      "subject": "P009 and the production of records",
+      "decision": "Amended. harness-register lands as is, a stream of findings that may grow. launches-and-runs, state-and-freezing, tests-and-checks and endings become stubs: a brief mention of existing knowledge in plain register, improved on demand as work commences, using the commander's inline comments. interviewing-the-commander and working-with-the-commander are dropped as not relevant enough for cockpit records. On method: records written ahead of known usefulness cost the commander filtering time; build them on demand when the pilot drifts or underperforms, from a wider net (source, library, manuals, directives); plain register, validated by a team against sources and stamped, not sourced in the prose; the vision is under construction so heavy record keeping now may be wasted; shelving and resuming later may help. The commander ordered a mini decision team (T009) for options and the best approach.",
+      "by": "commander, commanders-desk/out-advice/DS003.md and session 4450a586",
+      "proposal": "P009"
+    },
+    {
+      "id": "D021",
+      "date": "2026-09-19",
+      "subject": "How a record shows it is sourced",
+      "decision": "No extra regalia for records. Web-sourced records stay exactly as the existing records/claude-code files: short, sharp, a simple one-line Source statement at the top. Locally sourced records carry a one-line stamp of approval at the top indicating they have been adequately sourced. No number-based reference lists in the header, no direct source quotes mixed into the prose, no separate stamp ledger. Clarified the same session: \"every claim has a source\" does not mean the source has to be explicitly named inline. The sourcing requirement stands; only its display moves from the prose to the one header line.",
+      "by": "commander, session 4450a586",
+      "proposal": null
+    },
+    {
+      "id": "D022",
+      "date": "2026-09-20",
+      "subject": "P010, the record-keeping method",
+      "decision": "Approved. Discussion required on the procedures room before construction. The commander also said DS004 is at the correct density for their perusal.",
+      "by": "commander, P010 decision line and session 4450a586",
+      "proposal": "P010"
+    },
+    {
+      "id": "D023",
+      "date": "2026-09-20",
+      "subject": "DS004's four decisions and the procedures room",
+      "decision": "The commander liked the dossier and is happy to go with the pilot's calls. So, per the pilot's recommendations in DS004: (1) the DS002 reversal stands, no team mines for new records and the topic store is a fine-tuning source; (2) the commander reads the four stubs before they land; (3) the Validated line carries the team id and seat; (4) the label is Validated. On the procedures room: leave out the fc-surveyor; a basic scaffold with some starting procedures; flightcrew procedures are built after the cockpit fitout and the self-sustaining work settle (order O042).",
+      "by": "commander, session 4450a586",
+      "proposal": "P010"
+    },
+    {
+      "id": "D024",
+      "date": "2026-09-20",
+      "subject": "The four stubs",
+      "decision": "Read by the commander: \"stubs are good, yours to promote.\" Landed in records/flightcrew/ as stubs. P009 is complete as amended by D020: register landed, four stubs landed, two drafts stay in the notepad.",
+      "by": "commander, session 4450a586",
+      "proposal": "P009"
+    },
+    {
+      "id": "D025",
+      "date": "2026-09-20",
+      "subject": "P011, the starting procedures, and how procedures are made from here",
+      "decision": "Commander approves: the pilot extracts procedures from live work and keeps them updated. The commander may advise and adjust procedures along the way. The starting procedures are all approved. This supersedes DS004 item 3's approval of each procedure singly before it lands: the pilot adds and updates, reports it in session and in the log, and the commander adjusts.",
+      "by": "commander, P011 decision line",
+      "proposal": "P011"
     }
   ],
   "fields_note": "superseded_by: present when a later decision replaces this one; the newer statement wins."

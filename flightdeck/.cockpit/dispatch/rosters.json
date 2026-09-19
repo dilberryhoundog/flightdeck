@@ -35,6 +35,17 @@
         "adversary"
       ],
       "shape": "extractor first; discovery and validator as topics land; writer once topics are stable; adversary on every draft"
+    },
+    {
+      "name": "decision",
+      "purpose": "options and a recommendation on a question the commander has put",
+      "seats": [
+        "cockpit-auditor",
+        "practice-scout",
+        "option-maker",
+        "adversary"
+      ],
+      "shape": "auditor and scout in parallel; option-maker drafts the option space at once and revises on both reports; adversary on the paper, residuals passed ahead of its closing pass"
     }
   ]
 }

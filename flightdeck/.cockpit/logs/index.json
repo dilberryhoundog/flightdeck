@@ -34,7 +34,7 @@
       "session": "4450a586",
       "session_id": "4450a586-cf84-4dbe-80d3-51c02c8fbe14",
       "file": "2026-09-19_4450a586.md",
-      "summary": "In progress. DS003 advice (D020); decision team T009 on record keeping: DS004/P010 approved, rule 2 rewritten, harness register and four stubs landed; procedures room designed and built (O042, DS005/P011 approved, O043), manifest imported into CLAUDE.md and confirmed live."
+      "summary": "DS003 advice (D020) led to decision team T009 on record keeping: DS004/P010 approved and executed (rule 2 rewritten, one header line per record, harness register and four stubs landed). Procedures room designed and built (O042, DS005/P011, O043): five cockpit procedures live, manifest imported into CLAUDE.md. S009 promoted to mission M002 (horizon). P012 raised to guard unmerged branches. Two commits pushed."
     }
   ]
 }

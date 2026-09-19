@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-18",
+  "updated": "2026-09-20",
   "sparks": [
     {
       "id": "S001",
@@ -64,7 +64,8 @@
       "file": "S009-self-sustaining-cockpit.md",
       "raised_by": "commander",
       "raised_on": "2026-09-18",
-      "heat": "hot"
+      "heat": "hot",
+      "promoted_to": "M002"
     }
   ]
 }

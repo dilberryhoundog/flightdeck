@@ -13,6 +13,17 @@
       "opened": "2026-09-17",
       "closed": null,
       "progress": "Phase 3 in flight: record-keeping method adopted (DS004/P010), harness register and four stubs landed, procedures room live with five cockpit procedures (DS005/P011). Outstanding: the pilot's agent body (takes session start and end), the mission cut and doctrine briefing approvals, guard proposal for the unmerged-branch rule; S009 recommended for opening as a horizon mission"
+    },
+    {
+      "id": "M002",
+      "title": "Make the cockpit self-sustaining and self-improving",
+      "status": "planned",
+      "file": "M002-self-sustaining-cockpit.md",
+      "branch": "cockpit",
+      "assigned_by": "commander",
+      "opened": "2026-09-20",
+      "closed": null,
+      "progress": "Horizon. Promoted from S009 on the commander's word; goal, definition of done and objectives written; begins when the commander makes it current."
     }
   ],
   "incubator": "incubator/incubator.json",

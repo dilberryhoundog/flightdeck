@@ -25,3 +25,7 @@ M001 is closed by the commander.
 ## Momentum 2026-09-20 — procedures as the pilot's replacement for the fc CLI
 
 Commander (O042): procedures that match a roster with tasks, context files and steps are the route to repeatability and a self-sustaining cockpit; flightcrew procedures let the pilot conduct, with intelligence, what the brittle fc CLI was built for (launch and run folder setup, run iteration improvement, pre-run teams). The room is scaffolded under M001 with this use case and a few simple ones; advanced configuration is recorded here for this mission.
+
+## Promoted
+
+2026-09-20, on the commander's word, to mission M002 (`../M002-self-sustaining-cockpit.md`). This file stays as the spark's history; S006 and S007 remain folded in.

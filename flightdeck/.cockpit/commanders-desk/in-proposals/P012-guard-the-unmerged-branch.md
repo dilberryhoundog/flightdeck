@@ -1,0 +1,31 @@
+# P012 — Guard the unmerged branch
+
+- **Status:** awaiting
+- **Raised:** 2026-09-20
+- **Mission:** M001
+- **Dossier:** DS004 (P010 step 5)
+
+## Problem
+
+On 2026-09-18 the pilot began deleting eleven branches that were contained upstream but not merged higher; the commander stopped the command by hand. The rule now stands in the commander's dossier and the pilot's memory: branch cleanup is a merge cleanup, nothing is deleted until merged higher. Official guidance says instructions are context, not enforced configuration, and that an action which must not happen belongs in a PreToolUse hook. The cockpit already runs one, `base/bin/cockpit-guard.py`, which parses every Bash command the pilot issues.
+
+## Proposal
+
+Extend the guard's Bash parser with one check. It blocks, with exit 2 and a message naming the rule:
+
+- `git branch -d`, `-D` or `--delete`, and `git push <remote> --delete <branch>` or `git push <remote> :<branch>`, unless every named branch is fully merged into its parent branch or `main`, tested by the guard with `git merge-base --is-ancestor <branch> <target>` (the parent read from the dev-workspace config where present, else `main`).
+- `git worktree remove --force` and `git reset --hard` on a branch with commits that exist on no other ref are out of scope for this proposal and noted for later.
+
+A blocked deletion tells the pilot to merge first or to bring the deletion to the commander, who can run it themselves. Containment in another branch that is not the parent or `main` does not pass, which is the distinction the near-miss turned on. The check is added to the guard's existing table test (`base/bin/` test cases) with cases for: merged branch allowed, unmerged blocked, contained-but-not-merged-higher blocked, remote delete blocked, compound command with `cd` handled.
+
+## Risk
+
+The guard covers only the pilot's session launched by `pilot.sh`; crew and other sessions are not covered, and a session launched without the pilot settings has no guard at all. A parser can be evaded by an unusual spelling, so the rule also stays in the commander's dossier. A false block costs one message to the commander. Reversible by removing the check.
+
+## Crew plan
+
+One worker seat (Sonnet) edits `base/bin/cockpit-guard.py` and its table test, since the change is code and the pilot does no building; one Opus adversary reads the diff and tries to evade the check. The pilot verifies by running the table test and three live attempts.
+
+## Decision
+
+Pending.

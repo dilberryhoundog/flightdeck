@@ -101,13 +101,13 @@
     {
       "id": "P010",
       "title": "Adopt the record-keeping method",
-      "status": "approved",
+      "status": "executed",
       "file": "../commanders-desk/in-proposals/P010-adopt-the-record-keeping-method.md",
       "raised": "2026-09-19",
       "mission": "M001",
       "dossier": "DS004",
       "decided": "2026-09-20",
-      "note": "D022; procedures room to be discussed with the commander before construction; steps 1 to 4 executed 2026-09-20, step 5 (guard proposal) to be raised"
+      "note": "D022, D023; all five steps executed 2026-09-20, step 5 raised as P012"
     },
     {
       "id": "P011",
@@ -119,6 +119,15 @@
       "dossier": "DS005",
       "decided": "2026-09-20",
       "note": "D025"
+    },
+    {
+      "id": "P012",
+      "title": "Guard the unmerged branch",
+      "status": "awaiting",
+      "file": "../commanders-desk/in-proposals/P012-guard-the-unmerged-branch.md",
+      "raised": "2026-09-20",
+      "mission": "M001",
+      "dossier": "DS004"
     }
   ]
 }

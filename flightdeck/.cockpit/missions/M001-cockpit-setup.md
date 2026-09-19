@@ -63,7 +63,7 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 - [x] Doctrine discovery and integration: T002's five documents ruled source material (DS002); T006 built the topic store and seven records (DS003); the commander's advice on DS003 led to decision team T009 and the record-keeping method (DS004, P010 approved 2026-09-20). P009 executed as amended: harness register and four stubs landed, two drafts stay in the notepad. Flightcrew records are now written on demand.
 - [x] Record-keeping method adopted (ordered 2026-09-19, approved 2026-09-20): rule 2 and `records/README.md` rewritten (one header line: `Source:`, `Validated:` or `Stub:`), drift events route to a vehicle, currency by periodic review.
 - [x] Procedures room scaffolded (O042) and the five starting cockpit procedures approved (P011, D025): `procedures/` with the manifest imported into `CLAUDE.md`, confirmed live. The pilot extracts further procedures from live work (O043). Flightcrew branch empty by order.
-- [ ] Guard proposal for the unmerged-branch rule (P010 step 5), a change in `base/`.
+- [ ] Guard the unmerged branch: raised as P012 on 2026-09-20, awaiting the commander.
 
 ## Crew dispatched
 

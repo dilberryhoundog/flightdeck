@@ -11,7 +11,7 @@ The agent that operates the cockpit gets steadily better at administering the sy
 
 ## What done looks like
 
-- Routine cockpit work (forming a team, cleanup, currency, topics, record keeping, session start and end) is conducted from procedures and the agent body without the commander prompting the steps, across several sessions and at least one pilot reset.
+- Routine cockpit work (forming a team, cleanup, currency, topics, record keeping) is conducted from procedures, on the agent body that M001 fits out, without the commander prompting the steps, across several sessions and at least one pilot reset.
 - The pilot extracts a procedure from live work when it repeats a routine, and keeps procedures current; the commander adjusts rather than authors them (O043).
 - The commander's corrections are captured at the moment they are given and routed to a vehicle the same day; the same correction is not needed twice.
 - Teams are repeatable: a roster plus a procedure dispatches a known team shape with briefs drawn from the seat dossiers, and each flight improves the dossier.
@@ -30,7 +30,6 @@ Promoted 2026-09-20 on the commander's word: "promote the self sustaining missio
 
 ## Objectives
 
-- [ ] The pilot's agent body, taking role scoping and session start and end (carried from M001 if not finished there).
 - [ ] Procedures extracted from live work as routines repeat; the `Added:` to `Approved:` loop exercised with the commander.
 - [ ] Rosters matched to procedures: a procedure names its roster and tasks, and dispatch from it is one step.
 - [ ] Real-time capture of the commander's statements and decisions (folds in S007), replacing deep mining.

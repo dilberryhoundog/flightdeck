@@ -113,7 +113,7 @@
       "date": "2026-09-20",
       "mission": "M001",
       "summary": "Dispatch to refit the cockpit: schemas and a Node linter, the identifier pass, JSON manifests and units, frontmatter, and the five-room move.",
-      "status": "in_flight",
+      "status": "finished",
       "path": "cockpit/T014.json"
     }
   ]

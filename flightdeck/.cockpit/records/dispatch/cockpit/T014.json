@@ -26,7 +26,16 @@
   "subagents": [],
   "shape": "advocate on the spec first (done: ten drifts, fix first; commander answered the gaps in Or058); schema-builder and refitter in parallel on disjoint paths; pilot verifies and commits each step; advocate on the finished refit; team dispatch quiet mode",
   "scope": "schema-builder writes only under base/verify/. refitter writes anywhere in the cockpit except base/verify/, base/bin/cockpit-guard.py, the text of orders, session logs' text, *.keep contents, the commander's idea and advice files' contents. No commits by crew.",
-  "lessons": [],
-  "status": "in_flight",
-  "room": "cockpit"
+  "lessons": [
+    "the commander's mini-spec idea works: a commander-advocate reading only his words found ten drifts in a spec the pilot believed faithful, before anything was built, and his answers took one message",
+    "a builder that stops after every step for the pilot to verify and commit kept each step revertible; the pilot re-running every proof and comparing protected content by hash caught nothing the seat had not already reported, which is the point",
+    "protect never-edit content by field name across every file that carries the field, not file by file: the refitter's reference pass twice touched protected text and its own scan caught both",
+    "where the data is right the schema moves: five schema vocabularies were corrected from the documents, never the reverse",
+    "a seat that says 'I will not guess' (branch statuses, sessions, the commander's authorship of an empty advice file) is worth more than one that fills the blank",
+    "a fresh low-cost agent writing from the guidance alone is the cheapest proof that the guidance is enough; it found the one thing every expert reader assumed",
+    "two seats agreeing shapes directly with each other, with the pilot ruling only what was the pilot's, was faster than relaying and crossed less"
+  ],
+  "status": "finished",
+  "room": "cockpit",
+  "outcome": "The refit landed in seven verified commits from restore point 4ecfaf6 (525d298 schemas and cockpit-lint; 3474702 identifiers; 219863a manifests and units; c49569f frontmatter; d1c827d the five rooms; 0a69055 cleanup; 321d105 the commander's final fixes). base/verify/ holds 17 schemas keyed on type or kind and never on a path, a Node linter on flightcrew's engine, and lint.yaml for a whole-cockpit run (ok: 257 files clean, one 20-byte line). 518 id tokens renamed, 126 JSON units, frontmatter on 82 documents, 433 renames into five rooms. Order texts, session logs, the commander's idea files, keep files and the notepad byte-identical throughout, checked by the pilot by content hash at every step. A fresh Haiku agent wrote a dossier and a request from the schemas alone with every field right first time. The commander-advocate, reading only the commander's words and the finished cockpit, judged it decent by his standard; the commander accepted it (Or059) and ordered six fixes, all made. Left open: WS024 (remove the stage A tooling), WS025 (schemas for a document's sections), WS026 (one branch register row standing for several branches)."
 }

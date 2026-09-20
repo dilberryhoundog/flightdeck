@@ -18,8 +18,8 @@ Opus. One folder as its whole write boundary. Name the engine to reuse and where
 
 ## Record
 
-T014: first flight, the cockpit refit. Record to be completed when the team finishes.
+T014: eighteen then seventeen schemas in the intended shape, a 424-line Node linter on flightcrew's copied engine, lint.yaml, file:line faults, a worked example in the README verified by linting it. Moved the schema to the data five times rather than bend documents. Named the one widening beyond the commander's words (a fifth advice field) instead of burying it. Found and fixed two faults in its own linter.
 
 ## Next time
 
-To be written when T014 finishes.
+Same seat. Its two survey subagents returned nothing useful; tell it to read directly. Give it flightcrew's exit codes verbatim rather than restating them.

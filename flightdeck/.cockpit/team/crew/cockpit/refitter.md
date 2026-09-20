@@ -18,8 +18,8 @@ Opus. Give it the mini-spec, the never-edit list and the order of steps. It plan
 
 ## Record
 
-T014: first flight, the cockpit refit. Record to be completed when the team finishes.
+T014: carried the cockpit refit steps 2 to 6 and the commander's final fixes: 518 ids, 126 units, frontmatter on 82 documents, 433 renames into five rooms, all lint clean. Sent a change list before each step and stopped after each for verification. Overruled the pilot once with evidence (a commit three minutes past midnight belonged to the previous session) and was right. Broke the never-edit list twice in the room move (advice files, order text), caught both with its own scan, reverted and reported plainly. Refused to guess branch statuses or to stamp the commander as author of an empty file.
 
 ## Next time
 
-To be written when T014 finishes.
+Same seat for structural work. Tell it to protect by field name across every file carrying the field. Let it agree shapes directly with the schema seat.

@@ -14,7 +14,7 @@
       "branch": "cockpit",
       "assigned_by": "commander",
       "opened": "2026-09-17",
-      "progress": "Phase 4 opened: the commander's out-ideas explored by T010 and settled in Ds006 (identifier set ruled Or046 to Or049; stage A reference checker first, then the identifier pass, then a refactor team for the schema store, manifests, frontmatter and rooms). Rq013 (build stage A outside the cockpit) and Rq012 (guard) await the commander, with nine decisions in Ds006. Still open from phase 3: the pilot's agent body, the mission cut and doctrine briefing approvals."
+      "progress": "Phase 4 done and accepted by the commander (Or059): the cockpit refitted to his five rooms, identifiers, manifest and unit JSON and frontmatter, with schemas and cockpit-lint in base/verify/ (T014, seven verified commits). Open: the commander's remix of the ace idea files and a possible rebuild by the new build flow; Rq012 (guard); the pilot's agent body; the doctrine briefing and mission cut approvals; WS024 to WS026; Sp010."
     },
     {
       "id": "M002",

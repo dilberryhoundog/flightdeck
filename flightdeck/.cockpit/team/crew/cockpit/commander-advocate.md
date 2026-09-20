@@ -18,8 +18,8 @@ Opus. Give it the spec or the finished work, and the commander's sources only: h
 
 ## Record
 
-T014: first flight, the cockpit refit. Record to be completed when the team finishes.
+T014: attacked the mini-spec before building (ten drifts, four plain contradictions of an order, five gaps the commander answered in one message) and the finished refit after (decent by his standard; seven findings, of which the commander ordered six fixed). Reads only the commander's words and the work.
 
 ## Next time
 
-To be written when T014 finishes.
+Seat it on every build before the first line is written and again at the end. Keep the builders' reports and the pilot's view away from it.

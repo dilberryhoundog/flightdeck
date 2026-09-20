@@ -288,6 +288,14 @@
       "model": "opus",
       "status": "active",
       "path": "cockpit/body-builder.md"
+    },
+    {
+      "name": "body-tester",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "haiku",
+      "status": "active",
+      "path": "cockpit/body-tester.md"
     }
   ]
 }

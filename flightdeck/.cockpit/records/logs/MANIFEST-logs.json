@@ -51,6 +51,13 @@
       "session_id": "241bff25-48aa-4a63-a123-019e252df287",
       "summary": "The pilot's agent body talked through with the commander, raised as Rq014, attacked, approved (De028), built by T015 and committed (8a05299): pilot.md as the single source for model and effort, launched as --agents JSON with --effort passed by the launcher after headless measurement; CLAUDE.md cut to rules of the place; Or060 to Or064; WS027, WS028. Session ended so the commander can launch and test the new body.",
       "path": "2026-09-20_241bff25.md"
+    },
+    {
+      "session": "71b94de4",
+      "date": "2026-09-21",
+      "session_id": "71b94de4-a165-4a19-91eb-43840e1f8df5",
+      "summary": "First session launched on the pilot's agent body (8a05299): opened logged on and initialPrompt fired the session start procedure. T016, one Haiku test teammate: answers crew, holds no session start duty and no pilot body, confirmed from the prompt_snapshot rows of its transcript. Remaining test: initialPrompt on resume.",
+      "path": "2026-09-21_71b94de4.md"
     }
   ]
 }

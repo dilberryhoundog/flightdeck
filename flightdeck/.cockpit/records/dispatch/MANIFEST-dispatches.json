@@ -123,6 +123,14 @@
       "summary": "Dispatch to build the pilot's agent body from Rq014: pilot.md, the launcher, settings, hook, the CLAUDE.md cut.",
       "status": "finished",
       "path": "cockpit/T015.json"
+    },
+    {
+      "id": "T016",
+      "date": "2026-09-21",
+      "mission": "M001",
+      "summary": "Dispatch of one test teammate to check that crew spawned from a session on the agent body answer as crew and do not hold the pilot's body.",
+      "status": "finished",
+      "path": "cockpit/T016.json"
     }
   ]
 }

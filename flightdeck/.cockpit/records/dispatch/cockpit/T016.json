@@ -1,0 +1,28 @@
+{
+  "kind": "dispatch",
+  "id": "T016",
+  "date": "2026-09-21",
+  "session": "71b94de4",
+  "mission": "M001",
+  "purpose": "The commander's test of the agent body (8a05299): a teammate spawned from a session launched on the body answers as crew, carries no session start duty, and does not hold the pilot's body in its system prompt",
+  "roster_note": "no roster; one cheap test seat",
+  "seats": [
+    {
+      "name": "body-tester",
+      "reason": "a fresh Haiku teammate that reads one cockpit file and reports who it is, whether it has a session start duty, and what its system prompt opens with",
+      "returns": "answers a to d by SendMessage, under 200 words"
+    }
+  ],
+  "subagents": [],
+  "shape": "one teammate, one brief, one follow-up if needed; the pilot checks the self-report against the teammate's transcript on disk (rule 4)",
+  "scope": "body-tester reads only the cockpit README.md and writes nothing",
+  "status": "finished",
+  "room": "cockpit",
+  "outcome": "Passed. body-tester answered crew, no session start duty, and no pilot body, identity or commander dossier in its prompt. Verified by the pilot on disk: the teammate's transcript under the session's subagents folder carries prompt_snapshot rows holding its system prompt, with zero matches for pilot, commander or cockpit. The cockpit CLAUDE.md reached it as a nested_memory attachment, not in the system prompt as it claimed. Report in records/notepad/agent-body-2026-09-20/teammate-test-2026-09-21.md. Open: whether the failed read or the cockpit working directory triggered the CLAUDE.md load; initialPrompt on resume is the commander's remaining test.",
+  "lessons": [
+    "a teammate's system prompt is on disk in the prompt_snapshot rows of its transcript; read it instead of asking the teammate",
+    "the brief named a cockpit root README.md that does not exist; glance at a path before briefing it",
+    "search the transcript for strings the brief does not contain, or the brief's own text counts as matches",
+    "the pilot's shell directory at spawn becomes the teammate's working directory"
+  ]
+}

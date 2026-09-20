@@ -14,7 +14,7 @@
       "branch": "cockpit",
       "assigned_by": "commander",
       "opened": "2026-09-17",
-      "progress": "Phase 4 accepted (Or059). The pilot's agent body is built and committed (Rq014, T015, 8a05299) and awaits the commander's tests on the next shift. Open: fold identity.md and commander.md into the body (Or064); the launch manual lines on effort and nested CLAUDE.md loading; WS027 (mini-spec team before the next build request); WS028; the commander's remix of the ace idea files; procedures.txt and workshop.txt ideas; Rq012 (guard); the doctrine briefing and mission cut approvals; WS024 to WS026; Sp010; P006 approval."
+      "progress": "Phase 4 accepted (Or059). The pilot's agent body is built (Rq014, T015, 8a05299) and two of the commander's three tests passed on 2026-09-21: the session opens logged on with initialPrompt firing the start procedure, and a teammate answers crew without the body (T016). Remaining: initialPrompt on resume. Open: fold identity.md and commander.md into the body (Or064); the launch manual lines on effort and nested CLAUDE.md loading (what triggers the load is unsettled); WS027 (mini-spec team before the next build request); WS028; the commander's remix of the ace idea files; procedures.txt and workshop.txt ideas; Rq012 (guard); CA004 row still awaiting; the doctrine briefing and mission cut approvals; WS024 to WS026; Sp010; P006 approval."
     },
     {
       "id": "M002",

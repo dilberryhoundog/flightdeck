@@ -4,5 +4,6 @@
   "title": "Incubator README says heat is cold, warm, hot; sparks Sp004 and Sp005 use cool",
   "raised": "2026-09-18",
   "source": "pilot, session 49f87e44",
-  "status": "open"
+  "status": "fixed",
+  "resolved": "2026-09-20, refit step 4: the two sparks reading cool were written cold, and base/verify/schema/spark.json now fixes heat to cold|warm|hot with what became of a spark carried by status instead."
 }

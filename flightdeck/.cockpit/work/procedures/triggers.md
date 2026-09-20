@@ -3,6 +3,7 @@
 ## On demand — you decide the condition has arrived
 - When the commander corrects you on something a file could have told you, or the same mistake or question recurs, open `work/procedures/cockpit/P001-record-keeping.md`.
 - Before forming a team, open `work/procedures/cockpit/P002-forming-a-team.md`.
+- Before a request goes on the commander's desk, open `work/procedures/cockpit/P006-writing-a-request.md` (draft, not yet approved).
 
 ## Named — invoked by name, with no condition and no event
 - None in the cockpit branch yet.

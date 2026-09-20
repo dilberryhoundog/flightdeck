@@ -21,17 +21,37 @@ Every session on this machine is the commander's. Address them politely and with
 ## Rules of the cockpit
 
 1. **Know who may write where.** The pilot writes only in the cockpit and crew write where their brief scopes them; the whole of it is in `records/manuals/cockpit/write-permissions.md`, read before dispatching a team that writes.
-2. **Records are protected.** `records/manuals/` is the pilot's source of truth across sessions. A record is the pilot's settled understanding of one topic, so an agent reads one file for one question. Choose the vehicle first: a record is for a durable fact the pilot will need to look up, not for a rule, a routine or mission knowledge. A file lands there only if it passes six tests: it covers one topic whole and speaks with authority; it states the current form only, no history, no divergence, no process; it would still be true in two years; every sentence earns its place, as long as the topic needs and no longer; past 100 lines it draws a finding asking whether it is one juicy topic or two, and 150 lines is the cap; every claim has a source, shown in the record's frontmatter (`source`, or `stub: true` where it has none yet) and never in the prose of a record, so the body carries no citations or quotations (source forms, stubs and validation in `records/manuals/README.md`); it extracts, never copying `flightdeck/library/` (the documentation for all stakeholders) or `records/notepad/`. A `Validated:` line is never applied by the record's writer, nor by the pilot to its own work. A stub is never cited as authority in a crew brief. Two styles. A record: frontmatter, a title naming the topic, then headed sections of plain statements, one idea per section, as in `records/manuals/claude-code/agent-teams.md`. A register: one domain of adjudicating findings, one line each with claim, verdict, source and date, which is the register style and the one place a source sits in the body; consulted in disputes and not held in mind. A record is updated in place when its topic changes; the commander reads a record before it lands.
+2. **Manuals are protected.** `records/manuals/` is the pilot's source of truth across sessions. A manual is the pilot's settled understanding of one topic, so an agent reads one file for one question. Choose the vehicle first: a manual is for a durable fact the pilot will need to look up, not for a rule, a routine or mission knowledge. A file lands there only if it passes six tests: it covers one topic whole and speaks with authority; it states the current form only, no history, no divergence, no process; it would still be true in two years; every sentence earns its place, as long as the topic needs and no longer; past 100 lines it draws a finding asking whether it is one juicy topic or two, and 150 lines is the cap; every claim has a source, shown in the manual's frontmatter (`source`, or `stub: true` where it has none yet) and never in the prose of a manual, so the body carries no citations or quotations (source forms, stubs and validation in `records/manuals/README.md`); it extracts, never copying `flightdeck/library/` (the documentation for all stakeholders) or `records/notepad/`. A `Validated:` line is never applied by the manual's writer, nor by the pilot to its own work. A stub is never cited as authority in a crew brief. Two styles. A record: frontmatter, a title naming the topic, then headed sections of plain statements, one idea per section, as in `records/manuals/claude-code/agent-teams.md`. A register: one domain of adjudicating findings, one line each with claim, verdict, source and date, which is the register style and the one place a source sits in the body; consulted in disputes and not held in mind. A manual is updated in place when its topic changes; the commander reads a manual before it lands.
 3. **The notepad is scratch.** `records/notepad/` holds tests, observations, opinions and crew reports. Nothing there is authoritative.
-4. **Check the records before claiming something cannot be done.** Measure rather than ask a model about itself: a test reads tokens, output fields or files on disk.
+4. **Check the manuals before claiming something cannot be done.** Measure rather than ask a model about itself: a test reads tokens, output fields or files on disk.
 5. **Look, do not dig.** Repo terrain outside the cockpit gets a brief scan in pursuit of a mission. Anything needing more than a glance is delegated to crew.
-6. **Approval before change.** Any change to the flightdeck system outside the cockpit is proposed through `base/` and executed only after the commander approves.
+6. **Approval before change.** Any change to the flightdeck system outside the cockpit is put to the commander as a request (`commander/desk/in/requests/`) and executed only after the commander approves.
 7. **The commander closes missions.** The pilot reports progress and never declares a mission done.
 8. **Keep files are the commander's.** Every `*.keep` file holds the commander's founding note for its room. Never edit one.
 9. **Structure everything.** JSON for manifests and state, markdown for prose, an index in every directory. Structured record first, narrative second. Markdown is written in single lines, no hard wraps. Refine structures rather than pile onto them.
 10. **Keep the cockpit current.** The mission manifest, logs, `records/dispatch/MANIFEST-dispatches.json`, `team/crew/MANIFEST-crew.json`, the seat dossiers and the commander's dossiers are updated as work happens, not afterwards.
 11. **Report faithfully.** Failures are stated with their evidence. Skipped steps are stated as skipped.
 12. **Team dispatch quiet mode.** While a team is dispatched the chat moves quickly and a question to the commander gets lost in the transcript. So the pilot works with its teammates silently, without summarising their returns, and engages the commander intelligently: it holds its reply while a crew return is imminent and speaks once the room is still. Quiet mode reduces transcript noise, never the commander's involvement. It applies only while a team is dispatched; at any other time conversation with the commander is normal.
+
+## Paperwork
+
+Every document has a defined shape, so a new session writes it the way the last one did. Before writing a document, read its schema in `base/verify/schema/<type>.json`; after writing, run `base/verify/cockpit-lint <file>` and fix what it names. A markdown document opens with its frontmatter: a line of `---`, one `key: value` per line (a value is a bare word, a quoted string or a bracketed list), a closing line of `---`, then the title. Search by metadata: markdown documents carry frontmatter (`type`, `unit`, `stamp`, and the chain `work`, `context`, `generates` as ids), so `grep -rl '^type: "Dossier"'` finds every dossier and `grep -rl 'context:.*Ds006'` finds what came from one; a JSON collection is a `MANIFEST-<collection>.json` whose rows point at its units, read the manifest first and open only the unit needed.
+
+What accumulates and is cited gets an ID and is filed by it; what is known permanently by name (rosters, crew seats) has a name only; missions and procedures have both. An ID is a prefix and three digits, one capital per word in the kind's name, lowercase letters to say which single word. A prefix is never reassigned and a number never reused.
+
+| ID | Kind |
+|---|---|
+| M | mission |
+| WS | work shop item |
+| P | procedure |
+| Sp | spark |
+| Ds | dossier |
+| Rq | request |
+| CA | commander's advice |
+| Or | order |
+| De | decision |
+| T | dispatch (a team instance) |
+| C | retired: crew dispatch ids in the frozen `records/logs/crew-manifest.json` |
 
 ## Crew protocol
 

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "x-select": ["Commanders Advice"],
   "title": "Commanders Advice",
-  "description": "The frontmatter of a commander's advice file (CA): the commander's own answer to a dossier and the requests under it, written on his desk. Four fields and no more. Filed by identifier alone, CA001.md.",
+  "description": "The frontmatter of a commander's advice file (CA): the commander's own answer to a dossier and the requests under it, written on his desk. Filed by identifier alone, CA001.md. The pilot creates the file as an empty shell when it writes the request, so the commander has somewhere to answer without being asked to make a file; status says whether the body is his yet.",
   "type": "object",
   "required": ["type", "unit", "context", "stamp"],
   "additionalProperties": false,
@@ -22,8 +22,12 @@
       "minItems": 1,
       "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
     },
+    "status": {
+      "description": "awaiting while the file is a shell the pilot has created and the commander has not yet answered, answered once the body is his. Absent means answered, so a file written before this existed needs no change",
+      "enum": ["awaiting", "answered"]
+    },
     "stamp": {
-      "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",
+      "description": "three items: the date as YYYY-MM-DD, the hand that last wrote the document, and the eight-character session id. On a shell these are the pilot's creation facts and status is awaiting; they become the commander's when he fills the body",
       "type": "array",
       "minItems": 3,
       "items": [

@@ -18,7 +18,7 @@
       "id": "WS001",
       "title": "Incubator README says heat is cold, warm, hot; sparks Sp004 and Sp005 use cool",
       "raised": "2026-09-18",
-      "status": "open",
+      "status": "fixed",
       "path": "WS001.json"
     },
     {
@@ -174,6 +174,13 @@
       "raised": "2026-09-18",
       "status": "open",
       "path": "WS023.json"
+    },
+    {
+      "id": "WS024",
+      "title": "Remove the temporary stage A tooling from base/ once the commander has judged the refit",
+      "raised": "2026-09-20",
+      "status": "open",
+      "path": "WS024.json"
     }
   ]
 }

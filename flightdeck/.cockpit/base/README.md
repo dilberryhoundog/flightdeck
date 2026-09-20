@@ -12,9 +12,12 @@ Where the chain of command executes. Any change to the flightdeck system outside
 
 ## Rooms
 
-- `../commander/desk/` — dossiers in, requests in, advice out. Indexed by `../commander/desk/in/dossiers/MANIFEST-dossiers.json` and `MANIFEST-requests.json` here.
-- `MANIFEST-decisions.json` — the commander's rulings.
-- `settings/`, `bin/` — the pilot's settings file and the launch and guard scripts.
+- `bin/` — the scripts the commander and the harness run: the launcher, the SessionStart hook and the write guard. Indexed by `bin/README.md`.
+- `settings/` — `pilot.settings.json`, the file the pilot is launched with.
+- `verify/` — a JSON Schema per document type in `verify/schema/`, and `cockpit-lint`, which finds a file's schema by its `type` or `kind` and reports one short line when clean. Indexed by `verify/README.md`.
+- `store/` — temporary. The stage A path and prefix maps, superseded by `verify/` and pinned for removal as workshop item WS024.
+
+The requests and decisions this room used to hold are now on the commander's desk: `../commander/desk/in/requests/MANIFEST-requests.json` and `../commander/decisions/MANIFEST-decisions.json`.
 
 ## Request file shape
 
@@ -27,4 +30,4 @@ Where the chain of command executes. Any change to the flightdeck system outside
 
 ## Statuses
 
-`awaiting`, `approved`, `rejected`, `amended`, `executed`.
+`awaiting`, `approved`, `amended`, `denied`, `executed`, `withdrawn`, `superseded`, in that lifecycle order. This is the vocabulary `base/verify/schema/request.json` enforces on a request's frontmatter and the one `MANIFEST-requests.json` rows use.

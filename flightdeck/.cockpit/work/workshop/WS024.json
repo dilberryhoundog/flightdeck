@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS024",
+  "title": "Remove the temporary stage A tooling from base/ once the commander has judged the refit",
+  "raised": "2026-09-20",
+  "source": "Or058; the stage A checker and rename tool were built under Rq013 and superseded by base/verify/, and are left in place only until the refit is judged",
+  "status": "open",
+  "notes": "To remove: base/bin/cockpit-check, base/bin/cockpit-rename, base/bin/cockpit_store.py, base/bin/test_cockpit_check.py, base/bin/test_cockpit_rename.py, base/bin/fixtures/, base/store/, base/bin/STAGE-A-TEMPORARY.md. Keep base/bin/cockpit-guard.py and test_cockpit_guard.py, which are the live write guard and its test. The store's path and prefix maps went stale at the identifier pass and the room move; nothing reads them but the stage A tools themselves."
+}

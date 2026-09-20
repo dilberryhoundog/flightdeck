@@ -68,13 +68,13 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 - [x] Procedures room scaffolded (Or042) and the five starting cockpit procedures approved (Rq011, De025): `work/procedures/` with the manifest imported into `CLAUDE.md`, confirmed live. The pilot extracts further procedures from live work (Or043). Flightcrew branch empty by order.
 - [ ] Guard the unmerged branch: raised as Rq012 on 2026-09-20, awaiting the commander.
 
-### Phase 4 — the cockpit's paperwork (ordered 2026-09-20, Or044; settled in Ds006)
+### Phase 4 — the cockpit's paperwork (ordered 2026-09-20, Or044; settled in Ds006; refit ordered in Or057)
 
-- [x] The commander's out-ideas explored by team T010 with the commander in the room; identifier set ruled (Or046 to Or049); dossier Ds006 on the desk.
-- [ ] Stage A built by the route the commander chooses (Rq013): prefix table, zone and field map, reference checker, rename tool with dry run. Proving run: the 24 references left by the advice rename.
-- [ ] The identifier pass as one reviewed, reversible commit: DS to Ds, requests P to Rq, O to Or, D to De, S to Sp, W to WS; procedures numbered from P101; `C` retired.
-- [ ] Refactor team with a designer (Or044), chartered from the commander's answers to Ds006: stage B (schema store in `base/`, document shapes, strict-subset frontmatter, `kind` field in live manifests), the four unfinished manifests, the frontmatter convention on real documents, then rooms.
-- [ ] Carried from the idea files: a line in `CLAUDE.md` on searchability and metadata conventions; every ID kind named in `CLAUDE.md`.
+- [x] The commander's out-ideas explored by dispatch T010 with the commander in the room; identifier set ruled (Or046 to Or049, Or053); dossier Ds006.
+- [x] Stage A reference tooling built (T011) and set aside after fit, trim and alignment reviews (T012, T013): not what the commander advised. Left in place as temporary help, pinned for removal (WS024).
+- [x] The refit (T014), six verified commits: schemas and `cockpit-lint` in `base/verify/`; the identifier pass (proposals become requests, P solely for procedures from P001, `C` retired); JSON manifests and units; frontmatter on every typed document; the five rooms; cleanup with the paperwork section and ID table in `CLAUDE.md`.
+- [ ] The commander judges the refit: decent, or rebuild by the new build flow (mini-spec, team-builder) from the `ace_<idea>` files.
+- [ ] Still open from phase 3: the pilot's agent body; the doctrine briefing and mission cut approvals; the guard request Rq012.
 
 ## Crew dispatched
 
@@ -86,6 +86,7 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 - 2026-09-18 — recon team T001 (phase 3), commander's order: five teammates.
 - 2026-09-18 — research team T002, commander's order: five teammates; five records drafted, dossier Ds002.
 - 2026-09-19 — decision team T009, commander's order: record keeping (Ds004), then the procedures room scaffold, rule 2 wording check and four stubs (Ds005). Five seats.
+- 2026-09-20 — T011 stage A build, T012 fit and trim critics, T013 alignment check, T014 the refit (commander-advocate, schema-builder, refitter).
 - 2026-09-20 — idea exploration team T010, commander's order (Or044): four seats of the `decision` roster plus assets-scout; paper through eleven passes, five adversary rounds, dossier Ds006.
 - 2026-09-18 — mini adversary team T003, commander's order: two Opus critics on the day's cockpit work and the plan. Topology briefed from the commander's account in `records/notepad/flightcrew/topology-2026-09-18.md`.
 

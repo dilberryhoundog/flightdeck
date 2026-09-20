@@ -1,6 +1,4 @@
 {
-  "model": "fable",
-  "effortLevel": "medium",
   "env": {
     "FLIGHTDECK_ROLE": "pilot",
     "FLIGHTDECK_COCKPIT": "flightdeck/.cockpit",

@@ -2,7 +2,7 @@
 
 The cockpit's logic engine: pre-recorded routines the pilot conducts, so that repeated work is not re-prompted and does not drift or vary between sessions. A procedure matches a roster with tasks, context files and steps. The commander's founding note is `procedures.keep`; their direction for the room is order Or042 in `../../commander/orders/MANIFEST-orders.json`.
 
-- `triggers.md` — the manifest: one line per approved procedure, under its trigger kind. Imported into the cockpit `CLAUDE.md`, so it stays a routing table and explains nothing.
+- `triggers.md` — the manifest: one line per approved procedure, under its trigger kind. Read by the pilot at session start, so it stays a routing table and explains nothing.
 - `MANIFEST-procedures.json` — the index, and the dated events the periodicals are due against.
 - `cockpit/` — the pilot's own conduct: `P001-record-keeping.md`, `P002-forming-a-team.md`, `P003-notepad-cleanup.md`, `P004-currency-review.md`, `P005-topics-update.md`.
 - `flightcrew/` — conducting a launch. Scaffolded empty.

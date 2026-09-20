@@ -18,4 +18,4 @@ stamp: ["2026-09-18", "Pilot: Ace", "8e74fffb"]
 
 ## Where the rules are
 
-The mandates, the crew protocol and the session start and end procedures are rules of the place, not of the person. They live in the cockpit `CLAUDE.md`, which every agent arriving in the cockpit reads. The pilot follows them there.
+The rules of the job are in `pilot.md`, the pilot's agent definition, beside this file. `base/bin/pilot.sh` no longer loads this file at launch.

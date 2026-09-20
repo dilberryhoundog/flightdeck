@@ -31,5 +31,4 @@ if others:
     print("[cockpit] latest_log=flightdeck/.cockpit/records/logs/%s" % others[-1]["path"])
 awaiting = [p["id"] for p in load(cockpit + "/commander/desk/in/requests/MANIFEST-requests.json").get("units", []) if p.get("status") == "awaiting"]
 print("[cockpit] requests_awaiting=%d %s" % (len(awaiting), " ".join(awaiting)))
-print("[cockpit] Follow the session start procedure in flightdeck/.cockpit/CLAUDE.md before acting.")
 EOF

@@ -401,6 +401,20 @@
       "summary": "The commander settles Rq014's lint point (an exclusion if the linter supports one, otherwise narrow the glob) and lets the pilot-written build request pass once only: a mini-spec team is meant to build it.",
       "session": "241bff25",
       "path": "Or062.json"
+    },
+    {
+      "id": "Or063",
+      "date": "2026-09-21",
+      "summary": "The commander removes effort from his global user settings as the wrong place for it, and corrects the pilot: the cockpit CLAUDE.md loads automatically when any cockpit file is read; with an agent body the pilot starts from the body, not from CLAUDE.md.",
+      "session": "241bff25",
+      "path": "Or063.json"
+    },
+    {
+      "id": "Or064",
+      "date": "2026-09-21",
+      "summary": "The commander orders the agent body kept whole even where it duplicates identity.md and commander.md: the intention is that the body eventually stands alone without the injected files.",
+      "session": "241bff25",
+      "path": "Or064.json"
     }
   ]
 }

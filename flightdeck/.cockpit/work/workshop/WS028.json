@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS028",
+  "title": "The agent definition's effort does not apply; the launcher passes it as a flag",
+  "raised": "2026-09-21",
+  "source": "Or061; measured by the pilot during dispatch T015, records/notepad/agent-body-2026-09-20/headless-measurements.md",
+  "status": "open",
+  "notes": "The commander wants model and effort in the agent body and the injected settings eventually redundant (Or061). Measured on CLI v2.1.278 (records/notepad/agent-body-2026-09-20/headless-measurements.md): an agent definition's `effort` does not apply to a main session agent launched from `--agents` JSON, with or without an `effortLevel` in settings; the `--effort` flag does. So `pilot.sh` reads `effort` from `pilot.md` and passes `--effort`, and no settings file carries effort. To close: measure again on a later CLI version and drop the flag if the definition's own `effort` takes hold; measure effort and `initialPrompt` on resume; record the results in `records/manuals/claude-code/settings-and-launch.md` by the manuals rule."
+}

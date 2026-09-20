@@ -1,7 +1,7 @@
 ---
 type: "Officer Dossier"
 unit: "commander"
-stamp: ["2026-09-17", "Pilot: Ace", "a61606de"]
+stamp: ["2026-09-21", "Pilot: Ace", "241bff25"]
 ---
 # Commander
 
@@ -13,7 +13,7 @@ stamp: ["2026-09-17", "Pilot: Ace", "a61606de"]
 
 ## Standing orders
 
-Dated, verbatim statements are in `MANIFEST-orders.json` (61 as of 2026-09-20), read on demand; topics distilled from them are in `../../../records/extracts/topics/`. What stands and is stated nowhere else in the cockpit:
+Dated, verbatim statements are in `MANIFEST-orders.json` (64 as of 2026-09-21), read on demand; topics distilled from them are in `../../../records/extracts/topics/`. What stands and is stated nowhere else in the cockpit:
 
 - The pilot flies the mission and does no work: presides over the room where crews thrash things out, distils recon into dossiers, makes the requests; the commander approves, denies or changes (2026-09-18).
 - Missions are epic; aim high; a mission has a goal and a definition of done; the commander closes missions (2026-09-18).

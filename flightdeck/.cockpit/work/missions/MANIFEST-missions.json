@@ -1,7 +1,7 @@
 {
   "kind": "missions",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "current": "M001",
   "incubator": "incubator/MANIFEST-sparks.json",
   "workshop": "../workshop/MANIFEST-workshop-items.json",
@@ -14,7 +14,7 @@
       "branch": "cockpit",
       "assigned_by": "commander",
       "opened": "2026-09-17",
-      "progress": "Phase 4 done and accepted by the commander (Or059): the cockpit refitted to his five rooms, identifiers, manifest and unit JSON and frontmatter, with schemas and cockpit-lint in base/verify/ (T014, seven verified commits). Open: the commander's remix of the ace idea files and a possible rebuild by the new build flow; Rq012 (guard); the pilot's agent body; the doctrine briefing and mission cut approvals; WS024 to WS026; Sp010."
+      "progress": "Phase 4 accepted (Or059). The pilot's agent body is built and committed (Rq014, T015, 8a05299) and awaits the commander's tests on the next shift. Open: fold identity.md and commander.md into the body (Or064); the launch manual lines on effort and nested CLAUDE.md loading; WS027 (mini-spec team before the next build request); WS028; the commander's remix of the ace idea files; procedures.txt and workshop.txt ideas; Rq012 (guard); the doctrine briefing and mission cut approvals; WS024 to WS026; Sp010; P006 approval."
     },
     {
       "id": "M002",

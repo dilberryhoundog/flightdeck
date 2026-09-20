@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or063",
+  "date": "2026-09-21",
+  "session": "241bff25",
+  "text": "During the agent body build (T015). On the pilot's measurement that the user settings' effortLevel masked the agent's effort: \"I just removed effort from global user settings. wrong place for it.\" On the pilot's claim that the cockpit CLAUDE.md is not loaded automatically: \"No it doesn't, it loads auto anytime a file is read in the cockpit. what this means now that you have an agent body is that you will start reading files from that rather than the claude.\""
+}

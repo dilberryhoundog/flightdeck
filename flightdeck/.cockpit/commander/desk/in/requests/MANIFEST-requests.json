@@ -144,12 +144,12 @@
     {
       "id": "Rq014",
       "title": "Build the pilot's agent body",
-      "status": "approved",
+      "status": "executed",
       "path": "Rq014.md",
       "raised": "2026-09-20",
       "mission": "M001",
       "decided": "2026-09-21",
-      "note": "De028"
+      "note": "De028; built by T015, commit 8a05299; the commander tests on the next shift"
     }
   ]
 }

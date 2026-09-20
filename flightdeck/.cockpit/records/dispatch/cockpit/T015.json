@@ -1,0 +1,63 @@
+{
+  "kind": "dispatch",
+  "id": "T015",
+  "date": "2026-09-21",
+  "session": "241bff25",
+  "mission": "M001",
+  "purpose": "Build the pilot's agent body from Rq014 (approved De028): team/officers/pilot/pilot.md, the launcher passing it as --agents JSON, model and effort out of the settings file, the CLAUDE.md cut, the hook line, lint exclusion",
+  "roster_note": "no roster fits a build; one builder and one docs verifier, the mini-adversary roster at the end",
+  "seats": [
+    {
+      "name": "body-builder",
+      "reason": "writes pilot.md and makes the launcher, settings, hook, CLAUDE.md and lint changes under Rq014's scope",
+      "returns": "a change list, the sentences dropped with reasons, the check outputs"
+    },
+    {
+      "name": "docs-verifier",
+      "reason": "checks each harness claim the build rests on against the official Anthropic docs before the builder relies on it",
+      "returns": "claim, verdict, source url, per claim"
+    }
+  ],
+  "subagents": [
+    {
+      "name": "commander-advocate",
+      "note": "one-shot on Rq014 pass 1 before approval: twelve findings, fix first, all taken",
+      "agent_type": "adversary",
+      "model": "opus",
+      "count": 1
+    },
+    {
+      "name": "fit-critic",
+      "agent_type": "adversary",
+      "model": "opus",
+      "count": 1,
+      "note": "twelve findings, fix first; its lead finding on effort was overtaken by the builder's third pass while it read"
+    },
+    {
+      "name": "trim-critic",
+      "agent_type": "adversary",
+      "model": "opus",
+      "count": 1,
+      "note": "ten findings, fix first"
+    },
+    {
+      "name": "fresh reader",
+      "agent_type": "general-purpose",
+      "model": "haiku",
+      "count": 1,
+      "note": "given only the new CLAUDE.md: answered crew, no session start duty, no log without a brief"
+    }
+  ],
+  "shape": "verifier and builder in parallel, verifier sends findings to the builder and the pilot; pilot verifies and commits; fit-critic and trim-critic over the finished change; team dispatch quiet mode",
+  "scope": "body-builder writes only: team/officers/pilot/pilot.md, job.md, identity.md, README.md in that folder; base/bin/pilot.sh; base/bin/session-start.sh; base/settings/pilot.settings.json; base/verify/lint.yaml; base/README.md; CLAUDE.md; records/manuals/claude-code/settings-and-launch.md only where it names the persona files; its report under records/notepad/agent-body-2026-09-20/. docs-verifier writes only its report there. No commits by crew.",
+  "status": "finished",
+  "room": "cockpit",
+  "outcome": "The agent body landed in one revertible commit, 8a05299, from restore point e2cd9db. team/officers/pilot/pilot.md is the agent definition and the single source for model and effort; pilot.sh builds the --agents JSON from it and passes --agents, --agent pilot and --effort on start and resume, appending identity.md and commander.md and no longer job.md; the settings file carries neither model nor effort; the hook no longer tells the session to follow a procedure; CLAUDE.md keeps rules of the place, with rules 5, 10, 12 and crew protocol 4 to 7 as numbered pointers; lint excludes pilot.md. Five builder passes. Verified by the pilot: byte comparison of the JSON prompt with the file body, --check on start and resume, --agents-json alone, full lint clean, and headless launches read from output fields and transcripts. Left for the commander's next shift: the session opens logged on; a teammate does not inherit the body; what initialPrompt does on resume. Open: WS028, the launch manual lines, folding identity.md and commander.md into the body (Or064).",
+  "lessons": [
+    "measure before ruling: the pilot twice sent the builder a harness claim as settled (effort fallback; CLAUDE.md not auto-loading) and both were wrong or incomplete; two of the five passes were the pilot's own reversals",
+    "a headless launch with a harmless copy of the definition, no tools, read from modelUsage and the transcript's effort field, settled four harness questions in minutes that the docs leave open",
+    "critics reading while the builder is still moving produce findings against a superseded state; freeze the build before the critics start, as P002 step 3 says for papers",
+    "ask what a file is for before trimming it: deduplicating pilot.md against identity.md and commander.md was correct for today's prompt and wrong for the commander's intention that the body stand alone",
+    "the builder tested the branch it could have assumed (no effort key under set -e) and corrected its own earlier explanation of the lint fault unprompted"
+  ]
+}

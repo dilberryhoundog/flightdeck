@@ -202,6 +202,13 @@
       "raised": "2026-09-21",
       "status": "open",
       "path": "WS027.json"
+    },
+    {
+      "id": "WS028",
+      "title": "The agent definition's effort does not apply; the launcher passes it as a flag",
+      "raised": "2026-09-21",
+      "status": "open",
+      "path": "WS028.json"
     }
   ]
 }

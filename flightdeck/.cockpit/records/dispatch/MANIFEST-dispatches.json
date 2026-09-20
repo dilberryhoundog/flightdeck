@@ -1,7 +1,7 @@
 {
   "kind": "dispatches",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "convention": "One register for every team the pilot has flown, in any room. A row points at the unit; the unit holds the whole team, including the room it flew in. Seat identity (agent type, model) is in ../../team/crew/MANIFEST-crew.json; a seat in a unit is name, reason, returns. Ids are counted across the whole register, assigned once, never renumbered.",
   "units": [
     {
@@ -115,6 +115,14 @@
       "summary": "Dispatch to refit the cockpit: schemas and a Node linter, the identifier pass, JSON manifests and units, frontmatter, and the five-room move.",
       "status": "finished",
       "path": "cockpit/T014.json"
+    },
+    {
+      "id": "T015",
+      "date": "2026-09-21",
+      "mission": "M001",
+      "summary": "Dispatch to build the pilot's agent body from Rq014: pilot.md, the launcher, settings, hook, the CLAUDE.md cut.",
+      "status": "finished",
+      "path": "cockpit/T015.json"
     }
   ]
 }

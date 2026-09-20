@@ -1,14 +1,15 @@
 {
   "version": 1,
   "updated": "2026-09-20",
-  "convention": "The index of the room, and the dated events the periodicals are due against. Ids are slugs. The file's Approved line is authoritative; this index mirrors it. status: draft | active | retired. last_run: {date, event} where event is an event kind or 'order'. A periodical is due when the latest event of a kind it names is later than its last_run date.",
+  "convention": "The index of the room, and the dated events the periodicals are due against. Ids are `P###`, minted in the order the room was built; `name` is the slug that reads, and the file is `P###-<name>.md`. The file's Approved line is authoritative; this index mirrors it. status: draft | active | retired. last_run: {date, event} where event is an event kind or 'order'. A periodical is due when the latest event of a kind it names is later than its last_run date.",
   "events": [],
   "items": [
     {
-      "id": "record-keeping",
+      "id": "P001",
+      "name": "record-keeping",
       "title": "Record keeping",
       "branch": "cockpit",
-      "file": "cockpit/record-keeping.md",
+      "file": "cockpit/P001-record-keeping.md",
       "trigger": {
         "kind": "on-demand",
         "condition": "a drift event"
@@ -19,10 +20,11 @@
       "updated": "2026-09-20"
     },
     {
-      "id": "forming-a-team",
+      "id": "P002",
+      "name": "forming-a-team",
       "title": "Forming a team",
       "branch": "cockpit",
-      "file": "cockpit/forming-a-team.md",
+      "file": "cockpit/P002-forming-a-team.md",
       "trigger": {
         "kind": "on-demand",
         "condition": "before forming a team"
@@ -33,10 +35,11 @@
       "updated": "2026-09-20"
     },
     {
-      "id": "notepad-cleanup",
+      "id": "P003",
+      "name": "notepad-cleanup",
       "title": "Notepad cleanup",
       "branch": "cockpit",
-      "file": "cockpit/notepad-cleanup.md",
+      "file": "cockpit/P003-notepad-cleanup.md",
       "trigger": {
         "kind": "periodical",
         "events": [
@@ -50,10 +53,11 @@
       "updated": "2026-09-20"
     },
     {
-      "id": "currency-review",
+      "id": "P004",
+      "name": "currency-review",
       "title": "Currency review",
       "branch": "cockpit",
-      "file": "cockpit/currency-review.md",
+      "file": "cockpit/P004-currency-review.md",
       "trigger": {
         "kind": "periodical",
         "events": [
@@ -68,10 +72,11 @@
       "updated": "2026-09-20"
     },
     {
-      "id": "topics-update",
+      "id": "P005",
+      "name": "topics-update",
       "title": "Topics update",
       "branch": "cockpit",
-      "file": "cockpit/topics-update.md",
+      "file": "cockpit/P005-topics-update.md",
       "trigger": {
         "kind": "periodical",
         "events": [

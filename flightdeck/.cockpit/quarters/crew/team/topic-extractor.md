@@ -12,4 +12,4 @@ Sources: ten transcripts, two advice files, orders.json; the topics schema. Outp
 
 ## Next time
 
-Same seat, same model; the generators and verifier it built should become cockpit tools (W023). Brief they/them and the second-occurrence rule.
+Same seat, same model; the generators and verifier it built should become cockpit tools (WS023). Brief they/them and the second-occurrence rule.

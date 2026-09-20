@@ -41,21 +41,21 @@
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "The orchestration principles where derived from those sources with a bit of \"fitment\" they are very important documents that the original all in one builder tried to replicate the system from. Systems like flightcrew grow organicly but these types of genesis documents are important to update and maintain over time, especially for a pilot who needs to understand where things are at.",
       "context": "Written advice on why the genesis documents are maintained rather than archived.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "I mentioned the departure because I didn't want the original day 1 resources to be considered as cannon never to be drifted. So therefore I don't want divergence measured either. The commanders' advice is to understand that the system drifts slowly as it is used and improved in real time. And not to be reluctant to change your understanding as it shifts. also look for relevance in the cannon, has a claim superseded another.",
       "context": "Written advice rejecting a record that measured how far the system had departed from its sources.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "Doctrine discovery and integration should be an important part of the cockpit furnishing mission.",
       "context": "Written advice, after the recon team under-read the doctrine.",

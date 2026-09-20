@@ -2,7 +2,7 @@
   "version": 1,
   "updated": "2026-09-20",
   "fields": {
-    "id": "W### in the order raised",
+    "id": "WS### in the order raised",
     "title": "one line",
     "raised": "YYYY-MM-DD",
     "source": "where it came from",
@@ -10,168 +10,168 @@
     "recurring": "true for maintenance that repeats (library, terms, topics, records); absent otherwise",
     "swept_into": "mission id when swept; absent otherwise",
     "resolved": "date and where, when fixed or dropped; absent otherwise",
-    "file": "W###-slug.md when notes exist; absent otherwise"
+    "file": "WS###.md when notes exist; absent otherwise"
   },
   "items": [
     {
-      "id": "W001",
-      "title": "Incubator README says heat is cold, warm, hot; sparks S004 and S005 use cool",
+      "id": "WS001",
+      "title": "Incubator README says heat is cold, warm, hot; sparks Sp004 and Sp005 use cool",
       "raised": "2026-09-18",
       "source": "pilot, session 49f87e44",
       "status": "open"
     },
     {
-      "id": "W002",
+      "id": "WS002",
       "title": "Live-check F7 and F12: does the cockpit CLAUDE.md load on demand for a session started at the repo root, and do its imports expand there",
       "raised": "2026-09-18",
       "source": "docs-scout C009, verification pending in notepad/claude-md-review-2026-09-18/docs-scout.md",
       "status": "open"
     },
     {
-      "id": "W003",
+      "id": "WS003",
       "title": "A15: consider --add-dir in the launcher so the pilot session sees the cockpit as a working directory",
       "raised": "2026-09-18",
       "source": "auditor C006 finding A15, weakened by red-team; not actioned",
       "status": "open"
     },
     {
-      "id": "W004",
+      "id": "WS004",
       "title": "A16c: a template for team-run report folders once a second run exists; two runs now exist",
       "raised": "2026-09-18",
       "source": "auditor C006 finding A16c; notepad/team-run-2026-09-18 and claude-md-review-2026-09-18",
       "status": "open"
     },
     {
-      "id": "W005",
+      "id": "WS005",
       "title": "Confirm the guard no longer blocks relative Bash write paths when cwd is inside the cockpit (defect seen 2026-09-18 before the A2 rewrite)",
       "raised": "2026-09-18",
       "source": "log 2026-09-18_8e74fffb, session start section; base/bin/test_cockpit_guard.py",
       "status": "open"
     },
     {
-      "id": "W006",
+      "id": "WS006",
       "title": "Effort level could not be read headlessly; find a measurable check for effortLevel on a launched pilot",
       "raised": "2026-09-18",
       "source": "log 2026-09-18_8e74fffb, T6 in notepad/claude-code/launch-tests.md",
       "status": "open"
     },
     {
-      "id": "W007",
+      "id": "WS007",
       "title": "Test whether a shut-down teammate can be resumed by name with its context intact, and whether it counts against the teammate cap",
       "raised": "2026-09-18",
-      "source": "commander's question 'why do teammates terminate?'; SendMessage tool text says a name keeps working after an agent completes. Briefly spark S005, moved here on the commander's order: a minor change is not a mission",
+      "source": "commander's question 'why do teammates terminate?'; SendMessage tool text says a name keeps working after an agent completes. Briefly spark Sp005, moved here on the commander's order: a minor change is not a mission",
       "status": "open"
     },
     {
-      "id": "W008",
+      "id": "WS008",
       "title": "Decide the canonical home for crew role definitions: worker body exists in crew/worker.md, isolated-worker.md and .claude/agents/worker.md; crew.json ids drift from files",
       "raised": "2026-09-18",
-      "source": "proposal P002, withdrawn 2026-09-18",
+      "source": "request Rq002, withdrawn 2026-09-18",
       "status": "open"
     },
     {
-      "id": "W009",
+      "id": "WS009",
       "title": "Repair STRUCTURE.md (radar vs HUD, phantom example-launch, no .controlcenter) and liftoff.template.yaml paths",
       "raised": "2026-09-18",
-      "source": "proposal P003, withdrawn 2026-09-18",
+      "source": "request Rq003, withdrawn 2026-09-18",
       "status": "open"
     },
     {
-      "id": "W010",
+      "id": "WS010",
       "title": "Sealed crew roles (critic, explorer, spec-judge, spec-attacker, orchestrator) disown project instructions by prose only; official docs say only `omitClaudeMd: true` (Claude Code v2.1.271+) enforces it, and the tip's claude-code-facts.md omits the field",
       "raised": "2026-09-18",
       "source": "docs-verifier C015 job 2, notepad/recon-2026-09-18/docs-verifier-doctrine.md",
       "status": "open"
     },
     {
-      "id": "W011",
+      "id": "WS011",
       "title": "Crew briefs say report to `pilot`; in-team the lead is `team-lead` and `pilot` resolves to the sender's own parent. Two of five teammates fell back to truncated final messages. Fix the brief convention in CLAUDE.md crew rule 3 and add a scratchpad delivery path for long reports",
       "raised": "2026-09-18",
       "source": "session dcb75456, notepad/claude-code/messaging-observed.md",
       "status": "open"
     },
     {
-      "id": "W012",
+      "id": "WS012",
       "title": "Meta-workflows .claude/workflows/flightcrew-build.js and flightcrew-targets.js hardcode REPO='/Users/dylangraham/Projects/flightdeck' (run/flightcrew-characterization-2); portability defect, unpinned",
       "raised": "2026-09-18",
       "source": "runs-recon addendum, notepad/recon-2026-09-18/runs-recon.md",
       "status": "open"
     },
     {
-      "id": "W013",
-      "title": "Terms page maintenance: library/terms.md was meant for build-run agents to add terms; commander (DS002) says a teammate should maintain it at the end of each run. Define the maintenance step and add it to logs/maintenance.json",
+      "id": "WS013",
+      "title": "Terms page maintenance: library/terms.md was meant for build-run agents to add terms; commander (Ds002) says a teammate should maintain it at the end of each run. Define the maintenance step and add it to logs/maintenance.json",
       "raised": "2026-09-18",
-      "source": "commander, out-advice/DS002.md",
+      "source": "commander, out-advice/CA002.md",
       "status": "open",
       "recurring": true
     },
     {
-      "id": "W014",
-      "title": "Library maintenance: flightdeck/library is for all stakeholders and maintained by the pilot through crew (DS001, DS002). Define what maintenance means (genesis documents kept current, superseded claims marked) and log it in logs/maintenance.json",
+      "id": "WS014",
+      "title": "Library maintenance: flightdeck/library is for all stakeholders and maintained by the pilot through crew (Ds001, Ds002). Define what maintenance means (genesis documents kept current, superseded claims marked) and log it in logs/maintenance.json",
       "raised": "2026-09-18",
-      "source": "commander, out-advice/DS001.md and DS002.md",
+      "source": "commander, out-advice/CA001.md and Ds002.md",
       "status": "open",
       "recurring": true
     },
     {
-      "id": "W015",
+      "id": "WS015",
       "title": "Test directly the four harness observations the docs do not settle: strictest-of-two PreToolUse hooks; PATH given to hooks; workflow runtime and `export default`; stall message on exit 0. Source: notepad/recon-2026-09-18/docs-verifier-runs.md",
       "raised": "2026-09-18",
       "source": "docs-verifier C015; commander wants no mission built on folklore",
       "status": "open"
     },
     {
-      "id": "W016",
+      "id": "WS016",
       "title": "Carry buildout's late doctrine forward: spec-altitude.md and the interfaces rewrite (1c81888) exist only on flightcrew-buildout; decide their home when the suite merges. Altitude summary already in quarters/crew/flightcrew/spec-builder.md",
       "raised": "2026-09-18",
       "source": "doctrine-recon C014; T002 doctrine source",
       "status": "open"
     },
     {
-      "id": "W017",
-      "title": "Historical findings from the doctrine record (roster uneven against the model rule, gate G3 without code, cast renamed and split, verification reorganised) are valid for later agent work and were removed from the record on the commander's order; they live in notepad/research-2026-09-18/source/doctrine-and-genesis.md. Sweep into S008 when it flies",
+      "id": "WS017",
+      "title": "Historical findings from the doctrine record (roster uneven against the model rule, gate G3 without code, cast renamed and split, verification reorganised) are valid for later agent work and were removed from the record on the commander's order; they live in notepad/research-2026-09-18/source/doctrine-and-genesis.md. Sweep into Sp008 when it flies",
       "raised": "2026-09-18",
-      "source": "commander, out-advice/DS002.md",
+      "source": "commander, out-advice/CA002.md",
       "status": "open"
     },
     {
-      "id": "W018",
+      "id": "WS018",
       "title": "Stale path references after the desk move: 14 files repointed 2026-09-18; verify the startup hook and CLAUDE.md read correctly at next session start",
       "raised": "2026-09-18",
       "source": "pilot, session dcb75456",
       "status": "open"
     },
     {
-      "id": "W019",
+      "id": "WS019",
       "title": "From quarters/crew/todo.txt (unsigned note, absorbed 2026-09-18): This file should be called the `team` to separate it from the `crew` that runs flightcrew runs. the json file also needs to be renamed.",
       "raised": "2026-09-18",
       "source": "quarters/crew/todo.txt",
       "status": "open"
     },
     {
-      "id": "W020",
+      "id": "WS020",
       "title": "Bring the four harness records (agent-teams 73 lines, settings-and-launch 56, session-messaging 40, subagents 20) under the records docspec: 40 lines or fewer, header naming the notepad source, per-claim sources. A research-team task, not the pilot's",
       "raised": "2026-09-18",
       "source": "T006 adversary, on re-reading rule 2",
       "status": "dropped",
-      "note": "dropped 2026-09-20: the topic pointer it asked for was abolished by D021; web records stay exactly as they are"
+      "note": "dropped 2026-09-20: the topic pointer it asked for was abolished by De021; web records stay exactly as they are"
     },
     {
-      "id": "W021",
+      "id": "WS021",
       "title": "The five T002 source documents in notepad/research-2026-09-18/source/ pin one line per commander turn and say \"same turn\" for further quotes (honest, but not per-sentence); one hard error: launch-and-run.md cites 8fdc3b29:3569 for a sentence at 3567. Re-derive per-sentence lines by grep before any later team draws on them",
       "raised": "2026-09-18",
       "source": "T006 record-writer and adversary",
       "status": "open"
     },
     {
-      "id": "W022",
+      "id": "WS022",
       "title": ".claude/agents/adversary.md (repo root, outside the cockpit) sets model: fable; the commander's rule is adversaries on Opus. Cockpit teams spawn adversaries as general-purpose on Opus so are unaffected. Change needs the commander's approval (outside the cockpit)",
       "raised": "2026-09-18",
       "source": "T006 discovery, models-and-cost topic",
       "status": "open"
     },
     {
-      "id": "W023",
+      "id": "WS023",
       "title": "Keep the T006 record-writer's citation check as a cockpit tool (base/bin): for every <session>:<line> in a record, resolve the line from the transcript by git show and confirm the quoted words are on it; it found one miss in 83 that four passes had not. Also resolve line numbers written into topic context prose (the extractor's extension)",
       "raised": "2026-09-18",
       "source": "T006 record-writer and adversary",

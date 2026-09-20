@@ -3,222 +3,222 @@
   "updated": "2026-09-20",
   "decisions": [
     {
-      "id": "D001",
+      "id": "De001",
       "date": "2026-09-17",
       "subject": "Pilot's starting knowledge",
       "decision": "The pilot starts fresh. Prior mission files are not read.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D002",
+      "id": "De002",
       "date": "2026-09-17",
       "subject": "Cross-session test message",
       "decision": "Approved. All sessions on the machine are the commander's.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D003",
+      "id": "De003",
       "date": "2026-09-17",
       "subject": "Cockpit write rule",
       "decision": "Enforce mechanically. Implemented as the PreToolUse guard in the pilot's settings.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D004",
+      "id": "De004",
       "date": "2026-09-17",
       "subject": "Pilot permission mode",
       "decision": "auto",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D005",
+      "id": "De005",
       "date": "2026-09-17",
       "subject": "Agent teams",
       "decision": "Enable the experimental flag in the pilot's settings now. Learn teams from the beginning.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D006",
+      "id": "De006",
       "date": "2026-09-17",
       "subject": "Pilot invocation",
-      "decision": "A launcher script inside the cockpit is fine for now. End game: a launcher inside a HUD page (spark S001).",
+      "decision": "A launcher script inside the cockpit is fine for now. End game: a launcher inside a HUD page (spark Sp001).",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D007",
+      "id": "De007",
       "date": "2026-09-18",
       "subject": "Pilot model and effort",
       "decision": "Pilot's launcher and settings are the pilot's to fix. Fable at medium effort, pinned in settings and on resume.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D008",
+      "id": "De008",
       "date": "2026-09-18",
       "subject": "Records and notepad",
       "decision": "references/ renamed records/. Records are the protected source of truth across sessions: official docs with sources, and codebase findings only from purpose-led specialist research. Promotion from the notepad is the pathway in. Scratch goes in notepad/ or the .claude side room.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D009",
+      "id": "De009",
       "date": "2026-09-18",
       "subject": "Crew protocol and crew manifest",
       "decision": "Crew protocol kept with the pilot's instructions. Every dispatch recorded in logs/crew-manifest.json; quarters/crew recruits from recurring shapes in the manifest.",
       "by": "commander",
-      "proposal": null,
+      "request": null,
       "superseded_by": "commander, 2026-09-18: the dispatch room records teams, not individual crew; crew-manifest.json frozen (CLAUDE.md rule 7)."
     },
     {
-      "id": "D010",
+      "id": "De010",
       "date": "2026-09-18",
       "subject": "First agent team findings",
       "decision": "Pilot's work: fix pilot.sh duplicate check (A1) and guard bypasses (A2); A3, A4, the stale-index batch and the sandbox finding at the pilot's discretion.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D011",
+      "id": "De011",
       "date": "2026-09-18",
       "subject": "Cockpit CLAUDE.md and pilot quarters",
       "decision": "CLAUDE.md is folder instructions for any agent arriving in the cockpit: purpose, rules, how to find things. The pilot's persona moves into quarters/pilot (identity, job description), structured at the pilot's choice.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D012",
+      "id": "De012",
       "date": "2026-09-18",
-      "subject": "Day-one proposals P001 to P003",
-      "decision": "Left to the pilot. P001 superseded by the ordered recon team; P002 and P003 withdrawn to the workshop as W008 and W009.",
+      "subject": "Day-one requests Rq001 to Rq003",
+      "decision": "Left to the pilot. Rq001 superseded by the ordered recon team; Rq002 and Rq003 withdrawn to the workshop as WS008 and WS009.",
       "by": "commander, executed by the pilot",
-      "proposal": "P001, P002, P003"
+      "request": "Rq001, Rq002, Rq003"
     },
     {
-      "id": "D013",
+      "id": "De013",
       "date": "2026-09-18",
-      "subject": "P004 mission shape",
+      "subject": "Rq004 mission shape",
       "decision": "Amended. Land the suite and the core spec repair are not epic on their own; they converge on one epic: simplify, improve and update the flightcrew core from the one-shot foundation. Decision mining and teams converge on another: make the cockpit self-sustaining and self-improving. Harness truth belongs inside the core mission. Order: fit out the cockpit (M001), then self-sustaining, then the flightcrew build-out.",
-      "by": "commander, commanders-desk/out-advice/DS001.md",
-      "proposal": "P004"
+      "by": "commander, commanders-desk/out-advice/CA001.md",
+      "request": "Rq004"
     },
     {
-      "id": "D014",
+      "id": "De014",
       "date": "2026-09-18",
-      "subject": "P005 rulings",
+      "subject": "Rq005 rulings",
       "decision": "Amended. The test suite's purpose is a rails-style test folder that protects and defines the infrastructure, light enough that runs do not require retuning it, able to travel with flightdeck when distributable. The core's exact shape is not defined this far out. The pilot flies the mission and does no work; the pilot presides over the room where the spec is thrashed out and never holds the finer details. Teams are the pilot's, crews are flightcrew's; dispatch records teams under dispatch/cockpit/, dispatch/flightcrew/ and so on; a launch succeeds as teams converging: prebuild, build, review and cleanup.",
-      "by": "commander, commanders-desk/out-advice/DS001.md",
-      "proposal": "P005",
-      "superseded_by": "commander O041, 2026-09-18: team dispatches as JSON per room (dispatch/cockpit.json)"
+      "by": "commander, commanders-desk/out-advice/CA001.md",
+      "request": "Rq005",
+      "superseded_by": "commander Or041, 2026-09-18: team dispatches as JSON per room (dispatch/cockpit.json)"
     },
     {
-      "id": "D015",
+      "id": "De015",
       "date": "2026-09-18",
-      "subject": "P006 records",
+      "subject": "Rq006 records",
       "decision": "Amended. Converge on a certified research team that pulls the recon in with tighter focus, sanitises it for the pilot and configures it as bona fide records. Run every record past the commander before landing. Records are the pilot's; the library is for all, maintained by the pilot with an overview no other entity has. Records extract key findings, never replicate library documents.",
-      "by": "commander, commanders-desk/out-advice/DS001.md",
-      "proposal": "P006"
+      "by": "commander, commanders-desk/out-advice/CA001.md",
+      "request": "Rq006"
     },
     {
-      "id": "D016",
+      "id": "De016",
       "date": "2026-09-18",
-      "subject": "P007 branches",
+      "subject": "Rq007 branches",
       "decision": "Amended, then corrected. Commit the work first (done, 23a2814). Branch cleanup is a merge cleanup: no branch is deleted until its changes are merged higher; merging the characterization branch starts it. Manifest of every branch and its state in logs/branch-manifest.json. Nothing deleted.",
-      "by": "commander, commanders-desk/out-advice/DS001.md",
-      "proposal": "P007"
+      "by": "commander, commanders-desk/out-advice/CA001.md",
+      "request": "Rq007"
     },
     {
-      "id": "D017",
+      "id": "De017",
       "date": "2026-09-18",
       "subject": "Launch definition",
       "decision": "A launch is not one run of one spec. It is an intent to complete a piece of work with all the infrastructure to do it: runs (attempts), the spec and its versions converging on done, and run-generated artefacts. Deeper recon of session transcripts ordered for the definition and for the commander's guidance on system shape, architecture and decisions.",
-      "by": "commander, commanders-desk/out-advice/DS001.md",
-      "proposal": null
+      "by": "commander, commanders-desk/out-advice/CA001.md",
+      "request": null
     },
     {
-      "id": "D018",
+      "id": "De018",
       "date": "2026-09-18",
       "subject": "Push machine-only branches",
       "decision": "Approved: push flightcrew-core, rubric-testing and flightcrew-characterization-1/contracts to origin. \"It is good git hygiene.\" Executed: all three at their local tips on origin, tracking set.",
       "by": "commander",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D019",
+      "id": "De019",
       "date": "2026-09-18",
-      "subject": "P008 and the shape of records",
+      "subject": "Rq008 and the shape of records",
       "decision": "Not landed as drafted. All five are source material or logs, not timeless records. Records are sharp, authoritative, token-efficient, current-form only, passing a two-years-time test. Commander's guidance: a source log. Doctrine and genesis: no divergence measured, no terms, altitude belongs in the spec-builder crew file, state the principles and tooling the pattern leans on. Harness facts: reads as a log; records claim one harness function each. Launch and run: source material with superseded shapes. Lineage: a JSON terrain log, not a record. Build a docspec for a good record; strengthen the team with a topic extractor, record writer, discovery, comparer and validator; mine the commander's statements into topics and topics into vision records, periodically.",
-      "by": "commander, commanders-desk/out-advice/DS002.md",
-      "proposal": "P008"
+      "by": "commander, commanders-desk/out-advice/CA002.md",
+      "request": "Rq008"
     },
     {
-      "id": "D020",
+      "id": "De020",
       "date": "2026-09-19",
-      "subject": "P009 and the production of records",
+      "subject": "Rq009 and the production of records",
       "decision": "Amended. harness-register lands as is, a stream of findings that may grow. launches-and-runs, state-and-freezing, tests-and-checks and endings become stubs: a brief mention of existing knowledge in plain register, improved on demand as work commences, using the commander's inline comments. interviewing-the-commander and working-with-the-commander are dropped as not relevant enough for cockpit records. On method: records written ahead of known usefulness cost the commander filtering time; build them on demand when the pilot drifts or underperforms, from a wider net (source, library, manuals, directives); plain register, validated by a team against sources and stamped, not sourced in the prose; the vision is under construction so heavy record keeping now may be wasted; shelving and resuming later may help. The commander ordered a mini decision team (T009) for options and the best approach.",
-      "by": "commander, commanders-desk/out-advice/DS003.md and session 4450a586",
-      "proposal": "P009"
+      "by": "commander, commanders-desk/out-advice/CA003.md and session 4450a586",
+      "request": "Rq009"
     },
     {
-      "id": "D021",
+      "id": "De021",
       "date": "2026-09-19",
       "subject": "How a record shows it is sourced",
       "decision": "No extra regalia for records. Web-sourced records stay exactly as the existing records/claude-code files: short, sharp, a simple one-line Source statement at the top. Locally sourced records carry a one-line stamp of approval at the top indicating they have been adequately sourced. No number-based reference lists in the header, no direct source quotes mixed into the prose, no separate stamp ledger. Clarified the same session: \"every claim has a source\" does not mean the source has to be explicitly named inline. The sourcing requirement stands; only its display moves from the prose to the one header line.",
       "by": "commander, session 4450a586",
-      "proposal": null
+      "request": null
     },
     {
-      "id": "D022",
+      "id": "De022",
       "date": "2026-09-20",
-      "subject": "P010, the record-keeping method",
-      "decision": "Approved. Discussion required on the procedures room before construction. The commander also said DS004 is at the correct density for their perusal.",
-      "by": "commander, P010 decision line and session 4450a586",
-      "proposal": "P010"
+      "subject": "Rq010, the record-keeping method",
+      "decision": "Approved. Discussion required on the procedures room before construction. The commander also said Ds004 is at the correct density for their perusal.",
+      "by": "commander, Rq010 decision line and session 4450a586",
+      "request": "Rq010"
     },
     {
-      "id": "D023",
+      "id": "De023",
       "date": "2026-09-20",
-      "subject": "DS004's four decisions and the procedures room",
-      "decision": "The commander liked the dossier and is happy to go with the pilot's calls. So, per the pilot's recommendations in DS004: (1) the DS002 reversal stands, no team mines for new records and the topic store is a fine-tuning source; (2) the commander reads the four stubs before they land; (3) the Validated line carries the team id and seat; (4) the label is Validated. On the procedures room: leave out the fc-surveyor; a basic scaffold with some starting procedures; flightcrew procedures are built after the cockpit fitout and the self-sustaining work settle (order O042).",
+      "subject": "Ds004's four decisions and the procedures room",
+      "decision": "The commander liked the dossier and is happy to go with the pilot's calls. So, per the pilot's recommendations in Ds004: (1) the Ds002 reversal stands, no team mines for new records and the topic store is a fine-tuning source; (2) the commander reads the four stubs before they land; (3) the Validated line carries the team id and seat; (4) the label is Validated. On the procedures room: leave out the fc-surveyor; a basic scaffold with some starting procedures; flightcrew procedures are built after the cockpit fitout and the self-sustaining work settle (order Or042).",
       "by": "commander, session 4450a586",
-      "proposal": "P010"
+      "request": "Rq010"
     },
     {
-      "id": "D024",
+      "id": "De024",
       "date": "2026-09-20",
       "subject": "The four stubs",
-      "decision": "Read by the commander: \"stubs are good, yours to promote.\" Landed in records/flightcrew/ as stubs. P009 is complete as amended by D020: register landed, four stubs landed, two drafts stay in the notepad.",
+      "decision": "Read by the commander: \"stubs are good, yours to promote.\" Landed in records/flightcrew/ as stubs. Rq009 is complete as amended by De020: register landed, four stubs landed, two drafts stay in the notepad.",
       "by": "commander, session 4450a586",
-      "proposal": "P009"
+      "request": "Rq009"
     },
     {
-      "id": "D025",
+      "id": "De025",
       "date": "2026-09-20",
-      "subject": "P011, the starting procedures, and how procedures are made from here",
-      "decision": "Commander approves: the pilot extracts procedures from live work and keeps them updated. The commander may advise and adjust procedures along the way. The starting procedures are all approved. This supersedes DS004 item 3's approval of each procedure singly before it lands: the pilot adds and updates, reports it in session and in the log, and the commander adjusts.",
-      "by": "commander, P011 decision line",
-      "proposal": "P011"
+      "subject": "Rq011, the starting procedures, and how procedures are made from here",
+      "decision": "Commander approves: the pilot extracts procedures from live work and keeps them updated. The commander may advise and adjust procedures along the way. The starting procedures are all approved. This supersedes Ds004 item 3's approval of each procedure singly before it lands: the pilot adds and updates, reports it in session and in the log, and the commander adjusts.",
+      "by": "commander, Rq011 decision line",
+      "request": "Rq011"
     },
     {
-      "id": "D026",
+      "id": "De026",
       "date": "2026-09-20",
-      "subject": "P013 and who may write in the cockpit",
-      "decision": "Commander amends: write is a restriction of role, not of place. The pilot writes only in its cockpit; teams are dispatched for internal or external work and write to the project, a launch or the cockpit. A team fitting out the cockpit writes there directly, inside a scope given by the pilot; the pilot links the team to the commander and records its own and the team's actions. P013's outside-build route is replaced by a scoped build inside the cockpit. Rule 1 of CLAUDE.md and the crew line rewritten to match.",
+      "subject": "Rq013 and who may write in the cockpit",
+      "decision": "Commander amends: write is a restriction of role, not of place. The pilot writes only in its cockpit; teams are dispatched for internal or external work and write to the project, a launch or the cockpit. A team fitting out the cockpit writes there directly, inside a scope given by the pilot; the pilot links the team to the commander and records its own and the team's actions. Rq013's outside-build route is replaced by a scoped build inside the cockpit. Rule 1 of CLAUDE.md and the crew line rewritten to match.",
       "by": "commander, session b27e6c01",
-      "proposal": "P013"
+      "request": "Rq013"
     },
     {
-      "id": "D027",
+      "id": "De027",
       "date": "2026-09-20",
-      "subject": "DS006's remaining decisions: advice files, lint strength, naming, manifests, rooms",
-      "decision": "Commander rules: the pilot repairs the identifiers in CA001 to CA003 itself, on its own judgement; a procedure should create an advice file with its metadata filled whenever a request is written. The lint is non-blocking: small output on success; on error, enough guidance to fix directly without a tool call, by a small edit rather than a large write; whatever saves the most tokens and reduces churn. Earlier in the session the commander ruled the identifier set and rule (O046 to O049), the room structure with notepad, manuals and extracts (O050), the context chain, one dispatch register and MANIFEST-<collection> naming matched to the ID's full name (O051, O052), and what gets an ID, a name or both (O053). The commander also ordered rule 12 of CLAUDE.md: the pilot holds crew returns quietly and speaks when the commander's input is needed.",
+      "subject": "Ds006's remaining decisions: advice files, lint strength, naming, manifests, rooms",
+      "decision": "Commander rules: the pilot repairs the identifiers in CA001 to CA003 itself, on its own judgement; a procedure should create an advice file with its metadata filled whenever a request is written. The lint is non-blocking: small output on success; on error, enough guidance to fix directly without a tool call, by a small edit rather than a large write; whatever saves the most tokens and reduces churn. Earlier in the session the commander ruled the identifier set and rule (Or046 to Or049), the room structure with notepad, manuals and extracts (Or050), the context chain, one dispatch register and MANIFEST-<collection> naming matched to the ID's full name (Or051, Or052), and what gets an ID, a name or both (Or053). The commander also ordered rule 12 of CLAUDE.md: the pilot holds crew returns quietly and speaks when the commander's input is needed.",
       "by": "commander, session b27e6c01",
-      "proposal": "P013"
+      "request": "Rq013"
     }
   ],
   "fields_note": "superseded_by: present when a later decision replaces this one; the newer statement wins."

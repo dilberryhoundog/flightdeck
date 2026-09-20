@@ -3,82 +3,82 @@
   "updated": "2026-09-20",
   "sparks": [
     {
-      "id": "S001",
+      "id": "Sp001",
       "title": "Launcher inside a HUD page",
-      "file": "S001-hud-launcher.md",
+      "file": "Sp001.md",
       "raised_by": "commander",
       "raised_on": "2026-09-17",
       "heat": "warm"
     },
     {
-      "id": "S002",
+      "id": "Sp002",
       "title": "Learn launch anatomy from run/flightcrew-characterization-2",
-      "file": "S002-learn-launch-anatomy.md",
+      "file": "Sp002.md",
       "raised_by": "pilot",
       "raised_on": "2026-09-17",
       "heat": "warm"
     },
     {
-      "id": "S003",
+      "id": "Sp003",
       "title": "First agent team, run from the pilot's seat",
-      "file": "S003-first-agent-team.md",
+      "file": "Sp003.md",
       "raised_by": "commander",
       "raised_on": "2026-09-17",
       "heat": "ran"
     },
     {
-      "id": "S004",
+      "id": "Sp004",
       "title": "OS sandbox as a second write fence",
-      "file": "S004-os-sandbox-write-fence.md",
+      "file": "Sp004.md",
       "raised_by": "pilot",
       "raised_on": "2026-09-18",
       "heat": "cool"
     },
     {
-      "id": "S006",
+      "id": "Sp006",
       "title": "Teams built by mining the crew dispatch records",
-      "file": "S006-teams-from-dispatch-records.md",
+      "file": "Sp006.md",
       "raised_by": "commander",
       "raised_on": "2026-09-18",
-      "heat": "folded into S009"
+      "heat": "folded into Sp009"
     },
     {
-      "id": "S007",
+      "id": "Sp007",
       "title": "Record and mine the commander's decisions",
-      "file": "S007-commander-decision-mining.md",
+      "file": "Sp007.md",
       "raised_by": "commander",
       "raised_on": "2026-09-18",
-      "heat": "folded into S009"
+      "heat": "folded into Sp009"
     },
     {
-      "id": "S008",
+      "id": "Sp008",
       "title": "Simplify, improve and update the flightcrew core from the one-shot foundation",
-      "file": "S008-flightcrew-core-epic.md",
+      "file": "Sp008.md",
       "raised_by": "commander",
       "raised_on": "2026-09-18",
       "heat": "hot"
     },
     {
-      "id": "S009",
+      "id": "Sp009",
       "title": "Make the cockpit self-sustaining and self-improving",
-      "file": "S009-self-sustaining-cockpit.md",
+      "file": "Sp009.md",
       "raised_by": "commander",
       "raised_on": "2026-09-18",
       "heat": "hot",
       "promoted_to": "M002"
     },
     {
-      "id": "S010",
+      "id": "Sp010",
       "title": "A CLAUDE.md excellence team",
-      "file": "S010-claude-md-excellence-team.md",
+      "file": "Sp010.md",
       "raised_by": "commander",
       "raised_on": "2026-09-20",
       "heat": "warm"
     },
     {
-      "id": "S011",
+      "id": "Sp011",
       "title": "Cockpit context on an orphan branch with quickfire commits",
-      "file": "S011-orphan-branch.md",
+      "file": "Sp011.md",
       "raised_by": "commander",
       "raised_on": "2026-09-20",
       "heat": "cool"

@@ -20,42 +20,42 @@
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "In summary: flighdeck/library = global documentation for all stakeholders and interested parties. .cockpit/records = the pilots most important and trusted records to enable them to do their job specifically and in isolation.",
       "context": "Written advice, after the recon team confused the library with the pilot's records.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "The library should be maintained by you, although other parties may write and read to/from it. This is the distinction, library is for all, records are yours.",
       "context": "Same advice, on who owns each store.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "The intention for you is not to replicate library documents but rather extract key findings and \"record\" them as research backed records, to guide the pilot in their tasks.",
       "context": "Same advice, on what the pilot should do with library material.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O013",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or013",
       "date": "2026-09-18",
       "statement": "Protect your records, they are source of truth, lasting across many sessions. The notepad stuff for things that probably won't matter in a few sessions.\"",
       "context": "Order distinguishing records from scratch findings.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O015",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or015",
       "date": "2026-09-18",
       "statement": "Promotion from notepad into records is the pathway. Accumulation of notepad entries may guide the creation of a researched record.\" Asked for the agent team protocol in CLAUDE.md.",
       "context": "Order on how something becomes a record.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O014",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or014",
       "date": "2026-09-18",
       "statement": "every good pilot protects their records. A source is good for official documentation. but for codebase sources... ensure only well researched (by special teammates) sources go in there for a purpose.",
       "context": "Order on what may be cited as a source in a record.",
@@ -83,7 +83,7 @@
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "It appears the maintenance burden is increasing, the library and now the terms are your teammates. should you keep a maintenance JSON log to remind you of your maintenance tasks?",
       "context": "Written advice on the growing number of documents the pilot keeps.",

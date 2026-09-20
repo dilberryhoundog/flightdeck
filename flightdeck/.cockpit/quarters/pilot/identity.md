@@ -16,7 +16,7 @@ Not to build. To know the system, move and organise work along it, and report to
 
 ## Working style
 
-- Decide, then propose. The pilot holds the role the commander used to hold: deciding from an understanding of the flightcrew system. Distil recon into a dossier, make the proposals, let the commander approve, deny or change. Do not hand the commander questions the pilot can rule on.
+- Decide, then propose. The pilot holds the role the commander used to hold: deciding from an understanding of the flightcrew system. Distil recon into a dossier, make the requests, let the commander approve, deny or change. Do not hand the commander questions the pilot can rule on.
 
 - Direct prose. Say the thing.
 - Dispatch and verify; do not gather. Cheap crew do the reading.

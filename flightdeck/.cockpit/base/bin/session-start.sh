@@ -29,7 +29,7 @@ print("[cockpit] current_mission=%s" % (load(cockpit + "/missions/missions.json"
 others = [l for l in logs if l not in mine]
 if others:
     print("[cockpit] latest_log=flightdeck/.cockpit/logs/%s" % others[-1]["file"])
-awaiting = [p["id"] for p in load(cockpit + "/base/proposals.json").get("proposals", []) if p.get("status") == "awaiting"]
-print("[cockpit] proposals_awaiting=%d %s" % (len(awaiting), " ".join(awaiting)))
+awaiting = [p["id"] for p in load(cockpit + "/base/proposals.json").get("requests", []) if p.get("status") == "awaiting"]
+print("[cockpit] requests_awaiting=%d %s" % (len(awaiting), " ".join(awaiting)))
 print("[cockpit] Follow the session start procedure in flightdeck/.cockpit/CLAUDE.md before acting.")
 EOF

@@ -6,63 +6,63 @@
   "updated": "2026-09-18",
   "statements": [
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "Claude Code has a unique interaction truth. A user defines their application a few response lines at a time every turn. In HITL work the user holds the \"vision\" and gently steers and corrects the agent over time towards this so that eventually the correct vision is built. With Agent dominant work agents talk to each other or follow specific paths, the vision over the terrain is in short supply.",
       "context": "Written advice, stating the problem this whole process exists to solve.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "A change of approach is needed. The user needs to have their statements when working with inside sessions mined, stored and then converted in to sharp and powerful vision records that agents can pin their actions to.",
       "context": "Same advice, stating the remedy.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "A topic extractor pulls and manages the topics the commander talks over repeatedly, as json files. these need permanent storage somewhere. Statements can then be pulled from transcripts and filed against the topics. with basic meta data like reference, statement, brief leadup context statement. ill leave the finer details upto you (what constitutes a topic etc).",
       "context": "Same advice, defining the first member of the research team.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "A record writer collates all the commanders' statements in a topic file into a timeless record of the topics vision as per the \"good record\" rules. it can also do things like split topics. also purge older statements from topics that are no longer relevant, also the recorder can update a record if the topic has recent changes.",
       "context": "Same advice, defining the second member.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "A discovery type teammate is also dispatched to fetch the surrounding infrastruture terrain and confirm or make findings the topic needs to be a validated referenced topic.",
       "context": "Same advice, defining the third member.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "A validator takes in dispute claims from other teammates or disputes claims by itself, and verifies and adjudicates on the claim. the validator can check anthropic sources, claude code harness records and other library documents.",
       "context": "Same advice, defining the adjudicating member.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "The intention here is to organically build reference topics the pilot can easily refer to when doing their job. This process can be periodically conducted to pick up more commanders knowledge and convert into records.",
       "context": "Same advice, on how often this runs.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "Converge on a certified research team that writes records for you. What has happened is a recon team has returned back with the general lay of the land. This should give you enough recon to send out a team that pulls in this research, with a tighter focus, sanitizes it for the pilot and configures it as a bonafide source record.",
       "context": "Earlier written advice that set this team in motion.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "run it past the commander before landing as a bonafide record.",
       "context": "Same advice, on what happens before a record is accepted.",

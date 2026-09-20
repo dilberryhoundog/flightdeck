@@ -1,144 +1,144 @@
 {
   "version": 1,
   "updated": "2026-09-20",
-  "proposals": [
+  "requests": [
     {
-      "id": "P001",
+      "id": "Rq001",
       "title": "Survey run/flightcrew-characterization-2 before any new launch",
       "status": "superseded",
-      "file": "../commanders-desk/in-proposals/P001-survey-characterization-run-2.md",
+      "file": "../commanders-desk/in-requests/done/Rq001.md",
       "raised": "2026-09-17",
       "mission": "M001",
       "decided": "2026-09-18",
       "note": "superseded: the recon team ordered 2026-09-18 covers the run branches with the commander's approval already given"
     },
     {
-      "id": "P002",
+      "id": "Rq002",
       "title": "Decide the canonical home for crew role definitions",
       "status": "withdrawn",
-      "file": "../commanders-desk/in-proposals/P002-decide-canonical-crew-source.md",
+      "file": "../commanders-desk/in-requests/done/Rq002.md",
       "raised": "2026-09-17",
       "mission": "M001",
       "decided": "2026-09-18",
-      "note": "withdrawn to the workshop as W008: too small for a proposal, a mission on flightcrew structure will sweep it"
+      "note": "withdrawn to the workshop as WS008: too small for a request, a mission on flightcrew structure will sweep it"
     },
     {
-      "id": "P003",
+      "id": "Rq003",
       "title": "Repair STRUCTURE.md and liftoff.template.yaml paths",
       "status": "withdrawn",
-      "file": "../commanders-desk/in-proposals/P003-repair-stale-structure-docs.md",
+      "file": "../commanders-desk/in-requests/done/Rq003.md",
       "raised": "2026-09-17",
       "mission": "M001",
       "decided": "2026-09-18",
-      "note": "withdrawn to the workshop as W009: a fix, not a proposal"
+      "note": "withdrawn to the workshop as WS009: a fix, not a request"
     },
     {
-      "id": "P004",
+      "id": "Rq004",
       "title": "Open three missions now, two on the horizon, incubate the three launches",
       "status": "amended",
-      "file": "../commanders-desk/in-proposals/P004-open-missions-from-the-cut.md",
+      "file": "../commanders-desk/in-requests/Rq004.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS001",
+      "dossier": "Ds001",
       "decided": "2026-09-18",
-      "note": "see decisions.json and commanders-desk/out-advice/DS001.md"
+      "note": "see decisions.json and commanders-desk/out-advice/CA001.md"
     },
     {
-      "id": "P005",
+      "id": "Rq005",
       "title": "The pilot's rulings on the cutter's nine open questions",
       "status": "amended",
-      "file": "../commanders-desk/in-proposals/P005-rulings-on-the-open-questions.md",
+      "file": "../commanders-desk/in-requests/Rq005.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS001",
+      "dossier": "Ds001",
       "decided": "2026-09-18",
-      "note": "see decisions.json and commanders-desk/out-advice/DS001.md"
+      "note": "see decisions.json and commanders-desk/out-advice/CA001.md"
     },
     {
-      "id": "P006",
+      "id": "Rq006",
       "title": "Promote three recon briefings to records",
       "status": "amended",
-      "file": "../commanders-desk/in-proposals/P006-promote-briefings-to-records.md",
+      "file": "../commanders-desk/in-requests/Rq006.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS001",
+      "dossier": "Ds001",
       "decided": "2026-09-18",
-      "note": "see decisions.json and commanders-desk/out-advice/DS001.md"
+      "note": "see decisions.json and commanders-desk/out-advice/CA001.md"
     },
     {
-      "id": "P007",
+      "id": "Rq007",
       "title": "Branch hygiene: prune contained branches, push stale remotes",
       "status": "amended",
-      "file": "../commanders-desk/in-proposals/P007-branch-hygiene.md",
+      "file": "../commanders-desk/in-requests/Rq007.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS001",
+      "dossier": "Ds001",
       "decided": "2026-09-18",
-      "note": "see decisions.json and commanders-desk/out-advice/DS001.md"
+      "note": "see decisions.json and commanders-desk/out-advice/CA001.md"
     },
     {
-      "id": "P008",
+      "id": "Rq008",
       "title": "Land the five research records",
       "status": "amended",
-      "file": "../commanders-desk/in-proposals/P008-land-the-five-records.md",
+      "file": "../commanders-desk/in-requests/Rq008.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS002",
+      "dossier": "Ds002",
       "decided": "2026-09-18",
-      "note": "see decisions.json and commanders-desk/out-advice/DS002.md"
+      "note": "see decisions.json and commanders-desk/out-advice/CA002.md"
     },
     {
-      "id": "P009",
+      "id": "Rq009",
       "title": "Land the seven records",
       "status": "executed",
-      "file": "../commanders-desk/in-proposals/P009-land-the-seven-records.md",
+      "file": "../commanders-desk/in-requests/Rq009.md",
       "raised": "2026-09-18",
       "mission": "M001",
-      "dossier": "DS003",
+      "dossier": "Ds003",
       "decided": "2026-09-19",
-      "note": "executed as amended: D020, D024"
+      "note": "executed as amended: De020, De024"
     },
     {
-      "id": "P010",
+      "id": "Rq010",
       "title": "Adopt the record-keeping method",
       "status": "executed",
-      "file": "../commanders-desk/in-proposals/P010-adopt-the-record-keeping-method.md",
+      "file": "../commanders-desk/in-requests/Rq010.md",
       "raised": "2026-09-19",
       "mission": "M001",
-      "dossier": "DS004",
+      "dossier": "Ds004",
       "decided": "2026-09-20",
-      "note": "D022, D023; all five steps executed 2026-09-20, step 5 raised as P012"
+      "note": "De022, De023; all five steps executed 2026-09-20, step 5 raised as Rq012"
     },
     {
-      "id": "P011",
+      "id": "Rq011",
       "title": "Approve the starting procedures",
       "status": "executed",
-      "file": "../commanders-desk/in-proposals/P011-approve-the-starting-procedures.md",
+      "file": "../commanders-desk/in-requests/Rq011.md",
       "raised": "2026-09-20",
       "mission": "M001",
-      "dossier": "DS005",
+      "dossier": "Ds005",
       "decided": "2026-09-20",
-      "note": "D025"
+      "note": "De025"
     },
     {
-      "id": "P012",
+      "id": "Rq012",
       "title": "Guard the unmerged branch",
       "status": "awaiting",
-      "file": "../commanders-desk/in-proposals/P012-guard-the-unmerged-branch.md",
+      "file": "../commanders-desk/in-requests/Rq012.md",
       "raised": "2026-09-20",
       "mission": "M001",
-      "dossier": "DS004"
+      "dossier": "Ds004"
     },
     {
-      "id": "P013",
+      "id": "Rq013",
       "title": "Build stage A of the paperwork check, outside the cockpit",
       "status": "amended",
-      "file": "../commanders-desk/in-proposals/P013-build-stage-a-outside.md",
+      "file": "../commanders-desk/in-requests/Rq013.md",
       "raised": "2026-09-20",
       "mission": "M001",
-      "dossier": "DS006",
+      "dossier": "Ds006",
       "decided": "2026-09-20",
-      "note": "D026, D027: approved with the build route changed to a scoped build inside the cockpit"
+      "note": "De026, De027: approved with the build route changed to a scoped build inside the cockpit"
     }
   ]
 }

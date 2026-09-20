@@ -9,7 +9,7 @@ Reads: the mandate, rule 2, the records, the advice files, the orders file, the 
 ## Record
 
 About ninety findings across two teams; caught the reversed tiering, the invented 'cheap beats strong' quote, three false negatives in the guidance record, the over-broad gates supersession, the vanished launch file. Its misses shared one shape: true evidence, wrong inference, one command short (a framing under a correct id; a first match taken as the only one; a summarising fetch taken as an absence).
-T009 (decision paper): 23 findings and nine closing items, verdict stands with amendments; named two missing options (auto memory, hook enforcement) and an unnamed reversal of DS002; withdrew one finding that ran against a fresh ruling; passed residuals ahead of its closing pass so they closed in one revision.
+T009 (decision paper): 23 findings and nine closing items, verdict stands with amendments; named two missing options (auto memory, hook enforcement) and an unnamed reversal of Ds002; withdrew one finding that ran against a fresh ruling; passed residuals ahead of its closing pass so they closed in one revision.
 
 ## Next time
 

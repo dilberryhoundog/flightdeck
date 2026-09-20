@@ -12,7 +12,7 @@
       "assigned_by": "commander",
       "opened": "2026-09-17",
       "closed": null,
-      "progress": "Phase 4 opened: the commander's out-ideas explored by T010 and settled in DS006 (identifier set ruled O046 to O049; stage A reference checker first, then the identifier pass, then a refactor team for the schema store, manifests, frontmatter and rooms). P013 (build stage A outside the cockpit) and P012 (guard) await the commander, with nine decisions in DS006. Still open from phase 3: the pilot's agent body, the mission cut and doctrine briefing approvals."
+      "progress": "Phase 4 opened: the commander's out-ideas explored by T010 and settled in Ds006 (identifier set ruled Or046 to Or049; stage A reference checker first, then the identifier pass, then a refactor team for the schema store, manifests, frontmatter and rooms). Rq013 (build stage A outside the cockpit) and Rq012 (guard) await the commander, with nine decisions in Ds006. Still open from phase 3: the pilot's agent body, the mission cut and doctrine briefing approvals."
     },
     {
       "id": "M002",
@@ -23,7 +23,7 @@
       "assigned_by": "commander",
       "opened": "2026-09-20",
       "closed": null,
-      "progress": "Horizon. Promoted from S009 on the commander's word; goal, definition of done and objectives written; begins when the commander makes it current."
+      "progress": "Horizon. Promoted from Sp009 on the commander's word; goal, definition of done and objectives written; begins when the commander makes it current."
     }
   ],
   "incubator": "incubator/incubator.json",

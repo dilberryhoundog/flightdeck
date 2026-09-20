@@ -10,7 +10,7 @@
       "date": "2026-09-08",
       "statement": "Ok, its simple, launch = run, run/awesome-run = run instance, awesome-run/spec/spec.v1.json = spec instance, awesome-run/spec/spec.v2.json = new spec instance, awesome-run/run-assets = assets acumulated over a run.",
       "context": "First attempt at fixing the vocabulary after finding duplicated spec folders.",
-      "superseded_by": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md"
+      "superseded_by": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md"
     },
     {
       "ref": "8fdc3b29:3039",
@@ -34,14 +34,14 @@
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "A launch is definitely not \"one run of one spec\". I have defined it better in conversation, but it is an intent to complete a piece of work and includes all the infrastructure to do this. This includes \"runs\" which are attempts at completing the work, the spec and its versions as runs converge on done and alot of run generated artifacts etc.",
       "context": "Written advice correcting the recon team, which had defined a launch as one run of one spec.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "a launch succeeds not from a bunch of commands run in sequence, but agent teams all converging on success, like a prebuild (spec and tests and plan), then the build (orch workflows), then review and cleanup (decide done, gather intel, setup next run, or merge and move on)",
       "context": "Written advice, arriving at the shape of a launch while describing teams.",

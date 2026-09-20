@@ -3,72 +3,72 @@
   "updated": "2026-09-19",
   "dossiers": [
     {
-      "id": "DS001",
+      "id": "Ds001",
       "title": "Flightcrew recon: where the system stands and what to fly next",
-      "file": "DS001-flightcrew-recon.md",
+      "file": "Ds001.md",
       "written": "2026-09-18",
       "from": "notepad/recon-2026-09-18/",
       "mission": "M001",
-      "proposals": [
-        "P004",
-        "P005",
-        "P006",
-        "P007"
+      "requests": [
+        "Rq004",
+        "Rq005",
+        "Rq006",
+        "Rq007"
       ]
     },
     {
-      "id": "DS002",
+      "id": "Ds002",
       "title": "Five records for the pilot, ready for the commander's review",
-      "file": "DS002-research-records.md",
+      "file": "Ds002.md",
       "written": "2026-09-18",
       "from": "notepad/research-2026-09-18/",
       "mission": "M001",
-      "proposals": [
-        "P008"
+      "requests": [
+        "Rq008"
       ]
     },
     {
-      "id": "DS003",
+      "id": "Ds003",
       "title": "Seven records from the commander's own words, ready for review",
-      "file": "DS003-first-records.md",
+      "file": "Ds003.md",
       "written": "2026-09-18",
       "from": "notepad/research-2026-09-18/ and logs/topics/",
       "mission": "M001",
-      "proposals": [
-        "P009"
+      "requests": [
+        "Rq009"
       ]
     },
     {
-      "id": "DS004",
+      "id": "Ds004",
       "title": "How the cockpit keeps records: the decision team's answer",
-      "file": "DS004-record-keeping.md",
+      "file": "Ds004.md",
       "written": "2026-09-19",
       "from": "notepad/decision-2026-09-19/",
       "mission": "M001",
-      "proposals": [
-        "P010"
+      "requests": [
+        "Rq010"
       ]
     },
     {
-      "id": "DS005",
+      "id": "Ds005",
       "title": "The procedures room: scaffold and five starting procedures",
-      "file": "DS005-procedures-room.md",
+      "file": "Ds005.md",
       "written": "2026-09-20",
       "from": "notepad/decision-2026-09-19/procedures-scaffold.md",
       "mission": "M001",
-      "proposals": [
-        "P011"
+      "requests": [
+        "Rq011"
       ]
     },
     {
-      "id": "DS006",
+      "id": "Ds006",
       "title": "The cockpit's paperwork: identifiers, manifests, frontmatter, rooms and a schema store",
-      "file": "DS006-cockpit-paperwork.md",
+      "file": "Ds006.md",
       "written": "2026-09-20",
       "from": "notepad/ideas-2026-09-20/paper-final.md",
       "mission": "M001",
-      "proposals": [
-        "P013"
+      "requests": [
+        "Rq013"
       ]
     }
   ]

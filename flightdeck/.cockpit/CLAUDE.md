@@ -70,7 +70,7 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 - `workshop/` — fixes, problems and recurring maintenance, back-at-base work; `workshop.json`.
 - `dispatch/` — the pilot's teams as JSON per room (`cockpit.json`), with seats, shape, outcome and lessons inside each entry; `rosters.json` names favourite setups for repeat dispatch.
 - `logs/` — session logs, `topics/` (the commander's statements by topic), `branch-manifest.json`, the frozen `crew-manifest.json`.
-- `base/` — dossiers (`dossiers/`, recon distilled for the commander's desk), proposals awaiting the commander (`proposals.json`), decisions (`decisions.json`), the pilot's settings file and the scripts that launch and guard the pilot. Recon stays raw in the notepad; the pilot distils it into a dossier; the dossier boils down into proposals; the commander approves, denies or changes.
+- `base/` — dossiers (`dossiers/`, recon distilled for the commander's desk), requests awaiting the commander (`proposals.json`), decisions (`decisions.json`), the pilot's settings file and the scripts that launch and guard the pilot. Recon stays raw in the notepad; the pilot distils it into a dossier; the dossier boils down into requests; the commander approves, denies or changes.
 - `procedures/` — the cockpit's logic engine: pre-recorded routines matching a roster with tasks, context and steps; `triggers.md` is the manifest, `procedures.json` the index.
 - `records/` — the source of truth. Rule 2 is the docspec; `records/README.md` indexes them.
 - `notepad/` — scratch. The `.claude` folder is a side room for scratch too.

@@ -224,6 +224,27 @@
       "agent_type": "general-purpose",
       "model": "opus",
       "status": "active"
+    },
+    {
+      "name": "commander-advocate",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active"
+    },
+    {
+      "name": "schema-builder",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active"
+    },
+    {
+      "name": "refitter",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active"
     }
   ]
 }

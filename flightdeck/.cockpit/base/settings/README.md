@@ -11,6 +11,6 @@ Keys in use:
 - `crossSessionInbound: accept` — other sessions on this machine may message the pilot directly.
 - `isolatePeerMachines: true` — nothing leaves the machine without the commander's approval.
 - `hooks.PreToolUse` — runs `../bin/cockpit-guard.py` on Write, Edit, MultiEdit, NotebookEdit and Bash, for the pilot and its teammates. Blocks writes outside the cockpit and `dev/workspace`. Mandate one enforced mechanically, on the commander's order.
-- `hooks.SessionStart` — runs `../bin/session-start.sh`, which prints CLI version, session id, log name, branch, current mission, latest log and proposals awaiting into the pilot's opening context.
+- `hooks.SessionStart` — runs `../bin/session-start.sh`, which prints CLI version, session id, log name, branch, current mission, latest log and requests awaiting into the pilot's opening context.
 
 Changing this file changes how the pilot session behaves. Record every change in the log.

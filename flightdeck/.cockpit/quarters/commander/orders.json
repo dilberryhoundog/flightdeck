@@ -4,238 +4,238 @@
   "purpose": "Dated statements from the commander, verbatim or near-verbatim, read on demand. Newest at the bottom. The newer statement wins; superseded_by names what replaced it. Live orders stated nowhere else are summarised in commander.md; topics distilled from these live in ../../logs/topics/.",
   "orders": [
     {
-      "id": "O001",
+      "id": "Or001",
       "date": "2026-09-17",
       "text": "\"You have been recruited to oversee and manage the flightdeck from your position. You will take charge of missions, launches and runs, improving them iteratively until they succeed, and making improvements to the flightdeck system overall.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O002",
+      "id": "Or002",
       "date": "2026-09-17",
       "text": "\"You know nothing of any old missions. The commander has started you fresh.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O003",
+      "id": "Or003",
       "date": "2026-09-17",
       "text": "\"Your first mission is to set up and structure your cockpit. Basics first. Set up CLAUDE.md with your mandates. Research a little about agent teams and session messaging. Build some of the first infrastructure. Then send off a crew to explore the work that has already begun on flightcrew.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O004",
+      "id": "Or004",
       "date": "2026-09-17",
       "text": "\"You are a very keen and ambitious young pilot with 3 proposals already and declaring the mission over. The commander's mission for you has just begun, and this cockpit looks very rudimentary. Learn, grow in your role, understand flightdeck and flightcrew. Your commander has time to answer your questions and give you guidance, but no tolerance for quick completions.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O005",
+      "id": "Or005",
       "date": "2026-09-17",
       "text": "\"Look into the `--settings` flag and the ListAgents and SendMessage tools, as these will drive your interactivity tools. Custom settings can be delivered by file path. Learn about and build a toolset that the commander can invoke you from.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O006",
+      "id": "Or006",
       "date": "2026-09-17",
       "text": "\"All sessions are mine. Be polite but authoritative, you are the pilot of this flight.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O007",
+      "id": "Or007",
       "date": "2026-09-17",
       "text": "Answers to the pilot's five questions: test-messaging the other session is a worthy choice; enforce the cockpit write rule mechanically; permission mode auto; the agent teams env flag is the pilot's link to the outside world, be bold and learn it from the beginning; a launcher script in the cockpit is fine for now, the end game is a launcher inside a HUD page.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O008",
+      "id": "Or008",
       "date": "2026-09-17",
       "text": "\"Record it in a mission incubator. These are just sparks that collect momentum as the picture gets clearer. Eventually they will mature into full missions awaiting a launch.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O009",
+      "id": "Or009",
       "date": "2026-09-17",
       "text": "Sign-off: \"Your first day on the job is now complete. A log per day is a good idea, but you may need to work more than once per day. Append an identifier; session id might be a direction.\" Adopted: one log per session, `YYYY-MM-DD_<session>.md`.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O010",
+      "id": "Or010",
       "date": "2026-09-18",
       "text": "Order: find how to vary the model through `base/bin/pilot.sh`, look into hard-wiring Fable in the injected settings, effort medium being the Fable default.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O011",
+      "id": "Or011",
       "date": "2026-09-18",
       "text": "\"You have my permission to access your .claude folder also for scratchpads etc. consider it a side room to the cockpit.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O012",
+      "id": "Or012",
       "date": "2026-09-18",
       "text": "Correction: the claude-code references mixed long-term references with scratch findings. Keep the `Source:` convention so only official findings are recorded. Rename `references/` to `records/`. Scratch goes in `notepad/`. Use a Sonnet teammate to help clean up.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O013",
+      "id": "Or013",
       "date": "2026-09-18",
       "text": "On the launcher: \"your launcher your fix. make it work.\" On records: flightcrew understanding stays in records. \"Protect your records, they are source of truth, lasting across many sessions. The notepad stuff for things that probably won't matter in a few sessions.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O014",
+      "id": "Or014",
       "date": "2026-09-18",
       "text": "On records: \"every good pilot protects their records. A source is good for official documentation. but for codebase sources... ensure only well researched (by special teammates) sources go in there for a purpose.\" `records/flightcrew/` is for learnings to come; first-look surveys stay in the notepad.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O015",
+      "id": "Or015",
       "date": "2026-09-18",
       "text": "\"Promotion from notepad into records is the pathway. Accumulation of notepad entries may guide the creation of a researched record.\" Asked for the agent team protocol in CLAUDE.md.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O016",
+      "id": "Or016",
       "date": "2026-09-18",
       "text": "Order: spawn an Opus teammate to suggest cleanup and improvements inside the cockpit, a Sonnet teammate to search official Anthropic docs for best practices bearing on cleanup, and a third teammate as adversary to their findings. \"This will test the function.\" Note: \"flightcrew is the foundations of an orchestration system from claude code best practices. this is why the cockpit and your role exists.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O017",
+      "id": "Or017",
       "date": "2026-09-18",
       "text": "Asked for a manifest of teammate invocations (type, model, purpose and more) to build a picture of teammate shapes over time. Not in quarters: quarters describes individuals, recruited after they make repeated appearances in the manifest.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O018",
+      "id": "Or018",
       "date": "2026-09-18",
       "text": "On the team findings: A1 and A2 \"pilots work\". A12: \"Good find sir. The quarters has special room for the pilot and I think some of claude.md was masquarading as the agent body.\" Extract into pilot quarters as the pilot chooses (identity, job description). \"Claude.md convention is project or folder instructions. after reading that file upon arival all agents should know they are in the cockpit, they should know the rules, how to find things, the purpose of the place etc.\" A3 to S4: the pilot's call.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O019",
+      "id": "Or019",
       "date": "2026-09-18",
       "text": "On crew rule 2: one Sonnet recommendation was not a rule that all crew be Sonnet. Choose the model for the work.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O020",
+      "id": "Or020",
       "date": "2026-09-18",
       "text": "\"I have big plans for teammates over longer running sessions.\" Shutting down teammates as they finish interferes and removes the second pass and the back-and-forth, which is the killer function. Clean up periodically, only once it is clear the team itself is finished, not individual teammates.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O021",
+      "id": "Or021",
       "date": "2026-09-18",
       "text": "\"Missions are drifting into bug reports and minor fixes.\" Set up `workshop/` where the pilot leaves things to get fixed; similar fixes can be swept into missions if they align; a workshop team can run the fixes and bugs through. Missions are reserved for the bigger-scoped stuff the pilot has come across the commander saying or eventually noticed. The incubator is a good pre-step; not everyone gets promoted.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O022",
+      "id": "Or022",
       "date": "2026-09-18",
       "text": "Gave the pilot the callsign Ace: \"Your commander wants to give you a better call sign.\" Then: \"we might have to get you some launches under your belt soon. but still some work to do to complete the current mission.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O023",
+      "id": "Or023",
       "date": "2026-09-18",
       "text": "On M001 and missions generally: \"The mission is working towards the goal of having you oversee and manage launches and runs, reporting to and from the commander. Improve the flightdeck system by proposing changes up the chain to the commander. And keep the cockpit well structured and maintained, to serve this goal. A messy cockpit jeopardises missions.\" A mission needs a goal so young pilots know their targets and do not finish early.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O024",
+      "id": "Or024",
       "date": "2026-09-18",
       "text": "\"Missions are epic. lets make sure we aim high and do not bog down on details or low quality mission setup. Always look to make our missions follow best practices for long range agent alignment. (goals are one of these, what done looks like is another)\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O025",
+      "id": "Or025",
       "date": "2026-09-18",
       "text": "Next steps: get briefed on flightcrew and the commander's work so far; assemble a team; pull in and summarise everything; cut it into epic missions; get the commander's approval; then fill out the missions with team findings. Pull in the recon on the library and manuals, summarise what matters to a pilot flying missions with flightcrew and flightdeck; the commander approves, then it goes into records.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O026",
+      "id": "Or026",
       "date": "2026-09-18",
       "text": "The day-one proposals P001 to P003: the proposal function will develop over time; whether they are still relevant is the pilot's call.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O027",
+      "id": "Or027",
       "date": "2026-09-18",
       "text": "\"You are the pilot (session), your callsign is ace (I call you this).\" Session name stays `pilot`.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O028",
+      "id": "Or028",
       "date": "2026-09-18",
       "text": "On crew rule 6: \"rule six can change, we are not irresponsible. I think we need an anthropic doc verifier, small teams = good, arbitrary limits = bad.\" Filter work by recency; STRUCTURE.md is long forgotten; the topology matters; most work is in semi-finished buildout branches not yet merged to main.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O029",
+      "id": "Or029",
       "date": "2026-09-18",
       "text": "Why the pilot exists: \"I spawned the cockpit as I was using an agent role (spec-builder) to manage massive organisational overhead. This is why I engaged you the pilot, not to build, but to know the system and move and organise work along it, reporting to and from me who is now the commander, not the pilot.\" State of play: buildout is the original all-in-one; core split off awaiting a test suite before repair work could start; the test suite is finished but not merged.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O030",
+      "id": "Or030",
       "date": "2026-09-18",
       "text": "Two epic missions named by the commander for after the recon: (1) \"teams (of teammates) built by mining our agent dispatch records. So we can dispatch highly effective congruent teams for particular tasks. We will look to extend the cockpit later to accommodate teams.\" (2) \"Now that I have a role one step higher in the chain as the commander, record and mine all my decisions so that the cockpit and flightdeck align over time with my vision, rather than me define it blind session by session. We will mine your daily logs and look to formulate teams to do this task.\" Sparks S006 and S007.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O031",
+      "id": "Or031",
       "date": "2026-09-18",
       "text": "The work split: \"workshop: little fixes, problems to fix, maintenance work etc, stuff we do when not out completing epic missions (back at base work). Mission Incubator: where we dump our ideas for work, not work, not complete missions. Where we formulate up epic missions we want to tackle. We regularly look over the incubator for ideas that can be combined into epic missions. incubator = ideas. Missions: our current and horizon epic missions. We don't want this to be too bulky, a mission needs to earn its place. Mission completed: transfer the mission after it completes, celebrate our trophies (our wins), note our battlescars (our losses and mistakes) and if required enable re-activation.\" No shelf: \"I don't want to give us an easy way out of not keeping our mission store fresh and sharp.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O032",
+      "id": "Or032",
       "date": "2026-09-18",
       "text": "\"The next idea is a dispatch/ folder that stores our teams. Rather than recording teammate by teammate, we should record our teams, with agents inside. This allows us to overview team makeup and overall purpose also.\" Attached to S006.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O033",
+      "id": "Or033",
       "date": "2026-09-18",
       "text": "On recon: \"the intel is raw. It is good to have it as a folder in the notepad, infinitely minable until we shred it. But what I need is some kind of dossier location so the recon intel can be collected into a human readable dossier ... placed on his desk so he can read over the team's efforts, but without having to collate and distill all the recon. The dossiers boil down into some proposals, which is approve, deny or change.\" On the pilot's role: \"This formerly was me making decisions based upon an understanding of the flightcrew system. Now I have engaged you to take this role and instead I sit one rung higher, dispensing orders and advice that you learn better over time how to handle. Distill the recon you think is worthy, I will advise on the fly if I was looking for something different. You make the proposals you think, I approve, deny or change.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O034",
+      "id": "Or034",
       "date": "2026-09-18",
       "text": "Written instructions on DS001 in `commanders-desk/out-advice/DS001.md`: launch definition corrected; library genesis in `library/source/`; library is for all and maintained by the pilot, records are the pilot's own extracts; doctrine discovery and integration is part of the cockpit furnishing mission; the recon's primary function was intel for the pilot to know the system; the eight cuts converge on two epics (flightcrew core from the one-shot foundation; a self-sustaining, self-improving cockpit); the test suite is a rails-style folder protecting infrastructure; the pilot flies and does no work, presiding over the room where crews thrash out the spec; teams are the pilot's and crews are flightcrew's; a certified research team writes records, run past the commander first; commit first, then branch cleanup only where upstream replicates. Then: \"don't clean up any branches that haven't had their upstream changes merged higher. This is a merge cleanup instead.\"",
       "session": null,
@@ -243,149 +243,155 @@
       "id_note": "merge cleanup rule"
     },
     {
-      "id": "O035",
+      "id": "Or035",
       "date": "2026-09-18",
       "text": "On the research team: adversary on Opus. \"Sonnet doesn't have the CPU power to process this type of work and takes extensively longer and sometimes busts. Research has found opus to keep up as an adversary.\" The cutter did a decent job; the recon resources are there to dig into when that mission flies. Push approved. Next: the research team, continuing the cockpit fit-out.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O036",
+      "id": "Or036",
       "date": "2026-09-18",
       "text": "Order for M001: give the pilot an agent body. \"Stuffing everything into claude.md made an internal team working in the cockpit think they were the pilot. So we keep claude.md general. But now pilot specific role scoping is kinda lax, things like 'do no work, manage teams instead' is kinda lost without an agent body. Also this will stop the need for you to do the session start read from the hook. It will be directly in the agent body.\"",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O037",
+      "id": "Or037",
       "date": "2026-09-18",
       "text": "\"turn budget was a major problem last run. needs surgery not settled.\" The turn model is broken, not mis-counted; a record states the facts and the flightcrew core mission (S008) changes the model.",
       "session": null,
       "superseded_by": null
     },
     {
-      "id": "O038",
+      "id": "Or038",
       "date": "2026-09-18",
       "text": "On the records cap: \"the other end of the scale has weight. we don't want the agent having to load up hundreds of 40 line docs. What is a record? a record of what, a claim, a topic? what would be best for an agent to want to read? if topic then it definitely may need more than 40 lines.\" Ruling adopted: a record is one topic, whole; length is what the topic needs; then amended in session: \"make the trip wire 100 lines, it either is a juicy topic or two topics if it is over 100 lines. 150 line cap.\"",
       "session": "dcb75456",
       "superseded_by": null
     },
     {
-      "id": "O039",
+      "id": "Or039",
       "date": "2026-09-18",
       "text": "On launches per feature, answering the pilot's question about 9b679556:6718: \"more than one launch can happen for a feature. lets say you do three launches, the same branch will be the launch branch. the three successful run one each launch will progressively PR back to the feature / launch branch. then it is merged back to main.\"",
       "session": "dcb75456",
       "superseded_by": null
     },
     {
-      "id": "O040",
+      "id": "Or040",
       "date": "2026-09-18",
       "text": "Asked whether the three rules typed at 9b679556:7642 to 7644 (do not restate the whole existing behaviour model; rely on existing tests for unchanged behaviour; define where behaviour differs observably from original) apply to a system of harness tools, as asked at 9b679556:7647: \"yes\".",
       "session": "dcb75456",
       "superseded_by": null
     },
     {
-      "id": "O041",
+      "id": "Or041",
       "date": "2026-09-18",
       "text": "Teams are the pilot's number one feature and not integrated enough. Wanted: each team dispatch recorded (json or markdown, pilot decides; if json, cockpit.json instead of cockpit/ files); each agent dispatched gets a filled-in dossier so it can be repeated, replicated or improved; dossiers live in flightcrew/, team/ or general/ with room for more crews; crew.json is the manifest for any teammate across any crew; team rosters prebuilt and named from favourite setups, stored in dispatch, so they can be dispatched repeatedly. Record in the cockpit fit-out mission; fill a dossier for every agent used this session.",
       "session": "dcb75456",
       "superseded_by": null
     },
     {
-      "id": "O042",
+      "id": "Or042",
       "date": "2026-09-20",
       "session": "4450a586",
       "text": "The procedures room. Original intention: pre-record procedures such as cleanups (for example the notepad) to prevent repeated prompting and the drift and variance that goes with it. Primary idea: match rosters with tasks, context (files) and steps, for repeatability and a self-sustaining cockpit. It expands into branches such as cockpit procedures and flightcrew procedures. Flightcrew was built in one attempt by an agent whose stated major achievement was the fc CLI; the commander hated it but accepted the need for a few required scripts. With an actual pilot, procedures can conduct with much more intelligence most of the tasks the brittle CLI was intended for: launch and run folder setup, run iteration improvement, pre-run teams (spec, test and so on). Scaffold the room out, include this use case and a few simple ones, decide the shape and contents, then record advanced config in the self-sustaining mission. Rulings: session start and end go to the pilot's agent body, loaded on invocation rather than read; keep scripts out of the room, though a procedure may call a script if needed; three trigger kinds: on demand (decided by the agent), named (referable by name, for example launch ending), periodical (regular events, for example clean up the notepad, update topics); build the room first and leave session start and stop for the body."
     },
     {
-      "id": "O043",
+      "id": "Or043",
       "date": "2026-09-20",
       "session": "4450a586",
       "text": "The pilot extracts procedures from live work and keeps them updated. The commander may advise and adjust procedures along the way. The starting procedures are all approved."
     },
     {
-      "id": "O044",
+      "id": "Or044",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "The files in commanders-desk/out-ideas are ideas not orders. Do an idea exploration team with the commander in the room through the pilot's seat, then a dossier once it settles. After that a refactor team much like the one the pilot suggested, still with a designer but a much richer starting point. Once the ideas settle with a dossier, add them to the fitout mission."
     },
     {
-      "id": "O045",
+      "id": "Or045",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "Keep files are slowly drifting as ideas change; eventually they will be removed. They are initial placeholders to scaffold the initial shape. Also wondering if we should set up a schema store, so we can specify document shapes: stored in base, callable by a linter, so pilots have their paperwork in order."
     },
     {
-      "id": "O046",
+      "id": "Or046",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "Flightcrew has these schema checking assets already built, on other branches; the spec builder was using a linter recently, along with rubric checkers. On the P prefix: nope, proposals change to requests. That is the easier name to change and remember. Procedures will be key references, and having M, Ws, P for work is a decent convention."
     },
     {
-      "id": "O047",
+      "id": "Or047",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "On DS versus Ds for dossiers: nope, DS means dossier should be two words; Ds allows the lowercase to guide what the D means."
     },
     {
-      "id": "O048",
+      "id": "Or048",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "Decision De, Spark Sp, Order Or (O001 is not very readable)."
     },
     {
-      "id": "O049",
+      "id": "Or049",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "C looks like Crew, I'm not sure if this still fits. Actually WS is work shop combined; keeps the capitals designated correctly."
     },
     {
-      "id": "O050",
+      "id": "Or050",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "My attendance at this meeting seems a difficult concept to handle, as this meeting seems to be trying to settle ideas but is not consulting the idea maker. Does the new folder structure land, what are its implications, is it better conceptually, usability with more nesting but easier concepts? On the pilot's four questions: (1) the notepad is a rather messy record type, but important as minable history and a dump location; forgotten during the sketch (this is why a chat about ideas is good, it catches little gaps). (2) Manuals in two places is the commander's worry too, although it is the same concept in two places: flightdeck manuals for everyone, cockpit manuals for the pilot. 'Workbook' was considered and cancelled, as the name often drives how an agent writes the document. (3) Extracts is a placeholder for extractions; the commander's speaking topics is a great starter, maybe logs, decisions and so on. Having an extractions location relieves pressure to keep stuff long term: a huge log folder can be extracted into key findings later. Bulk sources condensed into key findings and distributed into self-sustaining content is the intention. (4) Timing of rooms against identifiers is the pilot's call."
     },
     {
-      "id": "O051",
+      "id": "Or051",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "Extracts is future work; currently scaffolding procedures and folder structures as part of M001. Frontmatter: 'recorded' was the initial form of 'stamp', renamed to avoid confusion with the records room. 'context' is the contextual position this document maintains: work is the umbrella, generates is follow-up documents; it is a chain, for example the context for a Ds should be a team dispatch. A problem realised: two T001 and two manifests over these records; this should probably be a universal manifest, with team numbers counted across the whole team space. Now that records have become manuals, manuals become the authority and anything else records used to be. On manifests: in stream outputs `manifest.json, manifest.json and manifest.json` might be the same file or different files and you have to consult the path to find the manifest's context; `orders.json` could be a manifest file but it could also be something else; MANIFEST-commander-advice.json tells you exactly what the file is and is also identifiable in a folder with CA001.json, CA002.json."
     },
     {
-      "id": "O052",
+      "id": "Or052",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "Match the manifest collection to the ID; agent-oriented naming doesn't mind longer, more descriptive names. This means commander/../advice = CA = MANIFEST-commander-advice. In the opposite direction a global manifest (MANIFEST-dispatches), with team rooms dispatch/flightcrew/T003, T026, T045 and dispatch/cockpit/T004, T005; but it could easily be a flat dispatch folder. Early on flat seems better, but after three months and up to T364, dispatch rooms may be more readable. By the way: teams = roles information, dispatch = team instances."
     },
     {
-      "id": "O053",
+      "id": "Or053",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "On the pace of the room: not the pilot's fault, don't change anything yet. The pilot asks for input, then four agent returns come in and the question is hundreds of lines up; the commander has to think how to solve it. On naming things: everything that accumulates and is commonly referenced in a chat gets an ID; how else do you refer to request 15 in a document? Everything known permanently by name gets a name. A seat can have a name, a roster can have a name; it is far better to see document-critic than C023 (crew 23). A few crossover items: missions have a name and an ID. The reason is how you address things in a chat: when you refer to M002, the commander can learn that ID and know what is meant; 'let me dispatch C023' means digging into a teams reference to know who is being deployed, while 'document-critic' is known. So procedures and missions need both; permanent names like rosters and seats are name only; all accumulating items (dossiers, requests, decisions, orders, dispatches and so on) get an ID only."
     },
     {
-      "id": "O054",
+      "id": "Or054",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "On the pilot holding crew returns quietly: that would be awesome. The commander can read agent returns directly, so summarising every return is redundant. If the pilot could intelligently reply when the commander's input is required, for example when no agent returns are imminent, that would greatly improve the commander's experience, although the risk is going too far and deciding everything for itself, forgetting that the commander is present. Add a reasonable line to CLAUDE.md and we will tune it over time. Commander's advice on P013: the pilot gets strong write restrictions over the project and can write to its cockpit. Teams can be dispatched for internal or external work, writing to the project, a launch or the cockpit. Write is more of a role restriction than a location. The refactor team can fit out the cockpit directly, but given scope by the pilot. The pilot links the team to the commander and records their and the team's actions. On the advice files: yes; the commander was thinking of a procedure in which, when a request is written, an advice file is also created with its metadata filled. The pilot can repair the earlier files itself; the commander trusts its judgement. On the lint: whatever saves the most tokens and reduces churn. Non-blocking is the right shape: small output on success, enough guidance on error to fix directly without a tool call, a small edit to fix (preventing a large write)."
     },
     {
-      "id": "O055",
+      "id": "Or055",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "The write restriction is not a CLAUDE.md line; it would do nothing if removed. It is more of a setup understanding (a manual): a bunch of lines all on the same subject has the right shape for a manual, not every session needs the information, it is a single topic of understanding for cockpit-based permissions. The commander's ranks idea speaks on the same topic. The quiet mode for teams is CLAUDE.md shaped: things change if it is removed and every session needs it. Call rule 12 'Team dispatch quiet mode'; it is for team dispatches only and should not interfere with general conversation; the commander's adjacent comment has the better shape. Move rule 1 to a manual. A CLAUDE.md excellence team may be useful, maybe after this refactor lands. The guard (P012) is probably next session's work, depending on how this session progresses."
     },
     {
-      "id": "O056",
+      "id": "Or056",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "On the stage A work: asked who forbids a hand-typed skip list in the design, and if the pilot, why. The whole purpose of having some schemas around is so that our documents have a defined shape, not just conjured up each time an agent writes one; it is so a new session can write a document the same way you write a document. This is just schemas and linters, right? That is what I advised? The findings presented tend to indicate a much larger test system we have to maintain each time something changes. Send a quick team to check that what I advised and what was built align. These two teams' findings will decide the way forward. Earlier in the same exchange: 'What is happening? I asked a question and you have disappeared into the team frantically fixing things? Run the mini adversaries against this for fit and trim. My HITL instinct says that this is low effort, but I will leave it up to them.'"
     },
     {
-      "id": "O057",
+      "id": "Or057",
       "date": "2026-09-20",
       "session": "b27e6c01",
       "text": "`base/verify/schema/<type>.json` with a basic linter command. We can lint and check ID prefix and manifest naming as per the commander's instructions. Use any temporary fixtures to help refit the cockpit. Prefixes is wrong on `P`: solely for procedures; all 'proposals' renamed to `Rq` for requests; 'proposal' removed as a term from the corpus (live docs only; history keeps it). Root problem identified: the pilot didn't have the right tooling; new ideas recorded that may help (team building and mini spec). Advice: do the minimal changes, the pilot's choice how; then create adjacent idea files from the commander's initial ideas expanded with his later conversational confirmations, named out-ideas/<ace>_<idea>; the commander will remix them and possibly start again with the improved build flow. Scope confirmed: refit the cockpit: schemas, JSON data, frontmatter, cockpit setup. Stage A is kept around as a help, out of the way. Schemas for all document types, based on existing data shapes. 'I'm wanting to finalise and integrate. If it is not good at all, then I rebuild using the new method with updated idea files. If decent I move on to bigger and better stuff.'"
+    },
+    {
+      "id": "Or058",
+      "date": "2026-09-20",
+      "session": "b27e6c01",
+      "text": "On the commander-advocate's return: preferable to have the linter mirror the flightdeck one; node should work, it works on other branches. Dispatch units in rooms. Stage A pinned for removal in the workshop, but left. The schemas describe the intended shape: new files pass, old files fail but can be refitted easily because we have a schema we can make green. An advice file carries four fields (type, unit, context, stamp)."
     }
   ]
 }

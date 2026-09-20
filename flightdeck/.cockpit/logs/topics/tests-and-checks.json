@@ -83,7 +83,7 @@
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "what we are actually looking for is to have a test suite that protects and defines the underlying infrastructure that can be built upon over time, we want to avoid having to tune the suite everytime a build run is attempted because our testing is too heavy handed. The gold standard here is a standard ol rails test folder.",
       "context": "Written advice on what the characterization suite is really for.",

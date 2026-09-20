@@ -41,7 +41,7 @@
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS002.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA002.md",
       "date": "2026-09-18",
       "statement": "Altitude - This section belongs in the spec-builder crew file in quarters/. The identity file should receive a `## what to watch for` section to ensure the agent behaves correctly. this would be the location that altitude mentioned so that the pilot can understand that the spec-builders writing is at the right altitude.",
       "context": "Written advice on a draft record, saying where altitude guidance belongs.",

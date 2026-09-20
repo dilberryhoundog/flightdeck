@@ -1,6 +1,6 @@
 # Topics
 
-The commander's statements, mined from session transcripts and written advice, filed against timeless flightdeck system topics. This is the one home for the commander's words in the cockpit: `../../quarters/commander/orders.json` holds dated orders to the pilot and points here; `../../base/decisions.json` holds rulings on proposals and points here. A record in `../../records/` is distilled from a topic; when the topic changes, the record is updated.
+The commander's statements, mined from session transcripts and written advice, filed against timeless flightdeck system topics. This is the one home for the commander's words in the cockpit: `../../quarters/commander/orders.json` holds dated orders to the pilot and points here; `../../base/decisions.json` holds rulings on requests and points here. A record in `../../records/` is distilled from a topic; when the topic changes, the record is updated.
 
 Only timeless flightdeck system topics enter. Mission, launch and run chatter does not; it would clog the log. This store is also the model for later mission-level extraction.
 

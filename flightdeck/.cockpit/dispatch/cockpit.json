@@ -47,7 +47,7 @@
         }
       ],
       "shape": "three readers in parallel; verifier fetched alignment practices at once and verified claims as readers landed; cutter waited for all four",
-      "outcome": "Filed and verified under notepad/recon-2026-09-18/, distilled into DS001. Pilot corrected: the tip is the run-2 branch (pilot's own briefing error); spec-altitude added after the fork not deleted; interfaces rewrite never reached the tip; two remote-lag figures; no local branch named origin. Failures: two reports truncated (briefs said `pilot`, in-team address is `team-lead`); seven explorer hand-backs went to the lead only. Second pass changed both readers' reports materially.",
+      "outcome": "Filed and verified under notepad/recon-2026-09-18/, distilled into Ds001. Pilot corrected: the tip is the run-2 branch (pilot's own briefing error); spec-altitude added after the fork not deleted; interfaces rewrite never reached the tip; two remote-lag figures; no local branch named origin. Failures: two reports truncated (briefs said `pilot`, in-team address is `team-lead`); seven explorer hand-backs went to the lead only. Second pass changed both readers' reports materially.",
       "lessons": [
         "address the lead as team-lead; give a scratchpad path for long reports",
         "teammate subagents hand back to the lead only; either the teammate reads directly or the lead relays",
@@ -93,7 +93,7 @@
       ],
       "subagents": [],
       "shape": "two readers in parallel to the writer and the lead; writer drafted, sent each draft to adversary and verifier, revised, delivered to the lead",
-      "outcome": "Five documents drafted, contested and revised in one session; the commander ruled them fully referenced source material, not records (DS002), and set the good-record docspec. Filed at notepad/research-2026-09-18/source/. Adversary withdrew four findings (false framing under a true id; true claim called overreach; correct code claim challenged on a header comment; verbatim quote called fabricated after stopping at the first match). Writer caught its own reversed model-tier claim. Verifier discarded its first pass after the fetch summariser invented a figure. Delivery intact via team-lead and scratchpad files.",
+      "outcome": "Five documents drafted, contested and revised in one session; the commander ruled them fully referenced source material, not records (Ds002), and set the good-record docspec. Filed at notepad/research-2026-09-18/source/. Adversary withdrew four findings (false framing under a true id; true claim called overreach; correct code claim challenged on a header comment; verbatim quote called fabricated after stopping at the first match). Writer caught its own reversed model-tier claim. Verifier discarded its first pass after the fetch summariser invented a figure. Delivery intact via team-lead and scratchpad files.",
       "lessons": [
         "this is the certified research shape: readers, a writer that re-verifies, an Opus adversary, a docs verifier on raw pages, the pilot ruling",
         "check for a second occurrence before calling a quote fabricated; re-run every negative across spellings",
@@ -141,7 +141,7 @@
       "date": "2026-09-18",
       "session": "8e74fffb",
       "mission": "M001",
-      "purpose": "First agent team: cockpit cleanup suggestions, official best practices, adversary on both (spark S003)",
+      "purpose": "First agent team: cockpit cleanup suggestions, official best practices, adversary on both (spark Sp003)",
       "roster": null,
       "seats": [
         {
@@ -162,7 +162,7 @@
       ],
       "subagents": [],
       "shape": "auditor and scout in parallel, both messaging the red-team; red-team ruled; all three shut down as first reports landed",
-      "outcome": "Findings actioned on the commander's orders: launcher check, guard rewrite with table test, persona moved to quarters, index and hook batch; sandbox raised as S004. Reports at notepad/team-run-2026-09-18/. Recorded retrospectively.",
+      "outcome": "Findings actioned on the commander's orders: launcher check, guard rewrite with table test, persona moved to quarters, index and hook batch; sandbox raised as Sp004. Reports at notepad/team-run-2026-09-18/. Recorded retrospectively.",
       "lessons": [
         "produced crew rule 6 (keep teammates alive) and later the Opus-adversary clause of rule 2"
       ],
@@ -206,7 +206,7 @@
       "date": "2026-09-18",
       "session": "dcb75456",
       "mission": "M001",
-      "purpose": "Strengthened research team (DS002 advice): mine the commander's statements into timeless topics, distil records under the docspec, validated, compared and contested",
+      "purpose": "Strengthened research team (Ds002 advice): mine the commander's statements into timeless topics, distil records under the docspec, validated, compared and contested",
       "roster": "topics-and-records",
       "seats": [
         {
@@ -236,8 +236,8 @@
         }
       ],
       "subagents": [],
-      "shape": "extractor first; discovery and validator as topics landed; writer drafted once topics were stable, sent each draft to adversary and validator, revised, delivered; the lead filed topics and put records to the commander as DS003",
-      "outcome": "Topic store filed (27 topics, 203 statements). Seven records drafted at notepad/research-2026-09-18/records-final/, dossier DS003, proposal P009. Two over-broad supersessions caught and narrowed. Two commander rulings obtained in session (O039, O040). Pilot's own errors caught by seats: two turn-opener line numbers in a ruling, one wrong advice-file attribution, one over-broad supersession ruling. The writer's script found one wrong citation in 83 that four passes had not.",
+      "shape": "extractor first; discovery and validator as topics landed; writer drafted once topics were stable, sent each draft to adversary and validator, revised, delivered; the lead filed topics and put records to the commander as Ds003",
+      "outcome": "Topic store filed (27 topics, 203 statements). Seven records drafted at notepad/research-2026-09-18/records-final/, dossier Ds003, request Rq009. Two over-broad supersessions caught and narrowed. Two commander rulings obtained in session (Or039, Or040). Pilot's own errors caught by seats: two turn-opener line numbers in a ruling, one wrong advice-file attribution, one over-broad supersession ruling. The writer's script found one wrong citation in 83 that four passes had not.",
       "lessons": [
         "the topic store is the right intermediate: it caught a superseded claim the writer had just added and made every quote checkable with one command",
         "a summarising fetch can establish a presence but never an absence; check every negative against raw HTML",
@@ -248,7 +248,7 @@
         "two seats should not share a name across teams",
         "extend a verifier and prove it fails on a bad input before trusting its pass"
       ],
-      "status": "finished; records await the commander's ruling on P009"
+      "status": "finished; records await the commander's ruling on Rq009"
     },
     {
       "id": "T007",
@@ -307,7 +307,7 @@
       "date": "2026-09-19",
       "session": "4450a586",
       "mission": "M001",
-      "purpose": "Decision team on record keeping after the commander's DS003 advice: options for how the cockpit keeps brief, current records, and the best one; extended 2026-09-20 after P010's approval to the procedures room scaffold (option-maker, adversary), the rule 2 wording check (adversary) and the four stubs (stub-writer)",
+      "purpose": "Decision team on record keeping after the commander's Ds003 advice: options for how the cockpit keeps brief, current records, and the best one; extended 2026-09-20 after Rq010's approval to the procedures room scaffold (option-maker, adversary), the rule 2 wording check (adversary) and the four stubs (stub-writer)",
       "roster": "decision",
       "seats": [
         {
@@ -332,20 +332,20 @@
         },
         {
           "name": "stub-writer",
-          "reason": "compress the four ruled drafts into stubs under D020 and P010",
+          "reason": "compress the four ruled drafts into stubs under De020 and Rq010",
           "returns": "four stub files, one line each on what was left out"
         }
       ],
       "subagents": [],
       "shape": "auditor and scout in parallel; option-maker drafts the option space at once and revises when both land; adversary spawned on the final paper",
-      "outcome": "Decision paper (99 lines) recommending vehicle routing with a drift trigger: procedures behind an imported trigger manifest carry the load, constant rules stay in CLAUDE.md, damage rules go to the guard, records on demand from the wide net with one header line under D021, a periodic currency review. Adversary: 23 findings and nine closing items, all answered, verdict stands. Auto memory and hook enforcement were missing options until the adversary named them. Distilled as DS004, raised as P010. Extended after approval (D022): the adversary checked the pilot's rule 2 and records README wording (seven findings, all taken); stub-writer compressed four drafts into stubs the commander read and the pilot landed (D024); option-maker designed the procedures room scaffold and five starting procedures, one adversary pass (four findings taken, three withdrawn once it saw O042). Distilled as DS005; P011 approved whole (D025); the manifest is imported into CLAUDE.md and measured live.",
+      "outcome": "Decision paper (99 lines) recommending vehicle routing with a drift trigger: procedures behind an imported trigger manifest carry the load, constant rules stay in CLAUDE.md, damage rules go to the guard, records on demand from the wide net with one header line under De021, a periodic currency review. Adversary: 23 findings and nine closing items, all answered, verdict stands. Auto memory and hook enforcement were missing options until the adversary named them. Distilled as Ds004, raised as Rq010. Extended after approval (De022): the adversary checked the pilot's rule 2 and records README wording (seven findings, all taken); stub-writer compressed four drafts into stubs the commander read and the pilot landed (De024); option-maker designed the procedures room scaffold and five starting procedures, one adversary pass (four findings taken, three withdrawn once it saw Or042). Distilled as Ds005; Rq011 approved whole (De025); the manifest is imported into CLAUDE.md and measured live.",
       "lessons": [
         "a decision team of auditor, docs scout, option-maker and adversary fits in one evening; the option-maker drafting from the start and revising on the reports saved a round",
         "relay the commander's rulings to every seat at once; messages cross, and a seat working from a stale ruling wastes a pass",
         "the option-maker attacked its own paper while idle and found a staffing defect; say in the brief that this is wanted",
         "the adversary passing residuals ahead of its closing pass let them be closed in the same revision",
         "measure a harness claim the paper depends on while the team works (the @ import test), rather than carrying it as a risk",
-        "put the commander's latest order on the subject in every seat's read scope; two adversary findings fell because O042 was left out of its brief",
+        "put the commander's latest order on the subject in every seat's read scope; two adversary findings fell because Or042 was left out of its brief",
         "reusing a live team for the follow-on work (scaffold, wording check) cost no re-briefing; the seats already held the rulings",
         "a stub writer needs the sibling drafts compared for contradiction; the pilot caught one the seat did not"
       ],
@@ -387,7 +387,7 @@
       ],
       "subagents": [],
       "shape": "auditor and scout in parallel; option-maker drafts at once and revises on both reports and on each of the commander's answers relayed by the pilot; assets-scout added mid-flight on the commander's lead; adversary spawned only on the settled paper",
-      "outcome": "Exploration paper (199 lines, eleven passes, `notepad/ideas-2026-09-20/paper-final.md`) over five areas: rooms, identifiers, manifest and unit JSON, frontmatter, and the schema store the commander added mid-flight. The commander ruled the identifier set in the room (O046 to O049). Central result: nothing checks the cockpit's references (24 broken by a three-file rename; about 518 live references in the ruled rename: 231 scriptable, 278 reviewed diffs, 9 verbatim never touched), so a stage A checker in sh and python3 comes first and needs no schema engine; flightcrew's dependency-free Node engine (assets-scout, 93e18c5) is a stage B asset. Adversary: five rounds on the paper (F, G, H, K, L), verdict fit to distil, and one on the dossier (seven findings, all taken). Distilled as DS006; P013 raised. After the dossier the commander settled the rest in direct conversation (O050 to O055, D026, D027), recorded in DS006's closing section. The three Sonnet evidence seats were shut down; option-maker and adversary carried into T011.",
+      "outcome": "Exploration paper (199 lines, eleven passes, `notepad/ideas-2026-09-20/paper-final.md`) over five areas: rooms, identifiers, manifest and unit JSON, frontmatter, and the schema store the commander added mid-flight. The commander ruled the identifier set in the room (Or046 to Or049). Central result: nothing checks the cockpit's references (24 broken by a three-file rename; about 518 live references in the ruled rename: 231 scriptable, 278 reviewed diffs, 9 verbatim never touched), so a stage A checker in sh and python3 comes first and needs no schema engine; flightcrew's dependency-free Node engine (assets-scout, 93e18c5) is a stage B asset. Adversary: five rounds on the paper (F, G, H, K, L), verdict fit to distil, and one on the dossier (seven findings, all taken). Distilled as Ds006; Rq013 raised. After the dossier the commander settled the rest in direct conversation (Or050 to Or055, De026, De027), recorded in Ds006's closing section. The three Sonnet evidence seats were shut down; option-maker and adversary carried into T011.",
       "lessons": [
         "two fast Opus seats cross when the pilot relays findings as they arrive: name the pass under attack by number and freeze the file until the findings are in; four crossings cost three extra passes",
         "holding the adversary until the option space was open worked: it attacked leanings, not half-formed ideas, and by its last round found fault only in arithmetic and scope",
@@ -405,7 +405,7 @@
       "date": "2026-09-20",
       "session": "b27e6c01",
       "mission": "M001",
-      "purpose": "Build stage A of the paperwork check under P013 as amended (D026, D027): the store (prefix table, zone and field map), a reference checker, a rename tool with dry run, and a table test over fixtures; written directly into base/ inside a scope the pilot gives; proving run on the 24 references left by the advice rename",
+      "purpose": "Build stage A of the paperwork check under Rq013 as amended (De026, De027): the store (prefix table, zone and field map), a reference checker, a rename tool with dry run, and a table test over fixtures; written directly into base/ inside a scope the pilot gives; proving run on the 24 references left by the advice rename",
       "roster": null,
       "roster_note": "no roster fits: the first build team in the cockpit. Shape borrowed from flightcrew doctrine: plan attacked before building, test written to the plan and not to the code",
       "seats": [
@@ -433,7 +433,7 @@
       "subagents": [],
       "shape": "builder plans; plan frozen and attacked by pass number; fixture-writer and builder work in parallel from the accepted plan; green under /usr/bin/python3; read-only run against the real cockpit; adversary on the result; pilot runs test and proving run itself. Team dispatch quiet mode (rule 12).",
       "scope": "write: new files under base/store/, base/bin/cockpit-check, base/bin/cockpit-rename, base/bin/test_cockpit_check.py, base/bin/fixtures/stage-a/, notepad/stage-a-2026-09-20/. Everything else read-only. No commits.",
-      "outcome": "Plan through three passes; store, cockpit-check, cockpit-rename, a shared cockpit_store.py, two table tests and a 32-file fixture tree built (about 1,700 lines of tools, 800 of tests); adversary could not make it write unsafely and the checker found 33 known and 9 unknown broken references. Set aside by the commander after T012 and T013: safe and correct, but not what he advised (document shapes and a linter), four times the permanent job, and keyed on paths the room move abolishes. Kept out of the way as temporary help (O057).",
+      "outcome": "Plan through three passes; store, cockpit-check, cockpit-rename, a shared cockpit_store.py, two table tests and a 32-file fixture tree built (about 1,700 lines of tools, 800 of tests); adversary could not make it write unsafely and the checker found 33 known and 9 unknown broken references. Set aside by the commander after T012 and T013: safe and correct, but not what he advised (document shapes and a linter), four times the permanent job, and keyed on paths the room move abolishes. Kept out of the way as temporary help (Or057).",
       "lessons": [
         "the pilot's spec was the defect, not the build: 'paperwork' was the commander's word for document shape and the pilot redefined it as reference integrity in the dossier's first paragraph; nobody downstream could see it",
         "ask how big a thing should be before it is built; a 113-line checker found the same as 1,700 lines",
@@ -464,7 +464,7 @@
       ],
       "subagents": [],
       "shape": "independent, parallel, no cross-talk; the pilot's spec under attack as much as the code; the commander's instinct not given to the critics so the verdict is theirs",
-      "outcome": "fit-critic: keep with changes; the commander's schema store is not delivered, the store is keyed on names the room move abolishes and goes quiet rather than red, O051's one-register ruling missing. trim-critic: keep trimmed; wrote a 113-line checker giving the same findings (pilot verified), rename tool is self-terminating scaffolding, about 200 lines fire zero times, clean run 62 bytes is right. Both verdicts confirmed the commander's instinct.",
+      "outcome": "fit-critic: keep with changes; the commander's schema store is not delivered, the store is keyed on names the room move abolishes and goes quiet rather than red, Or051's one-register ruling missing. trim-critic: keep trimmed; wrote a 113-line checker giving the same findings (pilot verified), rename tool is self-terminating scaffolding, about 200 lines fire zero times, clean run 62 bytes is right. Both verdicts confirmed the commander's instinct.",
       "lessons": [
         "not telling the critics the commander's instinct kept the verdict theirs",
         "a critic who builds the smaller thing and runs it ends the argument"
@@ -476,7 +476,7 @@
       "date": "2026-09-20",
       "session": "b27e6c01",
       "mission": "M001",
-      "purpose": "The commander's order (O056): a quick team to check that what the commander advised and what was built align; with T012's findings it decides the way forward",
+      "purpose": "The commander's order (Or056): a quick team to check that what the commander advised and what was built align; with T012's findings it decides the way forward",
       "roster": null,
       "roster_note": "no roster fits: a two-column comparison. Two clerical readers, one judge",
       "seats": [
@@ -498,12 +498,44 @@
       ],
       "subagents": [],
       "shape": "readers in parallel, judge waits for both; none sees the critics' reports or the pilot's view; the pilot's own rulings are listed separately from the commander's advice so they cannot pass as his",
-      "outcome": "Verdict no: what was built does not deliver what the commander advised. 47 advised items against 28 built: document shapes, a shape a new session can write to, reuse of flightcrew's assets and the frontmatter convention not delivered; both tools, the tests, fixtures and zones built but never advised. Drift point named: DS006 line 11. Maintenance: a room move edits about 70 places in the build; the commander's own idea costs nothing for a room move.",
+      "outcome": "Verdict no: what was built does not deliver what the commander advised. 47 advised items against 28 built: document shapes, a shape a new session can write to, reuse of flightcrew's assets and the frontmatter convention not delivered; both tools, the tests, fixtures and zones built but never advised. Drift point named: Ds006 line 11. Maintenance: a room move edits about 70 places in the build; the commander's own idea costs nothing for a room move.",
       "lessons": [
         "two blind clerical readers and one judge settled in fifteen minutes what four adversary rounds never asked",
         "list the pilot's rulings apart from the commander's advice in every dossier, so they cannot pass as his"
       ],
       "status": "finished"
+    },
+    {
+      "id": "T014",
+      "date": "2026-09-20",
+      "session": "b27e6c01",
+      "mission": "M001",
+      "purpose": "Refit the cockpit on the commander's order (Or057, Or058): schemas and a Node linter mirroring flightcrew's in base/verify/, the identifier pass, JSON manifests and units, frontmatter, the five-room move; from notepad/refit-2026-09-20/mini-spec.md",
+      "roster": null,
+      "roster_note": "the commander's mini-spec idea flown for the first time: commander-advocate attacks the spec before building and the result after; builders work step by step and the pilot verifies and commits each step",
+      "seats": [
+        {
+          "name": "commander-advocate",
+          "reason": "assumes the team is not building to the commander's vision and finds where; spec first, finished refit last",
+          "returns": "ranked drifts, gaps for the commander, build or fix first"
+        },
+        {
+          "name": "schema-builder",
+          "reason": "step 1: schemas for every document type in the intended shape and the Node linter on flightcrew's engine, inside base/verify/ only",
+          "returns": "schemas, cockpit-lint, a type-to-schema list, byte counts"
+        },
+        {
+          "name": "refitter",
+          "reason": "steps 2 to 5 in order, stopping after each for the pilot to verify and commit",
+          "returns": "a change list per step"
+        }
+      ],
+      "subagents": [],
+      "shape": "advocate on the spec first (done: ten drifts, fix first; commander answered the gaps in Or058); schema-builder and refitter in parallel on disjoint paths; pilot verifies and commits each step; advocate on the finished refit; team dispatch quiet mode",
+      "scope": "schema-builder writes only under base/verify/. refitter writes anywhere in the cockpit except base/verify/, base/bin/cockpit-guard.py, the text of orders, session logs' text, *.keep contents, the commander's idea and advice files' contents. No commits by crew.",
+      "outcome": null,
+      "lessons": [],
+      "status": "in_flight"
     }
   ],
   "convention": "Seat identity (agent type, model) is in ../quarters/crew/crew.json; a seat here is name, reason, returns. Ids assigned once, never renumbered."

@@ -27,14 +27,14 @@
       "session": "dcb75456",
       "session_id": "dcb75456-6a0f-42a1-a4b4-e57eb29db01e",
       "file": "2026-09-18_dcb75456.md",
-      "summary": "Callsign Ace. Recon team T001, research team T002, critics T003/T008, topics-and-records team T006. Commander's desk opened; dossiers DS001 to DS003; work split, dispatch room, orders.json, topics store (27 topics, 203 statements), records docspec (one topic whole, 100/150), seven records drafted awaiting P009. Teams integrated: rosters, crew rooms, 20 dossiers. Session log exceeded the cap set mid-session; two-line entries from the next session."
+      "summary": "Callsign Ace. Recon team T001, research team T002, critics T003/T008, topics-and-records team T006. Commander's desk opened; dossiers Ds001 to Ds003; work split, dispatch room, orders.json, topics store (27 topics, 203 statements), records docspec (one topic whole, 100/150), seven records drafted awaiting Rq009. Teams integrated: rosters, crew rooms, 20 dossiers. Session log exceeded the cap set mid-session; two-line entries from the next session."
     },
     {
       "date": "2026-09-19",
       "session": "4450a586",
       "session_id": "4450a586-cf84-4dbe-80d3-51c02c8fbe14",
       "file": "2026-09-19_4450a586.md",
-      "summary": "DS003 advice (D020) led to decision team T009 on record keeping: DS004/P010 approved and executed (rule 2 rewritten, one header line per record, harness register and four stubs landed). Procedures room designed and built (O042, DS005/P011, O043): five cockpit procedures live, manifest imported into CLAUDE.md. S009 promoted to mission M002 (horizon). P012 raised to guard unmerged branches. Two commits pushed."
+      "summary": "Ds003 advice (De020) led to decision team T009 on record keeping: Ds004/Rq010 approved and executed (rule 2 rewritten, one header line per record, harness register and four stubs landed). Procedures room designed and built (Or042, Ds005/Rq011, Or043): five cockpit procedures live, manifest imported into CLAUDE.md. Sp009 promoted to mission M002 (horizon). Rq012 raised to guard unmerged branches. Two commits pushed."
     },
     {
       "date": "2026-09-20",

@@ -6,6 +6,6 @@ Header line forms. One line, or two where a record draws on two kinds of source.
 
 Validation. The `Validated:` line is applied by one crew seat that did not write the record, after it has read the sources in full and checked every statement for support and for a fair reading; unsupported statements are deleted. An edit voids the line: the record is re-validated or the line is removed. A stub carries only the `Stub:` line, which is replaced by the line the record earns when it is promoted; stubs are marked `(stub)` in the index below.
 
-- `claude-code/` — the harness: `agent-teams.md`, `subagents.md`, `session-messaging.md`, `settings-and-launch.md`. Register: `harness-register.md` (landed 2026-09-20, commander's ruling D020).
+- `claude-code/` — the harness: `agent-teams.md`, `subagents.md`, `session-messaging.md`, `settings-and-launch.md`. Register: `harness-register.md` (landed 2026-09-20, commander's ruling De020).
 - `cockpit/` — how the cockpit itself works: `write-permissions.md` (stub, landed 2026-09-20 on the commander's order to move it out of `CLAUDE.md`).
-- `flightcrew/` — the system: written on demand under the record-keeping method (DS004); four stubs landed 2026-09-20 after the commander's read: `launches-and-runs.md`, `state-and-freezing.md`, `tests-and-checks.md`, `endings.md` (all stub).
+- `flightcrew/` — the system: written on demand under the record-keeping method (Ds004); four stubs landed 2026-09-20 after the commander's read: `launches-and-runs.md`, `state-and-freezing.md`, `tests-and-checks.md`, `endings.md` (all stub).

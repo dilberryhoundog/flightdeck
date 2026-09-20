@@ -41,7 +41,7 @@
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O007",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or007",
       "date": "2026-09-18",
       "statement": "a launcher script in the cockpit is fine for now, the end game is a launcher inside a HUD page.",
       "context": "Answering the pilot's five day-one questions about cockpit tooling.",

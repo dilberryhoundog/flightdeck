@@ -9,7 +9,7 @@
       "ref": "8fdc3b29:181",
       "date": "2026-09-08",
       "statement": "A HUUUUGE principle of orchestrated runs is iterated improvment. abandon failed runs. runs should accumulate many retries until they succeed, rather than one shotting.",
-      "context": "Interrupting a proposal that would have given each retry its own launch folder.",
+      "context": "Interrupting a request that would have given each retry its own launch folder.",
       "superseded_by": null
     },
     {

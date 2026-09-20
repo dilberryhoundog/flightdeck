@@ -6,42 +6,42 @@
   "updated": "2026-09-18",
   "statements": [
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O024",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or024",
       "date": "2026-09-18",
       "statement": "Missions are epic. lets make sure we aim high and do not bog down on details or low quality mission setup. Always look to make our missions follow best practices for long range agent alignment. (goals are one of these, what done looks like is another)",
       "context": "Order after the pilot proposed a set of small missions.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O023",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or023",
       "date": "2026-09-18",
       "statement": "A mission needs a goal so young pilots know their targets and do not finish early.",
       "context": "Same conversation, on what a mission must carry.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O021",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or021",
       "date": "2026-09-18",
       "statement": "Missions are drifting into bug reports and minor fixes.\" Set up `workshop/` where the pilot leaves things to get fixed; similar fixes can be swept into missions if they align; a workshop team can run the fixes and bugs through. Missions are reserved for the bigger-scoped stuff the pilot has come across the commander saying or eventually noticed. The incubator is a good pre-step; not everyone gets promoted.",
       "context": "Order opening the workshop, after small fixes had been filed as missions.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O031",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or031",
       "date": "2026-09-18",
       "statement": "workshop: little fixes, problems to fix, maintenance work etc, stuff we do when not out completing epic missions (back at base work). Mission Incubator: where we dump our ideas for work, not work, not complete missions. Where we formulate up epic missions we want to tackle. We regularly look over the incubator for ideas that can be combined into epic missions. incubator = ideas. Missions: our current and horizon epic missions. We don't want this to be too bulky, a mission needs to earn its place. Mission completed: transfer the mission after it completes, celebrate our trophies (our wins), note our battlescars (our losses and mistakes) and if required enable re-activation.",
       "context": "The full work split, given when the pilot asked where each kind of work belonged.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O031",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or031",
       "date": "2026-09-18",
       "statement": "I don't want to give us an easy way out of not keeping our mission store fresh and sharp.\"",
       "context": "Same order, refusing a shelf for missions that are neither active nor complete.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/DS001.md",
+      "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "A mission to make the cockpit self-sustaining and self improving over time, the agent that operates here getting ever better at administering the system, through incorporating the results of well grounded practices and commanders steering inputs over time.",
       "context": "Written advice showing how several small mission cuts converge into one epic.",

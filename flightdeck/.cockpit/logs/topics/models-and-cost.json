@@ -34,14 +34,14 @@
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O019",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or019",
       "date": "2026-09-18",
       "statement": "one Sonnet recommendation was not a rule that all crew be Sonnet. Choose the model for the work.",
       "context": "Correcting a cockpit rule the pilot had written from a single research finding.",
       "superseded_by": null
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#O035",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or035",
       "date": "2026-09-18",
       "statement": "Sonnet doesn't have the CPU power to process this type of work and takes extensively longer and sometimes busts. Research has found opus to keep up as an adversary.",
       "context": "Ruling on the research team's makeup.",

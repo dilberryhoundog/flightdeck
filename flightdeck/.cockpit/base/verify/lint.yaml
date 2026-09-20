@@ -1,0 +1,7 @@
+# The only file in base/verify/ that names cockpit paths. A room move means editing this file and nothing else here.
+# `cockpit-lint` with no file arguments lints everything these globs match, relative to the cockpit root, and nothing
+# else: a file no glob names is skipped, which is why CLAUDE.md, the READMEs, triggers.md, the session logs, the
+# notepad and the *.keep files are not linted. A glob starting with ! takes files back out again.
+# Globs only: ** crosses directories, * and ? stay inside one directory. Same strict flat form as frontmatter.
+
+paths: ["commander/desk/in/dossiers/Ds*.md", "commander/desk/in/requests/**/Rq*.md", "commander/desk/out/advice/CA*.md", "commander/orders/Or*.json", "commander/decisions/De*.json", "work/missions/**/M*.md", "work/missions/incubator/Sp*.md", "work/procedures/**/P*.md", "work/workshop/WS*.json", "records/dispatch/**/T*.json", "records/manuals/**/*.md", "records/extracts/topics/*.json", "team/crew/**/*.md", "team/officers/**/*.md", "team/rosters/*.json", "**/MANIFEST-*.json", "**/REGISTER-*.json", "!**/README.md"]

@@ -1,0 +1,4 @@
+Procedure visibility improvements.
+  - Remove the triggers.md file and claude.md injection.
+  - Create a script that captures particular fields in the manifest.
+  - Session start hook and place in pilot agent frontmatter.

@@ -7,372 +7,379 @@
     {
       "id": "Or001",
       "date": "2026-09-17",
-      "summary": "You have been recruited to oversee and manage the flightdeck from your position.",
+      "summary": "The commander recruits the pilot to oversee the flightdeck: take charge of missions, launches and runs, improve them until they succeed, and improve the system.",
       "path": "Or001.json"
     },
     {
       "id": "Or002",
       "date": "2026-09-17",
-      "summary": "You know nothing of any old missions.",
+      "summary": "The commander starts the pilot fresh, with no knowledge of any earlier missions.",
       "path": "Or002.json"
     },
     {
       "id": "Or003",
       "date": "2026-09-17",
-      "summary": "Your first mission is to set up and structure your cockpit.",
+      "summary": "The commander sets the first mission: set up the cockpit, write CLAUDE.md, research agent teams and session messaging, then send a crew to explore flightcrew.",
       "path": "Or003.json"
     },
     {
       "id": "Or004",
       "date": "2026-09-17",
-      "summary": "You are a very keen and ambitious young pilot with 3 proposals already and declaring the mission over.",
+      "summary": "The commander rebukes the pilot for three quick proposals and declaring the mission over, and tells it to learn the system rather than rush to completion.",
       "path": "Or004.json"
     },
     {
       "id": "Or005",
       "date": "2026-09-17",
-      "summary": "Look into the `--settings` flag and the ListAgents and SendMessage tools, as these will drive your interactivity tools.",
+      "summary": "The commander orders research into the settings flag, ListAgents and SendMessage, and a toolset the commander can invoke the pilot from.",
       "path": "Or005.json"
     },
     {
       "id": "Or006",
       "date": "2026-09-17",
-      "summary": "All sessions are mine.",
+      "summary": "The commander states that every session on this machine is his, and that the pilot should be polite but authoritative.",
       "path": "Or006.json"
     },
     {
       "id": "Or007",
       "date": "2026-09-17",
-      "summary": "Answers to the pilot's five questions: test-messaging the other session is a worthy choice; enforce the cockpit write r…",
+      "summary": "The commander answers five questions on messaging, the write rule, permission mode, the agent teams flag and the launcher, which stays a script for now.",
       "path": "Or007.json"
     },
     {
       "id": "Or008",
       "date": "2026-09-17",
-      "summary": "Record it in a mission incubator.",
+      "summary": "The commander orders sparks recorded in a mission incubator, where they collect momentum until they mature into full missions awaiting a launch.",
       "path": "Or008.json"
     },
     {
       "id": "Or009",
       "date": "2026-09-17",
-      "summary": "Sign-off: \"Your first day on the job is now complete.",
+      "summary": "The commander signs off day one and asks for one log per session rather than per day, with a session identifier appended to the date.",
       "path": "Or009.json"
     },
     {
       "id": "Or010",
       "date": "2026-09-18",
-      "summary": "Order: find how to vary the model through `base/bin/pilot.sh`, look into hard-wiring Fable in the injected settings, ef…",
+      "summary": "The commander orders the pilot to find how to vary the model through pilot.sh, and to consider hard-wiring Fable at medium effort in the injected settings.",
       "path": "Or010.json"
     },
     {
       "id": "Or011",
       "date": "2026-09-18",
-      "summary": "You have my permission to access your .claude folder also for scratchpads etc.",
+      "summary": "The commander grants the pilot access to its .claude folder as a side room to the cockpit, for scratchpads and similar.",
       "path": "Or011.json"
     },
     {
       "id": "Or012",
       "date": "2026-09-18",
-      "summary": "Correction: the claude-code references mixed long-term references with scratch findings.",
+      "summary": "The commander corrects the claude-code references for mixing sources with scratch: rename references to records, and keep scratch in the notepad.",
       "path": "Or012.json"
     },
     {
       "id": "Or013",
       "date": "2026-09-18",
-      "summary": "On the launcher: \"your launcher your fix.",
+      "summary": "The commander tells the pilot to fix its own launcher, and to protect records as the source of truth across sessions while the notepad holds the rest.",
       "path": "Or013.json"
     },
     {
       "id": "Or014",
       "date": "2026-09-18",
-      "summary": "On records: \"every good pilot protects their records.",
+      "summary": "The commander rules that only well-researched sources belong in records, and that first-look surveys of flightcrew stay in the notepad until they earn a place.",
       "path": "Or014.json"
     },
     {
       "id": "Or015",
       "date": "2026-09-18",
-      "summary": "\"Promotion from notepad into records is the pathway.",
+      "summary": "The commander sets promotion from notepad to records as the pathway, and asks for the agent team protocol to be written into CLAUDE.md.",
       "path": "Or015.json"
     },
     {
       "id": "Or016",
       "date": "2026-09-18",
-      "summary": "Order: spawn an Opus teammate to suggest cleanup and improvements inside the cockpit, a Sonnet teammate to search offic…",
+      "summary": "The commander orders a three-seat team to test the function: Opus on cockpit cleanup, Sonnet on official best practice, and an adversary over both.",
       "path": "Or016.json"
     },
     {
       "id": "Or017",
       "date": "2026-09-18",
-      "summary": "Asked for a manifest of teammate invocations (type, model, purpose and more) to build a picture of teammate shapes over…",
+      "summary": "The commander asks for a manifest of teammate invocations recording type, model and purpose, so the shapes of teammates can be seen over time.",
       "path": "Or017.json"
     },
     {
       "id": "Or018",
       "date": "2026-09-18",
-      "summary": "On the team findings: A1 and A2 \"pilots work\".",
+      "summary": "The commander rules CLAUDE.md is general instruction for anyone arriving, and the pilot's own role scoping belongs in its quarters as identity and job.",
       "path": "Or018.json"
     },
     {
       "id": "Or019",
       "date": "2026-09-18",
-      "summary": "On crew rule 2: one Sonnet recommendation was not a rule that all crew be Sonnet.",
+      "summary": "The commander rules that one recommendation of Sonnet was never a rule that all crew be Sonnet, and that the model is chosen for the work.",
       "path": "Or019.json"
     },
     {
       "id": "Or020",
       "date": "2026-09-18",
-      "summary": "\"I have big plans for teammates over longer running sessions.\" Shutting down teammates as they finish interferes and re…",
+      "summary": "The commander rules that teammates are not shut down as they finish, because the second pass and the back-and-forth are the killer function.",
       "path": "Or020.json"
     },
     {
       "id": "Or021",
       "date": "2026-09-18",
-      "summary": "\"Missions are drifting into bug reports and minor fixes.\" Set up `workshop/` where the pilot leaves things to get fixed…",
+      "summary": "The commander rules that missions are drifting into bug reports, and orders a workshop for small fixes, with the incubator as the pre-step to epic missions.",
       "path": "Or021.json"
     },
     {
       "id": "Or022",
       "date": "2026-09-18",
-      "summary": "Gave the pilot the callsign Ace: \"Your commander wants to give you a better call sign.\" Then: \"we might have to get you…",
+      "summary": "The commander gives the pilot the callsign Ace, and says launches will come once the current mission is complete.",
       "path": "Or022.json"
     },
     {
       "id": "Or023",
       "date": "2026-09-18",
-      "summary": "On M001 and missions generally: \"The mission is working towards the goal of having you oversee and manage launches and…",
+      "summary": "The commander states the goal of M001 and of missions generally, and rules that a mission needs a goal so a pilot knows its target and does not finish early.",
       "path": "Or023.json"
     },
     {
       "id": "Or024",
       "date": "2026-09-18",
-      "summary": "Missions are epic.",
+      "summary": "The commander rules that missions are epic, aimed high, and follow best practice for long-range agent alignment, with goals and a stated done condition.",
       "path": "Or024.json"
     },
     {
       "id": "Or025",
       "date": "2026-09-18",
-      "summary": "Next steps: get briefed on flightcrew and the commander's work so far; assemble a team; pull in and summarise everythin…",
+      "summary": "The commander sets the next steps: get briefed on flightcrew, assemble a team, summarise everything, cut it into epic missions, and bring them for approval.",
       "path": "Or025.json"
     },
     {
       "id": "Or026",
       "date": "2026-09-18",
-      "summary": "The day-one proposals P001 to P003: the proposal function will develop over time; whether they are still relevant is th…",
+      "summary": "The commander leaves it to the pilot to judge whether the day-one proposals are still relevant, saying the proposal function will develop over time.",
       "path": "Or026.json"
     },
     {
       "id": "Or027",
       "date": "2026-09-18",
-      "summary": "\"You are the pilot (session), your callsign is ace (I call you this).\" Session name stays `pilot`.",
+      "summary": "The commander confirms the pilot is the session and Ace is the callsign he uses, and that the session name stays pilot.",
       "path": "Or027.json"
     },
     {
       "id": "Or028",
       "date": "2026-09-18",
-      "summary": "On crew rule 6: \"rule six can change, we are not irresponsible.",
+      "summary": "The commander rules that crew rule 6 may change, that small teams are good and arbitrary limits bad, and asks for an Anthropic documentation verifier.",
       "path": "Or028.json"
     },
     {
       "id": "Or029",
       "date": "2026-09-18",
-      "summary": "Why the pilot exists: \"I spawned the cockpit as I was using an agent role (spec-builder) to manage massive organisation…",
+      "summary": "The commander explains why the pilot exists: to know the system and organise work along it rather than build, and gives the state of the flightcrew branches.",
       "path": "Or029.json"
     },
     {
       "id": "Or030",
       "date": "2026-09-18",
-      "summary": "Two epic missions named by the commander for after the recon: (1) \"teams (of teammates) built by mining our agent dispa…",
+      "summary": "The commander names two epic missions for after the recon: teams built by mining dispatch records, and recording and mining the commander's own decisions.",
       "path": "Or030.json"
     },
     {
       "id": "Or031",
       "date": "2026-09-18",
-      "summary": "The work split: \"workshop: little fixes, problems to fix, maintenance work etc, stuff we do when not out completing epi…",
+      "summary": "The commander sets the work split between workshop, incubator, missions and completed missions, and refuses a shelf that would let the mission store go stale.",
       "path": "Or031.json"
     },
     {
       "id": "Or032",
       "date": "2026-09-18",
-      "summary": "\"The next idea is a dispatch/ folder that stores our teams.",
+      "summary": "The commander orders a dispatch folder recording whole teams with their agents inside, rather than teammate by teammate, so team makeup can be seen.",
       "path": "Or032.json"
     },
     {
       "id": "Or033",
       "date": "2026-09-18",
-      "summary": "On recon: \"the intel is raw.",
+      "summary": "The commander orders a dossier location where raw recon becomes something readable on his desk, boiling down into proposals he approves, denies or changes.",
       "path": "Or033.json"
     },
     {
       "id": "Or034",
       "date": "2026-09-18",
-      "summary": "Written instructions on DS001 in `commanders-desk/out-advice/DS001.md`: launch definition corrected; library genesis in…",
+      "summary": "The commander's written instructions on Ds001 correct the launch definition and rule on the library, records, doctrine, the two epics and the pilot's role.",
       "superseded_by": "merge cleanup rule, 2026-09-18",
       "path": "Or034.json"
     },
     {
       "id": "Or035",
       "date": "2026-09-18",
-      "summary": "On the research team: adversary on Opus.",
+      "summary": "The commander rules that an adversary runs on Opus because Sonnet takes far longer and sometimes busts, approves the push, and calls for the research team next.",
       "path": "Or035.json"
     },
     {
       "id": "Or036",
       "date": "2026-09-18",
-      "summary": "Order for M001: give the pilot an agent body.",
+      "summary": "The commander orders an agent body for the pilot, so role scoping is not lost in a general CLAUDE.md and the session start read moves out of the hook.",
       "path": "Or036.json"
     },
     {
       "id": "Or037",
       "date": "2026-09-18",
-      "summary": "\"turn budget was a major problem last run.",
+      "summary": "The commander rules that the turn budget is a broken model needing surgery rather than a miscount, and that the flightcrew core mission changes it.",
       "path": "Or037.json"
     },
     {
       "id": "Or038",
       "date": "2026-09-18",
-      "summary": "On the records cap: \"the other end of the scale has weight.",
+      "summary": "The commander rules that a record is one topic whole, as long as the topic needs, with a finding raised past 100 lines and a hard cap at 150.",
       "session": "dcb75456",
       "path": "Or038.json"
     },
     {
       "id": "Or039",
       "date": "2026-09-18",
-      "summary": "On launches per feature, answering the pilot's question about 9b679556:6718: \"more than one launch can happen for a fea…",
+      "summary": "The commander rules that a feature may have more than one launch on the same branch, each successful run PRing back before the branch merges to main.",
       "session": "dcb75456",
       "path": "Or039.json"
     },
     {
       "id": "Or040",
       "date": "2026-09-18",
-      "summary": "Asked whether the three rules typed at 9b679556:7642 to 7644 (do not restate the whole existing behaviour model; rely o…",
+      "summary": "The commander confirms that the three rules on not restating behaviour, relying on existing tests and defining observable differences apply to harness tools.",
       "session": "dcb75456",
       "path": "Or040.json"
     },
     {
       "id": "Or041",
       "date": "2026-09-18",
-      "summary": "Teams are the pilot's number one feature and not integrated enough.",
+      "summary": "The commander rules teams are the pilot's first feature and orders dispatch records, a dossier per agent, a crew manifest and named rosters for repeat dispatch.",
       "session": "dcb75456",
       "path": "Or041.json"
     },
     {
       "id": "Or042",
       "date": "2026-09-20",
-      "summary": "The procedures room.",
+      "summary": "The commander sets out the procedures room: pre-recorded routines matching rosters with tasks, context and steps, to stop repeated prompting and its drift.",
       "session": "4450a586",
       "path": "Or042.json"
     },
     {
       "id": "Or043",
       "date": "2026-09-20",
-      "summary": "The pilot extracts procedures from live work and keeps them updated.",
+      "summary": "The commander rules that the pilot extracts procedures from live work and keeps them updated, and approves all five starting procedures.",
       "session": "4450a586",
       "path": "Or043.json"
     },
     {
       "id": "Or044",
       "date": "2026-09-20",
-      "summary": "The files in commanders-desk/out-ideas are ideas not orders.",
+      "summary": "The commander rules the out-ideas files are ideas not orders, and orders an idea exploration team with him in the room, then a dossier, then a refactor team.",
       "session": "b27e6c01",
       "path": "Or044.json"
     },
     {
       "id": "Or045",
       "date": "2026-09-20",
-      "summary": "Keep files are slowly drifting as ideas change; eventually they will be removed.",
+      "summary": "The commander says the keep files are placeholders that will be removed, and wonders whether to set up a schema store in base, callable by a linter.",
       "session": "b27e6c01",
       "path": "Or045.json"
     },
     {
       "id": "Or046",
       "date": "2026-09-20",
-      "summary": "Flightcrew has these schema checking assets already built, on other branches; the spec builder was using a linter recen…",
+      "summary": "The commander rules that proposals become requests and P is for procedures, and points at the schema checking assets flightcrew already has on other branches.",
       "session": "b27e6c01",
       "path": "Or046.json"
     },
     {
       "id": "Or047",
       "date": "2026-09-20",
-      "summary": "On DS versus Ds for dossiers: nope, DS means dossier should be two words; Ds allows the lowercase to guide what the D m…",
+      "summary": "The commander rules Ds rather than DS for dossiers, because the lowercase letter guides what the D means where two capitals would mean two words.",
       "session": "b27e6c01",
       "path": "Or047.json"
     },
     {
       "id": "Or048",
       "date": "2026-09-20",
-      "summary": "Decision De, Spark Sp, Order Or (O001 is not very readable).",
+      "summary": "The commander rules the remaining prefixes: De for decision, Sp for spark, and Or for order, because O001 is not readable.",
       "session": "b27e6c01",
       "path": "Or048.json"
     },
     {
       "id": "Or049",
       "date": "2026-09-20",
-      "summary": "C looks like Crew, I'm not sure if this still fits.",
+      "summary": "The commander retires the C prefix because it reads as crew, and rules WS for work shop so the capitals stay correctly designated.",
       "session": "b27e6c01",
       "path": "Or049.json"
     },
     {
       "id": "Or050",
       "date": "2026-09-20",
-      "summary": "My attendance at this meeting seems a difficult concept to handle, as this meeting seems to be trying to settle ideas b…",
+      "summary": "The commander objects that the team is settling his ideas without him, and rules on the notepad, manuals in two places, extracts and the room sketch.",
       "session": "b27e6c01",
       "path": "Or050.json"
     },
     {
       "id": "Or051",
       "date": "2026-09-20",
-      "summary": "Extracts is future work; currently scaffolding procedures and folder structures as part of M001.",
+      "summary": "The commander rules on frontmatter, the chain of work, context and generates, one universal dispatch register, manuals as the authority, and MANIFEST naming.",
       "session": "b27e6c01",
       "path": "Or051.json"
     },
     {
       "id": "Or052",
       "date": "2026-09-20",
-      "summary": "Match the manifest collection to the ID; agent-oriented naming doesn't mind longer, more descriptive names.",
+      "summary": "The commander rules a manifest is named for its collection in full, dispatch units may sit in team rooms, and teams are roles while a dispatch is an instance.",
       "session": "b27e6c01",
       "path": "Or052.json"
     },
     {
       "id": "Or053",
       "date": "2026-09-20",
-      "summary": "On the pace of the room: not the pilot's fault, don't change anything yet.",
+      "summary": "The commander rules what gets an ID, a name, or both, and describes how the pace of a busy room buries his question under agent returns.",
       "session": "b27e6c01",
       "path": "Or053.json"
     },
     {
       "id": "Or054",
       "date": "2026-09-20",
-      "summary": "On the pilot holding crew returns quietly: that would be awesome.",
+      "summary": "The commander approves the pilot holding crew returns quietly, and advises that write is a restriction of role rather than of place.",
       "session": "b27e6c01",
       "path": "Or054.json"
     },
     {
       "id": "Or055",
       "date": "2026-09-20",
-      "summary": "The write restriction is not a CLAUDE.md line; it would do nothing if removed.",
+      "summary": "The commander rules that the write restriction belongs in a manual rather than CLAUDE.md, names rule 12 team dispatch quiet mode, and moves rule 1 to a manual.",
       "session": "b27e6c01",
       "path": "Or055.json"
     },
     {
       "id": "Or056",
       "date": "2026-09-20",
-      "summary": "On the stage A work: asked who forbids a hand-typed skip list in the design, and if the pilot, why.",
+      "summary": "The commander questions the stage A work, restates that the purpose is schemas and linters so documents have a defined shape, and orders an alignment team.",
       "session": "b27e6c01",
       "path": "Or056.json"
     },
     {
       "id": "Or057",
       "date": "2026-09-20",
-      "summary": "`base/verify/schema/<type>.json` with a basic linter command.",
+      "summary": "The commander orders a schema per type in base/verify with a linter, P for procedures alone, proposal retired as a term, and his idea files written back.",
       "session": "b27e6c01",
       "path": "Or057.json"
     },
     {
       "id": "Or058",
       "date": "2026-09-20",
-      "summary": "On the commander-advocate's return: preferable to have the linter mirror the flightdeck one; node should work, it works…",
+      "summary": "The commander rules the linter mirrors flightdeck's on Node, dispatch units sit in rooms, stage A is pinned for removal, and an advice file carries four fields.",
       "session": "b27e6c01",
       "path": "Or058.json"
+    },
+    {
+      "id": "Or059",
+      "date": "2026-09-20",
+      "summary": "The commander accepts the refit and rules on the advocate's six final findings, to be fixed before sign-off.",
+      "session": "b27e6c01",
+      "path": "Or059.json"
     }
   ]
 }

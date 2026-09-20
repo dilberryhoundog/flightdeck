@@ -181,6 +181,20 @@
       "raised": "2026-09-20",
       "status": "open",
       "path": "WS024.json"
+    },
+    {
+      "id": "WS025",
+      "title": "Schemas describe frontmatter only, so a new session still invents a document's headings",
+      "raised": "2026-09-20",
+      "status": "open",
+      "path": "WS025.json"
+    },
+    {
+      "id": "WS026",
+      "title": "One branch register row stands for several branches",
+      "raised": "2026-09-20",
+      "status": "open",
+      "path": "WS026.json"
     }
   ]
 }

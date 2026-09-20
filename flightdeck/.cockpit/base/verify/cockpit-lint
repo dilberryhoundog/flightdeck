@@ -23,7 +23,9 @@ import { validate } from './lib/schema-lib.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SCHEMA_DIR = path.join(HERE, 'schema');
-const USAGE = 'usage: base/verify/cockpit-lint <file>...  (.md files are checked on their frontmatter, .json files whole)';
+const CONFIG = path.join(HERE, 'lint.yaml');
+const ROOT = path.resolve(HERE, '..', '..');
+const USAGE = 'usage: base/verify/cockpit-lint [<file>...]  (.md files are checked on their frontmatter, .json files whole; with no file, everything lint.yaml names)';
 
 /** An identifier at the head of a file name: Ds006.md, Rq013.md, T010.json, M001-cockpit-setup.md, P001-forming-a-team.md. */
 const NAMED_ID = /^([A-Z][A-Za-z]{0,2}[0-9]{3})(?:[-.])/;
@@ -116,33 +118,35 @@ function readValue(raw, key) {
 }
 
 /**
- * Reads a flat frontmatter block. Returns { doc, faults }: one fault per line that is not a key with an accepted
- * value, each naming the line number and the accepted forms, which is how a comma list gets reported.
+ * Reads a flat frontmatter block. Returns { doc, faults, lineOf, endLine }: one fault per line that is not a key
+ * with an accepted value, and a map from key to the line it sits on, so every fault can name a line to open at.
  */
 function readFrontmatter(block) {
   const doc = {};
   const faults = [];
+  const lineOf = new Map();
   block.lines.forEach((line, index) => {
     const at = block.firstLine + index;
-    if (line.trim() === '') return;
+    if (line.trim() === '' || line.trimStart().startsWith('#')) return;
     const match = KEY.exec(line);
     if (!match) {
-      faults.push({ field: `line ${at}`, problem: 'is not a `key: value` line', expected: `write one field per line as ${VALUE_FORMS}` });
+      faults.push({ line: at, field: 'the line', problem: 'is not a `key: value` line', expected: `one field per line, its value ${VALUE_FORMS}` });
       return;
     }
     const [, key, raw] = match;
     if (key in doc) {
-      faults.push({ field: key, problem: `is given twice, the second time on line ${at}`, expected: 'keep one line per field' });
+      faults.push({ line: at, field: key, problem: 'is given twice', expected: 'one line per field' });
       return;
     }
+    lineOf.set(key, at);
     const read = readValue(raw, key);
     if (read.error) {
-      faults.push({ field: key, problem: `on line ${at} ${read.error}`, expected: read.expected ?? `a value to be ${VALUE_FORMS}` });
+      faults.push({ line: at, field: key, problem: read.error, expected: read.expected ?? `a value to be ${VALUE_FORMS}` });
       return;
     }
     doc[key] = read.value;
   });
-  return { doc, faults };
+  return { doc, faults, lineOf, endLine: block.firstLine + block.lines.length };
 }
 
 // ---------------------------------------------------------------------------
@@ -159,6 +163,7 @@ function loadSchemas() {
   }
   if (names.length === 0) throw new Error(`the schema directory ${SCHEMA_DIR} holds no schemas`);
   const bySelector = new Map();
+  const byFilename = [];
   for (const name of names) {
     const file = path.join(SCHEMA_DIR, name);
     let schema;
@@ -167,9 +172,10 @@ function loadSchemas() {
     } catch (error) {
       throw new Error(`schema ${name} is not valid JSON: ${error.message}`);
     }
-    const selectors = schema['x-select'];
-    if (!Array.isArray(selectors) || selectors.length === 0) {
-      throw new Error(`schema ${name} has no "x-select" list saying which type or kind values it answers to`);
+    const selectors = schema['x-select'] ?? [];
+    const pattern = schema['x-select-filename'];
+    if (!Array.isArray(selectors) || (selectors.length === 0 && !pattern)) {
+      throw new Error(`schema ${name} has no "x-select" list or "x-select-filename" saying which documents it answers to`);
     }
     // A schema that describes a `type` field describes markdown frontmatter; one that describes `kind` describes a JSON file.
     const markdown = Boolean(schema.properties?.type);
@@ -178,8 +184,11 @@ function loadSchemas() {
       if (held) throw new Error(`schemas ${held.name} and ${name} both answer to "${selector}"`);
       bySelector.set(selector, { name, schema, markdown });
     }
+    // A schema may also answer to a family of file names, for collections that are alike but each carry their own
+    // `kind`: every MANIFEST-<collection>.json is a manifest, so a new collection costs a manifest row, not a schema.
+    if (pattern) byFilename.push({ name, schema, markdown, test: new RegExp(pattern) });
   }
-  return bySelector;
+  return { bySelector, byFilename };
 }
 
 /** The property subschema an error path points at, so its `description` can be quoted back as the expected form. */
@@ -216,15 +225,20 @@ function lintFile(file, schemas) {
   const extension = path.extname(base);
   let doc;
   const faults = [];
+  // Where to open the file at, per field: the line the key sits on, or the closing --- for a key that is not there.
+  let lineOf = new Map();
+  let endLine = null;
 
   if (extension === '.md') {
     const block = splitFrontmatter(text);
     if (!block) {
-      return [{ field: 'frontmatter', problem: 'is missing', expected: 'open the file with a --- block holding at least `type`' }];
+      return [{ line: 1, field: 'frontmatter', problem: 'is missing', expected: 'a --- block at the very top of the file, holding at least `type`, closed by a second ---' }];
     }
     const read = readFrontmatter(block);
     faults.push(...read.faults);
     doc = read.doc;
+    lineOf = read.lineOf;
+    endLine = read.endLine;
   } else if (extension === '.json') {
     try {
       doc = JSON.parse(text);
@@ -235,32 +249,39 @@ function lintFile(file, schemas) {
     return [{ field: 'the file', problem: `has the extension ${extension || '(none)'}`, expected: 'a .md or a .json file' }];
   }
 
-  // The name checks: a manifest declares its collection, a file named for an identifier carries it.
-  const manifest = /^MANIFEST-(.+)\.json$/.exec(base);
-  if (manifest && doc?.kind !== manifest[1]) {
-    faults.push({ field: 'kind', problem: `is ${JSON.stringify(doc?.kind ?? null)} in a file named MANIFEST-${manifest[1]}.json`, expected: `kind: "${manifest[1]}", the collection the file name gives` });
+  const markdown = extension === '.md';
+  /** The line a fault on this key should send the reader to; only markdown carries lines. */
+  const at = (key) => (markdown ? (lineOf.get(key) ?? endLine) : undefined);
+
+  // The name check. A MANIFEST-<collection>.json holds that collection, so its `kind` is that word. It is not
+  // generalised to every upper-case prefix: a REGISTER- file is named for what it lists and typed for what it is,
+  // so REGISTER-branches.json carries kind "branch-register", which no rule can derive from the file name.
+  const collection = /^MANIFEST-(.+)\.json$/.exec(base);
+  if (collection && doc?.kind !== collection[1]) {
+    faults.push({ field: 'kind', problem: `is ${JSON.stringify(doc?.kind ?? null)} in a file named ${base}`, expected: `kind: "${collection[1]}", the collection the file name gives` });
   }
   const named = NAMED_ID.exec(base);
   if (named) {
-    const carried = extension === '.md' ? doc?.unit : (doc?.id ?? doc?.unit);
-    const field = extension === '.md' ? 'unit' : 'id';
+    const carried = markdown ? doc?.unit : (doc?.id ?? doc?.unit);
+    const field = markdown ? 'unit' : 'id';
     if (carried !== named[1]) {
-      faults.push({ field, problem: `is ${JSON.stringify(carried ?? null)} in a file named ${base}`, expected: `${field}: "${named[1]}", the identifier the file name gives` });
+      faults.push({ line: at(field), field, problem: `is ${JSON.stringify(carried ?? null)} in a file named ${base}`, expected: `${field}: "${named[1]}", the identifier the file name gives` });
     }
   }
 
   // The schema check.
-  const markdown = extension === '.md';
   const selector = markdown ? doc?.type : doc?.kind;
   const field = markdown ? 'type' : 'kind';
-  const offered = [...schemas.entries()].filter(([, held]) => held.markdown === markdown).map(([key]) => key).sort().join(', ');
-  if (selector === undefined) {
-    faults.push({ field, problem: 'is missing, so no schema can be chosen', expected: `${field} naming the document, one of: ${offered}` });
+  const offered = [...schemas.bySelector.entries()].filter(([, held]) => held.markdown === markdown).map(([key]) => key).sort().join(', ');
+  const byName = schemas.byFilename.find((held) => held.markdown === markdown && held.test.test(base));
+  if (selector === undefined && !byName) {
+    faults.push({ line: at(field), field, problem: 'is missing, so no schema can be chosen', expected: `${field} naming the document, one of: ${offered}` });
     return faults;
   }
-  const chosen = schemas.get(selector);
-  if (!chosen || chosen.markdown !== markdown) {
-    faults.push({ field, problem: `is ${JSON.stringify(selector)}, which no schema for a ${extension} file answers to`, expected: `one of: ${offered}` });
+  const exact = selector === undefined ? undefined : schemas.bySelector.get(selector);
+  const chosen = (exact && exact.markdown === markdown) ? exact : byName;
+  if (!chosen) {
+    faults.push({ line: at(field), field, problem: `is ${JSON.stringify(selector)}, which no schema for a ${extension} file answers to`, expected: `one of: ${offered}` });
     return faults;
   }
   const { ok, errors } = validate(chosen.schema, doc);
@@ -278,10 +299,12 @@ function lintFile(file, schemas) {
     for (const error of collapsed) {
       // A missing field is reported as that field, with its own description, not as a fault of the whole document.
       const missing = error.rule === 'required' ? /lacks required (\S+)$/.exec(error.message) : null;
-      const at = missing ? `${error.path}.${missing[1]}` : error.path;
-      const description = fieldDescription(chosen.schema, at);
+      const where = missing ? `${error.path}.${missing[1]}` : error.path;
+      const description = fieldDescription(chosen.schema, where);
+      const key = where.replace(/^\$\.?/, '');
       faults.push({
-        field: at.replace(/^\$\.?/, '') || 'the document',
+        line: markdown ? (lineOf.get(key.split('.')[0].replace(/\[[0-9]+\]$/, '')) ?? endLine) : undefined,
+        field: key || 'the document',
         problem: missing ? 'is missing'
           : (error.rule === 'anyOf' || error.rule === 'oneOf') ? 'matches none of the accepted forms'
           : (error.message.replace(/^\$\.?[A-Za-z0-9_.[\]]*\s*/, '').trim() || error.message),
@@ -294,29 +317,99 @@ function lintFile(file, schemas) {
 }
 
 // ---------------------------------------------------------------------------
+// The whole-cockpit run
+// ---------------------------------------------------------------------------
+
+/** One glob as a regular expression: ** crosses directories, * and ? stay inside one segment. */
+function globToRegExp(glob) {
+  let out = '';
+  for (let i = 0; i < glob.length; i += 1) {
+    const c = glob[i];
+    if (c === '*' && glob[i + 1] === '*') {
+      i += 1;
+      if (glob[i + 1] === '/') { i += 1; out += '(?:[^/]+/)*'; } else out += '.*';
+    } else if (c === '*') out += '[^/]*';
+    else if (c === '?') out += '[^/]';
+    else out += c.replace(/[.+^${}()|[\]\\]/g, '\\$&');
+  }
+  return new RegExp(`^${out}$`);
+}
+
+/** Every file under root, as paths relative to it. The git directory is never walked. */
+function walk(root, base = '', found = []) {
+  for (const entry of fs.readdirSync(path.join(root, base), { withFileTypes: true })) {
+    if (entry.name === '.git') continue;
+    const rel = base ? `${base}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) walk(root, rel, found);
+    else found.push(rel);
+  }
+  return found;
+}
+
+/**
+ * The files a whole-cockpit run covers, from lint.yaml beside this script: every file matching a `paths` glob and
+ * no `!` glob, in the order the globs are written. A file no glob names is not linted, which is the commander's
+ * rule — no path, skipped.
+ */
+function filesFromConfig(root) {
+  let text;
+  try {
+    text = fs.readFileSync(CONFIG, 'utf8');
+  } catch (error) {
+    throw new Error(`${path.basename(CONFIG)} could not be read: ${error.message}`);
+  }
+  const read = readFrontmatter({ lines: text.split('\n'), firstLine: 1 });
+  if (read.faults.length > 0) {
+    const first = read.faults[0];
+    throw new Error(`${path.basename(CONFIG)} line ${first.line}: ${first.field} ${first.problem}`);
+  }
+  const globs = read.doc.paths;
+  if (!Array.isArray(globs) || globs.length === 0) {
+    throw new Error(`${path.basename(CONFIG)} has no "paths" list of globs to lint`);
+  }
+  const include = [];
+  const exclude = [];
+  for (const glob of globs) {
+    if (String(glob).startsWith('!')) exclude.push(globToRegExp(String(glob).slice(1)));
+    else include.push(globToRegExp(String(glob)));
+  }
+  const all = walk(root).sort();
+  return all.filter((rel) => include.some((r) => r.test(rel)) && !exclude.some((r) => r.test(rel)));
+}
+
+// ---------------------------------------------------------------------------
 // The command
 // ---------------------------------------------------------------------------
 
 export function main(argv = []) {
-  const files = argv.filter((arg) => !String(arg).startsWith('-'));
-  if (argv.includes('--help') || argv.includes('-h') || files.length === 0) {
+  const named = argv.filter((arg) => !String(arg).startsWith('-'));
+  if (argv.includes('--help') || argv.includes('-h')) {
     fail(USAGE);
     return EXIT.usage;
   }
   let schemas;
+  let files = named;
+  let whole = false;
   try {
     schemas = loadSchemas();
+    // No file named is the whole cockpit, which is what lint.yaml describes.
+    if (named.length === 0) {
+      files = filesFromConfig(ROOT).map((rel) => path.join(ROOT, rel));
+      whole = true;
+    }
   } catch (error) {
     fail(`cockpit-lint cannot run: ${error.message}`);
     return EXIT.usage;
   }
   let total = 0;
   for (const file of files) {
-    const inside = path.relative(process.cwd(), path.resolve(file));
+    const from = whole ? ROOT : process.cwd();
+    const inside = path.relative(from, path.resolve(file));
     const shown = inside && !inside.startsWith('..') ? inside : path.resolve(file);
     for (const fault of lintFile(file, schemas)) {
       const rule = fault.rule ? ` — [${fault.rule}]` : '';
-      fail(`error: ${shown}: ${fault.field} ${fault.problem}; expected ${fault.expected}${rule}`);
+      const where = fault.line ? `${shown}:${fault.line}` : shown;
+      fail(`error: ${where}: ${fault.field} ${fault.problem}; expected ${fault.expected}${rule}`);
       total += 1;
     }
   }

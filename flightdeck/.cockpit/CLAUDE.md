@@ -51,7 +51,7 @@ What accumulates and is cited gets an ID and is filed by it; what is known perma
 | Or | order |
 | De | decision |
 | T | dispatch (a team instance) |
-| C | retired: crew dispatch ids in the frozen `records/logs/crew-manifest.json` |
+| C | retired: crew dispatch ids in the frozen `records/logs/FROZEN-crew-dispatches.json` |
 
 ## Crew protocol
 
@@ -63,7 +63,7 @@ The harness facts behind these rules are in `records/manuals/claude-code/agent-t
 4. **Verify before acting.** A crew report is model output. Check its claims against the files before moving, filing or reporting anything.
 5. **File to the notepad first.** Crew reports land in `records/notepad/`. Promotion to `records/manuals/` follows rule 2.
 6. **Keep teammates alive while the team works.** A teammate's value is the second pass and the back-and-forth, so do not shut one down because its first report is in. Clean up only once the team itself is finished. Keep teams small: every seat is there for a stated reason, and there is no fixed cap (commander, 2026-09-18: arbitrary limits are bad). Where facts about the harness or best practice matter, seat a verifier against official Anthropic docs. Teammates do not survive `pilot.sh resume`. An idle notification truncates long reports, so ask teammates to send long reports by SendMessage.
-7. **Record the team.** The team is the unit of record: an entry in `records/dispatch/MANIFEST-dispatches.json` at spawn, completed with outcome and lessons when the team finishes. Every seat has a row in `team/crew/MANIFEST-crew.json` and a dossier in `team/crew/<room>/<name>.md`, written the first time it flies and updated after each team. Favourite setups are rosters in `team/rosters/MANIFEST-rosters.json`. `records/logs/crew-manifest.json` is frozen history.
+7. **Record the team.** The team is the unit of record: an entry in `records/dispatch/MANIFEST-dispatches.json` at spawn, completed with outcome and lessons when the team finishes. Every seat has a row in `team/crew/MANIFEST-crew.json` and a dossier in `team/crew/<room>/<name>.md`, written the first time it flies and updated after each team. Favourite setups are rosters in `team/rosters/MANIFEST-rosters.json`. `records/logs/FROZEN-crew-dispatches.json` is frozen history.
 
 ## Session start
 
@@ -89,7 +89,7 @@ Five rooms, each answering one question, and two files at the root.
 - `cockpit.keep` — the commander's founding orders for this post; this file is the rest.
 - `base/` — the machinery: `bin/` (the launch script, the SessionStart hook, the write guard), `settings/` (the pilot's settings file), `verify/` (a schema per document type and `cockpit-lint`), and the temporary `store/`.
 - `commander/` — the commander's interface to the pilot: `desk/in/dossiers/` and `desk/in/requests/` for what goes up, `desk/out/advice/` and `desk/out/ideas/` for what comes back, `orders/` and `decisions/`, each a `MANIFEST-` over one JSON unit per item.
-- `records/` — what has happened and is known: `manuals/` the pilot's authority (rule 2 is the docspec; `manuals/README.md` indexes them), `logs/` with `MANIFEST-branches.json` and the frozen `crew-manifest.json`, `dispatch/` one register over a unit per team in its room, `extracts/` (the commander's statements by topic today, extractions later), `notepad/` scratch.
+- `records/` — what has happened and is known: `manuals/` the pilot's authority (rule 2 is the docspec; `manuals/README.md` indexes them), `logs/` with `REGISTER-branches.json` and the frozen `FROZEN-crew-dispatches.json`, `dispatch/` one register over a unit per team in its room, `extracts/` (the commander's statements by topic today, extractions later), `notepad/` scratch.
 - `work/` — what is being done: `missions/` with `completed/` and `incubator/` for sparks, `workshop/` for fixes and maintenance, `procedures/` the logic engine whose `triggers.md` is the manifest.
 - `team/` — who does it: `crew/` in `flightcrew/`, `cockpit/` and `general/` with a dossier per seat, `officers/commander/` and `officers/pilot/`, and `rosters/` for favourite setups.
 

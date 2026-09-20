@@ -9,3 +9,4 @@ Fields:
 Sweep to workshop:
   - for completed work. move to a completed/ folder
   - for non-compliant work, move to appropriate location (log etc) or remove
+  - brief spec work for optional goal and verify fields

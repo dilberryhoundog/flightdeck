@@ -1,48 +1,49 @@
 {
   "kind": "logs",
   "version": 2,
-  "logs": [
+  "updated": "2026-09-20",
+  "units": [
     {
-      "date": "2026-09-17",
       "session": "a61606de",
+      "date": "2026-09-17",
       "session_id": "a61606de-fd71-42a7-942f-a8e8d776bce3",
-      "file": "2026-09-17_a61606de.md",
-      "summary": "First day. Pilot recruited, branch cockpit created, cockpit scaffolded, flightcrew surveyed, settings and messaging learned and tested, launcher and write guard built, incubator opened."
+      "summary": "First day. Pilot recruited, branch cockpit created, cockpit scaffolded, flightcrew surveyed, settings and messaging learned and tested, launcher and write guard built, incubator opened.",
+      "path": "2026-09-17_a61606de.md"
     },
     {
-      "date": "2026-09-18",
       "session": "8e74fffb",
+      "date": "2026-09-18",
       "session_id": "8e74fffb-afd1-4cf1-9c2a-24ec1b56ba56",
-      "file": "2026-09-18_8e74fffb.md",
-      "summary": "In progress. Fable launcher, records vs notepad, crew protocol and manifest, first agent team, persona moved to quarters, guard rewrite."
+      "summary": "In progress. Fable launcher, records vs notepad, crew protocol and manifest, first agent team, persona moved to quarters, guard rewrite.",
+      "path": "2026-09-18_8e74fffb.md"
     },
     {
-      "date": "2026-09-18",
       "session": "49f87e44",
-      "session_id": "49f87e44-b89a-4c90-a027-71e8b912d968",
-      "file": "2026-09-18_49f87e44.md",
-      "summary": "CLAUDE.md repaired: rules, crew protocol and session procedures moved back from quarters after an Opus judge; quarters trimmed to persona. Crew rules 2 and 6 corrected on the commander's orders. Workshop opened with seven items; missions scoped to bigger work."
-    },
-    {
       "date": "2026-09-18",
+      "session_id": "49f87e44-b89a-4c90-a027-71e8b912d968",
+      "summary": "CLAUDE.md repaired: rules, crew protocol and session procedures moved back from quarters after an Opus judge; quarters trimmed to persona. Crew rules 2 and 6 corrected on the commander's orders. Workshop opened with seven items; missions scoped to bigger work.",
+      "path": "2026-09-18_49f87e44.md"
+    },
+    {
       "session": "dcb75456",
+      "date": "2026-09-18",
       "session_id": "dcb75456-6a0f-42a1-a4b4-e57eb29db01e",
-      "file": "2026-09-18_dcb75456.md",
-      "summary": "Callsign Ace. Recon team T001, research team T002, critics T003/T008, topics-and-records team T006. Commander's desk opened; dossiers Ds001 to Ds003; work split, dispatch room, MANIFEST-orders.json, topics store (27 topics, 203 statements), records docspec (one topic whole, 100/150), seven records drafted awaiting Rq009. Teams integrated: rosters, crew rooms, 20 dossiers. Session log exceeded the cap set mid-session; two-line entries from the next session."
+      "summary": "Callsign Ace. Recon team T001, research team T002, critics T003/T008, topics-and-records team T006. Commander's desk opened; dossiers Ds001 to Ds003; work split, dispatch room, MANIFEST-orders.json, topics store (27 topics, 203 statements), records docspec (one topic whole, 100/150), seven records drafted awaiting Rq009. Teams integrated: rosters, crew rooms, 20 dossiers. Session log exceeded the cap set mid-session; two-line entries from the next session.",
+      "path": "2026-09-18_dcb75456.md"
     },
     {
-      "date": "2026-09-19",
       "session": "4450a586",
+      "date": "2026-09-19",
       "session_id": "4450a586-cf84-4dbe-80d3-51c02c8fbe14",
-      "file": "2026-09-19_4450a586.md",
-      "summary": "Ds003 advice (De020) led to decision team T009 on record keeping: Ds004/Rq010 approved and executed (rule 2 rewritten, one header line per record, harness register and four stubs landed). Procedures room designed and built (Or042, Ds005/Rq011, Or043): five cockpit procedures live, manifest imported into CLAUDE.md. Sp009 promoted to mission M002 (horizon). Rq012 raised to guard unmerged branches. Two commits pushed."
+      "summary": "Ds003 advice (De020) led to decision team T009 on record keeping: Ds004/Rq010 approved and executed (rule 2 rewritten, one header line per record, harness register and four stubs landed). Procedures room designed and built (Or042, Ds005/Rq011, Or043): five cockpit procedures live, manifest imported into CLAUDE.md. Sp009 promoted to mission M002 (horizon). Rq012 raised to guard unmerged branches. Two commits pushed.",
+      "path": "2026-09-19_4450a586.md"
     },
     {
-      "date": "2026-09-20",
       "session": "b27e6c01",
+      "date": "2026-09-20",
       "session_id": "b27e6c01-a246-44bd-950b-90d8452b439a",
-      "file": "2026-09-20_b27e6c01.md",
-      "summary": "In progress."
+      "summary": "In progress.",
+      "path": "2026-09-20_b27e6c01.md"
     }
   ]
 }

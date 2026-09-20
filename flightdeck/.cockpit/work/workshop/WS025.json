@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS025",
+  "title": "Schemas describe frontmatter only, so a new session still invents a document's headings",
+  "raised": "2026-09-20",
+  "source": "Or059 and records/notepad/refit-2026-09-20/advocate-final.md finding 1",
+  "status": "open",
+  "notes": "The commander's purpose in Or056 was that a new session writes a document the same way the pilot writes one. The 18 schemas settle the frontmatter and stop there; everything after the closing --- is body the linter does not read, so headings, section order and length are still conjured each time. The advocate's proposed cure is an x-sections list per schema naming the required headings, checked by heading text, which is a small addition to a linter that already opens the file. Decide whether headings are worth constraining at all, and for which types: a dossier and a request have a settled shape, a manual may not."
+}

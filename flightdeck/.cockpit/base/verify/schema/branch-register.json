@@ -1,14 +1,19 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "x-select": ["branches"],
+  "x-select": ["branch-register"],
   "title": "Branch register",
-  "description": "The register of the repository's branches: what each one is for, what it sits under, and whether its work has been merged higher, which is what says a branch may be deleted. A register of git branches rather than of documents, so its rows point at no file. Named MANIFEST-branches.json.",
+  "description": "The register of the repository's branches: what each one is for, what it sits under, and whether its work has been merged higher, which is what says a branch may be deleted. Not a manifest: a manifest's rows point at units you can open, and a branch lives in git rather than in a file, so no row has a path. Named REGISTER-branches.json for that reason, and typed branch-register for what it is.",
   "type": "object",
   "required": ["kind", "updated", "branches"],
   "properties": {
     "kind": {
-      "description": "the word branches, which is what chooses this schema",
-      "const": "branches"
+      "description": "the words branch-register, which is what chooses this schema",
+      "const": "branch-register"
+    },
+    "version": {
+      "description": "the shape of this file, counted up when the shape changes",
+      "type": "integer",
+      "minimum": 1
     },
     "updated": {
       "description": "the date the register was last checked against the repository, YYYY-MM-DD",
@@ -21,18 +26,29 @@
       "minLength": 1
     },
     "branches": {
-      "description": "one row per branch",
+      "description": "one row per branch. Called branches and not units on purpose: a unit is a file you can open, and these are not",
       "type": "array",
       "items": {
-        "description": "one branch: its name, what it is for, what it sits under and whether its work is safe",
+        "description": "one branch: what it is called, what it is for, what it sits under and whether its work is safe",
         "type": "object",
         "required": ["name", "role", "status"],
         "properties": {
-          "name": { "description": "the branch name as git holds it", "type": "string", "minLength": 1 },
+          "name": {
+            "description": "the branch name exactly as git holds it, which may carry slashes and is therefore a free string and never a cockpit name",
+            "type": "string",
+            "minLength": 1
+          },
           "role": { "description": "what the branch is for, in one line", "type": "string", "minLength": 1 },
           "parent": { "description": "the branch this one was cut from and merges back into; absent for a root branch", "type": "string", "minLength": 1 },
-          "merged_higher": { "description": "true only when every commit is contained in a branch above; this, and never the prose of status, is the fact that licenses deleting a branch, and absent means unknown, which is not safe", "type": "boolean" },
-          "status": { "description": "where the branch stands, in the register's own words: working line, held, pending decision, candidate with the suite merge. Prose on purpose — the machine-readable fact is merged_higher, and flattening these onto a short enum would be a judgement about the repository, not a shape", "type": "string", "minLength": 1 },
+          "merged_higher": {
+            "description": "true only when every commit is contained in a branch above; this, and never the prose of status, is the fact that licenses deleting a branch, and absent means unknown, which is not safe",
+            "type": "boolean"
+          },
+          "status": {
+            "description": "where the branch stands, in the register's own words: working line, held, pending decision, candidate with the suite merge. Prose on purpose — the machine-readable fact is merged_higher, and flattening these onto a short enum would be a judgement about the repository, not a shape",
+            "type": "string",
+            "minLength": 1
+          },
           "note": { "description": "anything the other fields cannot carry", "type": "string", "minLength": 1 }
         }
       }

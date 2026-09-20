@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS026",
+  "title": "One branch register row stands for several branches",
+  "raised": "2026-09-20",
+  "source": "Or059; found by the refitter and schema-builder during dispatch T014",
+  "status": "open",
+  "notes": "The last row of `records/logs/REGISTER-branches.json` names `worktree-wf_2fdadce5-244-{1,2,3,4}, worktree-wf_835932ae-12f-1, worktree-wf_9641b63f-a15-1` as one entry. A row standing for several branches cannot say whether each is merged higher, so it cannot answer whether any of them is safe to delete, which is the question the register exists for (branch cleanup is merge cleanup). Splitting it is a judgement about the repository: one row per branch, each with its own tip, containment and `merged_higher`, checked with `base/bin/branch-terrain.sh`. Not done in the refit on purpose."
+}

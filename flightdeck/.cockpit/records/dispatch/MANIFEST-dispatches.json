@@ -8,7 +8,7 @@
       "id": "T001",
       "date": "2026-09-18",
       "mission": "M001",
-      "summary": "Recon flightcrew's terrain, history and doctrine; verify harness claims against official docs; cut candidate epic missi…",
+      "summary": "Dispatch to recon flightcrew's terrain, history and doctrine, verify harness claims against official documentation, and cut candidate epic missions.",
       "status": "finished",
       "path": "cockpit/T001.json"
     },
@@ -16,7 +16,7 @@
       "id": "T002",
       "date": "2026-09-18",
       "mission": "M001",
-      "summary": "Certified research team: turn the recon and the genesis sources into records, contested and verified, run past the comm…",
+      "summary": "Dispatch of a certified research team to turn the recon and genesis sources into records, contested and verified, run past the commander before landing.",
       "status": "finished",
       "path": "cockpit/T002.json"
     },
@@ -24,7 +24,7 @@
       "id": "T003",
       "date": "2026-09-18",
       "mission": "M001",
-      "summary": "Critique the pilot's cockpit work of the day and the approved plan from two angles: fit with the cockpit's purpose and…",
+      "summary": "Dispatch of two critics over the day's cockpit work and the approved plan, one on fit with the cockpit's purpose, one on bulk that can be trimmed.",
       "status": "finished",
       "path": "cockpit/T003.json"
     },
@@ -32,7 +32,7 @@
       "id": "T004",
       "date": "2026-09-18",
       "mission": "M001",
-      "summary": "First agent team: cockpit cleanup suggestions, official best practices, adversary on both (spark Sp003)",
+      "summary": "Dispatch of the first agent team: cockpit cleanup suggestions, official best practice, and an adversary over both.",
       "status": "finished",
       "path": "cockpit/T004.json"
     },
@@ -40,7 +40,7 @@
       "id": "T005",
       "date": "2026-09-18",
       "mission": "M001",
-      "summary": "CLAUDE.md review: official docs on CLAUDE.md, cockpit comb, judge and redraft",
+      "summary": "Dispatch to review CLAUDE.md against official documentation, comb the cockpit for what belongs there, and judge and redraft the file.",
       "status": "finished",
       "path": "cockpit/T005.json"
     },
@@ -48,7 +48,7 @@
       "id": "T006",
       "date": "2026-09-18",
       "mission": "M001",
-      "summary": "Strengthened research team (Ds002 advice): mine the commander's statements into timeless topics, distil records under t…",
+      "summary": "Dispatch of a strengthened research team to mine the commander's statements into timeless topics and distil validated records under the docspec.",
       "status": "finished",
       "path": "cockpit/T006.json"
     },
@@ -56,7 +56,7 @@
       "id": "T007",
       "date": "2026-09-18",
       "mission": "M001",
-      "summary": "One-shot doc-reviewer on the records docspec in CLAUDE.md rule 2 and records/manuals/README.md",
+      "summary": "Dispatch of a one-shot doc-reviewer over the records docspec in CLAUDE.md rule 2 and the records README.",
       "status": "finished",
       "path": "cockpit/T007.json"
     },
@@ -64,7 +64,7 @@
       "id": "T008",
       "date": "2026-09-18",
       "mission": "M001",
-      "summary": "Mini-adversary pass on the teams integration: dispatch as JSON per room, rosters, crew rooms and dossiers",
+      "summary": "Dispatch of a mini-adversary pass over the teams integration: dispatch JSON per room, rosters, crew rooms and seat dossiers.",
       "status": "finished",
       "path": "cockpit/T008.json"
     },
@@ -72,7 +72,7 @@
       "id": "T009",
       "date": "2026-09-19",
       "mission": "M001",
-      "summary": "Decision team on record keeping after the commander's Ds003 advice: options for how the cockpit keeps brief, current re…",
+      "summary": "Dispatch of a decision team on how the cockpit keeps records, later extended to the procedures room scaffold, the rule 2 wording and the four stubs.",
       "status": "finished",
       "path": "cockpit/T009.json"
     },
@@ -80,7 +80,7 @@
       "id": "T010",
       "date": "2026-09-20",
       "mission": "M001",
-      "summary": "Idea exploration with the commander in the room through the pilot's seat: the commander's out-ideas on cockpit rooms, i…",
+      "summary": "Dispatch to explore the commander's idea files with him in the room: cockpit rooms, identifiers, manifests and units, and frontmatter, as one scheme.",
       "status": "finished",
       "path": "cockpit/T010.json"
     },
@@ -88,7 +88,7 @@
       "id": "T011",
       "date": "2026-09-20",
       "mission": "M001",
-      "summary": "Build stage A of the paperwork check under Rq013 as amended (De026, De027): the store (prefix table, zone and field map…",
+      "summary": "Dispatch to build stage A of the paperwork check: the store, a reference checker, a rename tool with a dry run, and a table test over fixtures.",
       "status": "finished",
       "path": "cockpit/T011.json"
     },
@@ -96,7 +96,7 @@
       "id": "T012",
       "date": "2026-09-20",
       "mission": "M001",
-      "summary": "The commander's order: run the mini adversaries over the stage A work (spec, plan, store, tools, tests, fixtures) for f…",
+      "summary": "Dispatch of the mini adversaries over the stage A work for fit and trim, with the verdict left to them while T011 was held.",
       "status": "finished",
       "path": "cockpit/T012.json"
     },
@@ -104,7 +104,7 @@
       "id": "T013",
       "date": "2026-09-20",
       "mission": "M001",
-      "summary": "The commander's order (Or056): a quick team to check that what the commander advised and what was built align; with T01…",
+      "summary": "Dispatch of a quick team to check whether what the commander advised and what was built align, deciding the way forward with T012's findings.",
       "status": "finished",
       "path": "cockpit/T013.json"
     },
@@ -112,7 +112,7 @@
       "id": "T014",
       "date": "2026-09-20",
       "mission": "M001",
-      "summary": "Refit the cockpit on the commander's order (Or057, Or058): schemas and a Node linter mirroring flightcrew's in base/ver…",
+      "summary": "Dispatch to refit the cockpit: schemas and a Node linter, the identifier pass, JSON manifests and units, frontmatter, and the five-room move.",
       "status": "in_flight",
       "path": "cockpit/T014.json"
     }

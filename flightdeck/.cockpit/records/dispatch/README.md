@@ -7,4 +7,4 @@ The pilot's teams: the pilot's first feature (commander, 2026-09-18). Teams are 
 - `flightcrew/` — units for teams that fly launches, once there are any. The register is shared, so the room costs nothing until it has a team.
 - `MANIFEST-rosters.json` and `rosters/` — named setups the pilot has flown and would fly again, one unit per roster by name, each a list of seat names and a line of shape. Dispatching a roster means spawning its seats with their dossier briefs adapted to the task; the team unit records which roster it came from.
 
-Every seat has a dossier under `../../team/crew/` so it can be repeated, replicated or improved; `../../team/crew/MANIFEST-crew.json` is the manifest of every teammate across every crew. `../logs/crew-manifest.json` is the frozen archive of dispatches before this room existed.
+Every seat has a dossier under `../../team/crew/` so it can be repeated, replicated or improved; `../../team/crew/MANIFEST-crew.json` is the manifest of every teammate across every crew. `../logs/FROZEN-crew-dispatches.json` is the frozen archive of dispatches before this room existed.

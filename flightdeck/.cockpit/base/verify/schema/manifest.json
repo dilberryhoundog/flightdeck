@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "x-select": ["dossiers", "requests", "commander-advice", "dispatches", "orders", "decisions", "workshop-items", "rosters", "missions", "sparks", "procedures", "manuals", "topics", "crew"],
+  "x-select-filename": "^MANIFEST-.+\\.json$",
   "title": "Manifest",
   "description": "A manifest: the whole scope of one collection in one cheap read, each row carrying enough to choose a unit, and the unit carrying the rest. Named MANIFEST-<collection>.json, the collection being the identifier's name in full, so the file says what it is in a stream of output.",
   "type": "object",
@@ -22,14 +22,15 @@
       "minLength": 1
     },
     "units": {
-      "description": "one row per unit, each with the unit's path and either its identifier or its name, plus whatever else is needed to choose between them",
+      "description": "one row per unit, each with the unit's path and a label — its id, its name, or its session for the logs — plus whatever else is needed to choose between them",
       "type": "array",
       "items": {
-        "description": "one row: a label, which is id for a collection filed by identifier and name for one filed by name, and then path to the unit — or, for a row whose unit never existed or has gone, superseded_by naming what replaced it",
+        "description": "one row: a label and a path to the unit. The label is id for a collection filed by identifier, name for one filed by name, session for the session logs, which are filed by date and session. A row whose unit never existed or has gone carries superseded_by in place of path",
         "type": "object",
         "anyOf": [
           { "required": ["id", "path"] },
           { "required": ["name", "path"] },
+          { "required": ["session", "path"] },
           { "required": ["id", "superseded_by"] },
           { "required": ["name", "superseded_by"] }
         ],
@@ -44,8 +45,18 @@
             "type": "string",
             "pattern": "^[a-z][a-z0-9-]*$"
           },
+          "session": {
+            "description": "the eight-character session id, the label for the session logs, which are filed by date and session rather than by identifier or name",
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}$"
+          },
           "title": {
             "description": "one line saying what the unit is, enough to decide whether to open it",
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "description": "where a line will not do, as for a session log: what is in the unit, in enough words to decide whether to open it",
             "type": "string",
             "minLength": 1
           },

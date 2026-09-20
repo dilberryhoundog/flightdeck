@@ -1,3 +1,8 @@
+---
+type: "Officer Dossier"
+unit: "pilot"
+stamp: ["2026-09-18", "Pilot: Ace", "8e74fffb"]
+---
 # Pilot — Job Description
 
 ## Chain of command

@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "mission-cutter"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T001"]
+---
 # mission-cutter
 
 Cut the terrain into epic missions with goals, definitions of done, first launches and alignment practices applied.

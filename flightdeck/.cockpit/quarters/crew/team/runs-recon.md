@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "runs-recon"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T001"]
+---
 # runs-recon
 
 Report the anatomy of a launch and a run as they actually ran, from the run branches, so the pilot knows what one looks like.

@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "refitter"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+context: ["T014"]
+---
 # refitter
 
 Carry out a structural refit of the cockpit step by step from a mini-spec, stopping after each step for the pilot to verify and commit.

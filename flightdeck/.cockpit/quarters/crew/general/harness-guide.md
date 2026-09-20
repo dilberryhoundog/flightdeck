@@ -1,6 +1,15 @@
+---
+type: "Crew Dossier"
+unit: "harness-guide"
+room: "general"
+agent_type: "claude-code-guide"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-17", "Pilot: Ace", "a61606de"]
+context: []
+---
 # Harness Guide
 
-- **Agent type:** `claude-code-guide`
 - **Tools:** Bash, Read, WebFetch, WebSearch.
 - **Purpose:** research Claude Code features from official docs. Used to fill `records/claude-code/`.
 

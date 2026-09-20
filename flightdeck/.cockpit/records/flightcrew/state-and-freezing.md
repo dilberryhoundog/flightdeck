@@ -1,6 +1,10 @@
+---
+type: "Manual"
+stub: true
+style: "record"
+stamp: ["2026-09-20", "stub-writer", "4450a586"]
+---
 # State, Freezing and Gates
-
-Stub: existing knowledge only, not validated, not to be cited as authority.
 
 ## Gates
 There are no gate switches in a state file; there are workflows. Three points call for a human decision: the plan, the interfaces, and the ending. The human does not gate every wave. Between workflows, an agent finishes, the human reviews, then approves the next one.

@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "topic-extractor"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T006"]
+---
 # topic-extractor
 
 Mine the commander's statements from transcripts and advice into timeless flightdeck system topics, verbatim, verified, chatter excluded.

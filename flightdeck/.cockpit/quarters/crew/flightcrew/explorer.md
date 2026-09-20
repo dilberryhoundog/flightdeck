@@ -1,6 +1,15 @@
+---
+type: "Crew Dossier"
+unit: "explorer"
+room: "flightcrew"
+agent_type: "Explore"
+model: "haiku"
+status: "active"
+stamp: ["2026-09-17", "Pilot: Ace", "a61606de"]
+context: []
+---
 # Explorer
 
-- **Agent type:** `Explore`
 - **Tools:** read-only search. No Agent, no writes.
 - **Purpose:** sweep many files or directories and return a conclusion. Locates; does not audit.
 

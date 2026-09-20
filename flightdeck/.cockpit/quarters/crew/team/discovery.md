@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "discovery"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T006"]
+---
 # discovery
 
 Fetch the surrounding repo terrain for each topic and confirm or correct its references; note terrain the topic should cite.

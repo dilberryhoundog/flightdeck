@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "trim-critic"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T003", "T008", "T012"]
+---
 # trim-critic
 
 Attack for bulk: what can be trimmed or replaced without losing function, with what is lost stated per cut, in tokens per session.

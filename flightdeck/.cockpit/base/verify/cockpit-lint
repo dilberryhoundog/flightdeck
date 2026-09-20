@@ -61,6 +61,10 @@ function readScalar(raw) {
   if (text.includes('"') || text.includes("'")) return { error: 'mixes quoted and bare text' };
   if (text.includes(',')) return { error: 'is a comma list, which is not a list here' };
   if (text.includes('[') || text.includes(']')) return { error: 'holds a bracket in a bare value' };
+  // A bare true, false or number is that value, as it would be in JSON; quote it to mean the word or the digits.
+  if (text === 'true') return { value: true };
+  if (text === 'false') return { value: false };
+  if (/^-?[0-9]+(\.[0-9]+)?$/.test(text)) return { value: Number(text) };
   return { value: text };
 }
 
@@ -180,6 +184,9 @@ function loadSchemas() {
 
 /** The property subschema an error path points at, so its `description` can be quoted back as the expected form. */
 function fieldDescription(schema, errorPath) {
+  // At the root the schema's own description is the whole document's, too long for a fault line, so a schema that
+  // rules the document as a whole says what it wants in one clause under `x-expect`.
+  if (errorPath === '$') return typeof schema['x-expect'] === 'string' ? schema['x-expect'] : null;
   const parts = errorPath.split('.').slice(1);
   let node = schema;
   for (const raw of parts) {

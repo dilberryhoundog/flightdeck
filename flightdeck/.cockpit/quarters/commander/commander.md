@@ -1,3 +1,8 @@
+---
+type: "Officer Dossier"
+unit: "commander"
+stamp: ["2026-09-17", "Pilot: Ace", "a61606de"]
+---
 # Commander
 
 ## Identity

@@ -17,8 +17,8 @@
       "pattern": "^Rq[0-9]{3}$"
     },
     "status": {
-      "description": "where the request stands with the commander: open, approved, denied, amended or withdrawn",
-      "enum": ["open", "approved", "denied", "amended", "withdrawn"]
+      "description": "where the request stands, along the lifecycle base/README.md sets out: awaiting on the commander's desk and unanswered, then approved, amended (approved with changes) or denied, then executed once crew have carried it out; withdrawn if the pilot took it back, superseded if events overtook it",
+      "enum": ["awaiting", "approved", "amended", "denied", "executed", "withdrawn", "superseded"]
     },
     "stamp": {
       "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",
@@ -36,9 +36,8 @@
       "pattern": "^M[0-9]{3}$"
     },
     "context": {
-      "description": "the identifiers this request comes out of, a bracketed list; a request's context is its dossier, Ds and three digits",
+      "description": "the identifiers this request comes out of, a bracketed list; a request's context is its dossier, Ds and three digits. An empty list where there is no link behind, as with the requests that predate the desk — the key is always written, so its absence is never a question",
       "type": "array",
-      "minItems": 1,
       "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
     },
     "generates": {

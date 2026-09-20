@@ -1,3 +1,12 @@
+---
+type: "Procedure"
+unit: "P004"
+status: "active"
+trigger: "periodical"
+stamp: ["2026-09-20", "Pilot: Ace", "4450a586"]
+approved: "2026-09-20"
+context: ["Rq011"]
+---
 # P004 — Currency review
 
 Approved: commander, 2026-09-20.

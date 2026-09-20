@@ -1,6 +1,10 @@
+---
+type: "Manual"
+stub: true
+style: "record"
+stamp: ["2026-09-20", "stub-writer", "4450a586"]
+---
 # Tests and Checks
-
-Stub: existing knowledge only, not validated, not to be cited as authority.
 
 ## Tests vs checks
 Tests are pass/fail assertions owned by the project's own test suite. Checks wrap a test and return an orchestration-compatible verdict; a check can be an exit code, a ratio against a threshold, or a rubric verdict, not only pass/fail.

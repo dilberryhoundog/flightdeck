@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "practice-scout"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-19", "Pilot: Ace", "4450a586"]
+context: ["T009", "T010"]
+---
 # practice-scout
 
 Find what official Anthropic sources say on a harness or practice question and turn it into usable mechanisms, each quote confirmed against the raw page.

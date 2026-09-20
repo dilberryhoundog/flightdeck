@@ -1,6 +1,10 @@
+---
+type: "Manual"
+source: "https://code.claude.com/docs/en/sub-agents.md (researched 2026-09-17)."
+style: "record"
+stamp: ["2026-09-17", "harness-guide", "a61606de"]
+---
 # Subagents and Isolation
-
-Source: https://code.claude.com/docs/en/sub-agents.md (researched 2026-09-17).
 
 ## Fresh vs fork
 

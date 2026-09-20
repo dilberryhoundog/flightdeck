@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "cockpit-auditor"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-19", "Pilot: Ace", "4450a586"]
+context: ["T009", "T010"]
+---
 # cockpit-auditor
 
 Gather evidence, not opinion, on how the cockpit actually behaves: which stores carry knowledge, which were used, where the pilot drifted and what that cost the commander.

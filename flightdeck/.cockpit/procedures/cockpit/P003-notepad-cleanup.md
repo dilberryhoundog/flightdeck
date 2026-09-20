@@ -1,3 +1,12 @@
+---
+type: "Procedure"
+unit: "P003"
+status: "active"
+trigger: "periodical"
+stamp: ["2026-09-20", "Pilot: Ace", "4450a586"]
+approved: "2026-09-20"
+context: ["Rq011"]
+---
 # P003 — Notepad cleanup
 
 Approved: commander, 2026-09-20.

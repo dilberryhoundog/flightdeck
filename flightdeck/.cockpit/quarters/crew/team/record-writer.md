@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "record-writer"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T006"]
+---
 # record-writer
 
 Distil topics into records under rule 2; contest the adversary with evidence; run a mechanical citation check before landing.

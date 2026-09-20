@@ -17,8 +17,12 @@
       "pattern": "^Sp[0-9]{3}$"
     },
     "heat": {
-      "description": "how close the idea is to being flown: cold, warm or hot",
+      "description": "how close the idea is to being flown, and nothing else: cold, warm or hot. What became of the spark is status, not heat",
       "enum": ["cold", "warm", "hot"]
+    },
+    "status": {
+      "description": "what became of the spark: live if it is still only an idea, ran if it has flown once and is maturing, folded if it was absorbed into another spark, promoted if it became a mission. Absent means live, and for folded or promoted the target is in generates",
+      "enum": ["live", "ran", "folded", "promoted"]
     },
     "stamp": {
       "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",

@@ -1,3 +1,12 @@
+---
+type: "Procedure"
+unit: "P002"
+status: "active"
+trigger: "on-demand"
+stamp: ["2026-09-20", "Pilot: Ace", "4450a586"]
+approved: "2026-09-20"
+context: ["Rq011"]
+---
 # P002 — Forming a team
 
 Approved: commander, 2026-09-20.

@@ -4,7 +4,7 @@
   "title": "Crew Dossier",
   "description": "The frontmatter of a crew dossier: one seat in the crew, what it is for, how to dispatch it and what has been observed of it. Written the first time the seat flies and updated after each team. Filed by seat name, explorer.md.",
   "type": "object",
-  "required": ["type", "unit", "room", "agent_type", "model", "status", "stamp"],
+  "required": ["type", "unit", "room", "agent_type", "model", "status", "stamp", "context"],
   "additionalProperties": false,
   "properties": {
     "type": {
@@ -44,7 +44,7 @@
       ]
     },
     "context": {
-      "description": "the dispatches this seat has flown, a bracketed list of T identifiers",
+      "description": "the dispatches this seat has flown, a bracketed list of T identifiers. An empty list for a seat that has never flown — the key is always written, so its absence is never a question",
       "type": "array",
       "items": { "type": "string", "pattern": "^T[0-9]{3}$" }
     }

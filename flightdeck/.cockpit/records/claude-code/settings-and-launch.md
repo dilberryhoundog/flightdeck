@@ -1,6 +1,10 @@
+---
+type: "Manual"
+source: "https://code.claude.com/docs/en/settings.md, settings-reference.md, cli-reference, sub-agents.md, sessions.md, hooks.md (researched 2026-09-17 by harness-guide, CLI 2.1.274)."
+style: "record"
+stamp: ["2026-09-17", "harness-guide", "a61606de"]
+---
 # Settings and Launching a Persona Session
-
-Sources: https://code.claude.com/docs/en/settings.md, settings-reference.md, cli-reference, sub-agents.md, sessions.md, hooks.md (researched 2026-09-17 by harness-guide, CLI 2.1.274).
 
 ## `--settings <file-or-json>`
 

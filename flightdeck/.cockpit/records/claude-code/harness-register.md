@@ -1,6 +1,10 @@
+---
+type: "Manual"
+source: "distilled from `notepad/research-2026-09-18/source/harness-facts.md`, the T002 verification passes against official Claude Code documentation, read 2026-09-18, CLI 2.1.274 on this machine; researched 2026-09-18 by T006 record-writer. No topic file was delivered; this register has no commander topic."
+style: "register"
+stamp: ["2026-09-18", "T006 record-writer", "dcb75456"]
+---
 # Harness Register
-
-Source: distilled from `notepad/research-2026-09-18/source/harness-facts.md`, the T002 verification passes against official Claude Code documentation, read 2026-09-18, CLI 2.1.274 on this machine; researched 2026-09-18 by T006 record-writer. No topic file was delivered; this register has no commander topic.
 
 Consulted in disputes, not held in mind. One line per finding: the claim, the verdict, the source, the date it was read. Verdicts are **Confirmed** or **Contradicted** only; a claim documentation does not settle is not a finding and is not here. Claims about flightcrew's own code are terrain, not harness facts, and belong in a branch or code manifest. Re-read a page before leaning on its line.
 

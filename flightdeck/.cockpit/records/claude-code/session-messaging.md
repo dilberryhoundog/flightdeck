@@ -1,6 +1,10 @@
+---
+type: "Manual"
+source: "https://code.claude.com/docs/en/cross-session-messaging.md and https://code.claude.com/docs/en/settings-reference (researched 2026-09-17)."
+style: "record"
+stamp: ["2026-09-17", "harness-guide", "a61606de"]
+---
 # Session Messaging
-
-Sources: https://code.claude.com/docs/en/cross-session-messaging.md and https://code.claude.com/docs/en/settings-reference (researched 2026-09-17).
 
 ## Tools
 

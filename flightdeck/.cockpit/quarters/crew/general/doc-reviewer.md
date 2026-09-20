@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "doc-reviewer"
+room: "general"
+agent_type: "chat-tools:doc-reviewer"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T007"]
+---
 # doc-reviewer
 
 Audit an agent-facing document for durability with a cold run against an acceptance test.

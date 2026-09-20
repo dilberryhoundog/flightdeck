@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "docs-verifier"
+room: "team"
+agent_type: "claude-code-guide"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T001", "T002"]
+---
 # docs-verifier
 
 Verify every harness claim a teammate makes against official Anthropic documentation; fetch published guidance on request.

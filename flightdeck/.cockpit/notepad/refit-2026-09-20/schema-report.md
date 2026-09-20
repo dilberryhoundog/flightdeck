@@ -75,7 +75,17 @@ Stated as mine, not the commander's.
 13. **A manifest row may carry `superseded_by` in place of `path`.** A row satisfies one of id+path, name+path, id+superseded_by or name+superseded_by. The crew row `records-writer` has no dossier to point at, and pointing at `record-writer.md` would name a different seat.
 14. **A unit filed by name carries `name`, one filed by identifier carries `id`,** and its manifest row uses the same word. Topics and rosters are the two on `name`. `topic.json` first required `id` for a slug its manifest row called `name`; the refitter caught the disagreement.
 15. **`decision.json` carries `requests` as a list, always,** replacing a singular `request`: De012 answers three. `by` is restricted to commander or pilot, with `source` holding where it was said; `superseded_by` on orders and decisions holds the identifier and nothing else, with `superseded_note` for the prose.
-16. **Left without a schema, deliberately:** `base/settings/pilot.settings.json` and `base/store/*.json` (tools, not documents, and pinned for removal), `logs/crew-manifest.json` (frozen history), and everything that carries no frontmatter — READMEs, session logs, the notepad, `*.keep` files and the commander's idea files.
+16. **Request `status` is the cockpit's own lifecycle,** awaiting|approved|amended|denied|executed|withdrawn|superseded, not the open|approved|denied|amended|withdrawn I invented. `base/README.md` documents the lifecycle and the thirteen requests use awaiting, executed and superseded, which carry facts none of my five could.
+17. **A spark's `heat` is heat only.** Two of the ten sparks held "ran" and "folded into Sp009" in the heat field, which are states, not temperature. `spark.json` gained an optional `status` (live|ran|folded|promoted, absent meaning live), with the target in `generates`. Separately, "cool" on two sparks is drift from the README's "cold" and is workshop item WS001.
+18. **A manual carries either a `source` or `stub: true`.** Five of the ten manuals are stubs, whose header form is "existing knowledge only, not validated, not to be cited as authority" — a stub has no source by definition, and requiring one would have meant inventing five.
+19. **Left without a schema, deliberately:** `base/settings/pilot.settings.json` and `base/store/*.json` (tools, not documents, and pinned for removal), `logs/crew-manifest.json` (frozen history), and everything that carries no frontmatter — READMEs, session logs, the notepad, `*.keep` files and the commander's idea files.
+
+## Two faults found in the linter itself
+
+Both surfaced by the refitter's stub case, both fixed and verified.
+
+- The frontmatter reader had no booleans, so `stub: true` read as the string `"true"` and failed against a boolean schema. A bare `true`, `false` or number is now that value, as it would be in JSON; quote it to mean the word or the digits. `recurring: true` on a workshop item would have hit the same wall.
+- A schema-wide `anyOf` reported the schema's entire description as the expected form, a paragraph on one fault line. A schema that rules the document as a whole now carries a one-clause `x-expect`, and that is what the fault line quotes.
 
 ## Exit codes, settled
 

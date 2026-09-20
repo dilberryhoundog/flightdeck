@@ -1,6 +1,10 @@
+---
+type: "Manual"
+stub: true
+style: "record"
+stamp: ["2026-09-20", "stub-writer", "4450a586"]
+---
 # Launches and Runs
-
-Stub: existing knowledge only, not validated, not to be cited as authority.
 
 ## Launch and run
 A launch is the whole effort to complete one feature, holding the spec, its versions, and every run that attempts it. A run is one attempt; a retry reuses the same launch directory and moves to a new spec version rather than opening a fresh one.

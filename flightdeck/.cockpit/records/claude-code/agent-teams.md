@@ -1,6 +1,10 @@
+---
+type: "Manual"
+source: "https://code.claude.com/docs/en/agent-teams.md and linked pages (researched 2026-09-17 in two passes by harness-guide, CLI 2.1.274)."
+style: "record"
+stamp: ["2026-09-17", "harness-guide", "a61606de"]
+---
 # Agent Teams
-
-Source: https://code.claude.com/docs/en/agent-teams.md and linked pages (researched 2026-09-17 in two passes by harness-guide, CLI 2.1.274).
 
 ## What
 

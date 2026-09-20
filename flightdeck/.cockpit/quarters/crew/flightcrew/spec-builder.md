@@ -1,6 +1,15 @@
+---
+type: "Crew Dossier"
+unit: "spec-builder"
+room: "flightcrew"
+agent_type: "spec-builder"
+model: "fable"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: []
+---
 # spec-builder
 
-- **Agent type:** `spec-builder`
 - **Purpose:** see `MANIFEST-crew.json`. Turns an intention or rough draft into a self-contained spec by mapping the landscape with explorers and interviewing the provider; hands over a draft, never freezes its own work.
 
 ## How to dispatch

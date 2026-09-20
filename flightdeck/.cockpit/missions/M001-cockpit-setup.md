@@ -1,9 +1,12 @@
+---
+type: "Mission"
+unit: "M001"
+status: "in_progress"
+stamp: ["2026-09-17", "Pilot: Ace", "a61606de"]
+branch: "cockpit"
+assigned_by: "commander"
+---
 # M001 — Set up and structure the cockpit
-
-- **Status:** in_progress
-- **Branch:** cockpit
-- **Assigned by:** commander
-- **Opened:** 2026-09-17
 
 ## Goal
 

@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "alignment-judge"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+context: ["T013"]
+---
 # alignment-judge
 
 Map what was advised to what was built: delivered, partly, not delivered, built but never advised; then a short verdict.

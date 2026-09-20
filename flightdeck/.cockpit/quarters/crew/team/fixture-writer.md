@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "fixture-writer"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+context: ["T011"]
+---
 # fixture-writer
 
 Write the fixture tree and the table test for a tool from its accepted plan, never from its code, so the test is an independent statement of what the tool must do.

@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "doctrine-recon"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T001"]
+---
 # doctrine-recon
 
 The pilot's briefing on the doctrine: terms, rooms, spec, testing, rubric and adversarial doctrine, drift across branch points.

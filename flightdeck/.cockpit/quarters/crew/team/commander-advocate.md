@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "commander-advocate"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+context: ["T014"]
+---
 # commander-advocate
 
 Assume the team is not building to the commander's vision and find where; research the commander's own input sources and probe the pilot where his advice has a gap. From the commander's mini-spec idea.

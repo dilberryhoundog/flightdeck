@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "transcript-miner"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T002"]
+---
 # transcript-miner
 
 Mine session transcripts for the commander's own definitions, architecture statements, decisions with reasons and taste, quoted and cited.

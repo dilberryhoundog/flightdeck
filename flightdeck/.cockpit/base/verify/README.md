@@ -10,7 +10,7 @@ One short line when every file is clean. On a fault, one line per fault naming t
 
 The linter finds a file's schema by the document's own `type` (a markdown file's frontmatter) or `kind` (a JSON file), never by where the file sits, so moving a room costs the schemas nothing. It also checks the file's name: a `MANIFEST-<collection>.json` holds `kind` equal to `<collection>`, and a file named for an identifier (`Ds006.md`, `T010.json`) carries that identifier as its `unit` or `id`.
 
-Frontmatter is read strictly and flatly. A value is a bare value (`work: M001`), a quoted string (`type: "Dossier"`) or a bracketed list (`generates: ["Rq004", "Rq005"]`). A comma list without brackets is a fault, and is reported as one.
+Frontmatter is read strictly and flatly. A value is a bare value (`work: M001`), a quoted string (`type: "Dossier"`) or a bracketed list (`generates: ["Rq004", "Rq005"]`). A bare `true`, `false` or number is that value, as it would be in JSON; quote it to mean the word or the digits. A comma list without brackets is a fault, and is reported as one.
 
 ## What is here
 
@@ -20,4 +20,4 @@ Frontmatter is read strictly and flatly. A value is a bare value (`work: M001`),
 
 ## Add a document type
 
-Write one schema file in `schema/`. Nothing else changes. Its `x-select` list holds the `type` or `kind` values it answers to, which is how the linter finds it; two schemas may not claim the same value.
+Write one schema file in `schema/`. Nothing else changes. Its `x-select` list holds the `type` or `kind` values it answers to, which is how the linter finds it; two schemas may not claim the same value. A schema that rules the document as a whole, with a top-level `anyOf`, also carries a one-clause `x-expect`, which the fault line quotes in place of the schema's whole description.

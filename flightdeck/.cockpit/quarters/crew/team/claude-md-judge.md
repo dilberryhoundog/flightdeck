@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "claude-md-judge"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "49f87e44"]
+context: ["T005"]
+---
 # claude-md-judge
 
 Judge line by line what in the pilot's quarters belongs in CLAUDE.md; draft the revision.

@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "tool-builder"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+context: ["T011"]
+---
 # tool-builder
 
 Build cockpit tooling from a written spec: plan first, then code in the style of `base/bin/`, to green against a test someone else wrote.

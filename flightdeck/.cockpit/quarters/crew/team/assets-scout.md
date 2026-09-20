@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "assets-scout"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+context: ["T010"]
+---
 # assets-scout
 
 Inventory what already exists on other branches for a stated need, and judge how reusable each asset is, so the team does not design what flightcrew has already built.

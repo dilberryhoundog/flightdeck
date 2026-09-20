@@ -1,6 +1,10 @@
+---
+type: "Manual"
+stub: true
+style: "record"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+---
 # Write permissions in the cockpit
-
-Stub: existing knowledge only, not validated, not to be cited as authority.
 
 ## The principle
 

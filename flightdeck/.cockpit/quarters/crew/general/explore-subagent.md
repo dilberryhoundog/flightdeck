@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "explore-subagent"
+room: "general"
+agent_type: "Explore"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: []
+---
 # Explore subagent
 
 Read-only survey of a branch or seam; returns conclusions, not file dumps.

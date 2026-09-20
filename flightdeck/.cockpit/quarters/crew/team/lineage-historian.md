@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "lineage-historian"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T001"]
+---
 # lineage-historian
 
 Walk each branch seam and mine attempted, stalled, repaired and unfinished intent worth a mission; reconcile git with the commander's account; rank candidate missions.

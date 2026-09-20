@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "fit-critic"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T003", "T008", "T012"]
+---
 # fit-critic
 
 Attack the pilot's cockpit work and plan for fit with the cockpit's purpose and corpus: wrong room, stated twice, duplicated, leaked session context, the pilot doing work.

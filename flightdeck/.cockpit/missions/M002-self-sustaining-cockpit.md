@@ -1,9 +1,15 @@
+---
+type: "Mission"
+unit: "M002"
+status: "planned"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+branch: "cockpit"
+assigned_by: "commander"
+context: ["Sp009"]
+---
 # M002 — Make the cockpit self-sustaining and self-improving
 
 - **Status:** planned (horizon; M001 is current)
-- **Branch:** cockpit
-- **Assigned by:** commander
-- **Opened:** 2026-09-20, promoted from spark Sp009
 
 ## Goal
 

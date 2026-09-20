@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "build-reader"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+context: ["T013"]
+---
 # build-reader
 
 Inventory what was built: each part, what it does, its size, what it depends on. No judgement.

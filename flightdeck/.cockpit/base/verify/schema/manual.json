@@ -2,9 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "x-select": ["Manual"],
   "title": "Manual",
-  "description": "The frontmatter of a manual: the pilot's settled understanding of one topic, stated in its current form only, so one file answers one question. Filed by name, agent-teams.md. It carries no identifier: a manual is looked up by its topic, not referred to by number.",
+  "description": "The frontmatter of a manual: the pilot's settled understanding of one topic, stated in its current form only, so one file answers one question. Filed by name, agent-teams.md. It carries no identifier: a manual is looked up by its topic, not referred to by number. What the old one-line header carried — Source, Validated, Stub — are these keys, so the body holds no citation. Every manual carries either a source or stub: true, never both.",
+  "x-expect": "either a source saying where the claims come from, or stub: true for a manual that is existing knowledge only",
   "type": "object",
-  "required": ["type", "source", "stamp"],
+  "required": ["type", "stamp"],
+  "anyOf": [{ "required": ["source"] }, { "required": ["stub"] }],
   "additionalProperties": false,
   "properties": {
     "type": {
@@ -12,9 +14,13 @@
       "const": "Manual"
     },
     "source": {
-      "description": "where the manual's claims come from, the facts of the old header line as one value: a url, a repository path, or the seat and date that researched it",
+      "description": "where the manual's claims come from: a url, a branch and path at a commit, or the seat and date that researched it. Absent only on a stub",
       "type": "string",
       "minLength": 1
+    },
+    "stub": {
+      "description": "true when the manual is existing knowledge only, not validated and not to be cited as authority; a stub has no source by definition, which is the point of the form",
+      "const": true
     },
     "stamp": {
       "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",

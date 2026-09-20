@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "stub-writer"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-19", "Pilot: Ace", "4450a586"]
+context: ["T009"]
+---
 # stub-writer
 
 Compress drafted records into stubs: existing knowledge in plain statements, no quotations or citations, a closing list of what is not settled.

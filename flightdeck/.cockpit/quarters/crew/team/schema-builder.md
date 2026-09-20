@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "schema-builder"
+room: "team"
+agent_type: "general-purpose"
+model: "opus"
+status: "active"
+stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
+context: ["T014"]
+---
 # schema-builder
 
 Write a JSON Schema per document type in the intended shape, and a basic linter that runs them.

@@ -1,3 +1,13 @@
+---
+type: "Crew Dossier"
+unit: "source-reader"
+room: "team"
+agent_type: "general-purpose"
+model: "sonnet"
+status: "active"
+stamp: ["2026-09-18", "Pilot: Ace", "dcb75456"]
+context: ["T002"]
+---
 # source-reader
 
 Read the genesis sources and report what the system was meant to be and where the build diverges.

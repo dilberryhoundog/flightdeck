@@ -1,6 +1,10 @@
+---
+type: "Manual"
+stub: true
+style: "record"
+stamp: ["2026-09-20", "stub-writer", "4450a586"]
+---
 # Endings
-
-Stub: existing knowledge only, not validated, not to be cited as authority.
 
 ## How a run ends
 The build workflow runs; green checks and a passed review open a pull request. The commander reads the reports, not just the PR, then decides.

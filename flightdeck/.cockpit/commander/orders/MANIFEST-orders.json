@@ -1,7 +1,7 @@
 {
   "kind": "orders",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "purpose": "Dated statements from the commander, verbatim or near-verbatim, read on demand. Newest at the bottom. The newer statement wins; superseded_by names what replaced it. Live orders stated nowhere else are summarised in commander.md; topics distilled from these live in ../../logs/topics/.",
   "units": [
     {
@@ -380,6 +380,27 @@
       "summary": "The commander accepts the refit and rules on the advocate's six final findings, to be fixed before sign-off.",
       "session": "b27e6c01",
       "path": "Or059.json"
+    },
+    {
+      "id": "Or060",
+      "date": "2026-09-20",
+      "summary": "The commander orders the agent body landed first as pilot.md beside job.md in the pilot office, accepts the body replacing the default system prompt, gives the CLAUDE.md cut to the pilot and leaves the procedures idea for later.",
+      "session": "241bff25",
+      "path": "Or060.json"
+    },
+    {
+      "id": "Or061",
+      "date": "2026-09-20",
+      "summary": "The commander rules that the launcher loads pilot.md from the cockpit's own store of agents, the file gets no schema and no lint path, model and effort belong in the agent body not the settings file, the session is auto prompted, and he tests teammate inheritance himself after the build.",
+      "session": "241bff25",
+      "path": "Or061.json"
+    },
+    {
+      "id": "Or062",
+      "date": "2026-09-21",
+      "summary": "The commander settles Rq014's lint point (an exclusion if the linter supports one, otherwise narrow the glob) and lets the pilot-written build request pass once only: a mini-spec team is meant to build it.",
+      "session": "241bff25",
+      "path": "Or062.json"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "kind": "decisions",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "fields_note": "superseded_by: present when a later decision replaces this one; the newer statement wins.",
   "units": [
     {
@@ -165,6 +165,12 @@
       "date": "2026-09-20",
       "subject": "Ds006's remaining decisions: advice files, lint strength, naming, manifests, rooms",
       "path": "De027.json"
+    },
+    {
+      "id": "De028",
+      "date": "2026-09-21",
+      "subject": "Rq014, build the pilot's agent body",
+      "path": "De028.json"
     }
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS027",
+  "title": "A mini-spec team and a before-building procedure",
+  "raised": "2026-09-21",
+  "source": "Or062; the commander's idea file commander/desk/out/ideas/mini-spec.txt",
+  "status": "open",
+  "notes": "The commander's idea is that a build request is written by a mini-spec team (commander-advocate, done-decider, verification-provider) called by a \"before building\" procedure, not by the pilot alone. Rq014 was written by the pilot and attacked afterwards by one advocate; the commander let that pass once only (Or062). Needed before the next build request: a roster in team/rosters/, a procedure with its trigger line (\"before a build request is written\"), and P006 amended so a build request is the team's product. The idea file and ace_mini-spec.txt are on his desk for remix; talk it through with him first (P002)."
+}

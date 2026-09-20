@@ -33,6 +33,15 @@
       ],
       "date": "2026-09-19",
       "path": "CA003.md"
+    },
+    {
+      "id": "CA004",
+      "answers": [
+        "Rq014"
+      ],
+      "date": "2026-09-20",
+      "status": "awaiting",
+      "path": "CA004.md"
     }
   ]
 }

@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or061",
+  "date": "2026-09-20",
+  "session": "241bff25",
+  "text": "On the pilot's gaps for the agent body: \"1. fine, flightdeck keeps a store of agents because. when it become distributable you run a simple command and the agents are transfered. 2. It is a one off file, not needing consistency. no need for schema and keep the path out of the yaml. 3. yep I will test it after build. 4. sure. model and effort in the settings is the wrong place. correct location is agent body, eventually we make injected setting redundant. I would love for the session to be auto prompted.\""
+}

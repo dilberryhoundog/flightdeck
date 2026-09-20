@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De028",
+  "date": "2026-09-21",
+  "subject": "Rq014, build the pilot's agent body",
+  "decision": "Commander lets Rq014 pass as written at pass 2, with its one open point settled: pilot.md is kept out of the lint by an exclusion if the linter supports exclusions, otherwise the officers glob is narrowed to the three dossier files. The linter supports exclusions (lint.yaml already carries one), so the exclusion line is used. He passes, this time only, a build request written by the pilot alone; his idea is that a mini-spec team builds it.",
+  "by": "commander",
+  "source": "session 241bff25 (Or062)",
+  "requests": [
+    "Rq014"
+  ]
+}

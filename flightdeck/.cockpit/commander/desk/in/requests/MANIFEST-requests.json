@@ -1,7 +1,7 @@
 {
   "kind": "requests",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "units": [
     {
       "id": "Rq001",
@@ -140,6 +140,16 @@
       "dossier": "Ds006",
       "decided": "2026-09-20",
       "note": "De026, De027: approved with the build route changed to a scoped build inside the cockpit"
+    },
+    {
+      "id": "Rq014",
+      "title": "Build the pilot's agent body",
+      "status": "approved",
+      "path": "Rq014.md",
+      "raised": "2026-09-20",
+      "mission": "M001",
+      "decided": "2026-09-21",
+      "note": "De028"
     }
   ]
 }

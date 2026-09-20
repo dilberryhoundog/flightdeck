@@ -1,7 +1,7 @@
 {
   "kind": "workshop-items",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "fields": {
     "id": "WS### in the order raised",
     "title": "one line",
@@ -195,6 +195,13 @@
       "raised": "2026-09-20",
       "status": "open",
       "path": "WS026.json"
+    },
+    {
+      "id": "WS027",
+      "title": "A mini-spec team and a before-building procedure",
+      "raised": "2026-09-21",
+      "status": "open",
+      "path": "WS027.json"
     }
   ]
 }

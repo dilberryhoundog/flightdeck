@@ -1,0 +1,11 @@
+Improve the Workshop as work location
+Fields:
+  - title: shorten to a descriptive title
+  - work: describe the work to be completed
+  - done: describe what "done" looks like.
+  - verify: Ensure the work is verified
+  Fields goal and verify can have placeholders to allow for quick entry and later improvement.
+
+Sweep to workshop:
+  - for completed work. move to a completed/ folder
+  - for non-compliant work, move to appropriate location (log etc) or remove

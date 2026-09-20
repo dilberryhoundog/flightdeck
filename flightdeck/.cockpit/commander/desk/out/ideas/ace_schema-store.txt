@@ -1,0 +1,19 @@
+Ace's write-up of the commander's schema store idea. There is no original idea file; the idea was given in conversation on 2026-09-20. Part 1 is the commander's words from the order records. Part 2 is what now exists. The pilot's rulings are fenced off at the foot.
+
+=== 1. THE COMMANDER'S WORDS ===
+  Or045: "wondering if we should set up a schema store, so we can specify document shapes: stored in base, callable by a linter, so pilots have their paperwork in order."
+  Or046: "Flightcrew has these schema checking assets already built, on other branches; the spec builder was using a linter recently, along with rubric checkers."
+  Or054: "Non-blocking is the right shape: small output on success, enough guidance on error to fix directly without a tool call, a small edit to fix (preventing a large write)."
+  Or056: "This is just schemas and linters, right? That is what I advised? The findings presented tend to indicate a much larger test system we have to maintain each time something changes."
+  Or057: "`base/verify/schema/<type>.json` with a basic linter command. We can lint and check ID prefix and manifest naming as per the commander's instructions."
+  Or058: "preferable to have the linter mirror the flightdeck one; node should work, it works on other branches."
+
+=== 2. WHAT EXISTS NOW ===
+base/verify/schema/: eighteen JSON Schemas (draft 2020-12), one per document type, selected by a markdown document's `type` or a JSON file's `kind`, never by path, so a room move costs them nothing and a new document type is one new file. Each schema has a description of the document and of every field, written for a new session to read before writing. Identifier forms are patterns inside the schemas.
+base/verify/cockpit-lint: one Node file (about 330 lines) on flightcrew's own engine, schema-lib.mjs and output.mjs copied from branch flightcrew-core with their origin in the header; flightcrew's exit codes (0 clean, 2 a failed check, 1 usage). It reads frontmatter with a strict reader, checks MANIFEST-<collection> against kind and an id-named file against its unit. A clean run prints one line of about 20 bytes; a fault line gives the file, the field, what is wrong and the expected form. No test suite, no fixture tree. The whole cockpit lints clean (255 files).
+Proof of purpose: a fresh Haiku agent given only CLAUDE.md, the verify README and two schemas wrote a dossier and a request with every field right first time; its one fault was not knowing frontmatter sits between --- lines, which the linter's message fixed in one round and which the guidance now states.
+
+--- THE PILOT'S RULINGS (not the commander's words; keep, change or strike) ---
+- What a schema cannot check: that a context or generates id resolves to something that exists, that a manifest and its units agree, that a cited path exists. Nothing permanent checks those today.
+- Stage A (a reference checker and rename tool, about 2,900 lines with tests and fixtures) was the pilot's misreading of "paperwork" as reference integrity. It is left in base/bin and base/store as temporary help and pinned for removal as WS024. It did find 42 real broken references before the refit.
+- Closed vocabularies (request status, spark heat and status, crew model and room, dispatch status) were drawn from the words already in use.

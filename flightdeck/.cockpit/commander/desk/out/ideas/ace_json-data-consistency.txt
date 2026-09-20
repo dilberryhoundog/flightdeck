@@ -1,0 +1,51 @@
+Ace's expansion of the commander's idea `json-data-consistency.txt`. Part 1 is the commander's original text, unchanged. Part 2 is what the commander confirmed or added in conversation on 2026-09-20, quoted from the order records (commander/orders/). Part 3 is what now exists in the cockpit. The pilot's own rulings are fenced off at the foot so they cannot pass as the commander's.
+
+=== 1. ORIGINAL ===
+Create consistency in json data.
+
+MANIFESTS:
+lightweight named manifest (recognisable in streaming output) eg orders/MANIFEST-orders.json
+points towards JSON file units. eg orders/Or001.json
+
+IDENTIFIERS:
+shape = <abbreviation> + <number>
+abbreviation = 1-3 letters.
+  single capital - commonly recognised units. eg teams = T, Procedure = P
+  double/triple capital - Reconisable words combined. eg Commanders Advice = CA
+  number - 3 digits. eg 001, 002,
+
+NAMING:
+- change desk/in/proposals to desk/in/requests. Prevents conflict with procedure ID. eg Rq001, Rq002. Replace existing "proposal" and "P" references.
+
+The manifest records the collection of units. token efficient, enough data for unit disclosure.
+Units allow rich recording of data. prevents large singular files of data that blows budgets.
+Flow = agent needs context --> manifest --> unit
+
+Identifiers used across the application. each ID mentioned in claude.md simple two column table.
+suggested patterns Ds = dossier, P = procedure,
+
+Pilot requests changes to commander. refactor team helps, including mini adversaries.
+
+=== 2. CONFIRMED IN CONVERSATION ===
+  Or046: "proposals change to requests. That is the easier name to change and remember. Procedures will be key references, and having M, Ws, P for work is a decent convention."
+  Or047: "DS means dossier should be two words; Ds allows the lowercase to guide what the D means."
+  Or048: "Decision De, Spark Sp, Order Or (O001 is not very readable)."
+  Or049: "Actually WS is work shop combined; keeps the capitals designated correctly."
+  Or051: "two T001 and two manifests over these records; this should probably be a universal manifest, with team numbers counted across the whole team space."
+  Or051: "MANIFEST-commander-advice.json tells you exactly what the file is and is also identifiable in a folder with CA001.json, CA002.json."
+  Or052: "Match the manifest collection to the ID; agent-oriented naming doesn't mind longer, more descriptive names."
+  Or053: "everything that accumulates and is commonly referenced in a chat gets an ID"
+  Or053: "So procedures and missions need both; permanent names like rosters and seats are name only; all accumulating items (dossiers, requests, decisions, orders, dispatches and so on) get an ID only."
+  Or057: "Prefixes is wrong on `P`: solely for procedures; all 'proposals' renamed to `Rq` for requests; 'proposal' removed as a term from the corpus (live docs only; history keeps it)."
+
+=== 3. WHAT EXISTS NOW ===
+Identifiers in use: M mission, WS work shop item, P procedure (P001 to P006), Sp spark, Ds dossier, Rq request, CA commander's advice, Or order, De decision, T dispatch; C retired. The table is in CLAUDE.md. Accumulating items are filed by ID alone (Ds006.md, Rq013.md, Or057.json); missions and procedures by ID and name; rosters and crew seats by name.
+Manifests: fifteen MANIFEST-<collection>.json files, each with kind as its first key and a units array whose rows give id or name, a one-line title or verbatim summary, date, status where there is one, and the unit's path. Orders, decisions, dispatches, workshop items and rosters were single files and are now a manifest plus one JSON unit each (126 units); the rest point at markdown units. One global MANIFEST-dispatches.json; dispatch units in records/dispatch/cockpit/. Order text is byte-identical to before.
+
+--- THE PILOT'S RULINGS (not the commander's words; keep, change or strike) ---
+- The workshop collection word is workshop-items, not the literal work-shop.
+- A row's summary is the first sentence of the existing text, verbatim and capped at 120 characters; crew do not summarise the commander's words.
+- The row array is keyed `units` in every manifest; a row points with `path`.
+- records/logs/crew-manifest.json keeps its old name as frozen history; MANIFEST-logs and MANIFEST-branches have their own row shapes.
+- Old ids and the word proposal remain only in history: session logs, the text of orders, the notepad, the commander's idea files, topic statements.
+- Manifests and units are kept in the same folder for orders, decisions and rosters; dispatch units sit one level down in room folders.

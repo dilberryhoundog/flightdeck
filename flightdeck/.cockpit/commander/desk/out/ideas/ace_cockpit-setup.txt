@@ -1,0 +1,75 @@
+Ace's expansion of the commander's idea `cockpit-setup.txt`. Part 1 is the commander's original text, unchanged. Part 2 is what the commander confirmed or added in conversation on 2026-09-20, quoted from the order records (commander/orders/). Part 3 is what now exists in the cockpit. The pilot's own rulings are fenced off at the foot so they cannot pass as the commander's.
+
+=== 1. ORIGINAL ===
+change the cockpit structure, as fitout is cause it to settle differently than intended.
+
+Proposed Rooms:
+base/
+  bin/
+  settings/
+commander/
+  desk/
+    in/
+      dossiers/
+      proposals/
+    out/
+      advice/
+      ideas/
+  orders.json
+  decisions.json
+records/ (anything recorded)
+  logs/
+  extracts/
+    topics/
+  manuals/ (formerly records/, short references over a single topic)
+    claude-code/
+    flightcrew/
+  dispatch/
+      cockpit/
+        MANIFEST-dispatch-cockpit.json
+        T001.json
+      flightcrew/
+        MANIFEST-dispatch-flightcrew.json
+        T002.json
+work/ (The pilots work)
+  missions/
+  workshop/
+  procedures/
+team/ (any actor, role or combination of)
+  rosters/
+    MANIFEST-roster.json
+    mini-adversary.json
+  crew/
+    flightcrew/
+    general/
+    cockpit/
+  officers/ (controlling roles, human or agent)
+    commander/
+    pilot/
+
+=== 2. CONFIRMED IN CONVERSATION ===
+  Or050: "the notepad is a rather messy record type, but important as minable history and a dump location; forgotten during the sketch"
+  Or050: "Manuals in two places is the commander's worry too, although it is the same concept in two places: flightdeck manuals for everyone, cockpit manuals for the pilot. 'Workbook' was considered and cancelled, as the name often drives how an agent writes the document."
+  Or050: "Extracts is a placeholder for extractions; the commander's speaking topics is a great starter, maybe logs, decisions and so on. Having an extractions location relieves pressure to keep stuff long term"
+  Or050: "Bulk sources condensed into key findings and distributed into self-sustaining content is the intention."
+  Or051: "Extracts is future work; currently scaffolding procedures and folder structures as part of M001."
+  Or051: "Now that records have become manuals, manuals become the authority and anything else records used to be."
+  Or052: "teams = roles information, dispatch = team instances."
+  Or052: "dispatch/flightcrew/T003, T026, T045 and dispatch/cockpit/T004, T005; but it could easily be a flat dispatch folder. Early on flat seems better, but after three months and up to T364, dispatch rooms may be more readable."
+  Or058: "Dispatch units in rooms."
+  Or055: "The write restriction is not a CLAUDE.md line; it would do nothing if removed. It is more of a setup understanding (a manual)"
+
+=== 3. WHAT EXISTS NOW ===
+Five rooms at the cockpit root, beside CLAUDE.md and cockpit.keep:
+  base/       bin, settings, verify (schemas and cockpit-lint), store (temporary stage A, pinned WS024)
+  commander/  desk/in/dossiers, desk/in/requests, desk/out/advice, desk/out/ideas, orders/ (manifest + Or units), decisions/ (manifest + De units)
+  records/    logs, extracts/topics, manuals/{claude-code,flightcrew,cockpit}, dispatch/ (global manifest + cockpit/T units), notepad
+  work/       missions (with incubator, completed), workshop (manifest + WS units), procedures (P001 to P006)
+  team/       rosters (manifest + a unit per roster), crew/{flightcrew,general,cockpit}, officers/{commander,pilot}
+Each parent room has a README saying what it is for. Differences from the sketch: orders and decisions are folders holding a manifest and units rather than single files; crew/cockpit holds what was quarters/crew/team; records/extracts holds only topics and a placeholder README.
+
+--- THE PILOT'S RULINGS (not the commander's words; keep, change or strike) ---
+- The commander appearing twice is read as interface (commander/) and identity (team/officers/commander/), not a contradiction.
+- dispatch/ sits under records/ because "records" means anything recorded, live or not.
+- Zones the pilot treats differently: records/manuals is the authority; records/notepad is scratch; session logs and the old crew-manifest are frozen history.
+- The room move was done last in the refit, after identifiers, manifests and frontmatter.

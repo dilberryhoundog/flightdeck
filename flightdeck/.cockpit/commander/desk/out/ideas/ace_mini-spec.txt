@@ -1,0 +1,42 @@
+Ace's expansion of the commander's idea `mini-spec.txt`. Part 1 is the commander's original text, unchanged. Part 2 is what the commander confirmed or added in conversation on 2026-09-20, quoted from the order records (commander/orders/). Part 3 is what now exists in the cockpit. The pilot's own rulings are fenced off at the foot so they cannot pass as the commander's.
+
+=== 1. ORIGINAL ===
+Build a mini-spec team.
+Call it with a "before building" procedure.
+
+Suggested roster.
+commander-advocate:
+  Crew adversary, assumes the team is not building to commanders' vision, finds where. (also researches commanders' input sources, probes pilot to where it thinks there is a gap in commanders' advice)
+
+done-decider:
+  Shapes what done looks like from pilot initial sources. receives commander-advocate's findings. builds a mini-spec.
+  - mini-spec; goal, scope in & out, constraints, decisions, etc. (research a good fit for lightweight build spec, flightcrew uses a "full" version, with a complete spec-builder agent as inspiration)
+
+verification-provider:
+  Decides how the builder can verify they have built the right thing. leans on team-based checking (adversaries) and lightweight throw away checks and existing lightweight test harnesses..
+
+The pilot presents this as a "build" Rq, with the mini-spec and verification, written in plain register. the mini-spec is a H2 with H3 spec sections in a list format. The verification is a H2 with all verifications a list format.
+
+Commander approval is sought, adjustment may happen, once settled building can happen
+
+Exploration Topics:
+- Is each seat adequate to satisfy flightcrew principles?
+- Is flightcrew principles replicated in lightweight mini form, that doesn't accumulate build and verification assets?
+- Any other seats that may improve the quality of the mini-spec?
+- Can or should this procedure be expanded to encompass the whole build process?
+
+=== 2. CONFIRMED IN CONVERSATION ===
+  Or057: "Root problem identified: the pilot didn't have the right tooling; new ideas recorded that may help (team building and mini spec)."
+  Or056: "Send a quick team to check that what I advised and what was built align."
+
+=== 3. WHAT EXISTS NOW ===
+The idea was flown once, in part, for the cockpit refit (dispatch T014), before any procedure for it exists:
+- Mini-spec: records/notepad/refit-2026-09-20/mini-spec.md, in the commander's shape (H2 Mini-spec with H3 Goal, Scope in, Scope out, Constraints, Decisions as lists; H2 Verification as a list). About forty lines.
+- commander-advocate: attacked the mini-spec before building, reading only the commander's sources. It found ten drifts in a spec the pilot believed was faithful, four of them plain contradictions of an order, and returned five gaps; the commander answered them in one message (Or058). It checks the finished refit last.
+- done-decider and verification-provider were not seated; the pilot wrote the spec and the verification list itself.
+- Verification leaned on throwaway checks and the pilot re-running every proof before each commit: byte-identical comparison of protected content, the launcher check, the hook, the guard test, the linter over everything, and a fresh low-cost agent writing from the schemas alone.
+- Not yet done: presenting it as a build request (Rq) for approval before building; the "before building" procedure.
+
+--- THE PILOT'S RULINGS (not the commander's words; keep, change or strike) ---
+- What the first flight suggests, as observations for the commander's remix: the advocate earned its seat twice over and is cheap; the clerical pair used in the alignment check (one seat listing the commander's words verbatim, one inventorying what was built, each blind to the other) would serve the done-decider well as input; verification items that prove the right thing was built (a newcomer writing from the schema) were added only after the advocate asked for them; a builder that stops after every step for the pilot to verify and commit kept each step revertible and caught two breaches of the never-edit list.
+- A spec the pilot writes alone drifts. On 2026-09-20 the pilot's dossier changed the meaning of the commander's word "paperwork" in its first paragraph and nothing downstream could see it; four adversary rounds tested safety and correctness and never asked whether it was the thing advised.

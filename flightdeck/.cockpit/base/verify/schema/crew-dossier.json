@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-select": ["Crew Dossier"],
+  "title": "Crew Dossier",
+  "description": "The frontmatter of a crew dossier: one seat in the crew, what it is for, how to dispatch it and what has been observed of it. Written the first time the seat flies and updated after each team. Filed by seat name, explorer.md.",
+  "type": "object",
+  "required": ["type", "unit", "room", "agent_type", "model", "stamp"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "description": "the words Crew Dossier, which is what chooses this schema",
+      "const": "Crew Dossier"
+    },
+    "unit": {
+      "description": "the seat's name in lowercase with hyphens, the same name the file is named for; a crew seat carries a name, not an identifier",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "room": {
+      "description": "the crew room the seat belongs to: flightcrew, cockpit or general",
+      "enum": ["flightcrew", "cockpit", "general"]
+    },
+    "agent_type": {
+      "description": "the agent type the seat is spawned as, or general-purpose",
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "description": "the model the seat is flown on, named in every spawn and chosen for the work: haiku, sonnet, opus or fable",
+      "enum": ["haiku", "sonnet", "opus", "fable"]
+    },
+    "stamp": {
+      "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",
+      "type": "array",
+      "minItems": 3,
+      "items": [
+        { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        { "type": "string", "minLength": 1 },
+        { "type": "string", "pattern": "^[0-9a-f]{8}$" }
+      ]
+    },
+    "context": {
+      "description": "the dispatches this seat has flown, a bracketed list of T identifiers",
+      "type": "array",
+      "items": { "type": "string", "pattern": "^T[0-9]{3}$" }
+    }
+  }
+}

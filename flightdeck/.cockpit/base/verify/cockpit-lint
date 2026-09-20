@@ -1,0 +1,324 @@
+#!/usr/bin/env node
+// base/verify/cockpit-lint — the cockpit's paperwork check: every document has a defined shape, and this says whether a file has it.
+// Usage: base/verify/cockpit-lint <file>... — exit 0 clean, 1 when a document carries a fault, 2 when the tool itself cannot run.
+//
+// A markdown file is read for its frontmatter, a JSON file is parsed whole. The schema is chosen by the document's own
+// `type` (markdown) or `kind` (JSON), never by where the file sits, so moving a room costs the schemas nothing. Every
+// schema in base/verify/schema/ names the values it answers to in its `x-select` list; adding a document type is one
+// schema file and nothing else. Two further checks run on the file's name: a MANIFEST-<collection>.json holds `kind`
+// equal to <collection>, and a file named for an identifier carries that identifier as its `unit` or `id`.
+//
+// The output is what the commander ordered of it: one short line when every file is clean, and on a fault one line per
+// fault naming the file, the field, what is wrong and the form expected, so the fix is a small edit and needs no second
+// tool call. Nothing is written or changed; the linter only reads.
+//
+// The schema engine and the writers are flightcrew's, copied into lib/ with their origin stated in their headers.
+
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
+import { fileURLToPath } from 'node:url';
+import { EXIT, fail, print } from './lib/output.mjs';
+import { validate } from './lib/schema-lib.mjs';
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const SCHEMA_DIR = path.join(HERE, 'schema');
+const USAGE = 'usage: base/verify/cockpit-lint <file>...  (.md files are checked on their frontmatter, .json files whole)';
+
+/** An identifier at the head of a file name: Ds006.md, Rq013.md, T010.json, M001-cockpit-setup.md, P001-forming-a-team.md. */
+const NAMED_ID = /^([A-Z][A-Za-z]{0,2}[0-9]{3})(?:[-.])/;
+
+/** A frontmatter key: lowercase words joined by underscores, which is every key the cockpit uses. */
+const KEY = /^([a-z][a-z0-9_]*):(.*)$/;
+
+// ---------------------------------------------------------------------------
+// The strict frontmatter reader
+// ---------------------------------------------------------------------------
+
+/** The accepted value forms, quoted back at the writer whenever a line is refused. */
+const VALUE_FORMS = 'a bare value (work: M001), a quoted string (type: "Dossier") or a bracketed list (generates: ["Rq004", "Rq005"])';
+
+/** Splits a markdown file into its frontmatter block and the body. Returns null when the file opens without one. */
+function splitFrontmatter(text) {
+  const lines = text.split('\n');
+  if (lines[0] !== '---') return null;
+  const end = lines.indexOf('---', 1);
+  if (end === -1) return null;
+  return { lines: lines.slice(1, end), firstLine: 2 };
+}
+
+/** One scalar: a quoted string or a bare value. Returns { value } or { error }. */
+function readScalar(raw) {
+  const text = raw.trim();
+  if (text === '') return { error: 'has no value' };
+  const quote = text[0];
+  if (quote === '"' || quote === "'") {
+    if (text.length < 2 || text[text.length - 1] !== quote) return { error: `opens with ${quote} and does not close it` };
+    const inner = text.slice(1, -1);
+    if (inner.includes(quote)) return { error: `holds a ${quote} inside a ${quote} string` };
+    return { value: inner };
+  }
+  if (text.includes('"') || text.includes("'")) return { error: 'mixes quoted and bare text' };
+  if (text.includes(',')) return { error: 'is a comma list, which is not a list here' };
+  if (text.includes('[') || text.includes(']')) return { error: 'holds a bracket in a bare value' };
+  return { value: text };
+}
+
+/** Splits the inside of a bracketed list on its commas, leaving commas inside quotes alone. */
+function splitItems(inner) {
+  const items = [];
+  let current = '';
+  let quote = null;
+  for (const character of inner) {
+    if (quote) {
+      if (character === quote) quote = null;
+      current += character;
+    } else if (character === '"' || character === "'") {
+      quote = character;
+      current += character;
+    } else if (character === ',') {
+      items.push(current);
+      current = '';
+    } else {
+      current += character;
+    }
+  }
+  items.push(current);
+  return items;
+}
+
+/** One frontmatter value: a bare scalar, a quoted string, or a bracketed list of those. Returns { value } or { error }. */
+function readValue(raw) {
+  const text = raw.trim();
+  if (text.startsWith('[')) {
+    if (!text.endsWith(']')) return { error: 'opens a list with [ and does not close it with ]' };
+    const inner = text.slice(1, -1).trim();
+    if (inner === '') return { value: [] };
+    const values = [];
+    for (const item of splitItems(inner)) {
+      const read = readScalar(item);
+      if (read.error) return { error: `holds a list item that ${read.error}` };
+      values.push(read.value);
+    }
+    return { value: values };
+  }
+  // A comma list without brackets is the commonest fault in the cockpit's older frontmatter, so it is named as itself.
+  if (splitItems(text).length > 1) {
+    return { error: 'is a comma list', expected: 'brackets around the items, as stamp: ["2026-09-18", "Ace", "dcb75456"]' };
+  }
+  return readScalar(text);
+}
+
+/**
+ * Reads a flat frontmatter block. Returns { doc, faults }: one fault per line that is not a key with an accepted
+ * value, each naming the line number and the accepted forms, which is how a comma list gets reported.
+ */
+function readFrontmatter(block) {
+  const doc = {};
+  const faults = [];
+  block.lines.forEach((line, index) => {
+    const at = block.firstLine + index;
+    if (line.trim() === '') return;
+    const match = KEY.exec(line);
+    if (!match) {
+      faults.push({ field: `line ${at}`, problem: 'is not a `key: value` line', expected: `write one field per line as ${VALUE_FORMS}` });
+      return;
+    }
+    const [, key, raw] = match;
+    if (key in doc) {
+      faults.push({ field: key, problem: `is given twice, the second time on line ${at}`, expected: 'keep one line per field' });
+      return;
+    }
+    const read = readValue(raw);
+    if (read.error) {
+      faults.push({ field: key, problem: `on line ${at} ${read.error}`, expected: read.expected ?? `a value to be ${VALUE_FORMS}` });
+      return;
+    }
+    doc[key] = read.value;
+  });
+  return { doc, faults };
+}
+
+// ---------------------------------------------------------------------------
+// The schema store
+// ---------------------------------------------------------------------------
+
+/** Every schema in base/verify/schema/, mapped from each value of its `x-select` list to the schema itself. */
+function loadSchemas() {
+  let names;
+  try {
+    names = fs.readdirSync(SCHEMA_DIR).filter((name) => name.endsWith('.json')).sort();
+  } catch (error) {
+    throw new Error(`the schema directory ${SCHEMA_DIR} could not be read: ${error.message}`);
+  }
+  if (names.length === 0) throw new Error(`the schema directory ${SCHEMA_DIR} holds no schemas`);
+  const bySelector = new Map();
+  for (const name of names) {
+    const file = path.join(SCHEMA_DIR, name);
+    let schema;
+    try {
+      schema = JSON.parse(fs.readFileSync(file, 'utf8'));
+    } catch (error) {
+      throw new Error(`schema ${name} is not valid JSON: ${error.message}`);
+    }
+    const selectors = schema['x-select'];
+    if (!Array.isArray(selectors) || selectors.length === 0) {
+      throw new Error(`schema ${name} has no "x-select" list saying which type or kind values it answers to`);
+    }
+    // A schema that describes a `type` field describes markdown frontmatter; one that describes `kind` describes a JSON file.
+    const markdown = Boolean(schema.properties?.type);
+    for (const selector of selectors) {
+      const held = bySelector.get(selector);
+      if (held) throw new Error(`schemas ${held.name} and ${name} both answer to "${selector}"`);
+      bySelector.set(selector, { name, schema, markdown });
+    }
+  }
+  return bySelector;
+}
+
+/** The property subschema an error path points at, so its `description` can be quoted back as the expected form. */
+function fieldDescription(schema, errorPath) {
+  const parts = errorPath.split('.').slice(1);
+  let node = schema;
+  for (const raw of parts) {
+    const part = raw.replace(/\[[0-9]+\]$/, '');
+    const properties = node?.properties;
+    if (!properties || !(part in properties)) return null;
+    node = properties[part];
+    // An indexed segment steps into the array's item schema, where the row's own fields are described.
+    if (raw !== part) node = Array.isArray(node?.items) ? node.items[0] : node?.items;
+  }
+  return typeof node?.description === 'string' ? node.description : null;
+}
+
+// ---------------------------------------------------------------------------
+// One file
+// ---------------------------------------------------------------------------
+
+/** The faults one file carries. Each is { field, problem, expected }; an empty list means the file is clean. */
+function lintFile(file, schemas) {
+  let text;
+  try {
+    text = fs.readFileSync(file, 'utf8');
+  } catch (error) {
+    return [{ field: 'the file', problem: `could not be read: ${error.message}`, expected: 'a readable .md or .json file' }];
+  }
+  const base = path.basename(file);
+  const extension = path.extname(base);
+  let doc;
+  const faults = [];
+
+  if (extension === '.md') {
+    const block = splitFrontmatter(text);
+    if (!block) {
+      return [{ field: 'frontmatter', problem: 'is missing', expected: 'open the file with a --- block holding at least `type`' }];
+    }
+    const read = readFrontmatter(block);
+    faults.push(...read.faults);
+    doc = read.doc;
+  } else if (extension === '.json') {
+    try {
+      doc = JSON.parse(text);
+    } catch (error) {
+      return [{ field: 'the file', problem: `is not valid JSON: ${error.message}`, expected: 'a JSON document' }];
+    }
+  } else {
+    return [{ field: 'the file', problem: `has the extension ${extension || '(none)'}`, expected: 'a .md or a .json file' }];
+  }
+
+  // The name checks: a manifest declares its collection, a file named for an identifier carries it.
+  const manifest = /^MANIFEST-(.+)\.json$/.exec(base);
+  if (manifest && doc?.kind !== manifest[1]) {
+    faults.push({ field: 'kind', problem: `is ${JSON.stringify(doc?.kind ?? null)} in a file named MANIFEST-${manifest[1]}.json`, expected: `kind: "${manifest[1]}", the collection the file name gives` });
+  }
+  const named = NAMED_ID.exec(base);
+  if (named) {
+    const carried = extension === '.md' ? doc?.unit : (doc?.id ?? doc?.unit);
+    const field = extension === '.md' ? 'unit' : 'id';
+    if (carried !== named[1]) {
+      faults.push({ field, problem: `is ${JSON.stringify(carried ?? null)} in a file named ${base}`, expected: `${field}: "${named[1]}", the identifier the file name gives` });
+    }
+  }
+
+  // The schema check.
+  const markdown = extension === '.md';
+  const selector = markdown ? doc?.type : doc?.kind;
+  const field = markdown ? 'type' : 'kind';
+  const offered = [...schemas.entries()].filter(([, held]) => held.markdown === markdown).map(([key]) => key).sort().join(', ');
+  if (selector === undefined) {
+    faults.push({ field, problem: 'is missing, so no schema can be chosen', expected: `${field} naming the document, one of: ${offered}` });
+    return faults;
+  }
+  const chosen = schemas.get(selector);
+  if (!chosen || chosen.markdown !== markdown) {
+    faults.push({ field, problem: `is ${JSON.stringify(selector)}, which no schema for a ${extension} file answers to`, expected: `one of: ${offered}` });
+    return faults;
+  }
+  const { ok, errors } = validate(chosen.schema, doc);
+  if (!ok) {
+    // An anyOf or oneOf failure is followed by every branch's own errors; the branch noise says nothing the
+    // field's description does not, so the one line stands for the lot.
+    const collapsed = [];
+    let swallowing = null;
+    for (const error of errors) {
+      if (swallowing && error.path.startsWith(swallowing)) continue;
+      swallowing = null;
+      collapsed.push(error);
+      if (error.rule === 'anyOf' || error.rule === 'oneOf') swallowing = error.path;
+    }
+    for (const error of collapsed) {
+      // A missing field is reported as that field, with its own description, not as a fault of the whole document.
+      const missing = error.rule === 'required' ? /lacks required (\S+)$/.exec(error.message) : null;
+      const at = missing ? `${error.path}.${missing[1]}` : error.path;
+      const description = fieldDescription(chosen.schema, at);
+      faults.push({
+        field: at.replace(/^\$\.?/, '') || 'the document',
+        problem: missing ? 'is missing'
+          : (error.rule === 'anyOf' || error.rule === 'oneOf') ? 'matches none of the accepted forms'
+          : (error.message.replace(/^\$\.?[A-Za-z0-9_.[\]]*\s*/, '').trim() || error.message),
+        expected: description ?? `the shape ${chosen.name} gives`,
+        rule: error.rule,
+      });
+    }
+  }
+  return faults;
+}
+
+// ---------------------------------------------------------------------------
+// The command
+// ---------------------------------------------------------------------------
+
+export function main(argv = []) {
+  const files = argv.filter((arg) => !String(arg).startsWith('-'));
+  if (argv.includes('--help') || argv.includes('-h') || files.length === 0) {
+    fail(USAGE);
+    return EXIT.toolError;
+  }
+  let schemas;
+  try {
+    schemas = loadSchemas();
+  } catch (error) {
+    fail(`cockpit-lint cannot run: ${error.message}`);
+    return EXIT.toolError;
+  }
+  let total = 0;
+  for (const file of files) {
+    const inside = path.relative(process.cwd(), path.resolve(file));
+    const shown = inside && !inside.startsWith('..') ? inside : path.resolve(file);
+    for (const fault of lintFile(file, schemas)) {
+      const rule = fault.rule ? ` — [${fault.rule}]` : '';
+      fail(`error: ${shown}: ${fault.field} ${fault.problem}; expected ${fault.expected}${rule}`);
+      total += 1;
+    }
+  }
+  if (total > 0) {
+    fail(`${total} fault${total === 1 ? '' : 's'} in ${files.length} file${files.length === 1 ? '' : 's'}`);
+    return EXIT.faults;
+  }
+  print(`ok: ${files.length} file${files.length === 1 ? '' : 's'} clean`);
+  return EXIT.ok;
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  process.exit(main(process.argv.slice(2)));
+}

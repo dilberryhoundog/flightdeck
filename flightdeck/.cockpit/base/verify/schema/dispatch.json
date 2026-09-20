@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-select": ["dispatch"],
+  "title": "Dispatch",
+  "description": "One dispatch (T): a team the pilot sent out, its seats, the shape it flew in, what it returned and what was learned. The team is the unit of record. Filed by identifier in its room, T010.json.",
+  "type": "object",
+  "required": ["kind", "id", "date", "session", "mission", "purpose", "seats", "status"],
+  "properties": {
+    "kind": {
+      "description": "the word dispatch, which is what chooses this schema",
+      "const": "dispatch"
+    },
+    "id": {
+      "description": "this dispatch's identifier, T and three digits, counted across the whole team space and the same identifier the file is named for",
+      "type": "string",
+      "pattern": "^T[0-9]{3}$"
+    },
+    "date": {
+      "description": "the day the team was dispatched, YYYY-MM-DD",
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "session": {
+      "description": "the eight-character id of the session that dispatched the team",
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}$"
+    },
+    "mission": {
+      "description": "the mission the team was flown for, M and three digits",
+      "type": "string",
+      "pattern": "^M[0-9]{3}$"
+    },
+    "purpose": {
+      "description": "what the team was sent to do, in one or two sentences",
+      "type": "string",
+      "minLength": 1
+    },
+    "roster": {
+      "description": "the name of the roster the team was built from, when it was built from one",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "seats": {
+      "description": "one row per seat: its name, why it was there, and what it returned",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "reason"],
+        "properties": {
+          "name": { "description": "the seat's name, matching its crew dossier", "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "reason": { "description": "why this seat was on the team; every seat is there for a stated reason", "type": "string", "minLength": 1 },
+          "returns": { "description": "what the seat actually came back with", "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "shape": {
+      "description": "how the team was arranged and run, in one or two sentences",
+      "type": "string",
+      "minLength": 1
+    },
+    "outcome": {
+      "description": "what the team produced and where it landed; filled in when the team finishes",
+      "type": "string",
+      "minLength": 1
+    },
+    "lessons": {
+      "description": "what the next team should do differently, one line each",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "status": {
+      "description": "whether the team is still flying or has landed: dispatched, finished or abandoned",
+      "enum": ["dispatched", "finished", "abandoned"]
+    }
+  }
+}

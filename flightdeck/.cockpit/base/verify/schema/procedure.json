@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-select": ["Procedure"],
+  "title": "Procedure",
+  "description": "The frontmatter of a procedure (P): a pre-recorded routine the pilot opens when its trigger arrives, matching a roster with tasks, context and steps. Filed by identifier and name, P001-forming-a-team.md.",
+  "type": "object",
+  "required": ["type", "unit", "status", "trigger", "stamp"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "description": "the word Procedure, which is what chooses this schema",
+      "const": "Procedure"
+    },
+    "unit": {
+      "description": "this procedure's identifier, P and three digits, the same identifier the file is named for",
+      "type": "string",
+      "pattern": "^P[0-9]{3}$"
+    },
+    "status": {
+      "description": "whether the procedure is in force: draft, active or retired",
+      "enum": ["draft", "active", "retired"]
+    },
+    "trigger": {
+      "description": "what opens the procedure: on-demand (the pilot decides the condition has arrived), named (invoked by name) or periodical (an event makes it due)",
+      "enum": ["on-demand", "named", "periodical"]
+    },
+    "stamp": {
+      "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",
+      "type": "array",
+      "minItems": 3,
+      "items": [
+        { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        { "type": "string", "minLength": 1 },
+        { "type": "string", "pattern": "^[0-9a-f]{8}$" }
+      ]
+    },
+    "approved": {
+      "description": "the date the commander approved the procedure, YYYY-MM-DD; absent while it is a draft",
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "roster": {
+      "description": "the name of the roster this procedure dispatches, or omitted when the pilot flies it alone",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "context": {
+      "description": "the identifiers behind this procedure, a bracketed list, usually the dossier and request that raised it",
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
+    }
+  }
+}

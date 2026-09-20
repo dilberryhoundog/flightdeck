@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-select": ["Mission"],
+  "title": "Mission",
+  "description": "The frontmatter of a mission (M): one epic piece of work the commander assigns, with a goal and a statement of what done looks like. Filed by identifier and name, M001-cockpit-setup.md.",
+  "type": "object",
+  "required": ["type", "unit", "status", "stamp", "branch", "assigned_by"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "description": "the word Mission, which is what chooses this schema",
+      "const": "Mission"
+    },
+    "unit": {
+      "description": "this mission's identifier, M and three digits, the same identifier the file is named for",
+      "type": "string",
+      "pattern": "^M[0-9]{3}$"
+    },
+    "status": {
+      "description": "where the mission stands: planned, in_progress, or closed, which only the commander declares",
+      "enum": ["planned", "in_progress", "closed"]
+    },
+    "stamp": {
+      "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",
+      "type": "array",
+      "minItems": 3,
+      "items": [
+        { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        { "type": "string", "minLength": 1 },
+        { "type": "string", "pattern": "^[0-9a-f]{8}$" }
+      ]
+    },
+    "branch": {
+      "description": "the git branch the mission is flown on",
+      "type": "string",
+      "minLength": 1
+    },
+    "assigned_by": {
+      "description": "who opened the mission, normally the commander",
+      "type": "string",
+      "minLength": 1
+    },
+    "context": {
+      "description": "the identifiers this mission came out of, a bracketed list, such as the spark or dossier behind it",
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
+    },
+    "generates": {
+      "description": "the identifiers of the work this mission has thrown off, a bracketed list of dispatches, dossiers and requests",
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
+    }
+  }
+}

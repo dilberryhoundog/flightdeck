@@ -1,7 +1,7 @@
 {
   "kind": "logs",
   "version": 2,
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "units": [
     {
       "session": "a61606de",
@@ -49,7 +49,7 @@
       "session": "241bff25",
       "date": "2026-09-20",
       "session_id": "241bff25-48aa-4a63-a123-019e252df287",
-      "summary": "Placeholder: session in progress.",
+      "summary": "The pilot's agent body talked through with the commander, raised as Rq014, attacked, approved (De028), built by T015 and committed (8a05299): pilot.md as the single source for model and effort, launched as --agents JSON with --effort passed by the launcher after headless measurement; CLAUDE.md cut to rules of the place; Or060 to Or064; WS027, WS028. Session ended so the commander can launch and test the new body.",
       "path": "2026-09-20_241bff25.md"
     }
   ]

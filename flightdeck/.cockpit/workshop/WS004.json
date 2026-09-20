@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS004",
+  "title": "A16c: a template for team-run report folders once a second run exists; two runs now exist",
+  "raised": "2026-09-18",
+  "source": "auditor C006 finding A16c; notepad/team-run-2026-09-18 and claude-md-review-2026-09-18",
+  "status": "open"
+}

@@ -1,0 +1,8 @@
+{
+  "kind": "order",
+  "id": "Or034",
+  "date": "2026-09-18",
+  "text": "Written instructions on DS001 in `commanders-desk/out-advice/DS001.md`: launch definition corrected; library genesis in `library/source/`; library is for all and maintained by the pilot, records are the pilot's own extracts; doctrine discovery and integration is part of the cockpit furnishing mission; the recon's primary function was intel for the pilot to know the system; the eight cuts converge on two epics (flightcrew core from the one-shot foundation; a self-sustaining, self-improving cockpit); the test suite is a rails-style folder protecting infrastructure; the pilot flies and does no work, presiding over the room where crews thrash out the spec; teams are the pilot's and crews are flightcrew's; a certified research team writes records, run past the commander first; commit first, then branch cleanup only where upstream replicates. Then: \"don't clean up any branches that haven't had their upstream changes merged higher. This is a merge cleanup instead.\"",
+  "id_note": "merge cleanup rule",
+  "superseded_note": "merge cleanup rule, 2026-09-18"
+}

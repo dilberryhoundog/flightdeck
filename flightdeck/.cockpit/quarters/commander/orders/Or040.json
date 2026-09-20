@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or040",
+  "date": "2026-09-18",
+  "text": "Asked whether the three rules typed at 9b679556:7642 to 7644 (do not restate the whole existing behaviour model; rely on existing tests for unchanged behaviour; define where behaviour differs observably from original) apply to a system of harness tools, as asked at 9b679556:7647: \"yes\".",
+  "session": "dcb75456"
+}

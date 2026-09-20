@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS019",
+  "title": "From quarters/crew/todo.txt (unsigned note, absorbed 2026-09-18): This file should be called the `team` to separate it from the `crew` that runs flightcrew runs. the json file also needs to be renamed.",
+  "raised": "2026-09-18",
+  "source": "quarters/crew/todo.txt",
+  "status": "open"
+}

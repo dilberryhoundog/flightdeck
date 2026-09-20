@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or045",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "text": "Keep files are slowly drifting as ideas change; eventually they will be removed. They are initial placeholders to scaffold the initial shape. Also wondering if we should set up a schema store, so we can specify document shapes: stored in base, callable by a linter, so pilots have their paperwork in order."
+}

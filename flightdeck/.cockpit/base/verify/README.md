@@ -6,7 +6,7 @@ The cockpit's paperwork check. Every document type has a defined shape written d
 
     base/verify/cockpit-lint <file>...
 
-One short line when every file is clean. On a fault, one line per fault naming the file, the field, what is wrong and the form expected, so the fix is a small edit and needs no second tool call. Exit 0 clean, 1 faults, 2 the tool could not run. It reads; it never writes.
+One short line when every file is clean. On a fault, one line per fault naming the file, the field, what is wrong and the form expected, so the fix is a small edit and needs no second tool call. The exit codes are flightcrew's: 0 clean, 2 a failed check, 1 a usage or environment error. It reads; it never writes.
 
 The linter finds a file's schema by the document's own `type` (a markdown file's frontmatter) or `kind` (a JSON file), never by where the file sits, so moving a room costs the schemas nothing. It also checks the file's name: a `MANIFEST-<collection>.json` holds `kind` equal to `<collection>`, and a file named for an identifier (`Ds006.md`, `T010.json`) carries that identifier as its `unit` or `id`.
 

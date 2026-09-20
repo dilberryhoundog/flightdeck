@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or046",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "text": "Flightcrew has these schema checking assets already built, on other branches; the spec builder was using a linter recently, along with rubric checkers. On the P prefix: nope, proposals change to requests. That is the easier name to change and remember. Procedures will be key references, and having M, Ws, P for work is a decent convention."
+}

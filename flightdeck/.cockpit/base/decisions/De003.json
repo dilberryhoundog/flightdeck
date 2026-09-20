@@ -1,0 +1,8 @@
+{
+  "kind": "decision",
+  "id": "De003",
+  "date": "2026-09-17",
+  "subject": "Cockpit write rule",
+  "decision": "Enforce mechanically. Implemented as the PreToolUse guard in the pilot's settings.",
+  "by": "commander"
+}

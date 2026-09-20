@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or055",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "text": "The write restriction is not a CLAUDE.md line; it would do nothing if removed. It is more of a setup understanding (a manual): a bunch of lines all on the same subject has the right shape for a manual, not every session needs the information, it is a single topic of understanding for cockpit-based permissions. The commander's ranks idea speaks on the same topic. The quiet mode for teams is CLAUDE.md shaped: things change if it is removed and every session needs it. Call rule 12 'Team dispatch quiet mode'; it is for team dispatches only and should not interfere with general conversation; the commander's adjacent comment has the better shape. Move rule 1 to a manual. A CLAUDE.md excellence team may be useful, maybe after this refactor lands. The guard (P012) is probably next session's work, depending on how this session progresses."
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "roster",
+  "name": "topics-and-records",
+  "purpose": "mine the commander's statements into topics and distil records",
+  "seats": [
+    "topic-extractor",
+    "record-writer",
+    "discovery",
+    "validator",
+    "adversary"
+  ],
+  "shape": "extractor first; discovery and validator as topics land; writer once topics are stable; adversary on every draft"
+}

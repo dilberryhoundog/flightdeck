@@ -33,7 +33,7 @@ Promoted 2026-09-20 on the commander's word: "promote the self sustaining missio
 - [ ] Procedures extracted from live work as routines repeat; the `Added:` to `Approved:` loop exercised with the commander.
 - [ ] Rosters matched to procedures: a procedure names its roster and tasks, and dispatch from it is one step.
 - [ ] Real-time capture of the commander's statements and decisions (folds in Sp007), replacing deep mining.
-- [ ] Teams from the dispatch record (folds in Sp006): lessons in `dispatch/cockpit.json` and the seat dossiers feed the next brief.
+- [ ] Teams from the dispatch record (folds in Sp006): lessons in `dispatch/MANIFEST-dispatches.json` and the seat dossiers feed the next brief.
 - [ ] The flightcrew branch of `procedures/`, built once the cockpit fitout settles and work on the system begins; starts with a survey of what the fc CLI does.
 - [ ] Advanced procedure configuration: a procedure calling another, conditional steps, versioning and retirement, due-ness machinery if events prove too loose.
 - [ ] A measure of whether manifest lines fire, and of drift events a line should have caught.

@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS005",
+  "title": "Confirm the guard no longer blocks relative Bash write paths when cwd is inside the cockpit (defect seen 2026-09-18 before the A2 rewrite)",
+  "raised": "2026-09-18",
+  "source": "log 2026-09-18_8e74fffb, session start section; base/bin/test_cockpit_guard.py",
+  "status": "open"
+}

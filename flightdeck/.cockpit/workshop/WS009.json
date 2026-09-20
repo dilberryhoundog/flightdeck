@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS009",
+  "title": "Repair STRUCTURE.md (radar vs HUD, phantom example-launch, no .controlcenter) and liftoff.template.yaml paths",
+  "raised": "2026-09-18",
+  "source": "request Rq003, withdrawn 2026-09-18",
+  "status": "open"
+}

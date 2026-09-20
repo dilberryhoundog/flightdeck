@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or053",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "text": "On the pace of the room: not the pilot's fault, don't change anything yet. The pilot asks for input, then four agent returns come in and the question is hundreds of lines up; the commander has to think how to solve it. On naming things: everything that accumulates and is commonly referenced in a chat gets an ID; how else do you refer to request 15 in a document? Everything known permanently by name gets a name. A seat can have a name, a roster can have a name; it is far better to see document-critic than C023 (crew 23). A few crossover items: missions have a name and an ID. The reason is how you address things in a chat: when you refer to M002, the commander can learn that ID and know what is meant; 'let me dispatch C023' means digging into a teams reference to know who is being deployed, while 'document-critic' is known. So procedures and missions need both; permanent names like rosters and seats are name only; all accumulating items (dossiers, requests, decisions, orders, dispatches and so on) get an ID only."
+}

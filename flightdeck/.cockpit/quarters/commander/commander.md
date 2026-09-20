@@ -8,7 +8,7 @@
 
 ## Standing orders
 
-Dated, verbatim statements are in `orders.json` (37 as of 2026-09-18), read on demand; topics distilled from them are in `../../logs/topics/`. What stands and is stated nowhere else in the cockpit:
+Dated, verbatim statements are in `MANIFEST-orders.json` (37 as of 2026-09-18), read on demand; topics distilled from them are in `../../logs/topics/`. What stands and is stated nowhere else in the cockpit:
 
 - The pilot flies the mission and does no work: presides over the room where crews thrash things out, distils recon into dossiers, makes the requests; the commander approves, denies or changes (2026-09-18).
 - Missions are epic; aim high; a mission has a goal and a definition of done; the commander closes missions (2026-09-18).
@@ -38,4 +38,4 @@ Dated, verbatim statements are in `orders.json` (37 as of 2026-09-18), read on d
 
 ## Decisions log
 
-See `base/decisions.json` for approvals and rejections of requests.
+See `base/MANIFEST-decisions.json` for approvals and rejections of requests.

@@ -4,7 +4,7 @@ The pilot's briefing on the doctrine: terms, rooms, spec, testing, rubric and ad
 
 ## How to dispatch
 
-Scope: library, manuals, STRUCTURE.md, keep files, crew.json at three branches. Report: nine fixed sections including a drift table and harness claims, 250 lines.
+Scope: library, manuals, STRUCTURE.md, keep files, MANIFEST-crew.json at three branches. Report: nine fixed sections including a drift table and harness claims, 250 lines.
 
 ## Record
 

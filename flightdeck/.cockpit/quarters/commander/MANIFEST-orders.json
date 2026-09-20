@@ -1,0 +1,378 @@
+{
+  "kind": "orders",
+  "version": 1,
+  "updated": "2026-09-20",
+  "purpose": "Dated statements from the commander, verbatim or near-verbatim, read on demand. Newest at the bottom. The newer statement wins; superseded_by names what replaced it. Live orders stated nowhere else are summarised in commander.md; topics distilled from these live in ../../logs/topics/.",
+  "units": [
+    {
+      "id": "Or001",
+      "date": "2026-09-17",
+      "summary": "You have been recruited to oversee and manage the flightdeck from your position.",
+      "path": "orders/Or001.json"
+    },
+    {
+      "id": "Or002",
+      "date": "2026-09-17",
+      "summary": "You know nothing of any old missions.",
+      "path": "orders/Or002.json"
+    },
+    {
+      "id": "Or003",
+      "date": "2026-09-17",
+      "summary": "Your first mission is to set up and structure your cockpit.",
+      "path": "orders/Or003.json"
+    },
+    {
+      "id": "Or004",
+      "date": "2026-09-17",
+      "summary": "You are a very keen and ambitious young pilot with 3 proposals already and declaring the mission over.",
+      "path": "orders/Or004.json"
+    },
+    {
+      "id": "Or005",
+      "date": "2026-09-17",
+      "summary": "Look into the `--settings` flag and the ListAgents and SendMessage tools, as these will drive your interactivity tools.",
+      "path": "orders/Or005.json"
+    },
+    {
+      "id": "Or006",
+      "date": "2026-09-17",
+      "summary": "All sessions are mine.",
+      "path": "orders/Or006.json"
+    },
+    {
+      "id": "Or007",
+      "date": "2026-09-17",
+      "summary": "Answers to the pilot's five questions: test-messaging the other session is a worthy choice; enforce the cockpit write r…",
+      "path": "orders/Or007.json"
+    },
+    {
+      "id": "Or008",
+      "date": "2026-09-17",
+      "summary": "Record it in a mission incubator.",
+      "path": "orders/Or008.json"
+    },
+    {
+      "id": "Or009",
+      "date": "2026-09-17",
+      "summary": "Sign-off: \"Your first day on the job is now complete.",
+      "path": "orders/Or009.json"
+    },
+    {
+      "id": "Or010",
+      "date": "2026-09-18",
+      "summary": "Order: find how to vary the model through `base/bin/pilot.sh`, look into hard-wiring Fable in the injected settings, ef…",
+      "path": "orders/Or010.json"
+    },
+    {
+      "id": "Or011",
+      "date": "2026-09-18",
+      "summary": "You have my permission to access your .claude folder also for scratchpads etc.",
+      "path": "orders/Or011.json"
+    },
+    {
+      "id": "Or012",
+      "date": "2026-09-18",
+      "summary": "Correction: the claude-code references mixed long-term references with scratch findings.",
+      "path": "orders/Or012.json"
+    },
+    {
+      "id": "Or013",
+      "date": "2026-09-18",
+      "summary": "On the launcher: \"your launcher your fix.",
+      "path": "orders/Or013.json"
+    },
+    {
+      "id": "Or014",
+      "date": "2026-09-18",
+      "summary": "On records: \"every good pilot protects their records.",
+      "path": "orders/Or014.json"
+    },
+    {
+      "id": "Or015",
+      "date": "2026-09-18",
+      "summary": "\"Promotion from notepad into records is the pathway.",
+      "path": "orders/Or015.json"
+    },
+    {
+      "id": "Or016",
+      "date": "2026-09-18",
+      "summary": "Order: spawn an Opus teammate to suggest cleanup and improvements inside the cockpit, a Sonnet teammate to search offic…",
+      "path": "orders/Or016.json"
+    },
+    {
+      "id": "Or017",
+      "date": "2026-09-18",
+      "summary": "Asked for a manifest of teammate invocations (type, model, purpose and more) to build a picture of teammate shapes over…",
+      "path": "orders/Or017.json"
+    },
+    {
+      "id": "Or018",
+      "date": "2026-09-18",
+      "summary": "On the team findings: A1 and A2 \"pilots work\".",
+      "path": "orders/Or018.json"
+    },
+    {
+      "id": "Or019",
+      "date": "2026-09-18",
+      "summary": "On crew rule 2: one Sonnet recommendation was not a rule that all crew be Sonnet.",
+      "path": "orders/Or019.json"
+    },
+    {
+      "id": "Or020",
+      "date": "2026-09-18",
+      "summary": "\"I have big plans for teammates over longer running sessions.\" Shutting down teammates as they finish interferes and re…",
+      "path": "orders/Or020.json"
+    },
+    {
+      "id": "Or021",
+      "date": "2026-09-18",
+      "summary": "\"Missions are drifting into bug reports and minor fixes.\" Set up `workshop/` where the pilot leaves things to get fixed…",
+      "path": "orders/Or021.json"
+    },
+    {
+      "id": "Or022",
+      "date": "2026-09-18",
+      "summary": "Gave the pilot the callsign Ace: \"Your commander wants to give you a better call sign.\" Then: \"we might have to get you…",
+      "path": "orders/Or022.json"
+    },
+    {
+      "id": "Or023",
+      "date": "2026-09-18",
+      "summary": "On M001 and missions generally: \"The mission is working towards the goal of having you oversee and manage launches and…",
+      "path": "orders/Or023.json"
+    },
+    {
+      "id": "Or024",
+      "date": "2026-09-18",
+      "summary": "Missions are epic.",
+      "path": "orders/Or024.json"
+    },
+    {
+      "id": "Or025",
+      "date": "2026-09-18",
+      "summary": "Next steps: get briefed on flightcrew and the commander's work so far; assemble a team; pull in and summarise everythin…",
+      "path": "orders/Or025.json"
+    },
+    {
+      "id": "Or026",
+      "date": "2026-09-18",
+      "summary": "The day-one proposals P001 to P003: the proposal function will develop over time; whether they are still relevant is th…",
+      "path": "orders/Or026.json"
+    },
+    {
+      "id": "Or027",
+      "date": "2026-09-18",
+      "summary": "\"You are the pilot (session), your callsign is ace (I call you this).\" Session name stays `pilot`.",
+      "path": "orders/Or027.json"
+    },
+    {
+      "id": "Or028",
+      "date": "2026-09-18",
+      "summary": "On crew rule 6: \"rule six can change, we are not irresponsible.",
+      "path": "orders/Or028.json"
+    },
+    {
+      "id": "Or029",
+      "date": "2026-09-18",
+      "summary": "Why the pilot exists: \"I spawned the cockpit as I was using an agent role (spec-builder) to manage massive organisation…",
+      "path": "orders/Or029.json"
+    },
+    {
+      "id": "Or030",
+      "date": "2026-09-18",
+      "summary": "Two epic missions named by the commander for after the recon: (1) \"teams (of teammates) built by mining our agent dispa…",
+      "path": "orders/Or030.json"
+    },
+    {
+      "id": "Or031",
+      "date": "2026-09-18",
+      "summary": "The work split: \"workshop: little fixes, problems to fix, maintenance work etc, stuff we do when not out completing epi…",
+      "path": "orders/Or031.json"
+    },
+    {
+      "id": "Or032",
+      "date": "2026-09-18",
+      "summary": "\"The next idea is a dispatch/ folder that stores our teams.",
+      "path": "orders/Or032.json"
+    },
+    {
+      "id": "Or033",
+      "date": "2026-09-18",
+      "summary": "On recon: \"the intel is raw.",
+      "path": "orders/Or033.json"
+    },
+    {
+      "id": "Or034",
+      "date": "2026-09-18",
+      "summary": "Written instructions on DS001 in `commanders-desk/out-advice/DS001.md`: launch definition corrected; library genesis in…",
+      "superseded_by": "merge cleanup rule, 2026-09-18",
+      "path": "orders/Or034.json"
+    },
+    {
+      "id": "Or035",
+      "date": "2026-09-18",
+      "summary": "On the research team: adversary on Opus.",
+      "path": "orders/Or035.json"
+    },
+    {
+      "id": "Or036",
+      "date": "2026-09-18",
+      "summary": "Order for M001: give the pilot an agent body.",
+      "path": "orders/Or036.json"
+    },
+    {
+      "id": "Or037",
+      "date": "2026-09-18",
+      "summary": "\"turn budget was a major problem last run.",
+      "path": "orders/Or037.json"
+    },
+    {
+      "id": "Or038",
+      "date": "2026-09-18",
+      "summary": "On the records cap: \"the other end of the scale has weight.",
+      "session": "dcb75456",
+      "path": "orders/Or038.json"
+    },
+    {
+      "id": "Or039",
+      "date": "2026-09-18",
+      "summary": "On launches per feature, answering the pilot's question about 9b679556:6718: \"more than one launch can happen for a fea…",
+      "session": "dcb75456",
+      "path": "orders/Or039.json"
+    },
+    {
+      "id": "Or040",
+      "date": "2026-09-18",
+      "summary": "Asked whether the three rules typed at 9b679556:7642 to 7644 (do not restate the whole existing behaviour model; rely o…",
+      "session": "dcb75456",
+      "path": "orders/Or040.json"
+    },
+    {
+      "id": "Or041",
+      "date": "2026-09-18",
+      "summary": "Teams are the pilot's number one feature and not integrated enough.",
+      "session": "dcb75456",
+      "path": "orders/Or041.json"
+    },
+    {
+      "id": "Or042",
+      "date": "2026-09-20",
+      "summary": "The procedures room.",
+      "session": "4450a586",
+      "path": "orders/Or042.json"
+    },
+    {
+      "id": "Or043",
+      "date": "2026-09-20",
+      "summary": "The pilot extracts procedures from live work and keeps them updated.",
+      "session": "4450a586",
+      "path": "orders/Or043.json"
+    },
+    {
+      "id": "Or044",
+      "date": "2026-09-20",
+      "summary": "The files in commanders-desk/out-ideas are ideas not orders.",
+      "session": "b27e6c01",
+      "path": "orders/Or044.json"
+    },
+    {
+      "id": "Or045",
+      "date": "2026-09-20",
+      "summary": "Keep files are slowly drifting as ideas change; eventually they will be removed.",
+      "session": "b27e6c01",
+      "path": "orders/Or045.json"
+    },
+    {
+      "id": "Or046",
+      "date": "2026-09-20",
+      "summary": "Flightcrew has these schema checking assets already built, on other branches; the spec builder was using a linter recen…",
+      "session": "b27e6c01",
+      "path": "orders/Or046.json"
+    },
+    {
+      "id": "Or047",
+      "date": "2026-09-20",
+      "summary": "On DS versus Ds for dossiers: nope, DS means dossier should be two words; Ds allows the lowercase to guide what the D m…",
+      "session": "b27e6c01",
+      "path": "orders/Or047.json"
+    },
+    {
+      "id": "Or048",
+      "date": "2026-09-20",
+      "summary": "Decision De, Spark Sp, Order Or (O001 is not very readable).",
+      "session": "b27e6c01",
+      "path": "orders/Or048.json"
+    },
+    {
+      "id": "Or049",
+      "date": "2026-09-20",
+      "summary": "C looks like Crew, I'm not sure if this still fits.",
+      "session": "b27e6c01",
+      "path": "orders/Or049.json"
+    },
+    {
+      "id": "Or050",
+      "date": "2026-09-20",
+      "summary": "My attendance at this meeting seems a difficult concept to handle, as this meeting seems to be trying to settle ideas b…",
+      "session": "b27e6c01",
+      "path": "orders/Or050.json"
+    },
+    {
+      "id": "Or051",
+      "date": "2026-09-20",
+      "summary": "Extracts is future work; currently scaffolding procedures and folder structures as part of M001.",
+      "session": "b27e6c01",
+      "path": "orders/Or051.json"
+    },
+    {
+      "id": "Or052",
+      "date": "2026-09-20",
+      "summary": "Match the manifest collection to the ID; agent-oriented naming doesn't mind longer, more descriptive names.",
+      "session": "b27e6c01",
+      "path": "orders/Or052.json"
+    },
+    {
+      "id": "Or053",
+      "date": "2026-09-20",
+      "summary": "On the pace of the room: not the pilot's fault, don't change anything yet.",
+      "session": "b27e6c01",
+      "path": "orders/Or053.json"
+    },
+    {
+      "id": "Or054",
+      "date": "2026-09-20",
+      "summary": "On the pilot holding crew returns quietly: that would be awesome.",
+      "session": "b27e6c01",
+      "path": "orders/Or054.json"
+    },
+    {
+      "id": "Or055",
+      "date": "2026-09-20",
+      "summary": "The write restriction is not a CLAUDE.md line; it would do nothing if removed.",
+      "session": "b27e6c01",
+      "path": "orders/Or055.json"
+    },
+    {
+      "id": "Or056",
+      "date": "2026-09-20",
+      "summary": "On the stage A work: asked who forbids a hand-typed skip list in the design, and if the pilot, why.",
+      "session": "b27e6c01",
+      "path": "orders/Or056.json"
+    },
+    {
+      "id": "Or057",
+      "date": "2026-09-20",
+      "summary": "`base/verify/schema/<type>.json` with a basic linter command.",
+      "session": "b27e6c01",
+      "path": "orders/Or057.json"
+    },
+    {
+      "id": "Or058",
+      "date": "2026-09-20",
+      "summary": "On the commander-advocate's return: preferable to have the linter mirror the flightdeck one; node should work, it works…",
+      "session": "b27e6c01",
+      "path": "orders/Or058.json"
+    }
+  ]
+}

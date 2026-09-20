@@ -1,0 +1,8 @@
+{
+  "kind": "decision",
+  "id": "De002",
+  "date": "2026-09-17",
+  "subject": "Cross-session test message",
+  "decision": "Approved. All sessions on the machine are the commander's.",
+  "by": "commander"
+}

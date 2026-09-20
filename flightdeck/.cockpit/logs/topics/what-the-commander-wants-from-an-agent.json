@@ -1,79 +1,69 @@
 {
-  "id": "what-the-commander-wants-from-an-agent",
+  "kind": "topic",
+  "name": "what-the-commander-wants-from-an-agent",
   "title": "What the commander wants from an agent",
   "scope": "Standing expectations of any agent working for the commander: stay in the given scope, do the stated job, ask before inventing, and do not run ahead. Excludes interview technique (see interviewing-the-commander).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "bfb87cff:141",
       "date": "2026-09-09",
       "statement": "I gave you a narrow scope deliberately. You got fancy, freestyled all over my repo, thought you knew everything else about what i wanted.",
-      "context": "After an agent read files outside the two locations its prompt named.",
-      "superseded_by": null
+      "context": "After an agent read files outside the two locations its prompt named."
     },
     {
       "ref": "bfb87cff:168",
       "date": "2026-09-09",
       "statement": "PLEASE dont go freestyling throughout my code base. NO other reads except those two locations. if you do I stop the thread.",
-      "context": "The defensive line added when restarting that task in a third session.",
-      "superseded_by": null
+      "context": "The defensive line added when restarting that task in a third session."
     },
     {
       "ref": "8fdc3b29:6250",
       "date": "2026-09-08",
       "statement": "you are problems highlighter not solutions implementer. just say it has no bash sandboxing, spec builder will help me decide.",
-      "context": "After an agent turned a problem document into a set of fixes.",
-      "superseded_by": null
+      "context": "After an agent turned a problem document into a set of fixes."
     },
     {
       "ref": "8fdc3b29:5368",
       "date": "2026-09-08",
       "statement": "um so you got straight to writing? did my answers settle every question?",
-      "context": "After an agent wrote a deliverable without asking its remaining questions.",
-      "superseded_by": null
+      "context": "After an agent wrote a deliverable without asking its remaining questions."
     },
     {
       "ref": "9b679556:2882",
       "date": "2026-09-09",
       "statement": "repeat back to me where i told you to reduce the scope in this conversation?",
-      "context": "After an agent narrowed the session's work on its own.",
-      "superseded_by": null
+      "context": "After an agent narrowed the session's work on its own."
     },
     {
       "ref": "9b679556:2898",
       "date": "2026-09-09",
       "statement": "holy shit youve gone off on your own again swallowing all my tokens",
-      "context": "After the same agent resumed unprompted work in the next turn.",
-      "superseded_by": null
+      "context": "After the same agent resumed unprompted work in the next turn."
     },
     {
       "ref": "0fb7c77a:4008",
       "date": "2026-09-09",
       "statement": "can I get you to just \"stop\" trying to be ahead of my every move. now you are going on a \"vision-adventure\", where did this come from? o let me guess, another of your ideas. don't you have a system of intent -> scope + decisions -> constraints etc to follow? lets start with scope and decisions. if you have made scoping or decision calls justify them. if there are gaps ask me.",
-      "context": "After an agent began a stage the commander had not asked for.",
-      "superseded_by": null
+      "context": "After an agent began a stage the commander had not asked for."
     },
     {
       "ref": "bab64608:989",
       "date": "2026-09-03",
       "statement": "don't stop the run, millions of tokens wasted. Im just wondering why the all important command got named something i didn't want?",
-      "context": "After an agent halted a long autonomous run to answer a passing question.",
-      "superseded_by": null
+      "context": "After an agent halted a long autonomous run to answer a passing question."
     },
     {
       "ref": "a9389f8c:2010",
       "date": "2026-09-05",
       "statement": "look i don't need you to \"prime the system\" i just need to know how to interact with it as it was designed.",
-      "context": "Asking for an operators manual and getting setup steps instead.",
-      "superseded_by": null
+      "context": "Asking for an operators manual and getting setup steps instead."
     },
     {
       "ref": "0fb7c77a:1045",
       "date": "2026-09-09",
       "statement": "Your mind set seems rooted in... \"we reduce this down so we can one shot this spec, then one shot the next\". This give me the shudders because it ultimately ends back in HITL.  We have a bold outcome and many turns to get there.",
-      "context": "On an agent trying to reduce the work until it could be done in one pass.",
-      "superseded_by": null
+      "context": "On an agent trying to reduce the work until it could be done in one pass."
     }
   ]
 }

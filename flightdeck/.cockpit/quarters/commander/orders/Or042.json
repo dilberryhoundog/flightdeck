@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or042",
+  "date": "2026-09-20",
+  "session": "4450a586",
+  "text": "The procedures room. Original intention: pre-record procedures such as cleanups (for example the notepad) to prevent repeated prompting and the drift and variance that goes with it. Primary idea: match rosters with tasks, context (files) and steps, for repeatability and a self-sustaining cockpit. It expands into branches such as cockpit procedures and flightcrew procedures. Flightcrew was built in one attempt by an agent whose stated major achievement was the fc CLI; the commander hated it but accepted the need for a few required scripts. With an actual pilot, procedures can conduct with much more intelligence most of the tasks the brittle CLI was intended for: launch and run folder setup, run iteration improvement, pre-run teams (spec, test and so on). Scaffold the room out, include this use case and a few simple ones, decide the shape and contents, then record advanced config in the self-sustaining mission. Rulings: session start and end go to the pilot's agent body, loaded on invocation rather than read; keep scripts out of the room, though a procedure may call a script if needed; three trigger kinds: on demand (decided by the agent), named (referable by name, for example launch ending), periodical (regular events, for example clean up the notepad, update topics); build the room first and leave session start and stop for the body."
+}

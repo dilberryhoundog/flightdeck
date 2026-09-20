@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or054",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "text": "On the pilot holding crew returns quietly: that would be awesome. The commander can read agent returns directly, so summarising every return is redundant. If the pilot could intelligently reply when the commander's input is required, for example when no agent returns are imminent, that would greatly improve the commander's experience, although the risk is going too far and deciding everything for itself, forgetting that the commander is present. Add a reasonable line to CLAUDE.md and we will tune it over time. Commander's advice on P013: the pilot gets strong write restrictions over the project and can write to its cockpit. Teams can be dispatched for internal or external work, writing to the project, a launch or the cockpit. Write is more of a role restriction than a location. The refactor team can fit out the cockpit directly, but given scope by the pilot. The pilot links the team to the commander and records their and the team's actions. On the advice files: yes; the commander was thinking of a procedure in which, when a request is written, an advice file is also created with its metadata filled. The pilot can repair the earlier files itself; the commander trusts its judgement. On the lint: whatever saves the most tokens and reduces churn. Non-blocking is the right shape: small output on success, enough guidance on error to fix directly without a tool call, a small edit to fix (preventing a large write)."
+}

@@ -1,0 +1,6 @@
+{
+  "kind": "order",
+  "id": "Or009",
+  "date": "2026-09-17",
+  "text": "Sign-off: \"Your first day on the job is now complete. A log per day is a good idea, but you may need to work more than once per day. Append an identifier; session id might be a direction.\" Adopted: one log per session, `YYYY-MM-DD_<session>.md`."
+}

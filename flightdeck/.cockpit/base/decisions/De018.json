@@ -1,0 +1,8 @@
+{
+  "kind": "decision",
+  "id": "De018",
+  "date": "2026-09-18",
+  "subject": "Push machine-only branches",
+  "decision": "Approved: push flightcrew-core, rubric-testing and flightcrew-characterization-1/contracts to origin. \"It is good git hygiene.\" Executed: all three at their local tips on origin, tracking set.",
+  "by": "commander"
+}

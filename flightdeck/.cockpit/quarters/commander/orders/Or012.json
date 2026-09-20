@@ -1,0 +1,6 @@
+{
+  "kind": "order",
+  "id": "Or012",
+  "date": "2026-09-18",
+  "text": "Correction: the claude-code references mixed long-term references with scratch findings. Keep the `Source:` convention so only official findings are recorded. Rename `references/` to `records/`. Scratch goes in `notepad/`. Use a Sonnet teammate to help clean up."
+}

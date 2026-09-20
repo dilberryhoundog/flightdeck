@@ -1,0 +1,32 @@
+{
+  "kind": "dispatch",
+  "id": "T003",
+  "date": "2026-09-18",
+  "session": "dcb75456",
+  "mission": "M001",
+  "purpose": "Critique the pilot's cockpit work of the day and the approved plan from two angles: fit with the cockpit's purpose and corpus; bulk that can be trimmed without losing function",
+  "roster": "mini-adversary",
+  "seats": [
+    {
+      "name": "fit-critic",
+      "reason": "fit with purpose is judgement",
+      "returns": "13 then 7 findings; three high, all against the plan"
+    },
+    {
+      "name": "trim-critic",
+      "reason": "measuring bulk against function is judgement",
+      "returns": "17 findings; the three biggest recurring costs named"
+    }
+  ],
+  "subagents": [],
+  "shape": "two independent angles in parallel, no cross-talk by design; each re-read after the room changed under it",
+  "outcome": "Plan reshaped on the fit-critic's three high findings (crew cannot write where the plan sends them; docspec would restate rule 2; a third home for the commander's words). Trim-critic's three top cuts made: orders to JSON, session log capped, map trimmed. Second passes found seven pointer breaks from the dispatch rebuild, all fixed.",
+  "lessons": [
+    "two independent angles found different things; keep them independent",
+    "run the critique before building: every high finding was against the plan, not the files",
+    "tell critics at dispatch that the ground may move and to re-read before reporting",
+    "a change made in one room must be made in every room that points into it"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

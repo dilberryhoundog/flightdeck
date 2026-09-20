@@ -1,51 +1,46 @@
 {
-  "id": "teams-and-dispatch",
+  "kind": "topic",
+  "name": "teams-and-dispatch",
   "title": "Teams and dispatch",
   "scope": "Teams as the pilot's own agents, distinct from flightcrew crews, and the dispatch record that describes them. Excludes the flightcrew roster (see crews-and-roles).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "There is an important distinction between teams and crews. The pilot knows about both, flightcrew doesn't know about teams. The teams belong to you, your dispatch records the teams you dispatch, possibly with sub dispatches in the future... dispatch/flightcrew/ dispatch/cockpit/ dispatch/**. eventually we should converge on various crew departments. The flightcrew agents reserved specifically for that flow, but other agents for eg research teams, repo teams.",
-      "context": "Written advice, drawing the line between the pilot's teams and flightcrew's crews.",
-      "superseded_by": null
+      "context": "Written advice, drawing the line between the pilot's teams and flightcrew's crews."
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or017",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders/Or017.json",
       "date": "2026-09-18",
       "statement": "Asked for a manifest of teammate invocations (type, model, purpose and more) to build a picture of teammate shapes over time. Not in quarters: quarters describes individuals, recruited after they make repeated appearances in the manifest.",
       "context": "Order to the pilot on recording teammates.",
-      "superseded_by": "flightdeck/.cockpit/quarters/commander/orders.json#Or032"
+      "superseded_by": "flightdeck/.cockpit/quarters/commander/orders/Or032.json"
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or032",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders/Or032.json",
       "date": "2026-09-18",
       "statement": "The next idea is a dispatch/ folder that stores our teams. Rather than recording teammate by teammate, we should record our teams, with agents inside. This allows us to overview team makeup and overall purpose also.",
-      "context": "Order to the pilot, replacing the per-teammate manifest with a team record.",
-      "superseded_by": null
+      "context": "Order to the pilot, replacing the per-teammate manifest with a team record."
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or020",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders/Or020.json",
       "date": "2026-09-18",
       "statement": "I have big plans for teammates over longer running sessions.\" Shutting down teammates as they finish interferes and removes the second pass and the back-and-forth, which is the killer function. Clean up periodically, only once it is clear the team itself is finished, not individual teammates.",
-      "context": "Order after the pilot shut teammates down as each finished.",
-      "superseded_by": null
+      "context": "Order after the pilot shut teammates down as each finished."
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or020",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders/Or020.json",
       "date": "2026-09-18",
       "statement": "Shutting down teammates as they finish interferes and removes the second pass and the back-and-forth, which is the killer function. Clean up periodically, only once it is clear the team itself is finished, not individual teammates.",
-      "context": "Same order, giving the reason.",
-      "superseded_by": null
+      "context": "Same order, giving the reason."
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or030",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders/Or030.json",
       "date": "2026-09-18",
       "statement": "teams (of teammates) built by mining our agent dispatch records. So we can dispatch highly effective congruent teams for particular tasks. We will look to extend the cockpit later to accommodate teams.\"",
-      "context": "One of two epic missions the commander named for the pilot after the recon.",
-      "superseded_by": null
+      "context": "One of two epic missions the commander named for the pilot after the recon."
     }
   ]
 }

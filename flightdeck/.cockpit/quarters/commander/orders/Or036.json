@@ -1,0 +1,6 @@
+{
+  "kind": "order",
+  "id": "Or036",
+  "date": "2026-09-18",
+  "text": "Order for M001: give the pilot an agent body. \"Stuffing everything into claude.md made an internal team working in the cockpit think they were the pilot. So we keep claude.md general. But now pilot specific role scoping is kinda lax, things like 'do no work, manage teams instead' is kinda lost without an agent body. Also this will stop the need for you to do the session start read from the hook. It will be directly in the agent body.\""
+}

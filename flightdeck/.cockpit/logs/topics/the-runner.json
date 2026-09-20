@@ -1,58 +1,51 @@
 {
-  "id": "the-runner",
+  "kind": "topic",
+  "name": "the-runner",
   "title": "The runner and the command surface",
   "scope": "How small the command surface should be, what the runner is allowed to be, and what absorbs the commands that are removed. Excludes the human control surface the runner is not (see the-humans-control-surface).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "0fb7c77a:24",
       "date": "2026-09-09",
       "statement": "it essentially added a command surface that overshadowed the rest of the system somewhat. I eventually want a command surface built on later runs, but I want to untangle the system from its dependency on this.",
-      "context": "Opening brief for the flightcrew-core rebuild, on what the first build run left behind.",
-      "superseded_by": null
+      "context": "Opening brief for the flightcrew-core rebuild, on what the first build run left behind."
     },
     {
       "ref": "8fdc3b29:5321",
       "date": "2026-09-08",
       "statement": "I wanted a basic system as a foundation, but was going to later build my own runner script, that also spun up a local web server for the \"radar\" part of the build, i wanted it called \"flight\", it would also eventually integrate dev-workspaces command surface so as to retire that system. this is important as I wanted a smart interface that could have views and scripting layered over the top but not need to have it for the system to run.",
-      "context": "Saying what had been expected instead of the fc command.",
-      "superseded_by": null
+      "context": "Saying what had been expected instead of the fc command."
     },
     {
       "ref": "8fdc3b29:5409",
       "date": "2026-09-08",
       "statement": "So yeah I like the idea of a runner just not as the major user control surface (that will be local web pages).",
-      "context": "Settling the tradeoff after the fc problems were mapped.",
-      "superseded_by": null
+      "context": "Settling the tradeoff after the fc problems were mapped."
     },
     {
       "ref": "9b679556:1015",
       "date": "2026-09-09",
       "statement": "rename it to \"flight\". keep as thin dispatcher. leafs also run autonomous.",
-      "context": "Deciding the fate of the fc runner in a question round.",
-      "superseded_by": null
+      "context": "Deciding the fate of the fc runner in a question round."
     },
     {
       "ref": "9b679556:1021",
       "date": "2026-09-09",
       "statement": "alot of the commands that write a single artefact can be absorbed into hook upgrades, workflows and frontmatter.",
-      "context": "Same answer, on where the removed commands go.",
-      "superseded_by": null
+      "context": "Same answer, on where the removed commands go."
     },
     {
       "ref": "9b679556:7359",
       "date": "2026-09-09",
       "statement": "I want to go with the core or basic system. scripts are callable by themselves. flight is defered to a later launch.",
-      "context": "Rejecting the runner as a spec interface.",
-      "superseded_by": null
+      "context": "Rejecting the runner as a spec interface."
     },
     {
       "ref": "9b679556:7010",
       "date": "2026-09-09",
       "statement": "decisions: Small minimal command surface. leverage Claude native harness. compatible with view layer over JSON.",
-      "context": "Listing what the decisions domain should have held, after reading the spec manuals.",
-      "superseded_by": null
+      "context": "Listing what the decisions domain should have held, after reading the spec manuals."
     }
   ]
 }

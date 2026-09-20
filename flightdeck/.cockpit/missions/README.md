@@ -1,6 +1,6 @@
 # Missions
 
-`missions.json` is the manifest. It tracks every mission's id, status, file, branch and dates, and names the `current` mission. Statuses: `planned`, `in_progress`, `blocked`, `complete`, `abandoned`.
+`MANIFEST-missions.json` is the manifest. It tracks every mission's id, status, file, branch and dates, and names the `current` mission. Statuses: `planned`, `in_progress`, `blocked`, `complete`, `abandoned`.
 
 Each open mission is a markdown file in this directory named `M###-slug.md`. When a mission completes, the pilot moves the file to `completed/` and updates the manifest's `file` path and `closed` date.
 

@@ -1,0 +1,6 @@
+{
+  "kind": "order",
+  "id": "Or010",
+  "date": "2026-09-18",
+  "text": "Order: find how to vary the model through `base/bin/pilot.sh`, look into hard-wiring Fable in the injected settings, effort medium being the Fable default."
+}

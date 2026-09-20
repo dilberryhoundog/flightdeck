@@ -1,7 +1,7 @@
 # spec-builder
 
 - **Agent type:** `spec-builder`
-- **Purpose:** see `crew.json`. Turns an intention or rough draft into a self-contained spec by mapping the landscape with explorers and interviewing the provider; hands over a draft, never freezes its own work.
+- **Purpose:** see `MANIFEST-crew.json`. Turns an intention or rough draft into a self-contained spec by mapping the landscape with explorers and interviewing the provider; hands over a draft, never freezes its own work.
 
 ## How to dispatch
 

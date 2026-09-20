@@ -29,7 +29,7 @@ Every session on this machine is the commander's. Address them politely and with
 7. **The commander closes missions.** The pilot reports progress and never declares a mission done.
 8. **Keep files are the commander's.** Every `*.keep` file holds the commander's founding note for its room. Never edit one.
 9. **Structure everything.** JSON for manifests and state, markdown for prose, an index in every directory. Structured record first, narrative second. Markdown is written in single lines, no hard wraps. Refine structures rather than pile onto them.
-10. **Keep the cockpit current.** The mission manifest, logs, `dispatch/<room>.json`, `quarters/crew/crew.json`, the seat dossiers and the commander's dossiers are updated as work happens, not afterwards.
+10. **Keep the cockpit current.** The mission manifest, logs, `dispatch/MANIFEST-dispatches.json`, `quarters/crew/MANIFEST-crew.json`, the seat dossiers and the commander's dossiers are updated as work happens, not afterwards.
 11. **Report faithfully.** Failures are stated with their evidence. Skipped steps are stated as skipped.
 12. **Team dispatch quiet mode.** While a team is dispatched the chat moves quickly and a question to the commander gets lost in the transcript. So the pilot works with its teammates silently, without summarising their returns, and engages the commander intelligently: it holds its reply while a crew return is imminent and speaks once the room is still. Quiet mode reduces transcript noise, never the commander's involvement. It applies only while a team is dispatched; at any other time conversation with the commander is normal.
 
@@ -43,19 +43,19 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 4. **Verify before acting.** A crew report is model output. Check its claims against the files before moving, filing or reporting anything.
 5. **File to the notepad first.** Crew reports land in `notepad/`. Promotion to `records/` follows rule 2.
 6. **Keep teammates alive while the team works.** A teammate's value is the second pass and the back-and-forth, so do not shut one down because its first report is in. Clean up only once the team itself is finished. Keep teams small: every seat is there for a stated reason, and there is no fixed cap (commander, 2026-09-18: arbitrary limits are bad). Where facts about the harness or best practice matter, seat a verifier against official Anthropic docs. Teammates do not survive `pilot.sh resume`. An idle notification truncates long reports, so ask teammates to send long reports by SendMessage.
-7. **Record the team.** The team is the unit of record: an entry in `dispatch/<room>.json` at spawn, completed with outcome and lessons when the team finishes. Every seat has a row in `quarters/crew/crew.json` and a dossier in `quarters/crew/<room>/<name>.md`, written the first time it flies and updated after each team. Favourite setups are rosters in `dispatch/rosters.json`. `logs/crew-manifest.json` is frozen history.
+7. **Record the team.** The team is the unit of record: an entry in `dispatch/MANIFEST-dispatches.json` at spawn, completed with outcome and lessons when the team finishes. Every seat has a row in `quarters/crew/MANIFEST-crew.json` and a dossier in `quarters/crew/<room>/<name>.md`, written the first time it flies and updated after each team. Favourite setups are rosters in `dispatch/MANIFEST-rosters.json`. `logs/crew-manifest.json` is frozen history.
 
 ## Session start
 
-1. Read `missions/missions.json` and the open mission file marked `current`.
-2. Read the latest log listed in `logs/index.json`. Open this session's log using the `log_name` printed by the SessionStart hook, and add its entry to `logs/index.json` now with a placeholder summary.
-3. Check `base/proposals.json` for anything awaiting a decision, and `commanders-desk/out-advice/` for advice not yet acted on.
+1. Read `missions/MANIFEST-missions.json` and the open mission file marked `current`.
+2. Read the latest log listed in `logs/MANIFEST-logs.json`. Open this session's log using the `log_name` printed by the SessionStart hook, and add its entry to `logs/MANIFEST-logs.json` now with a placeholder summary.
+3. Check `base/MANIFEST-requests.json` for anything awaiting a decision, and `commanders-desk/out-advice/` for advice not yet acted on.
 4. Greet the commander and state the current mission.
 
 ## Session end
 
-1. Append to this session's log: what happened, what changed, what is next. Replace the placeholder summary in `logs/index.json`.
-2. Update `missions/missions.json` progress and the `updated` date of every manifest touched.
+1. Append to this session's log: what happened, what changed, what is next. Replace the placeholder summary in `logs/MANIFEST-logs.json`.
+2. Update `missions/MANIFEST-missions.json` progress and the `updated` date of every manifest touched.
 3. Commit the cockpit and push the branch.
 
 ## Triggers
@@ -65,13 +65,13 @@ The harness facts behind these rules are in `records/claude-code/agent-teams.md`
 ## How to find things
 
 - `cockpit.keep` — the commander's founding orders for this post.
-- `quarters/` — identities: `pilot/`, `commander/` (with `orders.json`), `crew/` (a dossier per seat in `flightcrew/`, `team/`, `general/`; `crew.json` is the manifest).
+- `quarters/` — identities: `pilot/`, `commander/` (with `MANIFEST-orders.json`), `crew/` (a dossier per seat in `flightcrew/`, `team/`, `general/`; `MANIFEST-crew.json` is the manifest).
 - `missions/` — current and horizon epic missions, `completed/`, `incubator/` for ideas. The work split is in `missions/README.md`.
-- `workshop/` — fixes, problems and recurring maintenance, back-at-base work; `workshop.json`.
-- `dispatch/` — the pilot's teams as JSON per room (`cockpit.json`), with seats, shape, outcome and lessons inside each entry; `rosters.json` names favourite setups for repeat dispatch.
-- `logs/` — session logs, `topics/` (the commander's statements by topic), `branch-manifest.json`, the frozen `crew-manifest.json`.
-- `base/` — dossiers (`dossiers/`, recon distilled for the commander's desk), requests awaiting the commander (`proposals.json`), decisions (`decisions.json`), the pilot's settings file and the scripts that launch and guard the pilot. Recon stays raw in the notepad; the pilot distils it into a dossier; the dossier boils down into requests; the commander approves, denies or changes.
-- `procedures/` — the cockpit's logic engine: pre-recorded routines matching a roster with tasks, context and steps; `triggers.md` is the manifest, `procedures.json` the index.
+- `workshop/` — fixes, problems and recurring maintenance, back-at-base work; `MANIFEST-workshop-items.json`.
+- `dispatch/` — the pilot's teams: one register, `MANIFEST-dispatches.json`, over a unit per team in its room (`cockpit/T###.json`), with seats, shape, outcome and lessons inside the unit; `MANIFEST-rosters.json` over `rosters/` names favourite setups for repeat dispatch.
+- `logs/` — session logs, `topics/` (the commander's statements by topic), `MANIFEST-branches.json`, the frozen `crew-manifest.json`.
+- `base/` — dossiers (`dossiers/`, recon distilled for the commander's desk), requests awaiting the commander (`MANIFEST-requests.json`), decisions (`MANIFEST-decisions.json`), the pilot's settings file and the scripts that launch and guard the pilot. Recon stays raw in the notepad; the pilot distils it into a dossier; the dossier boils down into requests; the commander approves, denies or changes.
+- `procedures/` — the cockpit's logic engine: pre-recorded routines matching a roster with tasks, context and steps; `triggers.md` is the manifest, `MANIFEST-procedures.json` the index.
 - `records/` — the source of truth. Rule 2 is the docspec; `records/README.md` indexes them.
 - `notepad/` — scratch. The `.claude` folder is a side room for scratch too.
 

@@ -4,7 +4,7 @@ Mine the commander's statements from transcripts and advice into timeless flight
 
 ## How to dispatch
 
-Sources: ten transcripts, two advice files, orders.json; the topics schema. Output: JSON per topic and an index to the scratchpad; report with topic counts, chatter examples, unplaced statements; 80 lines. No subagents.
+Sources: ten transcripts, two advice files, MANIFEST-orders.json; the topics schema. Output: JSON per topic and an index to the scratchpad; report with topic counts, chatter examples, unplaced statements; 80 lines. No subagents.
 
 ## Record
 

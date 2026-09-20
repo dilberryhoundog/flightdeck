@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or057",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "text": "`base/verify/schema/<type>.json` with a basic linter command. We can lint and check ID prefix and manifest naming as per the commander's instructions. Use any temporary fixtures to help refit the cockpit. Prefixes is wrong on `P`: solely for procedures; all 'proposals' renamed to `Rq` for requests; 'proposal' removed as a term from the corpus (live docs only; history keeps it). Root problem identified: the pilot didn't have the right tooling; new ideas recorded that may help (team building and mini spec). Advice: do the minimal changes, the pilot's choice how; then create adjacent idea files from the commander's initial ideas expanded with his later conversational confirmations, named out-ideas/<ace>_<idea>; the commander will remix them and possibly start again with the improved build flow. Scope confirmed: refit the cockpit: schemas, JSON data, frontmatter, cockpit setup. Stage A is kept around as a help, out of the way. Schemas for all document types, based on existing data shapes. 'I'm wanting to finalise and integrate. If it is not good at all, then I rebuild using the new method with updated idea files. If decent I move on to bigger and better stuff.'"
+}

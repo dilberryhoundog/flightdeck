@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS020",
+  "title": "Bring the four harness records (agent-teams 73 lines, settings-and-launch 56, session-messaging 40, subagents 20) under the records docspec: 40 lines or fewer, header naming the notepad source, per-claim sources. A research-team task, not the pilot's",
+  "raised": "2026-09-18",
+  "source": "T006 adversary, on re-reading rule 2",
+  "status": "dropped",
+  "note": "dropped 2026-09-20: the topic pointer it asked for was abolished by De021; web records stay exactly as they are"
+}

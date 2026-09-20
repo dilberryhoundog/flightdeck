@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or052",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "text": "Match the manifest collection to the ID; agent-oriented naming doesn't mind longer, more descriptive names. This means commander/../advice = CA = MANIFEST-commander-advice. In the opposite direction a global manifest (MANIFEST-dispatches), with team rooms dispatch/flightcrew/T003, T026, T045 and dispatch/cockpit/T004, T005; but it could easily be a flat dispatch folder. Early on flat seems better, but after three months and up to T364, dispatch rooms may be more readable. By the way: teams = roles information, dispatch = team instances."
+}

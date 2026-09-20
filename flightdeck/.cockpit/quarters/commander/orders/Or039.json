@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or039",
+  "date": "2026-09-18",
+  "text": "On launches per feature, answering the pilot's question about 9b679556:6718: \"more than one launch can happen for a feature. lets say you do three launches, the same branch will be the launch branch. the three successful run one each launch will progressively PR back to the feature / launch branch. then it is merged back to main.\"",
+  "session": "dcb75456"
+}

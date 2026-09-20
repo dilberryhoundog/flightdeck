@@ -1,0 +1,14 @@
+{
+  "kind": "decision",
+  "id": "De012",
+  "date": "2026-09-18",
+  "subject": "Day-one requests Rq001 to Rq003",
+  "decision": "Left to the pilot. Rq001 superseded by the ordered recon team; Rq002 and Rq003 withdrawn to the workshop as WS008 and WS009.",
+  "by": "commander",
+  "source": "executed by the pilot",
+  "requests": [
+    "Rq001",
+    "Rq002",
+    "Rq003"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "kind": "dispatch",
+  "id": "T011",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "mission": "M001",
+  "purpose": "Build stage A of the paperwork check under Rq013 as amended (De026, De027): the store (prefix table, zone and field map), a reference checker, a rename tool with dry run, and a table test over fixtures; written directly into base/ inside a scope the pilot gives; proving run on the 24 references left by the advice rename",
+  "roster_note": "no roster fits: the first build team in the cockpit. Shape borrowed from flightcrew doctrine: plan attacked before building, test written to the plan and not to the code",
+  "seats": [
+    {
+      "name": "tool-builder",
+      "reason": "the tiers, zones and reference recognition are judgement written as code",
+      "returns": "plan.md, the store, cockpit-check, cockpit-rename, report.md"
+    },
+    {
+      "name": "fixture-writer",
+      "reason": "fixtures and the table test written from the accepted plan, independent of the builder's code",
+      "returns": "fixture tree and test_cockpit_check.py"
+    },
+    {
+      "name": "adversary",
+      "reason": "carried from T010 with the whole design in context: attacks the plan before building and the result after",
+      "returns": "ranked findings per named pass"
+    },
+    {
+      "name": "option-maker",
+      "reason": "carried from T010 as the holder of the design: answers the builder's questions, writes nothing",
+      "returns": "answers"
+    }
+  ],
+  "subagents": [],
+  "shape": "builder plans; plan frozen and attacked by pass number; fixture-writer and builder work in parallel from the accepted plan; green under /usr/bin/python3; read-only run against the real cockpit; adversary on the result; pilot runs test and proving run itself. Team dispatch quiet mode (rule 12).",
+  "scope": "write: new files under base/store/, base/bin/cockpit-check, base/bin/cockpit-rename, base/bin/test_cockpit_check.py, base/bin/fixtures/stage-a/, notepad/stage-a-2026-09-20/. Everything else read-only. No commits.",
+  "outcome": "Plan through three passes; store, cockpit-check, cockpit-rename, a shared cockpit_store.py, two table tests and a 32-file fixture tree built (about 1,700 lines of tools, 800 of tests); adversary could not make it write unsafely and the checker found 33 known and 9 unknown broken references. Set aside by the commander after T012 and T013: safe and correct, but not what he advised (document shapes and a linter), four times the permanent job, and keyed on paths the room move abolishes. Kept out of the way as temporary help (Or057).",
+  "lessons": [
+    "the pilot's spec was the defect, not the build: 'paperwork' was the commander's word for document shape and the pilot redefined it as reference integrity in the dossier's first paragraph; nobody downstream could see it",
+    "ask how big a thing should be before it is built; a 113-line checker found the same as 1,700 lines",
+    "a tool keyed on paths must be re-edited at every move; key on document type",
+    "a safety adversary answers 'is it safe', never 'is it the right thing'; the commander-advocate question needs its own seat before building",
+    "quiet mode became deciding without the commander within the hour; a commander's question is answered and then the pilot waits"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

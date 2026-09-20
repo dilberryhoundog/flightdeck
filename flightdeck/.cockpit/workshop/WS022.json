@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS022",
+  "title": ".claude/agents/adversary.md (repo root, outside the cockpit) sets model: fable; the commander's rule is adversaries on Opus. Cockpit teams spawn adversaries as general-purpose on Opus so are unaffected. Change needs the commander's approval (outside the cockpit)",
+  "raised": "2026-09-18",
+  "source": "T006 discovery, models-and-cost topic",
+  "status": "open"
+}

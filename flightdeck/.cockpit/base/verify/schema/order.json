@@ -31,9 +31,14 @@
       "minLength": 1
     },
     "superseded_by": {
-      "description": "the identifier of the later order that overrides this one; absent while the order stands",
+      "description": "the identifier of the later order that overrides this one, and nothing else; absent while the order stands",
       "type": "string",
       "pattern": "^Or[0-9]{3}$"
+    },
+    "superseded_note": {
+      "description": "how and why it was superseded, in prose, when the identifier alone does not tell the story",
+      "type": "string",
+      "minLength": 1
     }
   }
 }

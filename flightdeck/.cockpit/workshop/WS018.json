@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS018",
+  "title": "Stale path references after the desk move: 14 files repointed 2026-09-18; verify the startup hook and CLAUDE.md read correctly at next session start",
+  "raised": "2026-09-18",
+  "source": "pilot, session dcb75456",
+  "status": "open"
+}

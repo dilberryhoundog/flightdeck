@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS010",
+  "title": "Sealed crew roles (critic, explorer, spec-judge, spec-attacker, orchestrator) disown project instructions by prose only; official docs say only `omitClaudeMd: true` (Claude Code v2.1.271+) enforces it, and the tip's claude-code-facts.md omits the field",
+  "raised": "2026-09-18",
+  "source": "docs-verifier C015 job 2, notepad/recon-2026-09-18/docs-verifier-doctrine.md",
+  "status": "open"
+}

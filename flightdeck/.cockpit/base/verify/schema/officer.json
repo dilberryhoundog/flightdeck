@@ -1,15 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "x-select": ["Officer"],
-  "title": "Officer",
-  "description": "The frontmatter of an officer file: who a standing seat of the cockpit is, the commander or the pilot, as against the crew who come and go. Filed by name in the officer's own quarters, identity.md, job.md, commander.md.",
+  "x-select": ["Officer Dossier"],
+  "title": "Officer Dossier",
+  "description": "The frontmatter of an officer dossier: who a standing seat of the cockpit is, the commander or the pilot, as against the crew who come and go. An officer may hold more than one file, each carrying the same unit. Filed by name in the officer's own quarters, identity.md, job.md, commander.md.",
   "type": "object",
   "required": ["type", "unit", "stamp"],
   "additionalProperties": false,
   "properties": {
     "type": {
-      "description": "the word Officer, which is what chooses this schema",
-      "const": "Officer"
+      "description": "the words Officer Dossier, which is what chooses this schema",
+      "const": "Officer Dossier"
     },
     "unit": {
       "description": "the officer's seat name, commander or pilot; an officer carries a name, not an identifier",

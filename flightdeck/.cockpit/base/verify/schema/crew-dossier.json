@@ -4,7 +4,7 @@
   "title": "Crew Dossier",
   "description": "The frontmatter of a crew dossier: one seat in the crew, what it is for, how to dispatch it and what has been observed of it. Written the first time the seat flies and updated after each team. Filed by seat name, explorer.md.",
   "type": "object",
-  "required": ["type", "unit", "room", "agent_type", "model", "stamp"],
+  "required": ["type", "unit", "room", "agent_type", "model", "status", "stamp"],
   "additionalProperties": false,
   "properties": {
     "type": {
@@ -28,6 +28,10 @@
     "model": {
       "description": "the model the seat is flown on, named in every spawn and chosen for the work: haiku, sonnet, opus or fable",
       "enum": ["haiku", "sonnet", "opus", "fable"]
+    },
+    "status": {
+      "description": "whether the seat is one to dispatch today: active, or superseded by a seat that replaced it",
+      "enum": ["active", "superseded"]
     },
     "stamp": {
       "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",

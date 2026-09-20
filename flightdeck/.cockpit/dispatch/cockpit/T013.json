@@ -1,0 +1,35 @@
+{
+  "kind": "dispatch",
+  "id": "T013",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "mission": "M001",
+  "purpose": "The commander's order (Or056): a quick team to check that what the commander advised and what was built align; with T012's findings it decides the way forward",
+  "roster_note": "no roster fits: a two-column comparison. Two clerical readers, one judge",
+  "seats": [
+    {
+      "name": "advice-reader",
+      "reason": "lists what the commander advised on this subject, verbatim with its source, no interpretation",
+      "returns": "numbered list of advised items"
+    },
+    {
+      "name": "build-reader",
+      "reason": "lists what was built and what each part does, no judgement",
+      "returns": "numbered inventory with sizes"
+    },
+    {
+      "name": "alignment-judge",
+      "reason": "maps one list to the other: delivered, partly, not delivered, built but never advised",
+      "returns": "the mapping and a verdict in five lines"
+    }
+  ],
+  "subagents": [],
+  "shape": "readers in parallel, judge waits for both; none sees the critics' reports or the pilot's view; the pilot's own rulings are listed separately from the commander's advice so they cannot pass as his",
+  "outcome": "Verdict no: what was built does not deliver what the commander advised. 47 advised items against 28 built: document shapes, a shape a new session can write to, reuse of flightcrew's assets and the frontmatter convention not delivered; both tools, the tests, fixtures and zones built but never advised. Drift point named: Ds006 line 11. Maintenance: a room move edits about 70 places in the build; the commander's own idea costs nothing for a room move.",
+  "lessons": [
+    "two blind clerical readers and one judge settled in fifteen minutes what four adversary rounds never asked",
+    "list the pilot's rulings apart from the commander's advice in every dossier, so they cannot pass as his"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

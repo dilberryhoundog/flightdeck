@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De027",
+  "date": "2026-09-20",
+  "subject": "Ds006's remaining decisions: advice files, lint strength, naming, manifests, rooms",
+  "decision": "Commander rules: the pilot repairs the identifiers in CA001 to CA003 itself, on its own judgement; a procedure should create an advice file with its metadata filled whenever a request is written. The lint is non-blocking: small output on success; on error, enough guidance to fix directly without a tool call, by a small edit rather than a large write; whatever saves the most tokens and reduces churn. Earlier in the session the commander ruled the identifier set and rule (Or046 to Or049), the room structure with notepad, manuals and extracts (Or050), the context chain, one dispatch register and MANIFEST-<collection> naming matched to the ID's full name (Or051, Or052), and what gets an ID, a name or both (Or053). The commander also ordered rule 12 of CLAUDE.md: the pilot holds crew returns quietly and speaks when the commander's input is needed.",
+  "by": "commander",
+  "source": "session b27e6c01",
+  "requests": [
+    "Rq013"
+  ]
+}

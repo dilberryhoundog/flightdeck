@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or051",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "text": "Extracts is future work; currently scaffolding procedures and folder structures as part of M001. Frontmatter: 'recorded' was the initial form of 'stamp', renamed to avoid confusion with the records room. 'context' is the contextual position this document maintains: work is the umbrella, generates is follow-up documents; it is a chain, for example the context for a Ds should be a team dispatch. A problem realised: two T001 and two manifests over these records; this should probably be a universal manifest, with team numbers counted across the whole team space. Now that records have become manuals, manuals become the authority and anything else records used to be. On manifests: in stream outputs `manifest.json, manifest.json and manifest.json` might be the same file or different files and you have to consult the path to find the manifest's context; `orders.json` could be a manifest file but it could also be something else; MANIFEST-commander-advice.json tells you exactly what the file is and is also identifiable in a folder with CA001.json, CA002.json."
+}

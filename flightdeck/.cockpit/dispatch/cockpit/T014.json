@@ -1,0 +1,32 @@
+{
+  "kind": "dispatch",
+  "id": "T014",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "mission": "M001",
+  "purpose": "Refit the cockpit on the commander's order (Or057, Or058): schemas and a Node linter mirroring flightcrew's in base/verify/, the identifier pass, JSON manifests and units, frontmatter, the five-room move; from notepad/refit-2026-09-20/mini-spec.md",
+  "roster_note": "the commander's mini-spec idea flown for the first time: commander-advocate attacks the spec before building and the result after; builders work step by step and the pilot verifies and commits each step",
+  "seats": [
+    {
+      "name": "commander-advocate",
+      "reason": "assumes the team is not building to the commander's vision and finds where; spec first, finished refit last",
+      "returns": "ranked drifts, gaps for the commander, build or fix first"
+    },
+    {
+      "name": "schema-builder",
+      "reason": "step 1: schemas for every document type in the intended shape and the Node linter on flightcrew's engine, inside base/verify/ only",
+      "returns": "schemas, cockpit-lint, a type-to-schema list, byte counts"
+    },
+    {
+      "name": "refitter",
+      "reason": "steps 2 to 5 in order, stopping after each for the pilot to verify and commit",
+      "returns": "a change list per step"
+    }
+  ],
+  "subagents": [],
+  "shape": "advocate on the spec first (done: ten drifts, fix first; commander answered the gaps in Or058); schema-builder and refitter in parallel on disjoint paths; pilot verifies and commits each step; advocate on the finished refit; team dispatch quiet mode",
+  "scope": "schema-builder writes only under base/verify/. refitter writes anywhere in the cockpit except base/verify/, base/bin/cockpit-guard.py, the text of orders, session logs' text, *.keep contents, the commander's idea and advice files' contents. No commits by crew.",
+  "lessons": [],
+  "status": "in_flight",
+  "room": "cockpit"
+}

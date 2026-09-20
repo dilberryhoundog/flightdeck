@@ -1,51 +1,45 @@
 {
-  "id": "interfaces",
+  "kind": "topic",
+  "name": "interfaces",
   "title": "Interfaces",
   "scope": "What counts as an interface in a flightdeck spec and what does not. Excludes the content of any particular document (see the-control-centre, launch-and-run).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "9b679556:7044",
       "date": "2026-09-09",
       "statement": "An interface is a common language or location, a town square.",
-      "context": "Answering the interviewer, which had been told in the previous turn to disprove the commander's list of non-interfaces.",
-      "superseded_by": null
+      "context": "Answering the interviewer, which had been told in the previous turn to disprove the commander's list of non-interfaces."
     },
     {
       "ref": "9b679556:7045",
       "date": "2026-09-09",
       "statement": "launch folder is inert the interface is launch.json (or others)",
-      "context": "First of the worked examples in that turn.",
-      "superseded_by": null
+      "context": "First of the worked examples in that turn."
     },
     {
       "ref": "9b679556:7047",
       "date": "2026-09-09",
       "statement": "freezing is a language that an interface speaks, not an interface itself",
-      "context": "Third of the worked examples in that turn.",
-      "superseded_by": null
+      "context": "Third of the worked examples in that turn."
     },
     {
       "ref": "9b679556:7049",
       "date": "2026-09-09",
       "statement": "return only speaks to a single agent. not an interface, probably more a constraint than anything, it existed before we came along, the only thing we define is a single shape per agent.",
-      "context": "Fifth of the worked examples in that turn.",
-      "superseded_by": null
+      "context": "Fifth of the worked examples in that turn."
     },
     {
       "ref": "9b679556:7006",
       "date": "2026-09-09",
       "statement": "INterfaces should be more like. \"launch.json\" \"plan.json\" \"spec.json\" \"flight command wrapper\". is a return schema only a single agent reads an interface? im made this list of NOT interfaces \"launch folder, .controlcenter folder, frozen documents, crew role, returns, suite protocol, run documents, liftoffs (schema yes), vedicts\" prove me wrong.",
-      "context": "Listing what the interfaces really were, and what they were not.",
-      "superseded_by": null
+      "context": "Listing what the interfaces really were, and what they were not."
     },
     {
       "ref": "9b679556:7333",
       "date": "2026-09-09",
       "statement": "Same format as spec.json, list the schema if present for field consistency, list all the information this interfaces needs to communicate. if no schema describe exact fields",
-      "context": "The instruction repeated against every interface node in the spec, saying what an interface node has to state.",
-      "superseded_by": null
+      "context": "The instruction repeated against every interface node in the spec, saying what an interface node has to state."
     }
   ]
 }

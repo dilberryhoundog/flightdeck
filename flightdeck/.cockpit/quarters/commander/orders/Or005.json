@@ -1,0 +1,6 @@
+{
+  "kind": "order",
+  "id": "Or005",
+  "date": "2026-09-17",
+  "text": "\"Look into the `--settings` flag and the ListAgents and SendMessage tools, as these will drive your interactivity tools. Custom settings can be delivered by file path. Learn about and build a toolset that the commander can invoke you from.\""
+}

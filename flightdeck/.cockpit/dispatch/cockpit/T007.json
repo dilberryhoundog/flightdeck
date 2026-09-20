@@ -1,0 +1,23 @@
+{
+  "kind": "dispatch",
+  "id": "T007",
+  "date": "2026-09-18",
+  "session": "dcb75456",
+  "mission": "M001",
+  "purpose": "One-shot doc-reviewer on the records docspec in CLAUDE.md rule 2 and records/README.md",
+  "seats": [
+    {
+      "name": "doc-reviewer",
+      "reason": "durability audit of an agent-facing document",
+      "returns": "four defects, all fixed"
+    }
+  ],
+  "subagents": [],
+  "shape": "one-shot subagent",
+  "outcome": "Four defects: record style defined only by exemplar; 'the library' undefined; two sourcing requirements unreconciled; a soft line cap. All fixed before the writer drafted.",
+  "lessons": [
+    "run the doc-reviewer on any docspec before a team drafts against it"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

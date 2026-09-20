@@ -1,21 +1,21 @@
 // base/verify/lib/output.mjs — the one place cockpit-lint writes a line: success lines, warning lines, error lines, JSON mode and the three exit codes.
 // Origin: copied from flightcrew, branch `flightcrew-core`, commit 27f6969, file `flightdeck/flightcrew/checks/lib/output.mjs`.
-// Changed from the original only here: the meaning of the exit codes, which the cockpit orders as 0 clean, 1 faults,
-// 2 tool error, so `EXIT.faults` is 1 and `EXIT.toolError` is 2. The writers below are untouched.
-// Usage: import { ok, fail, warn, json, setJson, isJson, errorLine, exitOk, exitFaults, exitToolError, EXIT } from './lib/output.mjs';
+// Unchanged from the original but for this header: the cockpit's linter mirrors flightcrew's exit codes, by the
+// commander's order, so the three codes and their names are flightcrew's.
+// Usage: import { ok, fail, warn, json, setJson, isJson, errorLine, exitOk, exitUsage, exitBlocked, EXIT } from './lib/output.mjs';
 //
 // Exports: EXIT (the three codes); setJson/isJson (the global --json mode); print (a raw stdout line, always);
 // ok (one success line, silent in JSON mode); warn ('warn:  <message>', silent in JSON mode); errorLine/errorLines
 // ('error: <message> — [<rule>]' per design 5.12); fail (lines to stderr, always); json (a document to stdout);
-// exitOk/exitFaults/exitToolError/exitWith (print then exit 0, 1, 2).
+// exitOk/exitUsage/exitBlocked/exitWith (print then exit 0, 1, 2).
 //
 // Every write goes through a synchronous writer: a pipe on macOS can be asynchronous, and a process that calls
 // process.exit straight after console.log can lose the line. Importing this module has no side effect.
 
 import fs from 'node:fs';
 
-/** 0 clean, 1 faults found in the documents, 2 the tool itself could not run. */
-export const EXIT = { ok: 0, faults: 1, toolError: 2 };
+/** 0 success, 1 usage or environment error, 2 failed check or blocking decision. */
+export const EXIT = { ok: 0, usage: 1, blocked: 2 };
 
 const state = { json: false };
 
@@ -104,12 +104,12 @@ export function exitOk(line) {
   exitWith(EXIT.ok, line);
 }
 
-/** Failure lines on stderr, exit 1: the documents carry faults. */
-export function exitFaults(text) {
-  exitWith(EXIT.faults, text);
+/** Failure lines on stderr, exit 1: a usage or environment error. */
+export function exitUsage(text) {
+  exitWith(EXIT.usage, text);
 }
 
-/** Failure lines on stderr, exit 2: the tool could not run at all. */
-export function exitToolError(text) {
-  exitWith(EXIT.toolError, text);
+/** Failure lines on stderr, exit 2: a failed check or a blocking decision. */
+export function exitBlocked(text) {
+  exitWith(EXIT.blocked, text);
 }

@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De020",
+  "date": "2026-09-19",
+  "subject": "Rq009 and the production of records",
+  "decision": "Amended. harness-register lands as is, a stream of findings that may grow. launches-and-runs, state-and-freezing, tests-and-checks and endings become stubs: a brief mention of existing knowledge in plain register, improved on demand as work commences, using the commander's inline comments. interviewing-the-commander and working-with-the-commander are dropped as not relevant enough for cockpit records. On method: records written ahead of known usefulness cost the commander filtering time; build them on demand when the pilot drifts or underperforms, from a wider net (source, library, manuals, directives); plain register, validated by a team against sources and stamped, not sourced in the prose; the vision is under construction so heavy record keeping now may be wasted; shelving and resuming later may help. The commander ordered a mini decision team (T009) for options and the best approach.",
+  "by": "commander",
+  "source": "commanders-desk/out-advice/CA003.md and session 4450a586",
+  "requests": [
+    "Rq009"
+  ]
+}

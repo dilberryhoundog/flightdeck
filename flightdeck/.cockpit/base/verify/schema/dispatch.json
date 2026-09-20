@@ -69,9 +69,25 @@
       "type": "array",
       "items": { "type": "string", "minLength": 1 }
     },
+    "subagents": {
+      "description": "the one-shot agents the seats spawned under them, which have no seat of their own",
+      "type": "array",
+      "items": {
+        "description": "one row: the agent type, the model, how many were spawned and by whom",
+        "type": "object",
+        "required": ["agent_type", "model", "count"],
+        "properties": {
+          "agent_type": { "description": "the agent type they were spawned as", "type": "string", "minLength": 1 },
+          "model": { "description": "the model they were flown on", "enum": ["haiku", "sonnet", "opus", "fable"] },
+          "count": { "description": "how many were spawned", "type": "integer", "minimum": 1 },
+          "spawned_by": { "description": "which seats spawned them", "type": "string", "minLength": 1 },
+          "note": { "description": "anything worth knowing about how they were used", "type": "string", "minLength": 1 }
+        }
+      }
+    },
     "status": {
-      "description": "whether the team is still flying or has landed: dispatched, finished or abandoned",
-      "enum": ["dispatched", "finished", "abandoned"]
+      "description": "whether the team is still flying or has landed: in_flight, finished or abandoned; anything qualifying a finish belongs in outcome, not here",
+      "enum": ["in_flight", "finished", "abandoned"]
     }
   }
 }

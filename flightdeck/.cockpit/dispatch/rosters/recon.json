@@ -1,0 +1,13 @@
+{
+  "kind": "roster",
+  "name": "recon",
+  "purpose": "survey unknown terrain and cut candidate missions",
+  "seats": [
+    "runs-recon",
+    "lineage-historian",
+    "doctrine-recon",
+    "docs-verifier",
+    "mission-cutter"
+  ],
+  "shape": "readers in parallel, verifier from the start, cutter waits for all; readers do not spawn subagents"
+}

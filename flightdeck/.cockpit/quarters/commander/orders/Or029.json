@@ -1,0 +1,6 @@
+{
+  "kind": "order",
+  "id": "Or029",
+  "date": "2026-09-18",
+  "text": "Why the pilot exists: \"I spawned the cockpit as I was using an agent role (spec-builder) to manage massive organisational overhead. This is why I engaged you the pilot, not to build, but to know the system and move and organise work along it, reporting to and from me who is now the commander, not the pilot.\" State of play: buildout is the original all-in-one; core split off awaiting a test suite before repair work could start; the test suite is finished but not merged."
+}

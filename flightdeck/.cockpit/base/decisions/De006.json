@@ -1,0 +1,8 @@
+{
+  "kind": "decision",
+  "id": "De006",
+  "date": "2026-09-17",
+  "subject": "Pilot invocation",
+  "decision": "A launcher script inside the cockpit is fine for now. End game: a launcher inside a HUD page (spark Sp001).",
+  "by": "commander"
+}

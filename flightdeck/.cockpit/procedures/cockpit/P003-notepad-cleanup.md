@@ -12,6 +12,6 @@ Approved: commander, 2026-09-20.
 2. Decide each one: promote, which enters `P001-record-keeping.md` and does not happen here; move to `logs/` or a mission file if it matters but will never be a record; keep, if the work is live; delete.
 3. Keep the working notes of any record that still stands.
 4. Rewrite the README index to match what is left.
-5. Append `last_run` in `procedures.json`.
+5. Append `last_run` in `MANIFEST-procedures.json`.
 
-**Leaves behind.** Log line: what was promoted, moved, kept and deleted. Files touched: `notepad/`; `notepad/README.md`; `procedures.json`.
+**Leaves behind.** Log line: what was promoted, moved, kept and deleted. Files touched: `notepad/`; `notepad/README.md`; `MANIFEST-procedures.json`.

@@ -1,51 +1,45 @@
 {
-  "id": "the-humans-control-surface",
+  "kind": "topic",
+  "name": "the-humans-control-surface",
   "title": "The human control surface",
   "scope": "How the commander expects to see and steer a run: local web pages over the JSON documents rather than a command line. Excludes the pilot cockpit that reports to them (see the-pilot-role).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "0fb7c77a:29",
       "date": "2026-09-09",
       "statement": "my highest focus is on getting the JSON underpinings correct as an 'interface' that i can connect to (built later, out of scope here) with a local web server that will become my control surface rather than a CLI.",
-      "context": "Opening brief for the flightcrew-core rebuild, naming the highest priority for the run.",
-      "superseded_by": null
+      "context": "Opening brief for the flightcrew-core rebuild, naming the highest priority for the run."
     },
     {
       "ref": "8fdc3b29:5407",
       "date": "2026-09-08",
       "statement": "It can be a live doc, that when a web page layers over the top they can get realtime updates, flip gates etc.",
-      "context": "On what a launch document becomes once a page is layered over it.",
-      "superseded_by": null
+      "context": "On what a launch document becomes once a page is layered over it."
     },
     {
       "ref": "8fdc3b29:5437",
       "date": "2026-09-08",
       "statement": "local web page writing to launch.json or spec.json as far more palatable for a user than remembering 15 commands + flags.",
-      "context": "Explaining why the runner must not become the control surface.",
-      "superseded_by": null
+      "context": "Explaining why the runner must not become the control surface."
     },
     {
       "ref": "bfb87cff:377",
       "date": "2026-09-09",
       "statement": "user facing commands removed. user wants local web page overlay reading run assets directly able to mutate.",
-      "context": "Checking that the known big changes had survived into the problem register.",
-      "superseded_by": null
+      "context": "Checking that the known big changes had survived into the problem register."
     },
     {
       "ref": "0fb7c77a:3005",
       "date": "2026-09-09",
       "statement": "visibility is huge, although that will be a separate spec, but need interfaces that aren't \"locked up\"",
-      "context": "Naming what else belonged in the intent, while accepting it might not make the cut.",
-      "superseded_by": null
+      "context": "Naming what else belonged in the intent, while accepting it might not make the cut."
     },
     {
-      "ref": "flightdeck/.cockpit/quarters/commander/orders.json#Or007",
+      "ref": "flightdeck/.cockpit/quarters/commander/orders/Or007.json",
       "date": "2026-09-18",
       "statement": "a launcher script in the cockpit is fine for now, the end game is a launcher inside a HUD page.",
-      "context": "Answering the pilot's five day-one questions about cockpit tooling.",
-      "superseded_by": null
+      "context": "Answering the pilot's five day-one questions about cockpit tooling."
     }
   ]
 }

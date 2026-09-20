@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // base/verify/cockpit-lint — the cockpit's paperwork check: every document has a defined shape, and this says whether a file has it.
-// Usage: base/verify/cockpit-lint <file>... — exit 0 clean, 1 when a document carries a fault, 2 when the tool itself cannot run.
+// Usage: base/verify/cockpit-lint <file>... — exit 0 clean, 2 when a document carries a fault, 1 on a usage or environment error, which are flightcrew's codes.
 //
 // A markdown file is read for its frontmatter, a JSON file is parsed whole. The schema is chosen by the document's own
 // `type` (markdown) or `kind` (JSON), never by where the file sits, so moving a room costs the schemas nothing. Every
@@ -88,7 +88,7 @@ function splitItems(inner) {
 }
 
 /** One frontmatter value: a bare scalar, a quoted string, or a bracketed list of those. Returns { value } or { error }. */
-function readValue(raw) {
+function readValue(raw, key) {
   const text = raw.trim();
   if (text.startsWith('[')) {
     if (!text.endsWith(']')) return { error: 'opens a list with [ and does not close it with ]' };
@@ -102,9 +102,11 @@ function readValue(raw) {
     }
     return { value: values };
   }
-  // A comma list without brackets is the commonest fault in the cockpit's older frontmatter, so it is named as itself.
+  // A comma list without brackets is the commonest fault in the cockpit's older frontmatter, so it is named as
+  // itself, and the example shows the writer's own field and own items with the brackets put round them.
   if (splitItems(text).length > 1) {
-    return { error: 'is a comma list', expected: 'brackets around the items, as stamp: ["2026-09-18", "Ace", "dcb75456"]' };
+    const shown = text.length > 90 ? `${text.slice(0, 90)}…` : text;
+    return { error: 'is a comma list', expected: `brackets around the items, as ${key}: [${shown}]` };
   }
   return readScalar(text);
 }
@@ -129,7 +131,7 @@ function readFrontmatter(block) {
       faults.push({ field: key, problem: `is given twice, the second time on line ${at}`, expected: 'keep one line per field' });
       return;
     }
-    const read = readValue(raw);
+    const read = readValue(raw, key);
     if (read.error) {
       faults.push({ field: key, problem: `on line ${at} ${read.error}`, expected: read.expected ?? `a value to be ${VALUE_FORMS}` });
       return;
@@ -292,14 +294,14 @@ export function main(argv = []) {
   const files = argv.filter((arg) => !String(arg).startsWith('-'));
   if (argv.includes('--help') || argv.includes('-h') || files.length === 0) {
     fail(USAGE);
-    return EXIT.toolError;
+    return EXIT.usage;
   }
   let schemas;
   try {
     schemas = loadSchemas();
   } catch (error) {
     fail(`cockpit-lint cannot run: ${error.message}`);
-    return EXIT.toolError;
+    return EXIT.usage;
   }
   let total = 0;
   for (const file of files) {
@@ -313,7 +315,7 @@ export function main(argv = []) {
   }
   if (total > 0) {
     fail(`${total} fault${total === 1 ? '' : 's'} in ${files.length} file${files.length === 1 ? '' : 's'}`);
-    return EXIT.faults;
+    return EXIT.blocked;
   }
   print(`ok: ${files.length} file${files.length === 1 ? '' : 's'} clean`);
   return EXIT.ok;

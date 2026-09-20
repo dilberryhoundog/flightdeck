@@ -1,100 +1,87 @@
 {
-  "id": "tests-and-checks",
+  "kind": "topic",
+  "name": "tests-and-checks",
   "title": "Tests and checks",
   "scope": "The distinction between a test and a check, where each lives, the verdict shapes a check can return, and what the test suite is for. Excludes the spec that the checks are written against.",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "a9389f8c:3403",
       "date": "2026-09-05",
       "statement": "in my intial conversations checks and tests are different things. tests are pass/fail assertations. checks are definition of done, they overlay a test with a orchestration run compatible output.",
-      "context": "Rejecting a survey that had treated tests and checks as the same thing.",
-      "superseded_by": null
+      "context": "Rejecting a survey that had treated tests and checks as the same thing."
     },
     {
       "ref": "a9389f8c:3405",
       "date": "2026-09-05",
       "statement": "the test builder should know to build \"tests\" into project native or testbench. then place checks into run folder. these present existing tests as \"checks\" for the run.",
-      "context": "Same turn, saying where each kind belongs.",
-      "superseded_by": null
+      "context": "Same turn, saying where each kind belongs."
     },
     {
       "ref": "8fdc3b29:3568",
       "date": "2026-09-08",
       "statement": "checks are wrappers, they return flightcrew compatible output from a green/red test. single source of truth stays with the project and its own test suite.",
-      "context": "Asked whether checks should be the single source of truth for correctness.",
-      "superseded_by": null
+      "context": "Asked whether checks should be the single source of truth for correctness."
     },
     {
       "ref": "8fdc3b29:3569",
       "date": "2026-09-08",
       "statement": "Project test/ for appropriate assertive tests -> testbench for any other tests not compatible with a tests folder -> run-1/checks to wrap the tests -> flightcrew/checks (probably should rename to 'verify') for global test wrappers etc.",
-      "context": "Same turn, laying out the chain of test locations.",
-      "superseded_by": null
+      "context": "Same turn, laying out the chain of test locations."
     },
     {
       "ref": "8fdc3b29:3567",
       "date": "2026-09-08",
       "statement": "verification is one of the failure axis. checks are therefore a run instance asset. test-builder agent builds new checks and tests after new versioned spec freeze.  builds them into new run attempt.",
-      "context": "Same turn, explaining why checks belong to a run instance and not to the system.",
-      "superseded_by": null
+      "context": "Same turn, explaining why checks belong to a run instance and not to the system."
     },
     {
       "ref": "9b679556:25",
       "date": "2026-09-09",
       "statement": "also build behaviours and edges first then try to find ways to check and verify them. do not do this in reverse (only place behaviours that can be checked) the last build run built an overly complex command surface because it was \"checkable\".",
-      "context": "Opening instructions for the spec rewrite, naming what went wrong in the first build.",
-      "superseded_by": null
+      "context": "Opening instructions for the spec rewrite, naming what went wrong in the first build."
     },
     {
       "ref": "9b679556:7302",
       "date": "2026-09-09",
       "statement": "Check scripts; For returning verification verdicts from prebuilt tests, one per case. Three verdict options; an exit code, a ratio against a threshold, or a verdict sheet against a rubric.",
-      "context": "Rewriting the spec constraint node for check scripts.",
-      "superseded_by": null
+      "context": "Rewriting the spec constraint node for check scripts."
     },
     {
       "ref": "9b679556:7638",
       "date": "2026-09-09",
       "statement": "I should go through and inventory the system. Any document or part i want to keep I should build \"agent shaped\" tests for.  Once finished this will provide a foundation that should always exist but doesn't currently, a testable core.",
-      "context": "The idea that became the characterization launch, before the pasted web-Claude reply.",
-      "superseded_by": null
+      "context": "The idea that became the characterization launch, before the pasted web-Claude reply."
     },
     {
       "ref": "9b679556:7642",
       "date": "2026-09-09",
       "statement": "I would not restate the whole exisiting behaviour model.",
-      "context": "First of three rules for swapping one component for another, by analogy with replacing Devise in a rails app.",
-      "superseded_by": null
+      "context": "First of three rules for swapping one component for another, by analogy with replacing Devise in a rails app."
     },
     {
       "ref": "9b679556:7643",
       "date": "2026-09-09",
       "statement": "I would rely on existing test for unchanged behaviour.",
-      "context": "Second of the three rules from the same turn.",
-      "superseded_by": null
+      "context": "Second of the three rules from the same turn."
     },
     {
       "ref": "9b679556:7644",
       "date": "2026-09-09",
       "statement": "I would define where behaviour differs observably from original",
-      "context": "Third of the three rules from the same turn.",
-      "superseded_by": null
+      "context": "Third of the three rules from the same turn."
     },
     {
       "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "what we are actually looking for is to have a test suite that protects and defines the underlying infrastructure that can be built upon over time, we want to avoid having to tune the suite everytime a build run is attempted because our testing is too heavy handed. The gold standard here is a standard ol rails test folder.",
-      "context": "Written advice on what the characterization suite is really for.",
-      "superseded_by": null
+      "context": "Written advice on what the characterization suite is really for."
     },
     {
       "ref": "a9389f8c:3305",
       "date": "2026-09-05",
       "statement": "when using flight deck in a folder with no test/ this becomes a known place for the tests flightcrew needs to work properly.",
-      "context": "Explaining what the testbench folder was for.",
-      "superseded_by": null
+      "context": "Explaining what the testbench folder was for."
     }
   ]
 }

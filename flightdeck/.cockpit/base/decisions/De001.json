@@ -1,0 +1,8 @@
+{
+  "kind": "decision",
+  "id": "De001",
+  "date": "2026-09-17",
+  "subject": "Pilot's starting knowledge",
+  "decision": "The pilot starts fresh. Prior mission files are not read.",
+  "by": "commander"
+}

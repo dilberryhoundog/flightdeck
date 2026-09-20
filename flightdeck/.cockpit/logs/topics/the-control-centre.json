@@ -1,37 +1,33 @@
 {
-  "id": "the-control-centre",
+  "kind": "topic",
+  "name": "the-control-centre",
   "title": "The control centre",
   "scope": "The .controlcenter folder, what configuration it holds and what interface speaks for it. Excludes per-launch documents such as launch.json (see launch-and-run).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "8fdc3b29:5407",
       "date": "2026-09-08",
       "statement": "I have also decided to provide a flightdeck/.controlcenter which can keep active env like LAUNCH_DIRECTORY",
-      "context": "Describing what worked about launch.json and what to add to it.",
-      "superseded_by": null
+      "context": "Describing what worked about launch.json and what to add to it."
     },
     {
       "ref": "8fdc3b29:5439",
       "date": "2026-09-08",
       "statement": "control center yes probably, but eventually it will hold all types of configs (especially when flightdeck absorbes dev-workspace) this can be advanced as needed.",
-      "context": "Asked whether the control centre was worth having at all.",
-      "superseded_by": null
+      "context": "Asked whether the control centre was worth having at all."
     },
     {
       "ref": "9b679556:7046",
       "date": "2026-09-09",
       "statement": ".controlcenter is an inert folder, the interface should be \"flightcrew.yml\"",
-      "context": "Second of the worked examples in the turn that defined what an interface is.",
-      "superseded_by": null
+      "context": "Second of the worked examples in the turn that defined what an interface is."
     },
     {
       "ref": "9b679556:7347",
       "date": "2026-09-09",
       "statement": "launch.yaml git ignored launch based system configuration. current_active_launch: <repository-relative launch folder>",
-      "context": "Rewriting the spec interface node for configuration.",
-      "superseded_by": null
+      "context": "Rewriting the spec interface node for configuration."
     }
   ]
 }

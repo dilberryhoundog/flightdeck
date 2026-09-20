@@ -1,8 +1,8 @@
 {
-  "id": "launch-and-run",
+  "kind": "topic",
+  "name": "launch-and-run",
   "title": "Launches and runs",
   "scope": "What a launch is, what a run is, how they nest, and the branch and folder shape that carries them. Excludes what happens inside a run (see workflows-and-liftoffs) and how a run ends (see endings).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
@@ -16,36 +16,31 @@
       "ref": "8fdc3b29:3039",
       "date": "2026-09-08",
       "statement": "This might be better all in a single folder, a new launch builds a new feature, a launch instance retries untill it succeeds, no duplicated specs single source of truth.",
-      "context": "Proposing the launch/<name>/{specs,runs} layout in place of parallel run directories.",
-      "superseded_by": null
+      "context": "Proposing the launch/<name>/{specs,runs} layout in place of parallel run directories."
     },
     {
       "ref": "a9389f8c:3618",
       "date": "2026-09-05",
       "statement": "The convention is for a `run` (launch) to happen under the same directory but a second pass of the same run requires the same directory used. a v2+ spec. and v1 failing.",
-      "context": "Reacting to a single run whose files were spread across three folders.",
-      "superseded_by": null
+      "context": "Reacting to a single run whose files were spread across three folders."
     },
     {
       "ref": "9b679556:6718",
       "date": "2026-09-09",
       "statement": "sure each run needs to happen on a throw away branch that ends with a PR back to the feature branch. if accepted the feature branch is mutated and the next launch creates new run PR's against it. when the feature is finished it all merges back to main.",
-      "context": "Questioning why a launch init command created a git branch.",
-      "superseded_by": null
+      "context": "Questioning why a launch init command created a git branch."
     },
     {
       "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "A launch is definitely not \"one run of one spec\". I have defined it better in conversation, but it is an intent to complete a piece of work and includes all the infrastructure to do this. This includes \"runs\" which are attempts at completing the work, the spec and its versions as runs converge on done and alot of run generated artifacts etc.",
-      "context": "Written advice correcting the recon team, which had defined a launch as one run of one spec.",
-      "superseded_by": null
+      "context": "Written advice correcting the recon team, which had defined a launch as one run of one spec."
     },
     {
       "ref": "flightdeck/.cockpit/commanders-desk/out-advice/CA001.md",
       "date": "2026-09-18",
       "statement": "a launch succeeds not from a bunch of commands run in sequence, but agent teams all converging on success, like a prebuild (spec and tests and plan), then the build (orch workflows), then review and cleanup (decide done, gather intel, setup next run, or merge and move on)",
-      "context": "Written advice, arriving at the shape of a launch while describing teams.",
-      "superseded_by": null
+      "context": "Written advice, arriving at the shape of a launch while describing teams."
     }
   ]
 }

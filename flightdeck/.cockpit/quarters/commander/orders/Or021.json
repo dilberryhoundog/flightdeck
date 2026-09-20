@@ -1,0 +1,6 @@
+{
+  "kind": "order",
+  "id": "Or021",
+  "date": "2026-09-18",
+  "text": "\"Missions are drifting into bug reports and minor fixes.\" Set up `workshop/` where the pilot leaves things to get fixed; similar fixes can be swept into missions if they align; a workshop team can run the fixes and bugs through. Missions are reserved for the bigger-scoped stuff the pilot has come across the commander saying or eventually noticed. The incubator is a good pre-step; not everyone gets promoted."
+}

@@ -1,0 +1,8 @@
+{
+  "kind": "decision",
+  "id": "De005",
+  "date": "2026-09-17",
+  "subject": "Agent teams",
+  "decision": "Enable the experimental flag in the pilot's settings now. Learn teams from the beginning.",
+  "by": "commander"
+}

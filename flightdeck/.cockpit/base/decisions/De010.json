@@ -1,0 +1,8 @@
+{
+  "kind": "decision",
+  "id": "De010",
+  "date": "2026-09-18",
+  "subject": "First agent team findings",
+  "decision": "Pilot's work: fix pilot.sh duplicate check (A1) and guard bypasses (A2); A3, A4, the stale-index batch and the sandbox finding at the pilot's discretion.",
+  "by": "commander"
+}

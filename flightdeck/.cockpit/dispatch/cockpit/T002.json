@@ -1,0 +1,51 @@
+{
+  "kind": "dispatch",
+  "id": "T002",
+  "date": "2026-09-18",
+  "session": "dcb75456",
+  "mission": "M001",
+  "purpose": "Certified research team: turn the recon and the genesis sources into records, contested and verified, run past the commander before landing",
+  "roster": "certified-research",
+  "seats": [
+    {
+      "name": "source-reader",
+      "reason": "genesis documents are written prose; clerical reading",
+      "returns": "what the genesis says the system is; divergences; addendum on the two unread constitution documents"
+    },
+    {
+      "name": "transcript-miner",
+      "reason": "extracting the commander's definitions from long transcripts is judgement",
+      "returns": "definitions, architecture, decisions, taste, quoted and dated; three method warnings"
+    },
+    {
+      "name": "records-writer",
+      "reason": "writing records that extract rather than copy is synthesis under a rule",
+      "returns": "five documents; contested and revised; ruled source material by the commander"
+    },
+    {
+      "name": "docs-verifier",
+      "reason": "official-docs lookup",
+      "returns": "verification of every harness claim in each draft"
+    },
+    {
+      "name": "adversary",
+      "reason": "a record reaches the commander already contested once",
+      "returns": "about fifty findings across two passes; four withdrawn in writing"
+    }
+  ],
+  "subagents": [],
+  "shape": "two readers in parallel to the writer and the lead; writer drafted, sent each draft to adversary and verifier, revised, delivered to the lead",
+  "outcome": "Five documents drafted, contested and revised in one session; the commander ruled them fully referenced source material, not records (Ds002), and set the good-record docspec. Filed at notepad/research-2026-09-18/source/. Adversary withdrew four findings (false framing under a true id; true claim called overreach; correct code claim challenged on a header comment; verbatim quote called fabricated after stopping at the first match). Writer caught its own reversed model-tier claim. Verifier discarded its first pass after the fetch summariser invented a figure. Delivery intact via team-lead and scratchpad files.",
+  "lessons": [
+    "this is the certified research shape: readers, a writer that re-verifies, an Opus adversary, a docs verifier on raw pages, the pilot ruling",
+    "check for a second occurrence before calling a quote fabricated; re-run every negative across spellings",
+    "a writer must contest the adversary with evidence; returning to the source saved a correct sentence",
+    "a WebFetch answer is model output over the page, not the page",
+    "transcript quotation needs three warnings in the brief: agent returns hide in user blocks; commissioned documents are not the commander's prose; pasted exchanges carry seams",
+    "consolidate the lead's fixes into one message; rulings crossing with revisions cost rounds",
+    "two seats should not share a name across teams; a dead seat revives when addressed",
+    "state they/them for anyone whose pronouns are not given"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

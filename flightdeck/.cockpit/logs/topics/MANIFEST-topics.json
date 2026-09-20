@@ -1,0 +1,168 @@
+{
+  "kind": "topics",
+  "updated": "2026-09-20",
+  "units": [
+    {
+      "name": "why-flightcrew-exists",
+      "title": "Why flightcrew exists",
+      "path": "why-flightcrew-exists.json",
+      "statements": 5
+    },
+    {
+      "name": "launch-and-run",
+      "title": "Launches and runs",
+      "path": "launch-and-run.json",
+      "statements": 6
+    },
+    {
+      "name": "iteration-and-failure-axes",
+      "title": "Iteration, retries and the failure axes",
+      "path": "iteration-and-failure-axes.json",
+      "statements": 7
+    },
+    {
+      "name": "tests-and-checks",
+      "title": "Tests and checks",
+      "path": "tests-and-checks.json",
+      "statements": 13
+    },
+    {
+      "name": "the-spec",
+      "title": "The spec",
+      "path": "the-spec.json",
+      "statements": 12
+    },
+    {
+      "name": "altitude",
+      "title": "Altitude: the level a spec is written at",
+      "path": "altitude.json",
+      "statements": 6
+    },
+    {
+      "name": "interfaces",
+      "title": "Interfaces",
+      "path": "interfaces.json",
+      "statements": 6
+    },
+    {
+      "name": "constraints",
+      "title": "Constraints",
+      "path": "constraints.json",
+      "statements": 5
+    },
+    {
+      "name": "state-and-freezing",
+      "title": "State, freezing and gates",
+      "path": "state-and-freezing.json",
+      "statements": 8
+    },
+    {
+      "name": "workflows-and-liftoffs",
+      "title": "Workflows and liftoffs",
+      "path": "workflows-and-liftoffs.json",
+      "statements": 9
+    },
+    {
+      "name": "the-runner",
+      "title": "The runner and the command surface",
+      "path": "the-runner.json",
+      "statements": 7
+    },
+    {
+      "name": "the-control-centre",
+      "title": "The control centre",
+      "path": "the-control-centre.json",
+      "statements": 4
+    },
+    {
+      "name": "the-humans-control-surface",
+      "title": "The human control surface",
+      "path": "the-humans-control-surface.json",
+      "statements": 6
+    },
+    {
+      "name": "endings",
+      "title": "Endings",
+      "path": "endings.json",
+      "statements": 5
+    },
+    {
+      "name": "crews-and-roles",
+      "title": "Crews and roles",
+      "path": "crews-and-roles.json",
+      "statements": 8
+    },
+    {
+      "name": "teams-and-dispatch",
+      "title": "Teams and dispatch",
+      "path": "teams-and-dispatch.json",
+      "statements": 6
+    },
+    {
+      "name": "models-and-cost",
+      "title": "Models, tiers and cost",
+      "path": "models-and-cost.json",
+      "statements": 6
+    },
+    {
+      "name": "interviewing-the-commander",
+      "title": "Interviewing the commander",
+      "path": "interviewing-the-commander.json",
+      "statements": 10
+    },
+    {
+      "name": "how-the-commander-works",
+      "title": "How the commander works",
+      "path": "how-the-commander-works.json",
+      "statements": 7
+    },
+    {
+      "name": "what-the-commander-wants-from-an-agent",
+      "title": "What the commander wants from an agent",
+      "path": "what-the-commander-wants-from-an-agent.json",
+      "statements": 10
+    },
+    {
+      "name": "the-pilot-role",
+      "title": "The pilot",
+      "path": "the-pilot-role.json",
+      "statements": 7
+    },
+    {
+      "name": "missions-and-the-work-split",
+      "title": "Missions and the work split",
+      "path": "missions-and-the-work-split.json",
+      "statements": 6
+    },
+    {
+      "name": "the-library-and-records",
+      "title": "The library, the records and the manuals",
+      "path": "the-library-and-records.json",
+      "statements": 12
+    },
+    {
+      "name": "what-makes-a-good-record",
+      "title": "What makes a good record",
+      "path": "what-makes-a-good-record.json",
+      "statements": 9
+    },
+    {
+      "name": "mining-the-commanders-statements",
+      "title": "Mining the commander's statements",
+      "path": "mining-the-commanders-statements.json",
+      "statements": 9
+    },
+    {
+      "name": "doctrine-and-drift",
+      "title": "Doctrine, sources and drift",
+      "path": "doctrine-and-drift.json",
+      "statements": 8
+    },
+    {
+      "name": "problems-and-the-next-run",
+      "title": "Problems and the next run",
+      "path": "problems-and-the-next-run.json",
+      "statements": 6
+    }
+  ]
+}

@@ -1,93 +1,81 @@
 {
-  "id": "the-spec",
+  "kind": "topic",
+  "name": "the-spec",
   "title": "The spec",
   "scope": "What a spec is for, how it is versioned and what \"done\" means for one, and what does not belong in it. Excludes the level the spec is written at (see altitude) and how the commander is interviewed to produce it (see interviewing-the-commander).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "9b679556:88",
       "date": "2026-09-09",
       "statement": "yes live nodes. not a hard rule but a target. any more overwhelms the system. higher version can also afford more \"decisions\" consider them as freebies.",
-      "context": "Asked whether the ~60 node target counted live nodes only.",
-      "superseded_by": null
+      "context": "Asked whether the ~60 node target counted live nodes only."
     },
     {
       "ref": "9b679556:1068",
       "date": "2026-09-09",
       "statement": "ok, new, changed, retired. this is the split as per normal.",
-      "context": "Confirming how a new spec version records what changed.",
-      "superseded_by": null
+      "context": "Confirming how a new spec version records what changed."
     },
     {
       "ref": "9b679556:1070",
       "date": "2026-09-09",
       "statement": "I cannot confirm however each individual node is correct. that costs me too much mental energy.",
-      "context": "Same turn, refusing a node-by-node confirmation round.",
-      "superseded_by": null
+      "context": "Same turn, refusing a node-by-node confirmation round."
     },
     {
       "ref": "9b679556:1073",
       "date": "2026-09-09",
       "statement": "I don't approve nodes, I answer questions about problems.",
-      "context": "Asked whether an approval mechanism for spec nodes was wanted.",
-      "superseded_by": null
+      "context": "Asked whether an approval mechanism for spec nodes was wanted."
     },
     {
       "ref": "0fb7c77a:1032",
       "date": "2026-09-09",
       "statement": "major surgery to the intention is not how versioned specs work. they should say, \"Our last outcome was not satisfactory, lets keep the intention and improve the spec, or did our last outcome intention need slight adjusting and therefore we align the spec with this improved intention",
-      "context": "Rejecting two offered options for how a new spec version treats the previous intent.",
-      "superseded_by": null
+      "context": "Rejecting two offered options for how a new spec version treats the previous intent."
     },
     {
       "ref": "0fb7c77a:1040",
       "date": "2026-09-09",
       "statement": "The intent is the only place that doesn't have to be deterministic in nature. A human says the outcome they want. the spec aligns deterministically with this. The end result is asked \"is this the outcome?\" if not you need a better outcome, or a better spec driving agents towards the outcome.",
-      "context": "Correcting the interviewer on what the intent domain is.",
-      "superseded_by": null
+      "context": "Correcting the interviewer on what the intent domain is."
     },
     {
       "ref": "0fb7c77a:3001",
       "date": "2026-09-09",
       "statement": "don't need \"acceptance\" criteria in intent. intent is only judged by the user. The determinism comes next.",
-      "context": "Asked whether the intent should carry acceptance criteria.",
-      "superseded_by": null
+      "context": "Asked whether the intent should carry acceptance criteria."
     },
     {
       "ref": "0fb7c77a:2777",
       "date": "2026-09-09",
       "statement": "decisions don't need tests. version 2 is where decisions make their grand appearance, probably based upon problem discovery from version 1 run.",
-      "context": "Asked a verification question during the intent round.",
-      "superseded_by": null
+      "context": "Asked a verification question during the intent round."
     },
     {
       "ref": "0fb7c77a:2759",
       "date": "2026-09-09",
       "statement": "As long as i takes for no gaps. the size of the work changes. no gaps never changes.",
-      "context": "Asked how long the spec stage should take.",
-      "superseded_by": null
+      "context": "Asked how long the spec stage should take."
     },
     {
       "ref": "0fb7c77a:1049",
       "date": "2026-09-09",
       "statement": "your primary role is to help me create a spec that can drive a build run and leave no questions unanswered for later agents. not untangling messy context sources.",
-      "context": "Explaining why the problem dump was supplied to the spec builder.",
-      "superseded_by": null
+      "context": "Explaining why the problem dump was supplied to the spec builder."
     },
     {
       "ref": "9b679556:1758",
       "date": "2026-09-09",
       "statement": "Also this is not spec material... how to write a an individual spec. that is context that rightly dissapears after our session finishes.",
-      "context": "Rejecting a decision node that described how to write a spec.",
-      "superseded_by": null
+      "context": "Rejecting a decision node that described how to write a spec."
     },
     {
       "ref": "4f6285bb:385",
       "date": "2026-09-09",
       "statement": "the spec describes the work not the sytem ie \"you must lock these files\" should never be in a spec.",
-      "context": "Working out whether a spec should name files the system must lock.",
-      "superseded_by": null
+      "context": "Working out whether a spec should name files the system must lock."
     }
   ]
 }

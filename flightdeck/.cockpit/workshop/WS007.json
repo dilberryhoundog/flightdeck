@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS007",
+  "title": "Test whether a shut-down teammate can be resumed by name with its context intact, and whether it counts against the teammate cap",
+  "raised": "2026-09-18",
+  "source": "commander's question 'why do teammates terminate?'; SendMessage tool text says a name keeps working after an agent completes. Briefly spark Sp005, moved here on the commander's order: a minor change is not a mission",
+  "status": "open"
+}

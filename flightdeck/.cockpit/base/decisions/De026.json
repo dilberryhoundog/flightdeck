@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De026",
+  "date": "2026-09-20",
+  "subject": "Rq013 and who may write in the cockpit",
+  "decision": "Commander amends: write is a restriction of role, not of place. The pilot writes only in its cockpit; teams are dispatched for internal or external work and write to the project, a launch or the cockpit. A team fitting out the cockpit writes there directly, inside a scope given by the pilot; the pilot links the team to the commander and records its own and the team's actions. Rq013's outside-build route is replaced by a scoped build inside the cockpit. Rule 1 of CLAUDE.md and the crew line rewritten to match.",
+  "by": "commander",
+  "source": "session b27e6c01",
+  "requests": [
+    "Rq013"
+  ]
+}

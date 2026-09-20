@@ -1,0 +1,32 @@
+{
+  "kind": "dispatch",
+  "id": "T008",
+  "date": "2026-09-18",
+  "session": "dcb75456",
+  "mission": "M001",
+  "purpose": "Mini-adversary pass on the teams integration: dispatch as JSON per room, rosters, crew rooms and dossiers",
+  "roster": "mini-adversary",
+  "seats": [
+    {
+      "name": "fit-critic",
+      "reason": "fit with the cockpit's purpose and the commander's teams direction",
+      "returns": "findings, three to fix first, verdict"
+    },
+    {
+      "name": "trim-critic",
+      "reason": "bulk and duplication between dispatch entries, rosters, dossiers and the manifest",
+      "returns": "findings with what is lost per cut, top three"
+    }
+  ],
+  "subagents": [],
+  "shape": "independent, parallel, no cross-talk",
+  "outcome": "fit-critic 14 findings, trim-critic 10, agreeing on one defect: a seat's identity written by hand into four files and already drifted three times. Applied: crew.json owns identity; dispatch seats are name, reason, returns; rosters are name lists; dossiers cut to purpose, how to dispatch, record, next time; five retired dossiers deleted with their status carried in the manifest; two turn-opener citations in the spec-builder dossier fixed; rules 7 and 10 name every store; status enums honoured; room indexes added. JSON 857 to 501 lines.",
+  "lessons": [
+    "one owner per fact: the manifest owns who a seat is, the team entry owns what a team did, the dossier owns how to brief it, the README explains",
+    "a dossier briefs a seat; history goes in the team entry",
+    "a change in one room is a change in every room that points into it, again",
+    "run the mini-adversary roster on any structural rebuild before logging off"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

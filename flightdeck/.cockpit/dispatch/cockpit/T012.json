@@ -1,0 +1,30 @@
+{
+  "kind": "dispatch",
+  "id": "T012",
+  "date": "2026-09-20",
+  "session": "b27e6c01",
+  "mission": "M001",
+  "purpose": "The commander's order: run the mini adversaries over the stage A work (spec, plan, store, tools, tests, fixtures) for fit and trim, the verdict left to them; the commander's instinct is that the work is low effort. T011 held while they work",
+  "roster": "mini-adversary",
+  "seats": [
+    {
+      "name": "fit-critic",
+      "reason": "is it the thing the commander asked for, built for the system the cockpit is becoming, proportionate",
+      "returns": "three fixes first, ranked findings, a five-line verdict"
+    },
+    {
+      "name": "trim-critic",
+      "reason": "what can be cut or replaced without losing the three jobs; measured, with the smallest tool sketched",
+      "returns": "three cuts first, ranked findings, smallest-tool sketch, a five-line verdict"
+    }
+  ],
+  "subagents": [],
+  "shape": "independent, parallel, no cross-talk; the pilot's spec under attack as much as the code; the commander's instinct not given to the critics so the verdict is theirs",
+  "outcome": "fit-critic: keep with changes; the commander's schema store is not delivered, the store is keyed on names the room move abolishes and goes quiet rather than red, Or051's one-register ruling missing. trim-critic: keep trimmed; wrote a 113-line checker giving the same findings (pilot verified), rename tool is self-terminating scaffolding, about 200 lines fire zero times, clean run 62 bytes is right. Both verdicts confirmed the commander's instinct.",
+  "lessons": [
+    "not telling the critics the commander's instinct kept the verdict theirs",
+    "a critic who builds the smaller thing and runs it ends the argument"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

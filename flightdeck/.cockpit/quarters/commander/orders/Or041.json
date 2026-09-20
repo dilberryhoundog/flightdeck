@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or041",
+  "date": "2026-09-18",
+  "text": "Teams are the pilot's number one feature and not integrated enough. Wanted: each team dispatch recorded (json or markdown, pilot decides; if json, cockpit.json instead of cockpit/ files); each agent dispatched gets a filled-in dossier so it can be repeated, replicated or improved; dossiers live in flightcrew/, team/ or general/ with room for more crews; crew.json is the manifest for any teammate across any crew; team rosters prebuilt and named from favourite setups, stored in dispatch, so they can be dispatched repeatedly. Record in the cockpit fit-out mission; fill a dossier for every agent used this session.",
+  "session": "dcb75456"
+}

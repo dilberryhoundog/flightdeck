@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS008",
+  "title": "Decide the canonical home for crew role definitions: worker body exists in crew/worker.md, isolated-worker.md and .claude/agents/worker.md; crew.json ids drift from files",
+  "raised": "2026-09-18",
+  "source": "request Rq002, withdrawn 2026-09-18",
+  "status": "open"
+}

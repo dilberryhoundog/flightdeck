@@ -2,7 +2,7 @@
 
 Little fixes, problems to fix, maintenance work: what gets done when not out completing epic missions, back-at-base work (commander, 2026-09-18). Not missions. A mission is reserved for bigger-scoped work the commander has said or the pilot has eventually noticed; the incubator is the pre-step for those, and not every spark is promoted. Everything smaller is left here to get fixed.
 
-`workshop.json` is the index. Each item has an id `WS###`, a title, where it came from, its status and where it was fixed. An item gets its own file `WS###.md` only when the fix needs notes longer than a line.
+`MANIFEST-workshop-items.json` is the register: one row per item with its id `WS###`, title, date raised, status and the path to its unit. Each item is a unit, `WS###.json`, holding where it came from, where it was fixed and, when the fix needs more than a line, its `notes`.
 
 ## How items move
 

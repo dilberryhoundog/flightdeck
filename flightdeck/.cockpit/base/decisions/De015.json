@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De015",
+  "date": "2026-09-18",
+  "subject": "Rq006 records",
+  "decision": "Amended. Converge on a certified research team that pulls the recon in with tighter focus, sanitises it for the pilot and configures it as bona fide records. Run every record past the commander before landing. Records are the pilot's; the library is for all, maintained by the pilot with an overview no other entity has. Records extract key findings, never replicate library documents.",
+  "by": "commander",
+  "source": "commanders-desk/out-advice/CA001.md",
+  "requests": [
+    "Rq006"
+  ]
+}

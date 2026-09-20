@@ -31,18 +31,29 @@
       "minLength": 1
     },
     "by": {
-      "description": "who settled it: the commander or the pilot",
+      "description": "who settled it: the commander or the pilot, and nothing else; where it was said goes in source",
       "enum": ["commander", "pilot"]
     },
-    "request": {
-      "description": "the request this decision answers, Rq and three digits; absent when the decision arose on its own",
+    "source": {
+      "description": "where it was said, when that is worth keeping: an order, a session, a conversation",
       "type": "string",
-      "pattern": "^Rq[0-9]{3}$"
+      "minLength": 1
+    },
+    "requests": {
+      "description": "the requests this decision answers, a list of Rq identifiers even when there is only one; absent when the decision arose on its own",
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^Rq[0-9]{3}$" }
     },
     "superseded_by": {
-      "description": "the identifier of the later decision that overrides this one; absent while it stands",
+      "description": "the identifier of the later decision that overrides this one, and nothing else; absent while it stands",
       "type": "string",
       "pattern": "^De[0-9]{3}$"
+    },
+    "superseded_note": {
+      "description": "how and why it was superseded, in prose, when the identifier alone does not tell the story",
+      "type": "string",
+      "minLength": 1
     }
   }
 }

@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS021",
+  "title": "The five T002 source documents in notepad/research-2026-09-18/source/ pin one line per commander turn and say \"same turn\" for further quotes (honest, but not per-sentence); one hard error: launch-and-run.md cites 8fdc3b29:3569 for a sentence at 3567. Re-derive per-sentence lines by grep before any later team draws on them",
+  "raised": "2026-09-18",
+  "source": "T006 record-writer and adversary",
+  "status": "open"
+}

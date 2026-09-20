@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De023",
+  "date": "2026-09-20",
+  "subject": "Ds004's four decisions and the procedures room",
+  "decision": "The commander liked the dossier and is happy to go with the pilot's calls. So, per the pilot's recommendations in Ds004: (1) the Ds002 reversal stands, no team mines for new records and the topic store is a fine-tuning source; (2) the commander reads the four stubs before they land; (3) the Validated line carries the team id and seat; (4) the label is Validated. On the procedures room: leave out the fc-surveyor; a basic scaffold with some starting procedures; flightcrew procedures are built after the cockpit fitout and the self-sustaining work settle (order Or042).",
+  "by": "commander",
+  "source": "session 4450a586",
+  "requests": [
+    "Rq010"
+  ]
+}

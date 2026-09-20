@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "x-select": ["dossiers", "requests", "commander-advice", "dispatches", "orders", "decisions", "workshop", "rosters", "missions", "sparks", "procedures", "manuals", "topics", "crew"],
+  "x-select": ["dossiers", "requests", "commander-advice", "dispatches", "orders", "decisions", "workshop-items", "rosters", "missions", "sparks", "procedures", "manuals", "topics", "crew"],
   "title": "Manifest",
   "description": "A manifest: the whole scope of one collection in one cheap read, each row carrying enough to choose a unit, and the unit carrying the rest. Named MANIFEST-<collection>.json, the collection being the identifier's name in full, so the file says what it is in a stream of output.",
   "type": "object",
@@ -25,10 +25,14 @@
       "description": "one row per unit, each with the unit's path and either its identifier or its name, plus whatever else is needed to choose between them",
       "type": "array",
       "items": {
-        "description": "one row: the unit's path, and its id for a collection filed by identifier or its name for one filed by name",
+        "description": "one row: a label, which is id for a collection filed by identifier and name for one filed by name, and then path to the unit — or, for a row whose unit never existed or has gone, superseded_by naming what replaced it",
         "type": "object",
-        "required": ["path"],
-        "anyOf": [{ "required": ["id"] }, { "required": ["name"] }],
+        "anyOf": [
+          { "required": ["id", "path"] },
+          { "required": ["name", "path"] },
+          { "required": ["id", "superseded_by"] },
+          { "required": ["name", "superseded_by"] }
+        ],
         "properties": {
           "id": {
             "description": "the unit's identifier, an abbreviation of one to three letters and three digits",
@@ -52,6 +56,11 @@
           },
           "status": {
             "description": "where the unit stands, in whatever words the collection uses",
+            "type": "string",
+            "minLength": 1
+          },
+          "superseded_by": {
+            "description": "the id or name of what replaced this one, for a row kept so the record is complete though there is no unit to open; stands in place of path",
             "type": "string",
             "minLength": 1
           }

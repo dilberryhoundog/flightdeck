@@ -1,9 +1,9 @@
 # Procedures
 
-The cockpit's logic engine: pre-recorded routines the pilot conducts, so that repeated work is not re-prompted and does not drift or vary between sessions. A procedure matches a roster with tasks, context files and steps. The commander's founding note is `procedures.keep`; their direction for the room is order Or042 in `../quarters/commander/orders.json`.
+The cockpit's logic engine: pre-recorded routines the pilot conducts, so that repeated work is not re-prompted and does not drift or vary between sessions. A procedure matches a roster with tasks, context files and steps. The commander's founding note is `procedures.keep`; their direction for the room is order Or042 in `../quarters/commander/MANIFEST-orders.json`.
 
 - `triggers.md` — the manifest: one line per approved procedure, under its trigger kind. Imported into the cockpit `CLAUDE.md`, so it stays a routing table and explains nothing.
-- `procedures.json` — the index, and the dated events the periodicals are due against.
+- `MANIFEST-procedures.json` — the index, and the dated events the periodicals are due against.
 - `cockpit/` — the pilot's own conduct: `P001-record-keeping.md`, `P002-forming-a-team.md`, `P003-notepad-cleanup.md`, `P004-currency-review.md`, `P005-topics-update.md`.
 - `flightcrew/` — conducting a launch. Scaffolded empty.
 
@@ -11,7 +11,7 @@ The cockpit's logic engine: pre-recorded routines the pilot conducts, so that re
 
 - **On demand.** The pilot decides a condition has arrived. The manifest line states the condition, never a summary of the file.
 - **Named.** No condition and no event; invoked by name by the commander or the pilot. Every procedure of any kind can also be called by its name.
-- **Periodical.** Due on an event, never a date: the close of a mission phase or of a launch. The pilot appends the event to `procedures.json`; a periodical is due when the latest event of a kind it names is later than its `last_run`. A missed run shows at the next look at the index, not by itself. A run on the commander's order is just a run.
+- **Periodical.** Due on an event, never a date: the close of a mission phase or of a launch. The pilot appends the event to `MANIFEST-procedures.json`; a periodical is due when the latest event of a kind it names is later than its `last_run`. A missed run shows at the next look at the index, not by itself. A run on the commander's order is just a run.
 
 ## The file
 

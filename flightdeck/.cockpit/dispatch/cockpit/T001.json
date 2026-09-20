@@ -1,0 +1,56 @@
+{
+  "kind": "dispatch",
+  "id": "T001",
+  "date": "2026-09-18",
+  "session": "dcb75456",
+  "mission": "M001",
+  "purpose": "Recon flightcrew's terrain, history and doctrine; verify harness claims against official docs; cut candidate epic missions",
+  "roster": "recon",
+  "seats": [
+    {
+      "name": "runs-recon",
+      "reason": "judging what a launch and a run look like is synthesis",
+      "returns": "launch anatomy, run mechanics, run-2 result, unfinished intent, 17 harness claims; addendum after reading its explorers"
+    },
+    {
+      "name": "lineage-historian",
+      "reason": "mining branch seams for missions is judgement",
+      "returns": "five seams, reconciliation, eight candidate missions; revised after reading its explorers"
+    },
+    {
+      "name": "doctrine-recon",
+      "reason": "doctrine documents are distilled prose; clerical reading",
+      "returns": "doctrine briefing with drift table"
+    },
+    {
+      "name": "docs-verifier",
+      "reason": "official-docs lookup",
+      "returns": "alignment practices (six sources); three verification batches"
+    },
+    {
+      "name": "mission-cutter",
+      "reason": "cutting missions with goals and done conditions is synthesis",
+      "returns": "campaign and eight candidate missions"
+    }
+  ],
+  "subagents": [
+    {
+      "agent_type": "Explore",
+      "model": "sonnet",
+      "count": 7,
+      "spawned_by": "lineage-historian (5), runs-recon (2)",
+      "note": "hand-backs reached the lead only; raw reports under notepad/recon-2026-09-18/raw/"
+    }
+  ],
+  "shape": "three readers in parallel; verifier fetched alignment practices at once and verified claims as readers landed; cutter waited for all four",
+  "outcome": "Filed and verified under notepad/recon-2026-09-18/, distilled into Ds001. Pilot corrected: the tip is the run-2 branch (pilot's own briefing error); spec-altitude added after the fork not deleted; interfaces rewrite never reached the tip; two remote-lag figures; no local branch named origin. Failures: two reports truncated (briefs said `pilot`, in-team address is `team-lead`); seven explorer hand-backs went to the lead only. Second pass changed both readers' reports materially.",
+  "lessons": [
+    "address the lead as team-lead; give a scratchpad path for long reports",
+    "teammate subagents hand back to the lead only; either the teammate reads directly or the lead relays",
+    "Sonnet on doctrine reading produced two directional misreads of git diffs; blob comparison by the pilot caught them",
+    "keep the whole team alive to the end; the second pass was where the value was",
+    "Explore subagents cost about 100k tokens each; seven was a large hidden spend"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

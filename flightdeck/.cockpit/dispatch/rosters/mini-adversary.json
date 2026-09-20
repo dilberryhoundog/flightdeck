@@ -1,0 +1,10 @@
+{
+  "kind": "roster",
+  "name": "mini-adversary",
+  "purpose": "critique the pilot's own work before building",
+  "seats": [
+    "fit-critic",
+    "trim-critic"
+  ],
+  "shape": "independent, parallel, no cross-talk; warn that the ground may move"
+}

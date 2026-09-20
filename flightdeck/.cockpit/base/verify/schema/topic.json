@@ -4,14 +4,14 @@
   "title": "Topic",
   "description": "One topic: the commander's own statements on a single subject, each held verbatim with the transcript it came from, so the pilot can see how his thinking on that subject stands. Filed by name, altitude.json.",
   "type": "object",
-  "required": ["kind", "id", "title", "scope", "updated", "statements"],
+  "required": ["kind", "name", "title", "scope", "updated", "statements"],
   "properties": {
     "kind": {
       "description": "the word topic, which is what chooses this schema",
       "const": "topic"
     },
-    "id": {
-      "description": "the topic's name in lowercase with hyphens, the same name the file is named for; a topic carries a name, not an identifier",
+    "name": {
+      "description": "the topic's name in lowercase with hyphens, the same name the file is named for and the same word its manifest row carries; a unit filed by name carries name, one filed by identifier carries id",
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*$"
     },

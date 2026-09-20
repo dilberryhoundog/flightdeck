@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De025",
+  "date": "2026-09-20",
+  "subject": "Rq011, the starting procedures, and how procedures are made from here",
+  "decision": "Commander approves: the pilot extracts procedures from live work and keeps them updated. The commander may advise and adjust procedures along the way. The starting procedures are all approved. This supersedes Ds004 item 3's approval of each procedure singly before it lands: the pilot adds and updates, reports it in session and in the log, and the commander adjusts.",
+  "by": "commander",
+  "source": "Rq011 decision line",
+  "requests": [
+    "Rq011"
+  ]
+}

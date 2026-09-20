@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS012",
+  "title": "Meta-workflows .claude/workflows/flightcrew-build.js and flightcrew-targets.js hardcode REPO='/Users/dylangraham/Projects/flightdeck' (run/flightcrew-characterization-2); portability defect, unpinned",
+  "raised": "2026-09-18",
+  "source": "runs-recon addendum, notepad/recon-2026-09-18/runs-recon.md",
+  "status": "open"
+}

@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS003",
+  "title": "A15: consider --add-dir in the launcher so the pilot session sees the cockpit as a working directory",
+  "raised": "2026-09-18",
+  "source": "auditor C006 finding A15, weakened by red-team; not actioned",
+  "status": "open"
+}

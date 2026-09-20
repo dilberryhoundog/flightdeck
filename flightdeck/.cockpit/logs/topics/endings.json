@@ -1,44 +1,39 @@
 {
-  "id": "endings",
+  "kind": "topic",
+  "name": "endings",
   "title": "Endings",
   "scope": "What happens when a run reaches green: the pull request, what the human reads, who decides, and what is cleaned up. Excludes the run log's role in the next attempt (see iteration-and-failure-axes).",
-  "record": null,
   "updated": "2026-09-18",
   "statements": [
     {
       "ref": "9b679556:3683",
       "date": "2026-09-09",
       "statement": "the build workflow runs, if green and review passes it ends a PR is opened. I am informed and I read the reports check stuff out (I don't just look at the PR). if happy I merge, if not a fill in runlog and try again. reject PR delete branch.",
-      "context": "Answering how a run should end, after the interviewer invented a command for it.",
-      "superseded_by": null
+      "context": "Answering how a run should end, after the interviewer invented a command for it."
     },
     {
       "ref": "9b679556:3684",
       "date": "2026-09-09",
       "statement": "workflow can clean up worktrees etc.",
-      "context": "Same turn, on who does the cleanup.",
-      "superseded_by": null
+      "context": "Same turn, on who does the cleanup."
     },
     {
       "ref": "9b679556:3269",
       "date": "2026-09-09",
       "statement": "human does not gate the waves.",
-      "context": "Correcting a drafted behaviour that had the human clearing every wave.",
-      "superseded_by": null
+      "context": "Correcting a drafted behaviour that had the human clearing every wave."
     },
     {
       "ref": "9b679556:3271",
       "date": "2026-09-09",
       "statement": "basically all human after that. final gate is to start again or merge. the other two you have correct plan and interfaces.",
-      "context": "Same answer, pointing at the endings guide in the source for where the human takes over.",
-      "superseded_by": null
+      "context": "Same answer, pointing at the endings guide in the source for where the human takes over."
     },
     {
       "ref": "8fdc3b29:8574",
       "date": "2026-09-08",
       "statement": "I commit before I strip, this keep the docs creation history. but I have another domain. Endings. I assume the command surface is big here and that is a problem. pretty sure the agent wrote the runlog, not sure if that is handled in the system?",
-      "context": "Asked what happens to a run's interview residue before the run closes.",
-      "superseded_by": null
+      "context": "Asked what happens to a run's interview residue before the run closes."
     }
   ]
 }

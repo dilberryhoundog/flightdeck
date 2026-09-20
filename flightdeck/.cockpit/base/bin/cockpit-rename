@@ -1,0 +1,513 @@
+#!/usr/bin/env python3
+"""The cockpit's rename tool. Dry run by default; --apply touches tier 1 only.
+
+    cockpit-rename --root PATH [--id OLD=NEW] [--path OLD=NEW] [--prefix OLD=NEW]
+                   [--from FILE] [--apply] [--json]
+
+Tier 1, applied with --apply: a live JSON field whose whole value is one id or
+one path, and file renames in the live zone. Tier 2, never applied: every other
+live occurrence, and every occurrence in the commander's advice whatever its
+shape, emitted as a unified diff per file for a reviewer to accept or strike.
+Tier 3, never touched and never proposed: verbatim fields, quotations, frozen
+files, scratch and the excluded zone.
+
+Digits are anchored to the prefix, so S never matches Sp and W never matches WS.
+--apply is refused unless --root was given explicitly on the command line, so a
+test can point this at a fixture copy and nobody can apply to the real cockpit
+by accident. It runs no git command and never commits.
+
+Python 3.9, standard library only.
+"""
+import difflib
+import json
+import os
+import re
+import shutil
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cockpit_store import Scanner, Store, StoreError, json_spans, offset_to_line  # noqa: E402
+
+TMP_SUFFIX = ".cockpit-rename-tmp"
+WRITABLE_ZONES = ["live", "commander-reviewed"]
+COUNTED_ZONES = ["frozen", "commander-verbatim"]
+
+
+class Refused(Exception):
+    """The tool declines. Exit 2, nothing written."""
+
+
+class Mapping(object):
+    """What to rewrite. Ids by prefix or one by one, and paths old to new."""
+
+    def __init__(self, store):
+        self.store = store
+        self.prefix_rules = []   # (old_prefix, new_prefix, lo, hi)
+        self.id_rules = {}       # old token -> new token
+        self.path_rules = []     # (old, new)
+
+    # -- building ------------------------------------------------------
+
+    def add_prefix(self, old, new):
+        if old not in self.store.rows:
+            raise Refused("no prefix row for %r" % old)
+        row = self.store.rows[old]
+        added = False
+        for rng, seg in self.store.segments_for(old):
+            suc = seg.get("succession") or {}
+            state = seg.get("state", row.get("state", "live"))
+            if state in ("retired", "superseded"):
+                raise Refused("%s is %s; the rename tool refuses it" % (old, state))
+            if suc.get("type") == "retired":
+                raise Refused("%s is retired and has no successor; it must never be renamed" % old)
+            if suc.get("type") != "renamed":
+                continue
+            if suc.get("to") != new:
+                raise Refused("the store renames %s to %s, not to %s" % (old, suc.get("to"), new))
+            self.prefix_rules.append((old, new, rng[0], rng[1]))
+            added = True
+        if not added:
+            raise Refused("%s has no renamed succession in the store; nothing to do" % old)
+
+    def add_id(self, old, new):
+        if not self.store.id_re.fullmatch(old):
+            raise Refused("%r is not an identifier" % old)
+        self.id_rules[old] = new
+
+    def add_path(self, old, new):
+        self.path_rules.append((old.rstrip("/"), new.rstrip("/")))
+
+    def empty(self):
+        return not (self.prefix_rules or self.id_rules or self.path_rules)
+
+    # -- applying ------------------------------------------------------
+
+    def id_for(self, token):
+        if token in self.id_rules:
+            return self.id_rules[token]
+        m = self.store.id_re.fullmatch(token)
+        if not m:
+            return None
+        prefix, digits = m.group(1), m.group(2)
+        number = int(digits)
+        for old, new, lo, hi in self.prefix_rules:
+            if prefix == old and lo <= number <= hi:
+                return new + digits
+        return None
+
+    def out_of_range(self, token):
+        """A token of a renamed prefix that the range declaration excludes."""
+        m = self.store.id_re.fullmatch(token)
+        if not m:
+            return False
+        prefix, number = m.group(1), int(m.group(2))
+        touched = [r for r in self.prefix_rules if r[0] == prefix]
+        if not touched:
+            return False
+        return not any(lo <= number <= hi for _o, _n, lo, hi in touched)
+
+    def path_for(self, cand):
+        bare = cand.lstrip("@")
+        anchor = ""
+        if "#" in bare:
+            head, _, tail = bare.rpartition("#")
+            if self.store.id_re.fullmatch(tail):
+                bare, anchor = head, tail
+        out = None
+        for old, new in self.path_rules:
+            if bare == old:
+                out = new
+            elif bare.endswith("/" + old):
+                out = bare[:-len(old)] + new
+            elif old.endswith("/" + bare):
+                depth = bare.count("/") + 1
+                out = "/".join(new.split("/")[-depth:])
+            if out is not None:
+                break
+        if out is None:
+            return None
+        if anchor:
+            # A path rename is not an id rename. The anchor moves only when the
+            # mapping actually names a successor for it; otherwise it is left
+            # alone and the checker reports it separately if it has gone stale.
+            out += "#" + (self.id_for(anchor) or anchor)
+        return ("@" if cand.startswith("@") else "") + out
+
+    def replacement_for(self, ref):
+        if ref.kind == "id":
+            return self.id_for(ref.token)
+        return self.path_for(ref.token)
+
+
+class Renamer(object):
+    def __init__(self, store, mapping, apply_changes):
+        self.store = store
+        self.mapping = mapping
+        self.apply = apply_changes
+        self.scanner = Scanner(store, zones=WRITABLE_ZONES + COUNTED_ZONES)
+        self.pre_counts = {}
+        self.changes = []       # tier 1
+        self.proposed = []      # tier 2
+        self.untouched = []     # tier 3
+        self.diffs = []
+        self.file_renames = []
+        self.skipped = []       # out of range for a renamed prefix
+        self._skipped_seen = set()
+
+    # -- the ordering gate --------------------------------------------
+
+    def check_order(self):
+        """A path rename must land before a prefix pass that would corrupt its key.
+
+        Scoped to the colliding token: a room move carries no id token and no
+        prefix pass can corrupt it, so it never gates. Counts tier 1 and tier 2
+        only -- a tier 3 reference can never be repaired by anyone, and counting
+        it would deadlock the identifier pass forever.
+        """
+        if not self.mapping.prefix_rules:
+            return
+        prefixes = set(r[0] for r in self.mapping.prefix_rules)
+        outstanding = []
+        for row in self.store.paths.get("renames", []):
+            old = row["old"]
+            tokens = [m.group(0) for m in self.store.id_re.finditer(old)
+                      if m.group(1) in prefixes and not self.mapping.out_of_range(m.group(0))]
+            if not tokens:
+                continue
+            hits = self.count_path(old)
+            if hits:
+                outstanding.append((old, row["new"], hits, sorted(set(tokens))))
+        if outstanding:
+            lines = ["refusing --prefix %s: a path rename is still outstanding and shares a token with it"
+                     % ", ".join("%s=%s" % (o, n) for o, n, _l, _h in self.mapping.prefix_rules)]
+            for old, new, hits, tokens in outstanding:
+                lines.append("  %s -> %s contains %s and still has %d tier 1-2 hits"
+                             % (old, new, ", ".join(tokens), hits))
+            lines.append("  run the path repair first, or the rename writes a path that never existed")
+            raise Refused("\n".join(lines))
+
+    def count_path(self, old):
+        n = 0
+        for ref in self.all_refs():
+            if ref.kind != "path" or ref.tier > 2:
+                continue
+            bare = ref.token.lstrip("@").split("#")[0]
+            if bare == old or bare.endswith("/" + old) or old.endswith("/" + bare):
+                n += 1
+        return n
+
+    def all_refs(self):
+        if not hasattr(self, "_refs"):
+            self._refs = list(self.scanner.scan())
+        return self._refs
+
+    # -- the pass ------------------------------------------------------
+
+    def run(self):
+        # Pre-flight every file rename BEFORE a byte of content is written. A
+        # content pass that lands while a rename cannot leaves references
+        # pointing at a file that was never renamed, which is worse than doing
+        # nothing at all.
+        self.plan_file_renames()
+        if self.apply:
+            for entry in self.file_renames:
+                if entry["tier"] == 1:
+                    self.preflight_rename(entry["old"], entry["new"])
+        by_file = {}
+        for ref in self.all_refs():
+            new = self.mapping.replacement_for(ref)
+            if new is None or new == ref.token:
+                continue
+            self.pre_counts[ref.token] = self.pre_counts.get(ref.token, 0) + 1
+            by_file.setdefault(ref.file, []).append((ref, new))
+        # Tokens of a renamed prefix that the range declaration excludes. These
+        # are listed, not errors: P101 is a procedure and stays P101 while every
+        # P below 101 becomes Rq.
+        for ref in self.all_refs():
+            if ref.kind != "id" or not self.mapping.out_of_range(ref.token):
+                continue
+            key = (ref.file, ref.line, ref.token)
+            if key not in self._skipped_seen:
+                self._skipped_seen.add(key)
+                self.skipped.append({"file": ref.file, "line": ref.line,
+                                     "token": ref.token, "zone": ref.zone})
+        for rel in sorted(by_file):
+            self.do_file(rel, by_file[rel])
+        if self.apply:
+            for entry in self.file_renames:
+                if entry["tier"] == 1:
+                    self.rename_file(entry["old"], entry["new"], entry)
+
+    def do_file(self, rel, items):
+        full = os.path.join(self.store.root, rel)
+        with open(full, "r", encoding="utf-8") as fh:
+            raw = fh.read()
+        spans = self.value_spans(rel, raw)
+        t1, t2 = [], []
+        for ref, new in sorted(items, key=lambda x: (x[0].line, x[0].col)):
+            record = {"file": rel, "line": ref.line, "col": ref.col, "tier": ref.tier,
+                      "old": ref.token, "new": new, "zone": ref.zone,
+                      "field": ref.field, "quoted": ref.quoted}
+            if ref.tier == 1:
+                t1.append((ref, new))
+                self.changes.append(record)
+            elif ref.tier == 2:
+                t2.append((ref, new))
+                self.proposed.append(record)
+            else:
+                record["why"] = ("a quotation" if ref.quoted else "zone %s" % ref.zone)
+                self.untouched.append(record)
+        if not t1 and not t2:
+            return
+        tier1_text = self.rewrite(raw, spans, t1)
+        full_text = self.rewrite(raw, spans, t1 + t2)
+        if t2:
+            diff = difflib.unified_diff(
+                tier1_text.split("\n"), full_text.split("\n"),
+                fromfile=rel + " (tier 1 applied)", tofile=rel + " (tier 2 proposed)",
+                lineterm="", n=1)
+            self.diffs.append((rel, "\n".join(diff)))
+        if self.apply and tier1_text != raw:
+            with open(full, "w", encoding="utf-8") as fh:
+                fh.write(tier1_text)
+
+    def value_spans(self, rel, raw):
+        """For JSON, the raw span of each string value, so a rewrite of a decoded
+        offset lands exactly. For text, None: offsets are the raw offsets."""
+        if not rel.endswith(".json"):
+            return None
+        return json_spans(raw)
+
+    def rewrite(self, raw, spans, items):
+        """Replace each occurrence by absolute offset, right to left."""
+        edits = []
+        lines_start = self.line_starts(raw)
+        for ref, new in items:
+            off = lines_start[ref.line - 1] + ref.col
+            if raw[off:off + len(ref.token)] != ref.token:
+                found = raw.find(ref.token, max(0, off - 200), off + 200)
+                if found < 0:
+                    continue
+                off = found
+            edits.append((off, off + len(ref.token), new))
+        out = raw
+        for start, end, new in sorted(edits, reverse=True):
+            out = out[:start] + new + out[end:]
+        return out
+
+    @staticmethod
+    def line_starts(raw):
+        starts, pos = [0], 0
+        for line in raw.split("\n")[:-1]:
+            pos += len(line) + 1
+            starts.append(pos)
+        return starts
+
+    # -- file renames --------------------------------------------------
+
+    def plan_file_renames(self):
+        for old, new in self.mapping.path_rules:
+            src = os.path.join(self.store.root, old)
+            if not self.store.exists_exact(src):
+                continue
+            rel_zone = self.store.zone_of(old)
+            floor = self.store.tier_floor(rel_zone)
+            tier = max(1, floor)
+            entry = {"old": old, "new": new, "zone": rel_zone, "tier": tier,
+                     "case_only": old.lower() == new.lower() and old != new}
+            self.file_renames.append(entry)
+
+    def preflight_rename(self, old, new):
+        """Refuse the whole run rather than half-apply it."""
+        root = self.store.root
+        src, dst = os.path.join(root, old), os.path.join(root, new)
+        self.store._dircache.pop(os.path.dirname(src), None)
+        self.store._dircache.pop(os.path.dirname(dst), None)
+        if not self.store.exists_exact(src):
+            raise Refused("%s is not there under that exact name; nothing was written" % old)
+        if self.store.exists_exact(dst):
+            raise Refused("%s already exists; refusing to overwrite. Nothing was written." % new)
+
+    def rename_file(self, old, new, entry):
+        root = self.store.root
+        src, dst = os.path.join(root, old), os.path.join(root, new)
+        parent = os.path.dirname(dst)
+        if not os.path.isdir(parent):
+            os.makedirs(parent)
+        # os.path.exists lies here, so ask the directory itself.
+        self.store._dircache.pop(os.path.dirname(src), None)
+        self.store._dircache.pop(parent, None)
+        if not self.store.exists_exact(src):
+            raise Refused("%s is not there under that exact name" % old)
+        if self.store.exists_exact(dst):
+            raise Refused("%s already exists; refusing to overwrite" % new)
+        tmp = src + TMP_SUFFIX
+        os.rename(src, tmp)                     # two-step: case-only renames are
+        try:                                    # a no-op in one step on this
+            os.rename(tmp, dst)                 # case-insensitive filesystem
+        except OSError:
+            os.rename(tmp, src)
+            raise Refused("could not rename %s to %s; restored" % (old, new))
+        self.store._dircache.pop(os.path.dirname(src), None)
+        self.store._dircache.pop(parent, None)
+        if not self.store.exists_exact(dst) or self.store.exists_exact(src):
+            raise Refused("rename of %s did not take by exact name" % old)
+        entry["applied"] = True
+
+
+def render(r, mapping, as_json, applied):
+    if as_json:
+        print(json.dumps({
+            "applied": applied,
+            "pre_counts": r.pre_counts,
+            "tier1": r.changes,
+            "tier2": r.proposed,
+            "tier3": r.untouched,
+            "file_renames": r.file_renames,
+            "out_of_range": r.skipped,
+            "diffs": [{"file": f, "diff": d} for f, d in r.diffs],
+        }, indent=1))
+        return 0
+    if not r.pre_counts and not r.file_renames:
+        print("cockpit-rename: nothing to do - no live occurrence matches the mapping.")
+        return 0
+    print("Pre-pass counts (tier 1 and 2, the proof a later run must drive to zero):")
+    for tok in sorted(r.pre_counts):
+        print("  %-52s %d" % (tok, r.pre_counts[tok]))
+    print("\nTier 1 - %s (%d):" % ("applied" if applied else "would apply", len(r.changes)))
+    for c in r.changes[:200]:
+        print("  %s:%d  %s -> %s  [%s]" % (c["file"], c["line"], c["old"], c["new"], c["field"]))
+    if len(r.changes) > 200:
+        print("  ... %d more" % (len(r.changes) - 200))
+    print("\nTier 2 - proposed, never applied (%d in %d files):"
+          % (len(r.proposed), len(r.diffs)))
+    for rel, _d in r.diffs:
+        n = len([p for p in r.proposed if p["file"] == rel])
+        print("  %-60s %d" % (rel, n))
+    if r.skipped:
+        print("\nOut of range for the renamed prefix - listed, left as is (%d):" % len(r.skipped))
+        seen = {}
+        for s in r.skipped:
+            seen.setdefault(s["token"], []).append(s)
+        for tok in sorted(seen):
+            first = seen[tok][0]
+            print("  %-10s %d occurrence(s), first at %s:%d - outside the renamed range, kept"
+                  % (tok, len(seen[tok]), first["file"], first["line"]))
+    if r.untouched:
+        print("\nTier 3 - never touched, never proposed (%d):" % len(r.untouched))
+        shown = {}
+        for u in r.untouched:
+            key = (u["file"], u["why"])
+            shown[key] = shown.get(key, 0) + 1
+        for (rel, why), n in sorted(shown.items()):
+            print("  %-52s %-22s %d" % (rel, why, n))
+    if r.file_renames:
+        print("\nFile renames:")
+        for f in r.file_renames:
+            state = "applied" if f.get("applied") else ("would apply" if f["tier"] == 1 else
+                                                        "proposed only (tier %d, %s)" % (f["tier"], f["zone"]))
+            extra = " [case-only, two-step]" if f["case_only"] else ""
+            print("  %s -> %s  %s%s" % (f["old"], f["new"], state, extra))
+    if r.diffs:
+        print("\n" + "=" * 70)
+        for rel, d in r.diffs:
+            print(d)
+            print("")
+    if not applied:
+        print("Dry run: nothing was written. Re-run with --apply and an explicit --root to apply tier 1.")
+    else:
+        print("Applied tier 1 only. Tier 2 is above as diffs for a reviewer; nothing was committed.")
+    return 0
+
+
+def parse_pair(a, what):
+    if "=" not in a:
+        raise Refused("%s expects OLD=NEW, got %r" % (what, a))
+    old, new = a.split("=", 1)
+    if not old or not new:
+        raise Refused("%s expects OLD=NEW, got %r" % (what, a))
+    return old, new
+
+
+def main(argv):
+    root = None
+    root_explicit = False
+    apply_changes = False
+    as_json = False
+    pending = []
+    from_file = None
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a == "--root" and i + 1 < len(argv):
+            root, root_explicit = argv[i + 1], True
+            i += 2
+        elif a.startswith("--root="):
+            root, root_explicit = a.split("=", 1)[1], True
+            i += 1
+        elif a in ("--id", "--path", "--prefix") and i + 1 < len(argv):
+            pending.append((a[2:], argv[i + 1]))
+            i += 2
+        elif a == "--from" and i + 1 < len(argv):
+            from_file = argv[i + 1]
+            i += 2
+        elif a == "--apply":
+            apply_changes = True
+            i += 1
+        elif a == "--json":
+            as_json = True
+            i += 1
+        elif a in ("-h", "--help"):
+            sys.stdout.write(__doc__)
+            return 0
+        else:
+            sys.stderr.write("cockpit-rename: unknown option %r\n" % a)
+            return 2
+    try:
+        if apply_changes and not root_explicit:
+            raise Refused("--apply needs an explicit --root on the command line. "
+                          "This is what stops an apply landing on the real cockpit by accident.")
+        if root is None:
+            d = os.path.dirname(os.path.abspath(__file__))
+            while d != os.path.dirname(d):
+                if os.path.isdir(os.path.join(d, "base", "store")):
+                    root = d
+                    break
+                d = os.path.dirname(d)
+            if root is None:
+                raise Refused("no cockpit root found (no base/store above me)")
+        store = Store(os.path.realpath(root))
+        mapping = Mapping(store)
+        if from_file:
+            with open(from_file, "r", encoding="utf-8") as fh:
+                spec = json.load(fh)
+            for kind in ("prefix", "id", "path"):
+                for old, new in (spec.get(kind + "s") or {}).items():
+                    pending.append((kind, "%s=%s" % (old, new)))
+        for kind, arg in pending:
+            old, new = parse_pair(arg, "--" + kind)
+            if kind == "prefix":
+                mapping.add_prefix(old, new)
+            elif kind == "id":
+                mapping.add_id(old, new)
+            else:
+                mapping.add_path(old, new)
+        if mapping.empty():
+            raise Refused("no mapping given; pass --id, --path, --prefix or --from")
+        r = Renamer(store, mapping, apply_changes)
+        r.check_order()
+        r.run()
+    except Refused as exc:
+        sys.stderr.write("cockpit-rename: %s\n" % exc)
+        return 2
+    except StoreError as exc:
+        sys.stderr.write("cockpit-rename: store error: %s\n" % exc)
+        return 2
+    except Exception as exc:  # fail closed, as the guard does
+        sys.stderr.write("cockpit-rename: tool error (%s: %s)\n" % (type(exc).__name__, exc))
+        return 2
+    return render(r, mapping, as_json, apply_changes)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "updated": "2026-09-20",
+  "purpose": "Fixture orders register.",
+  "orders": [
+    {
+      "id": "O001",
+      "date": "2026-09-17",
+      "text": "\"Founding order, quoted verbatim.\"",
+      "session": null,
+      "superseded_by": null
+    },
+    {
+      "id": "O048",
+      "date": "2026-09-20",
+      "text": "\"Ruling recorded. (O001 is not very readable) so it will be tidied later.\"",
+      "session": null,
+      "superseded_by": null
+    }
+  ]
+}

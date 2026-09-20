@@ -1,0 +1,197 @@
+{
+  "kind": "cockpit-prefix-table",
+  "version": 1,
+  "updated": "2026-09-20",
+  "purpose": "One row per identifier prefix. A row is the whole truth about that prefix, including its future. States: live (ids minted, must resolve), planned (ruled but nothing minted), retired (no successor, ever), superseded (the rename has run; resolves only in frozen and scratch). After the identifier pass the pilot flips live->superseded and planned->live; nothing else changes.",
+  "invariant": "Exactly one minting register per prefix segment. P is the only prefix with two segments, by the commander's reassignment (O046, DS006).",
+  "prefixes": [
+    {
+      "prefix": "DS",
+      "name": "Dossier",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": {"file": "commanders-desk/in-dossiers/dossiers.json", "array": "dossiers", "id_field": "id"},
+      "succession": {"type": "renamed", "to": "Ds", "keep_number": true}
+    },
+    {
+      "prefix": "P",
+      "name": "Proposal or Procedure",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "note": "Reassigned by the commander: below 101 is a request, from 101 a procedure. Range-qualified so a rename can never turn P101 into Rq101.",
+      "segments": [
+        {
+          "range": [1, 100],
+          "name": "Request",
+          "addressed": "id",
+          "state": "live",
+          "register": {"file": "base/proposals.json", "array": "proposals", "id_field": "id"},
+          "succession": {"type": "renamed", "to": "Rq", "keep_number": true}
+        },
+        {
+          "range": [101, 999],
+          "name": "Procedure",
+          "addressed": "both",
+          "state": "planned",
+          "register": {"file": "procedures/procedures.json", "array": "items", "id_field": "id"},
+          "succession": {"type": "none"}
+        }
+      ]
+    },
+    {
+      "prefix": "O",
+      "name": "Order",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": {"file": "quarters/commander/orders.json", "array": "orders", "id_field": "id"},
+      "succession": {"type": "renamed", "to": "Or", "keep_number": true}
+    },
+    {
+      "prefix": "D",
+      "name": "Decision",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": {"file": "base/decisions.json", "array": "decisions", "id_field": "id"},
+      "succession": {"type": "renamed", "to": "De", "keep_number": true}
+    },
+    {
+      "prefix": "S",
+      "name": "Spark",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": {"file": "missions/incubator/incubator.json", "array": "sparks", "id_field": "id"},
+      "succession": {"type": "renamed", "to": "Sp", "keep_number": true}
+    },
+    {
+      "prefix": "W",
+      "name": "Workshop item",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": {"file": "workshop/workshop.json", "array": "items", "id_field": "id"},
+      "succession": {"type": "renamed", "to": "WS", "keep_number": true}
+    },
+    {
+      "prefix": "M",
+      "name": "Mission",
+      "addressed": "both",
+      "state": "live",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": {"file": "missions/missions.json", "array": "missions", "id_field": "id"},
+      "succession": {"type": "none"}
+    },
+    {
+      "prefix": "T",
+      "name": "Dispatch",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": {"file": "dispatch/cockpit.json", "array": "teams", "id_field": "id"},
+      "succession": {"type": "none"}
+    },
+    {
+      "prefix": "CA",
+      "name": "Commanders Advice",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "commander-reviewed",
+      "range": [1, 999],
+      "register": null,
+      "resolve_by": {"files": "commanders-desk/out-advice/CA###.md"},
+      "until": "CA gets MANIFEST-commander-advice.json; then this row takes a register like any other",
+      "succession": {"type": "none"}
+    },
+    {
+      "prefix": "C",
+      "name": "Crew dispatch (retired)",
+      "addressed": "id",
+      "state": "retired",
+      "zone_default": "frozen",
+      "range": [1, 999],
+      "register": {"file": "logs/crew-manifest.json", "array": "dispatches", "id_field": "id"},
+      "succession": {"type": "retired", "to": null},
+      "note": "Minted only in the frozen crew manifest, superseded by T. Never reissued. The rename tool refuses it."
+    },
+    {
+      "prefix": "Ds",
+      "name": "Dossier",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": null,
+      "succession": {"type": "none"}
+    },
+    {
+      "prefix": "Rq",
+      "name": "Request",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": null,
+      "succession": {"type": "none"}
+    },
+    {
+      "prefix": "Or",
+      "name": "Order",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": null,
+      "succession": {"type": "none"}
+    },
+    {
+      "prefix": "De",
+      "name": "Decision",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": null,
+      "succession": {"type": "none"}
+    },
+    {
+      "prefix": "Sp",
+      "name": "Spark",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": null,
+      "succession": {"type": "none"}
+    },
+    {
+      "prefix": "WS",
+      "name": "Work shop item",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [1, 999],
+      "register": null,
+      "succession": {"type": "none"}
+    }
+  ],
+  "known_gaps": [
+    {"id": "S005", "reason": "never minted; recorded as a permanent gap rather than backfilled (DS006, paper-final area 2)"}
+  ],
+  "planned_ids": [
+    {"id": "M003", "source": "P004", "reason": "mission proposed to the commander, not yet opened"},
+    {"id": "M004", "source": "P004", "reason": "mission proposed to the commander, not yet opened"},
+    {"id": "M005", "source": "P004", "reason": "mission proposed to the commander, not yet opened"},
+    {"id": "M006", "source": "P004", "reason": "mission proposed to the commander, not yet opened"}
+  ]
+}

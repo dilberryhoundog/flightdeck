@@ -1,0 +1,358 @@
+{
+  "kind": "cockpit-prefix-table",
+  "version": 1,
+  "updated": "2026-09-20",
+  "prefixes": [
+    {
+      "prefix": "DS",
+      "name": "Dossier",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": {
+        "file": "commanders-desk/in-dossiers/dossiers.json",
+        "array": "dossiers",
+        "id_field": "id"
+      },
+      "succession": {
+        "type": "renamed",
+        "to": "Ds",
+        "keep_number": true
+      }
+    },
+    {
+      "prefix": "Ds",
+      "name": "Dossier (renamed)",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": null,
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "P",
+      "name": "Proposal",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "segments": [
+        {
+          "range": [
+            1,
+            100
+          ],
+          "name": "Request",
+          "register": {
+            "file": "base/proposals.json",
+            "array": "proposals",
+            "id_field": "id"
+          },
+          "state": "live",
+          "succession": {
+            "type": "renamed",
+            "to": "Rq",
+            "keep_number": true
+          }
+        },
+        {
+          "range": [
+            101,
+            999
+          ],
+          "name": "Procedure",
+          "register": {
+            "file": "procedures/procedures.json",
+            "array": "procedures",
+            "id_field": "id"
+          },
+          "state": "planned",
+          "succession": {
+            "type": "none"
+          }
+        }
+      ]
+    },
+    {
+      "prefix": "Rq",
+      "name": "Request (renamed)",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [
+        1,
+        100
+      ],
+      "register": null,
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "O",
+      "name": "Order",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": {
+        "file": "quarters/commander/orders.json",
+        "array": "orders",
+        "id_field": "id"
+      },
+      "succession": {
+        "type": "renamed",
+        "to": "Or",
+        "keep_number": true
+      }
+    },
+    {
+      "prefix": "Or",
+      "name": "Order (renamed)",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": null,
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "D",
+      "name": "Decision",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": {
+        "file": "base/decisions.json",
+        "array": "decisions",
+        "id_field": "id"
+      },
+      "succession": {
+        "type": "renamed",
+        "to": "De",
+        "keep_number": true
+      }
+    },
+    {
+      "prefix": "De",
+      "name": "Decision (renamed)",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": null,
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "S",
+      "name": "Session entry",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": {
+        "file": "logs/index.json",
+        "array": "entries",
+        "id_field": "id"
+      },
+      "succession": {
+        "type": "renamed",
+        "to": "Sp",
+        "keep_number": true
+      }
+    },
+    {
+      "prefix": "Sp",
+      "name": "Session entry (renamed)",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": null,
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "W",
+      "name": "Workshop item",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": {
+        "file": "workshop/workshop.json",
+        "array": "items",
+        "id_field": "id"
+      },
+      "succession": {
+        "type": "renamed",
+        "to": "WS",
+        "keep_number": true
+      }
+    },
+    {
+      "prefix": "WS",
+      "name": "Workshop item (renamed)",
+      "addressed": "id",
+      "state": "planned",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": null,
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "M",
+      "name": "Mission",
+      "addressed": "both",
+      "state": "live",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": {
+        "file": "missions/missions.json",
+        "array": "missions",
+        "id_field": "id",
+        "name_field": "title"
+      },
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "T",
+      "name": "Team",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": {
+        "file": "dispatch/cockpit.json",
+        "array": "teams",
+        "id_field": "id"
+      },
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "CA",
+      "name": "Commander advice",
+      "addressed": "id",
+      "state": "live",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": null,
+      "resolve_by": {
+        "files": "commanders-desk/out-advice/CA###.md"
+      },
+      "until": "CA gets MANIFEST-commander-advice.json",
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "C",
+      "name": "Crew",
+      "addressed": "id",
+      "state": "retired",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": {
+        "file": "logs/crew-manifest.json",
+        "array": "crew",
+        "id_field": "id"
+      },
+      "succession": {
+        "type": "none"
+      }
+    },
+    {
+      "prefix": "Q",
+      "name": "Quartermaster note (fixture-only, already renamed)",
+      "addressed": "id",
+      "state": "superseded",
+      "zone_default": "live",
+      "range": [
+        1,
+        999
+      ],
+      "register": null,
+      "succession": {
+        "type": "none"
+      }
+    }
+  ],
+  "known_gaps": [
+    "S005"
+  ],
+  "planned_ids": [
+    {
+      "id": "M003",
+      "source": "P004"
+    },
+    {
+      "id": "M004",
+      "source": "P004"
+    },
+    {
+      "id": "M005",
+      "source": "P004"
+    },
+    {
+      "id": "M006",
+      "source": "P004"
+    }
+  ]
+}

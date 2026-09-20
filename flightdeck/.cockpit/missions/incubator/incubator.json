@@ -66,6 +66,22 @@
       "raised_on": "2026-09-18",
       "heat": "hot",
       "promoted_to": "M002"
+    },
+    {
+      "id": "S010",
+      "title": "A CLAUDE.md excellence team",
+      "file": "S010-claude-md-excellence-team.md",
+      "raised_by": "commander",
+      "raised_on": "2026-09-20",
+      "heat": "warm"
+    },
+    {
+      "id": "S011",
+      "title": "Cockpit context on an orphan branch with quickfire commits",
+      "file": "S011-orphan-branch.md",
+      "raised_by": "commander",
+      "raised_on": "2026-09-20",
+      "heat": "cool"
     }
   ]
 }

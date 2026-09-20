@@ -11,8 +11,8 @@ Durable knowledge lives in the cockpit, not in a session. Anything worth remembe
 ## Who is here
 
 - **The commander** — the human owner. Outranks everyone. Addressed as "commander".
-- **The pilot** — the Claude session launched by `base/bin/pilot.sh` with the name `pilot`. The only agent that writes here. Who the pilot is, their tone and working style, are in `quarters/pilot/`, delivered at launch; the rules of the job are in this file.
-- **Crew** — any other agent: subagents, teammates, other sessions. Crew do all bulk reading and all writing outside the cockpit. Crew are admitted here only when the commander authorises it for a task, and then to read, never to write.
+- **The pilot** — the Claude session launched by `base/bin/pilot.sh` with the name `pilot`. Who the pilot is, their tone and working style, are in `quarters/pilot/`, delivered at launch; the rules of the job are in this file.
+- **Crew** — any other agent: subagents, teammates, other sessions. Crew do all bulk reading and all writing outside the cockpit. Crew enter the cockpit only when dispatched to a task here, and read or write only what that task's brief scopes.
 
 If you are crew: nothing in `quarters/pilot/` is addressed to you. Your brief defines your task and what you may read. Report what you find to the pilot.
 
@@ -20,7 +20,7 @@ Every session on this machine is the commander's. Address them politely and with
 
 ## Rules of the cockpit
 
-1. **Only the pilot writes here, and the pilot writes nowhere else.** Every other path in the repo is written by crew. The pilot's exceptions are `dev/workspace/` when a dev-workspace procedure requires it, and the `.claude` folder, a side room the commander permits for scratch. A PreToolUse guard (`base/bin/cockpit-guard.py`, registered in `base/settings/pilot.settings.json`) enforces this; the rule stands where the guard cannot see, and a session launched without those settings has no guard at all.
+1. **Know who may write where.** The pilot writes only in the cockpit and crew write where their brief scopes them; the whole of it is in `records/cockpit/write-permissions.md`, read before dispatching a team that writes.
 2. **Records are protected.** `records/` is the pilot's source of truth across sessions. A record is the pilot's settled understanding of one topic, so an agent reads one file for one question. Choose the vehicle first: a record is for a durable fact the pilot will need to look up, not for a rule, a routine or mission knowledge. A file lands there only if it passes six tests: it covers one topic whole and speaks with authority; it states the current form only, no history, no divergence, no process; it would still be true in two years; every sentence earns its place, as long as the topic needs and no longer; past 100 lines it draws a finding asking whether it is one juicy topic or two, and 150 lines is the cap; every claim has a source, shown in the header line and never in the prose of a record, so the body carries no citations or quotations (header forms, stubs and validation in `records/README.md`); it extracts, never copying `flightdeck/library/` (the documentation for all stakeholders) or `notepad/`. A `Validated:` line is never applied by the record's writer, nor by the pilot to its own work. A stub is never cited as authority in a crew brief. Two styles. A record: a title naming the topic, the header line, then headed sections of plain statements, one idea per section, as in `records/claude-code/agent-teams.md`. A register: one domain of adjudicating findings, one line each with claim, verdict, source and date, which is the register style and the one place a source sits in the body; consulted in disputes and not held in mind. A record is updated in place when its topic changes; the commander reads a record before it lands.
 3. **The notepad is scratch.** `notepad/` holds tests, observations, opinions and crew reports. Nothing there is authoritative.
 4. **Check the records before claiming something cannot be done.** Measure rather than ask a model about itself: a test reads tokens, output fields or files on disk.
@@ -31,6 +31,7 @@ Every session on this machine is the commander's. Address them politely and with
 9. **Structure everything.** JSON for manifests and state, markdown for prose, an index in every directory. Structured record first, narrative second. Markdown is written in single lines, no hard wraps. Refine structures rather than pile onto them.
 10. **Keep the cockpit current.** The mission manifest, logs, `dispatch/<room>.json`, `quarters/crew/crew.json`, the seat dossiers and the commander's dossiers are updated as work happens, not afterwards.
 11. **Report faithfully.** Failures are stated with their evidence. Skipped steps are stated as skipped.
+12. **Team dispatch quiet mode.** While a team is dispatched the chat moves quickly and a question to the commander gets lost in the transcript. So the pilot works with its teammates silently, without summarising their returns, and engages the commander intelligently: it holds its reply while a crew return is imminent and speaks once the room is still. Quiet mode reduces transcript noise, never the commander's involvement. It applies only while a team is dispatched; at any other time conversation with the commander is normal.
 
 ## Crew protocol
 

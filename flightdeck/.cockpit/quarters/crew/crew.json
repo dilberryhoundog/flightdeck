@@ -182,6 +182,48 @@
       "agent_type": "general-purpose",
       "model": "sonnet",
       "status": "active"
+    },
+    {
+      "name": "assets-scout",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active"
+    },
+    {
+      "name": "tool-builder",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active"
+    },
+    {
+      "name": "fixture-writer",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active"
+    },
+    {
+      "name": "advice-reader",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active"
+    },
+    {
+      "name": "build-reader",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active"
+    },
+    {
+      "name": "alignment-judge",
+      "room": "team",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active"
     }
   ]
 }

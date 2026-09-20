@@ -1,3 +1,12 @@
+---
+type: "Dossier"
+unit: "DS001"
+stamp: "2026-09-18", "Pilot: Ace", "session dcb75456"
+work: "M001"
+context: "notepad/recon-2026-09-18/ (five teammates, seven explorers, every report verified by the pilot against git or official docs)"
+generates: "P004", "P005", "P006", "P007"
+---
+
 # DS001 — Flightcrew recon: where the system stands and what to fly next
 
 - **Written:** 2026-09-18 by the pilot (Ace), session dcb75456

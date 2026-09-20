@@ -1,0 +1,104 @@
+{
+  "kind": "cockpit-field-map",
+  "version": 1,
+  "updated": "2026-09-20",
+  "fields": [
+    {
+      "name": "orders",
+      "match": "quarters/commander/orders.json",
+      "whole_value": [
+        "orders[].id",
+        "orders[].superseded_by"
+      ],
+      "verbatim": [
+        "orders[].text"
+      ]
+    },
+    {
+      "name": "topics-unit",
+      "match": "logs/topics/*.json",
+      "whole_value": [
+        "record",
+        "statements[].ref",
+        "statements[].superseded_by"
+      ],
+      "verbatim": [
+        "statements[].statement"
+      ]
+    },
+    {
+      "name": "decisions",
+      "match": "base/decisions.json",
+      "whole_value": [
+        "decisions[].id",
+        "decisions[].proposal"
+      ],
+      "verbatim": []
+    },
+    {
+      "name": "proposals",
+      "match": "base/proposals.json",
+      "whole_value": [
+        "proposals[].id"
+      ],
+      "verbatim": []
+    },
+    {
+      "name": "procedures",
+      "match": "procedures/procedures.json",
+      "whole_value": [
+        "procedures[].id"
+      ],
+      "verbatim": []
+    },
+    {
+      "name": "dossiers",
+      "match": "commanders-desk/in-dossiers/dossiers.json",
+      "whole_value": [
+        "dossiers[].id",
+        "dossiers[].advice_copy"
+      ],
+      "verbatim": []
+    },
+    {
+      "name": "missions",
+      "match": "missions/missions.json",
+      "whole_value": [
+        "missions[].id"
+      ],
+      "verbatim": []
+    },
+    {
+      "name": "workshop",
+      "match": "workshop/workshop.json",
+      "whole_value": [
+        "items[].id"
+      ],
+      "verbatim": []
+    },
+    {
+      "name": "teams",
+      "match": "dispatch/cockpit.json",
+      "whole_value": [
+        "teams[].id"
+      ],
+      "verbatim": []
+    },
+    {
+      "name": "crew-manifest",
+      "match": "logs/crew-manifest.json",
+      "whole_value": [
+        "crew[].id"
+      ],
+      "verbatim": []
+    },
+    {
+      "name": "index",
+      "match": "logs/index.json",
+      "whole_value": [
+        "entries[].id"
+      ],
+      "verbatim": []
+    }
+  ]
+}

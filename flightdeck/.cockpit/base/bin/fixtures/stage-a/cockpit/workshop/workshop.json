@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "updated": "2026-09-20",
+  "items": [
+    {
+      "id": "W001",
+      "title": "Fixture workshop item"
+    },
+    {
+      "id": "T001",
+      "note": "Second-register drift: a team id minted here instead of in dispatch/cockpit.json."
+    },
+    {
+      "id": "WS001",
+      "title": "Planned successor id, a whole-value id candidate: --id W001=W001x must never touch this row."
+    }
+  ]
+}

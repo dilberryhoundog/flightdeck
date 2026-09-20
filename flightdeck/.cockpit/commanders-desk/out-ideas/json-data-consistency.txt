@@ -1,0 +1,24 @@
+Create consistency in json data.
+
+MANIFESTS:
+lightweight named manifest (recognisable in streaming output) eg orders/MANIFEST-orders.json
+points towards JSON file units. eg orders/Or001.json
+
+IDENTIFIERS:
+shape = <abbreviation> + <number>
+abbreviation = 1-3 letters.
+  single capital - commonly recognised units. eg teams = T, Procedure = P
+  double/triple capital - Reconisable words combined. eg Commanders Advice = CA
+  number - 3 digits. eg 001, 002,
+
+NAMING:
+- change desk/in/proposals to desk/in/requests. Prevents conflict with procedure ID. eg Rq001, Rq002. Replace existing "proposal" and "P" references.
+
+The manifest records the collection of units. token efficient, enough data for unit disclosure.
+Units allow rich recording of data. prevents large singular files of data that blows budgets.
+Flow = agent needs context --> manifest --> unit
+
+Identifiers used across the application. each ID mentioned in claude.md simple two column table.
+suggested patterns Ds = dossier, P = procedure,
+
+Pilot requests changes to commander. refactor team helps, including mini adversaries.

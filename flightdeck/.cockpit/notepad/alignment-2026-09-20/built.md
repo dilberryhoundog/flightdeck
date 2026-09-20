@@ -1,0 +1,43 @@
+# Built inventory — Stage A paperwork check (T013 build-reader, clerical, no judgement)
+
+B1. `base/store/prefixes.json` — data: one row per id prefix (name, register, range, state, succession); 197 lines, 6633 bytes. Reads: nothing (data file). Written by: the pilot by hand. Read by: `cockpit_store.py`. To keep working: a person adds/edits a row when a new prefix, register, range or succession changes.
+B2. `base/store/zones.json` — data: ordered path-glob rules mapping paths to a zone, plus per-zone read/tier_floor; 28 lines, 2868 bytes. Read by: `cockpit_store.py`. To keep working: a person adds a rule when a new room/path needs a non-default zone.
+B3. `base/store/fields.json` — data: per JSON document kind, which field paths are `whole_value` or `verbatim`, plus the quoted-span rule text; 117 lines, 4466 bytes. Read by: `cockpit_store.py`. To keep working: a person adds an entry when a new JSON document kind is introduced or a field's reference shape changes.
+B4. `base/store/paths.json` — data: `renames` (old→new pairs), `planned` paths, `external` roots; 50 lines, 2155 bytes. Read by: `cockpit_store.py`, `cockpit-check` (replacement lookup), `cockpit-rename` (ordering gate). To keep working: a person adds a rename row when a file moves, a planned row when a room is ruled but not yet on disk, an external row for a root outside the branch.
+B5. `base/store/README.md` — prose describing the 4 store files and the rules they encode; 39 lines, 5441 bytes. Reads: describes the other store files. To keep working: a person updates it when a store file's shape or a rule changes.
+B6. `base/bin/cockpit_store.py` — shared library, not run directly; 740 lines, 29372 bytes. Loads and validates the store, builds the id regex, computes zone-of-path, walks JSON string values by raw span, scans text/JSON for id and path candidates, resolves paths case-sensitively. Reads: the 4 store files, every text/json file it is asked to scan. Writes: nothing, ever (stated in its own docstring). To keep working: a person edits it when the id/path pattern, zone logic, or field-walking behaviour must change; both `cockpit-check` and `cockpit-rename` import it.
+B7. `base/bin/cockpit-check` — tool, entry point; 470 lines, 20308 bytes. Reads: the store, the cockpit tree per zone rules. Writes: nothing (no `--fix` exists). To keep working: a person edits it to change what counts as a finding, a note, or the CLI surface (`--root`, `--zone`, `--json`, positional PATH).
+B8. `base/bin/cockpit-rename` — tool, entry point; 513 lines, 21416 bytes. Reads: the store, the cockpit tree (zones `live` + `commander-reviewed` only). Writes: tier-1 fields and tier-1 file renames, only under `--apply` with an explicit `--root`. To keep working: a person edits it to change mapping rules (`--id`/`--path`/`--prefix`/`--from`), the ordering gate, or the tier-1/tier-2 split.
+B9. `base/bin/test_cockpit_check.py` — table test, 17 cases; 440 lines, 20764 bytes. Reads: `base/bin/fixtures/stage-a/cockpit`, `base/bin/fixtures/stage-a/broken-store`, and (case 2) the real cockpit root narrowed to `base/bin/fixtures`. Writes: nothing (asserted by tree-hash before/after every case). To keep working: a person adds/edits a case when `cockpit-check` behaviour changes, and keeps the case's fixture lines matched by the `line_of(...)` needles it searches for.
+B10. `base/bin/test_cockpit_rename.py` — table test, 13 cases; 360 lines, 17243 bytes. Reads: `base/bin/fixtures/stage-a/cockpit`, via `shutil.copytree` into a tempdir per case. Writes: only inside its own tempdir copies, cleaned up at exit. To keep working: a person adds/edits a case when `cockpit-rename` behaviour changes, matching the fixture content each case depends on.
+B11. `base/bin/fixtures/stage-a/` — fixture tree, one item: `cockpit/` (a miniature cockpit, 28 files) plus `broken-store/` (4 files, a store with a duplicate prefix row) plus a nested `cockpit/base/bin/fixtures/poison/` (2 files, planted broken refs and a duplicate register, used to prove the exclusion rule); 32 files total, 1382 lines total. Read by: both test files, read-only. To keep working: a person edits the fixture content in step with whatever new case a test needs, and re-checks every `line_of(...)` needle in both test files still finds its line.
+
+## Capabilities inside the two tools and the shared library
+
+B12. Reports unresolved ids — `cockpit-check` / `Checker.check_id` (`cockpit-check:75-125`). Person edits `cockpit-check` to change the message or resolution order.
+B13. Reports unresolved paths — `cockpit-check` / `Checker.check_path` (`cockpit-check:138-157`). Person edits `cockpit-check`.
+B14. `--zone live|frozen|commander|all` selection — `cockpit-check:24-29,403-437`. Person edits `ZONE_SETS` and the arg parser to add a zone name.
+B15. `--json` machine output — both tools (`cockpit-check:356-370`, `cockpit-rename:358-370`). Person edits the `render()` function in whichever tool.
+B16. Second-register detection (an id minted outside its declared register) — `cockpit_store.py` (store loading) + `cockpit-check:304-344`. Person edits `check_second_registers`.
+B17. Store-rot detection (a `planned_id` since minted, a stale `source`, a `planned` path that now exists) — `cockpit-check:273-303`. Person edits `check_store_rot`.
+B18. Quoted-span tier-3 pinning (a quotation inside JSON prose is read, reported, never rewritten) — `cockpit_store.py` `_scan_json` (`cockpit_store.py:556-600`). Person edits the `quoted_spans`/`_is_whole` logic.
+B19. Proposes diffs, tier 2, never applied — `cockpit-rename` `Renamer.do_file` (`cockpit-rename:241-272`). Person edits the diff assembly.
+B20. Applies whole-value renames, tier 1, only under `--apply` — `cockpit-rename` `Renamer.run`/`do_file` (`cockpit-rename:206-272`). Person edits the tier-1 write path.
+B21. Zones read vs written — `WRITABLE_ZONES`/`COUNTED_ZONES` constants (`cockpit-rename:32-33`) plus `ZONE_BEHAVIOUR` (`cockpit_store.py:24-31`). Person edits either constant list to change which zones a tool touches or counts.
+B22. Tier classification (1/2/3) from field-declaration + whole-value test + zone floor — `cockpit_store.py` `_scan_json`/`_is_whole` (`cockpit_store.py:565-600`), shared by both tools. Person edits this shared method to change the tier rule itself.
+B23. Planned ids / planned prefix / known-gap notes (never findings) — `cockpit-check:87-96`. Person edits `check_id`'s early-return branches.
+B24. Ordering gate (refuses `--prefix` while a colliding path rename is outstanding) — `cockpit-rename` `Renamer.check_order` (`cockpit-rename:159-197`). Person edits the token-collision test.
+B25. Case-only file rename, two-step, case-sensitive verification — `cockpit-rename` `preflight_rename`/`rename_file` (`cockpit-rename:320-355`), using `Store.exists_exact` (`cockpit_store.py:282-290`). Person edits either method together, since they must agree on exactness.
+B26. Prefix succession / reassignment (P below 101 vs from 101; renamed/retired/superseded states) — `Mapping.add_prefix` (`cockpit-rename:51-70`) driven by `prefixes.json` `succession`/`state` fields (B1). Person edits `prefixes.json` for a new prefix's future, or `add_prefix` for a new succession type.
+B27. `--from FILE` bulk mapping (prefix/id/path keys read from one JSON file) — `cockpit-rename:481-486`. Person edits this block for a new input key.
+B28. Digit anchoring (`S` never matches `Sp`, `W` never matches `WS`) — the id regex, built longest-prefix-first in `Store._build` (`cockpit_store.py:164-166`). Person edits the regex construction if a new prefix collides with an existing one's suffix.
+
+## Measured facts
+
+- A clean run (fixture, one known-clean file, `missions/missions.json`): 57 bytes — `cockpit-check: clean - 2 ids, 0 paths, 1 files, 0 notes.`
+- Today's run (real cockpit, default `--zone live`): 12915 bytes, 3 id + 76 path findings (79 total) across 25 files, plus 1 store finding; `--zone all` widens to 15160 bytes, 7 id + 91 path (98 total) across 28 files.
+- Test run time: `test_cockpit_check.py` 0.981s total (17 cases, 0 failed); `test_cockpit_rename.py` 1.118s total (13 cases, 0 failed).
+
+## Things describing the SHAPE of a document (fields/sections a JSON document must have)
+
+`base/store/fields.json` — one entry per JSON document kind naming its `whole_value` and `verbatim` field paths (e.g. `orders[].id`, `orders[].text`). `base/store/prefixes.json` — one entry per prefix naming its register's `file`, `array` and `id_field`/`name_field`, i.e. the field an id sits in inside that document. No other store file, tool, or test declares a document's fields or sections.

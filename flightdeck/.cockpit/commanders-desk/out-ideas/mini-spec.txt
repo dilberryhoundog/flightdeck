@@ -1,0 +1,23 @@
+Build a mini-spec team.
+Call it with a "before building" procedure.
+
+Suggested roster.
+commander-advocate:
+  Crew adversary, assumes the team is not building to commanders' vision, finds where. (also researches commanders' input sources, probes pilot to where it thinks there is a gap in commanders' advice)
+
+done-decider:
+  Shapes what done looks like from pilot initial sources. receives commander-advocate's findings. builds a mini-spec.
+  - mini-spec; goal, scope in & out, constraints, decisions, etc. (research a good fit for lightweight build spec, flightcrew uses a "full" version, with a complete spec-builder agent as inspiration)
+
+verification-provider:
+  Decides how the builder can verify they have built the right thing. leans on team-based checking (adversaries) and lightweight throw away checks and existing lightweight test harnesses..
+
+The pilot presents this as a "build" Rq, with the mini-spec and verification, written in plain register. the mini-spec is a H2 with H3 spec sections in a list format. The verification is a H2 with all verifications a list format.
+
+Commander approval is sought, adjustment may happen, once settled building can happen
+
+Exploration Topics:
+- Is each seat adequate to satisfy flightcrew principles?
+- Is flightcrew principles replicated in lightweight mini form, that doesn't accumulate build and verification assets?
+- Any other seats that may improve the quality of the mini-spec?
+- Can or should this procedure be expanded to encompass the whole build process?

@@ -1,0 +1,16 @@
+{
+  "id": "sample-topic",
+  "title": "Fixture topic",
+  "scope": "Fixture only.",
+  "record": null,
+  "updated": "2026-09-20",
+  "statements": [
+    {
+      "ref": "commanders-desk/out-advice/DS001.md#DS001",
+      "date": "2026-09-20",
+      "statement": "Quoting the commander is fine, see \"C099\" for the illustration.",
+      "context": "fixture",
+      "superseded_by": null
+    }
+  ]
+}

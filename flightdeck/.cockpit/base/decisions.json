@@ -203,6 +203,22 @@
       "decision": "Commander approves: the pilot extracts procedures from live work and keeps them updated. The commander may advise and adjust procedures along the way. The starting procedures are all approved. This supersedes DS004 item 3's approval of each procedure singly before it lands: the pilot adds and updates, reports it in session and in the log, and the commander adjusts.",
       "by": "commander, P011 decision line",
       "proposal": "P011"
+    },
+    {
+      "id": "D026",
+      "date": "2026-09-20",
+      "subject": "P013 and who may write in the cockpit",
+      "decision": "Commander amends: write is a restriction of role, not of place. The pilot writes only in its cockpit; teams are dispatched for internal or external work and write to the project, a launch or the cockpit. A team fitting out the cockpit writes there directly, inside a scope given by the pilot; the pilot links the team to the commander and records its own and the team's actions. P013's outside-build route is replaced by a scoped build inside the cockpit. Rule 1 of CLAUDE.md and the crew line rewritten to match.",
+      "by": "commander, session b27e6c01",
+      "proposal": "P013"
+    },
+    {
+      "id": "D027",
+      "date": "2026-09-20",
+      "subject": "DS006's remaining decisions: advice files, lint strength, naming, manifests, rooms",
+      "decision": "Commander rules: the pilot repairs the identifiers in CA001 to CA003 itself, on its own judgement; a procedure should create an advice file with its metadata filled whenever a request is written. The lint is non-blocking: small output on success; on error, enough guidance to fix directly without a tool call, by a small edit rather than a large write; whatever saves the most tokens and reduces churn. Earlier in the session the commander ruled the identifier set and rule (O046 to O049), the room structure with notepad, manuals and extracts (O050), the context chain, one dispatch register and MANIFEST-<collection> naming matched to the ID's full name (O051, O052), and what gets an ID, a name or both (O053). The commander also ordered rule 12 of CLAUDE.md: the pilot holds crew returns quietly and speaks when the commander's input is needed.",
+      "by": "commander, session b27e6c01",
+      "proposal": "P013"
     }
   ],
   "fields_note": "superseded_by: present when a later decision replaces this one; the newer statement wins."

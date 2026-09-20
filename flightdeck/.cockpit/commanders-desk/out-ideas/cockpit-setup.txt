@@ -1,0 +1,45 @@
+change the cockpit structure, as fitout is cause it to settle differently than intended.
+
+Proposed Rooms:
+base/
+  bin/
+  settings/
+commander/
+  desk/
+    in/
+      dossiers/
+      proposals/
+    out/
+      advice/
+      ideas/
+  orders.json
+  decisions.json
+records/ (anything recorded)
+  logs/
+  extracts/
+    topics/
+  manuals/ (formerly records/, short references over a single topic)
+    claude-code/
+    flightcrew/
+  dispatch/
+      cockpit/
+        MANIFEST-dispatch-cockpit.json
+        T001.json
+      flightcrew/
+        MANIFEST-dispatch-flightcrew.json
+        T002.json
+work/ (The pilots work)
+  missions/
+  workshop/
+  procedures/
+team/ (any actor, role or combination of)
+  rosters/
+    MANIFEST-roster.json
+    mini-adversary.json
+  crew/
+    flightcrew/
+    general/
+    cockpit/
+  officers/ (controlling roles, human or agent)
+    commander/
+    pilot/

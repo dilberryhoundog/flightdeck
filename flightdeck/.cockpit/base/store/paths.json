@@ -1,0 +1,50 @@
+{
+  "kind": "cockpit-path-map",
+  "version": 1,
+  "updated": "2026-09-20",
+  "purpose": "Path renames awaiting repair, ruled-but-absent paths that are not findings, and roots that live outside this branch. Planned and external hits are counted as notes and never affect the exit code.",
+  "renames": [
+    {
+      "old": "commanders-desk/out-advice/DS001.md",
+      "new": "commanders-desk/out-advice/CA001.md",
+      "when": "2026-09-20",
+      "why": "the commander renamed the three advice files; nothing checked the references"
+    },
+    {
+      "old": "commanders-desk/out-advice/DS002.md",
+      "new": "commanders-desk/out-advice/CA002.md",
+      "when": "2026-09-20"
+    },
+    {
+      "old": "commanders-desk/out-advice/DS003.md",
+      "new": "commanders-desk/out-advice/CA003.md",
+      "when": "2026-09-20"
+    }
+  ],
+  "renames_note": "cockpit-rename refuses a --prefix X=Y run while any entry here whose OLD path contains an id token of prefix X still has outstanding tier 1 or tier 2 hits, and names the colliding token. An entry with no id token (a room move) never gates a prefix pass. Tier 3 hits are uncountable by construction: the one reference inside orders.json text can never be repaired, and counting it would deadlock the identifier pass forever.",
+  "planned": [
+    "records/manuals/",
+    "records/extracts/",
+    "records/notepad/",
+    "work/",
+    "commander/",
+    "team/",
+    "dispatch/cockpit/",
+    "dispatch/flightcrew/",
+    "MANIFEST-*.json"
+  ],
+  "planned_note": "ruled by the commander or by the pilot but not yet on disk. A citation of one is a note, not a finding. Remove a row once the path exists; the checker reports a planned row whose path now resolves, so the list cannot rot quietly.",
+  "external": [
+    "flightdeck/library/",
+    "flightdeck/manuals/",
+    "flightdeck/runs/",
+    "flightdeck/templates/",
+    "flightdeck/crew.json",
+    "flightdeck/flightcrew/",
+    "checks/",
+    ".claude/",
+    "run/",
+    "awesome-run/"
+  ],
+  "external_note": "roots on other branches, in other trees, or outside the repository. Cited legitimately and not resolvable from this branch, so counted as notes."
+}

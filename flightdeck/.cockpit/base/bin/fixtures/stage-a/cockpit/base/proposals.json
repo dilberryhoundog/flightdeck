@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "updated": "2026-09-20",
+  "proposals": [
+    {
+      "id": "P004",
+      "title": "Open M003 to M006",
+      "status": "live",
+      "file": "../commanders-desk/in-proposals/P004-fixture.md",
+      "raised": "2026-09-20",
+      "mission": "M001",
+      "decided": null,
+      "note": "Asks the commander to open M003, M004, M005 and M006. P101 will be numbered once procedures begin."
+    }
+  ]
+}

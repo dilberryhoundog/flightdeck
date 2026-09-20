@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "updated": "2026-09-20",
+  "dossiers": [
+    {
+      "id": "DS001",
+      "title": "Fixture dossier",
+      "file": "DS001-fixture.md",
+      "written": "2026-09-20",
+      "from": "notepad/fixture/",
+      "mission": "M001",
+      "proposals": [
+        "P004"
+      ],
+      "advice_copy": "commanders-desk/out-advice/DS001.md"
+    }
+  ]
+}

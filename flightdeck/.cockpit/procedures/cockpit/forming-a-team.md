@@ -9,9 +9,10 @@ Approved: commander, 2026-09-20.
 ## Steps
 
 1. State the goal in one line and pick the roster that fits, or say why none does.
-2. Brief each seat under the crew protocol.
-3. Open the entry in `dispatch/cockpit.json` at spawn, naming the roster it came from.
-4. Confirm every seat has a dossier; write one the first time a seat flies.
-5. On finish, complete the entry with outcome and lessons, update `crew.json` and the dossiers, and save the setup as a roster if it is worth flying again.
+2. When the team explores someone's idea, talk the idea through with its owner first: what it is for, what it left out, what the names mean. Seats then test the owner's position; they do not price it as one option among theirs.
+3. Brief each seat under the crew protocol. Where one seat holds a paper and another attacks it, the attack names the pass by number and the paper is frozen until the findings are in; findings are relayed in one message per round, not as they arrive.
+4. Open the entry in `dispatch/cockpit.json` at spawn, naming the roster it came from.
+5. Confirm every seat has a dossier; write one the first time a seat flies.
+6. On finish, complete the entry with outcome and lessons, update `crew.json` and the dossiers, and save the setup as a roster if it is worth flying again.
 
 **Leaves behind.** Log line: the team id, the roster, and what it was for. Files touched: `dispatch/cockpit.json`; `quarters/crew/crew.json`; the seat dossiers; `dispatch/rosters.json` if a roster was saved.

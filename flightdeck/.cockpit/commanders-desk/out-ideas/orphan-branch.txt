@@ -1,0 +1,8 @@
+Explore orphaned branch strategy to separate cockpit (and possibly flightdeck) based bulk context from the project repo. utilises ignored /cockpit (flightdeck/)
+create prebuilt quickfire commits with generic messages over specific specific locations. eg `commit cockpit`, `commit launch`
+doesn't prevent normal git commit, just a fast track to getting bulk work saved.
+
+dilberryhoundog/dev-workspace has a simple working version of this.
+explore worktree method for pilot to keep work separate from project.
+
+This idea is future work. just recorded for posterity.

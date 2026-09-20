@@ -128,6 +128,17 @@
       "raised": "2026-09-20",
       "mission": "M001",
       "dossier": "DS004"
+    },
+    {
+      "id": "P013",
+      "title": "Build stage A of the paperwork check, outside the cockpit",
+      "status": "amended",
+      "file": "../commanders-desk/in-proposals/P013-build-stage-a-outside.md",
+      "raised": "2026-09-20",
+      "mission": "M001",
+      "dossier": "DS006",
+      "decided": "2026-09-20",
+      "note": "D026, D027: approved with the build route changed to a scoped build inside the cockpit"
     }
   ]
 }

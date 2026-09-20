@@ -1,0 +1,41 @@
+{
+  "kind": "cockpit-zone-map",
+  "version": 1,
+  "updated": "2026-09-20",
+  "rooms_from": "filesystem",
+  "rules": [
+    {
+      "match": "base/bin/fixtures/**",
+      "zone": "excluded"
+    },
+    {
+      "match": "records/notepad/**",
+      "zone": "scratch"
+    },
+    {
+      "match": "notepad/**",
+      "zone": "scratch"
+    },
+    {
+      "match": "logs/crew-manifest.json",
+      "zone": "frozen"
+    },
+    {
+      "match": "logs/*.md",
+      "zone": "frozen"
+    },
+    {
+      "match": "**/*.keep",
+      "zone": "commander-verbatim"
+    },
+    {
+      "match": "commanders-desk/out-ideas/**",
+      "zone": "commander-verbatim"
+    },
+    {
+      "match": "commanders-desk/out-advice/**",
+      "zone": "commander-reviewed"
+    }
+  ],
+  "default": "live"
+}

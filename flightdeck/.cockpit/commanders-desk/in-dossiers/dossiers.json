@@ -59,6 +59,17 @@
       "proposals": [
         "P011"
       ]
+    },
+    {
+      "id": "DS006",
+      "title": "The cockpit's paperwork: identifiers, manifests, frontmatter, rooms and a schema store",
+      "file": "DS006-cockpit-paperwork.md",
+      "written": "2026-09-20",
+      "from": "notepad/ideas-2026-09-20/paper-final.md",
+      "mission": "M001",
+      "proposals": [
+        "P013"
+      ]
     }
   ]
 }

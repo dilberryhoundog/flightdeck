@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "updated": "2026-09-20",
+  "decisions": [
+    {
+      "id": "D001",
+      "subject": "Bare by-field",
+      "decision": "No path here, nothing to find.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D002",
+      "subject": "Stale path in prose",
+      "decision": "See notes in `workshop/retired-notes.md` for detail.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D003",
+      "subject": "By-field short prose with a stale path",
+      "decision": "Recorded as discussed.",
+      "by": "commander, per workshop/retired-notes.md",
+      "proposal": null
+    },
+    {
+      "id": "D004",
+      "subject": "Quoted id is pinned tier 3, not hidden",
+      "decision": "The commander said \"C099 is fine as an example\" but C099 is not actually fine.",
+      "by": "commander",
+      "proposal": null
+    },
+    {
+      "id": "D005",
+      "subject": "Placeholders and notes",
+      "decision": "Template ids look like DS### and CA00N. Glob MANIFEST-*.json is not a file. $CLAUDE_PROJECT_DIR/flightdeck/x is an env-rooted example, and /path/to/script.sh is illustrative. The planned room work/ and the external root checks/ are both ruled but not findings.",
+      "by": "commander",
+      "proposal": null
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "cockpit-zone-map",
+  "version": 1,
+  "updated": "2026-09-20",
+  "purpose": "Which files are read, and how what is found in them may be treated. Zones decide what is read; tiers decide what may be written. Rules are ordered, first match wins, most specific first, and every pattern is keyed on a path below room level, never on a top-level room name.",
+  "rooms_from": "filesystem",
+  "rooms_note": "Rooms are listed from the root at run time and used only to anchor path candidates. Never enumerate them from a typed list: both the option-maker and the adversary made a zone error from hand-written room lists (DS006).",
+  "default": "live",
+  "rules": [
+    {"match": "base/bin/fixtures/**", "zone": "excluded", "why": "the fixtures plant broken references, stale ids and a second register on purpose; base/ is otherwise live, so without this rule the proving run reports the real cockpit as having two registers, the planted faults bury the real findings, and --apply silently repairs the suite. Root-relative, so a fixture tree passed as --root still scans its own files normally."},
+    {"match": "base/store/**", "zone": "excluded", "why": "the store is the map, not the territory: it records stale paths in renames and absent paths in planned, so scanning it for those absences is circular. It is validated instead by the store checks, which read it directly, and the rename tool must not rewrite it -- the pilot flips prefix states by hand."},
+    {"match": "records/notepad/**", "zone": "scratch"},
+    {"match": "notepad/**", "zone": "scratch"},
+    {"match": "logs/crew-manifest.json", "zone": "frozen"},
+    {"match": "logs/*.md", "zone": "frozen"},
+    {"match": "**/*.keep", "zone": "commander-verbatim"},
+    {"match": "commanders-desk/out-ideas/**", "zone": "commander-verbatim"},
+    {"match": "commanders-desk/out-advice/**", "zone": "commander-reviewed"}
+  ],
+  "zones": {
+    "live": {"read": true, "tier_floor": 1, "description": "checked and repairable"},
+    "scratch": {"read": false, "tier_floor": 3, "description": "never opened (rule 3: nothing there is authoritative)"},
+    "excluded": {"read": false, "tier_floor": 3, "description": "never opened and never written by either tool"},
+    "frozen": {"read": true, "tier_floor": 3, "description": "read and reported, never edited or proposed"},
+    "commander-verbatim": {"read": true, "tier_floor": 3, "description": "the commander's own words: read and reported, never proposed. A renamed id inside the commander's own idea falsifies it, exactly as inside an order's text."},
+    "commander-reviewed": {"read": true, "tier_floor": 2, "description": "the commander's advice: every occurrence proposed as a diff and never applied, whatever its shape. The commander sees the diff of their own files before it lands (DS006 decision 2); the pilot applies it by hand (D027)."}
+  }
+}

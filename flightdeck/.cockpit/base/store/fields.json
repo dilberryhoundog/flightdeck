@@ -1,0 +1,117 @@
+{
+  "kind": "cockpit-field-map",
+  "version": 1,
+  "updated": "2026-09-20",
+  "purpose": "Per JSON document kind: the fields expected to hold a whole-value reference, and the fields never scanned. The declaration says what is expected; the whole-value test decides. A field declared whole_value whose value fails the test falls to tier 2 and the stale declaration is reported.",
+  "field_path_note": "A field path names keys from the document root, with [] for an array. orders[].id means the id key of each row of the orders array.",
+  "documents": [
+    {
+      "name": "orders",
+      "match": "quarters/commander/orders.json",
+      "whole_value": ["orders[].id", "orders[].superseded_by"],
+      "verbatim": ["orders[].text"],
+      "why_verbatim": "the commander's own words. O048 repaired to '(Or001 is not very readable)' would say the opposite of what the commander said."
+    },
+    {
+      "name": "decisions",
+      "match": "base/decisions.json",
+      "whole_value": ["decisions[].id", "decisions[].proposal"],
+      "verbatim": []
+    },
+    {
+      "name": "proposals",
+      "match": "base/proposals.json",
+      "whole_value": ["proposals[].id", "proposals[].file", "proposals[].mission", "proposals[].dossier"],
+      "verbatim": []
+    },
+    {
+      "name": "dossiers",
+      "match": "commanders-desk/in-dossiers/dossiers.json",
+      "whole_value": ["dossiers[].id", "dossiers[].file", "dossiers[].mission", "dossiers[].proposals[]"],
+      "verbatim": []
+    },
+    {
+      "name": "missions",
+      "match": "missions/missions.json",
+      "whole_value": ["current", "missions[].id", "missions[].file"],
+      "verbatim": []
+    },
+    {
+      "name": "incubator",
+      "match": "missions/incubator/incubator.json",
+      "whole_value": ["sparks[].id", "sparks[].file", "sparks[].promoted_to"],
+      "verbatim": []
+    },
+    {
+      "name": "workshop",
+      "match": "workshop/workshop.json",
+      "whole_value": ["items[].id"],
+      "verbatim": []
+    },
+    {
+      "name": "dispatch",
+      "match": "dispatch/*.json",
+      "whole_value": ["teams[].id", "teams[].mission"],
+      "verbatim": []
+    },
+    {
+      "name": "topics-index",
+      "match": "logs/topics/topics.json",
+      "whole_value": ["topics[].file"],
+      "verbatim": []
+    },
+    {
+      "name": "topics-unit",
+      "match": "logs/topics/*.json",
+      "whole_value": ["record", "statements[].ref", "statements[].superseded_by"],
+      "verbatim": ["statements[].statement"],
+      "why_verbatim": "the commander's statements, quoted. The paper checked that all topic ids sit in ref and superseded_by, none in a statement value.",
+      "composite": ["statements[].ref", "statements[].superseded_by"],
+      "why_composite": "these carry the form <path>#<ID>. Both halves are resolved and the pair counts as one whole value."
+    },
+    {
+      "name": "logs-index",
+      "match": "logs/index.json",
+      "whole_value": ["logs[].file"],
+      "verbatim": []
+    },
+    {
+      "name": "crew-manifest",
+      "match": "logs/crew-manifest.json",
+      "whole_value": ["dispatches[].id"],
+      "verbatim": [],
+      "note": "frozen by zones.json, never by a field written into it: the file declares its own frozen key and adding anything to it would edit frozen history."
+    },
+    {
+      "name": "procedures",
+      "match": "procedures/procedures.json",
+      "whole_value": ["items[].id", "items[].file"],
+      "verbatim": []
+    },
+    {
+      "name": "crew",
+      "match": "quarters/crew/crew.json",
+      "whole_value": ["crew[].name"],
+      "verbatim": []
+    },
+    {
+      "name": "rosters",
+      "match": "dispatch/rosters.json",
+      "whole_value": ["rosters[].name", "rosters[].seats[]"],
+      "verbatim": []
+    },
+    {
+      "name": "branch-manifest",
+      "match": "logs/branch-manifest.json",
+      "whole_value": ["branches[].name", "branches[].parent"],
+      "verbatim": []
+    }
+  ],
+  "quoted_span_rule": {
+    "applies_to": "a double-quoted span inside a JSON prose value",
+    "read": true,
+    "tier": 3,
+    "listed_as": "quoted, not rewritten",
+    "why": "the decisions.json D018/D021/D024 class: the same field is pilot prose in most rows and quotes the commander in a few, so no per-field rule is right for both. Freeze the quotation and it stands; rewrite it and the quotation is falsified. Reading is never suppressed -- a false finding is cured at its source or by a declared store row, never by not reading."
+  }
+}

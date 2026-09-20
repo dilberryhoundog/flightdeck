@@ -1,0 +1,470 @@
+#!/usr/bin/env python3
+"""The cockpit's reference checker. Reports every id and path that does not resolve.
+
+Writes nothing, under any flag. There is no --fix.
+
+    cockpit-check [--root PATH] [--zone live|frozen|commander|all] [--json] [PATH ...]
+
+An id resolves against its prefix's minting register; a path resolves, case
+sensitively, against the citing file's own folder, the cockpit root and the repo
+root. Exit 0 and one line when clean, 1 with findings, 2 on a tool or store
+error. The commander's ruling that the lint is non-blocking governs how a gate
+wraps this tool -- a commit gate prints exit 1 and lets the commit through --
+not the exit code itself, which stays informative.
+
+Python 3.9, standard library only.
+"""
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cockpit_store import Scanner, Store, StoreError  # noqa: E402
+
+ZONE_SETS = {
+    "live": ["live"],
+    "frozen": ["frozen"],
+    "commander": ["commander-reviewed", "commander-verbatim"],
+    "all": ["live", "frozen", "commander-reviewed", "commander-verbatim"],
+}
+
+
+def find_root(start):
+    """Walk up for the cockpit root, recognised by its store."""
+    d = os.path.realpath(start)
+    while True:
+        if os.path.isdir(os.path.join(d, "base", "store")):
+            return d
+        parent = os.path.dirname(d)
+        if parent == d:
+            return None
+        d = parent
+
+
+class Checker(object):
+    def __init__(self, store, zones, targets, show_verbatim=False):
+        self.store = store
+        self.show_verbatim = show_verbatim
+        self.scanner = Scanner(store, zones=zones, targets=targets)
+        self.findings = []
+        self.notes = {}
+        self.note_items = {}
+        self.counts = {"id": 0, "path": 0, "files": 0, "tier1": 0, "tier2": 0, "tier3": 0}
+
+    def note(self, key, item=None):
+        # A verbatim field is out of the accounting entirely: its only note is
+        # its own, so the default run's counts do not move when it is read.
+        if getattr(self, "_in_verbatim", False) and not key.startswith("verbatim"):
+            return
+        self.notes[key] = self.notes.get(key, 0) + 1
+        if item:
+            self.note_items.setdefault(key, [])
+            if item not in self.note_items[key]:
+                self.note_items[key].append(item)
+
+    # -- ids ----------------------------------------------------------
+
+    def verbatim_note(self, ref, what):
+        # Never a finding anywhere. Shown only under --zone all, so the default
+        # run stays small, as the commander asked.
+        if not self.show_verbatim:
+            return
+        self.note("verbatim, stale, never repaired",
+                  "%s:%d %s (%s)" % (ref.file, ref.line, what, ref.field or "verbatim"))
+
+    def check_id(self, ref):
+        token = ref.token
+        m = self.store.id_re.fullmatch(token)
+        if not m:
+            return
+        prefix, number = m.group(1), int(m.group(2))
+        row = self.store.rows[prefix]
+        seg = self.store.segment_for(prefix, number)
+        if seg is None:
+            self.add(ref, "%s is outside every declared range for %s" % (token, prefix), None)
+            return
+        state = seg.get("state", row.get("state", "live"))
+        if state == "planned":
+            self.note("planned prefix or segment", token)
+            return
+        if token in self.store.known_gaps:
+            self.note("declared gap", token)
+            return
+        if token in self.store.planned_ids:
+            src = self.store.planned_ids[token]
+            self.note("planned id", "%s (source %s)" % (token, src) if src else token)
+            return
+        if state == "superseded":
+            # The rename has run. In a zone nothing may rewrite, the old id is
+            # correct history and resolves through this row; elsewhere it is a
+            # finding that names its successor as the exact replacement.
+            if self.store.tier_floor(ref.zone) >= 3:
+                self.note("superseded id in an unrepairable zone", token)
+                return
+            self.add(ref, "%s is superseded; %s was renamed to %s"
+                     % (token, prefix, (seg.get("succession") or {}).get("to", "?")),
+                     self.successor(prefix, number))
+            return
+        if seg.get("register") is None and row.get("resolve_by"):
+            pattern = row["resolve_by"]["files"].replace("###", token[len(prefix):])
+            if self.scanner.resolve_path(pattern, ""):
+                return
+            self.add(ref, "%s has no register and %s does not exist" % (token, pattern), None)
+            return
+        ids = self.store.register_ids(seg)
+        if ids is None:
+            self.add(ref, "%s has no minting register declared for %s%s"
+                     % (token, prefix, " in that range" if "segments" in row else ""), None)
+            return
+        if token in ids:
+            return
+        reg = seg["register"]["file"]
+        extra = ""
+        if state == "retired":
+            extra = " (%s is retired, highest is %s)" % (prefix, max(ids) if ids else "none")
+        self.add(ref, "%s not in %s%s" % (token, reg, extra), self.successor(prefix, number))
+
+    def successor(self, prefix, number):
+        seg = self.store.segment_for(prefix, number)
+        if not seg:
+            return None
+        suc = seg.get("succession") or {}
+        if suc.get("type") == "renamed" and suc.get("to"):
+            return "%s%03d" % (suc["to"], number)
+        return None
+
+    # -- paths ---------------------------------------------------------
+
+    def check_path(self, ref):
+        cand = ref.token
+        bare = cand.lstrip("@").split("#")[0]
+        if bare.startswith("/") and not self.scanner.resolve_path(cand, ref.file):
+            self.note("absolute path outside the tree", bare)
+            return
+        for pre in self.store.paths.get("external", []):
+            if bare == pre.rstrip("/") or bare.startswith(pre):
+                self.note("external root", pre)
+                return
+        if self.scanner.resolve_path(cand, ref.file):
+            anchor = self.scanner.anchor_of(cand)
+            if anchor:
+                self.check_anchor(ref, anchor)
+            return
+        for pre in self.store.paths.get("planned", []):
+            if self._planned_match(bare, pre):
+                self.note("planned path", pre)
+                return
+        self.add(ref, '"%s" does not exist' % cand, self.replacement(cand))
+
+    def _planned_match(self, bare, pre):
+        if "*" in pre:
+            import fnmatch
+            return fnmatch.fnmatchcase(os.path.basename(bare), pre) or fnmatch.fnmatchcase(bare, pre)
+        return bare == pre.rstrip("/") or bare.startswith(pre)
+
+    def check_anchor(self, ref, anchor):
+        inner = Ref_like(ref, anchor)
+        self.check_id(inner)
+
+    def replacement(self, cand):
+        """paths.renames, then the succession table, then a unique basename."""
+        bare = cand.lstrip("@")
+        anchor = ""
+        if "#" in bare:
+            head, _, tail = bare.rpartition("#")
+            if self.store.id_re.fullmatch(tail):
+                bare, anchor = head, tail
+        for row in self.store.paths.get("renames", []):
+            old, new = row["old"], row["new"]
+            # A citation may be written against any root, so match either suffix way
+            # and keep the citation's own depth in the replacement.
+            if bare == old:
+                out = new
+            elif bare.endswith("/" + old):
+                out = bare[:-len(old)] + new
+            elif old.endswith("/" + bare):
+                depth = bare.count("/") + 1
+                out = "/".join(new.split("/")[-depth:])
+            else:
+                continue
+            if anchor:
+                # A path rename is not an id rename, and the succession table is
+                # a FUTURE rename: suggesting it today would point the reader at
+                # an id nothing has minted. Keep the anchor; if it is stale it is
+                # reported on its own.
+                out += "#" + anchor
+            return out
+        hits = self.unique_basename(os.path.basename(bare))
+        if len(hits) == 1:
+            return hits[0] + ("#" + anchor if anchor else "")
+        return None
+
+    def successor_for_token(self, token):
+        m = self.store.id_re.fullmatch(token)
+        if not m:
+            return None
+        return self.successor(m.group(1), int(m.group(2)))
+
+    def unique_basename(self, base):
+        """Index of real files, by basename. Never suggests a file from an
+        unreadable zone: the fixtures plant stale names on purpose, so a
+        suggestion out of base/bin/fixtures/ would be worse than none."""
+        if not base:
+            return []
+        if not hasattr(self, "_names"):
+            self._names = {}
+            for dirpath, dirnames, filenames in os.walk(self.store.root):
+                dirnames[:] = [d for d in dirnames if d not in (".git", "__pycache__")]
+                for n in filenames:
+                    rel = os.path.relpath(os.path.join(dirpath, n),
+                                          self.store.root).replace(os.sep, "/")
+                    if not self.store.zone_info(self.store.zone_of(rel)).get("read", True):
+                        continue
+                    self._names.setdefault(n, []).append(rel)
+        return self._names.get(base, [])
+
+    # -- driving -------------------------------------------------------
+
+    def add(self, ref, message, replacement):
+        if getattr(ref, "verbatim", False):
+            # Never a finding: nobody may edit it. Noted only where notes are shown.
+            self.verbatim_note(ref, ref.token)
+            return
+        if getattr(ref, "quoted", False):
+            message += " [quoted, not rewritten]"
+        self.findings.append({
+            "file": ref.file, "line": ref.line, "col": ref.col, "kind": ref.kind,
+            "tier": ref.tier, "token": ref.token, "zone": ref.zone,
+            "message": message, "replacement": replacement,
+            "quoted": bool(getattr(ref, "quoted", False)),
+        })
+
+    def run(self):
+        seen_files = set()
+        for ref in self.scanner.scan():
+            seen_files.add(ref.file)
+            self.counts[ref.kind] += 1
+            self.counts["tier%d" % ref.tier] = self.counts.get("tier%d" % ref.tier, 0) + 1
+            self._in_verbatim = getattr(ref, "verbatim", False)
+            if ref.kind == "id":
+                self.check_id(ref)
+            else:
+                self.check_path(ref)
+            self._in_verbatim = False
+        self.counts["files"] = len(seen_files)
+        self.check_store_rot()
+        for rel, why in self.scanner.format_notes:
+            self.findings.append({
+                "file": rel, "line": 1, "col": 0, "kind": "format", "tier": 3,
+                "token": "", "zone": self.store.zone_of(rel),
+                "message": why, "replacement": None, "quoted": False,
+            })
+        for kind, rel, message in self.store.store_findings:
+            if kind != "second-register":
+                continue
+            self.findings.append({
+                "file": rel, "line": 1, "col": 0, "kind": "second-register", "tier": 3,
+                "token": "", "zone": self.store.zone_of(rel),
+                "message": message, "replacement": None, "quoted": False,
+            })
+        self.findings.sort(key=lambda f: (f["file"], f["line"], f["col"]))
+        return self.findings
+
+    def check_store_rot(self):
+        """A declared row that has gone stale is reported, so the store cannot rot quietly."""
+        for row in self.store.prefixes.get("planned_ids", []):
+            src = row.get("source")
+            tok = row["id"]
+            m = self.store.id_re.fullmatch(tok)
+            if m:
+                seg = self.store.segment_for(m.group(1), int(m.group(2)))
+                ids = self.store.register_ids(seg) if seg else None
+                if ids and tok in ids:
+                    self.store.store_findings.append(
+                        ("store", self.store.store_rel + "/prefixes.json",
+                         "planned_id %s has since been minted; remove the row" % tok))
+            if src:
+                ms = self.store.id_re.fullmatch(src)
+                if ms:
+                    segs = self.store.segment_for(ms.group(1), int(ms.group(2)))
+                    sids = self.store.register_ids(segs) if segs else None
+                    if sids is not None and src not in sids:
+                        self.store.store_findings.append(
+                            ("store", self.store.store_rel + "/prefixes.json",
+                             "planned_id %s cites source %s, which does not resolve" % (tok, src)))
+        for pre in self.store.paths.get("planned", []):
+            if "*" in pre:
+                continue
+            if self.store.exists_exact(os.path.join(self.store.root, pre.rstrip("/"))):
+                self.store.store_findings.append(
+                    ("store", self.store.store_rel + "/paths.json",
+                     "planned path %s now exists; remove the row" % pre))
+        self.check_second_registers()
+
+    def check_second_registers(self):
+        """An id minted as a whole `id` value in an array that is not its register."""
+        declared = {}
+        for p in self.store.rows:
+            for _rng, seg in self.store.segments_for(p):
+                reg = seg.get("register")
+                if reg:
+                    declared.setdefault(p, set()).add((reg["file"], reg["array"]))
+        seen = {}
+        for rel, zone in self.scanner.files():
+            if zone != "live" or not rel.endswith(".json"):
+                continue
+            if rel.startswith(self.store.store_rel + "/"):
+                continue  # the store declares registers; it does not mint ids
+            full = os.path.join(self.store.root, rel)
+            try:
+                with open(full, "r", encoding="utf-8") as fh:
+                    data = json.load(fh)
+            except (IOError, OSError, ValueError):
+                continue
+            if not isinstance(data, dict):
+                continue
+            for array, rows in data.items():
+                if not isinstance(rows, list):
+                    continue
+                for r in rows:
+                    if not isinstance(r, dict) or not isinstance(r.get("id"), str):
+                        continue
+                    m = self.store.id_re.fullmatch(r["id"].strip())
+                    if not m:
+                        continue
+                    p = m.group(1)
+                    if p in declared and (rel, array) not in declared[p]:
+                        key = (p, rel, array)
+                        if key not in seen:
+                            seen[key] = True
+                            homes = ", ".join(sorted(f for f, _a in declared[p]))
+                            self.store.store_findings.append(
+                                ("second-register", rel,
+                                 "%s ids are minted in %s[%s] but %s's register is %s"
+                                 % (p, rel, array, p, homes)))
+
+
+class Ref_like(object):
+    """A reference standing in for the id half of a composite path#ID."""
+
+    def __init__(self, ref, token):
+        self.file, self.line, self.col = ref.file, ref.line, ref.col
+        self.kind, self.token, self.zone, self.tier = "id", token, ref.zone, ref.tier
+        self.quoted = getattr(ref, "quoted", False)
+
+
+def render(checker, as_json):
+    findings = checker.findings
+    store_findings = checker.store.store_findings
+    c = checker.counts
+    if as_json:
+        print(json.dumps({
+            "findings": findings,
+            "store": [{"kind": k, "file": f, "message": m} for k, f, m in store_findings],
+            "notes": dict((k, {"occurrences": v, "count": v,
+                               "rows": len(checker.note_items.get(k, [])),
+                               "items": checker.note_items.get(k, [])})
+                          for k, v in checker.notes.items()),
+            "counts": c,
+        }, indent=1))
+        return 1 if (findings or store_findings) else 0
+    notes_total = sum(checker.notes.values())
+    if not findings and not store_findings:
+        print("cockpit-check: clean - %d ids, %d paths, %d files, %d notes."
+              % (c["id"], c["path"], c["files"], notes_total))
+        return 0
+    for f in store_findings:
+        print("%s  store  %s" % (f[1], f[2]))
+    for f in findings:
+        rep = f["replacement"]
+        tail = ' -> "%s"' % rep if rep else " -> no known replacement"
+        if f["kind"] == "format":
+            tail = ""
+        print("%s:%d  %s  %s%s" % (f["file"], f["line"], f["kind"], f["message"], tail))
+    kinds = {}
+    tiers = {1: 0, 2: 0, 3: 0}
+    for f in findings:
+        kinds[f["kind"]] = kinds.get(f["kind"], 0) + 1
+        tiers[f["tier"]] = tiers.get(f["tier"], 0) + 1
+    files = len(set(f["file"] for f in findings))
+    parts = ", ".join("%d %s" % (n, k) for k, n in sorted(kinds.items()))
+    notes = ", ".join(
+        "%s %d%s" % (k, v,
+                     ("/%d rows" % len(checker.note_items[k])) if checker.note_items.get(k) else "")
+        for k, v in sorted(checker.notes.items()))
+    print("\n%s across %d files (tier1 %d, tier2 %d, tier3 %d); %d store; notes %d (%s)."
+          % (parts or "0 findings", files, tiers[1], tiers[2], tiers[3],
+             len(store_findings), notes_total, notes or "none"))
+    print("Notes read 'occurrences/distinct rows'; a row is a declared entry in the store.")
+    print("%d ids and %d paths read in %d files. Exit 1." % (c["id"], c["path"], c["files"]))
+    return 1
+
+
+def main(argv):
+    root = None
+    zones = ZONE_SETS["live"]
+    zone_name = "live"
+    as_json = False
+    targets = []
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a == "--root" and i + 1 < len(argv):
+            root = argv[i + 1]
+            i += 2
+        elif a.startswith("--root="):
+            root = a.split("=", 1)[1]
+            i += 1
+        elif a == "--zone" and i + 1 < len(argv):
+            if argv[i + 1] not in ZONE_SETS:
+                sys.stderr.write("cockpit-check: unknown zone %r; choose from %s\n"
+                                 % (argv[i + 1], ", ".join(sorted(ZONE_SETS))))
+                return 2
+            zones = ZONE_SETS[argv[i + 1]]
+            zone_name = argv[i + 1]
+            i += 2
+        elif a == "--json":
+            as_json = True
+            i += 1
+        elif a in ("-h", "--help"):
+            sys.stdout.write(__doc__)
+            return 0
+        elif a.startswith("-"):
+            sys.stderr.write("cockpit-check: unknown option %r\n" % a)
+            return 2
+        else:
+            targets.append(a)
+            i += 1
+    if root is None:
+        root = find_root(os.path.dirname(os.path.abspath(__file__)))
+        if root is None:
+            sys.stderr.write("cockpit-check: no cockpit root found (no base/store above me)\n")
+            return 2
+    root = os.path.realpath(root)
+    rel_targets = []
+    for t in targets:
+        # Relative to --root first: a bare path like missions/missions.json means
+        # the one inside the root being checked, not a same-named file beside the CWD.
+        under_root = os.path.join(root, t)
+        tp = under_root if os.path.exists(under_root) else (
+            os.path.realpath(t) if os.path.exists(t) else under_root)
+        r = os.path.relpath(os.path.realpath(tp), root).replace(os.sep, "/")
+        if r.startswith(".."):
+            sys.stderr.write("cockpit-check: %s is outside the root\n" % t)
+            return 2
+        rel_targets.append(r)
+    try:
+        store = Store(root)
+        checker = Checker(store, zones, rel_targets, show_verbatim=(zone_name == "all"))
+        checker.run()
+    except StoreError as exc:
+        sys.stderr.write("cockpit-check: store error: %s\n" % exc)
+        return 2
+    except Exception as exc:  # fail closed, as the guard does
+        sys.stderr.write("cockpit-check: tool error (%s: %s)\n" % (type(exc).__name__, exc))
+        return 2
+    return render(checker, as_json)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

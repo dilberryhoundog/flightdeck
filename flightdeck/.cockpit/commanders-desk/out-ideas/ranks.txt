@@ -1,0 +1,13 @@
+Expand on ranks.
+Not enforcable but as role guidance northstar.
+
+  - `Commander` = highest rank, advises and holds the vision. Improves the working environment progressinvely through advice and ideas. Too much in the loop work, dilutes higher altitude focus.
+  - `captain` = Outranks any agent based role. Does not bulk read the project, doesn't bulk write. Uses context window to dispatch teams, and reference internal documents, keeping it lean, so can oversee many chained teams. Updates (writes) its internal context devices. Intelligent team dispatcher, Direct implementer of the commanders orders and ideas, authorative to the crew.
+  - `crew` = has specific tasks, purposes and permissions. Dispatched by the captain. Isolated from higher goals, their work is decomposed from these higher sources, keeps them focused and on track.
+
+The captain is a rank intended for the pilot role. A ceremony will be given inviting all the most familiar crew, to pronounce the captain.
+
+Exploration topics:
+- Any other ranks in the chain?
+- Any extra features per rank?
+- Does the chain of command fit ai agent best practice and tooling?

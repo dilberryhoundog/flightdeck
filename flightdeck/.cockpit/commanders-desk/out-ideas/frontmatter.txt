@@ -1,0 +1,10 @@
+Consistent frontmatter for most generated markdown files. Fields are consistent across document types.
+
+Documents to receive frontmatter:
+  ID based: Work, Commander Desk
+  Crew: Crew, Officers
+
+A few legacy documents already have examples. to demonstrate the shape and allow removal of bolded metadata.
+This should provide better searchability across markdown corpus.
+Add line to claude.md indicating searchability and metadata conventions
+Pilot decides convention, research team helps, including mini adversaries.

@@ -1,0 +1,49 @@
+{
+  "kind": "cockpit-path-map",
+  "version": 1,
+  "updated": "2026-09-20",
+  "renames": [
+    {
+      "old": "commanders-desk/out-advice/DS001.md",
+      "new": "commanders-desk/out-advice/CA001.md"
+    },
+    {
+      "old": "commanders-desk/out-advice/DS002.md",
+      "new": "commanders-desk/out-advice/CA002.md"
+    },
+    {
+      "old": "commanders-desk/out-advice/DS003.md",
+      "new": "commanders-desk/out-advice/CA003.md"
+    },
+    {
+      "old": "records/",
+      "new": "records/manuals/"
+    }
+  ],
+  "planned": [
+    "records/manuals/",
+    "records/extracts/",
+    "records/notepad/",
+    "work/",
+    "commander/",
+    "team/",
+    "dispatch/cockpit/",
+    "dispatch/flightcrew/",
+    "base/bin/cockpit-check",
+    "base/bin/cockpit-rename",
+    "base/bin/test_cockpit_check.py",
+    "base/bin/test_cockpit_rename.py",
+    "MANIFEST-*.json"
+  ],
+  "external": [
+    "flightdeck/library/",
+    "flightdeck/manuals/",
+    "flightdeck/runs/",
+    "flightdeck/templates/",
+    "flightdeck/crew.json",
+    "flightdeck/flightcrew/",
+    "checks/",
+    ".claude/",
+    "run/"
+  ]
+}

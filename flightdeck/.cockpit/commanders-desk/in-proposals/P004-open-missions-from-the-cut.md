@@ -1,3 +1,11 @@
+---
+type: "Proposal"
+unit: "P004"
+status:
+recorded:
+work: "M001"
+context: "DS001"
+---
 # P004 — Open three missions now, two on the horizon, incubate the three launches
 
 - **Status:** amended 2026-09-18 by the commander, see `commanders-desk/out-advice/DS001.md` and decisions.json

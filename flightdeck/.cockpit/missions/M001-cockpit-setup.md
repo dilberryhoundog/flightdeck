@@ -65,6 +65,14 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 - [x] Procedures room scaffolded (O042) and the five starting cockpit procedures approved (P011, D025): `procedures/` with the manifest imported into `CLAUDE.md`, confirmed live. The pilot extracts further procedures from live work (O043). Flightcrew branch empty by order.
 - [ ] Guard the unmerged branch: raised as P012 on 2026-09-20, awaiting the commander.
 
+### Phase 4 — the cockpit's paperwork (ordered 2026-09-20, O044; settled in DS006)
+
+- [x] The commander's out-ideas explored by team T010 with the commander in the room; identifier set ruled (O046 to O049); dossier DS006 on the desk.
+- [ ] Stage A built by the route the commander chooses (P013): prefix table, zone and field map, reference checker, rename tool with dry run. Proving run: the 24 references left by the advice rename.
+- [ ] The identifier pass as one reviewed, reversible commit: DS to Ds, proposals P to Rq, O to Or, D to De, S to Sp, W to WS; procedures numbered from P101; `C` retired.
+- [ ] Refactor team with a designer (O044), chartered from the commander's answers to DS006: stage B (schema store in `base/`, document shapes, strict-subset frontmatter, `kind` field in live manifests), the four unfinished manifests, the frontmatter convention on real documents, then rooms.
+- [ ] Carried from the idea files: a line in `CLAUDE.md` on searchability and metadata conventions; every ID kind named in `CLAUDE.md`.
+
 ## Crew dispatched
 
 - 2026-09-17 — harness-guide (`claude-code-guide`): research agent teams, session messaging, subagents. Returned. Filed.
@@ -75,6 +83,7 @@ The pilot oversees and manages launches and runs from the cockpit, reporting to 
 - 2026-09-18 — recon team T001 (phase 3), commander's order: five teammates.
 - 2026-09-18 — research team T002, commander's order: five teammates; five records drafted, dossier DS002.
 - 2026-09-19 — decision team T009, commander's order: record keeping (DS004), then the procedures room scaffold, rule 2 wording check and four stubs (DS005). Five seats.
+- 2026-09-20 — idea exploration team T010, commander's order (O044): four seats of the `decision` roster plus assets-scout; paper through eleven passes, five adversary rounds, dossier DS006.
 - 2026-09-18 — mini adversary team T003, commander's order: two Opus critics on the day's cockpit work and the plan. Topology briefed from the commander's account in `notepad/flightcrew/topology-2026-09-18.md`.
 
 ## Outcome

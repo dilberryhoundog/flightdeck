@@ -1,9 +1,0 @@
-{
-  "kind": "decision",
-  "id": "De017",
-  "date": "2026-09-18",
-  "subject": "Launch definition",
-  "decision": "A launch is not one run of one spec. It is an intent to complete a piece of work with all the infrastructure to do it: runs (attempts), the spec and its versions converging on done, and run-generated artefacts. Deeper recon of session transcripts ordered for the definition and for the commander's guidance on system shape, architecture and decisions.",
-  "by": "commander",
-  "source": "commanders-desk/out-advice/CA001.md"
-}

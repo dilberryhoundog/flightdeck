@@ -1,8 +1,0 @@
-{
-  "kind": "workshop-item",
-  "id": "WS016",
-  "title": "Carry buildout's late doctrine forward: spec-altitude.md and the interfaces rewrite (1c81888) exist only on flightcrew-buildout; decide their home when the suite merges. Altitude summary already in quarters/crew/flightcrew/spec-builder.md",
-  "raised": "2026-09-18",
-  "source": "doctrine-recon C014; T002 doctrine source",
-  "status": "open"
-}

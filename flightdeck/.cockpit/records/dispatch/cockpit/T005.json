@@ -1,0 +1,34 @@
+{
+  "kind": "dispatch",
+  "id": "T005",
+  "date": "2026-09-18",
+  "session": "49f87e44",
+  "mission": "M001",
+  "purpose": "CLAUDE.md review: official docs on CLAUDE.md, cockpit comb, judge and redraft",
+  "seats": [
+    {
+      "name": "docs-scout",
+      "reason": "official-docs lookup",
+      "returns": "21 findings"
+    },
+    {
+      "name": "cockpit-comber",
+      "reason": "comb the cockpit for CLAUDE.md material",
+      "returns": "too thin; went idle before the scout's message; reassigned"
+    },
+    {
+      "name": "claude-md-judge",
+      "reason": "line-by-line judgement",
+      "returns": "verdicts and the revised CLAUDE.md"
+    }
+  ],
+  "subagents": [],
+  "shape": "scout first; comber was to receive the scout's findings and did not wait; judge replaced the comber",
+  "outcome": "CLAUDE.md rebuilt with rules 1 to 11, the crew protocol and session procedures; quarters trimmed to persona; import ruling. Reports at records/notepad/claude-md-review-2026-09-18 Recorded retrospectively.",
+  "lessons": [
+    "a teammate that must wait for another's message needs that said in its brief",
+    "a judgement seat on Sonnet was under-powered; crew rule 2"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

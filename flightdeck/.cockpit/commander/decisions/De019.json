@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De019",
+  "date": "2026-09-18",
+  "subject": "Rq008 and the shape of records",
+  "decision": "Not landed as drafted. All five are source material or logs, not timeless records. Records are sharp, authoritative, token-efficient, current-form only, passing a two-years-time test. Commander's guidance: a source log. Doctrine and genesis: no divergence measured, no terms, altitude belongs in the spec-builder crew file, state the principles and tooling the pattern leans on. Harness facts: reads as a log; records claim one harness function each. Launch and run: source material with superseded shapes. Lineage: a JSON terrain log, not a record. Build a docspec for a good record; strengthen the team with a topic extractor, record writer, discovery, comparer and validator; mine the commander's statements into topics and topics into vision records, periodically.",
+  "by": "commander",
+  "source": "commander/desk/out/advice/CA002.md",
+  "requests": [
+    "Rq008"
+  ]
+}

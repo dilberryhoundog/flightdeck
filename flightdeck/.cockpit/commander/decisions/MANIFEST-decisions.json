@@ -1,0 +1,170 @@
+{
+  "kind": "decisions",
+  "version": 1,
+  "updated": "2026-09-20",
+  "fields_note": "superseded_by: present when a later decision replaces this one; the newer statement wins.",
+  "units": [
+    {
+      "id": "De001",
+      "date": "2026-09-17",
+      "subject": "Pilot's starting knowledge",
+      "path": "De001.json"
+    },
+    {
+      "id": "De002",
+      "date": "2026-09-17",
+      "subject": "Cross-session test message",
+      "path": "De002.json"
+    },
+    {
+      "id": "De003",
+      "date": "2026-09-17",
+      "subject": "Cockpit write rule",
+      "path": "De003.json"
+    },
+    {
+      "id": "De004",
+      "date": "2026-09-17",
+      "subject": "Pilot permission mode",
+      "path": "De004.json"
+    },
+    {
+      "id": "De005",
+      "date": "2026-09-17",
+      "subject": "Agent teams",
+      "path": "De005.json"
+    },
+    {
+      "id": "De006",
+      "date": "2026-09-17",
+      "subject": "Pilot invocation",
+      "path": "De006.json"
+    },
+    {
+      "id": "De007",
+      "date": "2026-09-18",
+      "subject": "Pilot model and effort",
+      "path": "De007.json"
+    },
+    {
+      "id": "De008",
+      "date": "2026-09-18",
+      "subject": "Records and notepad",
+      "path": "De008.json"
+    },
+    {
+      "id": "De009",
+      "date": "2026-09-18",
+      "subject": "Crew protocol and crew manifest",
+      "path": "De009.json"
+    },
+    {
+      "id": "De010",
+      "date": "2026-09-18",
+      "subject": "First agent team findings",
+      "path": "De010.json"
+    },
+    {
+      "id": "De011",
+      "date": "2026-09-18",
+      "subject": "Cockpit CLAUDE.md and pilot quarters",
+      "path": "De011.json"
+    },
+    {
+      "id": "De012",
+      "date": "2026-09-18",
+      "subject": "Day-one requests Rq001 to Rq003",
+      "path": "De012.json"
+    },
+    {
+      "id": "De013",
+      "date": "2026-09-18",
+      "subject": "Rq004 mission shape",
+      "path": "De013.json"
+    },
+    {
+      "id": "De014",
+      "date": "2026-09-18",
+      "subject": "Rq005 rulings",
+      "path": "De014.json"
+    },
+    {
+      "id": "De015",
+      "date": "2026-09-18",
+      "subject": "Rq006 records",
+      "path": "De015.json"
+    },
+    {
+      "id": "De016",
+      "date": "2026-09-18",
+      "subject": "Rq007 branches",
+      "path": "De016.json"
+    },
+    {
+      "id": "De017",
+      "date": "2026-09-18",
+      "subject": "Launch definition",
+      "path": "De017.json"
+    },
+    {
+      "id": "De018",
+      "date": "2026-09-18",
+      "subject": "Push machine-only branches",
+      "path": "De018.json"
+    },
+    {
+      "id": "De019",
+      "date": "2026-09-18",
+      "subject": "Rq008 and the shape of records",
+      "path": "De019.json"
+    },
+    {
+      "id": "De020",
+      "date": "2026-09-19",
+      "subject": "Rq009 and the production of records",
+      "path": "De020.json"
+    },
+    {
+      "id": "De021",
+      "date": "2026-09-19",
+      "subject": "How a record shows it is sourced",
+      "path": "De021.json"
+    },
+    {
+      "id": "De022",
+      "date": "2026-09-20",
+      "subject": "Rq010, the record-keeping method",
+      "path": "De022.json"
+    },
+    {
+      "id": "De023",
+      "date": "2026-09-20",
+      "subject": "Ds004's four decisions and the procedures room",
+      "path": "De023.json"
+    },
+    {
+      "id": "De024",
+      "date": "2026-09-20",
+      "subject": "The four stubs",
+      "path": "De024.json"
+    },
+    {
+      "id": "De025",
+      "date": "2026-09-20",
+      "subject": "Rq011, the starting procedures, and how procedures are made from here",
+      "path": "De025.json"
+    },
+    {
+      "id": "De026",
+      "date": "2026-09-20",
+      "subject": "Rq013 and who may write in the cockpit",
+      "path": "De026.json"
+    },
+    {
+      "id": "De027",
+      "date": "2026-09-20",
+      "subject": "Ds006's remaining decisions: advice files, lint strength, naming, manifests, rooms",
+      "path": "De027.json"
+    }
+  ]
+}

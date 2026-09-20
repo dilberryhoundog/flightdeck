@@ -1,0 +1,285 @@
+{
+  "kind": "crew",
+  "version": 3,
+  "updated": "2026-09-20",
+  "convention": "One row per seat; this file owns a seat's identity (name, agent type, model). Its dossier is team/crew/<room>/<name>.md; teams flown are derived from ../../records/dispatch/MANIFEST-dispatches.json by seat name. status: active | superseded | retired, with note saying by what.",
+  "proposed": [],
+  "units": [
+    {
+      "name": "spec-builder",
+      "room": "flightcrew",
+      "agent_type": "spec-builder",
+      "model": "fable",
+      "status": "active",
+      "note": "not yet dispatched from the cockpit",
+      "path": "flightcrew/spec-builder.md"
+    },
+    {
+      "name": "explorer",
+      "room": "flightcrew",
+      "agent_type": "Explore",
+      "model": "haiku",
+      "status": "active",
+      "legacy": "frozen crew-manifest C002",
+      "path": "flightcrew/explorer.md"
+    },
+    {
+      "name": "harness-guide",
+      "room": "general",
+      "agent_type": "claude-code-guide",
+      "model": "sonnet",
+      "status": "active",
+      "legacy": "frozen crew-manifest C001, C003, C004",
+      "path": "general/harness-guide.md"
+    },
+    {
+      "name": "doc-reviewer",
+      "room": "general",
+      "agent_type": "chat-tools:doc-reviewer",
+      "model": "sonnet",
+      "status": "active",
+      "path": "general/doc-reviewer.md"
+    },
+    {
+      "name": "explore-subagent",
+      "room": "general",
+      "agent_type": "Explore",
+      "model": "sonnet",
+      "status": "active",
+      "path": "general/explore-subagent.md"
+    },
+    {
+      "name": "runs-recon",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/runs-recon.md"
+    },
+    {
+      "name": "lineage-historian",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/lineage-historian.md"
+    },
+    {
+      "name": "doctrine-recon",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/doctrine-recon.md"
+    },
+    {
+      "name": "docs-verifier",
+      "room": "cockpit",
+      "agent_type": "claude-code-guide",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/docs-verifier.md"
+    },
+    {
+      "name": "mission-cutter",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/mission-cutter.md"
+    },
+    {
+      "name": "source-reader",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/source-reader.md"
+    },
+    {
+      "name": "transcript-miner",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/transcript-miner.md"
+    },
+    {
+      "name": "records-writer",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "superseded",
+      "note": "by record-writer; no dossier, lessons in records/dispatch/cockpit/T002.json",
+      "superseded_by": "record-writer"
+    },
+    {
+      "name": "adversary",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/adversary.md"
+    },
+    {
+      "name": "fit-critic",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/fit-critic.md"
+    },
+    {
+      "name": "trim-critic",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/trim-critic.md"
+    },
+    {
+      "name": "topic-extractor",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/topic-extractor.md"
+    },
+    {
+      "name": "record-writer",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/record-writer.md"
+    },
+    {
+      "name": "discovery",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/discovery.md"
+    },
+    {
+      "name": "validator",
+      "room": "cockpit",
+      "agent_type": "claude-code-guide",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/validator.md"
+    },
+    {
+      "name": "claude-md-judge",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/claude-md-judge.md"
+    },
+    {
+      "name": "cockpit-auditor",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/cockpit-auditor.md"
+    },
+    {
+      "name": "practice-scout",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/practice-scout.md"
+    },
+    {
+      "name": "option-maker",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/option-maker.md"
+    },
+    {
+      "name": "stub-writer",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/stub-writer.md"
+    },
+    {
+      "name": "assets-scout",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/assets-scout.md"
+    },
+    {
+      "name": "tool-builder",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/tool-builder.md"
+    },
+    {
+      "name": "fixture-writer",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/fixture-writer.md"
+    },
+    {
+      "name": "advice-reader",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/advice-reader.md"
+    },
+    {
+      "name": "build-reader",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/build-reader.md"
+    },
+    {
+      "name": "alignment-judge",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/alignment-judge.md"
+    },
+    {
+      "name": "commander-advocate",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/commander-advocate.md"
+    },
+    {
+      "name": "schema-builder",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/schema-builder.md"
+    },
+    {
+      "name": "refitter",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/refitter.md"
+    }
+  ]
+}

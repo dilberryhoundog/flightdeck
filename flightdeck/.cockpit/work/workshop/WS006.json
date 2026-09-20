@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS006",
+  "title": "Effort level could not be read headlessly; find a measurable check for effortLevel on a launched pilot",
+  "raised": "2026-09-18",
+  "source": "log 2026-09-18_8e74fffb, T6 in records/notepad/claude-code/launch-tests.md",
+  "status": "open"
+}

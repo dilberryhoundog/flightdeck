@@ -1,0 +1,8 @@
+{
+  "kind": "decision",
+  "id": "De008",
+  "date": "2026-09-18",
+  "subject": "Records and notepad",
+  "decision": "references/ renamed records/. Records are the protected source of truth across sessions: official docs with sources, and codebase findings only from purpose-led specialist research. Promotion from the notepad is the pathway in. Scratch goes in records/notepad/ or the .claude side room.",
+  "by": "commander"
+}

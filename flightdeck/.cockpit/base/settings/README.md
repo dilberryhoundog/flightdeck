@@ -1,6 +1,6 @@
 # Cockpit Settings
 
-`pilot.settings.json` is passed by path with `claude --settings`. It carries what a settings file can carry: model, effort, env, permissions, cross-session messaging policy and hooks. It never carries the persona; that is `../../quarters/pilot/identity.md`, `job.md` and the commander's dossier, appended by `../bin/pilot.sh`.
+`pilot.settings.json` is passed by path with `claude --settings`. It carries what a settings file can carry: model, effort, env, permissions, cross-session messaging policy and hooks. It never carries the persona; that is `../../team/officers/pilot/identity.md`, `job.md` and the commander's dossier, appended by `../bin/pilot.sh`.
 
 Keys in use:
 

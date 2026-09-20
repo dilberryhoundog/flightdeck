@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS002",
+  "title": "Live-check F7 and F12: does the cockpit CLAUDE.md load on demand for a session started at the repo root, and do its imports expand there",
+  "raised": "2026-09-18",
+  "source": "docs-scout C009, verification pending in records/notepad/claude-md-review-2026-09-18/docs-scout.md",
+  "status": "open"
+}

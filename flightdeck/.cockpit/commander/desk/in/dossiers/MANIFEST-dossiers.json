@@ -1,0 +1,76 @@
+{
+  "kind": "dossiers",
+  "version": 1,
+  "updated": "2026-09-19",
+  "units": [
+    {
+      "id": "Ds001",
+      "title": "Flightcrew recon: where the system stands and what to fly next",
+      "path": "Ds001.md",
+      "written": "2026-09-18",
+      "from": "records/notepad/recon-2026-09-18/",
+      "mission": "M001",
+      "requests": [
+        "Rq004",
+        "Rq005",
+        "Rq006",
+        "Rq007"
+      ]
+    },
+    {
+      "id": "Ds002",
+      "title": "Five records for the pilot, ready for the commander's review",
+      "path": "Ds002.md",
+      "written": "2026-09-18",
+      "from": "records/notepad/research-2026-09-18/",
+      "mission": "M001",
+      "requests": [
+        "Rq008"
+      ]
+    },
+    {
+      "id": "Ds003",
+      "title": "Seven records from the commander's own words, ready for review",
+      "path": "Ds003.md",
+      "written": "2026-09-18",
+      "from": "records/notepad/research-2026-09-18/ and records/extracts/topics/",
+      "mission": "M001",
+      "requests": [
+        "Rq009"
+      ]
+    },
+    {
+      "id": "Ds004",
+      "title": "How the cockpit keeps records: the decision team's answer",
+      "path": "Ds004.md",
+      "written": "2026-09-19",
+      "from": "records/notepad/decision-2026-09-19/",
+      "mission": "M001",
+      "requests": [
+        "Rq010"
+      ]
+    },
+    {
+      "id": "Ds005",
+      "title": "The procedures room: scaffold and five starting procedures",
+      "path": "Ds005.md",
+      "written": "2026-09-20",
+      "from": "records/notepad/decision-2026-09-19/procedures-scaffold.md",
+      "mission": "M001",
+      "requests": [
+        "Rq011"
+      ]
+    },
+    {
+      "id": "Ds006",
+      "title": "The cockpit's paperwork: identifiers, manifests, frontmatter, rooms and a schema store",
+      "path": "Ds006.md",
+      "written": "2026-09-20",
+      "from": "records/notepad/ideas-2026-09-20/paper-final.md",
+      "mission": "M001",
+      "requests": [
+        "Rq013"
+      ]
+    }
+  ]
+}

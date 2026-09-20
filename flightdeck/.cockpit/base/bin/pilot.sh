@@ -12,7 +12,7 @@
 # On resume the model saved in the transcript beats the settings file (effort does not;
 # it still comes from settings), so resume adds --model fable unless the caller passed --model.
 #
-# The pilot's quarters (identity, job) and the commander's dossier are joined into one
+# The pilot's officer files (identity, job) and the commander's dossier are joined into one
 # --append-system-prompt value. A repeated --append-system-prompt-file keeps only the last
 # file, and an @ import inside an appended file does not expand (notepad tests T9, T12).
 # Everything is passed by path each time, because flags do not persist across --resume.
@@ -22,9 +22,9 @@ COCKPIT="$ROOT/flightdeck/.cockpit"
 NAME="pilot"
 MODEL="fable"
 SETTINGS="$COCKPIT/base/settings/pilot.settings.json"
-IDENTITY="$COCKPIT/quarters/pilot/identity.md"
-JOB="$COCKPIT/quarters/pilot/job.md"
-COMMANDER="$COCKPIT/quarters/commander/commander.md"
+IDENTITY="$COCKPIT/team/officers/pilot/identity.md"
+JOB="$COCKPIT/team/officers/pilot/job.md"
+COMMANDER="$COCKPIT/team/officers/commander/commander.md"
 
 [ -f "$SETTINGS" ] || { echo "pilot.sh: missing $SETTINGS" >&2; exit 1; }
 for f in "$IDENTITY" "$JOB" "$COMMANDER"; do

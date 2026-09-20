@@ -1,9 +1,0 @@
-{
-  "kind": "decision",
-  "id": "De021",
-  "date": "2026-09-19",
-  "subject": "How a record shows it is sourced",
-  "decision": "No extra regalia for records. Web-sourced records stay exactly as the existing records/claude-code files: short, sharp, a simple one-line Source statement at the top. Locally sourced records carry a one-line stamp of approval at the top indicating they have been adequately sourced. No number-based reference lists in the header, no direct source quotes mixed into the prose, no separate stamp ledger. Clarified the same session: \"every claim has a source\" does not mean the source has to be explicitly named inline. The sourcing requirement stands; only its display moves from the prose to the one header line.",
-  "by": "commander",
-  "source": "session 4450a586"
-}

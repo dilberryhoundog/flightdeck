@@ -1,0 +1,63 @@
+{
+  "kind": "topic",
+  "name": "what-makes-a-good-record",
+  "title": "What makes a good record",
+  "scope": "The shape a cockpit record must take: timeless, sharp, authoritative, cheap to read, and free of duplicated material. Excludes which store a document belongs in (see the-library-and-records).",
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "There is no guidance on what constitutes a good record. A set of rules need to be created that define what a good record is. I see the existing ones are sharp and to the point, so that when an agent loads them they are efficient in their token window. Build this docspec how how think i trust you.",
+      "context": "Written advice on the first attempt at a flightcrew record."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "They each claim a relevant function of claude code harness and speak directly and with authority on the subject.",
+      "context": "Pointing at the existing claude-code records as the model."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "This is such a well researched and presented document. Except it reads like a log. All quirks and little-known findings of claude code harness usage. with findings appended as they crop up.",
+      "context": "On a harness-facts draft that had accumulated findings rather than claiming a subject."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "However this document is source material. The existing records/ carry the shape these document should be, sharp and to the point. because an agent needs to injest quickly and get maximum value from their read. A large portion of this documents are superceded shapes.",
+      "context": "On a fully referenced draft that was too long to be a record."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "However it doesn't pass the \"two years time\" test. By then it will be completely irrelevant. I would say branch topology would be far more suited as a json log file. So the git terrain can be updated as it shifts.",
+      "context": "On a branch-topology draft."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "everything after 'where the system diverges' disables this as a valid record. the pilot only needs to know about the \"current\" form of the method. these are indeed valid findings fit for remembering when we dig into agents. but we are trying to store timeless records here, not ancient history.",
+      "context": "On a draft that recorded superseded forms alongside the current one."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "I thought that the pilot would benefit from stating all the principles and tooling that this pattern leans upon, instead only a path to the document is given.",
+      "context": "On a record that referred out to a document instead of carrying its substance."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "also repeating terms in this record will duplicate the maintenace burden when they are updated. remove terms from the draft.",
+      "context": "On a draft that restated terms defined elsewhere."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "Commanders guidance is a source document. It has a log of commanders statements, this record is not really timeless.",
+      "context": "On the first mining output, explaining why it is a source and not a record."
+    }
+  ]
+}

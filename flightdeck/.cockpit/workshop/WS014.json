@@ -1,9 +1,0 @@
-{
-  "kind": "workshop-item",
-  "id": "WS014",
-  "title": "Library maintenance: flightdeck/library is for all stakeholders and maintained by the pilot through crew (Ds001, Ds002). Define what maintenance means (genesis documents kept current, superseded claims marked) and log it in logs/maintenance.json",
-  "raised": "2026-09-18",
-  "source": "commander, out-advice/CA001.md and Ds002.md",
-  "status": "open",
-  "recurring": true
-}

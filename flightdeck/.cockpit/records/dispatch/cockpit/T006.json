@@ -1,0 +1,51 @@
+{
+  "kind": "dispatch",
+  "id": "T006",
+  "date": "2026-09-18",
+  "session": "dcb75456",
+  "mission": "M001",
+  "purpose": "Strengthened research team (Ds002 advice): mine the commander's statements into timeless topics, distil records under the docspec, validated, compared and contested",
+  "roster": "topics-and-records",
+  "seats": [
+    {
+      "name": "topic-extractor",
+      "reason": "deciding what is a timeless topic and what is chatter is judgement",
+      "returns": "27 topics, 203 statements, byte-verbatim, verified twice"
+    },
+    {
+      "name": "record-writer",
+      "reason": "distilling a topic into a record under six tests is synthesis",
+      "returns": "six records and one register; built a citation-resolving check"
+    },
+    {
+      "name": "discovery",
+      "reason": "fetching repo terrain to validate references is retrieval",
+      "returns": "27 per-topic terrain notes, four batch reports"
+    },
+    {
+      "name": "validator",
+      "reason": "adjudicating disputed claims against official sources is lookup",
+      "returns": "adjudications on request; nested-subagent clause cut"
+    },
+    {
+      "name": "adversary",
+      "reason": "adversary and comparer in one seat",
+      "returns": "about forty findings across four passes; six withdrawn in writing"
+    }
+  ],
+  "subagents": [],
+  "shape": "extractor first; discovery and validator as topics landed; writer drafted once topics were stable, sent each draft to adversary and validator, revised, delivered; the lead filed topics and put records to the commander as Ds003",
+  "outcome": "Topic store filed (27 topics, 203 statements). Seven records drafted at records/notepad/research-2026-09-18/records-final/, dossier Ds003, request Rq009. Two over-broad supersessions caught and narrowed. Two commander rulings obtained in session (Or039, Or040). Pilot's own errors caught by seats: two turn-opener line numbers in a ruling, one wrong advice-file attribution, one over-broad supersession ruling. The writer's script found one wrong citation in 83 that four passes had not. Records await the commander's ruling on Rq009.",
+  "lessons": [
+    "the topic store is the right intermediate: it caught a superseded claim the writer had just added and made every quote checkable with one command",
+    "a summarising fetch can establish a presence but never an absence; check every negative against raw HTML",
+    "anchor findings on quoted text, not line numbers",
+    "a wrong citation is present and a missing one is absent; only a script that resolves each citation against its line catches it",
+    "a writer that applies a disputed ruling in its weakest true form and sends the question up is what gets the commander to answer it",
+    "brief every seat with the full read scope it will need; lifting boundaries mid-run cost rounds",
+    "two seats should not share a name across teams",
+    "extend a verifier and prove it fails on a bad input before trusting its pass"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

@@ -1,0 +1,45 @@
+{
+  "kind": "topic",
+  "name": "altitude",
+  "title": "Altitude: the level a spec is written at",
+  "scope": "How high a spec should sit above the implementation, what a behaviour reads like at the right altitude, and where that guidance is kept. Excludes the spec's structure and versioning (see the-spec).",
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "9b679556:7004",
+      "date": "2026-09-09",
+      "statement": "I went searching because I couldn't SEE my project in the spec. just a wall of text. After reading that and others. I think this spec should be describing behaviours like this. \"a scout worker is deployed first so that the implementation run can be found working before the rest of the wave continues\" \"an adversarial reviewer critics the diff against the diff and asks the orchestrator to implement\" this gives license to the builder to create that bahaviour through discovery, I feel our spec is a one shot build plan. this would mean the spec would take orders of magnitude less time. and I can simple append statements onto our behaviours if we under spec'd it.",
+      "context": "After finding the spec-description and verification-addendum manuals mid-interview."
+    },
+    {
+      "ref": "9b679556:6969",
+      "date": "2026-09-09",
+      "statement": "um can you see how many behaviours are observable from the outside (ie me)? how many interfaces and contracts are built first for multiple actors?",
+      "context": "First question after reading those manuals, put to the interviewer about the draft."
+    },
+    {
+      "ref": "9b679556:7012",
+      "date": "2026-09-09",
+      "statement": "How the agents built it is upto them, I come back if I need.",
+      "context": "Closing the same turn, on what the builder is left to decide."
+    },
+    {
+      "ref": "9b679556:7054",
+      "date": "2026-09-09",
+      "statement": "also are these two doc at the begining enough to set the right \"altitude\" any agent body updates? updates to the docs?",
+      "context": "Approving the altitude rewrite and asking what else had to change to hold it."
+    },
+    {
+      "ref": "0fb7c77a:2995",
+      "date": "2026-09-09",
+      "statement": "saying that we don't plan what to build. we just give a definition of done and a behaviour to build across attempts.",
+      "context": "Explaining the outcome-discovery principle that the conventions already carry."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/desk/out/advice/CA002.md",
+      "date": "2026-09-18",
+      "statement": "Altitude - This section belongs in the spec-builder crew file in quarters/. The identity file should receive a `## what to watch for` section to ensure the agent behaves correctly. this would be the location that altitude mentioned so that the pilot can understand that the spec-builders writing is at the right altitude.",
+      "context": "Written advice on a draft record, saying where altitude guidance belongs."
+    }
+  ]
+}

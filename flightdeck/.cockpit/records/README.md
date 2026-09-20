@@ -1,11 +1,11 @@
 # Records
 
-The pilot's source of truth across sessions. The docspec is cockpit rule 2: six tests, two styles, and the exemplar. A record is one topic, whole. Where the docspec and an existing record disagree, the docspec wins; where this README and the docspec disagree, the docspec wins. Every claim in a record has a source, recorded per claim in the writer's working notes (kept in the team's notepad folder while the record stands) and shown in the header line; nothing is cited or quoted in the body. When in doubt it goes in `../notepad/`. A record is re-checked when the currency review or a drift event says so; what the review can and cannot notice is set out in `../procedures/`.
+Anything recorded: what has happened, and what is known.
 
-Header line forms. One line, or two where a record draws on two kinds of source. Web-sourced: `Source: <URL> (researched YYYY-MM-DD by <seat>, CLI <version>).` Codebase: `Source: <branch>:<path> at <commit>, researched YYYY-MM-DD by <team id> <seat>.` Locally sourced (the commander's directives, the library, manuals, source guides): `Validated: checked against <kinds of source>; <team id> <seat>, YYYY-MM-DD.` Stub: `Stub: existing knowledge only, not validated, not to be cited as authority.`
+- `manuals/` — the pilot's authority. Short references over a single topic, each written to the six tests in rule 2 of `../CLAUDE.md`. `manuals/README.md` indexes them and sets out the header keys and validation.
+- `logs/` — one file per session, plus `MANIFEST-logs.json`, the branch register `MANIFEST-branches.json`, and the frozen `crew-manifest.json` of dispatches that predate the dispatch room.
+- `dispatch/` — every team the pilot has flown: one register, `MANIFEST-dispatches.json`, over a unit per team in its room.
+- `extracts/` — bulk sources condensed into key findings. The commander's statements by topic are the starter; see `extracts/README.md`.
+- `notepad/` — scratch. Tests, observations, opinions and crew reports. Nothing here is authoritative.
 
-Validation. The `Validated:` line is applied by one crew seat that did not write the record, after it has read the sources in full and checked every statement for support and for a fair reading; unsupported statements are deleted. An edit voids the line: the record is re-validated or the line is removed. A stub carries only the `Stub:` line, which is replaced by the line the record earns when it is promoted; stubs are marked `(stub)` in the index below.
-
-- `claude-code/` — the harness: `agent-teams.md`, `subagents.md`, `session-messaging.md`, `settings-and-launch.md`. Register: `harness-register.md` (landed 2026-09-20, commander's ruling De020).
-- `cockpit/` — how the cockpit itself works: `write-permissions.md` (stub, landed 2026-09-20 on the commander's order to move it out of `CLAUDE.md`).
-- `flightcrew/` — the system: written on demand under the record-keeping method (Ds004); four stubs landed 2026-09-20 after the commander's read: `launches-and-runs.md`, `state-and-freezing.md`, `tests-and-checks.md`, `endings.md` (all stub).
+Manuals are the authority. Everything else in this room is a record of what happened, not a statement of what is true.

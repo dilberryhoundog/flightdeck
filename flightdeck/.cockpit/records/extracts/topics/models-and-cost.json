@@ -1,0 +1,45 @@
+{
+  "kind": "topic",
+  "name": "models-and-cost",
+  "title": "Models, tiers and cost",
+  "scope": "Choosing a model for the work, what each tier is good for, and the token cost of adversarial passes. Excludes which roles exist (see crews-and-roles).",
+  "updated": "2026-09-18",
+  "statements": [
+    {
+      "ref": "bab64608:619",
+      "date": "2026-09-03",
+      "statement": "I’m pretty sure the implementers are on sonnet -> opus modeling because they get 8 tries each to go green. Fable is only useful if the workflow is trying to one shot the solution.",
+      "context": "Watching the first build run and asking whether it was using tiered agents."
+    },
+    {
+      "ref": "bab64608:621",
+      "date": "2026-09-03",
+      "statement": "if it’s retry until green fable will blow the budget as an implementer.",
+      "context": "Same turn, giving the reason."
+    },
+    {
+      "ref": "9b679556:3965",
+      "date": "2026-09-09",
+      "statement": "send explorers when ever you want, they are cheap and don't spoil context.",
+      "context": "Telling the interviewer to stop asking permission to research."
+    },
+    {
+      "ref": "9b679556:6336",
+      "date": "2026-09-09",
+      "statement": "these bulk adversaries are costing huge tokens and later runs are less valuable than earlier runs.",
+      "context": "Refusing a second attacker pass over the spec."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/orders/Or019.json",
+      "date": "2026-09-18",
+      "statement": "one Sonnet recommendation was not a rule that all crew be Sonnet. Choose the model for the work.",
+      "context": "Correcting a cockpit rule the pilot had written from a single research finding."
+    },
+    {
+      "ref": "flightdeck/.cockpit/commander/orders/Or035.json",
+      "date": "2026-09-18",
+      "statement": "Sonnet doesn't have the CPU power to process this type of work and takes extensively longer and sometimes busts. Research has found opus to keep up as an adversary.",
+      "context": "Ruling on the research team's makeup."
+    }
+  ]
+}

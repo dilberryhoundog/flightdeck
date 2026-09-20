@@ -1,8 +1,0 @@
-{
-  "kind": "workshop-item",
-  "id": "WS011",
-  "title": "Crew briefs say report to `pilot`; in-team the lead is `team-lead` and `pilot` resolves to the sender's own parent. Two of five teammates fell back to truncated final messages. Fix the brief convention in CLAUDE.md crew rule 3 and add a scratchpad delivery path for long reports",
-  "raised": "2026-09-18",
-  "source": "session dcb75456, notepad/claude-code/messaging-observed.md",
-  "status": "open"
-}

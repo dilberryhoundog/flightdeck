@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "De024",
+  "date": "2026-09-20",
+  "subject": "The four stubs",
+  "decision": "Read by the commander: \"stubs are good, yours to promote.\" Landed in records/manuals/flightcrew/ as stubs. Rq009 is complete as amended by De020: register landed, four stubs landed, two drafts stay in the notepad.",
+  "by": "commander",
+  "source": "session 4450a586",
+  "requests": [
+    "Rq009"
+  ]
+}

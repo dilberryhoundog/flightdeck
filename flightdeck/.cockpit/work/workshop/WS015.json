@@ -1,0 +1,8 @@
+{
+  "kind": "workshop-item",
+  "id": "WS015",
+  "title": "Test directly the four harness observations the docs do not settle: strictest-of-two PreToolUse hooks; PATH given to hooks; workflow runtime and `export default`; stall message on exit 0. Source: records/notepad/recon-2026-09-18/docs-verifier-runs.md",
+  "raised": "2026-09-18",
+  "source": "docs-verifier C015; commander wants no mission built on folklore",
+  "status": "open"
+}

@@ -1,0 +1,145 @@
+{
+  "kind": "requests",
+  "version": 1,
+  "updated": "2026-09-20",
+  "units": [
+    {
+      "id": "Rq001",
+      "title": "Survey run/flightcrew-characterization-2 before any new launch",
+      "status": "superseded",
+      "path": "done/Rq001.md",
+      "raised": "2026-09-17",
+      "mission": "M001",
+      "decided": "2026-09-18",
+      "note": "superseded: the recon team ordered 2026-09-18 covers the run branches with the commander's approval already given"
+    },
+    {
+      "id": "Rq002",
+      "title": "Decide the canonical home for crew role definitions",
+      "status": "withdrawn",
+      "path": "done/Rq002.md",
+      "raised": "2026-09-17",
+      "mission": "M001",
+      "decided": "2026-09-18",
+      "note": "withdrawn to the workshop as WS008: too small for a request, a mission on flightcrew structure will sweep it"
+    },
+    {
+      "id": "Rq003",
+      "title": "Repair STRUCTURE.md and liftoff.template.yaml paths",
+      "status": "withdrawn",
+      "path": "done/Rq003.md",
+      "raised": "2026-09-17",
+      "mission": "M001",
+      "decided": "2026-09-18",
+      "note": "withdrawn to the workshop as WS009: a fix, not a request"
+    },
+    {
+      "id": "Rq004",
+      "title": "Open three missions now, two on the horizon, incubate the three launches",
+      "status": "amended",
+      "path": "Rq004.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "Ds001",
+      "decided": "2026-09-18",
+      "note": "see MANIFEST-decisions.json and commander/desk/out/advice/CA001.md"
+    },
+    {
+      "id": "Rq005",
+      "title": "The pilot's rulings on the cutter's nine open questions",
+      "status": "amended",
+      "path": "Rq005.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "Ds001",
+      "decided": "2026-09-18",
+      "note": "see MANIFEST-decisions.json and commander/desk/out/advice/CA001.md"
+    },
+    {
+      "id": "Rq006",
+      "title": "Promote three recon briefings to records",
+      "status": "amended",
+      "path": "Rq006.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "Ds001",
+      "decided": "2026-09-18",
+      "note": "see MANIFEST-decisions.json and commander/desk/out/advice/CA001.md"
+    },
+    {
+      "id": "Rq007",
+      "title": "Branch hygiene: prune contained branches, push stale remotes",
+      "status": "amended",
+      "path": "Rq007.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "Ds001",
+      "decided": "2026-09-18",
+      "note": "see MANIFEST-decisions.json and commander/desk/out/advice/CA001.md"
+    },
+    {
+      "id": "Rq008",
+      "title": "Land the five research records",
+      "status": "amended",
+      "path": "Rq008.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "Ds002",
+      "decided": "2026-09-18",
+      "note": "see MANIFEST-decisions.json and commander/desk/out/advice/CA002.md"
+    },
+    {
+      "id": "Rq009",
+      "title": "Land the seven records",
+      "status": "executed",
+      "path": "Rq009.md",
+      "raised": "2026-09-18",
+      "mission": "M001",
+      "dossier": "Ds003",
+      "decided": "2026-09-19",
+      "note": "executed as amended: De020, De024"
+    },
+    {
+      "id": "Rq010",
+      "title": "Adopt the record-keeping method",
+      "status": "executed",
+      "path": "Rq010.md",
+      "raised": "2026-09-19",
+      "mission": "M001",
+      "dossier": "Ds004",
+      "decided": "2026-09-20",
+      "note": "De022, De023; all five steps executed 2026-09-20, step 5 raised as Rq012"
+    },
+    {
+      "id": "Rq011",
+      "title": "Approve the starting procedures",
+      "status": "executed",
+      "path": "Rq011.md",
+      "raised": "2026-09-20",
+      "mission": "M001",
+      "dossier": "Ds005",
+      "decided": "2026-09-20",
+      "note": "De025"
+    },
+    {
+      "id": "Rq012",
+      "title": "Guard the unmerged branch",
+      "status": "awaiting",
+      "path": "Rq012.md",
+      "raised": "2026-09-20",
+      "mission": "M001",
+      "dossier": "Ds004"
+    },
+    {
+      "id": "Rq013",
+      "title": "Build stage A of the paperwork check, outside the cockpit",
+      "status": "amended",
+      "path": "Rq013.md",
+      "raised": "2026-09-20",
+      "mission": "M001",
+      "dossier": "Ds006",
+      "decided": "2026-09-20",
+      "note": "De026, De027: approved with the build route changed to a scoped build inside the cockpit"
+    }
+  ]
+}

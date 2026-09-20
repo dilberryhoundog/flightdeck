@@ -1,0 +1,33 @@
+{
+  "kind": "dispatch",
+  "id": "T004",
+  "date": "2026-09-18",
+  "session": "8e74fffb",
+  "mission": "M001",
+  "purpose": "First agent team: cockpit cleanup suggestions, official best practices, adversary on both (spark Sp003)",
+  "seats": [
+    {
+      "name": "auditor",
+      "reason": "judgement over the cockpit",
+      "returns": "findings A1 to A16"
+    },
+    {
+      "name": "docs-scout",
+      "reason": "official-docs lookup",
+      "returns": "sourced findings"
+    },
+    {
+      "name": "red-team",
+      "reason": "attack both reports",
+      "returns": "verdict and ranked actions"
+    }
+  ],
+  "subagents": [],
+  "shape": "auditor and scout in parallel, both messaging the red-team; red-team ruled; all three shut down as first reports landed",
+  "outcome": "Findings actioned on the commander's orders: launcher check, guard rewrite with table test, persona moved to quarters, index and hook batch; sandbox raised as Sp004. Reports at records/notepad/team-run-2026-09-18 Recorded retrospectively.",
+  "lessons": [
+    "produced crew rule 6 (keep teammates alive) and later the Opus-adversary clause of rule 2"
+  ],
+  "status": "finished",
+  "room": "cockpit"
+}

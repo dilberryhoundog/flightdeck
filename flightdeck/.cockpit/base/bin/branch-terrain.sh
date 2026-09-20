@@ -1,5 +1,5 @@
 #!/bin/sh
-# Print the git terrain that logs/MANIFEST-branches.json deliberately omits: tip, remote lag, containment.
+# Print the git terrain that records/logs/MANIFEST-branches.json deliberately omits: tip, remote lag, containment.
 # Read-only. Run from anywhere in the repo.
 cd "$(git rev-parse --show-toplevel)" || exit 1
 printf '%-58s %-8s %-28s %s\n' BRANCH TIP REMOTE CONTAINED_IN

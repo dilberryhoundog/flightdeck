@@ -1,9 +1,0 @@
-{
-  "kind": "workshop-item",
-  "id": "WS013",
-  "title": "Terms page maintenance: library/terms.md was meant for build-run agents to add terms; commander (Ds002) says a teammate should maintain it at the end of each run. Define the maintenance step and add it to logs/maintenance.json",
-  "raised": "2026-09-18",
-  "source": "commander, out-advice/CA002.md",
-  "status": "open",
-  "recurring": true
-}

@@ -1,8 +1,0 @@
-{
-  "kind": "decision",
-  "id": "De011",
-  "date": "2026-09-18",
-  "subject": "Cockpit CLAUDE.md and pilot quarters",
-  "decision": "CLAUDE.md is folder instructions for any agent arriving in the cockpit: purpose, rules, how to find things. The pilot's persona moves into quarters/pilot (identity, job description), structured at the pilot's choice.",
-  "by": "commander"
-}

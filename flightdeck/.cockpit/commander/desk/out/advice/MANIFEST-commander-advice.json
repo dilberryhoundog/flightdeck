@@ -1,0 +1,38 @@
+{
+  "kind": "commander-advice",
+  "version": 1,
+  "updated": "2026-09-20",
+  "convention": "The commander's written rulings, one file per round of advice, filed by identifier alone. A row says which dossier and requests the file answers; the decisions it produced are in ../../../decisions/MANIFEST-decisions.json, which names the advice file in each decision's by field. The files are the commander's own words and are never edited by the pilot or by crew.",
+  "units": [
+    {
+      "id": "CA001",
+      "answers": [
+        "Ds001",
+        "Rq004",
+        "Rq005",
+        "Rq006",
+        "Rq007"
+      ],
+      "date": "2026-09-18",
+      "path": "CA001.md"
+    },
+    {
+      "id": "CA002",
+      "answers": [
+        "Ds002",
+        "Rq008"
+      ],
+      "date": "2026-09-18",
+      "path": "CA002.md"
+    },
+    {
+      "id": "CA003",
+      "answers": [
+        "Ds003",
+        "Rq009"
+      ],
+      "date": "2026-09-19",
+      "path": "CA003.md"
+    }
+  ]
+}

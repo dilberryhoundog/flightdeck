@@ -1,9 +1,0 @@
-{
-  "kind": "decision",
-  "id": "De009",
-  "date": "2026-09-18",
-  "subject": "Crew protocol and crew manifest",
-  "decision": "Crew protocol kept with the pilot's instructions. Every dispatch recorded in logs/crew-manifest.json; quarters/crew recruits from recurring shapes in the manifest.",
-  "by": "commander",
-  "superseded_note": "commander, 2026-09-18: the dispatch room records teams, not individual crew; crew-manifest.json frozen (CLAUDE.md rule 7)."
-}

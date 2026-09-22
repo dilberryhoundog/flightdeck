@@ -1,0 +1,13 @@
+{
+  "kind": "roster",
+  "name": "idea-exploration",
+  "purpose": "explore one of the commander's idea files with him in the room until the paper settles, then a dossier",
+  "seats": [
+    "cockpit-auditor",
+    "record-miner",
+    "practice-scout",
+    "option-maker",
+    "adversary"
+  ],
+  "shape": "auditor, miner and scout in parallel on disjoint sources; option-maker drafts at once and revises one closed pass per round; adversary live from the first report on the evidence at source, then on each frozen and acknowledged pass; a second adversary body on the evidence if three evidence seats land together; the adversary body dispatched cold on the final pass, its findings checked by the live seats; the commander's answers relayed verbatim to every seat and recorded as orders; the adversary attacks the dossier before it goes up. Flown as T010 and T017."
+}

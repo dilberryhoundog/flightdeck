@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS030",
+  "title": "Move the dispatch records under team/ so all team assets sit under one roof",
+  "raised": "2026-09-22",
+  "source": "CA004 (question under Dispatch), Or084",
+  "status": "open",
+  "notes": "The commander asked whether records/dispatch/ should move to the teams folder; the pilot leans yes (the dispatch is a team asset and its miners are team seats); he ordered it workshopped (Or084). To do: decide the path (team/dispatch/), move the manifest and the units, repair references with cockpit-lint, update CLAUDE.md's room map, the READMEs and P002; mini-adversary roster over it before it lands."
+}

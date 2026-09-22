@@ -1,7 +1,7 @@
 {
   "kind": "commander-advice",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-22",
   "convention": "The commander's written rulings, one file per round of advice, filed by identifier alone. A row says which dossier and requests the file answers; the decisions it produced are in ../../../decisions/MANIFEST-decisions.json, which names the advice file in each decision's by field. The files are the commander's own words and are never edited by the pilot or by crew.",
   "units": [
     {
@@ -37,11 +37,12 @@
     {
       "id": "CA004",
       "answers": [
-        "Rq014"
+        "Ds007"
       ],
-      "date": "2026-09-20",
-      "status": "awaiting",
-      "path": "CA004.md"
+      "date": "2026-09-22",
+      "status": "answered",
+      "path": "CA004.md",
+      "note": "opened 2026-09-20 as a shell for Rq014, which the commander answered in conversation (De028); rewritten by him 2026-09-21 to 2026-09-22 as his advice on Ds007 and the team-builder paper"
     }
   ]
 }

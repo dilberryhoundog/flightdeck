@@ -1,7 +1,7 @@
 {
   "kind": "dispatches",
   "version": 1,
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "convention": "One register for every team the pilot has flown, in any room. A row points at the unit; the unit holds the whole team, including the room it flew in. Seat identity (agent type, model) is in ../../team/crew/MANIFEST-crew.json; a seat in a unit is name, reason, returns. Ids are counted across the whole register, assigned once, never renumbered.",
   "units": [
     {
@@ -131,6 +131,14 @@
       "summary": "Dispatch of one test teammate to check that crew spawned from a session on the agent body answer as crew and do not hold the pilot's body.",
       "status": "finished",
       "path": "cockpit/T016.json"
+    },
+    {
+      "id": "T017",
+      "date": "2026-09-21",
+      "mission": "M002",
+      "summary": "Dispatch to explore the commander's team-builder idea with him in the room: axes, team types, roster and crew shapes, the team-builder's own seats and its name.",
+      "status": "finished",
+      "path": "cockpit/T017.json"
     }
   ]
 }

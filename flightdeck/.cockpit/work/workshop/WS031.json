@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS031",
+  "title": "Refit the team files to the shapes in CA004: roster, dossier, dispatch, agent definitions, notepad README, P002 rewrite",
+  "raised": "2026-09-22",
+  "source": "CA004, Or084; findings in records/notepad/team-builder-2026-09-21/",
+  "status": "open",
+  "notes": "CA004 sets the shapes: roster (seats, type, shape carrying the lead's duties, improvement, test, metadata with status; no axis residue); dossier in two kinds (direct invocation, agent definition) with entry_point, conduct (name open), improvement, test; dispatch keeps date, session, mission, roster, subagents, room, adds seat rows with entry point summary, outcome, improvements, and events replacing scope, dropping procedure and axes_result; ID-based documents are the pilot's alone, crew bulk in the notepad, hook output in a new records/events/ (Or084). Team type names Auto, standard, ATS, ITR to confirm. This is the M002 objective added 2026-09-22; done by a build team after the boundary manuals land and the narrow discovery run settles the team-builder's own seats."
+}

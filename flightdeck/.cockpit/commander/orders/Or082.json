@@ -1,0 +1,7 @@
+{
+  "kind": "order",
+  "id": "Or082",
+  "date": "2026-09-21",
+  "session": "71b94de4",
+  "text": "With the order to proceed to the dossier, after updating commander/desk/out/ideas/team-builder.txt during T017: \"Proceed to dossier pilot. however I have updated the idea file to address some shortcomings of understanding. these may anser some questions... - \"small teams good...\" previous session read anthropic guidance that small teams work best. but wrote a hard limit of three seats only. this 'order' was to say that arbitary limits are bad. we should indeed try to keep teams small so they take less time and produce higher quality work, but do not set arbitary limits, what is small anyway (3?, 5?, 15?, 25?). the test is in the performance not the number of seats. I have noticed alot of orders lack the surrounding context needed for them to be effective orders. should an order include context, commander 'statement' (not truncated), and distilled 'order'. - axis understanding now in idea file, not really an axis-to-seat question. rather the teams performance tuned across axis. what tradeoffs or inclusions the team need to make to perform on these axises? - no peridical for this team, can do maintenance on demand, reads project for context if needed for this task. - \"standing team\" was your words. we have permanent rosters and crew files & instructions to keep teams alive, neither should be ignored.\""
+}

@@ -5,8 +5,8 @@ room: "cockpit"
 agent_type: "general-purpose"
 model: "sonnet"
 status: "active"
-stamp: ["2026-09-19", "Pilot: Ace", "4450a586"]
-context: ["T009", "T010"]
+stamp: ["2026-09-22", "Pilot: Ace", "71b94de4"]
+context: ["T009", "T010", "T017"]
 ---
 # practice-scout
 
@@ -19,7 +19,8 @@ Official sources only, named in the brief. For each mechanism: quote, URL, fetch
 ## Record
 
 T009: 93 lines, all confirmed-raw; found the convergence of three official memory designs on a capped index plus topic files, and the import rules. Left the sentence before a quoted passage out, which the adversary caught.
+T017: official guidance on agent teams, the fourth team type, repeatability mechanisms, evals; six revisions to 231 lines under thirteen adversary findings, all closed, none contested; two false absences (adversarial framing, an eval mechanism), a quote cut before its reversing sentence, and a missed team-size section on a page it quoted eleven times; every quote verified verbatim by two adversaries. Four follow-ups answered from the raw pages (task tools, hooks and claims).
 
 ## Next time
 
-Ask for the sentence either side of every quotation that carries an argument.
+Sonnet. Its first pass misses absences; brief it to list every section heading of each page it quotes and say which it did not use. A scored mapping from it fails as the auditor's did; ask for unscored quotation. It is the seat for harness follow-ups mid-flight, thirty lines each.

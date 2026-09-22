@@ -71,7 +71,7 @@ Five rooms, each answering one question, and two files at the root.
 
 - `cockpit.keep` — the commander's founding orders for this post; this file is the rest.
 - `base/` — the machinery: `bin/` (the launch script, the SessionStart hook, the write guard), `settings/` (the pilot's settings file), `verify/` (a schema per document type and `cockpit-lint`), and the temporary `store/`.
-- `commander/` — the commander's interface to the pilot: `desk/in/dossiers/` and `desk/in/requests/` for what goes up, `desk/out/advice/` and `desk/out/ideas/` for what comes back, `orders/` and `decisions/`, each a `MANIFEST-` over one JSON unit per item.
+- `commander/` — the commander's interface to the pilot: `desk/in/dossiers/` and `desk/in/requests/` for what goes up, `desk/out/advice/` for what comes back, `ideas/` for his raw idea files with an `archive/`, `orders/` and `decisions/`, each a `MANIFEST-` over one JSON unit per item.
 - `records/` — what has happened and is known: `manuals/` the pilot's authority (rule 2 is the docspec; `manuals/README.md` indexes them), `logs/` with `REGISTER-branches.json` and the frozen `FROZEN-crew-dispatches.json`, `dispatch/` one register over a unit per team in its room, `extracts/` (the commander's statements by topic today, extractions later), `notepad/` scratch.
 - `work/` — what is being done: `missions/` with `completed/` and `incubator/` for sparks, `workshop/` for fixes and maintenance, `procedures/` the logic engine whose `triggers.md` is the manifest.
 - `team/` — who does it: `crew/` in `flightcrew/`, `cockpit/` and `general/` with a dossier per seat, `officers/commander/` and `officers/pilot/`, and `rosters/` for favourite setups.

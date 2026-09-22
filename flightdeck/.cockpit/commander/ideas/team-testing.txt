@@ -1,0 +1,8 @@
+Discover and define team testing and improvement methods.
+Options:
+  - Live auditing on demand; A small team joins with an existing roster for a run. Emits internal data and signals from a run.
+  - Hook output; A hook emits signals and data from a run.
+  - Seat/s removed from a roster for a test run, results against a fixtured task run, large drop in performance proves value.
+  - mine team runs in note pad.
+  - pilot dispatch to a seat asks for "testable" signals in output.
+  - Run pilot dispatch, dossier instructions, roster shape and setup, variations against a fixture

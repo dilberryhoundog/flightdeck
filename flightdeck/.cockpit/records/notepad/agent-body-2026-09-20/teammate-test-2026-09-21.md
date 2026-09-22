@@ -20,3 +20,7 @@ The teammate's transcript is `~/.claude/projects/-Users-dylangraham-Projects-fli
 ## The pilot's error
 
 The brief told the teammate to read `flightdeck/.cockpit/README.md`. There is none: the cockpit root has `CLAUDE.md` and `cockpit.keep` and no README. The read failed and the nested `CLAUDE.md` loaded anyway. Whether the failed read or the working directory triggered the load is not settled by this test.
+
+## Resume, same session
+
+`pilot.sh resume` at 14:41Z: the SessionStart hook printed `source=resume indexed=yes`. The main transcript has a user row, `origin.kind` human, with content "Carry out the session start procedure in your instructions now.\n\npilot". The fresh start's row at 14:33Z has the sentence alone. So `initialPrompt` fires on resume, and a stray `pilot` rides with it; the launcher passes `--resume "$NAME"` with NAME `pilot`, which is the likely source, not confirmed.

@@ -1,0 +1,9 @@
+{
+  "kind": "workshop-item",
+  "id": "WS029",
+  "title": "Orders carry context, the commander's untruncated statement and a distilled order",
+  "raised": "2026-09-21",
+  "source": "Or082",
+  "status": "open",
+  "notes": "The commander observes that many orders lack the surrounding context needed to be effective, and asks whether an order should include context, his statement (not truncated) and a distilled order (Or082). Example of the cost: Or028 \"small teams = good, arbitrary limits = bad\" was read in T017 as a position on team size in tension with a later remedy; its context was a previous session writing a hard limit of three seats, and its meaning was that arbitrary limits are bad and the test is performance, not seat count. Today an order unit has `text` (a context clause written by the pilot, then the quotation) and the manifest row has `summary`; orders from 2026-09-21 session 71b94de4 carry a context clause, earlier ones often do not. To do, with the commander: settle the three fields (`context`, `statement`, `order`), change `base/verify/schema/order.json` and the manifest row, decide whether the 82 existing units are backfilled (context can only be recovered from session logs and transcripts, by crew, and marked as reconstructed) or only new ones carry it. Structural cockpit work: run the mini-adversary roster over the change before it lands."
+}

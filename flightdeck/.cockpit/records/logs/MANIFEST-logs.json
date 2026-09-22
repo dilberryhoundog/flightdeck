@@ -1,7 +1,7 @@
 {
   "kind": "logs",
   "version": 2,
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "units": [
     {
       "session": "a61606de",
@@ -56,7 +56,7 @@
       "session": "71b94de4",
       "date": "2026-09-21",
       "session_id": "71b94de4-a165-4a19-91eb-43840e1f8df5",
-      "summary": "First session launched on the pilot's agent body (8a05299): opened logged on and initialPrompt fired the session start procedure. T016, one Haiku test teammate: answers crew, holds no session start duty and no pilot body, confirmed from the prompt_snapshot rows of its transcript. Remaining test: initialPrompt on resume.",
+      "summary": "First session on the pilot's agent body; three tests passed (T016). M002 begun: T017 explored the team-builder idea with the commander in the room through eight passes, two live and two cold adversaries, and four experiments he ordered in flight (live adversary against his two extremes, tandem, pooled task queue, lead duties per seat). Ds007 answered in CA004: team file shapes, axis internal to the builder, dispatch stages; boundary manuals then a narrow re-run; team infrastructure refit added to M002. Or065 to Or084.",
       "path": "2026-09-21_71b94de4.md"
     }
   ]

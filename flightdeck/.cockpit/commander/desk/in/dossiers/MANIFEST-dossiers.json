@@ -1,7 +1,7 @@
 {
   "kind": "dossiers",
   "version": 1,
-  "updated": "2026-09-19",
+  "updated": "2026-09-21",
   "units": [
     {
       "id": "Ds001",
@@ -70,6 +70,17 @@
       "mission": "M001",
       "requests": [
         "Rq013"
+      ]
+    },
+    {
+      "id": "Ds007",
+      "title": "The team-builder: what the crew found, what you ruled in the room, and what is left to decide",
+      "path": "Ds007.md",
+      "written": "2026-09-21",
+      "from": "records/notepad/team-builder-2026-09-21/paper.md",
+      "mission": "M002",
+      "requests": [
+        "Rq015"
       ]
     }
   ]

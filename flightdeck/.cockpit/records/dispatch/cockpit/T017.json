@@ -1,0 +1,92 @@
+{
+  "kind": "dispatch",
+  "id": "T017",
+  "date": "2026-09-21",
+  "session": "71b94de4",
+  "mission": "M002",
+  "purpose": "Introduce the commander's team-builder idea (commander/ideas/team-builder.txt, Or065, Or066) to the cockpit crew: explore its five topics with the commander in the room through the pilot's seat until the paper settles; a dossier follows, then a custom mini-spec team for the build request",
+  "roster": "idea-exploration",
+  "seats": [
+    {
+      "name": "cockpit-auditor",
+      "reason": "evidence of how rosters, seat dossiers, dispatch records and P002 stand today: what a team-builder would inherit, and whether current roster and crew shapes are optimal",
+      "returns": "audit with file and line, counts from the filesystem"
+    },
+    {
+      "name": "record-miner",
+      "reason": "added on the commander's order: mines logs, decisions, orders, advice and dispatch lessons for team mistakes, the commander's corrections and his takes on teams, so the axes and types are tested against what actually went wrong",
+      "returns": "events counted once each with source, grouped by the axis they bear on"
+    },
+    {
+      "name": "practice-scout",
+      "reason": "official Anthropic guidance on agent teams, subagents and multi-agent design, and the harness facts behind the commander's fourth type: whether and how a human can enter a teammate's session directly",
+      "returns": "mechanisms with quotes and URLs"
+    },
+    {
+      "name": "option-maker",
+      "reason": "holds the exploration paper over the five topics: axes, types, roster and crew shapes, the team-builder's own seats, the name; revises on the evidence and on each of the commander's answers",
+      "returns": "exploration paper, revised per round by numbered pass"
+    },
+    {
+      "name": "adversary",
+      "reason": "brought forward on the commander's tip (Or067): attacks each evidence report as it lands and each numbered pass of the paper, instead of waiting for the settled paper",
+      "returns": "ranked findings against a numbered pass"
+    },
+    {
+      "name": "source-adversary",
+      "reason": "added mid-flight on the commander's suggestion (Or071): second adversary in tandem, owning the evidence reports and their revisions while `adversary` owns the paper, because one adversary ran a report behind three parallel evidence seats",
+      "returns": "findings E1 onward against the revised evidence, and which F findings are closed"
+    },
+    {
+      "name": "pool-adversary-a",
+      "reason": "the adversary body dispatched at the end stage (Or078, Or081): given only the finished paper and its sources, claiming attack tasks from a pooled queue; the measured stand-in for the end-only adversary the commander asked to compare against (Or068)",
+      "returns": "findings A1 to A27 and a cross-read"
+    },
+    {
+      "name": "pool-adversary-b",
+      "reason": "second cold adversary in the same pool, same brief",
+      "returns": "findings B1 to B15 and a cross-read"
+    }
+  ],
+  "subagents": [
+    {
+      "name": "task-probe",
+      "agent_type": "general-purpose",
+      "model": "haiku",
+      "count": 1,
+      "note": "a teammate, not a subagent, but a probe: measured that a seat spawned after the commander's settings change holds the Task tools and that a clerical seat respects the ADVERSARY SEATS ONLY wording"
+    },
+    {
+      "name": "comparison writer",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "count": 1,
+      "note": "one-shot: live-vs-end-comparison.md, every A and B finding checked at source"
+    }
+  ],
+  "shape": "auditor, miner and scout in parallel; option-maker drafts at once and revises on the three reports and on each commander answer relayed verbatim; adversary live from the first report (Or067), attacking evidence at its source and the paper by frozen numbered pass; findings relayed in one message per round; team dispatch quiet mode; from round 4 two adversaries in tandem split by target (Or071): `adversary` on the paper, `source-adversary` on the evidence, separate finding series, each reads the other's file before closing",
+  "scope": "every seat writes only its own report file under records/notepad/team-builder-2026-09-21/; reads inside the cockpit as briefed; practice-scout reads official Anthropic sources on the web",
+  "status": "finished",
+  "room": "cockpit",
+  "outcome": "Dossier Ds007 on the commander's desk and answered in CA004, which sets the team file shapes (roster, two kinds of dossier, dispatch as the pilot's residue), makes axis an internal team-builder constraint with no residue on team files, names four dispatch stages (setup, live, end, full), and turns the run's accidental finding into an M002 objective: team infrastructure refit (WS031). The paper reached pass 8 (167 lines) through eleven live adversary rounds (F1 to F65), a second adversary on the evidence from round 6 (E1 to E46), two cold adversaries on the finished pass (42 findings), and a closing round on the dossier (D1 to D12). Three evidence reports revised three to five times each, all judged fit to cite with caveats. Experiments the commander ordered in flight, each recorded: the live adversary against his two extremes (adversary-live.md, live-vs-end-comparison.md: no obstruction, no silence, lateness converts into rework, cost on the lead, four answers changed before he was asked); tandem adversaries (worked, division by object, declared late); the pooled task queue with the tools he switched on mid-flight (pool-queue-test.md: dependencies and self-claim work, one-second claim race, list not durable); every seat's lead duties (lead-duties.md). Harness facts measured: seat capability fixed at spawn and following the lead; a user settings env change reaching a running session; the Task tools model gate; no hook on a claim. The run answered 'what shape do teams take' when it was asked 'what does a team-builder roster look like', because the ground was unsettled (Or084): boundary manuals then a narrow re-run follow. Seats shut down 2026-09-22.",
+  "lessons": [
+    "a discovery run on an idea that presupposes settled infrastructure answers the infrastructure question; settle the boundaries first, then run discovery narrowly (the commander, Or084)",
+    "the briefs anchored every seat on today's placeholders (P002, the schemas, the roster files) when the idea file allowed the infrastructure to change; the commander's CA004 names it; read the idea's own scope before naming files in scope, and never write 'X requires' of a placeholder",
+    "the axes were turned on this dispatch's own findings by the option-maker, the pilot and the dossier; the commander corrected it (Or083): axes describe the rosters the builder creates; when a seat 'finds' new keys, show them, do not argue them away",
+    "a live adversary works when it reports to the lead alone and the lead relays once per round; it runs one report behind parallel evidence seats, so lateness converts into rework; order its queue by what the paper leans on, not landing order",
+    "a freeze is real only when the writer has acknowledged it; every write is a new pass number; hand the adversary the pass number and the file mtime; two crossings this flight came from freezing by message to a mid-turn seat",
+    "one closed brief per pass: 'this pass absorbs rounds N to M, nothing further is coming'; a pass numbered for one queue and then fed more is rewritten, not revised (option-maker)",
+    "the second adversary of a tandem is declared at dispatch with the split by object, its own finding prefix and the other's name; declared at round 6 it cost duplicated work",
+    "the cold adversary is the same body spawned after the freeze with only the finished product (Or081); it finds one-command facts, wrong citations and the live adversary's own introduced errors, and produces wrong findings nobody attacks: the live seats check the cold findings",
+    "timing isolates context but the disk leaks: both cold seats had a grep surface forbidden files; keep the history outside a cold seat's read boundary by location, and keep memory off adversary types",
+    "read a seat's state from its transcript, never from its idle notice: the pilot told the commander twice that the adversary sat idle with a backlog when it never had, from a notice written before the seat read its queued messages",
+    "unattacked evidence reaches the paper-holder labelled unattacked and without the pilot's gloss; the pilot pushed the miner's inference twice and both the commander and the adversary broke it",
+    "state the lead's address at dispatch: inside a team the lead is `main`, not the session name; three seats lost a round-trip",
+    "the pooled task queue: dependencies and self-claim work; TaskUpdate owner is last writer wins, so claims a second apart both succeed, most likely when a shared dependency unblocks; claim, then TaskGet to verify owner; idle seats do not poll, a seat can poll inside a turn; the list is not durable, emit claim and completion events into the dispatch record",
+    "a mechanism's scope is read, never inferred from its name; the dominant error of the flight, in the option-maker (F37, F38), the adversary (F19, the origin sort), the scout (F1) and the pilot (two wrong headlines told as facts)",
+    "a seat's measurement is bounded by what the seat can see: the tools appeared because the commander changed a setting, which no seat could know; ask who else could have changed something",
+    "the crew's in-flight catches are not recorded anywhere a later session finds them (E21): the mistake list holds escapes; emit catches into the dispatch outcome at the moment they happen (Or076)",
+    "the commander's advice arrives in his own file while the team is still up; give it to the adversary as the standard before the dossier goes up, and check every 'you ruled' line against the order unit, since an order read without its context misleads (Or028, D2)"
+  ],
+  "roster_note": "flown on the decision roster, saved afterwards as idea-exploration with the adversary live and a cold pass"
+}

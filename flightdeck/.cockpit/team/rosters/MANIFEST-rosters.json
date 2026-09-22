@@ -1,7 +1,7 @@
 {
   "kind": "rosters",
   "version": 2,
-  "updated": "2026-09-19",
+  "updated": "2026-09-22",
   "convention": "Favourite setups for repeat dispatch. A roster is a list of seat names (identity in ../crew/MANIFEST-crew.json, brief in the seat's dossier) and one line of shape. Teams flown from a roster are found in MANIFEST-dispatches.json by the roster field.",
   "units": [
     {
@@ -23,6 +23,11 @@
       "name": "decision",
       "purpose": "options and a recommendation on a question the commander has put",
       "path": "decision.json"
+    },
+    {
+      "name": "idea-exploration",
+      "purpose": "explore one of the commander's idea files with him in the room until the paper settles, then a dossier",
+      "path": "idea-exploration.json"
     }
   ]
 }

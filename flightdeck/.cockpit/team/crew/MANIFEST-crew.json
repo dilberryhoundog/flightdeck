@@ -1,7 +1,7 @@
 {
   "kind": "crew",
   "version": 3,
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "convention": "One row per seat; this file owns a seat's identity (name, agent type, model). Its dossier is team/crew/<room>/<name>.md; teams flown are derived from ../../records/dispatch/MANIFEST-dispatches.json by seat name. status: active | superseded | retired, with note saying by what.",
   "proposed": [],
   "units": [
@@ -295,6 +295,49 @@
       "agent_type": "general-purpose",
       "model": "haiku",
       "status": "active",
+      "path": "cockpit/body-tester.md"
+    },
+    {
+      "name": "record-miner",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "sonnet",
+      "status": "active",
+      "path": "cockpit/record-miner.md"
+    },
+    {
+      "name": "source-adversary",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "path": "cockpit/source-adversary.md"
+    },
+    {
+      "name": "pool-adversary-a",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "note": "the adversary body dispatched at the end stage in T017 (Or081); record in adversary.md",
+      "path": "cockpit/adversary.md"
+    },
+    {
+      "name": "pool-adversary-b",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "opus",
+      "status": "active",
+      "note": "the adversary body dispatched at the end stage in T017 (Or081); record in adversary.md",
+      "path": "cockpit/adversary.md"
+    },
+    {
+      "name": "task-probe",
+      "room": "cockpit",
+      "agent_type": "general-purpose",
+      "model": "haiku",
+      "status": "active",
+      "note": "the probe seat body-tester under another name in T017; record in body-tester.md",
       "path": "cockpit/body-tester.md"
     }
   ]

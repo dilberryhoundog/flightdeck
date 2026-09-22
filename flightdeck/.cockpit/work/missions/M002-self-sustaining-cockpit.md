@@ -1,7 +1,7 @@
 ---
 type: "Mission"
 unit: "M002"
-status: "planned"
+status: "in_progress"
 stamp: ["2026-09-20", "Pilot: Ace", "b27e6c01"]
 branch: "cockpit"
 assigned_by: "commander"
@@ -9,7 +9,7 @@ context: ["Sp009"]
 ---
 # M002 — Make the cockpit self-sustaining and self-improving
 
-- **Status:** planned (horizon; M001 is current)
+- **Status:** in progress from 2026-09-21 (Or065); M001 stays current until the commander closes it
 
 ## Goal
 
@@ -44,10 +44,11 @@ Promoted 2026-09-20 on the commander's word: "promote the self sustaining missio
 - [ ] Advanced procedure configuration: a procedure calling another, conditional steps, versioning and retirement, due-ness machinery if events prove too loose.
 - [ ] A measure of whether manifest lines fire, and of drift events a line should have caught.
 - [ ] Enforcement where instruction is not enough: damage-preventing rules in the guard.
+- [ ] Team infrastructure refitted to the shapes the commander set in CA004 (added 2026-09-22 on his word, found by accident in T017): roster, dossier in two kinds, dispatch as the pilot's residue with crew bulk in the notepad and hook output in `records/events/`, agent definitions, a notepad README per team, and P002 rewritten from the findings (WS031, WS030). Preceded by boundary manuals on adversary mechanics, agent team function, team file infrastructure and found strategies, then a narrow discovery run on the team-builder's own seats, entry points and shape, then the mini-spec team for the build request (Or066).
 
 ## Crew dispatched
 
-None yet.
+- 2026-09-21 — T017, idea exploration of the team-builder with the commander in the room (Or065, Or066): cockpit-auditor, record-miner, practice-scout, option-maker; adversary live from the first report (Or067), source-adversary in tandem (Or071), body of experiments he ordered in flight (pooled queue, cold readers); Ds007, CA004.
 
 ## Outcome
 
@@ -56,6 +57,7 @@ Pending.
 ## Lessons (appended as they happen)
 
 - From T009: put the commander's latest order on the subject in every seat's read scope.
+- From T017: a discovery run on an idea that presupposes settled infrastructure answers the infrastructure question instead; settle the boundaries first, then run discovery narrowly (Or084). And the briefs anchored the crew on today's placeholders (P002, the schemas) when the idea file said the infrastructure could change; read the idea's own scope before naming the files in scope.
 
 ## Re-activation
 

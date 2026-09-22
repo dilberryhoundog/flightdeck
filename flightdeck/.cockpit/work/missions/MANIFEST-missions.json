@@ -1,7 +1,7 @@
 {
   "kind": "missions",
   "version": 1,
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "current": "M001",
   "incubator": "incubator/MANIFEST-sparks.json",
   "workshop": "../workshop/MANIFEST-workshop-items.json",
@@ -19,12 +19,12 @@
     {
       "id": "M002",
       "title": "Make the cockpit self-sustaining and self-improving",
-      "status": "planned",
+      "status": "in_progress",
       "path": "M002-self-sustaining-cockpit.md",
       "branch": "cockpit",
       "assigned_by": "commander",
       "opened": "2026-09-20",
-      "progress": "Horizon. Promoted from Sp009 on the commander's word; goal, definition of done and objectives written; begins when the commander makes it current."
+      "progress": "In progress from 2026-09-21 (Or065). T017 explored the team-builder with the commander in the room; Ds007 on his desk, answered in CA004, which sets the team file shapes and turns the run's accidental finding into an objective: team infrastructure refit (WS031). Next: close T017, boundary manuals as stubs for his read, a narrow discovery run on the team-builder's seats and entry points, then the mini-spec team for the build request (Or066)."
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "kind": "orders",
   "version": 1,
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "purpose": "Dated statements from the commander, verbatim or near-verbatim, read on demand. Newest at the bottom. The newer statement wins; superseded_by names what replaced it. Live orders stated nowhere else are summarised in commander.md; topics distilled from these live in ../../logs/topics/.",
   "units": [
     {
@@ -415,6 +415,146 @@
       "summary": "The commander orders the agent body kept whole even where it duplicates identity.md and commander.md: the intention is that the body eventually stands alone without the injected files.",
       "session": "241bff25",
       "path": "Or064.json"
+    },
+    {
+      "id": "Or065",
+      "date": "2026-09-21",
+      "summary": "The commander orders the first part of M002 begun while M001 is nearly finished: introduce the team-builder idea (desk/out/ideas/team-builder.txt) to the cockpit crew.",
+      "session": "71b94de4",
+      "path": "Or065.json"
+    },
+    {
+      "id": "Or066",
+      "date": "2026-09-21",
+      "summary": "The commander's answers on team-builder.txt: a fourth team type where he jumps directly onto a teammate's session (name to be found); pilot entry point confirmed as the paired procedure; adversarial is an axis, how well the team reviews itself; team-builder before mini-spec; explore in the T010 in-the-room shape with a seat mining logs and decisions for mistakes and takes; dossier first, then a custom mini-spec team.",
+      "session": "71b94de4",
+      "path": "Or066.json"
+    },
+    {
+      "id": "Or067",
+      "date": "2026-09-21",
+      "summary": "The commander's tip on team shape: bring the adversary forward so it attacks live findings as they stream in, instead of holding it for the settled paper.",
+      "session": "71b94de4",
+      "path": "Or067.json"
+    },
+    {
+      "id": "Or068",
+      "date": "2026-09-21",
+      "summary": "The commander asks the pilot to report the live adversary's actions during T017 and at the end compare them with what an adversary attacking only the finished result would have given.",
+      "session": "71b94de4",
+      "path": "Or068.json"
+    },
+    {
+      "id": "Or069",
+      "date": "2026-09-21",
+      "summary": "The commander names the two failure extremes of a live adversary: it obstructs crew doing proper work so they cannot proceed, or it stays silent until the end; the value lies between them.",
+      "session": "71b94de4",
+      "path": "Or069.json"
+    },
+    {
+      "id": "Or070",
+      "date": "2026-09-21",
+      "summary": "The commander rules the rostered-versus-improvised comparison uninformative: today's rosters are placeholders nobody has built out, so they could not have gone better; the team-builder is what changes that.",
+      "session": "71b94de4",
+      "path": "Or070.json"
+    },
+    {
+      "id": "Or071",
+      "date": "2026-09-21",
+      "summary": "The commander proposes two live adversaries in tandem, neither taking the other's work, as the answer to one adversary falling behind parallel evidence seats.",
+      "session": "71b94de4",
+      "path": "Or071.json"
+    },
+    {
+      "id": "Or072",
+      "date": "2026-09-21",
+      "summary": "The commander observes that the pilot is also the team lead and must actively dispatch tasks to seats, and proposes that each seat state the task dispatch rules the lead must maintain while that seat is active.",
+      "session": "71b94de4",
+      "path": "Or072.json"
+    },
+    {
+      "id": "Or073",
+      "date": "2026-09-21",
+      "summary": "The commander takes an interest in the harness's shared task list and asks whether tasks are scoped to a particular agent or open to any teammate.",
+      "session": "71b94de4",
+      "path": "Or073.json"
+    },
+    {
+      "id": "Or074",
+      "date": "2026-09-21",
+      "summary": "The commander questions whether explicit assignment between two adversaries is needed when task claiming is file-locked: any adversary taking any adversary task would not interfere with the other.",
+      "session": "71b94de4",
+      "path": "Or074.json"
+    },
+    {
+      "id": "Or075",
+      "date": "2026-09-21",
+      "summary": "The commander recalls that the Task tools are granted through the agent body's tools field, having seen it before.",
+      "session": "71b94de4",
+      "path": "Or075.json"
+    },
+    {
+      "id": "Or076",
+      "date": "2026-09-21",
+      "summary": "The commander's position on how improvement runs: teams emit signals into their dispatch records, a sweep across all dispatches makes the improvement, and an improvement agent sits in the room checking certain criteria.",
+      "session": "71b94de4",
+      "path": "Or076.json"
+    },
+    {
+      "id": "Or077",
+      "date": "2026-09-21",
+      "summary": "The commander set the todo tools environment variable in his global Claude Code settings during T017, which is why the Task tools appeared in the pilot's running session.",
+      "session": "71b94de4",
+      "path": "Or077.json"
+    },
+    {
+      "id": "Or078",
+      "date": "2026-09-21",
+      "summary": "The commander approves running the pooled adversary queue test in this session after pass 6.",
+      "session": "71b94de4",
+      "path": "Or078.json"
+    },
+    {
+      "id": "Or079",
+      "date": "2026-09-21",
+      "summary": "The commander's forming advice: crew seats get well thought out agent_type frontmatter, dispatch uses it, and the correct types can then be relied on to claim the correct tasks from a shared list.",
+      "session": "71b94de4",
+      "path": "Or079.json"
+    },
+    {
+      "id": "Or080",
+      "date": "2026-09-21",
+      "summary": "The commander reads the live and end-only adversaries as two different jobs, one narrow and course-changing as things land, one broad over settled documents, and proposes they become different roles that specialise once what each brings to a group is understood.",
+      "session": "71b94de4",
+      "path": "Or080.json"
+    },
+    {
+      "id": "Or081",
+      "date": "2026-09-21",
+      "summary": "The commander's model for adversaries: one universal agent body; the dispatch instructions target it as a live or a cold adversary; the timing of dispatch assures context isolation, so a cold adversary is simply one added at the end who does not know what happened.",
+      "session": "71b94de4",
+      "path": "Or081.json"
+    },
+    {
+      "id": "Or082",
+      "date": "2026-09-21",
+      "summary": "The commander orders the dossier and answers four of the paper's questions: Or028 meant keep teams small but set no arbitrary seat limit, the test is performance; the axes are dimensions a team's performance is tuned across, with tradeoffs, not an axis-to-seat rule, and are now defined in the idea file; the team-builder has no periodical, maintenance is on demand; 'standing team' was the pilot's phrase, and permanent rosters and crew files and keep-alive instructions both stand. He also asks whether an order should carry context, his untruncated statement and a distilled order.",
+      "session": "71b94de4",
+      "path": "Or082.json"
+    },
+    {
+      "id": "Or083",
+      "date": "2026-09-21",
+      "summary": "The commander corrects a misuse of the axes: they describe the rosters the team-builder creates, not a score for this dispatch's findings; proposed new keys are to be shown to him, not argued away; footprint means a seat asking mid-run about the size of a change and whether it can be leaner at the same performance.",
+      "session": "71b94de4",
+      "path": "Or083.json"
+    },
+    {
+      "id": "Or084",
+      "date": "2026-09-22",
+      "summary": "The commander rules on the pilot's gaps: no formation gate; the conduct-name question is redundant; the dispatch records move goes to the workshop; ID-based documents are the pilot's alone and crew bulk goes to the notepad, with cockpit hook output in a new records/events/ directory; the pilot's other leanings and next steps stand; end the session soon, the next team run starts a new log.",
+      "session": "71b94de4",
+      "path": "Or084.json"
     }
   ]
 }

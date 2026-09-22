@@ -1,0 +1,26 @@
+# Pooled adversary queue test (Or074, Or078) — T017, 2026-09-21
+
+The commander's position: with file-locked claiming, two adversaries need no explicit assignment; any adversary taking any adversary task does not interfere with the other. Test run in session 71b94de4 after he set `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` in user settings (Or077). Read from the task list, `~/.claude/tasks/session-cf73c72a/`, and the seats' transcripts. Times UTC as stamped.
+
+## Set-up
+
+- Tasks created by the lead with TaskCreate: #2 gate, owned by the lead ("pass 7 frozen and acknowledged"); #3, #4, #5 attack tasks over named sections of paper.md pass 7, each blocked by #2; #6 cross-read, blocked by #3, #4, #5. Subjects of #3 to #6 begin "ADVERSARY SEATS ONLY"; no harness field scopes a task to a role.
+- Seats: `pool-adversary-a` and `pool-adversary-b`, Opus, in-process teammates spawned after the setting change, identical briefs, nothing assigned: claim the lowest claimable task with TaskUpdate (owner, in_progress), TaskGet to confirm the claim held, work, complete, repeat. Given only the finished paper and its sources, not the earlier adversaries' files, so they double as the end-only comparison (Or068). `task-probe`, Haiku, a non-adversary seat holding the tools, used to test the wording.
+- Setting an owner sends the assignee a `task_assignment` message; the lead received one for its own gate task.
+
+## Observed
+
+- Dependencies: with #2 pending, both seats called TaskList (a 15:45:14, b 15:45:27), found nothing claimable, and each messaged the lead naming what blocked what. Neither opened the paper. TaskList showed "[blocked by #2]" on #3 to #5 and "[blocked by #3, #4, #5]" on #6.
+- The gate: the lead completed #2. Idle seats do not poll; the lead had to message both that the gate was open. A `TeammateIdle` hook or a wake on unblock would remove that step.
+- Claiming: a claimed #3 at 15:45:40 and confirmed by TaskGet at 15:45:41. b listed at 15:45:51, saw #3 owned, claimed #4 at 15:45:53 and confirmed. No double claim, no assignment by the lead, no message between the two seats. The two claims were thirteen seconds apart, so the file lock was not raced in this run.
+- Wording as scope: `task-probe`, told it was a general clerical seat and asked to do what a teammate normally does, listed at 15:45:52 (seeing #4, #5, #6 pending), made no TaskUpdate call and reported "No tasks available for general clerical seat". One run, one model, a cooperative seat: wording held; it is not enforcement.
+
+## The drain, and the race
+
+- Self-claim without the lead: a completed #3 at 15:48:13 and claimed #5 four seconds later. After #5 (15:51:14) it found #6 blocked by #4, called TaskList three times over about seventy seconds within its own turn, and claimed #6 when #4 completed. No nudge from the lead was needed; a seat can poll inside a turn, not while idle.
+- A double claim on #6, verified in both transcripts. b completed #4 at 15:52:24.97, listed at 15:52:26.09, claimed #6 at 15:52:27.97 ("Updated task #6 owner, status"). a listed at 15:52:26.91, before b's claim existed, and claimed #6 at 15:52:28.94 ("Updated task #6 owner"): the update was accepted on an owned, in-progress task. Both ran TaskGet after claiming (b 15:52:29.41, a 15:52:30.41) and both worked the task and completed it (b 15:53:33, a 15:53:43). So `TaskUpdate` with `owner` does not refuse a claim on an owned task: it is last writer wins. The documented file locking protects the file, not the claim. The brief's verify step did not stop b, whose TaskGet ran after a's overwrite. Harm here: none, since a cross-read is per-seat work and both reports were wanted. On an attack task it would have been a duplicated round.
+- So the commander's Or074 holds when claims are seconds apart and fails inside a window of about one second. Two claims thirteen seconds apart (#3, #4) were clean; two claims one second apart (#6) collided. The collision is most likely exactly when a dependency unblocks, because both seats are waiting on the same event.
+- Repairs to test: claim only if TaskGet immediately before shows no owner, and re-check owner a second or two after claiming, yielding to the lower seat name or the earlier claim; or a `TaskCompleted`/`TaskCreated` hook; or one task per seat for anything unblocked by a shared dependency.
+- Not durable: completed unit files are deleted as tasks complete, and once all were complete TaskList returned "No tasks found"; the directory holds only `.lock` and `.highwatermark`. Nothing on disk records who claimed or finished what. The transcripts are the only record. For Or076: claim and completion events have to be emitted into the dispatch record, or logged by a hook.
+- Notifications lag: both seats received `task_assignment` echoes of their own claims, and the gate-open message, minutes after acting, after the list had cleared. a's observation: "A seat that trusted the notification rather than TaskList would have re-done all three tasks." TaskList is the source of truth; notifications are not.
+- pool-b's B6 says the tasks directory is named for the lead's session, not the team; here it is `session-cf73c72a`, which is the team name in the seats' `.meta.json` (`teamName`) and differs from the session id `71b94de4`. Unresolved which the harness intends; the name is what it is.

@@ -1,0 +1,45 @@
+Introduce a team builder team to the roster. This is what they can do
+The Pilot:
+  - Questionaires team purpose and solution sought. Asks for any relevant context.
+  -
+The Team:
+  - Offers options for optimal team setup. including, new ,existing or upgraded seats.
+  - Checks any changed seats don't interfere with other rosters.
+  - Ensures Axis: speed, coverage, quality, alignment, security, adversary.
+  - Selects type: Autonomous, Commander in the room, Pilot leader.
+  - Mines sources for best practices and commander advocacy regarding the team in question.
+  - Checks anthropic and local sources for tooling fit.
+Creating a new team:
+  - Writes the team roster to meet axis and type requirements. Ensure repeatability across dispatches.
+  - Writes the pilot entry point requirements
+  - Writes crew member dossier for team fit.
+Upgrading an existing team:
+  - Audits existing seats for suitablity, suggests new seats to complete roster.
+  - Audits pilot entry points for suitablity,
+Testing a team:
+  - Sets up and decides optimal team improvement criteria and testing methods.
+  - Consults latest cockpit and anthropic best practices for testing agents and teams
+  (this team does not test )
+Maintenance
+  - Audits rosters and crew as a corpus. Suggests roster or crew improvements, merging, or retirement.
+  - harvests data from logs, dispatches, pilot records and commander outputs, if required.
+
+Exploration topics:
+  - What axis does a highly effective team require?
+  - What team types should be available to call upon?
+  - Are current roster and crew shapes optimal?
+  - What agent seats would provide the best team-builder roster?
+  - what is the best name for team builder?
+
+What can change:
+  - Team infrastructure; (agent dossier, roster, schemas) can be refitted to suit the optimal option.
+  - Named Procedures; change them to suit the optimal team setup.
+  - Seats can be rewritten and optimised to suit team builder.
+
+Axis Understanding:
+  - Speed: how quickly can the team run finish and its token efficiency but keep performance?
+  - Coverage: How wide does the team cast a net for source material?
+  - Quality: the teams' result has project fit and small footprint?
+  - Alignment: team aligns with external and internal best practices?(anthropic, manuals)
+  - Security: does the team cross boundaries and look where it shouldn't?
+  - Adversarial: can the team justify its output against criticism?

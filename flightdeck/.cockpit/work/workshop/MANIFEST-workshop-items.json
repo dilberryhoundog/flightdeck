@@ -1,7 +1,7 @@
 {
   "kind": "workshop-items",
   "version": 1,
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "fields": {
     "id": "WS### in the order raised",
     "title": "one line",
@@ -209,6 +209,27 @@
       "raised": "2026-09-21",
       "status": "open",
       "path": "WS028.json"
+    },
+    {
+      "id": "WS029",
+      "title": "Orders carry context, the commander's untruncated statement and a distilled order",
+      "raised": "2026-09-21",
+      "status": "open",
+      "path": "WS029.json"
+    },
+    {
+      "id": "WS030",
+      "title": "Move the dispatch records under team/ so all team assets sit under one roof",
+      "raised": "2026-09-22",
+      "status": "open",
+      "path": "WS030.json"
+    },
+    {
+      "id": "WS031",
+      "title": "Refit the team files to the shapes in CA004: roster, dossier, dispatch, agent definitions, notepad README, P002 rewrite",
+      "raised": "2026-09-22",
+      "status": "open",
+      "path": "WS031.json"
     }
   ]
 }

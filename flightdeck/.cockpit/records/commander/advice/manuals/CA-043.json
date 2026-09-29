@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-043",
+  "unit": "manuals",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "105",
+  "status": "active",
+  "summary": "Manuals gather the commander's records and the pilot's approved submissions into single topics covering infrastructure and conduct. Operators manuals cover conduct and show the pilot and crew how to work the cockpit; technical manuals cover infrastructure and help agents find their way around.",
+  "statement": "Manuals collect commanders records and the pilots approved submissions (XR research etc) into single conceptual units over infrastructure and conduct. Operators Manuals (conduct) guide the pilot and crew how to operate the cockpit. Technical manuals (infrastructure) help agents navigate the terrain.",
+  "context": "The Key Infrastructure section of cockpit.constitution, line 105, between logs and agent teams. Line 47 names manuals as one of the places the commander's records are built into so that they bind, and line 40 makes extracting them a duty of the pilot, filed as an order at CO-098. Where manuals live is disputed; see XX-007.",
+  "answered_by": "XD-004"
+}

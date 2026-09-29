@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-031",
+  "unit": "crew",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "134-139",
+  "status": "active",
+  "summary": "The commanders-advocate is a standalone high tier agent on Opus. It checks that everything a team produces matches the commander's records, records the contradictions it finds in a team setting, and sweeps both the diff and parts of the codebase for anything that goes against what the commander intended.",
+  "statement": "commanders-advocate:\nstandalone high tier agent (opus)\nensures all team outcomes align with commander records.\nrecords contradiction disputes found in a team setting.\nsweeps the diff for contradictions to the commanders intent.\nsweeps parts of the codebase for contradiciont to the commanders intent.",
+  "context": "The second of the two agents the commander defines by name, in the Crew section of cockpit.constitution, lines 134 to 139, after the clerk and before the Trial paragraph. The label line is carried in the statement because it is part of the definition. Its second duty is the working end of the dispute record at line 78: the contradictions it finds are what the pilot files as an XX.",
+  "answered_by": "XD-004"
+}

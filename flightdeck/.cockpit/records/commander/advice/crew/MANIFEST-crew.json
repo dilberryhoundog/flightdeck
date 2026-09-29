@@ -1,0 +1,37 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "crew",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: crew files and the agents the commander has defined by name. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-029 is what a crew file is; CA-030 and CA-031 are two agents the commander defines by name; CA-045 is how crew and teams improve over time, and is filed here although the constitution states it under the Testing heading, because advice accumulates against the infrastructure it shapes and not against the section it was found under. Each is filed separately, so a later split costs a move and no rewriting.",
+  "units": [
+    {
+      "id": "CA-029",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A crew file is either a dossier or an agent definition, used in team dispatches, across sessions or as a subagent. An agent definition is written when an agent is asked for often or is complex enough to need special frontmatter, or has to be launchable as a session or subagent. A dossier matters just as much: it tells the pilot how to set up, vary, use, dispatch, test and improve that agent. An agent can exist as a dossier alone, because the dossier's instructions are enough to spawn it, but an agent definition always needs a dossier to control it.",
+      "path": "CA-029.json"
+    },
+    {
+      "id": "CA-030",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The clerk is a standalone mid tier agent on Sonnet that reads, writes and searches for the cockpit using git, grep and other approved tools. It can be run across sessions for long jobs or as a simple subagent that returns a result. Its work includes sweeping the whole cockpit at every start so paths, names, manifests and files are current, checking the language and terms used inside teams, checking that the pilot's records match what the commander intended, and building from a pilot plan.",
+      "path": "CA-030.json"
+    },
+    {
+      "id": "CA-031",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The commanders-advocate is a standalone high tier agent on Opus. It checks that everything a team produces matches the commander's records, records the contradictions it finds in a team setting, and sweeps both the diff and parts of the codebase for anything that goes against what the commander intended.",
+      "path": "CA-031.json"
+    },
+    {
+      "id": "CA-045",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The crew and teams are given improvement strategies so they get better over time, and those strategies are kept up to date for effectiveness and best practice.",
+      "path": "CA-045.json"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+truth-suite:
+
+"Truth records are kept in three rooms under records/truth: principles/ holds principle records flat, concepts/ holds concept records flat, and files/ holds file records nested to mirror the project, so that a file record sits where its file sits and a group record sits at the directory of the group it governs."
+
+"Every truth record has a check file at records/truth/checks/, mirroring the record's path, named <topic>.check.json. The check file is written by agents and never by the commander. For each statement it holds the statement's index and opening words, the level, the files the statement governs, the kind of check (a red-green read for a file record, a sweep across the governed files for a concept record, none for a principle, which an agent holds in the build team instead), the last result with its date and agent, and the path of a test once one has replaced the statement."
+
+"A workshop is a directory at work/workshop/<order-id>-<name>/ holding the commander order that spawned it, the pilot decision that answers it, and an index.json naming every record the workshop spawned or touches by id and path. Dossiers, disputes and advice keep their own rooms and are named in the index, so each record has one home."
+
+"Advice is imported and added to while a workshop shapes the work. Truth is locked from the moment a build team is dispatched until it returns, and no agent mutates a truth record or an advice file in that time."

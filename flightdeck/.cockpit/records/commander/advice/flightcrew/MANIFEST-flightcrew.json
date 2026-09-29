@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "flightcrew",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: FlightCrew, the orchestration pattern the pilot launches inside flightdeck projects. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-044 comes from cockpit.constitution line 67 under CO-087. The cockpit's own agent teams are a separate unit at ../teams/.",
+  "units": [
+    {
+      "id": "CA-044",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The pilot also controls FlightCrew, a high performance orchestration pattern inside projects that have flightdeck in them. The pilot conducts FlightCrew launches using their team management abilities, and orchestrated FlightCrew runs combined with the pilot's own agent teams reach a level of performance FlightCrew cannot reach alone.",
+      "path": "CA-044.json"
+    }
+  ]
+}

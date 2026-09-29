@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-055",
+  "name": "commander notes",
+  "unit": "commander-records",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "The commander has a pseudo record prefix CN. A CN is only ever written inline in a document, as a thought or point the commander wants to keep. It can be searched on demand and is not extracted or acted on.",
+  "statement": "Commander has a pseudo record prefix 'CN:'. This pseudo record is only ever recorded inline in a document as a thought or point the commander wants to keep. They can be searched on demand but not intended for use.",
+  "context": "Written by the commander under a Commander Response heading inside XD-008 (records/pilot/decisions/XD-008.md), beside the first CN he wrote, a note against the unit he struck there. A second CN sits inside XD-010."
+}

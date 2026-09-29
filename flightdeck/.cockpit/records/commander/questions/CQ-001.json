@@ -1,0 +1,16 @@
+{
+  "kind": "commander-question",
+  "id": "CQ-001",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "answered",
+  "question": "What order will you run these in? what crew members will you use?",
+  "refers": [
+    "CO-085",
+    "CO-086",
+    "CO-087",
+    "CO-088"
+  ],
+  "answered_by": "XD-001",
+  "brief": "Given in chat after the commander introduced cockpit.constitution (2026-09-24), which replaces cockpit.keep, and the pilot's thoughts, gaps and regressions on it. Five records in one message: four CO, one CA, one CQ. The old records are Or001 to Or084 (commander/orders/), CA001 to CA005 (commander/desk/out/advice/), De001 to De028 (commander/decisions/). The commander wrote two questions in one line; the pilot kept them as one record and answered the order in XD-001 and the crew in XD-002 to XD-005, one per order."
+}

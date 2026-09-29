@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-106",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "80",
+  "status": "active",
+  "summary": "Once a request is approved, the pilot writes the plan for it.",
+  "statement": "The pilot generates a plan upon receiving a request approval.",
+  "brief": "Extracted from cockpit.constitution line 80, the second sentence of the paragraph defining the pilot plan. The sentences around it, which say what a plan gives a builder and that a frozen plan is handed to a build specialist, shape the record and are filed as advice at CA-019; this sentence is the pilot's duty and is filed here.",
+  "binds": "pilot"
+}

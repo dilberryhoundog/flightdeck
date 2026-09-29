@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-097",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "38",
+  "status": "active",
+  "summary": "When the commander marks something in conversation as advice, an order or a question, the pilot files it in the right place straight away.",
+  "statement": "If the commander attaches a record type (`CA:`, `CO:`, `CQ:`) to a statement, this is immediately extracted to the correct record location by the agent, which may or may not change the direction of the conversation.",
+  "brief": "Extracted from cockpit.constitution line 38, in the Commander section, immediately after the sentence saying the commander's ordinary conversation is inert and only encourages the work along. This sentence is the exception: a marked record binds. Who performs the extraction is disputed, since line 32 gives the same act to an agent rather than the pilot; see XX-003. Line 38 is shared with CA-026, which holds the sentence before this one, that the commander's ordinary conversation is inert.",
+  "binds": "pilot"
+}

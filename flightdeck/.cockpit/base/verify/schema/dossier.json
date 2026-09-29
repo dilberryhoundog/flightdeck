@@ -12,9 +12,14 @@
       "const": "Dossier"
     },
     "unit": {
-      "description": "this dossier's identifier, Ds and three digits, the same identifier the file is named for",
+      "description": "this dossier's identifier, Ds and three digits, with or without a dash before the digits (Ds006 or Ds-006), the same identifier the file is named for. Both forms are accepted until the rename after run 3 settles on the dash",
       "type": "string",
-      "pattern": "^Ds[0-9]{3}$"
+      "pattern": "^Ds-?[0-9]{3}$"
+    },
+    "name": {
+      "description": "one to three words the writer chose for the record's contents, appended to the file name after the id (CA-049)",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*( [a-z][a-z0-9]*){0,2}$"
     },
     "stamp": {
       "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",
@@ -32,15 +37,15 @@
       "pattern": "^M[0-9]{3}$"
     },
     "context": {
-      "description": "the identifiers this dossier answers to, a bracketed list; a dossier's context is its dispatch, T and three digits",
+      "description": "the identifiers this dossier answers to, a bracketed list; a dossier's context is its dispatch, T and three digits. Also accepts the new commander and pilot record prefixes, which carry a dash before their three digits (CO-012), now that the corpus has moved to that shape. The old Rq, P, Or and De forms are accepted only until XD-005's citation sweep replaces them",
       "type": "array",
       "minItems": 1,
-      "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
+      "items": { "type": "string", "pattern": "^((Ds-?|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}|(CO|SO|CR|CQ|CI|XD|XR|XX|XP|PP|CA)-[0-9]{3})$" }
     },
     "generates": {
-      "description": "the identifiers of the documents this dossier led to, a bracketed list, usually the requests it raised",
+      "description": "the identifiers of the documents this dossier led to, a bracketed list, usually the requests it raised. Also accepts the new commander and pilot record prefixes, which carry a dash before their three digits (XR-015), now that the corpus has moved to that shape. The old Rq, P, Or and De forms are accepted only until XD-005's citation sweep replaces them",
       "type": "array",
-      "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
+      "items": { "type": "string", "pattern": "^((Ds-?|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}|(CO|SO|CR|CQ|CI|XD|XR|XX|XP|PP|CA)-[0-9]{3})$" }
     }
   }
 }

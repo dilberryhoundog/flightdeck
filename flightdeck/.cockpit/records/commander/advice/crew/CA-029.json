@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-029",
+  "unit": "crew",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "97",
+  "status": "active",
+  "summary": "A crew file is either a dossier or an agent definition, used in team dispatches, across sessions or as a subagent. An agent definition is written when an agent is asked for often or is complex enough to need special frontmatter, or has to be launchable as a session or subagent. A dossier matters just as much: it tells the pilot how to set up, vary, use, dispatch, test and improve that agent. An agent can exist as a dossier alone, because the dossier's instructions are enough to spawn it, but an agent definition always needs a dossier to control it.",
+  "statement": "Crew files are dossiers or agent definitions used in team dispatches, cross sessions or as subagents. Agent definitions write a commonly requested or complex agent file that needs special frontmatter handling or is invocable as a session or subagent. Crew dossiers are equally important they tell the outside world (the pilot) how to setup, variate, interact with, dispatch, test, improve or any other element important to the agent. Dossier agent can exist in isolation as their invocation instructions spawn them. An agent definition always needs a dossier to \"control\" the agent.",
+  "context": "Opens the Key Infrastructure section of cockpit.constitution, line 97, ahead of rosters, dispatches, logs and manuals. It is the general rule about crew files; the two named agents later in the document, the clerk and the commanders-advocate, are separate advice in this same unit.",
+  "answered_by": "XD-004"
+}

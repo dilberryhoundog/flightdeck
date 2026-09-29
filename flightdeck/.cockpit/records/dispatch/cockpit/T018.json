@@ -1,0 +1,41 @@
+{
+  "kind": "dispatch",
+  "id": "T018",
+  "date": "2026-09-22",
+  "session": "f6216b95",
+  "mission": "M001",
+  "purpose": "The commander's report that a cockpit refit has spoiled the pilot's session start procedure: trace the procedure as written in the agent body against the cockpit on disk, the hook and the refit commits, and name every break with evidence",
+  "roster_note": "fit-and-footprint (renamed by the commander from mini-adversary on 2026-09-22) seated as live adversaries over a tracer seat",
+  "seats": [
+    {
+      "name": "start-tracer",
+      "reason": "one Opus seat to walk each step of the start procedure against what is on disk and in the hook, and against what the refit commits changed",
+      "returns": "a findings file in records/notepad/start-procedure-2026-09-22/trace.md, one numbered finding per break, evidence per finding; sent by SendMessage per round"
+    },
+    {
+      "name": "fit-critic",
+      "reason": "live adversary for fit: attacks each finding as it lands for wrong room, restatement, leaked session context and the pilot doing work",
+      "returns": "fit-findings.md in the same folder, numbered F-series, one message per round"
+    },
+    {
+      "name": "trim-critic",
+      "reason": "live adversary for footprint: attacks each finding and the procedure itself for what loads every session and what it costs",
+      "returns": "footprint-findings.md in the same folder, numbered P-series, one message per round"
+    }
+  ],
+  "subagents": [],
+  "shape": "tracer lands findings in rounds; both adversaries read the trace file at each landing and report to the pilot only; the pilot relays once per round to the tracer",
+  "scope": "all three read the whole cockpit and the cockpit's git history; write only under records/notepad/start-procedure-2026-09-22/",
+  "status": "finished",
+  "room": "cockpit",
+  "outcome": "Twenty-five tracer findings and thirty-four fit and forty-one footprint findings settled into a final standing list of 27 defects with an agreed fix and owner each; five break the procedure (the stale desk index, the deleted manuals README cited by rule 2, rule 1 citing a stub against rule 2, step 3 unable to tell acted-on advice, the launch digest twenty orders stale) and the launch itself is intact. Cost measured at about 13,050 tokens before the greeting, 4,100 of it changing nothing, and the whole procedure re-run on compact. Distilled into Ds008 and Rq015 (thirteen commander items); the pilot edits S2, S8, S9, S18, S19's line and S23 made in flight. Files: records/notepad/start-procedure-2026-09-22/trace.md, fit-findings.md, footprint-findings.md.",
+  "lessons": [
+    "seat the adversaries before the first landing and let them file on the object itself first: five of the 27 standing findings, including the two worst, came from their round 0",
+    "state the owner test in the brief; set on the closing pass it re-owned five rows and the fixes had drifted one room in every round before that",
+    "a tracer's fixes drift into the room nearest the symptom (CLAUDE.md for what lint.yaml owns, the hook for what a record owns); brief the fit adversary to test the room of every fix",
+    "two adversaries conflicting is settled by the tracer at the files, not by the pilot choosing; both conflicts here were settled by evidence the adversaries had not read",
+    "when eight findings each add a clause to one short section, the fix is one rewrite of the section, not eight edits (rule 9)",
+    "the pilot backfilled a record field before the commander ruled on the shape; the owner test binds the pilot's own hands first",
+    "an idle notice that arrives after a later message was sent is stale; the seat has the later message"
+  ]
+}

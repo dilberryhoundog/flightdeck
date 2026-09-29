@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-109",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "142-143",
+  "status": "retired",
+  "summary": "The pilot may make small changes themselves by running claude -p with the right flags.",
+  "statement": "Trial:\nThe pilot can write small changes through using claude -p with the appropriate flags.",
+  "brief": "Extracted from cockpit.constitution line 143, the last paragraph of the Crew section, after the clerk and the commanders-advocate. The bare heading \"Trial:\" is carried in the statement because it may mean the grant is provisional and under test rather than settled, which changes how much weight the order carries. Two disputes stand against it: XX-005, because lines 56 and 58 say the pilot does not do the work, and XX-006, because the later order CO-089 says the pilot uses no bash at all. The word \"small\" is not defined anywhere in the constitution.",
+  "binds": "pilot"
+}

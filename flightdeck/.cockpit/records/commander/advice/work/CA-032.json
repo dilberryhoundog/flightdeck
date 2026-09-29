@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-032",
+  "unit": "work",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "86",
+  "status": "active",
+  "summary": "Work the pilot finds in the commander's records that does not belong to anything already running can be pulled out and kept for later, either as a spark or as a workshop item, depending on how big it is and what kind of work it is.",
+  "statement": "Work identified by the pilot within the commander records, that is not under an active umbrella, can be extracted and kept for later development. either as sparks or workshop items, the difference is in the scope and type of work.",
+  "context": "Opens the Work section of cockpit.constitution, line 86, ahead of the paragraphs on sparks, the workshop and missions. It is the rule that sends work to one of the three places the rest of the section describes.",
+  "answered_by": "XD-004"
+}

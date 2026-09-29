@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-008",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "31-32",
+  "status": "active",
+  "summary": "A commander response is a written approval against a pilot record. It can stand on its own or be written inside the pilot's document, where it stays frozen as written while an agent copies it into the record corpus, which puts it on record while keeping the commander's original intent. Every response uses the enacted approval process, and the response itself is not extracted, only the orders, advice and questions inside it.",
+  "statement": "[CR] Commander response are written enacted approvals against a pilot request or other pilot record, they can be as standalone corpus records or written internally in the pilots' own record.\n Upon reading the immediately extracted into the adjacent commander record corpus, by an agent who rewrites them in the language and format required. From here CR stay frozen as the commander wrote them with a small extraction flag, this puts them 'on record', while also preserving the original commanders intent if the record becomes retired or integrated. All commander response uses the enacted approval process.",
+  "context": "The third record type defined in the Commander section of cockpit.constitution, the whole of lines 31 and 32, after advice and before the question. The third sentence of line 32 is the commander's reason for the double handling rather than a rule of its own, and is not filed as a separate record. Two disputes come out of this paragraph: XX-002, because it says both that the response is extracted and that it never is, and XX-003, because it gives the extraction to an agent while line 38 gives the same act to the pilot.",
+  "answered_by": "XD-004"
+}

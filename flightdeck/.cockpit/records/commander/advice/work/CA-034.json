@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-034",
+  "unit": "work",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "90",
+  "status": "active",
+  "summary": "The workshop is where fixes, bugs, problems and maintenance are written down the moment they are spotted. This work stands on its own and is not attached to a mission.",
+  "statement": "Workshop is where fixes, bugs, problems, maintence are persisted imidiately upon identification. This is isolated work, not immediately attached to a mission.",
+  "context": "The Work section of cockpit.constitution, line 90, between sparks and missions. It is the one place in the section where the constitution asks for something to be written down straight away rather than when convenient.",
+  "answered_by": "XD-004"
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-001",
+  "unit": "identifiers",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "Identifier prefixes are separated from the record number by a dash: CO-012.json, Ds-004.json.",
+  "statement": "In addition to previous advice, prefixes separate the record number from the abreviation with a dash. eg CO-012.json, Ds-004.json",
+  "context": "Given with the four migration orders, as the migration was about to write records under the constitution's new prefixes; it adds the dash to the naming the constitution's prefix table implies, and applies to every record and file named by an identifier."
+}

@@ -36,14 +36,14 @@
         ],
         "properties": {
           "id": {
-            "description": "the unit's identifier, an abbreviation of one to three letters and three digits",
+            "description": "the unit's identifier, an abbreviation of one to three letters and three digits, or one of the new commander and pilot record prefixes with a dash before the three digits (CO-012). The old Rq, P, Or and De forms are accepted only until XD-005's citation sweep replaces them",
             "type": "string",
-            "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$"
+            "pattern": "^((Ds-?|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}|(CO|SO|CR|CQ|CI|XD|XR|XX|XP|PP|CA)-[0-9]{3})$"
           },
           "name": {
-            "description": "the unit's name, for the collections filed by name rather than identifier: rosters and crew seats",
+            "description": "either the unit's name, for the collections filed by name rather than identifier (rosters and crew seats), or, alongside an id, one to three words the writer chose for the record's contents, appended to the file name after the id (CA-049)",
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]*$"
+            "pattern": "^[a-z][a-z0-9-]*( [a-z][a-z0-9-]*){0,2}$"
           },
           "session": {
             "description": "the eight-character session id, the label for the session logs, which are filed by date and session rather than by identifier or name",

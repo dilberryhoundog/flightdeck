@@ -1,0 +1,22 @@
+{
+  "kind": "workshop",
+  "id": "CO-114",
+  "name": "truth suite",
+  "opened": "2026-09-29",
+  "status": "open",
+  "order": "CO-114-truth-suite.json",
+  "decision": "XD-013-truth-suite.md",
+  "purpose": "Settle the semi-settled details of the truth suite: directory separation by level, truth checks as JSON, the workshop directory, and when advice is imported and truth locked.",
+  "records": [
+    {"id": "truth-suite", "kind": "truth", "path": "../../../records/truth/truth-suite.truth"},
+    {"id": "truth-record", "kind": "truth", "path": "../../../records/truth/truth-record.truth"},
+    {"id": "truth-statement", "kind": "truth", "path": "../../../records/truth/truth-statement.truth"},
+    {"id": "truth-advice", "kind": "truth", "path": "../../../records/truth/truth-advice.truth"},
+    {"id": "decision", "kind": "truth", "path": "../../../records/truth/decision.truth"},
+    {"id": "dispute", "kind": "truth", "path": "../../../records/truth/dispute.truth"},
+    {"id": "workshop", "kind": "truth", "path": "../../../records/truth/workshop.truth"},
+    {"id": "off-the-record", "kind": "truth", "path": "../../../records/truth/off-the-record.truth"},
+    {"id": "truth-suite advice", "kind": "advice", "path": "../../../records/advice/truth-suite.txt"}
+  ],
+  "spawned": []
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-014",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "47-48",
+  "status": "active",
+  "summary": "The commander's records only bind the pilot once they are built into the project itself, and once built in they can be archived out of easy reach. The places they are built into are CLAUDE.md, manuals of various kinds, trustworthy tests, and procedures that absorb orders and decisions.",
+  "statement": "The commanders record corpus is only useful as pilot binding if it is promoted into project infrastructure. Once promoted it can be archived away from immediate recall. while commanders intent should be everywhere, promotion hotspots include; Claude.md (even referencing the archived record), manuals of differing types,deterministic or highly trustworthy tests, procedures absorbing orders and decisions.",
+  "context": "Lines 47 and 48 of cockpit.constitution, the last paragraph of the Commander section. It is the other side of the duty at line 40, filed as an order at CO-098: the pilot must extract the records into manuals, procedures, crew, teams, config and work records, and this paragraph says why and where.",
+  "answered_by": "XD-004"
+}

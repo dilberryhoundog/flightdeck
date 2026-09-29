@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-020",
+  "unit": "pilot-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "82",
+  "status": "active",
+  "summary": "A pilot procedure is set conduct the agent can follow to reach a certain outcome, taken from the decisions and orders that come up often.",
+  "statement": "[PP] Pilot procedures are predefined conduct the agent can make to achieve a certain outcome. procedures are extracted from prominent decisions and orders, made by the pilot and commander.",
+  "context": "The last of the pilot's record types, line 82 of cockpit.constitution, closing the Pilot section. The commander gives the point of it in the same paragraph: \"This enables the pilot to announce a procedure inplace of producing a decision.\" Line 47 names procedures as one of the places the commander's records are built into, and line 72 allows a decision to be turned into one.",
+  "answered_by": "XD-004"
+}

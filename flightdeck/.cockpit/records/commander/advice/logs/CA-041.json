@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-041",
+  "unit": "logs",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "103",
+  "status": "active",
+  "summary": "Logs hold the cockpit's history. There are three kinds: the pilot's shift log, which they write the day's work into and read at the next session's start, the notepad, which is crew and pilot scratch nested under the mission it serves and mined for findings, and extracts, which are large sources boiled down to their key findings.",
+  "statement": "Logs preserve the cockpit's history. The pilot has a \"shift\" log that they record all their daily work in and reference upon the next session begining. A \"notepad\" is crew and pilot scratch, nest scratches under the missions they serve, mine them for findings and improvements. \"extracts\" are bulk sources condensed into key findings.",
+  "context": "The whole of line 103 of cockpit.constitution, in the Key Infrastructure section, after dispatches and before manuals. Two pilot duties sit inside these sentences rather than beside them, and are filed as orders as well: recording the day's work in the shift log and reading it at the next session's start, at CO-107, and nesting notepad scratch under the mission it serves and mining it, at CO-108. The sentences are carried here whole because the duty is a clause inside a sentence that also says what the file is, and cutting the clause out would leave the sentence broken and lose what the shift log is for.",
+  "answered_by": "XD-004"
+}

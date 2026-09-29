@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-054",
+  "name": "tandem seats",
+  "unit": "teams",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "Tandem agents share one dispatch and one seat, and are dispatched together to keep up with the rest of the team's output where one seat would fall behind and slow the group. Tandem seats do not check each other's work. Usually two identical seats; three or more when the team's output needs it.",
+  "statement": "Tandem agents have the same dispatch and seat. They are dispatched in tandem to keep up with output from the rest of the team. Whereby a single seat would be overwhelmed and reduce the speed of the group. Tandem seats do not check the other tandem seat's work. A tandem seat is often 2 identical seats, however, provision is available for 3 or more tandem seats to meet team output demand.",
+  "context": "Written by the commander in the Commander Extracts section at the foot of base/GLOSSARY.md, against the glossary's tandem entry, which had said the two adversaries were split by object and cross-read each other's findings (the T017 pattern). This advice replaces that meaning: tandem is for throughput, not cross-checking."
+}

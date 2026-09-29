@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "package",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: how the cockpit is packaged and released. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-046 comes from cockpit.constitution line 147 under CO-087.",
+  "units": [
+    {
+      "id": "CA-046",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The cockpit will be released as an optional plugin under the parent flightcrew plugin. It will fit in seamlessly, and using it will not be required.",
+      "path": "CA-046.json"
+    }
+  ]
+}

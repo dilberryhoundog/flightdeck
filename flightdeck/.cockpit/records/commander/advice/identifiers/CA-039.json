@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-039",
+  "unit": "identifiers",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "109",
+  "status": "active",
+  "summary": "A glossary of agreed terms and identifiers is kept in the base and approved for use. Crew or the pilot can offer a term when they want to use one, and the commander is told and agrees to it. A new term is added with a dash bullet and a one line description, and the commander changes the dash to a plus if he approves it; leaving the dash means it is held, to be removed or folded into another term later.",
+  "statements": [
+    "A glossary of agreed terms and ID's is kept and approved for use in the base.",
+    "Terms can be offered for use by crew or pilot when they want to use a term, the commander is alerted and agrees usage. The term is added to the glossary with a `-` bullet and its one line description. The commander flips it to a `+` if approved or keeps the ``-` if 'held' removal or absorbing into another term happens from here."
+  ],
+  "context": "Two spans from line 109 of cockpit.constitution, in the Key Infrastructure section, after agent teams and before the line on the prefix glossary. Between them sits \"Otherwise all documentation is written in plain, clear and simple language, with no jargon\", which is conduct and is filed as an order at CO-110; that is why the spans are held apart. That order depends on the first span here: its \"Otherwise\" points at this glossary, so the approved terms are the exception and everything outside them is plain language with no jargon.",
+  "answered_by": "XD-004"
+}

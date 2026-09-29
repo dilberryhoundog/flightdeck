@@ -139,6 +139,22 @@
       "summary": "Dispatch to explore the commander's team-builder idea with him in the room: axes, team types, roster and crew shapes, the team-builder's own seats and its name.",
       "status": "finished",
       "path": "cockpit/T017.json"
+    },
+    {
+      "id": "T018",
+      "date": "2026-09-22",
+      "mission": "M001",
+      "summary": "Dispatch to find how a cockpit refit spoiled the pilot's session start procedure: a tracer seat with the fit-and-footprint roster as live adversaries.",
+      "status": "finished",
+      "path": "cockpit/T018.json"
+    },
+    {
+      "id": "T019",
+      "date": "2026-09-24",
+      "mission": "M002",
+      "summary": "Run 1 of the corpus migration (XD-004): the constitution classified into records (CO-093 to CO-110, CA-004 to CA-046 in twelve units, CI-001, XX-001 to XX-009), thirteen schemas and the lint, the glossary; advocate and fit-critic live from before the first landing.",
+      "status": "finished",
+      "path": "cockpit/T019.json"
     }
   ]
 }

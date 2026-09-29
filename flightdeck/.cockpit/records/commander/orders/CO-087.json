@@ -1,0 +1,10 @@
+{
+  "kind": "commander-order",
+  "id": "CO-087",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "A team extracts every order, piece of advice and idea from cockpit.constitution into its record location.",
+  "statement": "Filter through the cockpit.constitution document with a team and extract all orders, advice, and ideas from the constitution. place them into the intended location.",
+  "brief": "The third migration order, given with CO-085. The constitution is the commander's founding document for the cockpit; it holds orders, advice and ideas in prose, and this order has them extracted into their record locations so the pilot is bound by them as records."
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "commander-order",
+  "id": "CO-093",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "8",
+  "status": "active",
+  "binds": "all",
+  "answered_by": "XD-004",
+  "summary": "Everything written in the cockpit uses plain, clear and simple language with no jargon.",
+  "statement": "The cockpit uses \"plain, clear and simple language, with no jargon\".",
+  "brief": "Line 8 of cockpit.constitution, standing alone in the opening statement of what the cockpit is, after the sentences on what the commander and the pilot each do and before the Roleplay section. Stated without qualification here. The commander states the rule a second time at line 109, where it carries an exception; that second statement is a separate record at CO-110 and is not joined to this one. This order binds every agent and every document, not the pilot alone, which is the constitution's test at line 27 for a standing order; it is filed as a commander order because promoting it is the commander's act, and it goes to him as a candidate for promotion."
+}

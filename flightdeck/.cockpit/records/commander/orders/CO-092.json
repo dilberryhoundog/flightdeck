@@ -1,0 +1,11 @@
+{
+  "kind": "commander-order",
+  "id": "CO-092",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "answered_by": "XD-006",
+  "summary": "Collect the terms used in team dispatches and extract them into the glossary.",
+  "statement": "Collect terms from team dispatches, extract to glossary.",
+  "brief": "Given in chat while T019 (run 1 of the corpus migration) was in flight. The constitution (line 109) keeps a glossary of agreed terms and ids in the base: a term is offered with a - bullet and a one-line description, and the commander flips it to + if approved. No glossary exists yet; the dispatch records at records/dispatch/ and the crew and roster files hold the terms the cockpit has been using."
+}

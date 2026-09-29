@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-030",
+  "unit": "crew",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "126-132",
+  "status": "active",
+  "summary": "The clerk is a standalone mid tier agent on Sonnet that reads, writes and searches for the cockpit using git, grep and other approved tools. It can be run across sessions for long jobs or as a simple subagent that returns a result. Its work includes sweeping the whole cockpit at every start so paths, names, manifests and files are current, checking the language and terms used inside teams, checking that the pilot's records match what the commander intended, and building from a pilot plan.",
+  "statement": "Clerk definition:\nA standalone, mid tier agent (sonnet). The clerk reads, writes and searches on behalf of the cockpit. It uses git and grep and other approved tools. The clerk can be cross session invoked for long term, advanced engagements or as a simple return subagent.\nThe clerk can undertake tasks like;\n sweep the whole cockpit on every start, ensuring paths, names, manifests, files are current.\n ensure correct language and terms are used inside teams.\n ensure pilot records align with commander intent (records)\n builds from a pilot plan record.",
+  "context": "The first of the two agents the commander defines by name, in the Crew section of cockpit.constitution, lines 126 to 132, before the commanders-advocate. The two label lines are carried in the statement because they are part of the definition rather than sentences of their own. The clerk's grant of git and grep is the counterpart of the pilot's constraints at line 62: what the pilot may not run, the clerk runs on the pilot's behalf.",
+  "answered_by": "XD-004"
+}

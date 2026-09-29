@@ -1,7 +1,7 @@
 {
   "kind": "dossiers",
   "version": 1,
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "units": [
     {
       "id": "Ds001",
@@ -79,6 +79,16 @@
       "written": "2026-09-21",
       "from": "records/notepad/team-builder-2026-09-21/paper.md",
       "mission": "M002",
+      "requests": [],
+      "note": "the mini-spec build request it leads to is not yet raised; it was pencilled as Rq015 before Rq015 went to Ds008 on 2026-09-22"
+    },
+    {
+      "id": "Ds008",
+      "title": "What the refit did to the session start, and what closes it",
+      "path": "Ds008.md",
+      "written": "2026-09-22",
+      "from": "records/notepad/start-procedure-2026-09-22/",
+      "mission": "M001",
       "requests": [
         "Rq015"
       ]

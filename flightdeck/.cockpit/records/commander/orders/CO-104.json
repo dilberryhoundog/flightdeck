@@ -1,0 +1,13 @@
+{
+  "kind": "commander-order",
+  "id": "CO-104",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "71",
+  "status": "active",
+  "binds": "pilot",
+  "answered_by": "XD-004",
+  "summary": "When the pilot writes a decision, every unit of it starts marked as wanted.",
+  "statement": "The pilot starts with all their units as positive, the commander negates units (wich stay frozen, so redeciding is not repeated).",
+  "brief": "Line 71 of cockpit.constitution, in the Pilot section, inside the paragraph describing how a decision is flagged. The duty is the first clause of the sentence, and the sentence is carried whole because the clause does not stand on its own. The rest of the sentence shapes the decision record and is filed as advice at CA-015. The negation half is one side of the dispute at XX-004, against line 44's rule that which parts are accepted cannot be determined."
+}

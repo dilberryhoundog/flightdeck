@@ -1,0 +1,125 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "commander-records",
+  "version": 2,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: the commander's record types (CO, SO, CA, CR, CQ, CI), their fields and their handling. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-004 to CA-014 come from cockpit.constitution under CO-087; the pilot's record types are a separate unit at ../pilot-records/.",
+  "units": [
+    {
+      "id": "CA-003",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "In a commander advice record the field that holds the surrounding context is named context, not brief.",
+      "path": "CA-003.json"
+    },
+    {
+      "id": "CA-004",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The commander's orders and advice are permanent records, and the cockpit keeps them close by so they build up and improve over time.",
+      "path": "CA-004.json"
+    },
+    {
+      "id": "CA-005",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "There are five kinds of commander record: orders, responses, advice, questions and ideas. They are the project's private record and every agent is bound by them.",
+      "path": "CA-005.json"
+    },
+    {
+      "id": "CA-006",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A commander order is the pilot's conduct for the session. An order that applies to any session becomes a standing order. An order no longer needed is retired and later removed. Every order is answered by a pilot decision.",
+      "path": "CA-006.json"
+    },
+    {
+      "id": "CA-007",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Commander advice builds up against one piece of infrastructure and is grouped by conceptual unit, each unit a sub directory with its own manifest and a global manifest over them all. Orders describe what the pilot does; advice shapes the project itself. Advice is retired when it stops being relevant, and a whole unit can be retired at once.",
+      "path": "CA-007.json"
+    },
+    {
+      "id": "CA-008",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A commander response is a written approval against a pilot record. It can stand on its own or be written inside the pilot's document, where it stays frozen as written while an agent copies it into the record corpus, which puts it on record while keeping the commander's original intent. Every response uses the enacted approval process, and the response itself is not extracted, only the orders, advice and questions inside it.",
+      "path": "CA-008.json"
+    },
+    {
+      "id": "CA-009",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A commander question is one written question, and the pilot answers it with a decision rather than directly.",
+      "path": "CA-009.json"
+    },
+    {
+      "id": "CA-010",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A commander idea is a written exploration, usually holding orders, advice and questions that are still forming, along with the reasoning behind them. While it is forming it is held in draft and its contents do nothing, though it still shows where the project is heading. It becomes live when another commander record calls on it, and usually turns into a mission.",
+      "path": "CA-010.json"
+    },
+    {
+      "id": "CA-011",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The commander's records are the source of truth.",
+      "path": "CA-011.json"
+    },
+    {
+      "id": "CA-012",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Every piece of advice and every order is filed with the commander's words copied exactly, a plain summary of the whole record, and the context around it. Only the summary goes into the manifest. A question is copied exactly and points to the decision it produced.",
+      "path": "CA-012.json"
+    },
+    {
+      "id": "CA-013",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The commander never approves directly. Full acceptance freezes the pilot's record and the pilot proceeds. A part approval does not say which parts were accepted; the commander instead changes his own records, which pushes the pilot to reread them and redraft. A held draft goes no further. The commander can also put a new record against a frozen or held draft to start the drafting again, which is how agent teams improve on a second pass.",
+      "path": "CA-013.json"
+    },
+    {
+      "id": "CA-014",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The commander's records only bind the pilot once they are built into the project itself, and once built in they can be archived out of easy reach. The places they are built into are CLAUDE.md, manuals of various kinds, trustworthy tests, and procedures that absorb orders and decisions.",
+      "path": "CA-014.json"
+    },
+    {
+      "id": "CA-048",
+      "name": "extracted marker",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "When a commander record is extracted from a document, the record id is appended to the record flag in that document as a signal that it has been extracted, in the form CA:{Extracted: CA-XXX}.",
+      "path": "CA-048-extracted-marker.json"
+    },
+    {
+      "id": "CA-051",
+      "name": "order settling",
+      "date": "2026-09-25",
+      "status": "active",
+      "summary": "An order stays valid across sessions until the pilot settles it with a fully approved chain of records and moves it to settled/; the commander can reopen it; never or repeatedly settled orders are standing-order candidates; stale orders may be retired.",
+      "path": "CA-051-order-settling.json"
+    },
+    {
+      "id": "CA-055",
+      "name": "commander notes",
+      "date": "2026-09-25",
+      "status": "active",
+      "summary": "CN is the commander's pseudo record prefix: an inline thought or point to keep, searchable on demand, never extracted or acted on.",
+      "path": "CA-055-commander-notes.json"
+    },
+    {
+      "id": "CA-056",
+      "name": "idea candidates",
+      "date": "2026-09-25",
+      "status": "active",
+      "summary": "An idea the pilot proposes becomes a record under ideas/candidate/; the commander promotes it or handles it another way.",
+      "path": "CA-056-idea-candidates.json"
+    }
+  ]
+}

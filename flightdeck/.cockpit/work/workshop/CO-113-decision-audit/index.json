@@ -1,0 +1,12 @@
+{
+  "kind": "workshop",
+  "id": "CO-113",
+  "name": "decision audit",
+  "opened": "2026-09-29",
+  "status": "open",
+  "order": "CO-113-decision-audit.json",
+  "decision": "XD-012-decision-audit.md",
+  "purpose": "Run the commanders-advocate over the pilot's decisions and check for commander records that have not been applied to those decision files.",
+  "records": [],
+  "spawned": []
+}

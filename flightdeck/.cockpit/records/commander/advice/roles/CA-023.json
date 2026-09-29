@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-023",
+  "unit": "roles",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "19",
+  "status": "active",
+  "summary": "Ranks are played so each role knows where it sits in the hierarchy.",
+  "statement": "Ranks are roleplayed for roles to understand their position in the hierarchy.",
+  "context": "Closes the Roleplay section of cockpit.constitution, line 19, and introduces the acknowledgement rule that follows it. That rule is conduct rather than shape, so it is filed as an order at CO-094 rather than as advice here; it binds every subordinate role and not the pilot alone, and goes to the commander as a candidate for promotion to a standing order.",
+  "answered_by": "XD-004"
+}

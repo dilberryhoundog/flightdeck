@@ -1,0 +1,17 @@
+{
+  "kind": "workshop",
+  "id": "CO-089",
+  "name": "pilot tools",
+  "opened": "2026-09-29",
+  "status": "open",
+  "order": "CO-089-pilot-tools.json",
+  "decision": "XD-007-pilot-tools.md",
+  "purpose": "The pilot has no bash; it reads, writes, edits, greps and globs. Some commands may be granted back later.",
+  "records": [
+    {"id": "XX-006", "kind": "dispute", "path": "../../../records/pilot/disputes/XX-006.md"},
+    {"id": "Ds-009", "kind": "dossier", "path": "../../../records/pilot/dossiers/Ds-009.md"},
+    {"id": "CA-048", "kind": "advice", "path": "../../../records/commander/advice/commander-records/CA-048-extracted-marker.json"},
+    {"id": "CA-050", "kind": "advice", "path": "../../../records/commander/advice/pilot-records/CA-050-dispute-closing.json"}
+  ],
+  "spawned": []
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-045",
+  "unit": "crew",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "122",
+  "status": "active",
+  "summary": "The crew and teams are given improvement strategies so they get better over time, and those strategies are kept up to date for effectiveness and best practice.",
+  "statement": "The crew and teams will receive improvement strategies so that they improve over time. Improvement strategies will be maintained for effectiveness and best practices.",
+  "context": "Line 122 of cockpit.constitution, the second paragraph of the Testing section, after the paragraph on the test harness and evaluation suites. It is the only part of the Testing section that states a requirement rather than weighing an option; the paragraph before it is still forming and is held as an idea at ../../ideas/CI-001.md.",
+  "answered_by": "XD-004"
+}

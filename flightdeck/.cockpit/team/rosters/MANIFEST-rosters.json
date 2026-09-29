@@ -10,9 +10,10 @@
       "path": "recon.json"
     },
     {
-      "name": "mini-adversary",
-      "purpose": "critique the pilot's own work before building",
-      "path": "mini-adversary.json"
+      "name": "fit-n-trim",
+      "purpose": "two seats critique build work, looking for project fit and footprint",
+      "path": "fit-n-trim.json",
+      "note": "renamed by the commander from mini-adversary on 2026-09-22; teams flown under the old name are T003, T008, T012"
     },
     {
       "name": "topics-and-records",

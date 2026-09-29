@@ -1,0 +1,9 @@
+{
+  "kind": "pilot-dossiers",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "Presentation records for the commander: a dispatch result, a crew member or a roster. Filed by identifier with a dash from Ds-009; Ds001 to Ds008 sit on the old desk at ../../../commander/desk/in/dossiers/ until the layout move after run 3.",
+  "units": [
+    {"id": "Ds-009", "title": "The constitution on record: run 1 of the corpus migration", "path": "Ds-009.md", "written": "2026-09-24", "from": "records/notepad/corpus-migration/", "mission": "M002", "dispatch": "T019"}
+  ]
+}

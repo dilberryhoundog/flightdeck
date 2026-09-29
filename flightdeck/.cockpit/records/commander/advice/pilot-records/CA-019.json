@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-019",
+  "unit": "pilot-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "80",
+  "status": "active",
+  "summary": "A pilot plan gives builders detailed instructions for reaching a build goal. The commander approves it, and once frozen it is handed to a build specialist.",
+  "statements": [
+    "[XP] Pilot plan provide builders with detailed instructions on how to achieve a build goal.",
+    "the commander then enacts their approval. Once frozen a plan can then be handed over to a build specialist."
+  ],
+  "context": "The fifth of the pilot's record types, line 80 of cockpit.constitution, after the dispute and before the procedure. Between the two spans sits \"The pilot generates a plan upon receiving a request approval\", which is a pilot duty and is filed as an order at CO-106; that is why the spans are held apart. The Crew section at line 132 names the receiving end: the clerk builds from a pilot plan record.",
+  "answered_by": "XD-004"
+}

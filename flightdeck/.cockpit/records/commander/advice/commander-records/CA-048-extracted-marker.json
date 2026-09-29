@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-048",
+  "name": "extracted marker",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "When a commander record is extracted from a document, the record id is appended to the record flag in that document as a signal that it has been extracted, in the form CA:{Extracted: CA-XXX}.",
+  "statement": "When a commander record is extracted from a document, a signal is left to indicate that it has been extracted. Append the record ID to the record flag. eg `CA:{Extracted: CA-XXX}`",
+  "context": "Written by the commander under a Commander Response heading inside XX-001, beside CA-047 and CA-049. Until this advice, a record written inside a pilot document stayed frozen with no sign of whether it had reached the corpus; this makes extraction visible at the source. The three responses inside XD-001 (CO-089 to CO-091) and the three inside XX-001 are the first to carry the marker."
+}

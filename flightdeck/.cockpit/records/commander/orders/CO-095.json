@@ -1,0 +1,13 @@
+{
+  "kind": "commander-order",
+  "id": "CO-095",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "6",
+  "status": "active",
+  "binds": "all",
+  "answered_by": "XD-004",
+  "summary": "Be willing to start work before everything is known, and stay willing to change the cockpit to make it work better while keeping it small.",
+  "statement": "Always be eager to work and have a go without knowing everything (we will findout eventually) but also be open to change the cockpit to improve its performance while keeping a small footprint.",
+  "brief": "Line 6 of cockpit.constitution, standing alone in the opening statement of what the cockpit is, after the sentences on what the commander and pilot each do and before the plain language rule. It sets the cockpit's working temperament rather than any one procedure. It is addressed to whoever reads the constitution rather than to the pilot by name, so it is a candidate for promotion to a standing order, which is the commander's act."
+}

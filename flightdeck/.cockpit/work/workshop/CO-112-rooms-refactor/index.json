@@ -1,0 +1,14 @@
+{
+  "kind": "workshop",
+  "id": "CO-112",
+  "name": "rooms refactor",
+  "opened": "2026-09-29",
+  "status": "open",
+  "order": "CO-112-rooms-refactor.json",
+  "decision": "XD-011-rooms-refactor.md",
+  "purpose": "Refactor the cockpit's rooms to match the layout in CA-042.",
+  "records": [
+    {"id": "XX-007", "kind": "dispute", "path": "../../../records/pilot/disputes/XX-007.md"}
+  ],
+  "spawned": []
+}

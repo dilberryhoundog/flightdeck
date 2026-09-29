@@ -1,0 +1,37 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "work",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: how work is held before and while it is done, as sparks, workshop items and missions. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-032 to CA-035 come from cockpit.constitution lines 86 to 93 under CO-087.",
+  "units": [
+    {
+      "id": "CA-032",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Work the pilot finds in the commander's records that does not belong to anything already running can be pulled out and kept for later, either as a spark or as a workshop item, depending on how big it is and what kind of work it is.",
+      "path": "CA-032.json"
+    },
+    {
+      "id": "CA-033",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Sparks are possible missions kept in an incubator. A spark can be raised to a mission on its own, joined with other sparks, sent down to the workshop, or held.",
+      "path": "CA-033.json"
+    },
+    {
+      "id": "CA-034",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The workshop is where fixes, bugs, problems and maintenance are written down the moment they are spotted. This work stands on its own and is not attached to a mission.",
+      "path": "CA-034.json"
+    },
+    {
+      "id": "CA-035",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A mission is a big piece of work with a settled scope that runs over time and over many dispatches until one great idea is finished. Not every commander idea is that big; sometimes several circle one theme and that theme is the mission. Several missions can run at once, and the best practice is to start one as another finishes, because too many at once is overwhelming. A mission is tagged horizon when it becomes clear the project needs it next, and a finished mission moves to a completed location. Missions are opened and closed with a pilot request, which the commander approves.",
+      "path": "CA-035.json"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-009",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "34",
+  "status": "active",
+  "summary": "A commander question is one written question, and the pilot answers it with a decision rather than directly.",
+  "statement": "[CQ] Commander question is a single written question, The pilot doesn't answer directly instead produces a decision resulting from the CQ.",
+  "context": "The fourth record type defined in the Commander section of cockpit.constitution, line 34, after the response and before the idea. The second clause is a pilot duty and is filed as an order at CO-096; the sentence is carried here whole because the duty is a clause inside it, and cutting the clause out would leave the record's own definition ending in a comma. Line 41 adds how a question is filed: verbatim, with a reference to the decision it generated.",
+  "answered_by": "XD-004"
+}

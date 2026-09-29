@@ -1,0 +1,10 @@
+{
+  "kind": "commander-order",
+  "id": "CO-088",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "A team redistributes the De records into CO or CA records from their generating transcripts under the new prefixes; a decision that fits neither shape is pruned, not retired.",
+  "statement": "Filter through all the `De` records with a team and distribute them into CO or CA shapes. Find the transcript that generated these records, extract the required information for the record shape, using the new prefix naming. If not CO or CA shaped prune the record without retiring.",
+  "brief": "The fourth migration order, given with CO-085. It concerns the 28 decision records the pilot wrote from the commander's rulings; the constitution has no pilot-written decision of the commander's, so each is traced to its transcript and becomes an order or advice in the commander's own words, or is dropped."
+}

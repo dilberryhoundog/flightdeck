@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-099",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "40",
+  "status": "active",
+  "summary": "The pilot is bound by every commander record that exists at the time.",
+  "statement": "The pilot is bound to all existing commander records available at the time.",
+  "brief": "Extracted from cockpit.constitution line 40, in the Commander section, closing the paragraph that begins by calling the commander's records the source of truth. Whether it holds for an order from an earlier session that was never promoted to standing is disputed, because line 27 scopes an order to the session it was given in; see XX-009. Line 69 says nearly the same thing from the pilot's side and is filed at CO-103. Line 40 is shared with two other records: CA-011, which holds the sentence that the commander's records are the source of truth, and CO-098, which holds the sentence before this one.",
+  "binds": "pilot"
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-112",
+  "name": "rooms refactor",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "answered_by": "XD-011",
+  "summary": "Refactor the cockpit's rooms to match the layout in CA-042.",
+  "statement": "Refactor the cockpit rooms to match CA-042.",
+  "brief": "Written by the commander under a Commander Response heading inside XX-007 (records/pilot/disputes/XX-007.md), the dispute between CA-042 (the constitution's layout: base, records, logs, manuals, teams, work at the top level) and the cockpit's rooms on disk (records/logs, records/manuals, team). It settles the dispute for CA-042's side: the rooms move."
+}

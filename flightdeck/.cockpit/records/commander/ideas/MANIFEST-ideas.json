@@ -1,0 +1,15 @@
+{
+  "kind": "commander-ideas",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One CI per file, filed by identifier with a dash, written as markdown prose because an idea is an exploration rather than a structured record. Draft while the idea is still forming, at which point it and everything in it is inert; live once a commander record invokes it, and generally converted to a mission from there. Numbering is global and never reused.",
+  "units": [
+    {
+      "id": "CI-001",
+      "date": "2026-09-24",
+      "status": "draft",
+      "summary": "The commander wants a test harness, fixtures and an evaluation suite over the cockpit's functions and behaviours, notes that this is hard on an agent based project, and names two existing suites that might serve without choosing between them.",
+      "path": "CI-001.md"
+    }
+  ]
+}

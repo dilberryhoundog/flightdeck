@@ -45,7 +45,7 @@
       "pattern": "^[a-z][a-z0-9-]*$"
     },
     "context": {
-      "description": "the identifiers behind this procedure, a bracketed list, usually the dossier and request that raised it",
+      "description": "the identifiers behind this procedure, a bracketed list, usually the dossier and request that raised it. The old Or and De forms are accepted only until XD-005's citation sweep replaces them",
       "type": "array",
       "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
     }

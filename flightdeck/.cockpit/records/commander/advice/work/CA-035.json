@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-035",
+  "unit": "work",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "92-93",
+  "status": "active",
+  "summary": "A mission is a big piece of work with a settled scope that runs over time and over many dispatches until one great idea is finished. Not every commander idea is that big; sometimes several circle one theme and that theme is the mission. Several missions can run at once, and the best practice is to start one as another finishes, because too many at once is overwhelming. A mission is tagged horizon when it becomes clear the project needs it next, and a finished mission moves to a completed location. Missions are opened and closed with a pilot request, which the commander approves.",
+  "statement": "Missions are epic, their scope is mature, they progress over time and dispatches and ultimately deliver a great idea to completion. Not all CI take the scope of a mission, sometimes they will revolve around a central theme, this is the mission. Multiple missions can be active, best practice is to begin one as another finishes up, too many overwhelm. Missions gain the horizon tag when they start to become clear that the project needs this great idea next. completed missions move to a 'completed' location. Missions are opened and closed with an XR by the pilot, the commander can enact approval.",
+  "context": "Closes the Work section of cockpit.constitution, lines 92 and 93, after sparks and the workshop. It is the largest of the three kinds of work and the only one whose opening and closing needs the commander's approval. The sentence about commander ideas picks up line 36, which says an idea that goes live should generally be converted to a mission.",
+  "answered_by": "XD-004"
+}

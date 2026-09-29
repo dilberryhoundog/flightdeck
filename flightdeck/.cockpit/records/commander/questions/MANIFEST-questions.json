@@ -1,0 +1,16 @@
+{
+  "kind": "commander-questions",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "A question is answered by a pilot decision (XD), never directly. The question text is carried on the row so the manifest reads alone.",
+  "units": [
+    {
+      "id": "CQ-001",
+      "date": "2026-09-24",
+      "status": "answered",
+      "question": "What order will you run these in? what crew members will you use?",
+      "answered_by": "XD-001",
+      "path": "CQ-001.json"
+    }
+  ]
+}

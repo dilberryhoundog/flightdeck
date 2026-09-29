@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-012",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "41",
+  "status": "active",
+  "summary": "Every piece of advice and every order is filed with the commander's words copied exactly, a plain summary of the whole record, and the context around it. Only the summary goes into the manifest. A question is copied exactly and points to the decision it produced.",
+  "statement": "All CA, CO records are extracted with the commanders record transfered verbatim, A text based summary of the complete record using plain, simple and clear language with no jargon, The brief surrounding context of the record. Only the text summary transfers to the record manifest. CQ are transfered verbatim and reference the pilot decision generated from the question.",
+  "context": "Line 41 of cockpit.constitution, in the Commander section, immediately after the sentence that the commander's records are the source of truth. It is the shape every record in this corpus is written to, including this one. The phrase \"the brief surrounding context\" is also where a sentence that only gives the reason for the rule beside it belongs, rather than becoming a record of its own.",
+  "answered_by": "XD-004"
+}

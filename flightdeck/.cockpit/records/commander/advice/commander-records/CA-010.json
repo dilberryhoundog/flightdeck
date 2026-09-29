@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-010",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "36",
+  "status": "active",
+  "summary": "A commander idea is a written exploration, usually holding orders, advice and questions that are still forming, along with the reasoning behind them. While it is forming it is held in draft and its contents do nothing, though it still shows where the project is heading. It becomes live when another commander record calls on it, and usually turns into a mission.",
+  "statement": "[CI] Commander idea is a written exploration of an idea for the project, In general it is filled with maturing CO, CA, CQ and some reasoning and intent. While it is still forming it is 'held' in draft and these commander records are inert. however these provide a decent view over the projects' future integration and interface needs. An idea becomes live when a commander record invokes it, this record will guide what happens to the idea but in general should be converted to a mission.",
+  "context": "The fifth and last record type defined in the Commander section of cockpit.constitution, the whole of line 36, after the question. The third sentence is the commander's reason for keeping ideas at all rather than a rule of its own, and is not filed as a separate record. The Work section at line 92 picks the thread up, saying not every idea is big enough to be a mission.",
+  "answered_by": "XD-004"
+}

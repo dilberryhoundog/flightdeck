@@ -1,7 +1,7 @@
 {
   "kind": "missions",
   "version": 1,
-  "updated": "2026-09-22",
+  "updated": "2026-09-24",
   "current": "M001",
   "incubator": "incubator/MANIFEST-sparks.json",
   "workshop": "../workshop/MANIFEST-workshop-items.json",
@@ -14,7 +14,7 @@
       "branch": "cockpit",
       "assigned_by": "commander",
       "opened": "2026-09-17",
-      "progress": "Phase 4 accepted (Or059). The pilot's agent body is built (Rq014, T015, 8a05299) and two of the commander's three tests passed on 2026-09-21: the session opens logged on with initialPrompt firing the start procedure, and a teammate answers crew without the body (T016). Remaining: initialPrompt on resume. Open: fold identity.md and commander.md into the body (Or064); the launch manual lines on effort and nested CLAUDE.md loading (what triggers the load is unsettled); WS027 (mini-spec team before the next build request); WS028; the commander's remix of the ace idea files; procedures.txt and workshop.txt ideas; Rq012 (guard); CA004 row still awaiting; the doctrine briefing and mission cut approvals; WS024 to WS026; Sp010; P006 approval."
+      "progress": "Phase 4 accepted (Or059); agent body built and tested (Rq014, T015, T016). 2026-09-22: T018 found what the refit did to the session start; Ds008 and Rq015 (thirteen items) on the commander's desk, six pilot edits made. Open: Rq012, Rq015; the Or064 fold (now item 7 of Rq015); WS027, WS028; the launch manual lines; the doctrine briefing and mission cut approvals; WS024 to WS026; Sp010; P006 approval (item 11 of Rq015)."
     },
     {
       "id": "M002",
@@ -24,7 +24,7 @@
       "branch": "cockpit",
       "assigned_by": "commander",
       "opened": "2026-09-20",
-      "progress": "In progress from 2026-09-21 (Or065). T017 explored the team-builder with the commander in the room; Ds007 on his desk, answered in CA004, which sets the team file shapes and turns the run's accidental finding into an objective: team infrastructure refit (WS031). Next: close T017, boundary manuals as stubs for his read, a narrow discovery run on the team-builder's seats and entry points, then the mini-spec team for the build request (Or066)."
+      "progress": "2026-09-24: the commander's constitution replaces the keep; the corpus migration runs under CO-085 to CO-088 and XD-001 to XD-005 (all full). Run 1 done (T019, Ds-009): the constitution on record at records/commander/, thirteen schemas, the glossary. Next: XDs for CO-095 to CO-110, run 2 (Or to CO, CA to CR and units), run 3 (De distributed, citation sweep, old directories deleted), then the layout move to the constitution's rooms. Earlier: T017 team-builder exploration (Ds007, CA004, WS031)."
     }
   ]
 }

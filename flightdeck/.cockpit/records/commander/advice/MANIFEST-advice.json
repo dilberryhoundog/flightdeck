@@ -1,0 +1,56 @@
+{
+  "kind": "commander-advice-units",
+  "version": 2,
+  "updated": "2026-09-24",
+  "convention": "The global manifest: one row per conceptual unit of infrastructure, each a sub directory with its own manifest that reads every CA on that unit. CA numbering is global and never reused. The old CA001 to CA005 files are responses (CR), migrated by CO-086. The units below identifiers were named when cockpit.constitution was read under CO-087, from the constitution's own nouns wherever it has one. Two do not come from it directly: the constitution's noun is \"records\", and commander-records and pilot-records are a split of it, because the commander's five record types and the pilot's seven do not retire as one thing. The unit identifiers predates that reading; the constitution's word for what it holds is glossary.",
+  "units": [
+    {
+      "unit": "identifiers",
+      "path": "identifiers/MANIFEST-identifiers.json"
+    },
+    {
+      "unit": "commander-records",
+      "path": "commander-records/MANIFEST-commander-records.json"
+    },
+    {
+      "unit": "pilot-records",
+      "path": "pilot-records/MANIFEST-pilot-records.json"
+    },
+    {
+      "unit": "roles",
+      "path": "roles/MANIFEST-roles.json"
+    },
+    {
+      "unit": "crew",
+      "path": "crew/MANIFEST-crew.json"
+    },
+    {
+      "unit": "teams",
+      "path": "teams/MANIFEST-teams.json"
+    },
+    {
+      "unit": "work",
+      "path": "work/MANIFEST-work.json"
+    },
+    {
+      "unit": "logs",
+      "path": "logs/MANIFEST-logs.json"
+    },
+    {
+      "unit": "manuals",
+      "path": "manuals/MANIFEST-manuals.json"
+    },
+    {
+      "unit": "locations",
+      "path": "locations/MANIFEST-locations.json"
+    },
+    {
+      "unit": "flightcrew",
+      "path": "flightcrew/MANIFEST-flightcrew.json"
+    },
+    {
+      "unit": "package",
+      "path": "package/MANIFEST-package.json"
+    }
+  ]
+}

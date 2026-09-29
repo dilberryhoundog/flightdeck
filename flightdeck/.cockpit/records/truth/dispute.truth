@@ -1,0 +1,10 @@
+truth disputes:
+"An agent disputes a humans' truth statement when they find a contradiction"
+
+"One side of the contradiction is always the truth statement. The other side of the contradiction is either; Another truth statement, the project content, a similar or mirrored truth statement"
+
+"Agents place either side of the contradiction and their reasoning in a dispute file. The human looks at the contradiction, changes their statements or removes them."
+
+"The dispute file names the primary truth file and statement under 'The statement' and the other or secondary side as 'The contradiction' and the reasoning as 'The reasoning', each of these getting a descriptive passage. The file has metadata with type (dispute), status (open, settled), stamp, statement (file), disputed (files list). It is given a 1-3 word name joined by hyphens "
+
+"The human repairs the dispute how they see fit and informs an agent of the resolution, if the agent is satisfied, they 'settle' the dispute and retire it. If not satisfied, the agent reshapes the dispute to be more informative, discussions about the dispute is welcome, the human asking for work on the project content is welcome"

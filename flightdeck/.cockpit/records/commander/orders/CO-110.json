@@ -1,0 +1,13 @@
+{
+  "kind": "commander-order",
+  "id": "CO-110",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "109",
+  "status": "active",
+  "binds": "all",
+  "answered_by": "XD-004",
+  "summary": "Apart from the agreed terms in the glossary, all documentation is written in plain, clear and simple language with no jargon.",
+  "statement": "Otherwise all documentation is written in plain, clear and simple language, with no jargon.",
+  "brief": "Line 109 of cockpit.constitution, in the Key Infrastructure section, inside the paragraph on the glossary. The word \"Otherwise\" points back at the sentence immediately before it, \"A glossary of agreed terms and ID's is kept and approved for use in the base\", which is filed as advice at CA-039: the approved glossary terms are the exception, and everything outside them is plain language with no jargon. That is what this order adds to CO-093, which states the rule at line 8 without an exception, and it is why the two are separate records rather than one. This order binds every agent and every document, not the pilot alone, which is the constitution's test at line 27 for a standing order; it is filed as a commander order because promoting it is the commander's act, and it goes to him as a candidate for promotion with CO-093."
+}

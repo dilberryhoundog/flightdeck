@@ -1,0 +1,80 @@
+{
+  "kind": "pilot-disputes",
+  "version": 2,
+  "updated": "2026-09-24",
+  "convention": "One XX per contradiction, filed by identifier with a dash. A dispute names one contradiction only, so the commander settles one thing at a time. Both sides are shown verbatim in the body. Open until the commander amends or retires a record, or answers with a CR, which is named in the generates field once settled. Numbering is global and never reused. XX-001 to XX-009 come from the reading of cockpit.constitution under CO-087.",
+  "units": [
+    {
+      "id": "XX-001",
+      "unit": "records",
+      "status": "open",
+      "date": "2026-09-24",
+      "summary": "CA-007 contradicts itself: one sentence says an advice unit is one file holding all its advice, another says it is a sub directory with a manifest reading each piece separately. The cockpit is built the second way.",
+      "path": "XX-001.md"
+    },
+    {
+      "id": "XX-002",
+      "unit": "records",
+      "status": "open",
+      "date": "2026-09-24",
+      "summary": "CA-008 contradicts itself: one sentence says a commander response written inside a pilot record is immediately extracted into the record corpus, another says a response is never extracted.",
+      "path": "XX-002.md"
+    },
+    {
+      "id": "XX-003",
+      "unit": "records",
+      "status": "open",
+      "date": "2026-09-24",
+      "summary": "CA-008 gives the extraction of the commander's words to an agent and CO-097 gives it to the pilot, which matters because the pilot's writing and reading are deliberately limited.",
+      "path": "XX-003.md"
+    },
+    {
+      "id": "XX-004",
+      "unit": "records",
+      "status": "open",
+      "date": "2026-09-24",
+      "summary": "CA-013 says a part approval never reveals which parts are accepted, and CA-015 has the commander mark the unwanted units of a decision one by one.",
+      "path": "XX-004.md"
+    },
+    {
+      "id": "XX-005",
+      "unit": "roles",
+      "status": "settled",
+      "date": "2026-09-25",
+      "summary": "Settled: the commander retired CO-109, the trial grant to write small changes with claude -p; CO-101 and CO-102 stand, the pilot does not do the work.",
+      "path": "XX-005.md"
+    },
+    {
+      "id": "XX-006",
+      "unit": "roles",
+      "status": "open",
+      "date": "2026-09-24",
+      "summary": "CO-102 and CO-109 restrict the pilot's bash while excepting claude -p; CO-089 says the pilot has no bash at all. The grep half closed when the commander amended CO-089 to grant grep.",
+      "path": "XX-006.md"
+    },
+    {
+      "id": "XX-007",
+      "unit": "locations",
+      "status": "open",
+      "date": "2026-09-24",
+      "summary": "CA-042 puts logs, manuals and teams at the top level of the cockpit; on disk they are records/logs, records/manuals and team. Either CA-042 or the rooms must move.",
+      "path": "XX-007.md"
+    },
+    {
+      "id": "XX-008",
+      "unit": "roles",
+      "status": "settled",
+      "date": "2026-09-25",
+      "summary": "Settled: the commander retired CA-024 as his private note, not advice; CA-026 stands, the commander's conversation is inert and only a written record binds the pilot.",
+      "path": "XX-008.md"
+    },
+    {
+      "id": "XX-009",
+      "unit": "records",
+      "status": "open",
+      "date": "2026-09-24",
+      "summary": "CA-006 makes an order last for its session unless promoted to a standing order, and CO-099 and CA-011 bind the pilot to every record on file. Whether an old unpromoted order still binds is unsettled.",
+      "path": "XX-009.md"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "commander-order",
+  "id": "CO-108",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "103",
+  "status": "active",
+  "binds": "all",
+  "answered_by": "XD-004",
+  "summary": "Notepad scratch is kept in folders under the mission it belongs to, and is read back later for anything worth keeping.",
+  "statement": "A \"notepad\" is crew and pilot scratch, nest scratches under the missions they serve, mine them for findings and improvements.",
+  "brief": "Line 103 of cockpit.constitution, in the Key Infrastructure section, in the paragraph on logs beside the shift log and the extracts. The duty is the second half of the sentence, and the sentence is carried whole because the half does not stand on its own. The same sentence says what the notepad is, and is filed as advice at CA-041. Line 103 is shared with CO-107, which holds the matching duty over the shift log. The duty is addressed to crew as well as to the pilot, so it binds more widely than an order usually does; it is a candidate for promotion to a standing order, which is the commander's act."
+}

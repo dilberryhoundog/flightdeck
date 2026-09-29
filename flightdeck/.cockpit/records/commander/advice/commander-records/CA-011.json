@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-011",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "40",
+  "status": "active",
+  "summary": "The commander's records are the source of truth.",
+  "statement": "Commanders records are the source of truth.",
+  "context": "Opens the paragraph at line 40 of cockpit.constitution, in the Commander section, after the five record types are defined and before the rules for extracting them. The two sentences that follow are the pilot's duties that come out of it, filed as orders at CO-098 and CO-099.",
+  "answered_by": "XD-004"
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-052",
+  "name": "commander extracts",
+  "unit": "identifiers",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "The glossary has a Commander Extracts section where the commander can write quickly and directly. It is a pseudo record: the agent working the glossary moves or adjusts records as its entries say and extracts any record flags found there, then leaves the section empty.",
+  "statement": "The glossary gains a 'Commander Extracts' section. This enables quick entry by the commander directly into the glossary. The 'Commander Extracts' is a pseudo record, the engaged agent will move or adjust any records as per instructions and extract any record flags they come across. Afterward sucessful extraction, the commander extracts section is left empty.",
+  "context": "Written by the commander under a Commander Response heading inside XD-006 (records/pilot/decisions/XD-006.md), the decision that made base/GLOSSARY.md. He had already written a section at the foot of the glossary headed For the team to settle (extract from this location) holding three entries and one CA; this advice names that section and its handling."
+}

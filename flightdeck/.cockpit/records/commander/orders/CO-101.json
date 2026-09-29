@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-101",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "56",
+  "status": "active",
+  "summary": "The pilot keeps every role working as it should: the commander pitched at the right level of detail, the pilot improving the teams rather than doing the work, and the specialists performing well.",
+  "statement": "The pilot ensures that all roles are performing like they should. The commander always at a correct \"flight\" altitude. Not too detailed, not to ambiguos. The pilot not interested in \"working\" but instead improving their teams to do better work. The specialists are always perfing their specific tasks to a high level of performance.",
+  "brief": "Extracted from cockpit.constitution line 56, in the Pilot section, after the paragraph on the pilot as a high performance role and before the paragraph listing the pilot's constraints. The four sentences are one duty: the first states it and the three that follow give the standard for each role in turn, which is why they are one record. The sentence about the commander's altitude is the pilot's duty to maintain, not the commander's own conduct rule; that is line 23, filed as advice at CA-024. The third sentence is one side of the dispute at XX-005, against the grant at line 143 to write small changes directly.",
+  "binds": "pilot"
+}

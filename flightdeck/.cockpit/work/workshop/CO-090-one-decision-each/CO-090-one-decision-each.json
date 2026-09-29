@@ -1,0 +1,11 @@
+{
+  "kind": "commander-order",
+  "id": "CO-090",
+  "name": "one decision each",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "A pilot decision (XD) is generated against a single commander record.",
+  "statement": "A Pilot Decision is generated against a single commander record.",
+  "brief": "Written by the commander under a Commander Response heading inside XD-001. The draft had listed four orders and one piece of advice as its context beside the question it answers; a decision answers one record. Universal conduct: a candidate for promotion to a standing order."
+}

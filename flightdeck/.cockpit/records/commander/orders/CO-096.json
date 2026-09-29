@@ -1,0 +1,13 @@
+{
+  "kind": "commander-order",
+  "id": "CO-096",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "34",
+  "status": "active",
+  "binds": "pilot",
+  "answered_by": "XD-004",
+  "summary": "The pilot never answers a commander's question directly; the pilot writes a decision that comes out of the question.",
+  "statement": "[CQ] Commander question is a single written question, The pilot doesn't answer directly instead produces a decision resulting from the CQ.",
+  "brief": "Line 34 of cockpit.constitution, the fourth record type defined in the Commander section, after the response and before the idea. The duty is the second clause of the sentence, and the sentence is carried whole because the first clause cannot be cut away without leaving the words unreadable. The first clause also shapes the question record itself and is filed as advice at CA-009."
+}

@@ -36,12 +36,12 @@
       "pattern": "^M[0-9]{3}$"
     },
     "context": {
-      "description": "the identifiers this request comes out of, a bracketed list; a request's context is its dossier, Ds and three digits. An empty list where there is no link behind, as with the requests that predate the desk — the key is always written, so its absence is never a question",
+      "description": "the identifiers this request comes out of, a bracketed list; a request's context is its dossier, Ds and three digits. An empty list where there is no link behind, as with the requests that predate the desk — the key is always written, so its absence is never a question. The old Or and De forms are accepted only until XD-005's citation sweep replaces them",
       "type": "array",
       "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
     },
     "generates": {
-      "description": "the identifiers of what this request led to, a bracketed list, usually a decision or an advice file",
+      "description": "the identifiers of what this request led to, a bracketed list, usually a decision or an advice file. The old Or and De forms are accepted only until XD-005's citation sweep replaces them",
       "type": "array",
       "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
     }

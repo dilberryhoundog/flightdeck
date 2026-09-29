@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-098",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "40",
+  "status": "active",
+  "summary": "The pilot must turn the commander's records into the working parts of the project: manuals, procedures, crew, teams, config and work records.",
+  "statement": "The Pilot is required to extract operation and maintenance manuals, procedures, crew, teams, config, work records.",
+  "brief": "Extracted from cockpit.constitution line 40, in the Commander section, immediately after the sentence that the commander's records are the source of truth and immediately before the sentence binding the pilot to every record on file. It is the duty that makes the corpus useful, which line 47 restates from the other side: the corpus only binds once it is promoted into project infrastructure. Line 40 is shared with two other records: CA-011, which holds the sentence that the commander's records are the source of truth, and CO-099, which holds the sentence after this one.",
+  "binds": "pilot"
+}

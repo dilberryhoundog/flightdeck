@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-049",
+  "name": "record names",
+  "unit": "identifiers",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "Every record carries a name of one to three words chosen by the agent that writes it, describing its contents; the name is appended to the record, needs no check against other names, and does not affect the numbering of the id prefix.",
+  "statement": "All records are appended with 1 to 3 words of the name writing agents choice representing the contents of the record. This appended name does not require conflict avoidance and does not interrupt the ID prefix progression",
+  "context": "Written by the commander under a Commander Response heading inside XX-001, beside CA-047 and CA-048. Applied by the pilot as a name field on the record and the same words appended to the file name after the id, as missions already do (M001-cockpit-setup.md); records filed before this advice keep their bare id file names until a clerk renames them."
+}

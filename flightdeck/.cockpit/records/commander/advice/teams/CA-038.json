@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-038",
+  "unit": "teams",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "107",
+  "status": "active",
+  "summary": "Agent teams are Claude Code infrastructure letting several agents work from one shared task list, with the pilot leading and handling the dispatch mechanics. Agents can be started bare or from a definition, each works from its own angle, and they can be staged so that not all of them are present from the start, which keeps them better isolated.",
+  "statement": "Agent Teams is Claude Code infrastructure allowing multiple agents to work from a shared task list, with the pilot (lead) managing the team dispatch mechanics. Agents can be bare invoked or from a definition, they approach the work from their \"angle\", they can be staged so not all agents are present from the begining to provide better isolation performance.",
+  "context": "The Key Infrastructure section of cockpit.constitution, line 107, after manuals and before the glossary. It is the harness feature the roster and the dispatch are both built on, and the first of the pilot's three primary tools listed at line 65.",
+  "answered_by": "XD-004"
+}

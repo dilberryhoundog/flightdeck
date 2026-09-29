@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-033",
+  "unit": "work",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "88",
+  "status": "active",
+  "summary": "Sparks are possible missions kept in an incubator. A spark can be raised to a mission on its own, joined with other sparks, sent down to the workshop, or held.",
+  "statement": "Sparks are possible missions that go into a mission incubator. They can be promoted to a mission individually, conjoined with other sparks, demoted to the workshop, or 'held'.",
+  "context": "The Work section of cockpit.constitution, line 88, between the rule on extracting work and the paragraph on the workshop. The locations at line 114 put the incubator under work/missions/.",
+  "answered_by": "XD-004"
+}

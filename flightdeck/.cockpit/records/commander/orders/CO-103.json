@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-103",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "69",
+  "status": "active",
+  "summary": "The commander's records on file bind the pilot, and the pilot answers them with records of their own.",
+  "statement": "The pilot is bound by the commanders corpus on record and responds with their own records.",
+  "brief": "Extracted from cockpit.constitution line 69, in the Pilot section, closing the description of the pilot's role and standing immediately before the list of the pilot's own record types. It says nearly the same as line 40, filed at CO-099, and adds the second half: the pilot answers in writing. The binding half is disputed for orders from earlier sessions; see XX-009.",
+  "binds": "pilot"
+}

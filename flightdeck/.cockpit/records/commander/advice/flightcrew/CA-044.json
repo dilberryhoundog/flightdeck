@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-044",
+  "unit": "flightcrew",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "67",
+  "status": "active",
+  "summary": "The pilot also controls FlightCrew, a high performance orchestration pattern inside projects that have flightdeck in them. The pilot conducts FlightCrew launches using their team management abilities, and orchestrated FlightCrew runs combined with the pilot's own agent teams reach a level of performance FlightCrew cannot reach alone.",
+  "statement": "The Pilot also controls a high performance orchestration pattern named `FlightCrew` inside flightdeck infused projects. FlightCrew `launches` are conducted by the pilot using their team management abilities. Orchestrated flightcrew runs combined with pilot agent teams provide a performance layer unreachable by flightcrew alone.",
+  "context": "The Pilot section of cockpit.constitution, line 67, after the paragraph naming the pilot's three primary tools and before the line binding the pilot to the commander's corpus. FlightCrew is the parent system the cockpit is the post for, so it is kept as its own unit rather than folded into the cockpit's own agent teams at ../teams/.",
+  "answered_by": "XD-004"
+}

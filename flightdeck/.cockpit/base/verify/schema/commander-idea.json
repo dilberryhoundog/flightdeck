@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-select": ["Commander Idea"],
+  "title": "Commander Idea",
+  "description": "The frontmatter of a commander idea (CI): a written exploration of an idea for the project, in prose, filled with maturing orders, advice and questions and some reasoning and intent. Held and inert while in draft. Becomes live when a commander record invokes it, at which point it generally becomes a mission. Filed by identifier with a dash, CI-004.md.",
+  "type": "object",
+  "required": ["type", "unit", "status", "stamp"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "description": "the words Commander Idea, which is what chooses this schema",
+      "const": "Commander Idea"
+    },
+    "unit": {
+      "description": "this idea's identifier, CI, a dash and three digits, the same identifier the file is named for",
+      "type": "string",
+      "pattern": "^CI-[0-9]{3}$"
+    },
+    "name": {
+      "description": "one to three words the writer chose for the record's contents, appended to the file name after the id (CA-049)",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*( [a-z][a-z0-9]*){0,2}$"
+    },
+    "status": {
+      "description": "draft while the idea is still forming and inert, live once a commander record invokes it",
+      "enum": ["draft", "live"]
+    },
+    "stamp": {
+      "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",
+      "type": "array",
+      "minItems": 3,
+      "items": [
+        { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        { "type": "string", "minLength": 1 },
+        { "type": "string", "pattern": "^[0-9a-f]{8}$" }
+      ]
+    },
+    "lines": {
+      "description": "the constitution line or lines this idea is sourced from, a string such as \"8\", \"31-32\", \"58-63\" or \"3, 52, 54\", so the body can be checked against the document in one step; present for an idea sourced from the constitution, absent for one raised in chat",
+      "type": "string",
+      "minLength": 1
+    },
+    "generates": {
+      "description": "the identifier of the mission or other record this idea became, present once status is live. The old Rq, P, Or and De forms are accepted only until XD-005's citation sweep replaces them",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^((CO|SO|CR|CQ|CI|XD|XR|XX|XP|PP|CA)-[0-9]{3}|(Ds-?|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3})$"
+      }
+    }
+  }
+}

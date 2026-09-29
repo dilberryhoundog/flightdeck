@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-050",
+  "name": "dispute closing",
+  "unit": "pilot-records",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "When a dispute is closed, the agent closing it makes sure the dispute's summary and other fields match any changes the commander made to his files.",
+  "statement": "When closing a dispute, the agent must ensure that the summary and other fields are in sync with the commanders file changes, if any where made.",
+  "context": "Given in chat on 2026-09-25 after the commander had amended CO-089 (adding grep to the pilot's tools), which XX-006 disputes, and had left records inside several decisions, disputes, the dossier and the glossary. The commander granted the pilot grep in the same message to find those flags."
+}

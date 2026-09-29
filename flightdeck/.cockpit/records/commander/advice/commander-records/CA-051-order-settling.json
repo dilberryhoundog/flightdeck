@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-051",
+  "name": "order settling",
+  "unit": "commander-records",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "An order is recorded in a session and stays valid across sessions until it is settled. The pilot settles it by having a fully approved chain of records that came from it, then moves it to settled/. The commander can reopen it. An order that is never settled, or settled again and again, is a good candidate for a standing order. The commander may retire a stale order, and the pilot may say when one looks stale.",
+  "statement": "All commander orders are recorded in a session. If a session fails or ends, the CO is still valid until it is 'settled' in a later session. The pilot settles an order by having a fully approved chain of resulting records and moves the record to settled/. The commander can request it opened again should they want. When a CO can be; never settled or settled repeatedly, it is a good candidate for an SO. The commander may choose to retire a CO that is stale. The pilot can prompt the commander if they also feel a CO has gone stale.",
+  "context": "Written by the commander under a Commander Response heading inside XX-009 (records/pilot/disputes/XX-009.md), the dispute between CA-006 (an order lasts for its session unless promoted) and CO-099 with CA-011 (the pilot is bound to every record on file). It answers the dispute by giving an order a lifecycle: valid until settled, settled/ as its resting place, and the settling history as the test for promotion."
+}

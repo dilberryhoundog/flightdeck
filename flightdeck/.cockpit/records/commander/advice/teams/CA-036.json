@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-036",
+  "unit": "teams",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "99",
+  "status": "active",
+  "summary": "A roster is a prebuilt team put together for a purpose and called again whenever it is wanted. It describes the crew who attend, the stages they are dispatched at, the shape the team call takes, what the team produces, the improvement and event signals to watch for during the run, and the testing methods it recommends.",
+  "statement": "Rosters are prebuilt purposeful teams, callable repeatedly. They primarily describe the crew in attendance, the stages these crew are dispatched, the shape the team invocation takes, what the team outputs. Improvement & Event signals to identify during the run and recommended testing methods.",
+  "context": "The Key Infrastructure section of cockpit.constitution, line 99, after crew files and before dispatches. A roster is the plan for a team; a dispatch, in the next paragraph, is what one run of it leaves behind.",
+  "answered_by": "XD-004"
+}

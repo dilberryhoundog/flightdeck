@@ -1,0 +1,10 @@
+{
+  "kind": "commander-order",
+  "id": "CO-086",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "A team renames the CA files to CR, extracts the advice they contain into conceptual units of infrastructure as the constitution defines, and outputs the units to records/commander/advice/<unit>/.",
+  "statement": "Filter through the CA records with a team. These are actually now CR records, rename them as such. The CA is contained within the document, It is not necessarily designated with a prefix. Intelligently extract these CA into their conceptual units as per the commanders intent in the constitution. Read the cockpit.constitution document and output them into the new infrastructure shape records/commander/advice/<unit>/",
+  "brief": "The second migration order, given with CO-085. It concerns the five files the commander wrote on his desk in answer to the pilot's dossiers and requests; under the constitution those are responses, and the advice they hold is a separate kind of record grouped by the piece of infrastructure it shapes."
+}

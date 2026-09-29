@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-113",
+  "name": "decision audit",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "answered_by": "XD-012",
+  "summary": "Run the commanders-advocate over the pilot's decisions and check for commander records that have not been applied to those decision files.",
+  "statement": "Run the commander advocate over the pilot decisions. Check for commander records that have not been applied to these decision files.",
+  "brief": "Given in chat on 2026-09-25 after the pilot reported the state of the corpus migration, with XD-007 to XD-011 awaiting approval. Beside it the commander left a note (CN, kept inline in chat, not extracted) that at least one record is not yet integrated: one requiring the pilot to state actions or conduct with the reasoning inside the decision files."
+}

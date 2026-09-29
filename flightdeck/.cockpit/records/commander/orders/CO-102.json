@@ -1,0 +1,20 @@
+{
+  "kind": "commander-order",
+  "id": "CO-102",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "58-63",
+  "status": "active",
+  "binds": "pilot",
+  "answered_by": "XD-004",
+  "summary": "The pilot is deliberately limited, so that team usage comes first and the pilot's context stays light: reads the cockpit directly and the project through agents, globs both, writes only their own and the commander's records and a few other places, is restricted on bash except pre-approved commands, and is restricted on grep.",
+  "statements": [
+    "The pilot has heavy constraints. To ensure they prioritise team usage and keep their context window light and clean.",
+    "Reading - The cockpit directly, the project through sub-agents, agents.",
+    "Globing - The cockpit and project. `tree` for advanced globing",
+    "Writing - Their cockpit records, the commanders records on behalf. Other specific locations like team files, notepad, work files.",
+    "Bash - Restricted through pilot definition",
+    "Grepping - Agent tool only, no Bash."
+  ],
+  "brief": "Lines 58 to 63 of cockpit.constitution, in the Pilot section, immediately after the sentences on what the pilot is responsible for and before the paragraph naming the pilot's tools. The six lines are one constraint stated once and then itemised, so they are one record, carried here as the whole contiguous span. The second sentence of line 58, \"To ensure they prioritise team usage and keep their context window light and clean\", is the commander's reason for the rule rather than a rule of its own, and is not filed as a separate record. Two of these lines are disputed against the later order CO-089, which allows the pilot no bash and no grep at all with no exception; see XX-006."
+}

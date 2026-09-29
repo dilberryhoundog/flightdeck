@@ -1,7 +1,7 @@
 {
   "kind": "roster",
-  "name": "mini-adversary",
-  "purpose": "critique the pilot's own work before building",
+  "name": "fit-n-trim",
+  "purpose": "two seats critique build work, looking for project fit and footprint",
   "seats": [
     "fit-critic",
     "trim-critic"

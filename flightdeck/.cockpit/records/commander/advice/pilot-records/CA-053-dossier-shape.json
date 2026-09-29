@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-053",
+  "name": "dossier shape",
+  "unit": "pilot-records",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "A dossier does not carry a section of things for the commander to settle. The commander does not make decisions; the pilot makes them in the pilot's own records, and the commander's power to deny a decision is worth more than being handed half the decisions to make.",
+  "statement": "The returned Ds does not include a \"yours to settle\" section or similar. The commander doesn't make decisions, the pilot does in their records. The commander option to deny pilot decisons is more powerful than them having to make 50% of the decision residue.",
+  "context": "Written by the commander under a Commander Response heading inside Ds-009 (records/pilot/dossiers/Ds-009.md), the dossier for run 1 of the corpus migration, which carried a section headed Yours to settle listing nine disputes, five standing-order candidates, the package, a unit count and the layout."
+}

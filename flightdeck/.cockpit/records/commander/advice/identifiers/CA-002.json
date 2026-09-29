@@ -1,0 +1,11 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-002",
+  "unit": "identifiers",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "Glossary terms are written in bold, and the glossary is split into broad conceptual groups with general names, such as agents and recording.",
+  "statement": "Glossary terms are bolded. split the glossary into broader conceptual units, named with a general term. eg agents, recording",
+  "context": "Given in chat after the pilot wrote the first glossary at base/GLOSSARY.md (CO-092, XD-006) as one alphabetical list of 57 terms under a single Terms heading. The constitution's glossary paragraph (line 109) sets the dash and plus bullets; this advice sets the shape of the page."
+}

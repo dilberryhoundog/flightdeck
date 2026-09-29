@@ -1,0 +1,19 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-013",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "43-45",
+  "status": "active",
+  "summary": "The commander never approves directly. Full acceptance freezes the pilot's record and the pilot proceeds. A part approval does not say which parts were accepted; the commander instead changes his own records, which pushes the pilot to reread them and redraft. A held draft goes no further. The commander can also put a new record against a frozen or held draft to start the drafting again, which is how agent teams improve on a second pass.",
+  "statements": [
+    "Commander enacted approval is never a direct grant. It is either full, part or held (hold)",
+    "If the commander indicates 'full' acceptance the pilot record becomes frozen and the pilot can proceed.",
+    "If the commander disagrees with 'part' of the pilot record, they express this by adding to, or adjusting their own commander record. This encourages the pilot to remake their own draft against the refreshed records",
+    "The commander can choose to 'hold' the draft if focus has shifted elsewhere, this prevents the pilot record from progressing",
+    "Making a commander response against a pilot record overrides any other enacted approval including fully frozen or held, whereby normal 'part' approval is granted again and the draft recommisioned. Written commander records within the pilot record is all that is required for 'part' approval to be valid"
+  ],
+  "context": "Lines 43 to 45 of cockpit.constitution, closing the Commander section before the paragraph on promoting the corpus into infrastructure. It is the mechanism every pilot record passes through. Between the two spans sits \"The pilot always makes draft decisions, requests, plans etc these are subject to change\", which is a pilot duty and is filed as an order at CO-100; that is why the spans are held apart. Two sentences inside the second span are the commander's reasons rather than rules of their own and are not filed separately: the one beginning \"This encourages the pilot\" and the one beginning \"this creates oppurtunity\". The rule that a part approval hides which parts were accepted is one side of the dispute at XX-004, against line 71 where the commander marks the unwanted units of a decision one by one.",
+  "answered_by": "XD-004"
+}

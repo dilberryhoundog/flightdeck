@@ -1,0 +1,75 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "pilot-records",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: the pilot's record types (XD, SD, XR, Ds, XX, XP, PP), their shapes and their handling. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-015 to CA-020 come from cockpit.constitution lines 71 to 82 under CO-087. The commander's own record types are a separate unit at ../commander-records/.",
+  "units": [
+    {
+      "id": "CA-015",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A pilot decision is a page of separate units answering one commander record. Each unit carries a flag so the commander can say which units make up the decision; the pilot starts them all positive and the commander turns off the ones he does not want, which then stay frozen so they are not decided again. His approval is full, part or held. A decision can be made permanent, turned into a procedure, or handed back as a commander record. Each unit is either pilot conduct or project infrastructure. Each unit is one conduct or action the pilot will take, with any reasoning that goes with it, and every action that makes up the decision is stated so the pilot is fully transparent.",
+      "path": "CA-015.json"
+    },
+    {
+      "id": "CA-016",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A pilot request is a change to the project the pilot puts forward, and it takes whatever shape suits the request, such as research, build or refactor. The commander answers it with a response and gives full, part or held approval. Every request must carry plain prose, the problem, the separate parts of the request, the risks, and how it will be done and checked.",
+      "path": "CA-016.json"
+    },
+    {
+      "id": "CA-017",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A pilot dossier presents detailed information about a dispatch result, a crew member or a roster. The commander can read one at any time to get the full picture, and there are several templates to suit what is being presented.",
+      "path": "CA-017.json"
+    },
+    {
+      "id": "CA-018",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A pilot dispute records a contradiction, either between the commander's own records or in the project's content. It shows the two sides and describes the contradiction between them. The commander settles it by changing or retiring a record, or by writing a response that sets more work going.",
+      "path": "CA-018.json"
+    },
+    {
+      "id": "CA-019",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A pilot plan gives builders detailed instructions for reaching a build goal. The commander approves it, and once frozen it is handed to a build specialist.",
+      "path": "CA-019.json"
+    },
+    {
+      "id": "CA-020",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A pilot procedure is set conduct the agent can follow to reach a certain outcome, taken from the decisions and orders that come up often.",
+      "path": "CA-020.json"
+    },
+    {
+      "id": "CA-047",
+      "name": "dispute scope",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A dispute is raised when a commander record contradicts another commander record, a piece of project content, or itself; a record that duplicates another of the same kind, in part or in full, is also a contradiction and is lodged as a dispute.",
+      "path": "CA-047-dispute-scope.json"
+    },
+    {
+      "id": "CA-050",
+      "name": "dispute closing",
+      "date": "2026-09-25",
+      "status": "active",
+      "summary": "When a dispute is closed, the agent closing it makes sure the dispute's summary and other fields match any changes the commander made to his files.",
+      "path": "CA-050-dispute-closing.json"
+    },
+    {
+      "id": "CA-053",
+      "name": "dossier shape",
+      "date": "2026-09-25",
+      "status": "active",
+      "summary": "A dossier does not carry a section of things for the commander to settle; the pilot decides in its own records and the commander denies what he does not want.",
+      "path": "CA-053-dossier-shape.json"
+    }
+  ]
+}

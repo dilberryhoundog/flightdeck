@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "logs",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: the cockpit's history files, being the shift log, the notepad and the extracts. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-041 comes from cockpit.constitution line 103 under CO-087. Where the constitution puts these files is disputed; see XX-007.",
+  "units": [
+    {
+      "id": "CA-041",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Logs hold the cockpit's history. There are three kinds: the pilot's shift log, which they write the day's work into and read at the next session's start, the notepad, which is crew and pilot scratch nested under the mission it serves and mined for findings, and extracts, which are large sources boiled down to their key findings.",
+      "path": "CA-041.json"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-016",
+  "unit": "pilot-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "74",
+  "status": "active",
+  "summary": "A pilot request is a change to the project the pilot puts forward, and it takes whatever shape suits the request, such as research, build or refactor. The commander answers it with a response and gives full, part or held approval. Every request must carry plain prose, the problem, the separate parts of the request, the risks, and how it will be done and checked.",
+  "statement": "[XR] Pilot Request is a proposed change to the project the pilot puts forward. These can take multiple shapes to suit the request shape (research, build, refactor etc). The commander responds with a CR (agent can generate the scaffold), whereby they enact their approval (full, part, held). XR must include plain, clear and simple prose, the problem, individual request units, risks and execute & verify",
+  "context": "The second of the pilot's record types, line 74 of cockpit.constitution, after the decision and before the dossier. It is the only pilot record whose required contents the constitution lists. The Work section at line 93 adds one use for it: a mission is opened and closed with a request.",
+  "answered_by": "XD-004"
+}

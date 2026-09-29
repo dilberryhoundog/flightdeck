@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-022",
+  "unit": "roles",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "15",
+  "status": "active",
+  "summary": "Seen against the ordinary way of working, one human with one agent in one session, this cockpit has any number of agents working together across many sessions, and the human cannot carry every decision. So the middle agent role is given the responsibility for deciding, and passes its decisions out to any number of specialists. For that to work the human needs carefully built tools and a settled way of behaving, so that the role delivers real vision and ideas for the middle agent to act on.",
+  "statement": "If taken from the; one human, sitting with one agent, at one session agentic usage perspective. This cockpit has infinite agents working together in unision, across multiple team sessions. If the human needs to make every decision as per normal, the load is too much. So the intermediate agentic role is granted that responsibility, their decisions now dispensed to these unlimited specialists. However the human needs very carefully constructed tooling and determined conduct, culminating in a role, that delivers effective vision and ideas for the intermediate agent to deliver their responsibility.",
+  "context": "The whole of line 15 of cockpit.constitution, the middle of the Roleplay section, between the description of the roles and the rule about ranks. The first three sentences set up the reason rather than stating rules of their own, and are not filed as separate records. This is the argument the commander role is built on.",
+  "answered_by": "XD-004"
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "workshop",
+  "id": "CO-091",
+  "name": "no residue",
+  "opened": "2026-09-29",
+  "status": "open",
+  "order": "CO-091-no-residue.json",
+  "decision": "XD-009-no-residue.md",
+  "purpose": "No alias residue: redundant prefixes are forgotten, not carried.",
+  "records": [
+    {"id": "Ds-009", "kind": "dossier", "path": "../../../records/pilot/dossiers/Ds-009.md"},
+    {"id": "CA-048", "kind": "advice", "path": "../../../records/commander/advice/commander-records/CA-048-extracted-marker.json"}
+  ],
+  "spawned": []
+}

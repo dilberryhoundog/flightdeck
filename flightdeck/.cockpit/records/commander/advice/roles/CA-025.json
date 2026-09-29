@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-025",
+  "unit": "roles",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "25",
+  "status": "active",
+  "summary": "The commander is the highest rank, produces the written records, and is responsible for the project's vision, growth and improvement.",
+  "statements": [
+    "The \"commander\" is the highest ranked, they produce written records.",
+    "The commander is responsible for the project's vision, growth and improvement."
+  ],
+  "context": "Two spans from the opening of the Commander section of cockpit.constitution, line 25. Between them sit the two sentences naming the five record types and binding every agent to them, which are a separate unit and are filed at ../commander-records/CA-005.json; that is why the spans are held apart. These two sentences are the role itself.",
+  "answered_by": "XD-004"
+}

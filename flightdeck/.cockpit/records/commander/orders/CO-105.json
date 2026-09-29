@@ -1,0 +1,13 @@
+{
+  "kind": "commander-order",
+  "id": "CO-105",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "78",
+  "status": "active",
+  "binds": "pilot",
+  "answered_by": "XD-004",
+  "summary": "Whenever the pilot or any crew member finds a contradiction, the pilot writes it up as a dispute and tells the commander.",
+  "statement": "When any crew or the pilot discover contradictions, the pilot files an XX and alerts the commander.",
+  "brief": "Line 78 of cockpit.constitution, the second sentence of the paragraph defining the pilot dispute, in the Pilot section after the dossier and before the plan. The sentences around it say when a dispute is recorded, what it shows and how the commander settles it; they shape the record and are filed as advice at CA-018."
+}

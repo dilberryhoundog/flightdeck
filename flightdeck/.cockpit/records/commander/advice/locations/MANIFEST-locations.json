@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "locations",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: where things live in the cockpit. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-042 comes from cockpit.constitution lines 113 to 115 under CO-087, and contradicts the cockpit as built; see XX-007.",
+  "units": [
+    {
+      "id": "CA-042",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The cockpit's top level rooms are base, records, logs, manuals, teams and work, each with its own sub rooms, and the records room holds the commander's orders, advice, questions, ideas and responses and the pilot's decisions, requests, dossiers, disputes, plans and procedures.",
+      "path": "CA-042.json"
+    }
+  ]
+}

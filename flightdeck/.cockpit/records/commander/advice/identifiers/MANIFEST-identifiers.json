@@ -1,0 +1,53 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "identifiers",
+  "version": 2,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: how records and files are named and numbered, and the two glossaries that hold the agreed terms and the record prefixes. The constitution's own word for what this unit holds is glossary (lines 109 and 111); the unit is named identifiers because it also covers the naming format, which is not a glossary matter, and because the directory existed under that name before the constitution was read. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file.",
+  "units": [
+    {
+      "id": "CA-001",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Identifier prefixes are separated from the record number by a dash: CO-012.json, Ds-004.json.",
+      "path": "CA-001.json"
+    },
+    {
+      "id": "CA-002",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Glossary terms are written in bold, and the glossary is split into broad conceptual groups with general names, such as agents and recording.",
+      "path": "CA-002.json"
+    },
+    {
+      "id": "CA-039",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A glossary of agreed terms and identifiers is kept in the base and approved for use. Crew or the pilot can offer a term when they want to use one, and the commander is told and agrees to it. A new term is added with a dash bullet and a one line description, and the commander changes the dash to a plus if he approves it; leaving the dash means it is held, to be removed or folded into another term later.",
+      "path": "CA-039.json"
+    },
+    {
+      "id": "CA-040",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A glossary of the prefixes that mark each record type is kept as a table in CLAUDE.md.",
+      "path": "CA-040.json"
+    },
+    {
+      "id": "CA-049",
+      "name": "record names",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Every record carries a name of one to three words chosen by the agent that writes it, describing its contents; the name is appended to the record, needs no check against other names, and does not affect the numbering of the id prefix.",
+      "path": "CA-049-record-names.json"
+    },
+    {
+      "id": "CA-052",
+      "name": "commander extracts",
+      "date": "2026-09-25",
+      "status": "active",
+      "summary": "The glossary has a Commander Extracts section for the commander's quick entries; the agent working the glossary acts on them, extracts any record flags, and leaves the section empty.",
+      "path": "CA-052-commander-extracts.json"
+    }
+  ]
+}

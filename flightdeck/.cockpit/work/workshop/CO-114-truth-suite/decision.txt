@@ -1,0 +1,13 @@
+pilot-decision:
+
+"A Pilot Decision [XD] is made in response to a commander order. It comes with the decision framing and the decision body"
+
+"The decision body contains the path from the order itself to its satisfaction. Broken down into individual units."
+
+"Inside each unit. The pilot declares their context, tooling and verification intentions. Context is the content or references the pilot will use to drive this decision. Tooling is what tools, skills, agents or available resources, either within their agent harness or declared in the project, the pilot has decided to use. Verification is how the pilot will check their work."
+
+"These decision units come with preset flags (+ or - for Markdown, yes or no for json) that enable the commander to advise the pilot which units make up the decision. The pilot starts with all their units as positive; the commander negates units (wich stay frozen, so redeciding is not repeated). The commander then enacts their approval (full, part, held)."
+
+"If the decision is a repeated pattern, this decision may be 'reused'. The decision may be promoted to a procedure for permanence"
+
+"A decision is located in the same workshop directory that the commander order is placed in."

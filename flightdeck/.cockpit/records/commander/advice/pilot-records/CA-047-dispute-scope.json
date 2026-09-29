@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-047",
+  "name": "dispute scope",
+  "unit": "pilot-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "A dispute is raised when a commander record contradicts another commander record, a piece of project content, or itself; a record that duplicates another of the same kind, in part or in full, is also a contradiction and is lodged as a dispute.",
+  "statement": "A dispute is raised when a commander record contradicts with another commander record, a piece of project content or itself (is unclear). A record duplicating another record of the same type in part or full is also a contradiction and therefore is also lodged as a dispute.",
+  "context": "Written by the commander under a Commander Response heading inside XX-001 (records/pilot/disputes/XX-001.md), after the nine disputes were corrected under CO-111 to name the extracted records and two of them (XX-001, XX-002) were found to hold both sides inside one record. It widens the dispute shape at CA-018 to a record against itself and to duplication."
+}

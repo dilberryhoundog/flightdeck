@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-114",
+  "name": "truth suite",
+  "date": "2026-09-29",
+  "session": "f6216b95",
+  "status": "active",
+  "answered_by": "XD-013",
+  "summary": "Thrash out the semi-settled details of the truth suite in a workshop of its own, settling the finer points by rigour or by retrying; the pilot may create that workshop and one for each pending decision, and work goes on from there.",
+  "statement": "thrash out the semi settled details mentioned in its own workshop settling the finer details, through rigour or retrying. You have permission to create this workshop and all the others based upon the pending decisions. we work from there.",
+  "brief": "Given in chat on 2026-09-29 after an off-the-record exchange on the commander's new truth suite (records/truth/: eight truth records on truth records, statements, advice, the suite's three levels, decisions, disputes, workshops and off the record) and the pilot's proposals for directory separation by level, agent-written truth checks in JSON, the workshop layout, and when advice is imported and truth locked. The semi-settled details are those four. The pending decisions are XD-007 to XD-012, each of which now becomes a workshop holding its order."
+}

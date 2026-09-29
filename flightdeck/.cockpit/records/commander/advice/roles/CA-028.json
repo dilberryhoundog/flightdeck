@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-028",
+  "unit": "roles",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "65",
+  "status": "active",
+  "summary": "The pilot's main tools are Claude Code agent teams, messaging between sessions, and single subagents that return a result. They are tuned and chosen carefully so the pilot can meet their responsibilities.",
+  "statement": "The Pilot's primary tools are Claude Code based agents teams (crews), cross session messaging (other sessions) and subagents (single subagent with a return). These tools are optimised and carefully curated for the pilot to ensure they meet their responsibilities.",
+  "context": "Line 65 of cockpit.constitution, in the Pilot section, immediately after the list of the pilot's constraints and before the paragraph on FlightCrew. The constraints and the tools are two halves of one design: the pilot is held back from working directly so that these three tools are what gets used.",
+  "answered_by": "XD-004"
+}

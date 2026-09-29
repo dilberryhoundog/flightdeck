@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-100",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "43",
+  "status": "active",
+  "summary": "Everything the pilot writes for the commander starts as a draft that can still change: decisions, requests and plans alike.",
+  "statement": "The pilot always makes draft decisions, requests, plans etc these are subject to change.",
+  "brief": "Extracted from cockpit.constitution line 43, in the Commander section, immediately after the sentence that the commander's approval is never direct, and before the sentence that full acceptance freezes the record. It is the pilot's half of the approval mechanism, whose shape is filed as advice at CA-013.",
+  "binds": "pilot"
+}

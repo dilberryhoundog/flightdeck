@@ -1,0 +1,33 @@
+{
+  "kind": "dispatch",
+  "id": "T019",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "mission": "M002",
+  "purpose": "Run 1 of the corpus migration (XD-004, answering CO-087): classify every sentence of cockpit.constitution as order, advice, idea, question or definition and file the records; name the advice units; write the record schemas and the lint selection; file XX for internal contradictions",
+  "roster_note": "no roster; the seats XD-004 names",
+  "seats": [
+    {"name": "constitution-reader", "reason": "Opus; classifies every sentence and names the advice units, writes the CO, CA, CI and XX records", "returns": "classification table with every finding answered; the records; a closing report"},
+    {"name": "schema-builder", "reason": "Sonnet; writes the schemas, extends cockpit-lint and lint.yaml, runs the lint, deletes what the pilot rules gone", "returns": "schemas, lint results, the file list"},
+    {"name": "commanders-advocate", "reason": "Opus, standalone; checks every record and schema against the constitution's words, files candidate XX, sweeps the diff", "returns": "A-series findings per round, mechanical verification at the close"},
+    {"name": "fit-critic", "reason": "Opus, live from before the first landing; wrong room, restatement, session leakage, jargon", "returns": "F-series findings per round"}
+  ],
+  "subagents": [
+    {"name": "clerk", "model": "sonnet", "reason": "return subagent under XD-006: mined the dispatch, roster, crew and manual files for the glossary terms", "returns": "term list with meaning and first file"}
+  ],
+  "shape": "both adversaries filed on the pre-existing records before the reader landed; reader landed the classification, then the records, then corrections, each attacked by both; the pilot relayed once per round with rulings; schema-builder worked from the classification and applied rulings as they came; nothing frozen",
+  "scope": "read the whole cockpit; write only records/commander/, records/pilot/disputes/, base/verify/, and records/notepad/corpus-migration/",
+  "status": "finished",
+  "room": "cockpit",
+  "outcome": "The constitution is on record: 187 statements, 171 classified (139 advice in 12 units, 27 orders in 18 CO, 3 idea, 2 definition, 0 question), 16 not counted (12 reason-sentences kept inside their statement, 4 labels). Filed: CO-093 to CO-110, CA-004 to CA-046 in twelve unit directories each with a manifest, CI-001, XX-001 to XX-009; every constitution-sourced record carries lines and a verbatim contiguous statement or a statements array, verified mechanically by the advocate (0 non-contiguous spans, 0 statements outside their lines, 12 shared lines cross-linked both ways). Thirteen schemas written, six extended, two retired; cockpit-lint and lint.yaml extended; base/GLOSSARY.md written under XD-006 and reshaped under CA-002; lint clean at 110 files. Fifty advocate findings and forty-five fit findings over nine rounds; the reader withdrew eight fixes and corrected its own work three times on the adversaries' evidence (spliced statements called verbatim, eleven words of line 103 lost, session context back in briefs). Five SO candidates: CO-093, CO-094, CO-095, CO-108, CO-110. For the commander: nine disputes; the package as idea or advice; XD-004's nine units against twelve filed; the layout mismatch (XX-007). Files in records/notepad/corpus-migration/.",
+  "lessons": [
+    "seat the adversaries before the first landing: 24 findings on the pilot's own pre-team records were the first thing either adversary filed, and they fixed the shapes the reader then wrote into",
+    "verbatim means the whole contiguous span; a classification rule that lifts a sentence out of a record must not lift it out of the statement, or content is lost without any test catching it (A47)",
+    "a ruling given and then reversed (SO as a class, A20 then A29) cost a round of rework because the reader had already written to it; rule once the advocate has seen it",
+    "messages cross: the reader wrote SO files after the reversal was sent, and told the pilot CO-092 was taken while the pilot filed it; number blocks are claimed by message before writing",
+    "a seat that cannot lint or delete must say so at once; the reader's 79 files went unverified until schema-builder was told",
+    "the reader used grep four times against a brief that allowed only ls and reported it unasked; the brief should say whether read-only bash is inside the boundary",
+    "the commander's records land mid-flight (CA-002, CA-003, CO-092) and change the shapes being written; file them at once and tell every seat in the same minute",
+    "fields the constitution does not name (binds, lines, statements, sides, sections) were each added by ruling; the dossier must list them so the commander knows what was added beyond his words"
+  ]
+}

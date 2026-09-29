@@ -1,0 +1,65 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "roles",
+  "version": 1,
+  "updated": "2026-09-24",
+  "convention": "One conceptual unit of infrastructure: the roleplay, the ranks, and what each role is. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-021 to CA-028 come from cockpit.constitution under CO-087. What a role must do, as against what it is, is an order and is filed in ../../orders/.",
+  "units": [
+    {
+      "id": "CA-021",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The cockpit uses a roleplay everyone already understands to hold each actor to a way of behaving, with air force ranks setting the hierarchy, so that the human is not bogged down making every decision when their vision is worth more. The main agent role sits between the human's vision and the building, is played as being in charge while taking orders from the human, and is given strong team dispatch powers but only basic reading and writing so it stays in that middle role. Alongside it are specialist roles whose different angles together produce good work.",
+      "path": "CA-021.json"
+    },
+    {
+      "id": "CA-022",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Seen against the ordinary way of working, one human with one agent in one session, this cockpit has any number of agents working together across many sessions, and the human cannot carry every decision. So the middle agent role is given the responsibility for deciding, and passes its decisions out to any number of specialists. For that to work the human needs carefully built tools and a settled way of behaving, so that the role delivers real vision and ideas for the middle agent to act on.",
+      "path": "CA-022.json"
+    },
+    {
+      "id": "CA-023",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Ranks are played so each role knows where it sits in the hierarchy.",
+      "path": "CA-023.json"
+    },
+    {
+      "id": "CA-024",
+      "date": "2026-09-24",
+      "status": "retired",
+      "summary": "The commander does not talk to the pilot; he gives orders and advice instead. Retired by the commander on 2026-09-25 as his private note, not advice; settles XX-008.",
+      "path": "../retired/CA-024.json"
+    },
+    {
+      "id": "CA-025",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The commander is the highest rank, produces the written records, and is responsible for the project's vision, growth and improvement.",
+      "path": "CA-025.json"
+    },
+    {
+      "id": "CA-026",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The commander is always there while work happens, and what he says in conversation carries no weight of its own; it only encourages the work along.",
+      "path": "CA-026.json"
+    },
+    {
+      "id": "CA-027",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The pilot is the captain, ranked below the commander, and makes every decision against the project: what is built and what is not, what sources are used, what crew are sent, and where and in what form the output goes. The pilot answers for quality, security, efficiency and footprint, building to the commander's vision through the teams they captain. It is a high performance role, not suited to a human working in the loop, and it puts advanced agent team work at the commander's disposal so he keeps control of the direction without deciding everything.",
+      "path": "CA-027.json"
+    },
+    {
+      "id": "CA-028",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "The pilot's main tools are Claude Code agent teams, messaging between sessions, and single subagents that return a result. They are tuned and chosen carefully so the pilot can meet their responsibilities.",
+      "path": "CA-028.json"
+    }
+  ]
+}

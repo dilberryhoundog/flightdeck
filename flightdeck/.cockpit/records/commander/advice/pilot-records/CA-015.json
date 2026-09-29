@@ -1,0 +1,17 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-015",
+  "unit": "pilot-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "71-72",
+  "status": "active",
+  "summary": "A pilot decision is a page of separate units answering one commander record. Each unit carries a flag so the commander can say which units make up the decision; the pilot starts them all positive and the commander turns off the ones he does not want, which then stay frozen so they are not decided again. His approval is full, part or held. A decision can be made permanent, turned into a procedure, or handed back as a commander record. Each unit is either pilot conduct or project infrastructure. Each unit is one conduct or action the pilot will take, with any reasoning that goes with it, and every action that makes up the decision is stated so the pilot is fully transparent.",
+  "statements": [
+    "[XD] Pilot Decision is a page of single conceptual units that together form a decision in response to a commander record (either CO,CA,CR,CQ,CI). These units come with preset flags (+ or - for markdown, yes or no for json) that enable the commander to advise the pilot which units make up the decision. The pilot starts with all their units as positive, the commander negates units (wich stay frozen, so redeciding is not repeated). The commander then enacts their approval (full, part, held).",
+    "Decisions can be promoted to standing decisions [SD] for permanence, made into a procedure, or parts extracted to a commander record should they choose. A single conceptual unit is either a unit of pilot conduct or project infrastructure.",
+    "Each decision unit must represent a single conduct or action the pilot will make, they can also include any other reasoning that may accompany the decision unit . All conduct and actions that comprise the decision must be included to ensure full pilot transparency"
+  ],
+  "context": "The first of the pilot's record types, the whole of lines 71 and 72 of cockpit.constitution, opening the list that runs to the procedure at line 82. The opening clause of the third sentence, \"The pilot starts with all their units as positive\", is a pilot duty and is filed as an order at CO-104; the sentence is carried here whole because the duty is a clause inside it and the rest of the sentence would not stand without it. The negation mechanism is one side of the dispute at XX-004, against line 44 where a part approval is said never to reveal which parts were accepted.",
+  "answered_by": "XD-004"
+}

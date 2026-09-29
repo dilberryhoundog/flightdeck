@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-005",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "25",
+  "status": "active",
+  "summary": "There are five kinds of commander record: orders, responses, advice, questions and ideas. They are the project's private record and every agent is bound by them.",
+  "statement": "These are orders, responses, advice, questions and ideas. These are maintained as the project's private record, and all agents are bound to it.",
+  "context": "The opening of the Commander section of cockpit.constitution, line 25, straight after the sentence that the commander is the highest ranked and produces written records. It names the five record types that the rest of the section then defines one at a time. Line 25 is shared with CA-025 in the roles unit, which holds the sentences on either side of these two, describing the commander's rank and responsibility.",
+  "answered_by": "XD-004"
+}

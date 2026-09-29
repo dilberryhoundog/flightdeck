@@ -1,0 +1,255 @@
+{
+  "kind": "commander-orders",
+  "version": 2,
+  "updated": "2026-09-24",
+  "convention": "One CO per file, filed by identifier with a dash. CO-001 to CO-084 are written by the migration CO-085 orders; CO-085 onwards were filed directly; CO-093 to CO-110 come from cockpit.constitution under CO-087, and each names its source lines in its `lines` field. A retired order moves to retired/. Promotion to a standing order (SO) is the commander's act and a separate record, not a flag here; an order that binds every agent rather than the pilot alone carries binds all and is put to the commander as a candidate for promotion. Every order is answered by a pilot decision (XD), named in the answered_by field once written.",
+  "units": [
+    {
+      "id": "CO-085",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-002",
+      "summary": "A team rewrites every Or record into the CO shape from the commander's exact transcript statements (summary from the statement, brief from the surrounding context), renames Or to CO, prunes redundant or resolved records into a retired directory, notes in the dossier any order that is really advice, and outputs to records/commander/orders.",
+      "path": "CO-085.json"
+    },
+    {
+      "id": "CO-086",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-003",
+      "summary": "A team renames the CA files to CR, extracts the advice they contain into conceptual units of infrastructure as the constitution defines, and outputs the units to records/commander/advice/<unit>/.",
+      "path": "CO-086.json"
+    },
+    {
+      "id": "CO-087",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "A team extracts every order, piece of advice and idea from cockpit.constitution into its record location.",
+      "path": "CO-087.json"
+    },
+    {
+      "id": "CO-088",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-005",
+      "summary": "A team redistributes the De records into CO or CA records from their generating transcripts under the new prefixes; a decision that fits neither shape is pruned, not retired.",
+      "path": "CO-088.json"
+    },
+    {
+      "id": "CO-089",
+      "name": "pilot tools",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-007",
+      "summary": "The pilot has no bash; it reads, writes, edits, greps and globs. Some commands may be granted back later.",
+      "path": "../../../work/workshop/CO-089-pilot-tools/CO-089-pilot-tools.json"
+    },
+    {
+      "id": "CO-090",
+      "name": "one decision each",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-008",
+      "summary": "A pilot decision (XD) is generated against a single commander record.",
+      "path": "../../../work/workshop/CO-090-one-decision-each/CO-090-one-decision-each.json"
+    },
+    {
+      "id": "CO-091",
+      "name": "no residue",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-009",
+      "summary": "No alias residue: redundant prefixes are forgotten, not carried.",
+      "path": "../../../work/workshop/CO-091-no-residue/CO-091-no-residue.json"
+    },
+    {
+      "id": "CO-092",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-006",
+      "summary": "Collect the terms used in team dispatches and extract them into the glossary.",
+      "path": "CO-092.json"
+    },
+    {
+      "id": "CO-093",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "Everything written in the cockpit uses plain, clear and simple language with no jargon.",
+      "path": "CO-093.json"
+    },
+    {
+      "id": "CO-094",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "Every junior role answers an instruction with a short yes and the senior's rank, and varies the word used.",
+      "path": "CO-094.json"
+    },
+    {
+      "id": "CO-095",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "Be willing to start work before everything is known, and stay willing to change the cockpit to make it work better while keeping it small.",
+      "path": "CO-095.json"
+    },
+    {
+      "id": "CO-096",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "The pilot never answers a commander's question directly; the pilot writes a decision that comes out of the question.",
+      "path": "CO-096.json"
+    },
+    {
+      "id": "CO-097",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "When the commander marks something in conversation as advice, an order or a question, the pilot files it in the right place straight away.",
+      "path": "CO-097.json"
+    },
+    {
+      "id": "CO-098",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "The pilot must turn the commander's records into the working parts of the project: manuals, procedures, crew, teams, config and work records.",
+      "path": "CO-098.json"
+    },
+    {
+      "id": "CO-099",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "The pilot is bound by every commander record that exists at the time.",
+      "path": "CO-099.json"
+    },
+    {
+      "id": "CO-100",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "Everything the pilot writes for the commander starts as a draft that can still change: decisions, requests and plans alike.",
+      "path": "CO-100.json"
+    },
+    {
+      "id": "CO-101",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "The pilot keeps every role working as it should: the commander pitched at the right level of detail, the pilot improving the teams rather than doing the work, and the specialists performing well.",
+      "path": "CO-101.json"
+    },
+    {
+      "id": "CO-102",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "The pilot is deliberately limited, so that team usage comes first and the pilot's context stays light: reads the cockpit directly and the project through agents, globs both, writes only their own and the commander's records and a few other places, is restricted on bash except pre-approved commands, and is restricted on grep.",
+      "path": "CO-102.json"
+    },
+    {
+      "id": "CO-103",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "The commander's records on file bind the pilot, and the pilot answers them with records of their own.",
+      "path": "CO-103.json"
+    },
+    {
+      "id": "CO-104",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "When the pilot writes a decision, every unit of it starts marked as wanted.",
+      "path": "CO-104.json"
+    },
+    {
+      "id": "CO-105",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "Whenever the pilot or any crew member finds a contradiction, the pilot writes it up as a dispute and tells the commander.",
+      "path": "CO-105.json"
+    },
+    {
+      "id": "CO-106",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "Once a request is approved, the pilot writes the plan for it.",
+      "path": "CO-106.json"
+    },
+    {
+      "id": "CO-107",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "The pilot writes all their daily work into the shift log, and reads it at the start of the next session.",
+      "path": "CO-107.json"
+    },
+    {
+      "id": "CO-108",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "Notepad scratch is kept in folders under the mission it belongs to, and is read back later for anything worth keeping.",
+      "path": "CO-108.json"
+    },
+    {
+      "id": "CO-109",
+      "date": "2026-09-24",
+      "status": "retired",
+      "answered_by": "XD-004",
+      "summary": "The pilot may make small changes themselves by running claude -p with the right flags. Retired by the commander on 2026-09-25; settles XX-005.",
+      "path": "retired/CO-109.json"
+    },
+    {
+      "id": "CO-110",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-004",
+      "summary": "Apart from the agreed terms in the glossary, all documentation is written in plain, clear and simple language with no jargon.",
+      "path": "CO-110.json"
+    },
+    {
+      "id": "CO-111",
+      "name": "disputes name records",
+      "date": "2026-09-24",
+      "status": "active",
+      "answered_by": "XD-010",
+      "summary": "Correct every dispute so that each side names the extracted commander record, as XX-001 should name CA-007, rather than a line of the constitution.",
+      "path": "../../../work/workshop/CO-111-disputes-name-records/CO-111-disputes-name-records.json"
+    },
+    {
+      "id": "CO-112",
+      "name": "rooms refactor",
+      "date": "2026-09-25",
+      "status": "active",
+      "answered_by": "XD-011",
+      "summary": "Refactor the cockpit's rooms to match the layout in CA-042.",
+      "path": "../../../work/workshop/CO-112-rooms-refactor/CO-112-rooms-refactor.json"
+    },
+    {
+      "id": "CO-113",
+      "name": "decision audit",
+      "date": "2026-09-25",
+      "status": "active",
+      "answered_by": "XD-012",
+      "summary": "Run the commanders-advocate over the pilot's decisions and check for commander records that have not been applied to those decision files.",
+      "path": "../../../work/workshop/CO-113-decision-audit/CO-113-decision-audit.json"
+    },
+    {
+      "id": "CO-114",
+      "name": "truth suite",
+      "date": "2026-09-29",
+      "status": "active",
+      "answered_by": "XD-013",
+      "summary": "Thrash out the semi-settled details of the truth suite in a workshop of its own; the pilot may create that workshop and one for each pending decision.",
+      "path": "../../../work/workshop/CO-114-truth-suite/CO-114-truth-suite.json"
+    }
+  ]
+}

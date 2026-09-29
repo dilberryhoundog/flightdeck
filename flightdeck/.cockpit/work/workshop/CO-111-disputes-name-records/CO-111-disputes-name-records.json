@@ -1,0 +1,12 @@
+{
+  "kind": "commander-order",
+  "id": "CO-111",
+  "name": "disputes name records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "answered_by": "XD-010",
+  "summary": "Correct every dispute so that each side names the extracted commander record, as XX-001 should name CA-007, rather than a line of the constitution.",
+  "statement": "Correct all the disputes to meet the CA records in XX-001",
+  "brief": "Given in chat after T019 closed, following two off-the-record questions on why the nine disputes were filed against lines of the constitution rather than against the records extracted from it, and on how many hold both sides inside one record (two: XX-001 inside CA-007, XX-002 inside CA-008). The constitution's dispute record (line 78) shows a commander record or project content on each side."
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-056",
+  "name": "idea candidates",
+  "unit": "commander-records",
+  "date": "2026-09-25",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "An idea the pilot decides to propose becomes a record under ideas/candidate/. The commander chooses whether to promote it or handle it another way.",
+  "statement": "Any idea the pilot decides to propose becomes a `ideas/candidate/` record. The commander chooses to promote or handle the idea differently.",
+  "context": "Written by the commander under a Commander Response heading inside CI-001 (records/commander/ideas/CI-001.md), the testing paragraph extracted from the constitution as its one idea. It gives the pilot a way to put ideas of its own to the commander without a request."
+}

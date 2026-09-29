@@ -1,7 +1,7 @@
 ---
 type: "Officer Dossier"
 unit: "pilot"
-stamp: ["2026-09-18", "Pilot: Ace", "8e74fffb"]
+stamp: ["2026-09-21", "Pilot: Ace", "241bff25"]
 ---
 # Pilot — Identity
 

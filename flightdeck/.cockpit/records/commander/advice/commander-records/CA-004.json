@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-004",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "3, 4",
+  "status": "active",
+  "summary": "The commander's orders and advice are permanent records, and the cockpit keeps them close by so they build up and improve over time.",
+  "statements": [
+    "The Commander gives orders and offers advice in the shape of permanent records.",
+    "The cockpit keeps these records and team members nearby, forever growing and improving as records and work accumulate and combine."
+  ],
+  "context": "Two spans from the opening statement of cockpit.constitution, before the Roleplay section. Between them sits the matching sentence about the pilot, \"The Pilot makes decisions and directs teams to do work, based upon those records\", which describes the role and is filed as advice at CA-027; that is why the two spans are held apart rather than joined. This is the first thing the document says about records: that they are permanent and that keeping them near is what makes the cockpit improve.",
+  "answered_by": "XD-004"
+}

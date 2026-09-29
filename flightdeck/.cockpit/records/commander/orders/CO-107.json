@@ -1,0 +1,13 @@
+{
+  "kind": "commander-order",
+  "id": "CO-107",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "103",
+  "status": "active",
+  "binds": "pilot",
+  "answered_by": "XD-004",
+  "summary": "The pilot writes all their daily work into the shift log, and reads it at the start of the next session.",
+  "statement": "The pilot has a \"shift\" log that they record all their daily work in and reference upon the next session begining.",
+  "brief": "Line 103 of cockpit.constitution, in the Key Infrastructure section, in the paragraph on logs beside the notepad and the extracts. The duty is the second half of the sentence, and the sentence is carried whole because the half does not stand on its own. The same sentence says what the shift log is, and is filed as advice at CA-041. Line 103 is shared with CO-108, which holds the matching duty over the notepad."
+}

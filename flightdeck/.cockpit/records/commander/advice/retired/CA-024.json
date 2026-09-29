@@ -1,0 +1,14 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-024",
+  "unit": "roles",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "23",
+  "status": "retired",
+  "summary": "The commander does not talk to the pilot; he gives orders and advice instead.",
+  "statement": "Commanders note -> \"Do not speak/talk to the pilot, always give orders and advice\"",
+  "context": "Opens the Commander section of cockpit.constitution, line 23, set apart as a note the commander wrote to himself before the section describes the role. It is filed as advice rather than as an order because an order is the pilot's conduct and this binds the commander. It is one side of the dispute at XX-008, against line 38, where the commander is present through the work and his conversation carries it along.",
+  "answered_by": "XD-004",
+  "note": "this is commanders private notes not advice."
+}

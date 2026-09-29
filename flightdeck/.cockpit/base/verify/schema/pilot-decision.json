@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-select": ["Pilot Decision"],
+  "title": "Pilot Decision",
+  "description": "The frontmatter of a pilot decision (XD): a page of single conceptual units that together form the pilot's decision in response to one commander record (CO, SO, CA, CR, CQ or CI). Each unit opens `+`, and the commander negates a unit to `-`, which stays frozen so it is never redecided. The commander's approval is enacted as full, part or held; part or held sends the pilot back to redraft against the commander's own updated record, which is why draft counts up. A decision promoted for permanence is not a separate schema: its status becomes standing. Filed by identifier with a dash, XD-004.md. Each unit of the body is one conduct or action the pilot will take, with the reasoning that goes with it, and every action that makes up the decision is stated (CA-015).",
+  "type": "object",
+  "required": ["type", "unit", "status", "draft", "stamp", "answers", "approval"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "description": "the words Pilot Decision, which is what chooses this schema",
+      "const": "Pilot Decision"
+    },
+    "unit": {
+      "description": "this decision's identifier, XD, a dash and three digits, the same identifier the file is named for; numbering is global and never reused",
+      "type": "string",
+      "pattern": "^XD-[0-9]{3}$"
+    },
+    "name": {
+      "description": "one to three words the writer chose for the record's contents, appended to the file name after the id (CA-049)",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*( [a-z][a-z0-9]*){0,2}$"
+    },
+    "status": {
+      "description": "draft while the pilot may still remake it, frozen once the commander gives full approval and the pilot may proceed, held while the commander has blocked it from progressing, standing once promoted for permanence (an SD is not a separate record)",
+      "enum": ["draft", "frozen", "held", "standing"]
+    },
+    "draft": {
+      "description": "the draft number, counting up each time the decision is remade against an updated commander record; the first draft is 1",
+      "type": "integer",
+      "minimum": 1
+    },
+    "stamp": {
+      "description": "three items: the date as YYYY-MM-DD, who wrote it, and the eight-character session id",
+      "type": "array",
+      "minItems": 3,
+      "items": [
+        { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        { "type": "string", "minLength": 1 },
+        { "type": "string", "pattern": "^[0-9a-f]{8}$" }
+      ]
+    },
+    "answers": {
+      "description": "exactly one identifier: the single commander record this decision answers",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^(CO|SO|CA|CR|CQ|CI)-[0-9]{3}$"
+      }
+    },
+    "approval": {
+      "description": "the commander's enacted approval: full (the pilot proceeds), part (the commander added to or adjusted their own record, and the pilot redrafts against it), held (blocked from progressing), or empty while still awaiting the commander's word",
+      "enum": ["full", "part", "held", ""]
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-select": ["commander-question"],
+  "title": "Commander Question",
+  "description": "One commander question (CQ): a single written question the commander puts to the pilot. The pilot never answers it directly, only through a pilot decision (XD). Filed by identifier with a dash, CQ-004.json.",
+  "type": "object",
+  "required": ["kind", "id", "date", "session", "status", "question", "brief"],
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "description": "the word commander-question, which is what chooses this schema",
+      "const": "commander-question"
+    },
+    "id": {
+      "description": "this question's identifier, CQ, a dash and three digits, the same identifier the file is named for",
+      "type": "string",
+      "pattern": "^CQ-[0-9]{3}$"
+    },
+    "name": {
+      "description": "one to three words the writer chose for the record's contents, appended to the file name after the id (CA-049)",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*( [a-z][a-z0-9]*){0,2}$"
+    },
+    "date": {
+      "description": "the day the commander asked it, YYYY-MM-DD",
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "session": {
+      "description": "the eight-character id of the session the question was asked in",
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}$"
+    },
+    "status": {
+      "description": "open while no pilot decision answers it yet, answered once one does",
+      "enum": ["open", "answered"]
+    },
+    "question": {
+      "description": "the commander's own words, verbatim and never edited",
+      "type": "string",
+      "minLength": 1
+    },
+    "refers": {
+      "description": "the identifiers this question concerns, a bracketed list, when it is asked against other commander records; absent when the question stands on its own. The old Rq, P, Or and De forms are accepted only until XD-005's citation sweep replaces them",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^((CO|SO|CR|CQ|CI|XD|XR|XX|XP|PP|CA)-[0-9]{3}|(Ds-?|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3})$"
+      }
+    },
+    "answered_by": {
+      "description": "the pilot decision that answers this question, present once status is answered",
+      "type": "string",
+      "pattern": "^XD-[0-9]{3}$"
+    },
+    "brief": {
+      "description": "the surrounding transcript context: what prompted the question",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -3,5 +3,12 @@
 # else: a file no glob names is skipped, which is why CLAUDE.md, the READMEs, triggers.md, the session logs, the
 # notepad and the *.keep files are not linted. A glob starting with ! takes files back out again.
 # Globs only: ** crosses directories, * and ? stay inside one directory. Same strict flat form as frontmatter.
+#
+# commander/orders/, commander/decisions/ and commander/desk/out/advice/ are excluded below: they are retiring
+# under XD-002, XD-003 and XD-005, whose schemas (order, decision, Commanders Advice) are gone or going, so a
+# whole-cockpit run reads true rather than failing on records that are mid-migration and about to be deleted.
+#
+# base/GLOSSARY.md and the other files at the base root (base/README.md, base/bin/, base/settings/, base/store/)
+# sit outside the paperwork rule: no glob here names base/, so they are never linted and carry no schema.
 
-paths: ["commander/desk/in/dossiers/Ds*.md", "commander/desk/in/requests/**/Rq*.md", "commander/desk/out/advice/CA*.md", "commander/orders/Or*.json", "commander/decisions/De*.json", "work/missions/**/M*.md", "work/missions/incubator/Sp*.md", "work/procedures/**/P*.md", "work/workshop/WS*.json", "records/dispatch/**/T*.json", "records/manuals/**/*.md", "records/extracts/topics/*.json", "team/crew/**/*.md", "team/officers/**/*.md", "team/rosters/*.json", "**/MANIFEST-*.json", "**/REGISTER-*.json", "!**/README.md", "!team/officers/pilot/pilot.md"]
+paths: ["commander/desk/in/dossiers/Ds*.md", "commander/desk/in/requests/**/Rq*.md", "work/missions/**/M*.md", "work/missions/incubator/Sp*.md", "work/procedures/**/P*.md", "work/workshop/WS*.json", "records/dispatch/**/T*.json", "records/manuals/**/*.md", "records/extracts/topics/*.json", "team/crew/**/*.md", "team/officers/**/*.md", "team/rosters/*.json", "records/commander/orders/**/CO-*.json", "records/commander/orders/**/SO-*.json", "records/commander/advice/**/CA-*.json", "records/commander/responses/**/CR-*.md", "records/commander/questions/**/CQ-*.json", "records/commander/ideas/**/CI-*.md", "records/pilot/decisions/**/XD-*.md", "records/pilot/requests/**/XR-*.md", "records/pilot/dossiers/**/Ds*.md", "records/pilot/disputes/**/XX-*.md", "records/pilot/plans/**/XP-*.md", "records/pilot/procedures/**/PP-*.md", "**/MANIFEST-*.json", "**/REGISTER-*.json", "!**/README.md", "!team/officers/pilot/pilot.md", "!commander/orders/**", "!commander/decisions/**", "!commander/desk/out/advice/**"]

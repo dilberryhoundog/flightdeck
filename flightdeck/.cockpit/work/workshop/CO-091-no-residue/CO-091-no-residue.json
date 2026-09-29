@@ -1,0 +1,11 @@
+{
+  "kind": "commander-order",
+  "id": "CO-091",
+  "name": "no residue",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "No alias residue: redundant prefixes are forgotten, not carried.",
+  "statement": "No alias residue, redundant prefixes are to be forgotten.",
+  "brief": "Written by the commander under a Commander Response heading inside XD-001, against the draft's unit that kept each migrated record's old id as a was field and moved the old directories to retired/. Applies to the corpus migration ordered in CO-085, CO-086 and CO-088."
+}

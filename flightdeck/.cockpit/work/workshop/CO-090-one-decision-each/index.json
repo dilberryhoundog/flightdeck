@@ -1,0 +1,15 @@
+{
+  "kind": "workshop",
+  "id": "CO-090",
+  "name": "one decision each",
+  "opened": "2026-09-29",
+  "status": "open",
+  "order": "CO-090-one-decision-each.json",
+  "decision": "XD-008-one-decision-each.md",
+  "purpose": "A pilot decision (XD) is generated against a single commander record.",
+  "records": [
+    {"id": "Ds-009", "kind": "dossier", "path": "../../../records/pilot/dossiers/Ds-009.md"},
+    {"id": "CA-055", "kind": "advice", "path": "../../../records/commander/advice/commander-records/CA-055-commander-notes.json"}
+  ],
+  "spawned": []
+}

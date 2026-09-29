@@ -1,0 +1,38 @@
+{
+  "kind": "commander-advice-unit",
+  "unit": "teams",
+  "version": 1,
+  "updated": "2026-09-25",
+  "convention": "One conceptual unit of infrastructure: agent teams, the rosters that plan them and the dispatches they leave behind. Every CA on this unit is read from here; the global manifest at ../MANIFEST-advice.json reads this file. CA-036 to CA-038 come from cockpit.constitution under CO-087. The agents that fill the seats are a separate unit at ../crew/.",
+  "units": [
+    {
+      "id": "CA-036",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A roster is a prebuilt team put together for a purpose and called again whenever it is wanted. It describes the crew who attend, the stages they are dispatched at, the shape the team call takes, what the team produces, the improvement and event signals to watch for during the run, and the testing methods it recommends.",
+      "path": "CA-036.json"
+    },
+    {
+      "id": "CA-037",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "A dispatch is what an agent team leaves behind. It keeps the seats that were granted and the instructions each was started with, what the run produced, and the improvements and events found along the way.",
+      "path": "CA-037.json"
+    },
+    {
+      "id": "CA-038",
+      "date": "2026-09-24",
+      "status": "active",
+      "summary": "Agent teams are Claude Code infrastructure letting several agents work from one shared task list, with the pilot leading and handling the dispatch mechanics. Agents can be started bare or from a definition, each works from its own angle, and they can be staged so that not all of them are present from the start, which keeps them better isolated.",
+      "path": "CA-038.json"
+    },
+    {
+      "id": "CA-054",
+      "name": "tandem seats",
+      "date": "2026-09-25",
+      "status": "active",
+      "summary": "Tandem agents share one dispatch and seat and are dispatched together for throughput, not to check each other; usually two identical seats, more when the team's output needs it.",
+      "path": "CA-054-tandem-seats.json"
+    }
+  ]
+}

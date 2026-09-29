@@ -1,0 +1,11 @@
+{
+  "kind": "commander-order",
+  "id": "CO-089",
+  "name": "pilot tools",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "The pilot has no bash; it reads, writes, edits, greps and globs. Some commands may be granted back later.",
+  "statement": "The Pilot does not use bash tools. Some may be granted back later. The pilot reads, writes, edits, greps and globs.",
+  "brief": "Written by the commander under a Commander Response heading inside the pilot's draft decision XD-001 (records/pilot/decisions/XD-001.md), which answers CQ-001 on the order and crew for the corpus migration. The pilot had been running python and shell commands to file records and lint; this order ends that. The constitution's pilot constraints say bash is restricted with pre-approved commands excepted and grep restricted; this order is tighter than that on bash until commands are granted back. Amended by the commander on 2026-09-25 to grant grep. Universal conduct: a candidate for promotion to a standing order."
+}

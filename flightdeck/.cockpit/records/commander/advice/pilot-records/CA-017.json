@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-017",
+  "unit": "pilot-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "76",
+  "status": "active",
+  "summary": "A pilot dossier presents detailed information about a dispatch result, a crew member or a roster. The commander can read one at any time to get the full picture, and there are several templates to suit what is being presented.",
+  "statements": [
+    "[Ds] Pilot dossiers are presentation records, containing detailed information about either a dispatch result (Ds), a crew member (unique named), or a roster (unique named).",
+    "Various templates are available best suited to the presentation situation."
+  ],
+  "context": "Two spans from line 76 of cockpit.constitution, the third of the pilot's record types, after the request and before the dispute. Between them sits the commander's reason for the record, \"The commander can read these at anytime to get a full picture\", which explains why a dossier exists rather than shaping one, and is not filed as a record of its own. The Key Infrastructure section at line 97 describes the crew dossier from the other end, as the file that tells the pilot how to set up and dispatch one seat.",
+  "answered_by": "XD-004"
+}

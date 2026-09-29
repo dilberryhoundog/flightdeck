@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-026",
+  "unit": "roles",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "38",
+  "status": "active",
+  "summary": "The commander is always there while work happens, and what he says in conversation carries no weight of its own; it only encourages the work along.",
+  "statement": "The commander is always present when work happens, their conversation responses are inert prompts encouraging work to progress.",
+  "context": "Line 38 of cockpit.constitution, in the Commander section, after the five record types are defined. The sentence that follows it is the exception, where the commander marks something in conversation as a record and the pilot must file it, and that is an order at CO-097. This sentence is one side of the dispute at XX-008, against the note at line 23 telling the commander not to talk to the pilot at all.",
+  "answered_by": "XD-004"
+}

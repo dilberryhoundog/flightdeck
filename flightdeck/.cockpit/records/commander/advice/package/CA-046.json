@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-046",
+  "unit": "package",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "147",
+  "status": "active",
+  "summary": "The cockpit will be released as an optional plugin under the parent flightcrew plugin. It will fit in seamlessly, and using it will not be required.",
+  "statement": "Cockpit will be an optional plugin realease under the parent flightcrew plugin. It will integrate seamlessly, but not be a requirement for use.",
+  "context": "The whole of the Package section of cockpit.constitution, line 147, the last line of the document. It bounds what the cockpit is to become and how it relates to the flightcrew plugin, which is the test for advice at line 29. Nothing of the package exists yet, so this advice bounds a feature that is still to be built rather than one already on disk.",
+  "answered_by": "XD-004"
+}

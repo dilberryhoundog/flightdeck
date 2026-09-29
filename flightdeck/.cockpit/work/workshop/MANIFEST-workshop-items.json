@@ -1,7 +1,8 @@
 {
   "kind": "workshop-items",
   "version": 1,
-  "updated": "2026-09-22",
+  "updated": "2026-09-29",
+  "note": "A WS row is a pilot-spawned workshop item: a fix, problem or maintenance task the pilot raised on its own, filed as WS### under the fields below. A CO row is an order-spawned workshop: a directory at work/workshop/<CO-id>-<name>/ opened to answer a commander order, filed by id, name, opened and status; its path points at the workshop directory.",
   "fields": {
     "id": "WS### in the order raised",
     "title": "one line",
@@ -230,6 +231,48 @@
       "raised": "2026-09-22",
       "status": "open",
       "path": "WS031.json"
+    },
+    {
+      "id": "CO-089",
+      "name": "pilot tools",
+      "opened": "2026-09-29",
+      "status": "open",
+      "path": "CO-089-pilot-tools/"
+    },
+    {
+      "id": "CO-090",
+      "name": "one decision each",
+      "opened": "2026-09-29",
+      "status": "open",
+      "path": "CO-090-one-decision-each/"
+    },
+    {
+      "id": "CO-091",
+      "name": "no residue",
+      "opened": "2026-09-29",
+      "status": "open",
+      "path": "CO-091-no-residue/"
+    },
+    {
+      "id": "CO-111",
+      "name": "disputes name records",
+      "opened": "2026-09-29",
+      "status": "open",
+      "path": "CO-111-disputes-name-records/"
+    },
+    {
+      "id": "CO-112",
+      "name": "rooms refactor",
+      "opened": "2026-09-29",
+      "status": "open",
+      "path": "CO-112-rooms-refactor/"
+    },
+    {
+      "id": "CO-113",
+      "name": "decision audit",
+      "opened": "2026-09-29",
+      "status": "open",
+      "path": "CO-113-decision-audit/"
     }
   ]
 }

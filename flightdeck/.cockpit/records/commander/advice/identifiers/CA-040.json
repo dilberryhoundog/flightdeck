@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-040",
+  "unit": "identifiers",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "111",
+  "status": "active",
+  "summary": "A glossary of the prefixes that mark each record type is kept as a table in CLAUDE.md.",
+  "statement": "A glossary of prefixes used to designate record types in claude.md table.",
+  "context": "The Key Infrastructure section of cockpit.constitution, line 111, standing alone between the glossary of agreed terms and the list of cockpit locations. It is a second glossary, separate from the one at line 109, and it names where it lives.",
+  "answered_by": "XD-004"
+}

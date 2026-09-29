@@ -1,0 +1,10 @@
+{
+  "kind": "commander-order",
+  "id": "CO-085",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "A team rewrites every Or record into the CO shape from the commander's exact transcript statements (summary from the statement, brief from the surrounding context), renames Or to CO, prunes redundant or resolved records into a retired directory, notes in the dossier any order that is really advice, and outputs to records/commander/orders.",
+  "statement": "Filter through the Or records with a team, expanding them into the CO shape (reread constitution). for each existing record search transcripts for commanders exact statements, the summary comes from the new statements, the surrounding transcript context gives the brief. Once the list is complete prune it, moving redundant or resolved records to a \"retired\" directory. Also during the refactor rename every Order to the CO prefix. If any orders are found to fit the CA shape, record this in the dossier. Read cockpit.constitution and output into the new infrastructure shape `records/commander/orders`.",
+  "brief": "The first of four migration orders given after the commander introduced cockpit.constitution, which replaces the founding keep file. It concerns the commander's orders on file, 84 of them, each with the session it was given in, so the transcripts can be searched for the exact words."
+}

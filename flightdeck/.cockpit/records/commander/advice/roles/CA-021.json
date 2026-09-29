@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-021",
+  "unit": "roles",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "12-13",
+  "status": "active",
+  "summary": "The cockpit uses a roleplay everyone already understands to hold each actor to a way of behaving, with air force ranks setting the hierarchy, so that the human is not bogged down making every decision when their vision is worth more. The main agent role sits between the human's vision and the building, is played as being in charge while taking orders from the human, and is given strong team dispatch powers but only basic reading and writing so it stays in that middle role. Alongside it are specialist roles whose different angles together produce good work.",
+  "statement": "The cockpit uses a common knowledge roleplay to constrain the various actors to specific conduct patterns. Military (airforce) type roles sets the hierarchy. The primary purpose is to prompt the human to not become bogged down making every decision. Instead their vision and ideas are far more valuable. The cockpit's next primary role, is an intermediate role between vision and building, the most advanced role an agentic agent can achieve. This agent roleplays the agent as being \"in charge\" but receives \"orders\" from the human role. The pilot has advanced team dispatch abilities but very basic read/write to encourage them to fulfil this intermediate role.\nLastly the cockpit uses specialist roles, that taken together, generate high quality work, as they approach from thier many different angles.",
+  "context": "The whole of lines 12 and 13 of cockpit.constitution, opening the Roleplay section, which is the second section of the document and explains why the cockpit has roles at all. The third and fourth sentences are the commander's reason for the roleplay rather than rules of their own, and are not filed as separate records. He closes the section's argument further down, at line 17, with \"Get this roleplay correct and the system works at a far greater capacity than 'human in the loop' can ever achieve\", which is too far from this span to carry in the statement and is recorded here instead. The sentence on the pilot's limited reading and writing describes the same grant that the constraints order CO-102 carries in detail; it is kept here because in this paragraph it explains the design rather than commanding the pilot.",
+  "answered_by": "XD-004"
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-006",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "27",
+  "status": "active",
+  "summary": "A commander order is the pilot's conduct for the session. An order that applies to any session becomes a standing order. An order no longer needed is retired and later removed. Every order is answered by a pilot decision.",
+  "statement": "[CO] Commander order are the pilot's conduct (actions and behaviour) for the session. Orders are promoted to standing orders [SO] if they are universal conduct applicable across any sessions. If completely satisfied and no longer applicable, the order may be retired and eventually pruned. Commanders orders are answered with a pilot decision (XD), which then follows that process.",
+  "context": "The first record type defined in the Commander section of cockpit.constitution, line 27, ahead of advice, responses, questions and ideas. It gives the whole life of an order: its scope, its promotion, its retirement and its answer. The scope sentence is one side of the dispute at XX-009, because line 40 binds the pilot to every record on file regardless of the session it came from.",
+  "answered_by": "XD-004"
+}

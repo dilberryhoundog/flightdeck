@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-037",
+  "unit": "teams",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "101",
+  "status": "active",
+  "summary": "A dispatch is what an agent team leaves behind. It keeps the seats that were granted and the instructions each was started with, what the run produced, and the improvements and events found along the way.",
+  "statement": "Dispatches are the residue of an agent team invocation. It preserves; the seats granted and what their entrypoint instructions where, the outcomes of the invocation, the writable improvements and events discovered during the run.",
+  "context": "The Key Infrastructure section of cockpit.constitution, line 101, between rosters and logs. It is the record of one run, where the roster before it is the reusable plan.",
+  "answered_by": "XD-004"
+}

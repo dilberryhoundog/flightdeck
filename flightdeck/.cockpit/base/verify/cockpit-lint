@@ -253,12 +253,23 @@ function lintFile(file, schemas) {
   /** The line a fault on this key should send the reader to; only markdown carries lines. */
   const at = (key) => (markdown ? (lineOf.get(key) ?? endLine) : undefined);
 
-  // The name check. A MANIFEST-<collection>.json holds that collection, so its `kind` is that word. It is not
-  // generalised to every upper-case prefix: a REGISTER- file is named for what it lists and typed for what it is,
-  // so REGISTER-branches.json carries kind "branch-register", which no rule can derive from the file name.
+  // The name check. A MANIFEST-<collection>.json holds that collection, so its `kind` is that word, optionally
+  // with a commander- or pilot- room prefix (commander/orders/MANIFEST-orders.json carries kind commander-orders,
+  // so a manifest under commander/ is never mistaken for one under pilot/ sharing the same collection word). It is
+  // not generalised to every upper-case prefix: a REGISTER- file is named for what it lists and typed for what it
+  // is, so REGISTER-branches.json carries kind "branch-register", which no rule can derive from the file name. A
+  // kind that answers to its own dedicated schema (found by exact kind, not by the generic filename fallback) is
+  // trusted as that schema's own design, since some manifests — the commander's advice units — share one kind
+  // across many different collection words on purpose.
   const collection = /^MANIFEST-(.+)\.json$/.exec(base);
-  if (collection && doc?.kind !== collection[1]) {
-    faults.push({ field: 'kind', problem: `is ${JSON.stringify(doc?.kind ?? null)} in a file named ${base}`, expected: `kind: "${collection[1]}", the collection the file name gives` });
+  if (collection) {
+    const kind = doc?.kind;
+    const expected = collection[1];
+    const dedicated = typeof kind === 'string' && schemas.bySelector.get(kind)?.markdown === false;
+    const matches = kind === expected || kind === `commander-${expected}` || kind === `pilot-${expected}`;
+    if (!matches && !dedicated) {
+      faults.push({ field: 'kind', problem: `is ${JSON.stringify(kind ?? null)} in a file named ${base}`, expected: `kind: "${expected}", "commander-${expected}" or "pilot-${expected}", the collection the file name gives, or a kind with its own dedicated schema` });
+    }
   }
   const named = NAMED_ID.exec(base);
   if (named) {
@@ -279,7 +290,13 @@ function lintFile(file, schemas) {
     return faults;
   }
   const exact = selector === undefined ? undefined : schemas.bySelector.get(selector);
-  const chosen = (exact && exact.markdown === markdown) ? exact : byName;
+  // A MANIFEST-*.json file is a manifest, so an exact kind match only wins over the filename fallback when the
+  // matched schema is itself marked x-manifest. Without this, a JSON record's kind can collide by coincidence
+  // with an unrelated manifest's kind (the corpus reuses short words across many document shapes), and the
+  // record schema would wrongly be chosen for a file that is actually a manifest.
+  const manifestFile = /^MANIFEST-.+\.json$/.test(base);
+  const exactUsable = exact && exact.markdown === markdown && (!manifestFile || exact.schema['x-manifest'] === true);
+  const chosen = exactUsable ? exact : byName;
   if (!chosen) {
     faults.push({ line: at(field), field, problem: `is ${JSON.stringify(selector)}, which no schema for a ${extension} file answers to`, expected: `one of: ${offered}` });
     return faults;

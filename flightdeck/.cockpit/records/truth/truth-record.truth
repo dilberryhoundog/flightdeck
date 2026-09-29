@@ -1,0 +1,15 @@
+truth records:
+
+"The source of truth for the project lives in truth records. Every statement in a truth record is a fact that must exist in the project."
+
+"The commander keeps their statements in a txt file with a '.truth' extension. this is a truth record. A topic title lives on the first line with a colon. Statements are placed internally inside quotes, with a line space apart. These are now the source of truth for the project."
+
+"Truth records are stored inside a records/truth directory. They are named using their topic. Each topic should contain truth about a single thing or concept only."
+
+"When the project needs updating or changing, the human changes or adds to their truth statements, not the code."
+
+"Truth records can be replicated or backed up with deterministic tests within the project."
+
+"A truth record gets an agent, or rather an instance of an agent, that ensures the record is truthful when the project is mutated. This agent understands the difference in a file, concept or principle truth record."
+
+"Truth records are locked during any build phase to prevent any agent from mutating them"

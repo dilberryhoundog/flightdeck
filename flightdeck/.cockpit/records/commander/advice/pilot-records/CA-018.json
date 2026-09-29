@@ -1,0 +1,16 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-018",
+  "unit": "pilot-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "78",
+  "status": "active",
+  "summary": "A pilot dispute records a contradiction, either between the commander's own records or in the project's content. It shows the two sides and describes the contradiction between them. The commander settles it by changing or retiring a record, or by writing a response that sets more work going.",
+  "statements": [
+    "[XX] Pilot disputes are recorded when a contradiction is found either in the commander records directly or in the project content.",
+    "The XX displays the disputed record or content on either side and describes the contradiction between them. The commander settles the dispute by amending or retiring their records, or adding a CR response to engage further work."
+  ],
+  "context": "The fourth of the pilot's record types, line 78 of cockpit.constitution, after the dossier and before the plan. Between the two spans sits \"When any crew or the pilot discover contradictions, the pilot files an XX and alerts the commander\", which is a pilot duty and is filed as an order at CO-105; that is why the spans are held apart. The first span is what lets a dispute be raised against the project's content and not only against the records, which is the ground for XX-007.",
+  "answered_by": "XD-004"
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-007",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "29",
+  "status": "active",
+  "summary": "Commander advice builds up against one piece of infrastructure and is grouped by conceptual unit, each unit a sub directory with its own manifest and a global manifest over them all. Orders describe what the pilot does; advice shapes the project itself. Advice is retired when it stops being relevant, and a whole unit can be retired at once.",
+  "statement": "[CA] Commander advice accumulates against infrastructure (a particular file or file type, location, concept, feature, harness extension). Advice is grouped into single conceptual units of infrastructure, nested inside a named advice file. Orders describe pilot behaviours and actions, advise shapes and bounds the project itself. Commander advice is retired and eventually pruned if no longer relevant, a complete infrastructure unit is retired / pruned if it become wholly no longer relevant. A global advice manifiest serves all the named advice files.",
+  "context": "The second record type defined in the Commander section of cockpit.constitution, line 29, after the order and before the response. It is the paragraph this whole migration is built on: the third sentence is the test used to sort every sentence of the constitution into an order or advice, and the last two sentences are the layout every unit in this directory follows. The paragraph contradicts itself on that layout, saying both that one file holds all of a unit's advice and that a unit is a sub directory of separate advice files; see XX-001.",
+  "answered_by": "XD-004"
+}

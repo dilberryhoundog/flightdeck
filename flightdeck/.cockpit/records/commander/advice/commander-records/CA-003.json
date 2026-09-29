@@ -1,0 +1,11 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-003",
+  "unit": "commander-records",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "status": "active",
+  "summary": "In a commander advice record the field that holds the surrounding context is named context, not brief.",
+  "statement": "the context field in CA is named \"context\" instead of brief.",
+  "context": "Given in chat during T019, after the pilot filed CA-001 and CA-002 with a brief field copied from the commander order shape. The constitution (line 41) asks every CA and CO for the statement verbatim, a plain summary and the brief surrounding context; this advice names the CA field for that context."
+}

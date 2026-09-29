@@ -1,0 +1,13 @@
+{
+  "kind": "commander-advice",
+  "id": "CA-042",
+  "unit": "locations",
+  "date": "2026-09-24",
+  "session": "f6216b95",
+  "lines": "113-115",
+  "status": "active",
+  "summary": "The cockpit's top level rooms are base, records, logs, manuals, teams and work, each with its own sub rooms, and the records room holds the commander's orders, advice, questions, ideas and responses and the pilot's decisions, requests, dossiers, disputes, plans and procedures.",
+  "statement": "Cockpit locations from the top level; base/, records/, logs/, manuals/, teams/, work/.\nImportant secondary places; records -> /commander, /pilot, pilot/. logs -> shift/, notepad/, extract/. manuals -> operators/, technical/. teams -> dispatch/, crew/, officers/, rosters/. work -> missions/, workshop.\nRecord locations; records/commander -> orders/, advice/, questions/, ideas/ responses/. records/pilot -> decisions/, requests/, dossiers/, disputes/, plans/, procedures/.",
+  "context": "Closes the Key Infrastructure section of cockpit.constitution, lines 113 to 115, after the glossaries and before the Testing section. It is the only place the constitution lays out the whole layout. It does not match the cockpit as built, where logs and manuals sit inside records and the team room is singular; see XX-007, which also holds the second line naming the pilot's room twice.",
+  "answered_by": "XD-004"
+}

@@ -26,7 +26,7 @@
       ]
     },
     "context": {
-      "description": "the identifiers that settled what this file says, a bracketed list of orders and decisions",
+      "description": "the identifiers that settled what this file says, a bracketed list of orders and decisions. The old Or and De forms are accepted only until XD-005's citation sweep replaces them",
       "type": "array",
       "items": { "type": "string", "pattern": "^(Ds|Rq|CA|M|T|P|Or|De|Sp|WS)[0-9]{3}$" }
     }

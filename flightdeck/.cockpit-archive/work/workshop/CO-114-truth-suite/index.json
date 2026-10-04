@@ -1,0 +1,44 @@
+{
+  "kind": "workshop",
+  "id": "CO-114",
+  "name": "truth suite",
+  "opened": "2026-09-29",
+  "status": "open",
+  "order": "CO-114-truth-suite.json",
+  "decision": "XD-013-truth-suite.md",
+  "purpose": "Settle the semi-settled details of the truth suite: directory separation by level, truth checks as JSON, the workshop directory, and when advice is imported and truth locked.",
+  "records": [
+    {"id": "truth-suite", "kind": "truth", "path": "../../../records/truth/principles/truth-suite.truth"},
+    {"id": "truth-record", "kind": "truth", "path": "../../../records/truth/concepts/truth-record.truth"},
+    {"id": "truth-statement", "kind": "truth", "path": "../../../records/truth/concepts/truth-statement.truth"},
+    {"id": "truth-advice", "kind": "truth", "path": "../../../records/truth/concepts/truth-advice.truth"},
+    {"id": "decision", "kind": "truth", "path": "../../../records/truth/concepts/decision.truth"},
+    {"id": "dispute", "kind": "truth", "path": "../../../records/truth/concepts/dispute.truth"},
+    {"id": "workshop", "kind": "truth", "path": "../../../records/truth/concepts/workshop.truth"},
+    {"id": "off-the-record", "kind": "truth", "path": "../../../records/truth/principles/off-the-record.truth"},
+    {"id": "truth-suite advice", "kind": "advice", "path": "../../../records/advice/truth-suite.txt"}
+  ],
+  "spawned": [
+    {"id": "truth-manifest", "kind": "manifest", "path": "../../../records/truth/MANIFEST-truth.json"},
+    {"id": "decision-check", "kind": "check", "path": "../../../records/truth/checks/concepts/decision.check.json"},
+    {"id": "dispute-check", "kind": "check", "path": "../../../records/truth/checks/concepts/dispute.check.json"},
+    {"id": "off-the-record-check", "kind": "check", "path": "../../../records/truth/checks/principles/off-the-record.check.json"},
+    {"id": "truth-advice-check", "kind": "check", "path": "../../../records/truth/checks/concepts/truth-advice.check.json"},
+    {"id": "truth-record-check", "kind": "check", "path": "../../../records/truth/checks/concepts/truth-record.check.json"},
+    {"id": "truth-statement-check", "kind": "check", "path": "../../../records/truth/checks/concepts/truth-statement.check.json"},
+    {"id": "truth-suite-check", "kind": "check", "path": "../../../records/truth/checks/principles/truth-suite.check.json"},
+    {"id": "workshop-check", "kind": "check", "path": "../../../records/truth/checks/concepts/workshop.check.json"},
+    {"id": "truth-advice-check-2026-09-29", "kind": "report", "path": "../../../records/notepad/corpus-migration/truth-advice-check-2026-09-29.md"},
+    {"id": "advice-is-statement", "kind": "dispute", "path": "../../../records/pilot/disputes/advice-is-statement.md"},
+    {"id": "build-lock", "kind": "dispute", "path": "../../../records/pilot/disputes/build-lock.md"}
+  ],
+  "for_the_commander": [
+    "truth-advice statement 4 is cut off mid-sentence",
+    "truth-suite's title line has no colon",
+    "off-the-record's statement holds double quotes inside the quotes",
+    "truth-statement mixes concept and principle statements (4 and 6); a split is the commander's",
+    "the first four advice statements in records/advice/truth-suite.txt are superseded by the seven after them and are the commander's to delete",
+    "decision.txt and advice.txt in this workshop are not the pilot's; say whether advice.txt is workshop-local advice to import",
+    "two disputes await settlement: advice-is-statement, build-lock"
+  ]
+}

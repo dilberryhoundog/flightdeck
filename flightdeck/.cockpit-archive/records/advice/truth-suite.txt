@@ -1,0 +1,21 @@
+truth-suite:
+
+"Truth records are kept in three rooms under records/truth: principles/ holds principle records flat, concepts/ holds concept records flat, and files/ holds file records nested to mirror the project, so that a file record sits where its file sits and a group record sits at the directory of the group it governs."
+
+"Every truth record has a check file at records/truth/checks/, mirroring the record's path, named <topic>.check.json. The check file is written by agents and never by the commander. For each statement it holds the statement's index and opening words, the level, the files the statement governs, the kind of check (a red-green read for a file record, a sweep across the governed files for a concept record, none for a principle, which an agent holds in the build team instead), the last result with its date and agent, and the path of a test once one has replaced the statement."
+
+"A workshop is a directory at work/workshop/<order-id>-<name>/ holding the commander order that spawned it, the pilot decision that answers it, and an index.json naming every record the workshop spawned or touches by id and path. Dossiers, disputes and advice keep their own rooms and are named in the index, so each record has one home."
+
+"Advice is imported and added to while a workshop shapes the work. Truth is locked from the moment a build team is dispatched until it returns, and no agent mutates a truth record or an advice file in that time."
+
+"Every truth record has a check file at records/truth/checks/, mirroring the record's path, named <topic>.check.json. Agents write check files; the commander never does."
+
+"A check file holds one entry per statement: the statement's number and first words, its level, the files it governs, the kind of check, the last result with its date and the agent that ran it, and the path of any test that checks the statement. A file the statement governs is named only when it is known; an unknown is left empty."
+
+"The kind of check is one of three: a file record is read against its file and passes or fails; a concept record is checked across every file it governs; a principle is not checked by reading, an agent holds it in the build team and in planning."
+
+"Advice is imported and added to while a workshop shapes the work."
+
+"From the moment a build team is dispatched until it returns, no agent mutates a truth record, or the advice file that build is locked to."
+
+"A manifest at records/truth/MANIFEST-truth.json lists every truth record with its level, path, check file and statement count. Agents write it; it holds no statements and never stands in for a record."

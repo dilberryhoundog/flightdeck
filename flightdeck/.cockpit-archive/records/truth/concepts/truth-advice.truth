@@ -1,0 +1,19 @@
+truth advice:
+
+"Truth advice is the only truth an agent can touch."
+
+"An Advice file has a standard .txt extension. but takes the same format as a truth record. It is an instance of a truth file, either not yet built or one needing adjustment."
+
+"An advice file can be imported by the pilot during a workshop run, they make additions autonomously to satisfy the commanders order."
+
+"An advice is a statement similar to a truth statement, this difference is if the statement is in a .truth or .txt file."
+
+"An agent can only write a new advice statement inside the record, they never edit an existing advice statement. If an agent thinks that an exisiting advice statement should be removed, they place an 'X' before the statement outside the quotes."
+
+"The human can state advice in a conversation, the agent places this where appropriate in the correct topic; in a recently opened advice file, a new advice file."
+
+"An advice file is mutable, and only settles once the human is happy. whereby it con become the truth, by replacing the truth file it was spawned from. Or if new, simply added."
+
+"Advice stands in for the truth file when building with that"
+
+"When building an advice file is locked, to be built against. A check is written, whereby the advice replaces the original truth record during a build run. If the build fails the advice is opened again for mutation."

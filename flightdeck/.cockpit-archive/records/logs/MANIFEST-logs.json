@@ -1,0 +1,70 @@
+{
+  "kind": "logs",
+  "version": 2,
+  "updated": "2026-09-22",
+  "units": [
+    {
+      "session": "a61606de",
+      "date": "2026-09-17",
+      "session_id": "a61606de-fd71-42a7-942f-a8e8d776bce3",
+      "summary": "First day. Pilot recruited, branch cockpit created, cockpit scaffolded, flightcrew surveyed, settings and messaging learned and tested, launcher and write guard built, incubator opened.",
+      "path": "2026-09-17_a61606de.md"
+    },
+    {
+      "session": "8e74fffb",
+      "date": "2026-09-18",
+      "session_id": "8e74fffb-afd1-4cf1-9c2a-24ec1b56ba56",
+      "summary": "In progress. Fable launcher, records vs notepad, crew protocol and manifest, first agent team, persona moved to quarters, guard rewrite.",
+      "path": "2026-09-18_8e74fffb.md"
+    },
+    {
+      "session": "49f87e44",
+      "date": "2026-09-18",
+      "session_id": "49f87e44-b89a-4c90-a027-71e8b912d968",
+      "summary": "CLAUDE.md repaired: rules, crew protocol and session procedures moved back from quarters after an Opus judge; quarters trimmed to persona. Crew rules 2 and 6 corrected on the commander's orders. Workshop opened with seven items; missions scoped to bigger work.",
+      "path": "2026-09-18_49f87e44.md"
+    },
+    {
+      "session": "dcb75456",
+      "date": "2026-09-18",
+      "session_id": "dcb75456-6a0f-42a1-a4b4-e57eb29db01e",
+      "summary": "Callsign Ace. Recon team T001, research team T002, critics T003/T008, topics-and-records team T006. Commander's desk opened; dossiers Ds001 to Ds003; work split, dispatch room, MANIFEST-orders.json, topics store (27 topics, 203 statements), records docspec (one topic whole, 100/150), seven records drafted awaiting Rq009. Teams integrated: rosters, crew rooms, 20 dossiers. Session log exceeded the cap set mid-session; two-line entries from the next session.",
+      "path": "2026-09-18_dcb75456.md"
+    },
+    {
+      "session": "4450a586",
+      "date": "2026-09-19",
+      "session_id": "4450a586-cf84-4dbe-80d3-51c02c8fbe14",
+      "summary": "Ds003 advice (De020) led to decision team T009 on record keeping: Ds004/Rq010 approved and executed (rule 2 rewritten, one header line per record, harness register and four stubs landed). Procedures room designed and built (Or042, Ds005/Rq011, Or043): five cockpit procedures live, manifest imported into CLAUDE.md. Sp009 promoted to mission M002 (horizon). Rq012 raised to guard unmerged branches. Two commits pushed.",
+      "path": "2026-09-19_4450a586.md"
+    },
+    {
+      "session": "b27e6c01",
+      "date": "2026-09-20",
+      "session_id": "b27e6c01-a246-44bd-950b-90d8452b439a",
+      "summary": "The commander's four ideas explored (T010, Ds006), a wrong tool built and set aside (T011 to T013), then the cockpit refitted to his shape and accepted (T014): base/verify schemas and cockpit-lint, new identifiers, manifests and units, frontmatter, five rooms; Or044 to Or059; ace idea files on his desk.",
+      "path": "2026-09-20_b27e6c01.md"
+    },
+    {
+      "session": "241bff25",
+      "date": "2026-09-20",
+      "session_id": "241bff25-48aa-4a63-a123-019e252df287",
+      "summary": "The pilot's agent body talked through with the commander, raised as Rq014, attacked, approved (De028), built by T015 and committed (8a05299): pilot.md as the single source for model and effort, launched as --agents JSON with --effort passed by the launcher after headless measurement; CLAUDE.md cut to rules of the place; Or060 to Or064; WS027, WS028. Session ended so the commander can launch and test the new body.",
+      "path": "2026-09-20_241bff25.md"
+    },
+    {
+      "session": "71b94de4",
+      "date": "2026-09-21",
+      "session_id": "71b94de4-a165-4a19-91eb-43840e1f8df5",
+      "summary": "First session on the pilot's agent body; three tests passed (T016). M002 begun: T017 explored the team-builder idea with the commander in the room through eight passes, two live and two cold adversaries, and four experiments he ordered in flight (live adversary against his two extremes, tandem, pooled task queue, lead duties per seat). Ds007 answered in CA004: team file shapes, axis internal to the builder, dispatch stages; boundary manuals then a narrow re-run; team infrastructure refit added to M002. Or065 to Or084.",
+      "path": "2026-09-21_71b94de4.md"
+    },
+    {
+      "session": "f6216b95",
+      "date": "2026-09-22",
+      "session_id": "f6216b95-06e3-4345-8b4e-c4aa732482d3",
+      "summary": "T018 on the commander's order: what the refit did to the session start (Ds008, Rq015). Then the constitution replaced the keep: the commander's first records in the new shape (CO-085 to CO-092, CA-001 to CA-003, CQ-001), XD-001 to XD-006 approved full, the glossary, and T019, run 1 of the corpus migration: the constitution on record, thirteen schemas, nine disputes (Ds-009). Then the commander's records inside pilot documents extracted (CA-047 to CA-056), the decision audit (CO-113), and the truth suite: truth records by level, advice on trial, seven workshops opened, commit 44701db.",
+      "path": "2026-09-22_f6216b95.md"
+    }
+  ]
+}

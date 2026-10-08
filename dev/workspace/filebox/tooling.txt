@@ -1,0 +1,8 @@
+Native Harness Tooling:
+"Read, write, edit tools"
+"grep, glob"
+"bash"
+"Permissions and sandboxing preventing "
+"Agent sessions"
+"hooks"
+"Model tiers"

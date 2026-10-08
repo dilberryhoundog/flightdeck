@@ -1,0 +1,23 @@
+{
+  "kind": "truth-check",
+  "record": "principles/truth-suite.truth",
+  "topic": "truth-suite",
+  "level": "principle",
+  "written": "2026-09-29",
+  "by": "clerk",
+  "last_shape": {"result": null, "date": null, "agent": null},
+  "convention": "A null in last_shape means the check has never been run.",
+  "statements": [
+    {"index": 1, "opening": "Truth suite is the project source", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 2, "opening": "Truth is recorded at three levels;", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 3, "opening": "File level is where statements describe", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 4, "opening": "Of the three levels file level", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 5, "opening": "Concept level truths sit midway in", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 6, "opening": "An example of a concept truth", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 7, "opening": "Concept truths are checked across all", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 8, "opening": "Concepts are easily found when truth", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 9, "opening": "Principle level is high abstraction, but", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 10, "opening": "Principles are found where truth statements", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 11, "opening": "Checking a principle is different from", "governs": [], "check": "none", "last": null, "test": null}
+  ]
+}

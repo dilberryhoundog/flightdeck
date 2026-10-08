@@ -1,0 +1,18 @@
+{
+  "kind": "truth-check",
+  "record": "concepts/truth-statement.truth",
+  "topic": "truth statement",
+  "level": "concept",
+  "written": "2026-09-29",
+  "by": "clerk",
+  "last_shape": {"result": null, "date": null, "agent": null},
+  "convention": "A null in last_shape means the check has never been run.",
+  "statements": [
+    {"index": 1, "opening": "Truth statements are universal standalone statements", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 2, "opening": "Truth statements can be moved from", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 3, "opening": "Truth Statements can be a stated", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 4, "opening": "Agents are forbidden to write truth", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 5, "opening": "Truth statements are built up over", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 6, "opening": "These statements have altitude; a higher", "governs": [], "check": "none", "last": null, "test": null}
+  ]
+}

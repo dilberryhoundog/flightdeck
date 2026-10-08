@@ -1,0 +1,13 @@
+{
+  "kind": "truth-check",
+  "record": "principles/off-the-record.truth",
+  "topic": "Off the record",
+  "level": "principle",
+  "written": "2026-09-29",
+  "by": "clerk",
+  "last_shape": {"result": null, "date": null, "agent": null},
+  "convention": "A null in last_shape means the check has never been run.",
+  "statements": [
+    {"index": 1, "opening": "The Commander can speak with the", "governs": [], "check": "none", "last": null, "test": null}
+  ]
+}

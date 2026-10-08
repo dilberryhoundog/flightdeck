@@ -1,0 +1,18 @@
+{
+  "kind": "truth-check",
+  "record": "concepts/decision.truth",
+  "topic": "pilot-decision",
+  "level": "concept",
+  "written": "2026-09-29",
+  "by": "clerk",
+  "last_shape": {"result": null, "date": null, "agent": null},
+  "convention": "A null in last_shape means the check has never been run.",
+  "statements": [
+    {"index": 1, "opening": "A Pilot Decision [XD] is made", "governs": ["work/workshop/*/XD-*.md", "base/verify/schema/pilot-decision.json"], "check": "sweep", "last": null, "test": null},
+    {"index": 2, "opening": "The decision body contains the path", "governs": ["work/workshop/*/XD-*.md", "base/verify/schema/pilot-decision.json"], "check": "sweep", "last": null, "test": null},
+    {"index": 3, "opening": "Separately to, or within a unit.", "governs": ["work/workshop/*/XD-*.md", "base/verify/schema/pilot-decision.json"], "check": "sweep", "last": null, "test": null},
+    {"index": 4, "opening": "These decision units come with preset", "governs": ["work/workshop/*/XD-*.md", "base/verify/schema/pilot-decision.json"], "check": "sweep", "last": null, "test": null},
+    {"index": 5, "opening": "If the decision is a repeated", "governs": ["work/workshop/*/XD-*.md", "base/verify/schema/pilot-decision.json"], "check": "sweep", "last": null, "test": null},
+    {"index": 6, "opening": "A decision locates its self in", "governs": ["work/workshop/*/XD-*.md", "base/verify/schema/pilot-decision.json"], "check": "sweep", "last": null, "test": null}
+  ]
+}

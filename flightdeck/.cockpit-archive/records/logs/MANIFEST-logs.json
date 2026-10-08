@@ -1,7 +1,7 @@
 {
   "kind": "logs",
   "version": 2,
-  "updated": "2026-09-22",
+  "updated": "2026-10-07",
   "units": [
     {
       "session": "a61606de",
@@ -63,7 +63,7 @@
       "session": "f6216b95",
       "date": "2026-09-22",
       "session_id": "f6216b95-06e3-4345-8b4e-c4aa732482d3",
-      "summary": "T018 on the commander's order: what the refit did to the session start (Ds008, Rq015). Then the constitution replaced the keep: the commander's first records in the new shape (CO-085 to CO-092, CA-001 to CA-003, CQ-001), XD-001 to XD-006 approved full, the glossary, and T019, run 1 of the corpus migration: the constitution on record, thirteen schemas, nine disputes (Ds-009). Then the commander's records inside pilot documents extracted (CA-047 to CA-056), the decision audit (CO-113), and the truth suite: truth records by level, advice on trial, seven workshops opened, commit 44701db.",
+      "summary": "T018 on the commander's order: what the refit did to the session start (Ds008, Rq015). Then the constitution replaced the keep: the commander's first records in the new shape (CO-085 to CO-092, CA-001 to CA-003, CQ-001), XD-001 to XD-006 approved full, the glossary, and T019, run 1 of the corpus migration: the constitution on record, thirteen schemas, nine disputes (Ds-009). Then the commander's records inside pilot documents extracted (CA-047 to CA-056), the decision audit (CO-113), and the truth suite: truth records by level, advice on trial, seven workshops opened, commit 44701db. Closed 2026-10-07 after the commander archived v1 and wrote a new founding note; Ds-010 carries the session's concepts and decisions forward.",
       "path": "2026-09-22_f6216b95.md"
     }
   ]

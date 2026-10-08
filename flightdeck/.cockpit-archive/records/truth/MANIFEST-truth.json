@@ -1,0 +1,16 @@
+{
+  "kind": "truth-records",
+  "version": 1,
+  "updated": "2026-09-29",
+  "convention": "Agents write this index and the check files; the records themselves are the commander's and are never touched here.",
+  "units": [
+    {"name": "decision", "topic": "pilot-decision", "level": "concept", "path": "concepts/decision.truth", "check": "checks/concepts/decision.check.json", "statements": 6},
+    {"name": "dispute", "topic": "truth disputes", "level": "concept", "path": "concepts/dispute.truth", "check": "checks/concepts/dispute.check.json", "statements": 5},
+    {"name": "off-the-record", "topic": "Off the record", "level": "principle", "path": "principles/off-the-record.truth", "check": "checks/principles/off-the-record.check.json", "statements": 1},
+    {"name": "truth-advice", "topic": "truth advice", "level": "concept", "path": "concepts/truth-advice.truth", "check": "checks/concepts/truth-advice.check.json", "statements": 9},
+    {"name": "truth-record", "topic": "truth records", "level": "concept", "path": "concepts/truth-record.truth", "check": "checks/concepts/truth-record.check.json", "statements": 7},
+    {"name": "truth-statement", "topic": "truth statement", "level": "concept", "path": "concepts/truth-statement.truth", "check": "checks/concepts/truth-statement.check.json", "statements": 6},
+    {"name": "truth-suite", "topic": "truth-suite", "level": "principle", "path": "principles/truth-suite.truth", "check": "checks/principles/truth-suite.check.json", "statements": 11},
+    {"name": "workshop", "topic": "Workshop", "level": "concept", "path": "concepts/workshop.truth", "check": "checks/concepts/workshop.check.json", "statements": 2}
+  ]
+}

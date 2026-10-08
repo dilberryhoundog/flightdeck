@@ -1,0 +1,21 @@
+{
+  "kind": "truth-check",
+  "record": "concepts/truth-advice.truth",
+  "topic": "truth advice",
+  "level": "concept",
+  "written": "2026-09-29",
+  "by": "clerk",
+  "last_shape": {"result": null, "date": null, "agent": null},
+  "convention": "A null in last_shape means the check has never been run.",
+  "statements": [
+    {"index": 1, "opening": "Truth advice is the only truth", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 2, "opening": "An Advice file has a standard", "governs": ["records/advice/"], "check": "sweep", "last": null, "test": null},
+    {"index": 3, "opening": "An advice file can be imported", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 4, "opening": "The pilot writes new advice to", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 5, "opening": "An advice is a statement similar", "governs": ["records/truth/", "records/advice/"], "check": "sweep", "last": null, "test": null},
+    {"index": 6, "opening": "An agent can only write a", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 7, "opening": "The human can state advice in", "governs": [], "check": "none", "last": null, "test": null},
+    {"index": 8, "opening": "An advice file is mutable, and", "governs": ["records/truth/", "records/advice/"], "check": "sweep", "last": null, "test": null},
+    {"index": 9, "opening": "An advice file can be locked,", "governs": ["records/truth/", "records/advice/"], "check": "sweep", "last": null, "test": null}
+  ]
+}

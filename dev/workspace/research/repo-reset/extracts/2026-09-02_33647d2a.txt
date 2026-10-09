@@ -1,0 +1,22 @@
+@@ 2026-09-02T11:39 33647d2a [cli/typed]
+can you look into this adversarial review @dev/workspace/filebox/orchestration-principles-review.md
+
+@@ 2026-09-02T11:46 33647d2a [cli/typed]
+apply the fixes for F1, F3, F5 and F7
+draft the reword F2, F4 and F6, but keep the previous statement in html comments. also can you look into the "templating" aspect of context engineering with orchestration, I left that comment because this was in other versions of this document.
+
+@@ 2026-09-02T11:58 33647d2a [cli/typed]
+can we talk about the expressive freedom principle. this needs a better name, more sucinct description, remove the bucket analogy. what does the the best practices or research say for this pronciple. This was the one thing that took me tho longest to realise. The green/red of the test and then 8 tries -> another 8 tries by a higher tier to try to make it pass. This was a fundamental shift in my mental model and i wanted to capture it (i did poorly)
+
+@@ 2026-09-02T12:09 33647d2a [cli/typed]
+the draft is fine. These are my additions
+name: outcome discovery
+principle: Outcomes are discovered not built.
+The draft is good, is that a better framing though? this is the fundamental shift from HITL one shotting
+
+@@ 2026-09-02T12:15 33647d2a [cli/typed]
+You serious its perfect. fixed outcome but how to get there is discovered. "pursuing an outcome" is finding one, "discovering". see this is what threw me off. i had all these discussions with claude about speccing an outcome. but asked about how the plan instructs each agent to build it. claude said there is no instructions (kungfu panda, oohgwey moment). they discover the outcome not build it.
+
+@@ 2026-09-03T04:25 33647d2a [cli/typed]
+how do i reset the last commit safely without loosing the file?
+

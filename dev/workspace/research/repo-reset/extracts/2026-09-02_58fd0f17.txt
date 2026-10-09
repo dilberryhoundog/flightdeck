@@ -1,0 +1,6 @@
+@@ 2026-09-02T10:43 58fd0f17 [cli/typed]
+work: @library/review/adversarial-mandate.md
+Criteria: 
+- adversarial critic (attacker) best practices - web references 
+- rank anthropic based sources higher
+

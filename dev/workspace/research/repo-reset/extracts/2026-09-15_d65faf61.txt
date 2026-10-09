@@ -1,0 +1,44 @@
+@@ 2026-09-15T13:15 d65faf61 [cli/typed]
+Run flightdeck/flightcrew/bin/fc launch status. Read the active launch's kickoff.md and follow it; do nothing else first.
+
+@@ 2026-09-15T14:50 d65faf61 [cli/typed]
+approved and ready to go
+
+@@ 2026-09-15T14:52 d65faf61 [cli/typed]
+What??? its approved and ready to go. I ran the command. do you running it a second time stuff this up or was I not supposed to run it???
+
+@@ 2026-09-15T15:00 d65faf61 [cli/typed]
+try now ive jsut approved a work around G2.
+
+@@ 2026-09-15T15:16 d65faf61 [cli/typed]
+re-render and re-dispatch the contracts unit. ive shipped a fix that should work in a worktree.
+
+@@ 2026-09-15T15:19 d65faf61 [cli/typed]
+raise the agent ceiling to 20, explorers shouldn't count as they are cheap haiku agents. but this is a fix for another run. record it in notes.
+
+@@ 2026-09-15T15:20 d65faf61 [cli/suggestion_accepted]
+done, ceiling is 20 now
+
+@@ 2026-09-15T15:22 d65faf61 [cli/typed]
+when does the time start from?
+
+@@ 2026-09-15T15:23 d65faf61 [cli/typed]
+that is such a shitty feature. if I go to have lunch while I am at a gate the run fails.
+
+@@ 2026-09-15T15:24 d65faf61 [cli/suggestion_accepted]
+yes record it in notes
+
+@@ 2026-09-15T15:32 d65faf61 [cli/typed]
+this is crapola, I have upped the agent turns, can it restore itself? or does it have to start again?
+
+@@ 2026-09-15T15:34 d65faf61 [cli/typed]
+record this to notes also. the full "why it stopped at 25" chain.
+
+@@ 2026-09-16T07:15 d65faf61 [cli/typed]
+Implementer has been updated to have 60 turns available. are we able to redeploy it?
+
+also I noticed we have fc-implement workflow we are not using. what is the reason for this? not in your engagement? the kickoff didn't mention it?
+
+@@ 2026-09-16T07:23 d65faf61 [cli/typed]
+actually I feel like this would be a good time to exit. fix up the tooling axis and do a v2 run. do you have notes that cover this? also how do i get access to a run log for this run?
+

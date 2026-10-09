@@ -1,0 +1,6 @@
+@@ 2026-09-17T14:03 8e74fffb [cli/typed]
+Hi Pilot, how are today, welcome to your second day on the job. Your first order is to find out how to vary the model per the .cockpit/base/bin/pilot.sh script. lookinto hard wiring fable inside the settings injection. effort medium is also the default fable setting.
+
+@@ 2026-09-17T14:15 8e74fffb [cli/typed]
+sir it seems youve been messing up the cockpit a little, inside your claude-code reference you have long term references and scratch type findings. may I suggest keeping the claude `source` convention so that only official findings are recorded. also lets call that folder `records` instead of references. call a sonnet teammate to help you clean up. where to put your scratches? notepad? looks like a good place.
+

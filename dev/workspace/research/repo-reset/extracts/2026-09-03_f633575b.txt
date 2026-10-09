@@ -1,0 +1,6 @@
+@@ 2026-09-03T04:48 f633575b [cli/typed]
+work: dev/workspace/filebox/test-tooling.md
+  criteria:
+  - base guide for a test tools build run by autonomous agents
+  - guide is clear and instructive
+

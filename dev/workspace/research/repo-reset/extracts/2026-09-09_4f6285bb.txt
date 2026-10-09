@@ -1,0 +1,172 @@
+@@ 2026-09-09T23:27 4f6285bb [cli/typed]
+Your task is to repair and place a spec rubric. it is here.
+flightdeck/manuals/rubrics/spec/spec-readiness-rubric.md
+
+The refector involves QDOD.2 
+The test flags normal behavour whereby some locked files are sitting adjacent to files in scope. The question need reframing. but I don't really know to what.
+
+The other problem is the rubric is in manuals and the spec-judge does not have the path to it hardcoded. It should be located in a testing location. flightcrew/checks is probably the place (global test harnesses)
+
+@@ 2026-09-09T23:29 4f6285bb [cli/-]
+[Request interrupted by user]
+
+@@ 2026-09-09T23:32 4f6285bb [cli/typed]
+ok i did not explicitly say to check the landscape first. what is the go?
+
+@@ 2026-09-09T23:50 4f6285bb [cli/typed]
+Ok so is this in the same register and format as the other questions. rubric questions should easily arrive at yes/no. 
+
+what is this question asking? the original is "Does the stated path boundary agree with scope's exclusion"
+
+are we trying to find unaccounted file (not in exclusion lists) inside the path boundary? because this seem to fit the shape we already have, spec-builder, judge, and attacker are deliberately excluded inside a scope, yet the tester is flagging them as a finding.
+
+should the finding be reframed? "Does the stated path boundary agree with the scope's exclusion and inclusion"
+
+@@ 2026-09-10T00:12 4f6285bb [cli/typed]
+Ok so is this in the same register and format as the other questions. rubric questions should all be easily decided 'yes' and if not true in anyway then 'no'. 
+
+Im looking for learning 
+what is this question asking? the original is "Does the stated path boundary agree with scope's exclusion"
+
+lets break it down. the scope sais "don't touch xxx/yyy/zzz.file" the boundary sais "only operate in xxx/yyy/" is this correct?
+then the rubric checker has to answer 'No' to the QDOD.2 because it can see that a 'no go' file is in a 'go' path. or is it the second statement that trips the agent up?
+
+"nothing excluded by scope lying inside the boundary"
+
+this will flag every rails model, controller mutation ever attempted. models/ go (boudary) -> model/xxx.rb, yyy.rb no go (exclusion).
+
+@@ 2026-09-10T00:26 4f6285bb [cli/typed]
+Ok so we can let exclusions inside the boundary go through to the keeper. but instead we check for files we need to work on but are outside of the boundary.is this doable only holding the spec?
+
+one thing to do is check the deprecated rubrics at QDOD.2 and see if it was changed unintentionally during rubrics testing.
+
+@@ 2026-09-10T00:38 4f6285bb [cli/typed]
+um a human never did anything but trust the agent (silly human, it was me)
+"every resolvable scope entry must fall inside the stated boundary" sais both in list and out list are inside the boundary. if something resolves outside the boundary in or out is a finding. Does the "resolvable" reduction carry enough weight (i think it does) or does somewhere else state that scope entries must be resolvable?
+
+@@ 2026-09-10T00:47 4f6285bb [cli/typed]
+oh i added it because you said exclusions should only be inside the boundary as standard practice. stating something outside the boundary is stating the obvious. I can see the adjacent tempting exclusion as valid now that you mentioned it.
+however if the boundary is not strong enough to prevent tempting expansions, why do we need it all? which one is rock solid?
+
+@@ 2026-09-10T00:53 4f6285bb [cli/typed]
+If the boundary has teeth and is always present "every spec names a diff boundary", then requiring a tempting expansion is redundant. if this is so. this is a decent question.
+"every resolvable scope entry must fall inside the stated boundary".
+
+@@ 2026-09-10T01:12 4f6285bb [cli/typed]
+nope this has just exploded my head. ive just understood DOD.2 boundaries overule everything. is it the specs resposibility to ensure files are locked? if it names the path and then places the path inside the boundary then it has done its job yeah? the spec describes the work not the sytem ie "you must lock these files" should never be in a spec.
+
+@@ 2026-09-10T01:18 4f6285bb [cli/typed]
+ok step 1 settled, the yes/no test for DOD.2
+ 
+now i dont understand what 
+"Resolve every entry that refers to another node ("outside the boundary in C6") to the paths that node names before deciding" is trying to achieve? didn't you say something about it before?
+
+@@ 2026-09-10T01:26 4f6285bb [cli/typed]
+i think the 2.1 addition was for a rule that shouldn't have existed. and this makes no sense SC12 referencing C6 is more of a finding, it is a double statement wasting attention. C6 looks like the boundary statement. SC12 is like "duh ofcourse" wasted node.
+
+@@ 2026-09-10T01:33 4f6285bb [cli/typed]
+yes move stands, make it v2.4, **Deprecated** is added to the top of the old files.
+
+3. i haven't read 90 percent of the fluff you wrote above only trying to understand in a single domain, humans can't hold 8 different directives at once. so you will have to explain what "mistyped-scope-path gap" is.
+
+@@ 2026-09-10T01:39 4f6285bb [cli/typed]
+Ok this is obvious. so interfaces and verification set paths stated in scopes and constraints anyway? this seems more of a dual location finding again, rather than a case we should handle. I wonder how many of my specs are filled with dual statements in this shape.
+A misspelling catch by DOD.2 is what we want. agent instantly fixes.
+
+@@ 2026-09-10T01:42 4f6285bb [cli/typed]
+Are we settled on our original task? because id rather just commit and move on. im halfay through a spec build that needed QDOD.2 fixed.
+
+@@ 2026-09-10T01:43 4f6285bb [cli/-]
+<command-message>dev-workspace:conversation-capture</command-message>
+<command-name>/dev-workspace:conversation-capture</command-name>
+
+@@ 2026-09-10T01:43 4f6285bb [cli/-]
+Base directory for this skill: /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture
+
+# conversation-capture
+
+Parse the current Claude Code session JSONL into a formatted, readable transcript. Summarize and rename the output file.
+
+## Agent invariants
+
+- Do not `cd` into any directory, all commands can be run from `pwd`
+
+## Session Id
+
+SESSION_ID = 4f6285bb-97d7-449b-a242-6df5b9879916
+
+## Capture
+
+Run the extraction script with the current session ID:
+
+```bash
+ruby /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture/scripts/conversation-capture <SESSION_ID>
+```
+
+On success the script outputs one line: the transcript file path. Continue to
+**Summarize and Rename**.
+
+If the script exits non-zero, handle it per **Config not ready** below — do not
+proceed.
+
+## Config not ready
+
+The skill reads its settings from the workspace config and only runs inside a
+dev-workspace. Two non-zero exits signal a config problem:
+
+- **Exit 3 — no workspace config.** There is no `dev/workspace/workspace-config.yml`.
+  This skill is for dev-workspace projects only. Stop and tell the user.
+- **Exit 4 — missing section.** The config exists but has no `conversation_capture:`
+  section (an older workspace). Recover it:
+  1. Read the `conversation_capture:` block — its comment banner and values —
+     from `/Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/dev-workspace/templates/workspace-config.yml`.
+  2. Append that block to the project's `dev/workspace/workspace-config.yml`.
+  3. Re-run the capture script.
+
+## Summarize and Rename
+
+Base the summary on the transcript file just written (and the current session if
+still in context).
+
+**Summary:** Write a 3-5 line summary of the conversation. The summary must be:
+
+- **Global scope** — readable without access to the conversation
+- **Factual** — what was discussed, what was built/fixed, key decisions, what remains
+- **No session-specific language** — avoid "the user asked me to", "I was told to"
+
+Read the first 20 lines of the transcript file to locate the `[SUMMARY]` block. Insert the summary between the `>>>` and `<<<` markers using the Edit tool. If the block already has content, replace it.
+
+**Rename:** Check the transcript filename.
+
+- If it contains a raw UUID (e.g. `f5d11e2f_f5d11e2f-89c8-...txt`), rename it with a descriptive slug
+- If it already has a descriptive name, keep it if still accurate, rename if the conversation has shifted focus
+
+Rename format: `<first-8>_slug.txt` where slug is 3-6 word kebab-case topic
+description. Rename in place — keep the file in the same directory as the path
+the script returned.
+
+```bash
+mv "<transcript-file>" "$(dirname "<transcript-file>")/<first-8>_slug.txt"
+```
+
+Report the final transcript file path.
+
+## Config
+
+Settings live in the workspace config — `dev/workspace/workspace-config.yml`,
+under the `conversation_capture:` section. The user edits this file directly; no
+re-enable step. Keys:
+
+- `output_dir` — target directory for transcripts (relative to project root)
+- `include_thinking` — include assistant thinking blocks (`true`/`false`)
+- `include_subagents` — include subagent results (`true`/`false`)
+- `sanitize` — list of find/replace patterns applied after extraction. `$ENV_VAR` references expand at runtime. Comment out patterns with `#` to disable
+
+A `--config <path>` flag overrides the config file location (the section scope is
+unchanged).
+
+## Resume Behaviour
+
+The script uses the first 8 characters of the session ID as a file prefix. On re-invocation with the same session ID, it detects and overwrites the existing transcript — preserving the renamed filename if already processed.
+
+

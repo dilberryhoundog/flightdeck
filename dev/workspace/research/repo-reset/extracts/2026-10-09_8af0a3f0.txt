@@ -1,0 +1,35 @@
+@@ 2026-10-09T10:53 8af0a3f0 [cli/typed]
+You are the lead of a team that mines past Claude Code session transcripts for what the repository owner has said they want. The repository is /Users/dylangraham/Projects/flightdeck. Work with subagents (Agent tool, dispatched in parallel, sonnet or haiku); you plan, dispatch, check and assemble, and the subagents do the reading.
+
+## Why this is needed
+The owner has spent several weeks (from about 1 September 2026) attempting to build a project called flightdeck in this repo. The direction changed several times, earlier work was archived, and the repo is now disordered. The owner wants the repo brought to a state they can progress from, but cannot yet say what that state is. A later interview session will question the owner about direction. Your output prepares that interview: a faithful record of what the owner has already said, so they are not asked to repeat it and so agents stop guessing. The owner's own words are the evidence; the files in the repo are experiments and many describe abandoned plans, so do not use repo documents to decide what the owner wants.
+
+## Sources
+- Session transcripts: /Users/dylangraham/.claude/projects/-Users-dylangraham-Projects-flightdeck/*.jsonl (about 112 files, 367MB in total, some over 5MB). Each line is a JSON record. Human turns are records with type "user"; their message content is either a string or an array that mixes text blocks with tool_result blocks. Only the text typed by the human matters. Confirm this format on one file before building on it.
+- Do not load whole transcripts into context. Extract human text with jq or a short script piped to stdout, then read the extract. Drop tool results, system reminders, hook output, pasted file dumps and command output.
+- Some sessions were started by another agent, not by the human (background sessions, subagent leads). Their "user" text is an agent's brief. Exclude those, and if you cannot tell which it is, include the passage and mark it "author uncertain".
+- Captured histories in /Users/dylangraham/Projects/flightdeck/dev/workspace/history/*.txt may duplicate some sessions; use them only where a transcript is missing.
+- Do not read transcripts belonging to any other project directory under ~/.claude/projects.
+
+## What to extract
+Quote the owner verbatim, each quote with its date and the first 8 characters of the session id. Keep their spelling. Put your own reading in a separate sentence labelled as interpretation.
+1. Timeline of direction: each phase with dates, what the owner was trying to build in that phase, and in their words why they moved on from it.
+2. Stable intents: things stated more than once across phases and never withdrawn.
+3. Reversals: things stated and later withdrawn or contradicted, with both quotes.
+4. Mistakes and lessons the owner named themselves.
+5. Everything the owner said about the repository's own state: branches, archiving, what to keep, what is dead, what they regret removing, how they want it organised.
+6. Recurring corrections to agents: where agents repeatedly went wrong in the owner's view. Group them; give the count and two or three quotes per group.
+7. Questions the owner raised and never settled.
+8. The most recent statements (last 7 days of sessions) on what they want next, kept separate from the rest because they outrank older ones.
+
+## Constraints
+- Read-only on the repository and on the transcripts. No git command that changes anything (no checkout, commit, stash, reset, branch, push). No edits to existing files.
+- The one place you may write is a new directory /Users/dylangraham/Projects/flightdeck/dev/workspace/research/repo-reset/. Write the final report there as user-intent.md and nothing else except, if needed, one extracts/ subdirectory for intermediate text. Do not stage or commit it.
+- In the markdown file, write each paragraph and list item as a single line; do not hard-wrap lines.
+- Pass these constraints verbatim to every subagent.
+
+## Report
+user-intent.md follows the eight headings above, densest and most recent material first within each. Open it with a half-page summary a reader can act on alone. State coverage honestly: how many sessions were read in full, sampled, or skipped, and why.
+
+When the file is written, notify the session that launched you with SendMessage (load it with ToolSearch if it is deferred): a message of at most 25 lines giving the summary and the file path. That session is named flightdeck-33 and runs in this same directory; if the name does not resolve, call ListAgents and send to the local session in this directory that is not you and is not named branch-investigator. Then stay available: further requests will arrive by message, and you answer them the same way.
+

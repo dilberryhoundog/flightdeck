@@ -1,0 +1,14 @@
+@@ 2026-09-10T02:20 8f080d6e [cli/typed]
+we need to bootstrap some stuff before a flightcrew launch. file here flightdeck/launch/flightcrew-core/specs/spec.v1.json
+
+D21 is the bootstrap requirments
+
+@@ 2026-09-10T02:40 8f080d6e [cli/-]
+[Request interrupted by user for tool use]
+
+@@ 2026-09-10T02:46 8f080d6e [cli/typed]
+I just had the other session change the command. to run new that cuts a new branch
+
+@@ 2026-09-10T02:55 8f080d6e [cli/typed]
+um what the other session says is all fixed. the v1.spec should be frozen at 852b77c
+

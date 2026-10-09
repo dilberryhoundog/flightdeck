@@ -1,0 +1,140 @@
+@@ 2026-09-09T07:36 bfb87cff [cli/typed]
+Your task is to convert a problem dump into a list of no more than 10 spec related "problems" that upon interviewing will drive the creation of a new spec. The problem dump is here... 
+dev/workspace/filebox
+you can load the files directly into this session. Im happy to answer questions that may help you distill this down into the best 10 problems to solve. 
+your deliverable will be flightdeck/launch/flightcrew-core/specs/interview/problems.json
+
+@@ 2026-09-09T07:47 bfb87cff [cli/typed]
+um its not the questions. i have specifically allowed questions. You have opened files that i did not approve, now that they are in your context you think your task is something completely different than what i explicitly and deliberately placed in my opening prompt. yep exactly as I thought. this is the PERFECT example of why HITL has failed and I need this system pronto. I gave you a narrow scope deliberately. You got fancy, freestyled all over my repo, thought you knew everything else about what i wanted. and then I had to make a defensive prompt, which you now overreact to and my original prompt with high effort and forethought is absolutely fucked. and now I have to start a third session.
+
+@@ 2026-09-09T07:53 bfb87cff [cli/typed]
+Your task is to convert a problem dump into a list of no more than 10 spec related "problems" that upon interviewing will drive the creation of a new spec. The problem dump is here... 
+dev/workspace/filebox
+you can load the files directly into this session. Im happy to answer questions that may help you distill this down into the best 10 problems to solve. 
+your deliverable will be flightdeck/launch/flightcrew-core/specs/interview/problems.json there is previous work in there only to provide you with the output shape.
+
+PLEASE dont go freestyling throughout my code base. NO other reads except those two locations. if you do I stop the thread.
+
+@@ 2026-09-09T07:54 bfb87cff [cli/-]
+[Request interrupted by user]
+
+@@ 2026-09-09T07:55 bfb87cff [cli/typed]
+Your task is to convert a problem dump into a list of no more than 10 spec related "problems" that upon interviewing will drive the creation of a new spec. The problem dump is here... 
+dev/workspace/filebox
+you can load the files directly into this session. Im happy to answer questions that may help you distill this down into the best 10 problems to solve. 
+your deliverable will be flightdeck/launch/flightcrew-core/specs/interview/problems.json there is previous work in there only to provide you with the output shape.
+
+PLEASE dont go freestyling throughout my code base. NO other reads except those two locations. if you do I stop the thread.
+
+just use the read tool nothing else.
+
+@@ 2026-09-09T08:20 bfb87cff [cli/typed]
+Ok so I want to manually check if some big hitters that i know of made it in, or reasons why left out.
+1. test structure setup. suites in flightdeck/test, checks in run, global assets in flightcrew/verify.
+2. structure changes to launch.
+3. fc runner broken up. rename to "flight", 'init' and 'run new' commands introduced.
+4. user facing commands removed. user wants local web page overlay reading run assets directly able to mutate. 
+5. workflows remove most of the state in launch.json + fc command
+
+@@ 2026-09-09T08:35 bfb87cff [cli/typed]
+1. update the problem: flightcrew/checks overlaps with launch checks, suggest rename (verify). tests live in project folder first (eg rails), then testbench if not suitable for project folder. ok my bad let it stay in testbench.
+3. ask user to decide on fate of 'fc' and if they need any new commands
+4. it is indeed scope for a new spec. however the JSON document foundation needs to be inplace in this run. is that going to be raised once the interview process starts.
+5. the "problems" thread that produced this doc sais workflows solve, user gates (workflow ends at a gate), have json var injection, predetermine agent staging, dictate agent return shape, prevent stop. these are all very valid when discussing workflow shape and the shape a run takes. this means phases are prebuilt with workflows and kicked off after gates.
+
+adjust any problem descriptions you need. do we need to add any of these big hitters as a new problem? I don't want to hold them back.
+
+@@ 2026-09-09T12:08 bfb87cff [cli/-]
+<command-message>dev-workspace:conversation-capture</command-message>
+<command-name>/dev-workspace:conversation-capture</command-name>
+
+@@ 2026-09-09T12:08 bfb87cff [cli/-]
+Base directory for this skill: /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture
+
+# conversation-capture
+
+Parse the current Claude Code session JSONL into a formatted, readable transcript. Summarize and rename the output file.
+
+## Agent invariants
+
+- Do not `cd` into any directory, all commands can be run from `pwd`
+
+## Session Id
+
+SESSION_ID = bfb87cff-0e97-408b-8b32-4069bb87e217
+
+## Capture
+
+Run the extraction script with the current session ID:
+
+```bash
+ruby /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture/scripts/conversation-capture <SESSION_ID>
+```
+
+On success the script outputs one line: the transcript file path. Continue to
+**Summarize and Rename**.
+
+If the script exits non-zero, handle it per **Config not ready** below — do not
+proceed.
+
+## Config not ready
+
+The skill reads its settings from the workspace config and only runs inside a
+dev-workspace. Two non-zero exits signal a config problem:
+
+- **Exit 3 — no workspace config.** There is no `dev/workspace/workspace-config.yml`.
+  This skill is for dev-workspace projects only. Stop and tell the user.
+- **Exit 4 — missing section.** The config exists but has no `conversation_capture:`
+  section (an older workspace). Recover it:
+  1. Read the `conversation_capture:` block — its comment banner and values —
+     from `/Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/dev-workspace/templates/workspace-config.yml`.
+  2. Append that block to the project's `dev/workspace/workspace-config.yml`.
+  3. Re-run the capture script.
+
+## Summarize and Rename
+
+Base the summary on the transcript file just written (and the current session if
+still in context).
+
+**Summary:** Write a 3-5 line summary of the conversation. The summary must be:
+
+- **Global scope** — readable without access to the conversation
+- **Factual** — what was discussed, what was built/fixed, key decisions, what remains
+- **No session-specific language** — avoid "the user asked me to", "I was told to"
+
+Read the first 20 lines of the transcript file to locate the `[SUMMARY]` block. Insert the summary between the `>>>` and `<<<` markers using the Edit tool. If the block already has content, replace it.
+
+**Rename:** Check the transcript filename.
+
+- If it contains a raw UUID (e.g. `f5d11e2f_f5d11e2f-89c8-...txt`), rename it with a descriptive slug
+- If it already has a descriptive name, keep it if still accurate, rename if the conversation has shifted focus
+
+Rename format: `<first-8>_slug.txt` where slug is 3-6 word kebab-case topic
+description. Rename in place — keep the file in the same directory as the path
+the script returned.
+
+```bash
+mv "<transcript-file>" "$(dirname "<transcript-file>")/<first-8>_slug.txt"
+```
+
+Report the final transcript file path.
+
+## Config
+
+Settings live in the workspace config — `dev/workspace/workspace-config.yml`,
+under the `conversation_capture:` section. The user edits this file directly; no
+re-enable step. Keys:
+
+- `output_dir` — target directory for transcripts (relative to project root)
+- `include_thinking` — include assistant thinking blocks (`true`/`false`)
+- `include_subagents` — include subagent results (`true`/`false`)
+- `sanitize` — list of find/replace patterns applied after extraction. `$ENV_VAR` references expand at runtime. Comment out patterns with `#` to disable
+
+A `--config <path>` flag overrides the config file location (the section scope is
+unchanged).
+
+## Resume Behaviour
+
+The script uses the first 8 characters of the session ID as a file prefix. On re-invocation with the same session ID, it detects and overwrites the existing transcript — preserving the renamed filename if already processed.
+
+

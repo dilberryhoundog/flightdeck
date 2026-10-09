@@ -1,0 +1,23 @@
+@@ 2026-10-09T10:26 a4c7d174 [cli/typed]
+this error showed when loading your session.
+
+
+
+<pasted_content id="8bb6">
+Permission allow rule (../../.claude/settings.json): Bash(git -C :* diff:*) mixes * with the trailing :* prefix syntax, so it is matched as a literal prefix (the * is not expanded) and will likely never match. Replace that * with the exact value you mean.
+Permission allow rule (../../.claude/settings.json): Bash(git -C :* show:*) mixes * with the trailing :* prefix syntax, so it is matched as a literal prefix (the * is not expanded) and will likely never match. Replace that * with the exact value you mean.
+Permission allow rule (../../.claude/settings.json): Bash(git -C :* log:*) mixes * with the trailing :* prefix syntax, so it is matched as a literal prefix (the * is not expanded) and will likely never match. Replace that * with the exact value you mean.
+Permission allow rule (../../.claude/settings.json): Bash(git -C :* ls-files:*) mixes * with the trailing :* prefix syntax, so it is matched as a literal prefix (the * is not expanded) and will likely never match. Replace that * with the exact value you mean.
+Permission allow rule (../../.claude/settings.json): Bash(git -C :* status:*) mixes * with the trailing :* prefix syntax, so it is matched as a literal prefix (the * is not expanded) and will likely never match. Replace that * with the exact value you mean.
+</pasted_content id="8bb6">
+
+
+@@ 2026-10-09T10:30 a4c7d174 [cli/typed]
+what list are these in allow, deny?
+
+@@ 2026-10-09T10:30 a4c7d174 [cli/typed]
+what would be the purpose of these permissions?
+
+@@ 2026-10-09T10:32 a4c7d174 [cli/typed]
+what is your opinion on them. I 99% use auto mode, should we just can them? These permissions might have been "workarounds" since before auto mode was introduced
+

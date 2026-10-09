@@ -1,0 +1,128 @@
+@@ 2026-10-02T11:40 409dd51e [cli/typed]
+You are currently in cockpit. The agent management surface of flightdeck. We are HITL (human in the loop) right now fitting the cockpit out for integrated usage in flightdeck, flightdeck is an agent management system, the next evolution of dev-workspace, built for multi agent workflows. The premise of cockpit is to setup a self sustaining team dispatch zone. Where i load into a locked down session agent, and I can pick up where I left off. The agent call prebuilt teams to conduct different types of work in the project.
+
+I was talking to web claude about this and the foundations. here is the prompt i used...
+
+
+
+<pasted_content id="252e">
+Recently I moved from HITL (human in the loop) agentic sessions. Whereby I was heavily investing my time and attention, and could and would steer the agent constantly as they freestyled across my projects, This was great while sonnet 3.5 was the leading model, HITL at a terminal was the cutting edge.
+
+Recently the release of Claude fable 5 made me realise that HITL wasn't the cutting edge anymore, great for bug hunting, pulling the levers on something tricky, but bigger stuff is out of reach with HITL.  This tier of agent is actually bad at HITL but great at extended managed work.
+
+I kicked off this awesome discussion with you about using frontier models to orchestrate build runs, where key principles like retrying, verifying, frontloading context, flipped the focus on its heads. The discussion is here.
+
+"orchestrator workflow optimisation with frontier models" (if you can't find it let me know and I will give the repo)
+
+So I have over the last month dug into it, trying to get a system up and running. Under the hood it is basically test driven development with an agent system. It is highly performant with codebases where deterministic tests rule. but I have come across a huge gap...
+
+HITL is back in and around the system. I cannot drive the system on my own. I ended up using the spec-interviewer agent to manage runing the system (this guy is supposed to be isolated and focused on spec building), and orchestrated runs are completely inappropriate for research, investigation, smaller focused build runs, building agent harnesses (that are non deterministic). 
+
+So I see a gap in between these two methodologie; agent teams and connected sessions, managed by a focused frontier agent. Gives me more velocity and less investment, but by using varied focused agents "on demand" provides a significant boost in performance as well. for eg, having five cheaper agents looking at a problem from different directions, and adversaries and critics all chipping in, no HITL session can reach this level of performance.
+
+I started building it out but im now lost on what is important and what is a nice to have;
+the key parts ive tried to follow are...
+
+* Utilise a team leader expert in teams and agent management. lock down so they are enforced to use teams instead of polluting their context with HITL tendencies.
+
+* Human try not to decide everything (Bogs the human down harder than HITL). persist truth somehow, rather than rediciding
+* Utilise in full Claude Code agent functionality, particularly revolving around agent teams and cross session messaging. 
+* layer over the top of orchestrated runs as a team dispatch, managing the system as a "team".
+* build a roster of agents callable for dispatch.
+
+
+I’m not sure if I want a discussion or research review (html), maybe both, of the key components to successfully running agentic teams, accounting for what I’m already doing and the next steps needed.
+</pasted_content id="252e">
+
+
+we ended up producing about 6 documents covering what he thought to be the key fundamentals. I found he did try to "build" the system alot instead of explain it. so these will have elements that appear settled but are still vry much open for debate or tuning. they are here...
+
+library/source/agent-teams. library source also provides alot of other captured claude code references over the agent and harness topics, that you can read.
+
+Have an explore of these context primers. then we will work towards the goal of cleaning up the existing stuff and transitioning into a clean, efficient working agent teams system, each major part will get a discovery and a conversation before we write any plans or make any changes. 
+
+Also the cockpit is littered with my guidance and advice, some will be gold, some will no longer apply as the ground has moved under the statement. I would like to preserve important findings and keep any decent implementations I have already made.
+
+@@ 2026-10-02T12:23 409dd51e [cli/typed]
+You know the remit. a space for agent teams work flows. 
+
+Youve seen the basic shapes; locked lead dispatching teams, truth where test doesn't cover. routing and agent definitions. team setups and handling. CC native harness preference. "fix the machinery not the code" principle. verification engines (rubrics, evals etc)
+
+You have read the sources, (read again if necessary). (I will say the claude-dev-blog is very current and informative did you find much here?) and i added a missing primer, that was created on a branch where web claude could see my repo.
+
+You know that this is repo under heavy experimentation, with the 6 primers as the most recent collaboration, based upon learning from various trys here.
+
+You know that I found most of the stuff in this repo that I was required to do tedious, like the prefixes, the enacted approval, trying to state truth everywhere etc
+
+Now know that the previous implementation versions have failed, hence why the repo is a mess and we are here talking this over, and that web claude who built the primers was just freestyling over some well researched fundamentals with little prior knowledge of exisitng experimental findings. Both of these are wrong, find the gaps and the improvements. that the previous attempts missed and what the web session couldn't know.
+
+@@ 2026-10-02T13:04 409dd51e [cli/typed]
+You know the remit. a space for agent teams work flows. 
+
+Youve seen the basic shapes; locked lead dispatching teams, truth where test doesn't cover. routing and agent definitions. team setups and handling. CC native harness preference. "fix the machinery not the code" principle. verification engines (rubrics, evals etc)
+
+You have read the sources, (read again if necessary). (I will say the claude-dev-blog is very current and informative did you find much here?)
+
+You know that this is repo under heavy experimentation, with the 6 primers as the most recent collaboration, based upon learning from various trys here.
+
+You know that I found most of the stuff in this repo that I was required to do tedious, like the prefixes, the enacted approval dance, writing "truth" statements for everything.
+
+Now know that the previous implementation versions have failed, hence why the repo is a mess and we are here talking this over, and that web claude who built the primers was just freestyling over some well researched fundamentals with little prior knowledge of exisitng experimental findings. Both of these are wrong, find the gaps and the improvements. that the previous attempts missed and what the web session couldn't know.
+
+@@ 2026-10-02T13:49 409dd51e [cli/typed]
+Ok cool so the lead. 
+background sessions, agent teams and workflows all in. 
+lead can retire agents at will so multiple teams dispatches can happen in a session. workflows have a place, but are not the only way. teams with "live" adversaries often push the others in a way they can't in a workflow.
+
+I realised my mistake using the pilot to fitout the cockpit. I am back HITL to get it scaffolded with you.
+
+archiving the corpus is a great idea. 
+
+ok whats next? what do we settle first?
+
+@@ 2026-10-04T06:23 409dd51e [cli/typed]
+Ok so archive is a good idea and you have done well so far in this thread. 
+I am back after a break with some fresh eyes. 
+
+So I can simply ask you to do an agent team with the right setting and an agent team is up and running. I can load a background session and ask you to message it and the other agent will talk back. I can load a definition straight in to a session. With memory on you can remember the important decisions I have given. I can take my time and forumlate a decent prompt and you could do any and all of these things straight out of the box. Infact I could simply have a bunch of prompt templates that I fill in, with all that ive learned so far and get most of they way to what I have attempted to build so far. 
+
+This is the key, agent teams, bg agent messaging, session agents, subagents, dynamic workflows, memory, skills, claude.md, tool restrictions, event hooks, frontmatter, command flags, initial prompt, goals, plugin packaging, mods etc. I can alreaady do deep research and a bunch of other pre cooked workflows. This all comes rtr straight out of the box. anthropic maintain this and all ready make sure it is very high quality software. To replace this stuff with custom infra is fighting the machine. I seen this with memory, you go straight for it because it is prebaked.
+
+Now anthropic provide the model and the harness, now we need best practices, with out this (wich is largely my conduct), slop and crud can definately accumulate. best practices primarily involve lots of time investment and quality into the response window (like im doing right now). best practices, plus good useage of the harness and the right model, produces pretty good results, even for the newer agent teams and orchestration features.
+
+This is where "fix the machinery, not the code" comes in. To really make it sing and be a pleasure to use I need to layer over the top a small set of customisations that are easy to maintain, recognisable by the model, fit in with (don't fight or replace) the harness, and most importantly becomes a machine that over time, improves useability, quality and pleasurability.
+
+I think my two largest mistakes so far have been. Trying to build the perfect implementation first time and all at once, and trying to build too much replacement infra that already had a billion dollar company looking after it.
+
+So to respond to that, I would like to propose that we create an agent system that primarily uses the vanilla tools and setup, and preserves the ability for effective direct response window interaction (abilolishing that is fighting the machine). With the second most important part the improvement machinery, that allows us to test and improve the agent system without stabbing in the dark. The third (possibly built first) is to setup what would be the basic folder scaffold that the harness + best practices sit in. The fourth is the primary job of the machinery is to take the load from the human and transfer it to the agent, without reducing system performance. 
+
+If you agree, let me know? then we should write this in our brand new .cockpit as a bit of a constitution.
+would it be a good constitution?
+
+Then after that we talk about best practices we have come across, and the customisations both you and I like, that will provide the best bang for buck.
+
+@@ 2026-10-04T06:44 409dd51e [cli/typed]
+1. write it how I have it. place an underline and then say your piece say, whatever you think is needed and i will adjust if i feel necessary, iim not prepared for you to write.
+2. Aren't you confident you can maintain performance? The forth is moreso, build a machinery tool that helps the user that improves or maintains the perfomance, the key here is the scoping, we are taking a load off the user, not building a useless metric.
+3. The improvement machinery should not get in the way of work. with modern ai it doesn't need to. you will see when we get into it. eg drills and a lab, test our machinery without our work being burdened by it.
+4. nope, nothing is ever this arbitary. if an awesome new harness tool is shipped that layers over our customisations, then we carefully eval and test our changes.
+5. nope this is just here for our fitout, didn't want to get into a new session and have to write it again. save it to the new cockpit.
+
+Ive archived the cockpit to .cockpit-archive there is a new .cockpit ready to go. git is a bit of a mess.
+
+@@ 2026-10-07T08:14 409dd51e [cli/typed]
+Ok so I have found "agentic workflows" and have realised Im trying to build a subset of them, this is why i keep failing. I realised agentic workflows is much bigger than my cockpit directory. they actually should expand fully into flightdeck. This is what i was trying to achieve all along with this, a pluggable agent loop accelarator. with all kinds of options and tools for modern day "agentic workflows" send off a team to look into this topic and see what they return with. I will guess that a few core features will settle. showing us that these things need building out individually over time, and ar able to improve in isolation. "agentic workflows" is bigger than I thought.
+
+@@ 2026-10-07T08:21 409dd51e [cli/typed]
+https://www.jetbrains.com/pages/ai-agents/architecture/agentic-workflows/
+https://www.jetbrains.com/pages/ai-agents/architecture/multi-agent-systems/
+https://orkes.io/blog/what-are-agentic-workflows
+https://weaviate.io/blog/what-are-agentic-workflows
+https://neo4j.com/blog/agentic-ai/what-are-agentic-workflows/
+https://www.atlassian.com/blog/ai-at-work/ai-agentic-workflows
+
+these have some vendor marketing mixed in but i found them converging the topic, as a good introduction.
+
+@@ 2026-10-07T08:22 409dd51e [cli/typed]
+oh by the way I activated teams in the settings, if that helps
+

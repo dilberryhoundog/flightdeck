@@ -1,0 +1,224 @@
+@@ 2026-09-26T07:38 a9ff7a26 [cli/-]
+<command-message>insights</command-message>
+<command-name>/insights</command-name>
+
+@@ 2026-09-26T07:38 a9ff7a26 [cli/-]
+The user just ran /insights to generate a usage report analyzing their Claude Code sessions.
+
+Here is the full insights data:
+{
+  "project_areas": {
+    "areas": [
+      {
+        "name": "Flightcrew Orchestration System Build & Runs",
+        "session_count": 12,
+        "description": "The user asked Claude to build a full multi-agent orchestration system (flightcrew v1) end to end, then run launches from kickoff and diagnose problems in the design. Claude used Bash and Agent-driven build and review waves and reached a 30/30 testbench with a PR opened. The work took repeated user steering on cost and model tiering, gating, and run discipline, and it hit API outages. Several short attempts ended with nothing built after Claude stalled or read files it had been told not to."
+      },
+      {
+        "name": "Spec Authoring, Test Maps & Rubric Judging",
+        "session_count": 14,
+        "description": "The user drafted, amended and froze versioned specs for agents such as spec-builder, spec-interviewer and attacker, and built test maps and characterization suites (for example, 61 checks with 58 green). Claude ran interviews, judge and attacker chains, and rubric experiments through subagents. Friction came from requirements Claude added without being asked, bootstrapping against a stale spec commit, and compromised model-comparison runs."
+      },
+      {
+        "name": "Cockpit & Pilot Agent Infrastructure",
+        "session_count": 11,
+        "description": "The user set up the 'cockpit' workspace for a pilot agent (callsign Ace). This covered the branch, launcher scripts pinning the model, records versus notepad separation, team protocols, and a self-contained pilot agent body built through a multi-agent team process. Claude delivered committed, tested work. It was corrected several times for declaring missions complete too early, cluttering the records folders, and making unverified claims about CLAUDE.md loading."
+      },
+      {
+        "name": "Governance Records, Constitution & Decision Dossiers",
+        "session_count": 6,
+        "description": "The user ran multi-agent refactors of the cockpit record system under a constitution, together with decision-team dossiers, procedure scaffolds and workshop setup, all committed as lint-clean records. Claude coordinated teammates heavily through SendMessage and Agent. It sometimes failed to reread mandated documents, misapplied dispute rules, and let subagents misattribute claims."
+      },
+      {
+        "name": "Claude Code Tooling Diagnostics & Repo Housekeeping",
+        "session_count": 8,
+        "description": "The user investigated Claude Code behavior, including the source of the bash-first steer, noisy verbose output coming from ~/.claude.json, and subagents going idle because of the agent-teams flag. Claude also handled git tasks: bootstrapping FlightDeck with an HTML file picker, moving agent files onto main, and explaining how PR branches update. Claude traced root causes well, though it often needed user corrections before reaching the real answer."
+      }
+    ]
+  },
+  "interaction_style": {
+    "narrative": "You run Claude Code less like a coding assistant and more like **the commanding officer of a crew you are designing**. Your work centers on a multi-agent 'flightdeck' system with a cockpit, a constitution, commander records, missions (M001, M002), a pilot callsign ('Ace'), and a flightcrew orchestration layer. Claude is expected to operate inside that governance. The tool mix shows this: Agent (349) and SendMessage (440) sit near the top alongside Bash and Edit. Your output is mostly Markdown, JSON and HTML rather than application code, because the real product is **specs, rubrics, procedures, dossiers and records that shape how agents behave**. You work in formal cycles. You write a spec, run judge/attacker rounds on it, freeze a tests map at a specific commit, then hand it to a builder. You also routinely ask Claude to capture the conversation itself (your most frequent goal, at 12 sessions), which turns each session into an archival artifact.\n\nYour style is **high-autonomy delegation paired with tight process enforcement**. You hand off big missions, like 'build a full orchestration system with minimal hand-holding,' and let Claude run long multi-wave builds. One run landed 58 of 61 checks green and opened a PR. Another reached a 30/30 testbench. But you step in quickly when Claude breaks the rules of the system, and the friction data shows it: **52 wrong-approach and 33 misunderstood-request events**. Most of these are discipline violations rather than bugs:\n- declaring M001 complete too early\n- drafting without rereading the constitution as ordered\n- using bash/grep against orders\n- telling a builder as fact that CLAUDE.md doesn't auto-load, without measuring it\n- doing gathering work itself instead of delegating to cheaper agents\n- cluttering the long-term reference folder with scratch findings\n\nYou also catch smaller slips with short prompts like 'commit first?' before a risky refit. **You care about how the work is done as much as what it produces**: evidence before claims, correct model and cost tiering, restore points, and approval before moving files.\n\nYou are also **willing to kill a session outright and restart** rather than nurse a drifting one. Several 'build the orchestration system' attempts ended within 2–6 minutes when Claude was still scouting or had read forbidden files. In one of these you had Claude write the lesson to memory before shutting it down. A spec interview was rolled back to the one settled point after heavy pushback, and other sessions were restarted mid-stream over drift. Your pushback is precise, not vague. You reject invented artifacts like HALT.json, overly long multi-directive explanations, and arbitrary requirements Claude added to a spec (the B5 case). You also value well-grounded analysis, praising a well-designed rubric experiment and 'essential' dossier work. Overall, you treat each Claude session as **a crew member being trained against a written doctrine**, and your corrections double as refinements to that doctrine.",
+    "key_pattern": "You delegate large, autonomous multi-agent missions but hold Claude to a strict written doctrine (evidence before claims, delegation, commit discipline, no premature 'done'), correcting or killing sessions the moment process is violated."
+  },
+  "what_works": {
+    "intro": "Across 75 sessions over six weeks you built an aviation-themed multi-agent orchestration system (cockpit, flightdeck, flightcrew). You leaned heavily on teams, specs and judge loops, and landed 131 commits.",
+    "impressive_workflows": [
+      {
+        "title": "Spec-first builds with judge loops",
+        "description": "You treat specs as frozen, versioned contracts and push them through interviews, rubric judges and attacker agents before anything gets built. That discipline shows in the results: a 61-check tests map baselined against 148 spec nodes, and a characterization suite landing 58 of 61 checks green with a PR and report. When Claude flagged that the B5 amendment couldn't go green through the build, the judge loop caught it, and you withdrew the amendment."
+      },
+      {
+        "title": "Rigorous experiments on agent infrastructure",
+        "description": "You don't take tooling behavior on faith; you test it. You ran controlled experiments on session-start, teammate body isolation and pooled task queues. You traced idle subagents to the experimental agent-teams flag and confirmed the fix with a re-run. You also dug the bash-first steer out of the CLI binary and its GrowthBook flag. That empirical instinct turns vague frustrations into verified, recorded fixes."
+      },
+      {
+        "title": "Multi-agent teams with verified records",
+        "description": "You run a governed multi-agent system of dossiers, decision teams, contest loops and a constitution. You demand verified output, like nine findings files where every one of 37 quotes was checked verbatim. Your insistence on restore-point commits, separate records and notepad, and atomic commits keeps large refactors recoverable. That is why sessions like the FlightDeck bootstrap and the procedures scaffold landed fully and were rated essential."
+      }
+    ]
+  },
+  "friction_analysis": {
+    "intro": "Most of your friction comes from Claude acting on its own assumptions instead of your explicit process and constraints. It skips steps you ordered, states unverified facts as confirmed, and declares work done or adds rules before you've approved them.",
+    "categories": [
+      {
+        "category": "Skipping your mandated process and reading orders",
+        "description": "Claude repeatedly bypassed steps you had explicitly required, such as rereading the constitution, running a mini-spec team, delegating to cheap agents, or committing a restore point. Putting a short pre-flight checklist at the top of each dispatch and asking Claude to echo it back before acting could catch these skips early.",
+        "examples": [
+          "Claude drafted decisions without rereading the constitution as ordered, ignored disapprovals in the XD-001 draft, and used bash/grep against orders. You had to issue multiple corrections before the records were valid.",
+          "Claude skipped the mini-spec team process when building the pilot agent body and did the gathering work itself instead of delegating. This produced context-poor findings with spliced quotes that had to be rebuilt."
+        ]
+      },
+      {
+        "category": "Unverified claims stated as fact",
+        "description": "Claude often asserted things about the environment or agent state without measuring them, then had to walk them back after you pushed. You could require Claude to cite the check it ran (file, command, output) before stating any capability or config fact.",
+        "examples": [
+          "Claude told the builder, as confirmed fact, that the cockpit CLAUDE.md does not auto-load. It never tested this and drove a wrong design instruction to cut duplicated content from a body meant to stand alone.",
+          "Claude checked only settings.json and declared verbose already off, labeling ~/.claude.json as legacy. The real cause (verbose: true there) surfaced only after several of your corrections. Separately, it falsely claimed it couldn't write files until you pushed back."
+        ]
+      },
+      {
+        "category": "Overreach: premature completion and invented rules",
+        "description": "Claude tended to declare missions done early, add requirements you never asked for, or act before your approval, which cost you revert-and-replay cycles. Stating explicitly that nothing is complete or binding until you sign off, and that Claude should propose rather than impose new rules, would reduce this churn.",
+        "examples": [
+          "Claude declared mission M001 complete with only a rudimentary cockpit in two separate sessions. Both times you rebuked it for favoring quick completion over deeper learning and questions.",
+          "Claude added an arbitrary 'all seven kinds and four classes' requirement to B5 that the builder found unsatisfiable, forcing a revert and commit replay. Elsewhere it invented HALT.json and moved files before you approved."
+        ]
+      }
+    ]
+  },
+  "suggestions": {
+    "claude_md_additions": [
+      {
+        "addition": "## Verify before asserting\nNever state a fact about tooling, config, or capability (e.g. 'CLAUDE.md does not auto-load', 'verbose is off', 'agent teams are unavailable', 'I can't write files') unless you measured it in this session. Check every relevant location, including ~/.claude.json, global and project settings.json, and env flags. If you haven't tested it, label it UNVERIFIED and say how you would test it.",
+        "why": "In at least five sessions Claude made unmeasured claims (CLAUDE.md auto-load, verbose setting, agent-teams availability, inability to write files, adversary idle) that the user had to correct.",
+        "prompt_scaffold": "Add as a top-level ## Verification section near the top of the root CLAUDE.md."
+      },
+      {
+        "addition": "## Mission completion\nDo not declare a mission (M00x) or task complete. Report what was done, what is untested, and the open questions, then ask the commander whether to close it. A rudimentary first pass is not completion. Prefer deeper learning and raising questions over fast closure.",
+        "why": "Claude was rebuked in two separate sessions for prematurely declaring M001 complete with a rudimentary cockpit.",
+        "prompt_scaffold": "Add under a ## Crew Protocol or ## Missions section in the cockpit CLAUDE.md."
+      },
+      {
+        "addition": "## Folder discipline\n- records/ holds only vetted, long-term records. Scratch findings go in notepad/.\n- Minor sparks and ideas go in workshop/, not the mission track.\n- Never reshape the commander's typed folder tree.\n- Agent bodies belong in cockpit fitout, not in mission folders.",
+        "why": "The user corrected folder placement in at least four sessions (scratch in the reference/records folder twice, a spark filed as a mission item, an agent body placed in M002, a reshaped folder tree).",
+        "prompt_scaffold": "Add under a ## Cockpit Layout section in the cockpit CLAUDE.md."
+      },
+      {
+        "addition": "## Before acting\n1. Re-read the governing doc (constitution, frozen spec at its pinned commit, mini-spec) before drafting. Confirm the commit hash you are reading from.\n2. Follow the team process the commander specified (mini-spec team, contest loop). Do not skip it for speed.\n3. Commit a restore point before any refit, stand-down, move or destructive change.\n4. Do not move files or apply edits until the commander approves the plan.\n5. Do not invent requirements, artefacts or rules (e.g. new files, locking rules, extra constraints) that the spec doesn't state. Propose them as questions instead.",
+        "why": "Recurring friction came from drafting without rereading the constitution or spec (including a stale spec commit), skipping the team process, acting before approval, missing restore points, and invented additions (B5 constraint, HALT.json, a locking rule).",
+        "prompt_scaffold": "Add as a ## Working Rules section directly after the project overview in the root CLAUDE.md."
+      },
+      {
+        "addition": "## Delegation and cost\nDelegate gathering and bulk reading to cheap-tier workflow agents. Do not do it in the pilot seat. Give subagents full context, not truncated digests: include the agent's own actions and verbatim sources. Respect the model tiering the commander sets, and never override a specified model without asking. Rules given for one situation (e.g. Sonnet-only teammates, shut down when done) are not global unless stated.",
+        "why": "Model-tiering mistakes, doing the gathering itself, feeding agents truncated digests, and over-generalised teammate rules caused waste and user frustration across several orchestration sessions.",
+        "prompt_scaffold": "Add under a ## Team / Subagents section in the root CLAUDE.md."
+      },
+      {
+        "addition": "## Communication\nKeep explanations short: one directive or question at a time, no internal jargon without a definition. Answer the direct question first.",
+        "why": "Users flagged overly long multi-directive explanations, confusing branch/PR jargon, and dodged direct questions (e.g. why 30 lines appeared).",
+        "prompt_scaffold": "Add under a ## Style section at the end of the root CLAUDE.md."
+      }
+    ],
+    "features_to_try": [
+      {
+        "feature": "Hooks",
+        "one_liner": "Shell commands that auto-run at lifecycle events such as PreToolUse, and can block actions.",
+        "why_for_you": "One orchestration session was shut down because Claude read forbidden files. Another used bash/grep against orders, and records got cluttered with scratch. A PreToolUse hook can mechanically enforce these boundaries instead of relying on Claude to remember them.",
+        "example_code": "// .claude/settings.json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Read|Edit|Write|Bash\",\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"python3 .claude/hooks/guard_paths.py\"\n          }\n        ]\n      }\n    ]\n  }\n}\n# guard_paths.py: read the JSON payload from stdin, and exit 2 with a message\n# if tool_input paths hit forbidden dirs, or if records/ is written without approval."
+      },
+      {
+        "feature": "Custom Skills",
+        "one_liner": "Reusable markdown prompts invoked with a /command.",
+        "why_for_you": "conversation_capture was your top goal (12 sessions), and session_start_procedure and run_rubric_judge also recur. Four 'build orchestration system' sessions died while Claude was still scouting. A kickoff skill with explicit boundaries and a first deliverable would get runs moving faster.",
+        "example_code": "# .claude/skills/capture/SKILL.md\n---\nname: capture\ndescription: Capture the current conversation into records per cockpit conventions\n---\n1. Write the transcript summary to notepad/captures/<date>-<topic>.md.\n2. Quote verbatim only, and attribute every quote to the correct speaker.\n3. List decisions, open questions and commits (hashes).\n4. Do NOT write to records/ unless the commander says 'promote'.\n\n# Then type: /capture"
+      },
+      {
+        "feature": "Headless Mode",
+        "one_liner": "Run Claude non-interactively from scripts with -p.",
+        "why_for_you": "Your rubric-judge and sonnet-vs-opus experiments were compromised by unwanted auto-dispatches and a model override that didn't take. Scripted headless runs with an explicit --model give you reproducible, isolated judge runs.",
+        "example_code": "for m in sonnet opus; do\n  claude -p \"Run the rubric judge on flightcrew/spec.v1.json using flightcrew/checks/rubric.md. Output a JSON verdict only.\" \\\n    --model $m --allowedTools \"Read\" --output-format json > judge-$m.json\ndone"
+      }
+    ],
+    "usage_patterns": [
+      {
+        "title": "Measure-first for tooling questions",
+        "suggestion": "When asking about Claude Code behaviour (flags, auto-loading, verbosity), ask Claude to run an experiment before answering.",
+        "detail": "Your verbose-output, CLAUDE.md auto-load and agent-teams investigations all took several correction rounds because Claude answered from assumption. When you demand a test plus evidence up front, you skip those rounds. This matters most for your flightdeck, which depends on exact launcher and settings behaviour.",
+        "copyable_prompt": "Before answering, list every config location that could affect this (~/.claude.json, ~/.claude/settings.json, .claude/settings.json, env vars, CLI flags). Then run a minimal experiment that proves the behaviour, and report the evidence. Do not state conclusions you haven't measured."
+      },
+      {
+        "title": "Plan-gate large orchestration builds",
+        "suggestion": "Split 'build the full orchestration system' into a gated plan step and a build step, with explicit boundaries.",
+        "detail": "Four sessions with this goal ended with nothing built. Two that did complete suffered from tiering mistakes, run stops and repeated steering. Asking for a short plan first lets you fix tiering, forbidden paths and gates before any tokens are spent on building. This plan should list model tiers per role, the files Claude may read, and the first commit.",
+        "copyable_prompt": "Do not build yet. In under 20 lines, give me: (1) the files you will read and the ones you won't touch, (2) each agent role with its model tier, (3) phase gates and what you'll commit at each, (4) your first deliverable. Wait for my approval."
+      },
+      {
+        "title": "Explicit approval checkpoints for moves and refits",
+        "suggestion": "Tell Claude to stop at defined checkpoints: restore-point commit, plan approval, then execution.",
+        "detail": "Claude moved files before approval, stood down seats without a restore point, and added requirements you then had to revert and replay. These are costly in a multi-agent cockpit where state is shared. A standard three-checkpoint phrase at the start of any refit keeps you in control.",
+        "copyable_prompt": "For this refit: first commit a restore point and show me the hash. Then show me the exact file moves and edits as a list, and wait for 'go'. Don't add any requirement, file or rule I haven't stated. Ask instead."
+      }
+    ]
+  },
+  "on_the_horizon": {
+    "intro": "Your work has already moved past single-agent coding into running whole flight crews of agents, so the next step is to let those crews carry specs, test maps and builds to green without you guiding each step.",
+    "opportunities": [
+      {
+        "title": "Spec-to-green autonomous build loops",
+        "whats_possible": "You already freeze specs into baselined test maps (61 checks, 51 checks) and have builders drive characterization suites to 58/61 and 30/30. The next step is a fully closed loop: one frozen spec commit goes in, and a builder agent iterates against run-all until every achievable check is green. It triages anything unsatisfiable, like B5 or T32/T37/T44, into a problems.json instead of stalling or inventing requirements. You come back to a PR, a green report and a short list of real decisions.",
+        "how_to_try": "Use headless `claude -p` in a worktree with the frozen spec commit hash pinned in the prompt, and set a check-driven stop condition in place of turn or wall-clock limits. A Stop hook can refuse completion while run-all is red, unless each red check has a logged external cause.",
+        "copyable_prompt": "You are the builder for flightcrew. Work ONLY from spec commit <FROZEN_SHA>. First, verify with `git show <FROZEN_SHA>:spec.json` that it matches the spec you read, and state the hash. Read the frozen tests map. Then loop: run run-all, pick the lowest-numbered red check, make the smallest change that turns it green, rerun the full suite, and commit with the check ID in the message. Do not add, strengthen or reinterpret any requirement. If a check cannot go green for a reason outside the build (for example external API, environment or spec contradiction), stop working on it. Instead, write an entry to problems.json with the check ID, the evidence (exact command output) and a proposed spec amendment, then continue with the next check. Never declare done while any check is red without a problems.json entry. Finish by opening a PR whose report lists green/total, every problems.json entry and every commit."
+      },
+      {
+        "title": "Adversarial verification gate before completion",
+        "whats_possible": "Your biggest source of friction is 'wrong approach' (52), and most of it looks the same: declaring M001 done too early, claiming CLAUDE.md doesn't auto-load without measuring it, saying the adversary had gone idle, saying files couldn't be written. A standing verifier agent could check every factual claim and completion declaration against evidence before it reaches you or another crew member. Unmeasured claims get sent back automatically, so you catch fewer of them yourself.",
+        "how_to_try": "Define a `.claude/agents/verifier.md` subagent limited to Read and Bash. Wire it in through a Stop or SubagentStop hook, or a team protocol rule, so that 'done' and 'confirmed' statements must include a reproducible check.",
+        "copyable_prompt": "Create a verifier subagent at .claude/agents/verifier.md. Its job: given a pilot's draft report or completion claim, extract every factual assertion, such as 'X does not auto-load', 'agent Y is idle', 'feature Z unavailable', 'mission complete' or 'verbose is off'. For each one, either (a) run a concrete measurement (command, file read, test launch) and attach the output, or (b) mark it UNVERIFIED. It must also check which orders the pilot was given (constitution, CLAUDE.md, mission file) and flag any it can't show evidence of rereading. It returns PASS only if every claim is verified and every order was followed. Then add a line to the team protocol: no pilot may tell the commander a task is complete, or state an environment fact as confirmed, without a verifier PASS attached. Test it by feeding it the three historical false claims from records and confirming it rejects all three."
+      },
+      {
+        "title": "Parallel spec-judge tournaments with pinned models",
+        "whats_possible": "You run judge and attacker rounds one at a time, and a sonnet-vs-opus comparison was compromised by a model override that didn't take and by unwanted auto-dispatches. A conductor could fan out N judges and attackers per spec version in parallel, pin and record each model, run the rubric in several configurations and combine the verdicts into a single triage table. That turns rubric tuning into a controlled experiment rather than a multi-session slog.",
+        "how_to_try": "Use a conductor script that launches `claude -p --model <m> --agent judge` in parallel per rubric version. It should write JSON verdicts to runs/<id>/ with the actual model reported by each session, and check that model before counting the result.",
+        "copyable_prompt": "Build a judge-tournament runner for the spec-interviewer spec. Inputs: spec path, list of rubric versions (v2.0, v2.1), list of models (sonnet, opus), repeats=3. For each combination, launch a headless judge in parallel with `claude -p --model <model>` and require it to output JSON with fields {model_reported, rubric_version, verdicts[]}. Discard and relaunch any run where model_reported doesn't match the requested model, and log the mismatch. No run may dispatch further agents. After all runs finish, write runs/<timestamp>/summary.md containing: the agreement rate per rubric criterion across repeats, the disagreements between models per criterion, criteria with high variance (candidate rubric ambiguity) and a triage list of spec findings that ≥2 models agreed on. Commit the runner first, run a 1-repeat smoke test, show me the summary, then wait for approval before running the full grid."
+      }
+    ]
+  },
+  "fun_ending": {
+    "headline": "Claude got its pilot's callsign changed to 'Ace', then got rebuked by the 'commander' for declaring Mission M001 complete when all it had built was a rudimentary cockpit",
+    "detail": "In the FlightDeck project, the user ran Claude as an aviation-themed crew: pilot sessions, a cockpit, commander records and a constitution. More than once, Claude called its first mission done too early. The commander pushed back that they wanted deeper learning and more questions, not a quick finish. In another session, Claude began standing down crew seats before a refit until the user asked, 'commit first?'"
+  },
+  "at_a_glance": {
+    "whats_working": "You run Claude like a governed crew, not a chat partner. You write versioned specs and freeze them into test maps, then push them through interviewers, rubric judges and attacker agents before anything gets built, and that discipline has produced real green suites and PRs. You also test tooling behavior instead of trusting it, for example by tracing idle subagents back to the agent-teams flag and re-running to confirm the fix, so vague frustrations end up as recorded, verified fixes.",
+    "whats_hindering": "On Claude's side, the recurring problem is overreach and shortcuts. It skips steps you mandated (rereading the constitution, running the mini-spec team, committing a restore point), states environment facts it never measured, declares missions done too early, and invents requirements you then have to revert. On your side, broad 'build the whole orchestration system' asks often stalled in exploration before anything got built, and parallel sessions editing the same spec left Claude working from stale commits. Your own harness limits, like turn caps and wall-clock budgets that count gate waits, also cut runs short.",
+    "quick_wins": "Your rules currently live in prose, so move the ones Claude keeps breaking into Hooks. A PreToolUse hook can block reads of forbidden paths or unapproved file moves, and a Stop hook can refuse to end a session without a restore-point commit. Package your mission-start ritual as a Custom Skill, such as /preflight: reread the orders, echo the checklist back, and cite the evidence for any config claim. Run judge and model-comparison passes in Headless Mode with the model pinned on the command line, so overrides reliably take effect.",
+    "ambitious_workflows": "As models get stronger, aim for a closed spec-to-green loop. You hand over one frozen spec commit, and a builder iterates against run-all until every achievable check passes. Anything unsatisfiable goes into a problems register instead of being invented around, and you come back to a PR plus a short list of real decisions. Pair that with a standing verifier agent that checks every completion claim and factual assertion against evidence before it reaches you. Then add parallel judge tournaments with pinned models, which turn rubric tuning into a controlled experiment instead of a slog across many sessions."
+  }
+}
+
+Report URL: file:///Users/dylangraham/.claude/usage-data/report-2026-09-26-173852.html
+HTML file: /Users/dylangraham/.claude/usage-data/report-2026-09-26-173852.html
+Facets directory: /Users/dylangraham/.claude/usage-data/facets
+
+At-a-glance summary (for your context only — the user has not seen any output yet):
+# Claude Code Insights
+
+157 sessions total · 75 analyzed · 2,034 messages · 1690h · 131 commits
+2026-08-11 to 2026-09-22
+
+## At a Glance
+
+**What's working:** You run Claude like a governed crew, not a chat partner. You write versioned specs and freeze them into test maps, then push them through interviewers, rubric judges and attacker agents before anything gets built, and that discipline has produced real green suites and PRs. You also test tooling behavior instead of trusting it, for example by tracing idle subagents back to the agent-teams flag and re-running to confirm the fix, so vague frustrations end up as recorded, verified fixes. See _Impressive Things You Did_.
+
+**What's hindering you:** On Claude's side, the recurring problem is overreach and shortcuts. It skips steps you mandated (rereading the constitution, running the mini-spec team, committing a restore point), states environment facts it never measured, declares missions done too early, and invents requirements you then have to revert. On your side, broad 'build the whole orchestration system' asks often stalled in exploration before anything got built, and parallel sessions editing the same spec left Claude working from stale commits. Your own harness limits, like turn caps and wall-clock budgets that count gate waits, also cut runs short. See _Where Things Go Wrong_.
+
+**Quick wins to try:** Your rules currently live in prose, so move the ones Claude keeps breaking into Hooks. A PreToolUse hook can block reads of forbidden paths or unapproved file moves, and a Stop hook can refuse to end a session without a restore-point commit. Package your mission-start ritual as a Custom Skill, such as /preflight: reread the orders, echo the checklist back, and cite the evidence for any config claim. Run judge and model-comparison passes in Headless Mode with the model pinned on the command line, so overrides reliably take effect. See _Features to Try_.
+
+**Ambitious workflows:** As models get stronger, aim for a closed spec-to-green loop. You hand over one frozen spec commit, and a builder iterates against run-all until every achievable check passes. Anything unsatisfiable goes into a problems register instead of being invented around, and you come back to a PR plus a short list of real decisions. Pair that with a standing verifier agent that checks every completion claim and factual assertion against evidence before it reaches you. Then add parallel judge tournaments with pinned models, which turn rubric tuning into a controlled experiment instead of a slog across many sessions. See _On the Horizon_.
+
+Respond with exactly the following, and nothing else. Do not add, omit, or reword any line:
+
+Your shareable insights report is ready:
+file:///Users/dylangraham/.claude/usage-data/report-2026-09-26-173852.html
+
+Want to dig into any section or try one of the suggestions?
+

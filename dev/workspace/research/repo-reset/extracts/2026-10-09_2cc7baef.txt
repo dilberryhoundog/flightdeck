@@ -1,0 +1,19 @@
+@@ 2026-10-09T10:37 2cc7baef [cli/typed]
+Ok so this repo is a mess, start an investigation background lead on sonnet that sends a team to discover what is present across the branches. Get them to report back to you.
+This lead should stay around permanently incase you need more investigation.
+
+@@ 2026-10-09T10:39 2cc7baef [cli/typed]
+I meant a new claude session with a --background flag. has he already dispatched?
+
+@@ 2026-10-09T10:42 2cc7baef [cli/typed]
+I use the agent window, he is cooking right now with a bunch of explorer agents.
+
+@@ 2026-10-09T10:51 2cc7baef [cli/typed]
+OK so while he is cooking il tell you my problem. I have been doing a few weeks of attempted building that hasn't yet got off the ground. The cockpit is not in the state that I want, because it keeps changing, but I was also too keen to archive the lot, and feel like I have to build from scratch again. The repo is a mess and so is this branch. 
+
+I don't want to do any building, I want to get the repo into a state that I can start progressing from, but I don't know what that looks like. I even think agents looking over previous work wont know how to proceed. 
+
+IM not even sure how to ask for help. you could send more investigation teams, you could scrape recent sessions for my input. but also you could setup an interview bg session to grill me on any new directions once your image of what we are building has become clearer. 
+
+Think of background session teams as unlimited, I can hop on their sessions and answer questions also.
+

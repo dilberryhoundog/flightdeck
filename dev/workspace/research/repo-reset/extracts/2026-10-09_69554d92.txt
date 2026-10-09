@@ -1,0 +1,7 @@
+@@ 2026-10-09T10:37 69554d92 [cli/typed]
+Ok so this repo is a mess, start an investigation background lead on sonnet that sends a team to discover what is present across the branches. Get them to report back to you.
+This lead should stay around permanently incase you need more investigation.
+
+@@ 2026-10-09T10:39 69554d92 [cli/typed]
+I meant a new claude session with a --background flag. has he already dispatched?
+

@@ -1,0 +1,9 @@
+@@ 2026-09-03T04:46 beca835e [cli/typed]
+work: dev/workspace/filebox/test-tooling.md
+criteria:
+- base guide for a test tools build run by autonomous agents
+- guide is clear and instructive
+
+@@ 2026-09-03T04:47 beca835e [cli/-]
+[Request interrupted by user]
+

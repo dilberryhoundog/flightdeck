@@ -1,0 +1,6 @@
+@@ 2026-09-15T13:13 593aa930 [cli/typed]
+Run flightdeck/flightcrew/bin/fc launch status. Read the active launch's kickoff.md and follow it; do nothing else first.
+
+@@ 2026-09-15T13:14 593aa930 [cli/-]
+[Request interrupted by user]
+

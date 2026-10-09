@@ -1,0 +1,323 @@
+@@ 2026-08-31T10:50 5ad10754 [cli/typed]
+I just intitialised this repo, but I can't push changes upstram
+
+@@ 2026-08-31T14:17 5ad10754 [cli/typed]
+This directory is the begining of a orchestration workflow tool. it is named FlightDeck and will eventuall replace the dev-workspace system (ive added the repo so you can check it also) have a poke around so you can answer questions. 
+Your first task is to capture the current directory structure without the files. Ive left little txt file placholders that signal the default "task" of the folder.
+
+@@ 2026-08-31T14:20 5ad10754 [cli/-]
+Base directory for this skill: /Users/dylangraham/.claude/plugins/cache/DBHD-Plugins/chat-tools/2.1.2/skills/markdown
+
+# Markdown
+
+Build a markdown document through one file — the scaffold — that begins as a structured catalogue of the conversation and is shaped, phase by phase, into the finished document.
+
+## Agent Invariants
+
+- **Expand, never transcribe.** Each `+` item is a flag pointing at something the conversation said. Write by recovering that conversation and expanding it into full prose; never copy an item's own wording into the document.
+- **Write in scope.** Under any heading, draw only on the items placed beneath it.
+- **Place every item.** Each `+` item must appear somewhere in the scaffold; reuse one under more than one heading when the document needs it.
+- **Say it once.** Never repeat under a lower section what a higher section already states.
+- **Meta comment leads.** The first comment under each heading is its meta comment, marked `===META===`; it fixes that section's depth and format.
+- **Headings carry no toggles.** The user adds, removes, and reorders headings by hand.
+- **Strip last.** Write first and strip last, so the prose can be checked against the comments it came from.
+
+## Agent-agnostic documents
+
+Write the document to be agent-agnostic: resolvable by any agent, any model, in any future session, from the file alone. The reader will not have the conversation that produced it, so anything that lived only in the chat and never reached the file is invisible to them — write so the file stands without it.
+
+## The scaffold
+
+The scaffold is the single file in play from start to finish: it opens as a catalogue of the conversation and becomes the finished document. It moves through four phases in order:
+
+1. **Chat summary** — catalogue the conversation as toggleable items.
+2. **Doc summary** — propose the headings and attach comments to each.
+3. **Write** — expand the comments into prose.
+4. **Strip** — remove the scaffolding, leaving the document.
+
+### Phase 1 — Chat summary
+
+The chat summary is a catalogue of everything the conversation surfaced, written as an HTML comment at the top of the scaffold — hidden frontmatter that never renders and is removed at the strip. Put each point on its own line under one of five sections, and include a section only when the conversation gave it real content:
+
+- **conversation** — what the user and the agent each said.
+- **agent context** — inclusions the agent proposes that were never raised: recommended, possible, edge cases.
+- **meta** — steering, decisions, and constraints.
+- **language** — terms to define or avoid, and notes on style.
+- **audience** — who reads the document, and to what end.
+
+Prefix every line with a toggle. `+` marks content the document will talk about; `-` marks content that mattered in the conversation but stays out of the document. Set the toggles on the first pass, then let the user flip them. In the language section, a `+` term is one to define and a `-` term is one to avoid. List each point once — never repeat under a lower section what a higher section already covers. Lean toward `-` for most of the meta section: steering is usually direction for the agent, not content, and importing it into the document tends to degrade it.
+
+### Phase 2 — Doc summary
+
+With the chat summary settled, propose the document's structure: lay out the headings the `+` items imply, then attach comments under each heading. Two kinds of comment do the work:
+
+- A **meta comment** comes first under a heading and is marked `===META===`. It sets that section's prose depth and format — for example, `<!-- ===META=== one short paragraph; no list -->`.
+- An **item comment** carries a single `+` item from the chat summary, copied verbatim, one per line — for example, `<!-- + emit JSON Lines, not a single JSON array -->`.
+
+Place every `+` item under some heading, reusing one under more than one heading when the document needs it. Wrap coined terms in `:colons:` — for instance `:scaffold:` — so they stand out while scanning the comments. Put no `+`/`-` toggles on headings; the user adds, removes, and reorders headings by hand. Gather the conversation's hard must-do and must-avoid rules into an **Agent Invariants** heading near the top, restating them even where they also appear under a phase.
+
+### Phase 3 — Write
+
+Write one heading at a time. Treat each item comment as a flag, not a sentence: return to what the conversation said about it and expand that into prose at the depth and format the meta comment asks for — never paste the item's own wording into the document. Draw only on the items under the heading being written, and leave every comment in place; this phase adds prose, nothing else.
+
+### Phase 4 — Strip
+
+With the prose written, take the scaffolding out — but offer the review first.
+
+1. Offer to review each section against the original chat summary items, calling out any inconsistency: a `+` item that never reached the prose, or prose that drifted from what its items flagged.
+
+After the review — or straight away if the user declines it — offer three ways to remove every comment. The chat-summary block and all item and meta comments are HTML comments, so a single pattern clears them all:
+
+2. In an editor, enable regex search, find `<!--[\s\S]*?-->`, and replace with nothing.
+3. On the command line: `perl -0pi -e 's/<!--.*?-->\n?//gs' path/to/document.md`
+4. Or offer to run that command directly.
+
+What remains is the clean, comment-free document.
+
+## Example
+
+See `references/example.md` for a complete scaffold, stopped at the end of Phase 2, to imitate.
+
+
+ARGUMENTS: Create flightdeck/flightdeck/STRUCTURE.md — a capture of the FlightDeck scaffold's directory structure (directories only, no files), annotated with each folder's default task as signalled by the extensionless placeholder files.
+
+@@ 2026-08-31T14:24 5ad10754 [cli/typed]
+sure lets build it out as is. remove comments at the end
+
+@@ 2026-08-31T14:26 5ad10754 [cli/typed]
+lets look over the dev workspace repo, I have done a bit of initial work that i want transfered, but i didn't have a location for most of it. can you discover and map out the move? don't move anything yet.
+
+@@ 2026-08-31T14:36 5ad10754 [cli/typed]
+build a local html page that show each translation (folder level is ok for bulk files) make the destination feild editable then give me a copy button to extract my choices back into this thread. group the moves by destination top level folder.
+there are some prebuilt html files in dev-workspace that might show pattern for building the page
+
+@@ 2026-08-31T14:41 5ad10754 [cli/typed]
+can you make a comment field under each group, so I can add it to my reply?
+
+@@ 2026-09-01T05:24 5ad10754 [cli/typed]
+## FlightDeck transfer map — my choices
+
+### dev/
+- `dev/workspace/filebox/rubric-harness/render.mjs` → `dev/workspace/filebox/rubric-harness/render.mjs`  (1)
+- `dev/workspace/runs/agent-spec-interviewer/experiments/rubric-bench.html` → `dev/workspace/filebox/rubric-harness/rubric-bench.html`  (1)
+- `dev/workspace/filebox/spec-interviewer-interview.html (+ .rounds1-4)` → `dev/workspace/filebox/spec-interviewer-interview.html`  (2)
+- `dev/workspace/history/ (3 transcripts)` → `dev/workspace/history/`  (3)
+
+### flightcrew/
+- `dev/orchestration/` → `flightcrew/`  (12)
+- `.claude/agents/ (5 crew bodies)` → `flightcrew/crew/`  (5)
+- `dev/workspace/filebox/validate-spec.mjs` → `flightcrew/checks/validate-spec.mjs`  (1)
+- `dev/workspace/filebox/validate-plan.mjs` → `flightcrew/checks/validate-plan.mjs`  (1)
+- `dev/workspace/filebox/validate-tests-map.mjs` → `flightcrew/checks/validate-tests-map.mjs`  (1)
+- `dev/workspace/filebox/validate-all.mjs` → `flightcrew/checks/validate-all.mjs`  (1)
+- `dev/workspace/filebox/validate-md.mjs` → `flightcrew/checks/validate-md.mjs`  (1)
+- `dev/workspace/filebox/schema-lib.mjs` → `flightcrew/checks/schema-lib.mjs`  (1)
+- `dev/workspace/filebox/worker.agent.md` → `flightcrew/crew/worker.md`  (1)
+- `dev/workspace/filebox/worker.template.md` → `flightcrew/templates/worker.template.md`  (1)
+- `dev/workspace/filebox/worker-agent.docspec.json` → `flightcrew/schemas/worker-agent.docspec.json`  (1)
+- `dev/workspace/filebox/worker-prompt.docspec.json` → `flightcrew/schemas/worker-prompt.docspec.json`  (1)
+- `dev/workspace/filebox/render-worker.mjs + render-worker-prompt.mjs` → `flightcrew/bin/worker/render-worker-prompt.mjs`  (2)
+- `dev/workspace/filebox/spec/spec-description.md` → `flightcrew/manuals/spec/spec-description.md`  (1)
+- `dev/workspace/filebox/spec/spec-description-verification-addendum.md` → `flightcrew/manuals/spec/verification-addendum.md`  (1)
+- `dev/workspace/filebox/spec/spec-conventions.md` → `flightcrew/manuals/spec/spec-conventions.md`  (1)
+- `dev/workspace/filebox/spec/spec-readiness-rubric.md` → `flightcrew/manuals/rubrics/spec/spec-readiness-rubric.md`  (1)
+- `dev/workspace/filebox/spec-versioning.md` → `flightcrew/manuals/versioning/spec-versioning.md`  (1)
+- `dev/workspace/filebox/tests-map-versioning.md` → `flightcrew/manuals/versioning/tests-map-versioning.md`  (1)
+- `dev/workspace/filebox/test/testing-description.md` → `flightcrew/manuals/testing/testing-description.md`  (1)
+- `dev/workspace/filebox/test/testing-conventions.md` → `flightcrew/manuals/testing/testing-conventions.md`  (1)
+
+### flightdeck/
+- `dev/workspace/filebox/spec/spec-readiness-rubric.v1/.v2/.v2.1/.v2.2.md` → `flightdeck/manuals/rubrics/spec/deprecated/`  (4)
+
+### library/
+- `dev/workspace/filebox/spec/interview-session-conventions.md` → `library/spec/interview-session-conventions.md`  (1)
+- `dev/workspace/filebox/spec/rubric-guide.md` → `library/rubrics/rubric-guide.md`  (1)
+- `dev/workspace/filebox/spec/creating-harness-documents-with-agent-runs.md` → `library/flightcrew/creating-harness-documents.md`  (1)
+
+### missions/
+- `dev/workspace/filebox/crew/specs/` → `missions/agent-types/specs/`  (12)
+
+### testbench/
+- `dev/workspace/filebox/test/ (run.mjs, cases.mjs, fixtures/, README.md)` → `testbench/validator-suite/`  (5)
+- `dev/workspace/filebox/rubric-harness/ (minus render.mjs)` → `testbench/rubrics/spec/`  (5)
+- `dev/workspace/runs/agent-orchestrator/` → `testbench/runs/agent-orchestrator/`  (17)
+- `dev/workspace/runs/agent-spec-interviewer/` → `testbench/runs/agent-spec-interviewer/`  (70)
+- `dev/workspace/runs/agent-test-builder/` → `testbench/runs/agent-test-builder/`  (12)
+
+### Not moving
+- `dev/workspace/filebox/agent-body.template.md`
+- `dev/workspace/filebox/agent-body.template.v2.md`
+- `dev/workspace/filebox/agent-body-creator.html`
+- `dev/workspace/filebox/spec-attacker-findings.html`
+- `dev/workspace/filebox/spec-attacker-interview.html`
+- `dev/workspace/filebox/crew/spec-builder.backup.md + spec-builder.v2.md`
+- `flightdeck/folder-setup.txt`
+- `dev/workspace/prompts/letsgo.txt`
+- `plugins/ (dev-workspace, dev-deploy)`
+- `docs/ (5 files)`
+- `.claude/rules/dev-workspace_*.md`
+- `dev/branches/ (4 archived workspaces)`
+- `dev/workspace/ scaffold (context, plans, prompts, tasks, README, config)`
+
+## Comments
+
+**Reconcile, not move**
+> All agents = fable
+
+**flightcrew/ — validators and schema lib**
+> We have two test directories and they have different faces.
+> 1. flightcrew/checks = The check wrappers and scripts that travel with every orchestration (flightcrew) run. spec readiness would be here as that is a "framework" test.
+> 2. testflight/ = the checks that will be reused across a branch that will verify behaviours applicable to the branch
+> 
+> can you nest these under a folder in `checks/` maybe `validators/`?
+
+**flightcrew/ — crew and templates**
+> isn't a docspec more of a schema rather than a template?
+> 
+> agent body is a deprecated attempt at building a new type of agent body. leave on dev-workspace branch.
+> 
+> im pretty sure the worker flow is a system. the renderers pick up a plan unit and inject it into the agent prompt automatically , with the docspec as the linters. ive included a `worker/` dir in both the schema and the bin folder for the docspec and renderer to nest in.
+
+**flightcrew/manuals/ — the doctrine set**
+> manuals = System manuals crews need to regularly do their job.
+> library = Information, records of processes or learning that need to persist over time. particularly for humans
+
+**Stays in dev-workspace**
+> Not everything moves from above. I think I have indicated what stays and what moves. Anything that stays do not delete.
+
+
+hows this? anything wierd? I have done some surgery on the directory. keep files have some new updates
+
+@@ 2026-09-01T05:54 5ad10754 [cli/typed]
+woops my bad. its flightdeck/manuals/
+its /manuals/rubrics/spec/deprecated/ 
+the rubric harness should be at testbench/benches/rubrics/spec/ & validator testbench/benches/validator-suite/ 
+i was posing the question. but yeah if validators is the best name than we do flightcrew/checks/validators/
+yes flightcrew/schemas/worker/ is the location
+
+
+send render.mjs to `testbench/rubrics/spec/` with the others. send rubric-bench.html to `testbench/runs/agent-spec-interviewer/` to match its current neighbours.
+
+They are on a new branch. not spoiling main.
+
+spec-interviewer is what the next launch builds. so deliberate empty.
+
+yes update the path in the render-worker.mjs.
+
+launch/runs.keep now changed.
+
+STRUCTURE.md you can update at the end.
+
+move what ever is now settled...
+
+@@ 2026-09-01T06:08 5ad10754 [cli/typed]
+The 12 agent-type specs landed on a new branch. worker = sonnet. Settled?
+
+@@ 2026-09-01T06:16 5ad10754 [cli/typed]
+lets do some atomic commits on main. the manuals. the flightcrew agents, flightcrew assets, the benches. leave the rest
+
+@@ 2026-09-01T06:20 5ad10754 [cli/typed]
+oh forgot the library, that one too.
+
+@@ 2026-09-02T04:54 5ad10754 [cli/typed]
+thanks now i have a few extra branches going. but i think some of my recent commits landed on the wrong branch. they are on this whenthey should be on others. can you bring them up the commits and branches and we will discuss where to put them
+
+@@ 2026-09-02T05:01 5ad10754 [cli/typed]
+spec templates, c-h-d.md and missions to main, crew to engage crew.  reference-library & launch is here. the launch is building a reference library.
+force push anything thats needed. im the only one on this repo. it shouldn't blast anything.
+the rubrics testing should be on the rubrics branch. i won't push that branch to main yet.
+
+@@ 2026-09-02T10:38 5ad10754 [cli/-]
+<command-message>dev-workspace:conversation-capture</command-message>
+<command-name>/dev-workspace:conversation-capture</command-name>
+
+@@ 2026-09-02T10:38 5ad10754 [cli/-]
+Base directory for this skill: /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture
+
+# conversation-capture
+
+Parse the current Claude Code session JSONL into a formatted, readable transcript. Summarize and rename the output file.
+
+## Agent invariants
+
+- Do not `cd` into any directory, all commands can be run from `pwd`
+
+## Session Id
+
+SESSION_ID = 5ad10754-ee44-48af-84c2-c73c2a29bfa9
+
+## Capture
+
+Run the extraction script with the current session ID:
+
+```bash
+ruby /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture/scripts/conversation-capture <SESSION_ID>
+```
+
+On success the script outputs one line: the transcript file path. Continue to
+**Summarize and Rename**.
+
+If the script exits non-zero, handle it per **Config not ready** below — do not
+proceed.
+
+## Config not ready
+
+The skill reads its settings from the workspace config and only runs inside a
+dev-workspace. Two non-zero exits signal a config problem:
+
+- **Exit 3 — no workspace config.** There is no `dev/workspace/workspace-config.yml`.
+  This skill is for dev-workspace projects only. Stop and tell the user.
+- **Exit 4 — missing section.** The config exists but has no `conversation_capture:`
+  section (an older workspace). Recover it:
+  1. Read the `conversation_capture:` block — its comment banner and values —
+     from `/Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/dev-workspace/templates/workspace-config.yml`.
+  2. Append that block to the project's `dev/workspace/workspace-config.yml`.
+  3. Re-run the capture script.
+
+## Summarize and Rename
+
+Base the summary on the transcript file just written (and the current session if
+still in context).
+
+**Summary:** Write a 3-5 line summary of the conversation. The summary must be:
+
+- **Global scope** — readable without access to the conversation
+- **Factual** — what was discussed, what was built/fixed, key decisions, what remains
+- **No session-specific language** — avoid "the user asked me to", "I was told to"
+
+Read the first 20 lines of the transcript file to locate the `[SUMMARY]` block. Insert the summary between the `>>>` and `<<<` markers using the Edit tool. If the block already has content, replace it.
+
+**Rename:** Check the transcript filename.
+
+- If it contains a raw UUID (e.g. `f5d11e2f_f5d11e2f-89c8-...txt`), rename it with a descriptive slug
+- If it already has a descriptive name, keep it if still accurate, rename if the conversation has shifted focus
+
+Rename format: `<first-8>_slug.txt` where slug is 3-6 word kebab-case topic
+description. Rename in place — keep the file in the same directory as the path
+the script returned.
+
+```bash
+mv "<transcript-file>" "$(dirname "<transcript-file>")/<first-8>_slug.txt"
+```
+
+Report the final transcript file path.
+
+## Config
+
+Settings live in the workspace config — `dev/workspace/workspace-config.yml`,
+under the `conversation_capture:` section. The user edits this file directly; no
+re-enable step. Keys:
+
+- `output_dir` — target directory for transcripts (relative to project root)
+- `include_thinking` — include assistant thinking blocks (`true`/`false`)
+- `include_subagents` — include subagent results (`true`/`false`)
+- `sanitize` — list of find/replace patterns applied after extraction. `$ENV_VAR` references expand at runtime. Comment out patterns with `#` to disable
+
+A `--config <path>` flag overrides the config file location (the section scope is
+unchanged).
+
+## Resume Behaviour
+
+The script uses the first 8 characters of the session ID as a file prefix. On re-invocation with the same session ID, it detects and overwrites the existing transcript — preserving the renamed filename if already processed.
+
+

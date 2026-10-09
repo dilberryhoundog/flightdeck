@@ -1,0 +1,24 @@
+@@ 2026-09-04T13:25 d67c7e89 [cli/typed]
+are all the recent commits on PR1?
+
+@@ 2026-09-04T13:30 d67c7e89 [cli/typed]
+Is that the better checkout?
+
+@@ 2026-09-04T13:31 d67c7e89 [cli/typed]
+im on the pr branch
+
+@@ 2026-09-04T13:32 d67c7e89 [cli/typed]
+can we add those commits to the PR then?
+
+@@ 2026-09-04T13:33 d67c7e89 [cli/-]
+[Request interrupted by user for tool use]
+
+@@ 2026-09-04T13:34 d67c7e89 [cli/typed]
+I don't know what all that means? I did some slight work to the file base after the PR was opened to the run branch
+
+@@ 2026-09-04T13:38 d67c7e89 [cli/typed]
+yeah still don't get it. I have a PR from v1 to base. Ive made changes to spec-builder after the PR was opened and i want that to also land on the base branch.
+
+@@ 2026-09-04T13:39 d67c7e89 [cli/typed]
+ok so the PR automatically updates if I commit on this branch?
+

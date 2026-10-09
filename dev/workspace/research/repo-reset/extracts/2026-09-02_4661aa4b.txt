@@ -1,0 +1,14 @@
+@@ 2026-09-02T11:06 4661aa4b [cli/typed]
+work: @library/constitution/orchestration-principles.md
+criteria:
+- sources use web based anthropic best practices or official writing.
+- If no official source is present for the principle, use best prior knowledge available. 
+- Each orchestration principle has its most important aspects highlighted
+- Each principle is scoped to orchestration relevance
+
+@@ 2026-09-02T11:23 4661aa4b [cli/typed]
+can you write this here dev/workspace/filebox
+
+@@ 2026-09-02T11:36 4661aa4b [cli/typed]
+can you try to write it now.
+

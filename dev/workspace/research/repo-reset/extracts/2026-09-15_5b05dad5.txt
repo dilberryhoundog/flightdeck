@@ -1,0 +1,42 @@
+@@ 2026-09-15T10:05 5b05dad5 [cli/typed]
+@flightdeck/launch/specs/flightcrew-characterization/spec.v1.json here is the spec you need. anything else?
+
+@@ 2026-09-15T11:52 5b05dad5 [cli/typed]
+Return on the draft tests map, flightcrew-characterization v1.
+
+The spec was amended in place and re-frozen; its  pin (ee8c088) are unchanged. Re-readflightdeck/launch/specs/flightcrew-characterization/spec.v1.json before continuing. Three nodes changed:
+
+- I1 now places the map where you put it and names the locked and allowed paths you chose. Your locks stand as they are.
+- B5 now requires every one of the seven kinds ans to be declared by at least one check. Your mapdeclares five kinds and one class. Add a check on the map that fails while any kind or class is absent, and re-record its
+baseline; it must fail today.
+- B12 now names flightdeck/testbench/case-map.json as the mapping file. Your choice stands.
+
+Decisions accepted as you made them: the break rules for B2, the empty exemption list, the golden list of 527 case names. Fix
+the two failures your own new files cause in the s before the map freezes; do not carry them.
+
+On the risks:
+- Split T1 and the sweeps so that no single command approaches the 300-second limit. One check per suite group is fine. A
+check that times out reports an error, not a resumething the run can absorb.
+- Passing without evidence is closed by the new B5 check: T22, T23, T24 and T35 may stay as they are.
+- Add C6's run-log entry to the unverified list wd for C4. It is unverifiable by design.
+
+Report back with the map path, the check count, tnew B5 check, and the two failures fixed. Do notfreeze the map; the human freezes it.
+
+@@ 2026-09-15T12:24 5b05dad5 [cli/typed]
+The spec was amended in place and re-frozen; commit field and your pin (ee8c088) unchanged. Re-read flightdeck/launch/specs/flightcrew-characterization/spec.v1.json.
+
+- The amended B5 is withdrawn. Remove T62 and its baseline. B5 reads as it first did: every check declares a kind and a class.
+- D3 now says no class is required to exist and that checks over scenarios and sheets pass empty. Your B6, B8, B10 and B11 finding is closed by decision; T22, T23, T24 and T35 stand.
+- I4 names flightdeck/launch/<L>/evidence/defects.md, the path your check already reads.
+- I3: sheet.md begins with 'judge: <model>'. B9 and E3 now read as a FAIL case naming the sheet path or the question, with no answer counted.
+- B1 fixes the subcommand token as the usage prints it, space-separated. E4 names the set and opus. E5 names .claude/settings.json. E7 puts the failure on your check, naming suite and case. VER reads the map only for kind and class.
+- Your two lint findings on I1 and VER are not spec faults: run the linter with the deliverables list at flightdeck/launch/flightcrew-characterization/specs/interview/lint-deliverables.txt.
+
+Everything else in the earlier return stands: split T1 and the sweeps under 300 seconds, fix the two failures your files cause, keep C4 and C6 unverified. MANIFEST.txt stays as you changed it and goes into the map's commit. Report back with the map path, the check count and the baseline; do not freeze the map.
+
+@@ 2026-09-15T12:34 5b05dad5 [cli/typed]
+Is this ready for freezing or do I have to do anything?
+
+@@ 2026-09-15T12:43 5b05dad5 [cli/typed]
+you can do it for me I approve.
+

@@ -1,0 +1,602 @@
+@@ 2026-10-02T11:40 cedaf5ae [cli/typed]
+You are currently in cockpit. The agent management surface of flightdeck. We are HITL (human in the loop) right now fitting the cockpit out for integrated usage in flightdeck, flightdeck is an agent management system, the next evolution of dev-workspace, built for multi agent workflows. The premise of cockpit is to setup a self sustaining team dispatch zone. Where i load into a locked down session agent, and I can pick up where I left off. The agent call prebuilt teams to conduct different types of work in the project.
+
+I was talking to web claude about this and the foundations. here is the prompt i used...
+
+
+
+<pasted_content id="252e">
+Recently I moved from HITL (human in the loop) agentic sessions. Whereby I was heavily investing my time and attention, and could and would steer the agent constantly as they freestyled across my projects, This was great while sonnet 3.5 was the leading model, HITL at a terminal was the cutting edge.
+
+Recently the release of Claude fable 5 made me realise that HITL wasn't the cutting edge anymore, great for bug hunting, pulling the levers on something tricky, but bigger stuff is out of reach with HITL.  This tier of agent is actually bad at HITL but great at extended managed work.
+
+I kicked off this awesome discussion with you about using frontier models to orchestrate build runs, where key principles like retrying, verifying, frontloading context, flipped the focus on its heads. The discussion is here.
+
+"orchestrator workflow optimisation with frontier models" (if you can't find it let me know and I will give the repo)
+
+So I have over the last month dug into it, trying to get a system up and running. Under the hood it is basically test driven development with an agent system. It is highly performant with codebases where deterministic tests rule. but I have come across a huge gap...
+
+HITL is back in and around the system. I cannot drive the system on my own. I ended up using the spec-interviewer agent to manage runing the system (this guy is supposed to be isolated and focused on spec building), and orchestrated runs are completely inappropriate for research, investigation, smaller focused build runs, building agent harnesses (that are non deterministic). 
+
+So I see a gap in between these two methodologie; agent teams and connected sessions, managed by a focused frontier agent. Gives me more velocity and less investment, but by using varied focused agents "on demand" provides a significant boost in performance as well. for eg, having five cheaper agents looking at a problem from different directions, and adversaries and critics all chipping in, no HITL session can reach this level of performance.
+
+I started building it out but im now lost on what is important and what is a nice to have;
+the key parts ive tried to follow are...
+
+* Utilise a team leader expert in teams and agent management. lock down so they are enforced to use teams instead of polluting their context with HITL tendencies.
+
+* Human try not to decide everything (Bogs the human down harder than HITL). persist truth somehow, rather than rediciding
+* Utilise in full Claude Code agent functionality, particularly revolving around agent teams and cross session messaging. 
+* layer over the top of orchestrated runs as a team dispatch, managing the system as a "team".
+* build a roster of agents callable for dispatch.
+
+
+I’m not sure if I want a discussion or research review (html), maybe both, of the key components to successfully running agentic teams, accounting for what I’m already doing and the next steps needed.
+</pasted_content id="252e">
+
+
+we ended up producing about 6 documents covering what he thought to be the key fundamentals. I found he did try to "build" the system alot instead of explain it. so these will have elements that appear settled but are still vry much open for debate or tuning. they are here...
+
+library/source/agent-teams. library source also provides alot of other captured claude code references over the agent and harness topics, that you can read.
+
+Have an explore of these context primers. then we will work towards the goal of cleaning up the existing stuff and transitioning into a clean, efficient working agent teams system, each major part will get a discovery and a conversation before we write any plans or make any changes. 
+
+Also the cockpit is littered with my guidance and advice, some will be gold, some will no longer apply as the ground has moved under the statement. I would like to preserve important findings and keep any decent implementations I have already made.
+
+@@ 2026-10-02T13:04 cedaf5ae [cli/typed]
+You know the remit. a space for agent teams work flows. 
+
+Youve seen the basic shapes; locked lead dispatching teams, truth where test doesn't cover. routing and agent definitions. team setups and handling. CC native harness preference. "fix the machinery not the code" principle. verification engines (rubrics, evals etc)
+
+You have read the sources, (read again if necessary). (I will say the claude-dev-blog is very current and informative did you find much here?)
+
+You know that this is repo under heavy experimentation, with the 6 primers as the most recent collaboration, based upon learning from various trys here.
+
+You know that I found most of the stuff in this repo that I was required to do tedious, like the prefixes, the enacted approval dance, writing "truth" statements for everything.
+
+Now know that the previous implementation versions have failed, hence why the repo is a mess and we are here talking this over, and that web claude who built the primers was just freestyling over some well researched fundamentals with little prior knowledge of exisitng experimental findings. Both of these are wrong, find the gaps and the improvements. that the previous attempts missed and what the web session couldn't know.
+
+@@ 2026-10-02T13:49 cedaf5ae [cli/typed]
+Ok cool so the lead. 
+background sessions, agent teams and workflows all in. 
+lead can retire agents at will so multiple teams dispatches can happen in a session. workflows have a place, but are not the only way. teams with "live" adversaries often push the others in a way they can't in a workflow.
+
+I realised my mistake using the pilot to fitout the cockpit. I am back HITL to get it scaffolded with you.
+
+archiving the corpus is a great idea. 
+
+ok whats next? what do we settle first?
+
+@@ 2026-10-04T06:23 cedaf5ae [cli/typed]
+Ok so archive is a good idea and you have done well so far in this thread. 
+I am back after a break with some fresh eyes. 
+
+So I can simply ask you to do an agent team with the right setting and an agent team is up and running. I can load a background session and ask you to message it and the other agent will talk back. I can load a definition straight in to a session. With memory on you can remember the important decisions I have given. I can take my time and forumlate a decent prompt and you could do any and all of these things straight out of the box. Infact I could simply have a bunch of prompt templates that I fill in, with all that ive learned so far and get most of they way to what I have attempted to build so far. 
+
+This is the key, agent teams, bg agent messaging, session agents, subagents, dynamic workflows, memory, skills, claude.md, tool restrictions, event hooks, frontmatter, command flags, initial prompt, goals, plugin packaging, mods etc. I can alreaady do deep research and a bunch of other pre cooked workflows. This all comes rtr straight out of the box. anthropic maintain this and all ready make sure it is very high quality software. To replace this stuff with custom infra is fighting the machine. I seen this with memory, you go straight for it because it is prebaked.
+
+Now anthropic provide the model and the harness, now we need best practices, with out this (wich is largely my conduct), slop and crud can definately accumulate. best practices primarily involve lots of time investment and quality into the response window (like im doing right now). best practices, plus good useage of the harness and the right model, produces pretty good results, even for the newer agent teams and orchestration features.
+
+This is where "fix the machinery, not the code" comes in. To really make it sing and be a pleasure to use I need to layer over the top a small set of customisations that are easy to maintain, recognisable by the model, fit in with (don't fight or replace) the harness, and most importantly becomes a machine that over time, improves useability, quality and pleasurability.
+
+I think my two largest mistakes so far have been. Trying to build the perfect implementation first time and all at once, and trying to build too much replacement infra that already had a billion dollar company looking after it.
+
+So to respond to that, I would like to propose that we create an agent system that primarily uses the vanilla tools and setup, and preserves the ability for effective direct response window interaction (abilolishing that is fighting the machine). With the second most important part the improvement machinery, that allows us to test and improve the agent system without stabbing in the dark. The third (possibly built first) is to setup what would be the basic folder scaffold that the harness + best practices sit in. The fourth is the primary job of the machinery is to take the load from the human and transfer it to the agent, without reducing system performance. 
+
+If you agree, let me know? then we should write this in our brand new .cockpit as a bit of a constitution.
+would it be a good constitution?
+
+Then after that we talk about best practices we have come across, and the customisations both you and I like, that will provide the best bang for buck.
+
+@@ 2026-10-04T06:44 cedaf5ae [cli/typed]
+1. write it how I have it. place an underline and then say your piece say, whatever you think is needed and i will adjust if i feel necessary, iim not prepared for you to write.
+2. Aren't you confident you can maintain performance? The forth is moreso, build a machinery tool that helps the user that improves or maintains the perfomance, the key here is the scoping, we are taking a load off the user, not building a useless metric.
+3. The improvement machinery should not get in the way of work. with modern ai it doesn't need to. you will see when we get into it. eg drills and a lab, test our machinery without our work being burdened by it.
+4. nope, nothing is ever this arbitary. if an awesome new harness tool is shipped that layers over our customisations, then we carefully eval and test our changes.
+5. nope this is just here for our fitout, didn't want to get into a new session and have to write it again. save it to the new cockpit.
+
+Ive archived the cockpit to .cockpit-archive there is a new .cockpit ready to go. git is a bit of a mess.
+
+@@ 2026-10-07T08:14 cedaf5ae [cli/typed]
+Ok so I have found "agentic workflows" and have realised Im trying to build a subset of them, this is why i keep failing. I realised agentic workflows is much bigger than my cockpit directory. they actually should expand fully into flightdeck. This is what i was trying to achieve all along with this, a pluggable agent loop accelarator. with all kinds of options and tools for modern day "agentic workflows" send off a team to look into this topic and see what they return with. I will guess that a few core features will settle. showing us that these things need building out individually over time, and ar able to improve in isolation. "agentic workflows" is bigger than I thought.
+
+@@ 2026-10-07T08:21 cedaf5ae [cli/typed]
+https://www.jetbrains.com/pages/ai-agents/architecture/agentic-workflows/
+https://www.jetbrains.com/pages/ai-agents/architecture/multi-agent-systems/
+https://orkes.io/blog/what-are-agentic-workflows
+https://weaviate.io/blog/what-are-agentic-workflows
+https://neo4j.com/blog/agentic-ai/what-are-agentic-workflows/
+https://www.atlassian.com/blog/ai-at-work/ai-agentic-workflows
+
+these have some vendor marketing mixed in but i found them converging the topic, as a good introduction.
+
+@@ 2026-10-07T08:22 cedaf5ae [cli/typed]
+oh by the way I activated teams in the settings, if that helps
+
+@@ 2026-10-07T09:01 cedaf5ae [cli/typed]
+please STRUCTURE.md is old. if it is reading it as truth it will be lead astray, if it is reading it as how did the user progress from here to there, what did they stumble on along the way. well that might be more helpful.
+
+@@ 2026-10-07T09:03 cedaf5ae [cli/typed]
+Everything you can see in flightdeck is ultimately experimentation. I wasn't explicit, but as Ive gone along, this has expanded each time. nothing is settled yet, my understanding keeps growing therefore i keep shifting
+
+@@ 2026-10-07T10:17 cedaf5ae [cli/typed]
+this didn't really turn out like i planned. probably a poor prompt halfway through a thread from my end. My recent readings have shown me these findings.
+claude code is primarily a HITL tool, an extension of the original web interface, skills, subagents, claude.md persistence, permissions, advanced tools, hooks, are the key tools. none of these really prevent the human from being in the loop
+
+CC isn't however an agentic workflow platform, where the human sits a level higher. It gives a "taste" of these. memory, dynamic workflows, agent teams, goals, advisor, basic eval. Any regular usage of these tools produces frustrating experiences and the human is forced back into the loop quite often.
+
+What your team picked up is all of claude code's extended "agentic" features.
+
+Agentic workflows are all about independence from the human. they need to know what done looks like through something they can call themselves, build trust overtime increasing decision ability, retry attempts after fixing machinery not the code, they need to escalate well. decompose and route work into the right place. system self review, repair and improve.
+
+Did I just waste a bunch of tokens, see if you can detect if all my previous work in flightdeck / cockpit is about becoming independent of HITL?
+
+@@ 2026-10-07T10:21 cedaf5ae [cli/typed]
+this didn't really turn out like i planned. probably a poor prompt halfway through a thread from my end. My recent readings have shown me these findings.
+claude code is primarily a HITL tool, an extension of the original web interface, skills, subagents, claude.md persistence, permissions, advanced tools, hooks, are the key tools. none of these really prevent the human from being in the loop
+
+CC isn't however an agentic workflow platform, where the human sits a level higher. It gives a "taste" of these. memory, dynamic workflows, agent teams, goals, advisor, basic eval. Any regular usage of these tools produces frustrating experiences and the human is forced back into the loop quite often.
+
+What your team picked up is all of claude code's extended "agentic" features.
+
+Agentic workflows are all about independence from the human. they need to know what done looks like through something they can call themselves, build trust overtime increasing decision ability, retry attempts after fixing machinery not the code, they need to escalate well. decompose and route work into the right place. system self review, repair and improve.
+
+Did I just waste a bunch of tokens, see if you can detect if all my previous work in flightdeck / cockpit is about becoming independent of HITL?
+
+I guess what im looking for is how to step back and let agentic loops take over. my reading has shown me that this is bigger than i thought and there are specific "systems" that need to be built above CC. most of the stuff i have read is about a full custom systems over anthropic API. I want to do a light version, pluggable into a codebase/project and deploy agents for advanced agentic worflows, but using CC subscriptiong and existing tooling.
+
+@@ 2026-10-07T10:53 cedaf5ae [cli/typed]
+probably more than six properties, I just looked at my prompt above it was shit. 
+"agentic workflows" is a layer over the model that aims to take the decision burden from a human, it is the holy grail for business as help desk agents, team workflows etc, all improve with agentic workflows.  claude code has some agentic worflows flavoring but the system is far from integrated. Vanilla claude code keeps the human very much in the loop. So see how we are looking for an integrated system that builds trust over time, and removes the need for human steering.
+
+Ok so ive got some ideas. this is all very greenfield and your reasoning doesn't know where to land. 
+
+Claude code is a developer tool for developer workflows.
+So CC HITL is this. The project folder, a "dump location" for agent input/output, lotsa tools (skills, git, bash, mcp), .claude folder. Claude code isn't actually built for agentic workflows directly, but has some "tasters".
+
+So far I have discovered, that these orchestration harness improvements are probably needed to do agentic workflows inside a project folder.
+- policy, rubrics, document schemas, templates, linting (verification accelerators)
+- logs, observability, records, mining. (resumption without pain)
+- evaluations over a harness surfaces, to improve that surface performance
+- drills and testbenches to discover harness best practices
+- escalation system that reduces human investment over time.
+- agents + entrypoint, team layout, team execution.
+- model choice and latency
+- manuals and libraries (improve context ability)
+- convert human response into harness improvement (fix the machinery, not the output)
+
+So can you see what im trying to do? agentic workflows inside project folders, layered over the top of claude code (a developer workflow tool)
+
+@@ 2026-10-07T12:10 cedaf5ae [cli/typed]
+So now we are getting somewhere. These are agent harness systems built over the top of vanilla claude code. If something didn't work correctly I want to be able to jump into a system and improve it, so next time it runs better.
+
+your 4 things. 
+Intake and routing - yes discovered this recently... interpretation, planning, decomposition, routing (all one system, dynamic)
+Auto starting - No, the one thing the human wants control of is what his agents do. a "state" system is important though, to know whats done and what is not.
+Containment - Not a system itself, part of an "orchestration" layer/system. along with, latency, tiering etc
+authority - Mixture of policy, memory, decision and context systems.
+
+here are the systems as they are settling:
+Work Loop:
+- Interpration and routing (planning, decomposition)
+- Verification (rubrics, schemas)
+- Tools (skills, scripts)
+- Roles and responsibilities (agent definitons, entry points)
+- Co-ordination (team work, workflow patterns)
+- Orchestration (bg session, agent teams, dynamic workflows, worktrees, etc)
+- State and retry (isolated location for a piece of work with progress, decisions, verification etc)
+- Human Structured Response (decisions, reviews, gates)
+
+Persistence Loop:
+- observability and residue (logs etc)
+- memory (principles, rules, best practices)
+- conduct (policy, agent decisions, escalation)
+- context (manuals, library)
+
+Improvement Loop:
+- Promotion
+- Evaluation (surfaces, hillclimbing etc)
+- Testbenches (drills etc)
+- Audits (eg machinery upgrades from decisions, retrys, signals)
+
+Nice to haves:
+- Roleplay system
+- cli
+- local webpage (visualisation and response)
+- packaging (claude plugin)
+
+Is that better? 
+All answering the question, how can we help an agent achieve a goal autonomously, beyond a single response loop.
+Would you say that each of these is a discrete system that can be built, maintained and improved in isolation and doesn't overlap heavily with other systems?
+have we duplicated Claude Code systems or asked too much of it as a foundation for the system?
+
+@@ 2026-10-07T12:59 cedaf5ae [cli/typed]
+co-ordination =  team makeup, patterns, when to do what. 
+orchestration = models, budgets, stops, handover, dependencies
+memory = shared knowledge over the project and harness
+conduct = escalation boundaries etc
+testbenches = trials to gather information for best practices (eg can a bg session spawn teams)
+evaluation = certified performance improvements
+state = Tracking (where is the work at, what is next) dissapears when work is finished. work related.
+observability and residue = Logging (what happened, history) permanent record, persistence.
+
+I think I may have picked the wrong word when a said "overlap". I'll explain...
+If I decide my agentic accelerator needs better verification, I can build, maintain and improve rubrics. But why can't my evaluation system also improve from the usage of better rubrics? 
+promotion -> agent and human decisions to memory or context. 
+
+decisions and escalation is not a system, nor is a rubric, nor is a policy. 
+
+tools are an agentic system, the agent space is exploding with bespoke custom mini tools that accelerate performance.
+
+disagree with your CC duplication metrics:
+CC gives no roles (adversary, source checker etc), no project or domain context, no verification (schemas, rubrics etc), no team dipatch patterns, CC memory is vibes. all these need custom building, maintaining and improving.
+
+Memory I have to write myself. If I run `/init` and turn on `memory` i get vibes, and are not removed out of the loop. my agentic accelerator will most definately be using claude.md and rules/ but it will still be a system.
+
+orchestration framework is well established in claude code. model tiers, agent frontmatter, workflows. this system will be one of the easier ones.
+
+@@ 2026-10-07T13:37 cedaf5ae [cli/typed]
+woops I would say policies shouldn't be part of the verification system. Would you?
+
+Yes most of the articles i read presumes the "agentic workflows" are built ontop of an AI api for businesses. this is taking the concepts but using it in projects with Claude Code. It means im not coding, most of this will be JSON and Markdown files.
+
+Observability and state resume sessions.
+
+So can you help me exit out? 
+What I have done is decomposed "agentic workflows" here, into discrete parts that I can research, build, (and retry) etc in isolation. (this is probably why my build attempts failed before)
+
+can you summarise these systems into a single document I can take with me? any thing from earlier i should persist?
+
+@@ 2026-10-07T13:37 cedaf5ae [cli/-]
+Base directory for this skill: /Users/dylangraham/.claude/plugins/cache/DBHD-Plugins/chat-tools/2.1.2/skills/markdown
+
+# Markdown
+
+Build a markdown document through one file — the scaffold — that begins as a structured catalogue of the conversation and is shaped, phase by phase, into the finished document.
+
+## Agent Invariants
+
+- **Expand, never transcribe.** Each `+` item is a flag pointing at something the conversation said. Write by recovering that conversation and expanding it into full prose; never copy an item's own wording into the document.
+- **Write in scope.** Under any heading, draw only on the items placed beneath it.
+- **Place every item.** Each `+` item must appear somewhere in the scaffold; reuse one under more than one heading when the document needs it.
+- **Say it once.** Never repeat under a lower section what a higher section already states.
+- **Meta comment leads.** The first comment under each heading is its meta comment, marked `===META===`; it fixes that section's depth and format.
+- **Headings carry no toggles.** The user adds, removes, and reorders headings by hand.
+- **Strip last.** Write first and strip last, so the prose can be checked against the comments it came from.
+
+## Agent-agnostic documents
+
+Write the document to be agent-agnostic: resolvable by any agent, any model, in any future session, from the file alone. The reader will not have the conversation that produced it, so anything that lived only in the chat and never reached the file is invisible to them — write so the file stands without it.
+
+## The scaffold
+
+The scaffold is the single file in play from start to finish: it opens as a catalogue of the conversation and becomes the finished document. It moves through four phases in order:
+
+1. **Chat summary** — catalogue the conversation as toggleable items.
+2. **Doc summary** — propose the headings and attach comments to each.
+3. **Write** — expand the comments into prose.
+4. **Strip** — remove the scaffolding, leaving the document.
+
+### Phase 1 — Chat summary
+
+The chat summary is a catalogue of everything the conversation surfaced, written as an HTML comment at the top of the scaffold — hidden frontmatter that never renders and is removed at the strip. Put each point on its own line under one of five sections, and include a section only when the conversation gave it real content:
+
+- **conversation** — what the user and the agent each said.
+- **agent context** — inclusions the agent proposes that were never raised: recommended, possible, edge cases.
+- **meta** — steering, decisions, and constraints.
+- **language** — terms to define or avoid, and notes on style.
+- **audience** — who reads the document, and to what end.
+
+Prefix every line with a toggle. `+` marks content the document will talk about; `-` marks content that mattered in the conversation but stays out of the document. Set the toggles on the first pass, then let the user flip them. In the language section, a `+` term is one to define and a `-` term is one to avoid. List each point once — never repeat under a lower section what a higher section already covers. Lean toward `-` for most of the meta section: steering is usually direction for the agent, not content, and importing it into the document tends to degrade it.
+
+### Phase 2 — Doc summary
+
+With the chat summary settled, propose the document's structure: lay out the headings the `+` items imply, then attach comments under each heading. Two kinds of comment do the work:
+
+- A **meta comment** comes first under a heading and is marked `===META===`. It sets that section's prose depth and format — for example, `<!-- ===META=== one short paragraph; no list -->`.
+- An **item comment** carries a single `+` item from the chat summary, copied verbatim, one per line — for example, `<!-- + emit JSON Lines, not a single JSON array -->`.
+
+Place every `+` item under some heading, reusing one under more than one heading when the document needs it. Wrap coined terms in `:colons:` — for instance `:scaffold:` — so they stand out while scanning the comments. Put no `+`/`-` toggles on headings; the user adds, removes, and reorders headings by hand. Gather the conversation's hard must-do and must-avoid rules into an **Agent Invariants** heading near the top, restating them even where they also appear under a phase.
+
+### Phase 3 — Write
+
+Write one heading at a time. Treat each item comment as a flag, not a sentence: return to what the conversation said about it and expand that into prose at the depth and format the meta comment asks for — never paste the item's own wording into the document. Draw only on the items under the heading being written, and leave every comment in place; this phase adds prose, nothing else.
+
+### Phase 4 — Strip
+
+With the prose written, take the scaffolding out — but offer the review first.
+
+1. Offer to review each section against the original chat summary items, calling out any inconsistency: a `+` item that never reached the prose, or prose that drifted from what its items flagged.
+
+After the review — or straight away if the user declines it — offer three ways to remove every comment. The chat-summary block and all item and meta comments are HTML comments, so a single pattern clears them all:
+
+2. In an editor, enable regex search, find `<!--[\s\S]*?-->`, and replace with nothing.
+3. On the command line: `perl -0pi -e 's/<!--.*?-->\n?//gs' path/to/document.md`
+4. Or offer to run that command directly.
+
+What remains is the clean, comment-free document.
+
+## Example
+
+See `references/example.md` for a complete scaffold, stopped at the end of Phase 2, to imitate.
+
+
+ARGUMENTS: Single durable document summarising the agentic-workflow systems decomposition for flightdeck (three loops, sixteen systems, artefacts that flow between them), plus what to carry forward from this session. User is ending the session and wants one file to take with them.
+
+@@ 2026-10-07T13:52 cedaf5ae [cli/typed]
+can you split out `agent context` and `meta` into a session summary. but keep the existing document as is as a future plan.
+any questions? I have filtered the nodes
+
+@@ 2026-10-07T13:55 cedaf5ae [cli/typed]
+1. yep strip and finish. 
+2. yep woops 
+3. sure
+
+@@ 2026-10-08T02:44 cedaf5ae [cli/typed]
+ok lets clean up git state, have a look and propose commits before doing
+
+@@ 2026-10-08T02:44 cedaf5ae [cli/-]
+Base directory for this skill: /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/dev-workspace
+
+# dev-workspace
+
+Git workflow management for dev-workspace codebases.
+
+**Detection:** A project uses dev-workspace if `dev/workspace/workspace-config.yml` exists in its directory tree. The script auto-detects the project root by walking up from CWD.
+
+**Rule:** NEVER use raw git for branch creation, pushing, syncing, merging, or workspace commits in dev-workspace projects. Always use the `dev-workspace` command.
+
+## Commands
+
+```
+dev-workspace                         Show info screen (default when no command given)
+
+dev-workspace init                    Scaffold config files from skill template
+dev-workspace init --write            Apply config settings to project (idempotent)
+dev-workspace init --check            Verify settings are applied
+dev-workspace init --update           Refresh scaffold from plugin templates (parent branch only)
+
+dev-workspace new                     List branches from parent
+dev-workspace new <name>              Create new workspace branch
+dev-workspace new <name> --check      Validate readiness without creating
+dev-workspace new <name> --force      Create even if local is behind remote
+
+dev-workspace push                    Push current branch to origin
+dev-workspace push --check            Show push status (ahead/behind/diverged)
+dev-workspace push --force-w-l        Force push with lease (post-rebase)
+
+dev-workspace sync                    Merge parent into current feature branch
+dev-workspace sync --check            Show how far behind parent
+dev-workspace sync --full             Bare merge — no workspace file protection
+dev-workspace sync --rebase           Rebase onto parent instead of merge
+dev-workspace sync --continue         Complete sync after resolving merge conflicts
+
+dev-workspace merge                   Merge current branch to parent
+dev-workspace merge --check           Full preflight report (ALWAYS run first)
+dev-workspace merge --local           Force local merge (skip PR detection)
+dev-workspace merge --github          Force GitHub PR merge
+dev-workspace merge --continue        Complete merge after resolving conflicts
+
+dev-workspace commit                  Commit workspace files only
+dev-workspace commit --check          Show what would be committed
+
+dev-workspace archive                 Archive workspace to dev/branches/
+dev-workspace archive --check         Show archive status + sync divergences
+dev-workspace archive --sync          Bidirectional sync archives with parent
+dev-workspace archive --path          Output archive path (for scripting)
+
+dev-workspace latest --check          Show sync status of main with remotes
+dev-workspace latest --upstream       Reset local main to upstream (fork only)
+dev-workspace latest --origin         Reset local main to origin
+
+dev-workspace transfer-latest            Merge main_branch into parent_branch
+dev-workspace transfer-latest --check    Show status, verify main is current
+dev-workspace transfer-latest --ff       Allow fast-forward merge
+dev-workspace transfer-latest --continue Complete merge after resolving conflicts
+
+dev-workspace deploy push             Push source to deploy target
+dev-workspace deploy push --check     Show deploy status
+
+dev-workspace cleanup                 List available cleanup platforms
+dev-workspace cleanup claude-code     Scan for Claude Code conversation exports
+
+dev-workspace tree                    Generate all configured trees (default + named)
+dev-workspace tree --show             List available trees (name + description)
+
+dev-workspace health                  Advisory plugin install-health check (read-only)
+```
+
+## The --check Pattern
+
+Every command supports `--check` to inspect state without making changes.
+
+**Mandatory workflow for destructive commands (merge, latest, deploy):**
+1. Run `command --check` — inspect state
+2. If issues → stop and discuss with human
+3. If clear → run the command
+
+## Config
+
+- **`workspace-config.yml`** — Machine-read. Repo setup, remotes, merge strategy, workspace protection, deploy. Created by `init --write` from the skill template. Workspace protection paths are configurable under `workspace_protection.directories`.
+
+## References — Essential Reading
+
+**You do not know how this tool works from the commands alone.** The commands are atomic building blocks. The references contain the procedural knowledge you need to use them correctly — safety constraints, required sequences, what to check before acting, how to interpret output, and how to recover from problems. Without reading the relevant reference, you will make mistakes that are difficult to undo (bad merges, lost commits, corrupted branch state).
+
+**Always read the reference for your task before executing commands.**
+
+### `references/init.md` — Project Setup
+Read before first-time setup or adding dev-workspace to a new project. You need this because:
+- Init is a three-step process (scaffold → edit → write) — running `--write` without scaffolding first fails
+- Fork vs vanilla repo config is fundamentally different and affects every other command
+- Each init section (gitignore, dockerignore, workspace remote) solves a specific problem — understanding why they exist prevents you from disabling something critical
+- Re-running init after config changes requires understanding idempotent behaviour
+
+### `references/new-workspace.md` — Kicking Off a Workspace
+Read this before kicking off a new workspace branch — it is the full procedure, not just the `new` command. You need this because:
+- It covers naming, preflight, creation, and WORKSPACE.md initialisation as one flow — do not improvise with raw `git`
+- Branch creation has prerequisites (correct parent branch, clean tree, sync with remote) — skipping any causes problems downstream
+- The `--no-track` flag on creation is intentional and you must not "fix" it
+- Workspace files transfer from parent to new branches by design — this is not a bug
+
+### `references/push.md` — Pushing Branches
+Read when `push --check` reports anything other than "X commits to push". You need this because:
+- Diverged state requires `--force-w-l` but force pushing has safety implications you must understand
+- Force-with-lease is NOT the same as force push — the difference matters
+- There are specific scenarios where force push is appropriate vs dangerous
+- Push works differently than you might expect — any branch pushes to its matching origin, including main
+
+### `references/sync.md` — Workspace Branch Syncing (THREE different commands)
+**Critical reading.** This is the most complex area of the tool. You need this because:
+- There are THREE separate sync-related commands (`sync`, `latest`, `transfer-latest`) that do completely different things — using the wrong one causes real damage
+- `latest` uses `git reset --hard` which **destroys commits permanently** — the reference explains exactly when this is safe and when it is not
+- Fork repos require a specific multi-step update sequence (latest → transfer-latest → sync) — doing them out of order fails
+- `transfer-latest` self-guards against vanilla repos but you need to understand why
+- The full fork update sequence is documented step-by-step — follow it exactly
+
+### `references/merge.md` — Merging Workspace Branches
+Read before every merge. You need this because:
+- The preflight (`--check`) returns exit codes with specific meanings — you must know how to respond to warnings vs blockers
+- Workspace file protection happens automatically during both merge and sync — read the reference to understand how config-driven protection works
+- The two merge strategies (merge/squash) both strip workspace files from the parent
+- Archive-before-merge is a configurable requirement — the preflight checks it but you need to know what to do when it fails
+- Auto-detection chooses between local and GitHub merge — you need to know when to override with `--local` or `--github`
+
+### `references/commit.md` — Quickfire Workspace Commits
+Read before first use. You need this because:
+- The command **unstages everything first** — if you have staged code changes, they will be unstaged. This is intentional but will surprise you if you don't know about it
+- Only configured directories are committed — the command is not a general-purpose commit
+- Understanding the isolation pattern (workspace commits separate from code commits) is essential
+**for commiting workspace changes only** regular code changes can be commited using preffered method. 
+
+### `references/archive.md` — Context Preservation
+Read before archiving or syncing archives. You need this because:
+- Archives use `rsync --delete` (mirror) — files deleted from workspace are also deleted from archive. This is correct behaviour but must be understood
+- `--sync` is bidirectional and involves temporary branch switching — requires clean working tree and you need to understand what happens if it fails mid-sync
+- Pull-first ordering in sync is deliberate and important for consistency
+- Archive naming convention (branch name with `/` replaced by `_`) affects how you find archives
+
+### `references/deploy.md` — Deploy Push to a Remote Repo
+Read before any deploy push operation. You need this because:
+- Deploy push is for dual-repo setups only — single-repo projects comment out the deploy section entirely
+- Docker's `.dockerignore` eliminates the need for directory stripping — understanding this prevents over-engineering the deploy
+- Deploy push only moves code to the deploy repo — staging, promotion, and deployment is handled by `dev-deploy`
+
+### `references/cleanup.md` — Conversation Export Processing
+Read when running cleanup or processing conversation exports. You need this because:
+- Each platform exports differently — the reference has per-platform processing steps
+- The summary format and header block must follow exact conventions for duplicate detection
+- There are specific rules for when to update vs skip existing history files
+- Summary writing has guidelines to ensure global scope (readable without chat access)
+
+### `references/tree.md` — Directory Tree Generation
+Read when generating trees or configuring tree output. You need this because:
+- Default tree auto-loads into session context — named trees are on-demand only
+- Configuration has global ignores and per-tree ignores with additive behaviour
+- Frontmatter format must be correct for `--show` to parse it
+- Tree output is ephemeral (git-ignored) and regenerated each session
+
+### `references/health.md` — Plugin Install-Health Checks
+Read when running `health` or adding a check. You need this because:
+- Checks are pluggable scripts in `hooks/health/` — the contract (env in, status/exit-code out) must be followed exactly
+- It is advisory and read-only — checks suggest commands, never run them
+- Distinct from the `/health` slash command (repository health, not install health)
+
+
+@@ 2026-10-08T02:48 cedaf5ae [cli/-]
+<command-message>dev-workspace:conversation-capture</command-message>
+<command-name>/dev-workspace:conversation-capture</command-name>
+
+@@ 2026-10-08T02:48 cedaf5ae [cli/-]
+Base directory for this skill: /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture
+
+# conversation-capture
+
+Parse the current Claude Code session JSONL into a formatted, readable transcript. Summarize and rename the output file.
+
+## Agent invariants
+
+- Do not `cd` into any directory, all commands can be run from `pwd`
+
+## Session Id
+
+SESSION_ID = cedaf5ae-c4e6-4e6e-b267-a83d24563cba
+
+## Capture
+
+Run the extraction script with the current session ID:
+
+```bash
+ruby /Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/conversation-capture/scripts/conversation-capture <SESSION_ID>
+```
+
+On success the script outputs one line: the transcript file path. Continue to
+**Summarize and Rename**.
+
+If the script exits non-zero, handle it per **Config not ready** below — do not
+proceed.
+
+## Config not ready
+
+The skill reads its settings from the workspace config and only runs inside a
+dev-workspace. Two non-zero exits signal a config problem:
+
+- **Exit 3 — no workspace config.** There is no `dev/workspace/workspace-config.yml`.
+  This skill is for dev-workspace projects only. Stop and tell the user.
+- **Exit 4 — missing section.** The config exists but has no `conversation_capture:`
+  section (an older workspace). Recover it:
+  1. Read the `conversation_capture:` block — its comment banner and values —
+     from `/Users/dylangraham/.claude/plugins/cache/DBHD-dev-workspace/dev-workspace/1.1.0/skills/dev-workspace/templates/workspace-config.yml`.
+  2. Append that block to the project's `dev/workspace/workspace-config.yml`.
+  3. Re-run the capture script.
+
+## Summarize and Rename
+
+Base the summary on the transcript file just written (and the current session if
+still in context).
+
+**Summary:** Write a 3-5 line summary of the conversation. The summary must be:
+
+- **Global scope** — readable without access to the conversation
+- **Factual** — what was discussed, what was built/fixed, key decisions, what remains
+- **No session-specific language** — avoid "the user asked me to", "I was told to"
+
+Read the first 20 lines of the transcript file to locate the `[SUMMARY]` block. Insert the summary between the `>>>` and `<<<` markers using the Edit tool. If the block already has content, replace it.
+
+**Rename:** Check the transcript filename.
+
+- If it contains a raw UUID (e.g. `f5d11e2f_f5d11e2f-89c8-...txt`), rename it with a descriptive slug
+- If it already has a descriptive name, keep it if still accurate, rename if the conversation has shifted focus
+
+Rename format: `<first-8>_slug.txt` where slug is 3-6 word kebab-case topic
+description. Rename in place — keep the file in the same directory as the path
+the script returned.
+
+```bash
+mv "<transcript-file>" "$(dirname "<transcript-file>")/<first-8>_slug.txt"
+```
+
+Report the final transcript file path.
+
+## Config
+
+Settings live in the workspace config — `dev/workspace/workspace-config.yml`,
+under the `conversation_capture:` section. The user edits this file directly; no
+re-enable step. Keys:
+
+- `output_dir` — target directory for transcripts (relative to project root)
+- `include_thinking` — include assistant thinking blocks (`true`/`false`)
+- `include_subagents` — include subagent results (`true`/`false`)
+- `sanitize` — list of find/replace patterns applied after extraction. `$ENV_VAR` references expand at runtime. Comment out patterns with `#` to disable
+
+A `--config <path>` flag overrides the config file location (the section scope is
+unchanged).
+
+## Resume Behaviour
+
+The script uses the first 8 characters of the session ID as a file prefix. On re-invocation with the same session ID, it detects and overwrites the existing transcript — preserving the renamed filename if already processed.
+
+
+@@ 2026-10-08T02:50 cedaf5ae [cli/typed]
+ive deleted base and flightdeck.constitution, restore the line, include pdfs. No push at the moment.
+

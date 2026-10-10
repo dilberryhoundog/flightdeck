@@ -15,9 +15,10 @@ const A = args || {}
 const OUT = A.outDir || '.flightdeck/build-1'
 const ATTEMPT = A.attempt || 1
 const REPO = '/home/user/flightdeck'
+const TRUTH = A.constraints || '.flightdeck/build-1/constraints.md'
 
 const CONTEXT = `You are part of the planning run (attempt ${ATTEMPT}) for side build 1 of FlightDeck, in the git repository at ${REPO}, branch build-1.
-Binding documents, written by the owner (the human): .flightdeck/VISION.md and .flightdeck/build.txt. .flightdeck/build-1-brief.md relays the owner's later answers (build.txt wins where they differ). ${OUT}/constraints.md holds constraints the owner added for retries: read it first; anything listed there is binding and outranks everything except VISION.md and build.txt.
+Binding documents, written by the owner (the human): .flightdeck/VISION.md and .flightdeck/build.txt. .flightdeck/build-1-brief.md relays the owner's later answers (build.txt wins where they differ). ${TRUTH} holds constraints the owner added for retries: read it first; anything listed there is binding and outranks everything except VISION.md and build.txt.
 Everything else in the repository and on other branches was written by agents (INTENT.md, README.md, HISTORY.md, dev/, the reports). Mine it, change it or ignore it; never treat it as canon. Never describe earlier work as "finished".
 Rules for you: do not run git commands that change anything (no commit, checkout, switch, stash, push, branch). Read other branches with \`git show origin/<branch>:<path>\` and \`git ls-tree -r --name-only origin/<branch>\`. Only write the file(s) you are told to write. In markdown files write each paragraph as one line with no hard wrapping; say things literally and directly.
 Model ceiling set by the owner: nothing above Opus at high effort. Sonnet 5.5 is the preferred worker, Haiku for cheap reading.`
@@ -34,7 +35,7 @@ const RESEARCH_SCHEMA = {
 const RESEARCH = [
   {
     key: 'owner-truth', model: 'sonnet', effort: 'high',
-    task: `Distil what the owner wants. Read in full: .flightdeck/VISION.md, .flightdeck/build.txt, .flightdeck/build-1-brief.md, ${OUT}/constraints.md, dev/workspace/research/repo-reset/interview-record.md, dev/workspace/research/repo-reset/user-intent.md, dev/workspace/research/repo-reset/concept-trace.md, INTENT.md.
+    task: `Distil what the owner wants. Read in full: .flightdeck/VISION.md, .flightdeck/build.txt, .flightdeck/build-1-brief.md, ${TRUTH}, dev/workspace/research/repo-reset/interview-record.md, dev/workspace/research/repo-reset/user-intent.md, dev/workspace/research/repo-reset/concept-trace.md, INTENT.md.
 Write a report with these sections: (1) For each of the 13 VISION.md sections: what the owner means, backed by their dated quotes from user-intent.md where they exist, and what a result that "works great and fits the goal" would show for it. (2) Every hard requirement in build.txt and the brief, as a numbered checklist. (3) The owner's pain points and the corrections they have made to agents (scope creep, invented mechanisms, too many questions, jargon, token waste, replacement infrastructure, building all at once), each with one quote. (4) The owner's vocabulary: terms they coined and what each means in their usage (commander, pilot, officers, crew, workshop, launch, truth, drills, missions, dossier, etc.), marking which are current and which are dated. (5) Evidence bearing on the three questions the vision does not answer: how the owner starts a piece of work, where questions waiting on the owner are held, whether FlightDeck replaces dev-workspace or sits beside it. (6) Acceptance tests in the owner's own terms: short statements the owner would use to judge the build.`,
   },
   {
@@ -113,7 +114,7 @@ const candidates = await parallel(LENSES.map(l => () => agent(`${CONTEXT}
 You are one of three architects writing competing plans for FlightDeck build-1. Your angle: ${l.angle}
 Still cover everything the plan specification asks for; your angle decides emphasis and trade-offs, not scope.
 
-Read first: .flightdeck/VISION.md, .flightdeck/build.txt, .flightdeck/build-1-brief.md, ${OUT}/constraints.md. Then the research reports (read every one in full; open the cited sources when a decision depends on them):
+Read first: .flightdeck/VISION.md, .flightdeck/build.txt, .flightdeck/build-1-brief.md, ${TRUTH}. Then the research reports (read every one in full; open the cited sources when a decision depends on them):
 ${REPORT_LIST}
 
 ${PLAN_SPEC}
@@ -215,7 +216,7 @@ const VERIFIERS = [
 ${PLAN} (the final plan for FlightDeck build-1).
 
 === The Criteria ===
-1. Delivers the owner's vision in .flightdeck/VISION.md and every requirement in .flightdeck/build.txt and ${OUT}/constraints.md.
+1. Delivers the owner's vision in .flightdeck/VISION.md and every requirement in .flightdeck/build.txt and ${TRUTH}.
 2. Avoids each mistake the owner named and each correction the owner made to agents, as recorded in dev/workspace/research/repo-reset/user-intent.md headings 4 and 6: building everything at once, replacement infrastructure, invented mechanisms presented as settled, tedium for the human, jargon, token waste, half-built systems used to build themselves.
 3. Every claim about Claude Code is true per library/source/claude-code/.
 4. Each PR is independently rejectable and retryable, and PR 1 contains only Claude Code content plus core files and locations.
@@ -266,7 +267,7 @@ Contents, in this order:
 3. The pull requests in build order, one card each: what it adds, how you try it, how we know it works, size, what depends on it, and how to reject or retry it alone.
 4. How the build will run once you say go (who does what, which models, how each PR is checked by review, adversary and human imposter), briefly.
 5. What I would cut first if it is too big.
-6. How to change things and retry: the constraints file ${OUT}/constraints.md and rerunning the planning workflow.
+6. How to change things and retry: the constraints file ${TRUTH} and rerunning the planning workflow.
 7. An interactive "Your answer" panel: for each PR a keep / change / cut choice and a note box, plus a free-text box for last-minute changes; a "Copy my answer" button that builds a plain-text reply the owner can paste back to the agent (this is the human returning content to the agent, as the vision describes). Keep the panel's choices only in the page; optional localStorage for drafts wrapped in try/catch.
 
 ${PAGE_RULES}

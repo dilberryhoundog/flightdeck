@@ -1,0 +1,8 @@
+{
+  "name": "flight",
+  "version": "0.1.0",
+  "description": "FlightDeck: a Claude Code agentic accelerator.",
+  "author": {
+    "name": "dilberryhoundog"
+  }
+}

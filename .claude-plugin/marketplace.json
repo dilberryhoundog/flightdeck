@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "DBHD-FlightDeck",
+  "owner": {
+    "name": "dilberryhoundog"
+  },
+  "plugins": [
+    {
+      "name": "flight",
+      "description": "FlightDeck: a Claude Code agentic accelerator.",
+      "source": "./",
+      "category": "development"
+    }
+  ]
+}

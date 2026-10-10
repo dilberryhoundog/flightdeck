@@ -1,0 +1,15 @@
+Build out the humans vision for a claude code agentic accelerator, based upon agentic engineering best practices, employing agentic workflows and a bit of good ol HITL also.
+
+Do not use higher than opus agents on "high" effort. sonnet 5.5 is a very versatile cheap agent, that i encourage you to use..
+
+About 3 weeks of previous work exists on other branches, favorite sources have been downloaded. You decide what can be used, changed, ignored. The human went through many incantations trying to hit on the right shape and balance.
+
+Your result needs verification, by review, adversary and human imposter.
+
+Your plan and workflow needs to be retryable, if it don't like some things i might add more constraints, scoping, truth etc and you try again.
+
+do not hesitate to research and explore to gather context.
+
+stop after planning but before building stage and offer a review HTML page of everything awaiting building. I may make some last minute changes. deliver in review in plain, simple language, with no jargon.
+
+Do multiple PRs back to a build branch. Start with a basic one with just claude code content filled in like agent definitions, hooks, rules, claude.md, etc. you can also fill out any core files and locations like team dispatches, agent entry points, workflow patterns etc. Advanced features are to be in separate PRs so they can be rejected and retried if needed.

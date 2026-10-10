@@ -18,6 +18,6 @@ Stated by the owner on 2026-10-09.
 ## What main is for
 
 - serving FlightDeck as a versioned plugin
-- building out FlightDeck in `flightdeck/`, so it can be imported into the plugin
+- building out FlightDeck in `.flightdeck`, so it can be imported into the plugin
 - testing and improving FlightDeck in `lab/`
 - maintaining library content in `library/`

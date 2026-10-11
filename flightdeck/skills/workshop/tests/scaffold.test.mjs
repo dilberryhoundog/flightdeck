@@ -634,7 +634,7 @@ test('content of the skills, rules copy and owned list (passes once all build un
     'flightdeck/skills/workshop/tests/fixtures/bundle-answer.txt',
     'flightdeck/skills/capture/SKILL.md', 'flightdeck/skills/workshop/SKILL.md', 'flightdeck/skills/workshop/interview.md',
     'flightdeck/skills/workshop/examples/card.md', 'flightdeck/skills/workshop/flightdeck-CLAUDE.md',
-    'lab/evals/pr3-no-approval-questions/prompt.md', 'lab/evals/pr3-no-approval-questions/graders/bundle.md',
+    'flightdeck/evals/pr3-no-approval-questions/prompt.md', 'flightdeck/evals/pr3-no-approval-questions/graders/bundle.md',
     'flightdeck/skills/retry/SKILL.md', 'flightdeck/skills/promote/SKILL.md', 'flightdeck/skills/promote/targets.md', 'lab/owned/pr3.txt',
     '.flightdeck/build-1/attempts/pr-3/a1/brief.md', '.flightdeck/build-1/attempts/pr-3/a1/findings.md',
     '.flightdeck/build-1/attempts/pr-3/a1/report.md', '.flightdeck/build-1/attempts/pr-3/a1/log.md',

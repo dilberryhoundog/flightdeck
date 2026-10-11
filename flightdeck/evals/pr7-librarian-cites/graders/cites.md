@@ -1,3 +1,7 @@
+---
+type: llm
+weight: 1
+---
 # Grader: the librarian cites the retry answer
 
 The grader receives only the final reply. Answer each question yes or no, and for each answer give a quotation from the reply that shows it. Yes is pass.

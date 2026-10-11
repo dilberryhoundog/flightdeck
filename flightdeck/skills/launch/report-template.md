@@ -1,6 +1,6 @@
 # Report formats
 
-The formats of the four files a launch writes into its attempt folder, `.flightdeck/<workshop>/attempts/a<k>/`. Plain words, one paragraph per line. Every line of the report carries one of three marks, and the report says what they mean.
+The formats of the four files a launch writes into its attempt folder, `.flightdeck/<workshop>/attempts/a<k>/`. Plain words, one paragraph per line. Every line of the report carries one of three marks, and the report says what they mean. The marks and the sections they go with are listed under the sections below.
 
 ## report.md
 
@@ -19,6 +19,8 @@ Then these sections, in this order:
 - `## Models per stage`: one line.
 - `## Retry`: "Add a line to .flightdeck/<workshop>/constraints.md (only you write there), then run /flight:launch <workshop> again: the next attempt is a<k+1> on branch <workshop>-a<k+1>, and this one stays until you close it."
 
+Which mark fits which section. Each line in a section ends with its mark: `What changed` and `Findings and decisions` lines are [reviewed] (an agent judged them); `Checks` lines are [checked] (a script ran) and `Verification` lines are [reviewed]; `Captured for later` and `Proposed for this workshop's context.md and verify.md` lines are [stated] (an agent said so and nobody ran it); the `Models per stage` line is [checked] (it comes from the script's own table); the `Retry` line is [stated]. Try steps carry the mark of how the step was run: [reviewed] when the imposter followed it, [stated] when nobody could run it. The `Questions for you` blocks carry no mark, because the Captain files them as they are into `questions.md`, where an `answer:` line must stay empty until you fill it in.
+
 Example:
 
 ```
@@ -30,46 +32,51 @@ Draft pull request into build-1. Only you merge it. Marks: [checked] a script ra
 1. Run /flight:preflight. The card lists each workshop with "last attempt 2 days ago". (imposter, 1 minute) [reviewed]
 
 ## What changed
-- flightdeck/hooks/preflight.mjs: adds the age to each workshop line.
+- flightdeck/hooks/preflight.mjs: adds the age to each workshop line. [reviewed]
 
 ## Checks [checked]
-- node lab/checks/hard-rules.mjs --base build-1: exit 0
-- claude plugin validate flightdeck: skipped, not in this project
+- node lab/checks/hard-rules.mjs --base build-1: exit 0 [checked]
+- claude plugin validate flightdeck: skipped, not in this project [checked]
 
 ## Verification [reviewed]
-- review: no gaps against the brief.
-- adversary: one medium finding, accepted.
-- imposter: followed every step; step 1 was unclear.
+- review: no gaps against the brief. [reviewed]
+- adversary: one medium finding, accepted. [reviewed]
+- imposter: followed every step; step 1 was unclear. [reviewed]
 
 ## Findings and decisions
-- adversary, medium, accept: an attempt with no date shows "NaN days ago". Reason: reproduced with a folder that has no log.md.
+- adversary, medium, accept: an attempt with no date shows "NaN days ago". Reason: reproduced with a folder that has no log.md. [reviewed]
 
 ## Questions for you
 ## q2: Should "today" show as "today" or "0 days ago"?
+why: A workshop that ran this morning would otherwise read "0 days ago", which sounds odd.
+options: a) today; b) 0 days ago
+recommended: a) today, because it is how a person would say it.
+asked: 2026-10-11 by triage card-age-a1
+answer:
 
 ## Captured for later
-- card-colour: colour the age red after 30 days (2026-10-11)
+- card-colour: colour the age red after 30 days (2026-10-11) [stated]
 
 ## Proposed for this workshop's context.md and verify.md
-- verify: the card shows "never" for a workshop with no attempts.
+- verify: the card shows "never" for a workshop with no attempts. [stated]
 
 ## Models per stage
-scope haiku low, brief opus high, build sonnet high, check haiku low, verify sonnet/opus/sonnet high, triage opus high, fix sonnet high, report sonnet medium.
+scope haiku low, brief opus high, build sonnet high, check haiku low, verify sonnet/opus/sonnet high, triage opus high, fix sonnet high, report sonnet medium. [checked]
 
 ## Retry
-Add a line to .flightdeck/card-age/constraints.md (only you write there), then run /flight:launch card-age again: the next attempt is a2 on branch card-age-a2, and this one stays until you close it.
+Add a line to .flightdeck/card-age/constraints.md (only you write there), then run /flight:launch card-age again: the next attempt is a2 on branch card-age-a2, and this one stays until you close it. [stated]
 ```
 
 ## findings.md
 
-A heading, then one line per finding: `- <verifier>, <severity>, <accept|reject|question>: <finding>. Reason: <reason>.`
+A heading, then one line per finding: `- <verifier>, <severity>, <accept|reject|question>: <finding>. Reason: <reason>. [reviewed]`. Every line ends with its mark: [reviewed] for an agent's finding, [checked] for a script check that failed.
 
 Example:
 
 ```
 # Findings for card-age attempt a1
-- adversary, medium, accept: an attempt with no date shows "NaN days ago". Reason: reproduced with a folder that has no log.md.
-- reviewer, low, reject: the helper could be one line shorter. Reason: taste, not the brief.
+- adversary, medium, accept: an attempt with no date shows "NaN days ago". Reason: reproduced with a folder that has no log.md. [reviewed]
+- reviewer, low, reject: the helper could be one line shorter. Reason: taste, not the brief. [reviewed]
 ```
 
 ## log.md

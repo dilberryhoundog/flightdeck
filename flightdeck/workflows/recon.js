@@ -18,7 +18,7 @@ const SEAT = {
 const RANK_TASK = 'Rank: Worker. Reports to: the Captain (the session that started this launch). You decide: how to do this one task. You do not decide: scope, done, verification or truth; you do not accept your own findings and you send out no agents.'
 
 function opening(rank, block, task) {
-  return [GLOBAL, rank, block, CAPTURE, 'Task: ' + task].filter(Boolean).join('\n\n')
+  return [GLOBAL, rank, block ? safe(block) : '', CAPTURE, 'Task: ' + task].filter(Boolean).join('\n\n')
 }
 
 const Q = String(A.question || '').trim()

@@ -19,7 +19,7 @@ const SEAT = {
 const RANK_TASK = 'Rank: Worker. Reports to: the Captain (the session that started this launch). You decide: how to do this one task. You do not decide: scope, done, verification or truth; you do not accept your own findings and you send out no agents.'
 
 function opening(rank, block, task) {
-  return [GLOBAL, rank, block, CAPTURE, 'Task: ' + task].filter(Boolean).join('\n\n')
+  return [GLOBAL, rank, block ? safe(block) : '', CAPTURE, 'Task: ' + task].filter(Boolean).join('\n\n')
 }
 
 const TARGET = String(A.target || '').trim()
@@ -75,7 +75,7 @@ if (WS) {
   if (!s.block) return stop('scope', 'scope: workshop ' + WS + ' has no folder (captured, not active): activate it first')
   BLOCK = s.block
   if (!A.pluginRoot && s.plugin_root) R = s.plugin_root
-  if ((s.questions || []).length) QUESTIONS = s.questions.join('\n')
+  if ((s.questions || []).length) QUESTIONS = safe(s.questions.join('\n'))
 }
 const open = (rank, task) => opening(rank, BLOCK, task)
 
@@ -83,16 +83,16 @@ const open = (rank, task) => opening(rank, BLOCK, task)
 phase('Prepare')
 const P = await stage('prepare', () => agent(open(RANK_TASK, lines(
   'Prepare one target for three readers. The target is: ' + safe(TARGET),
-  'Run git rev-parse --verify --quiet ' + TARGET + '. If it names a branch: run git switch --detach ' + TARGET + ', write the output of git diff ' + BASE + '...' + TARGET + ' to second-opinion-work/diff.patch and the output of git diff --name-only ' + BASE + '...' + TARGET + ' to second-opinion-work/changed.txt in this worktree (never stage or commit them), and return kind branch with the absolute paths of both files and of this worktree (use pwd).',
-  'Otherwise the target is a file. If it is a diff file, return kind diff, else kind file. Return its absolute path in paths. If the path is relative and the file is not in your worktree, look for the same path in the main checkout (the first folder git worktree list prints) and return that absolute path.',
-  'Return kind, paths, worktree and notes.'
-)), { label: 'prepare', phase: 'Prepare', model: 'haiku', effort: 'low', isolation: 'worktree', schema: PREPARE_SCHEMA }))
+  'Run git rev-parse --verify --quiet ' + safe(TARGET) + '. If it names a branch: do not switch branches and do not create a worktree. Run mktemp -d to make a temp folder outside the repository, write the output of git diff ' + BASE + '...' + safe(TARGET) + ' to <tmp>/diff.patch and the output of git diff --name-only ' + BASE + '...' + safe(TARGET) + ' to <tmp>/changed.txt, and return kind branch with the absolute paths of those two files in paths and worktree empty.',
+  'Otherwise the target is a file. If it is a diff file, return kind diff, else kind file. Return its absolute path in the owner\'s checkout in paths: run git rev-parse --show-toplevel and join it with the target (an absolute target is returned as it is). Never return a path under .claude/worktrees/. Return worktree empty.',
+  'Write nothing in the repository. Return kind, paths, worktree and notes.'
+)), { label: 'prepare', phase: 'Prepare', model: 'haiku', effort: 'low', schema: PREPARE_SCHEMA }))
 if (halted(P)) return stop('prepare', P.halt)
 
 // ---- Read: three readers in parallel, no shared notes ----
 phase('Read')
 const PATHS = (P.paths || []).join('\n')
-const WORK = lines('The ' + P.kind + ' to read, one path per line:', PATHS, P.worktree ? 'The branch is checked out at ' + P.worktree + ' (read any file there with Read).' : null)
+const WORK = lines('The ' + P.kind + ' to read, one path per line:', PATHS, P.kind === 'branch' ? 'Read any file on the branch with git show ' + safe(TARGET) + ':<path>' : null)
 const verifier = (name, fn) => () => stage(name, fn).then(r => (halted(r) ? { verifier: name, halt: r.halt } : { verifier: name, ...r }))
 const read = await parallel([
   verifier('review', () => agent(open(SEAT.reviewer, FB('reviewer') + lines(
@@ -124,7 +124,8 @@ const read = await parallel([
 ])
 const NAMES = ['review', 'adversary', 'imposter']
 const F = NAMES.map((n, i) => read[i] || { verifier: n, halt: n + ' did not run' })
-if (F.every(halted)) return stop('read', 'read: review, adversary and imposter all returned nothing')
+const gone = F.filter(halted)
+if (gone.length >= 2) return stop('read', gone.length + ' of 3 readers returned nothing: ' + gone.map(g => g.halt).join('; '))
 
 // ---- Summary ----
 phase('Summary')

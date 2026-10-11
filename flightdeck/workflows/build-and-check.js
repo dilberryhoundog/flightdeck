@@ -23,7 +23,7 @@ const GLOBAL_CHECKS = base => ['node lab/checks/hard-rules.mjs --base ' + base, 
 const GLOBAL_CHECK_FILES = ['lab/checks/hard-rules.mjs', 'flightdeck/.claude-plugin/plugin.json']
 
 function opening(rank, block, task) {
-  return [GLOBAL, rank, block, CAPTURE, 'Task: ' + task].filter(Boolean).join('\n\n')
+  return [GLOBAL, rank, block ? safe(block) : '', CAPTURE, 'Task: ' + task].filter(Boolean).join('\n\n')
 }
 
 const WS = String(A.workshop || '').trim()
@@ -86,7 +86,7 @@ const TRIAGE_SCHEMA = obj({
 })
 const FIX_SCHEMA = obj({ commit: STR, checks_green: { type: 'boolean' }, notes: STR })
 const RECHECK_SCHEMA = obj({ results: RESULTS })
-const REPORT_SCHEMA = obj({ title: STR, report_md: STR, log_md: STR, findings_md: STR, pr_md: STR, url: STR, pushed: { type: 'boolean' }, draft_reasons: STRS }, ['title', 'report_md', 'log_md', 'findings_md', 'pushed', 'draft_reasons'])
+const REPORT_SCHEMA = obj({ title: STR, report_md: STR, log_md: STR, findings_md: STR, pr_md: STR, url: STR, pushed: { type: 'boolean' }, committed: { type: 'boolean' }, draft_reasons: STRS }, ['title', 'report_md', 'log_md', 'findings_md', 'pushed', 'committed', 'draft_reasons'])
 
 // ---- Scope ----
 phase('Scope')
@@ -100,7 +100,7 @@ if (!scope0.block) return stop('scope', 'scope: workshop ' + WS + ' has no folde
 const S = { ...scope0, checks: scope0.checks || [], questions: scope0.questions || [] }
 if (!A.pluginRoot && S.plugin_root) R = S.plugin_root
 const open = (rank, task) => opening(rank, S.block, task)
-const QUESTIONS = S.questions.length ? S.questions.join('\n') : '(none)'
+const QUESTIONS = S.questions.length ? safe(S.questions.join('\n')) : '(none)'
 
 // ---- Brief ----
 phase('Brief')
@@ -113,6 +113,7 @@ const B = await stage('brief', () => ask('brief', open(RANK_TASK, lines(
   'The workshop\'s checks, to quote verbatim in the brief:',
   S.checks.length ? safe(S.checks.join('\n')) : '(none)',
   'Return brief_md: markdown that holds, in this order, the launch card first, the task, the files the builder may write, the checks quoted verbatim, the done line as yes-is-pass questions, the five-minute try steps for the owner, and anything you decided with a reason.',
+  'Write at most five try steps in plain words for the owner. Each works on the local branch (git switch ' + BRANCH + ', git show ' + BRANCH + ':<path>), never on origin/ refs, and uses no shell variables such as $?.',
   'Also return files (the paths the builder may write; never the workshop\'s constraints.md, context.md or verify.md, and never .flightdeck/workshops.md), try_steps, done (the yes-is-pass questions), a short title and notes.'
 )), { label: 'brief', phase: 'Brief', model: 'opus', effort: 'high', schema: BRIEF_SCHEMA }))
 if (halted(B)) return stop('brief', B.halt)
@@ -187,6 +188,7 @@ const verified = await parallel([
     'Become the owner: adopt .flightdeck/persona.md (if present) and the persona: lines of .flightdeck/' + WS + '/constraints.md (if present).',
     'Follow the brief\'s try steps literally and time each one in minutes:',
     json(B.try_steps || []),
+    'The rubric: ' + at('rubric.md'),
     'Never run a claude plugin command that adds, installs, uninstalls or removes anything, never start a nested claude session, never push. A step you cannot run is marked [stated].',
     'The workshop\'s questions:',
     QUESTIONS,
@@ -249,6 +251,7 @@ const deliverTask = dry(lines(
   'Pull request: base ' + BASE + ', branch ' + BRANCH + ', title "' + PR_TITLE + '". Today is ' + TODAY + '.',
   'The brief: title "' + TITLE + '", files ' + JSON.stringify(B.files || []) + ', done questions and try steps:',
   json({ done: B.done || [], try_steps: B.try_steps || [], notes: B.notes || '' }),
+  'The full brief: git show ' + BRANCH + ':' + ATT + '/brief.md',
   'The builder: ' + json({ commit: built.commit, files: built.files, notes: built.notes, captures: built.captures || [] }),
   'Check results (first run):',
   json(checkResults),
@@ -263,7 +266,7 @@ const deliverTask = dry(lines(
     ? 'Dry run: also write ' + ATT + '/pr.md with ' + toPr + '. Commit all four files by name (never git add -A). Do not open a pull request and send nothing to the remote.'
     : 'Commit the three files by name (never git add -A). Then run: git push -u origin ' + BRANCH + '. Then run: gh pr create --draft --base ' + BASE + ' --head ' + BRANCH + ' --title "' + PR_TITLE + '" --body-file ' + ATT + '/report.md and return the url. If gh is missing or fails, write ' + ATT + '/pr.md with ' + toPr + ', commit it, and say so in draft_reasons.',
   'Your last command is: git switch --detach',
-  'Return title, report_md, log_md, findings_md, pr_md, url, pushed and draft_reasons. The texts are the full file contents, so the Captain can write any file you could not.'
+  'Return title, report_md, log_md, findings_md, pr_md, url, pushed, committed and draft_reasons. committed: true only if findings.md, report.md, log.md (and pr.md on a dry run) are committed on the branch. The texts are the full file contents, so the Captain can write any file you could not.'
 ))
 const D = await stage('report', () => ask('report', open(RANK_TASK, deliverTask), { label: 'report', phase: 'Deliver', model: 'sonnet', effort: 'medium', isolation: 'worktree', schema: REPORT_SCHEMA }))
 if (halted(D)) return stop('report', D.halt)
@@ -283,6 +286,7 @@ return {
   log_md: D.log_md,
   findings_md: D.findings_md,
   pr_md: D.pr_md || '',
+  record_saved: !!D.committed,
   questions: T.questions || [],
   captures: CAPS,
   proposals: T.proposals || [],

@@ -7,7 +7,7 @@ argument-hint: <workshop> [dry run]
 
 # Launch
 
-`/flight:launch <workshop>` sends a team of agents at one active workshop. A workshop is a piece of work with its own folder in `.flightdeck/`. A launch is one flight from it, and the result is one attempt on its own branch. Follow the thirteen steps below in order. Plain words, one short paragraph per step.
+`/flight:launch <workshop>` sends a team of agents at one active workshop. A workshop is a piece of work with its own folder in `.flightdeck/`. A launch is one flight from it, and the result is one attempt on its own branch. Follow the thirteen steps below in order. Plain words, one short paragraph per step. Steps 2 to 6 are done quietly: show none of their working. The answer to `/flight:launch` is: at most one line of open questions or uncommitted files, then the five card lines of step 7, then at most one line that explains a term or a caveat, ending "Say go to start."
 
 ## 1. Who is who
 
@@ -53,13 +53,13 @@ Line 1: `Workshop: <name>: <the card's work line, shortened>`
 
 Line 2: `Team plan: <plan>: <one-line why>`
 
-Line 3: `Roles: <role (rank, model effort)>, ...`. For Build and check: scope (Worker, haiku low), brief (Worker, opus high), builder (Worker, sonnet high), checks (Worker, haiku low), reviewer (Worker, sonnet high), adversary (Worker, opus high), imposter (Worker, sonnet high), triage (Worker, opus high), fixer (Worker, sonnet high), recheck (Worker, haiku low), report (Worker, sonnet medium); you are the Captain. For Recon: scouts 1 to 3 (Worker, haiku low), summary (Worker, sonnet medium), claim check (Worker, sonnet high); you are the Captain.
+Line 3: `Roles, all Workers: <role (model effort)>, ...; you are the Captain.` For Build and check: `Roles, all Workers: scope (haiku low), brief (opus high), builder (sonnet high), checks (haiku low), reviewer (sonnet high), adversary (opus high), imposter (sonnet high), triage (opus high), fixer (sonnet high), recheck (haiku low), report (sonnet medium); you are the Captain.` For Recon: `Roles, all Workers: scouts 1 to 3 (haiku low), summary (sonnet medium), claim check (sonnet high); you are the Captain.`
 
-Line 4: `Size: about <n> agents, <m> on Opus; a rough guess of <x> to <y> million tokens; log.md records the real use`. Build and check: about 11 agents, 3 on Opus, 1 to 3 million tokens. Recon: about 5 agents, 0 on Opus, 0.2 to 0.6 million tokens.
+Line 4: `Size: about <n> agents, <m> on Opus; a rough guess of <x> to <y> million tokens; the real use shows in /workflows`. Build and check: about 11 agents, 3 on Opus, 1 to 3 million tokens. Recon: about 5 agents, 0 on Opus, 0.2 to 0.6 million tokens.
 
-Line 5: `Branches: from <base> (pushed: yes|no) to new branch <name>-a<k>, as a draft pull request into <base>. Say go to start.`
+Line 5: `Branches: from <base> (pushed: yes|no) to new branch <name>-a<k>, as a draft pull request into <base>. Say go to start.` For Recon, line 5 is: `Writes no files; no branch or pull request. Say go to start.`
 
-Two terms may be new to the owner. A worktree is a separate copy of the repository on its own branch, so the builder never touches the owner's checkout. A draft pull request is a pull request marked not ready, and only the owner merges it. Explain each in those few words the first time it appears in the card or in an answer.
+Two terms may be new to the owner. A worktree is a separate copy of the repository on its own branch, so the builder never touches the owner's checkout. A draft pull request is a pull request marked not ready, and only the owner merges it. Explain them only if the owner asks, in one line after the card; the card itself stays five lines.
 
 ## 8. Wait for "go"
 
@@ -77,7 +77,11 @@ If the Workflow tool refuses because the script is outside the folders it may re
 
 If `status` is `halted`: say which stage stopped and why, in two lines, and how to retry: run `/flight:launch <name>` again; the next attempt gets the next number.
 
+If `status` is `done` (Recon): show `report_text` as it is, then file its captures if any; nothing was written.
+
 If `status` is `delivered`: give the pull request link. If there is no link because `gh` (GitHub's command line tool) was not available, say the branch and `pr.md` are ready and give the `gh pr create` line from the end of `pr.md`.
+
+If `record_saved` is false, say in one line: "The run finished, but its record files were not saved on the branch; I will save them now (this needs your OK once)." Then follow the repair path below.
 
 Check that `brief.md`, `findings.md`, `report.md` and `log.md` exist on the branch, with `git show <branch>:.flightdeck/<name>/attempts/a<k>/<file>`. For any file that is missing, write it from the result's text (`brief_md`, `findings_md`, `report_md`, `log_md`, `pr_md`) through a temporary worktree: `git worktree add <tmp> <branch>`, write the file, commit it by file name, push the branch unless this was a dry run, then `git worktree remove <tmp>`. Never switch the owner's checkout.
 
@@ -90,6 +94,8 @@ List the result's `proposals` (lines starting `context:` or `verify:`) for the o
 When the owner adds "dry run", pass `dryRun: true`. Everything runs, but nothing is pushed and no pull request is opened. The files sit on the local branch `<name>-a<k>`, with `pr.md` holding the title and body.
 
 ## 12. Other workflows, by name and by path
+
+`/flight:build-and-check <workshop>` runs Build and check directly. Args: `{workshop, attempt, base, dryRun, today, pluginRoot, card, task}`. By path: `${CLAUDE_PLUGIN_ROOT}/workflows/build-and-check.js`. `/flight:launch` is the safe way, because it shows the card and waits for go first.
 
 `/flight:recon` runs Recon on a question. Args: `{question, workshop}` (the workshop is optional). By path: `${CLAUDE_PLUGIN_ROOT}/workflows/recon.js`. It writes no files and returns a report.
 

@@ -399,7 +399,7 @@ function cmdActivate(o) {
     const blocks = parseQBlocks(lines);
     if (!blocks.length) throw new Bad('the questions file has no ## q<n>: blocks');
     const chunks = blocks.map((b) => {
-      const body = lines.slice(b.start, b.end);
+      const body = lines.slice(b.start, b.end).filter((l) => !l.startsWith('Other notes ('));
       while (body.length && body[body.length - 1].trim() === '') body.pop();
       return body.join('\n');
     });
@@ -520,7 +520,7 @@ function cmdPropose(o) {
   warnings.push(...dec.warnings);
   for (const d of dec.decisions) add('decisions.md', 'decision', `- ${d.date}: ${d.text}`, 'CLAUDE.md', '## Decisions');
   for (const l of toLines(stripNoise(readText(path.join(dir, 'context.md')) ?? ''))) {
-    if (l.trim() && !l.trim().startsWith('#')) add('context.md', 'context', l.trim(), 'CLAUDE.md', '## Context');
+    if (l.trim() && !l.trim().startsWith('#')) add('context.md', 'context', l.trim(), 'CLAUDE.md', '');
   }
   const ver = parseVerify(readText(path.join(dir, 'verify.md')) ?? '');
   warnings.push(...ver.warnings);
@@ -573,11 +573,16 @@ export function insertLine(lines, heading, line) {
 
 function badTarget(t) {
   const n = t.replace(/\\/g, '/').replace(/^(\.\/)+/, '');
+  const low = n.toLowerCase();
   if (!n || n.startsWith('/') || /^[a-zA-Z]:/.test(n)) return 'is an absolute path';
   if (n.includes('..')) return 'contains ".."';
-  if (n.startsWith('.claude/') || n.startsWith('dev/') || n.startsWith('.git/')) return 'is under .claude/, dev/ or .git/';
-  if (n.endsWith('constraints.md')) return 'is a constraints.md, which only the owner writes';
-  if (['.flightdeck/vision.md', '.flightdeck/build.txt'].includes(n.toLowerCase())) return 'is a file that only the owner writes';
+  if (['.claude/', 'dev/', '.git/', 'library/source/'].some((p) => low.startsWith(p))) return 'is under .claude/, dev/, .git/ or library/source/';
+  if (low.split('/').includes('.claude-plugin')) return 'is under a .claude-plugin/ folder';
+  if (!low.endsWith('.md')) return 'is not a .md file; a promotion only adds lines to markdown files';
+  const base = low.slice(low.lastIndexOf('/') + 1);
+  if (base === 'intent.md' || base === 'history.md') return 'is an INTENT.md or HISTORY.md, which only the owner writes';
+  if (low.endsWith('constraints.md')) return 'is a constraints.md, which only the owner writes';
+  if (low === '.flightdeck/vision.md') return 'is a file that only the owner writes';
   return '';
 }
 

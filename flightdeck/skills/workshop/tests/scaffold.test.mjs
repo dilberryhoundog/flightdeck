@@ -406,7 +406,7 @@ test('propose refuses an unsettled workshop and lists candidates from a settled 
   assert.equal(p.branch, `${NAME}-promote-a1`);
   const kinds = p.candidates.map((c) => c.kind);
   assert.deepEqual(kinds, ['decision', 'decision', 'context', 'context', 'check', 'question']);
-  for (const c of p.candidates) assert.ok(c.target && c.heading && c.line && c.source, JSON.stringify(c));
+  for (const c of p.candidates) assert.ok(c.target && c.line && c.source && (c.kind === 'context' ? c.heading === '' : c.heading), JSON.stringify(c));
   assert.equal(p.candidates[0].line, '- 2026-10-10: Pages never load anything from the network. Reason: they must work offline.');
   assert.equal(p.candidates[0].target, 'CLAUDE.md');
   assert.equal(p.candidates[0].heading, '## Decisions');
@@ -520,6 +520,54 @@ test('promote-commit dry run changes nothing; a real run builds one commit on a 
   const empty = [];
   insertLine(empty, '## New', '- first');
   assert.deepEqual(empty, ['## New', '', '- first']);
+});
+
+test('promote-commit dry run refuses targets that are not plain markdown notes, and a real run adds a missing heading to CLAUDE.md', () => {
+  const root = mkroot({ manifest: false });
+  git(root, ['init', '-b', 'main']);
+  fs.writeFileSync(path.join(root, 'CLAUDE.md'), '# Project\n\n## Other\n\nplain text\n');
+  git(root, ['add', 'CLAUDE.md']);
+  git(root, ['commit', '-m', 'start']);
+  fs.mkdirSync(fd(root), { recursive: true });
+  const editsFile = fd(root, `${NAME}.promote.json`);
+  const e = `.flightdeck/${NAME}.promote.json`;
+  const targets = ['flightdeck/hooks/guard.mjs', '.Claude/rules/x.md', 'INTENT.md', 'library/source/foo.md', 'flightdeck/.claude-plugin/plugin.json', 'DEV/x.md', 'docs/history.md', 'flightdeck/.CLAUDE-PLUGIN/notes.md', '.flightdeck/Build-1/Constraints.md'];
+  for (const target of targets) {
+    fs.writeFileSync(editsFile, JSON.stringify([{ target, heading: '## Decisions', line: 'nope' }]));
+    const r = run(root, ['promote-commit', NAME, '--edits', e, '--dry-run']);
+    assert.equal(r.status, 1, `${target}: ${r.out} ${r.err}`);
+    assert.match(r.err, /^refused: /m, target);
+    assert.equal(r.out, '', `${target} printed a preview`);
+  }
+  const line = '- 2026-10-11: Pages work offline. Reason: no network.';
+  fs.writeFileSync(editsFile, JSON.stringify([{ target: 'CLAUDE.md', heading: '## Decisions', line }]));
+  const ok = run(root, ['promote-commit', NAME, '--edits', e, '--dry-run', '--keep']);
+  assert.equal(ok.status, 0, ok.err);
+  assert.ok(ok.out.includes('--- CLAUDE.md') && ok.out.includes('under ## Decisions'));
+  const branch = `${NAME}-promote-a1`;
+  assert.equal(run(root, ['promote-commit', NAME, '--edits', e, '--branch', branch]).status, 0);
+  const after = git(root, ['show', `${branch}:CLAUDE.md`]).split('\n');
+  assert.ok(after.includes('## Decisions'), 'the Decisions heading is added when it is missing');
+  assert.ok(after.indexOf(`${line} (from workshop ${NAME})`) > after.indexOf('## Decisions'));
+});
+
+test('activate writes the notes line once when the bundle has an Other notes line after the last question', () => {
+  const root = mkroot();
+  const bundle = fd(root, `${NAME}.activate.md`);
+  fs.copyFileSync(path.join(FIX, 'bundle.activate.md'), bundle);
+  assert.equal(run(root, ['answer', NAME, '--from', path.join(FIX, 'bundle-answer.txt')]).status, 0);
+  const lines = read(bundle).split('\n');
+  const notes = lines.find((l) => l.startsWith('Other notes ('));
+  assert.ok(notes, 'the answered bundle has a notes line');
+  const moved = lines.filter((l) => l !== notes);
+  moved.splice(moved.indexOf('## What the scouts found'), 0, notes, '');
+  fs.writeFileSync(bundle, moved.join('\n'));
+  const r = activateWith(root, SPEC, ['--questions-from', `.flightdeck/${NAME}.activate.md`]);
+  assert.equal(r.status, 0, r.err);
+  const q = read(fd(root, NAME, 'questions.md'));
+  assert.equal(q.split('\n').filter((l) => l.startsWith('Other notes (')).length, 1);
+  assert.ok(q.includes('\n## q3:') && !q.includes('What the scouts found'));
+  assert.equal(parseQuestions(q).questions.length, 3);
 });
 
 test('every subcommand exits 0, 1 or 2 only and bad input never prints a stack trace', () => {

@@ -4,7 +4,9 @@ When the owner activates a workshop, FlightDeck asks a few questions before it w
 
 ## What a bundle holds
 
-A bundle has at most five questions, asked once, in one go. Fewer is better. If three questions are enough, ask three.
+A bundle has at most five questions, asked once, in one go. Fewer is better. If three questions are enough, ask three. For an ask that fits in one sentence, aim for two or three questions.
+
+A detail whose recommended answer would not change what the owner gets is not asked. The agent decides it with the recommended option and writes it into `context.md` as `decided by the agent: <option>`.
 
 Each question is about the owner's own ideas: what done looks like to them, what matters most, what to leave out, what they would hate, their taste. These are things only the owner knows.
 
@@ -23,7 +25,7 @@ asked: <YYYY-MM-DD> by the workshop interview
 answer:
 ```
 
-Give two to four lettered options. Name a recommended answer every time, with its reason, so the owner can accept it with one choice. Number the questions q1, q2, q3 in order with no gaps. Leave `answer:` empty.
+Never put a file field name (`ask-later:`, `answer:` or `asked:`) in the words of a question: the owner does not know the files. Give two to four lettered options. Name a recommended answer every time, with its reason, so the owner can accept it with one choice. Number the questions q1, q2, q3 in order with no gaps. Leave `answer:` empty.
 
 ## The whole file
 
@@ -38,7 +40,7 @@ In order: the title `# Activation questions for workshop <name>`; the line `The 
 
 ## A skipped answer stays open
 
-If the owner skips a question, closes the box or does not reply to it, its `answer:` line stays empty. It is never guessed and never filled in with the recommended option. Skipped questions are filed in `questions.md` and counted on the pre-flight card as waiting questions, so the owner can answer them later.
+If the owner skips a question, closes the box or does not reply to it, its `answer:` line stays empty. It is never guessed and never filled in with the recommended option. Skipped questions are filed in `questions.md` and counted on the pre-flight card (the short summary shown when a session starts) as waiting questions, so the owner can answer them later.
 
 ## How answers become files
 
@@ -66,3 +68,5 @@ Other notes: <text>
 ```
 
 Write `(unanswered)` for a question being skipped. The `| note:` part is optional. Write `Other notes: none` when there is nothing to add.
+
+An explicit answer of "you decide" (or "don't care") is an answer, not a skip. It takes the recommended option, and the line is filed as `q<n>: you decide: <letter>) <option>` with the recommended letter and its option text. Only a true skip or `(unanswered)` stays open. This holds for a block pasted back and for an `answer:` line the owner filled in by hand.

@@ -26,8 +26,10 @@ Run `node ${CLAUDE_PLUGIN_ROOT}/lib/workshops.mjs list --json` and find `$0`. A 
 
 The change is the owner's new truth since the last attempt was made. Find the latest attempt in the group from the `list --json` output (its folder under `.flightdeck/$0/attempts/`). Call that folder `<label>`.
 
-- With an attempt: find the commit that added it with `git log -1 --format=%H -- .flightdeck/$0/attempts/<label>`. The change is every line added since that commit to the workshop's `constraints.md`, `context.md`, `verify.md` and the answers in `questions.md`. Use `git diff <commit> -- <those files>` for what was committed since, and `git diff HEAD -- <those files>` for what is not committed yet. Read any new file git does not track yet (see `git status --short`) whole. Leave out headings, comments and blank lines.
-- With no attempt yet: the change is the uncommitted additions to those files. If there are none, it is the newest dated line in `constraints.md`.
+- With an attempt: the cut-off is the commit that added the last attempt's brief. Find it with `git log --diff-filter=A --format=%H -- .flightdeck/$0/attempts/<label>/brief.md | tail -1`. When it prints a commit, the change is every line added since that commit to the workshop's `constraints.md`, `context.md`, `verify.md` and the answers in `questions.md`. Use `git diff <commit> -- <those files>` for what was committed since, and `git diff HEAD -- <those files>` for what is not committed yet. Leave out headings, comments and blank lines. When it prints nothing (the attempt or the workshop is not committed), the change is the dated lines in `constraints.md`, and the answers in `questions.md`, that do not appear in the previous attempt's `brief.md`. Compare against that brief, never against file times.
+- With no attempt yet: the change is the dated lines in `constraints.md` only. `context.md`, `verify.md` and `questions.md` written by activation are setup, not change.
+
+Never read a whole untracked file as the change.
 
 Keep the owner's lines word for word. Do not reword, shorten, join or fix them.
 

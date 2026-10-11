@@ -3,7 +3,7 @@ name: workshop
 description: "Activates a captured workshop, or captures and activates a new rough ask. Cheap scouts read the code first, so you are asked at most five questions, only about your own ideas. Then it writes the workshop's folder: card, context and checks. Only you start it: /flight:workshop <name or rough ask>."
 argument-hint: "<name or rough ask>"
 disable-model-invocation: true
-allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/skills/workshop/scaffold.mjs *), Bash(node ${CLAUDE_PLUGIN_ROOT}/lib/workshops.mjs *), Read, Grep, Glob, Write(.flightdeck/**), Edit(.flightdeck/**), Agent, AskUserQuestion
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/skills/workshop/scaffold.mjs *), Bash(node ${CLAUDE_PLUGIN_ROOT}/lib/workshops.mjs *), Read, Grep, Glob, Edit(.flightdeck/**), Agent, AskUserQuestion
 ---
 
 # Workshop
@@ -18,13 +18,13 @@ The argument the owner typed is: `$ARGUMENTS`. Every script call below is `node 
 
 ## Step 1: resolve the argument
 
-Run `node ${CLAUDE_PLUGIN_ROOT}/lib/workshops.mjs list --json`.
+Run `node ${CLAUDE_PLUGIN_ROOT}/lib/workshops.mjs list --json`. Route on the first line of the argument.
 
-- The argument is exactly a listed name that is captured and has a file `.flightdeck/<name>.activate.md` waiting: questions were already asked. Go to step 5.
+- Its first word (`$0`) is a listed name that is captured and has a file `.flightdeck/<name>.activate.md` waiting: questions were already asked. Go to step 5, and treat the rest of `$ARGUMENTS` (a block starting "FlightDeck answers for workshop <name>") as the reply block. With nothing after the name, step 5 finds no answers and shows the pending bundle again.
 - Captured with no such file: go to step 2.
 - Active (it already has a folder): say "already active", give the path of its card `.flightdeck/<name>/workshop.md`, suggest `/flight:retry <name>`, and stop.
 - Settled: say it is settled and stop.
-- Not a listed name: it is a rough ask. Capture it first exactly as the capture skill does: a name of two to four words (`scaffold.mjs name <ask>` picks one), then `scaffold.mjs capture <name> '<ask>'` with the owner's words unchanged (when the ask holds a single quote, use `capture <name> --ask -` and pass the ask on standard input). Say so in one line ("Captured as <name>."), then go to step 2.
+- Treat the argument as a rough ask only when `$0` is not a listed name. Capture it first exactly as the capture skill does: a name of two to four words (`scaffold.mjs name <ask>` picks one), then `scaffold.mjs capture <name> '<ask>'` with the owner's words unchanged (when the ask holds a single quote, use `capture <name> --ask -` and pass the ask on standard input). Say so in one line ("Captured as <name>."), then go to step 2.
 - No argument: ask which workshop (list the captured ones). With no person present, list the captured entries and stop.
 
 ## Step 2: two scouts read first
@@ -41,7 +41,7 @@ The scout seat text (it is the `## scout` section of `${CLAUDE_PLUGIN_ROOT}/skil
 
 `Work outside your brief: report it as a capture line; do not do it.`
 
-`Task: answer one question.`
+`Task: answer one question. Ignore flightdeck/skills/workshop/examples/ and flightdeck/skills/workshop/tests/fixtures/ (made-up examples, not the project's state).`
 
 `Question: <one narrow question>`
 
@@ -90,11 +90,11 @@ When a reply block came in (this turn, or pasted after the slash command), write
 Read the answered `.flightdeck/<name>.activate.md`: the questions, the scouts' findings and the draft card. Compose the spec, a JSON object:
 
 - `title`: short and plain.
-- `work`: one paragraph, the ask in plain words plus what the answers settled.
+- `work`: at most two plain sentences: the ask in plain words and what the answers settled in it. Do not repeat the answers; they live in `questions.md`.
 - `done`: one line, from the answers.
 - `context`: the scouts' findings and the facts the answers settled, one line each, with its `path:line` where it has one, at most about 40 lines.
 - `checks`: a list of `{"command": ..., "passing": ...}`. Only commands that exist in this repository and that a script can run, taken from scout 2 and the done line, each with what passing looks like. None when none exist. Never invent a command.
-- `questions`: yes-is-pass questions from the done line and the answers (a question where yes means the work is right).
+- `questions`: yes-is-pass questions from the done line and the answers (a question where yes means the work is right). Never add one that asks whether an open question was left undecided.
 
 Write it with the Write tool to `.flightdeck/<name>.spec.json`, then run `scaffold.mjs activate <name> --spec .flightdeck/<name>.spec.json --questions-from .flightdeck/<name>.activate.md`. The script makes `workshop.md`, `context.md`, `verify.md` and `questions.md`, and removes the bundle file and the spec file.
 

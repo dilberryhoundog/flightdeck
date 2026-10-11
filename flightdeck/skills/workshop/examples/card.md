@@ -59,7 +59,7 @@ The card is built by `buildCard` in `flightdeck/hooks/preflight.mjs:47`, and eac
 
 Questions are read by `parseQuestions` in `flightdeck/lib/workshops.mjs:71`. It counts a question as open while its `answer:` line is empty, and does not count one that has an `ask-later:` line.
 
-Oldest means the earliest `asked:` date (the owner's answer to q3). Questions held with `ask-later:` do not count as waiting (the owner skipped q2, so today's behaviour stays until it is answered).
+`parseQuestions` does not count a question with an `ask-later:` line as waiting (`flightdeck/lib/workshops.mjs:71`). Whether that should change is q2, which is still open.
 ```
 
 ## verify.md

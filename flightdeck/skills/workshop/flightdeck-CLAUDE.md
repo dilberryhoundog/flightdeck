@@ -20,13 +20,13 @@ The owner runs these; the model cannot start them.
 
 ## The list
 
-`workshops.md` has no frontmatter. Each workshop is one line: `- <name>: <the ask in the words it was given> (<YYYY-MM-DD>)`. Names are lowercase letters, digits and hyphens.
+`workshops.md` has no frontmatter (the settings block between `---` lines at the top of a file). Each workshop is one line: `- <name>: <the ask in the words it was given> (<YYYY-MM-DD>)`. Names are lowercase letters, digits and hyphens.
 
 Parse rule: only lines starting with `- ` count. The name is the text before the first `: `. The date is the last `(YYYY-MM-DD)` at the end of the line. Everything between is the ask, and it may contain `:`, `|` or brackets. HTML comments and fenced code blocks are ignored.
 
 ## The files of a workshop
 
-- `workshop.md`: the card (title, `work:`, `done:`, optional `settled:`). Agents write it on the base branch.
+- `workshop.md`: the card (title, `work:`, `done:`, optional `settled:`). Agents write it on the base branch (the main line of work the attempt branches come from).
 - `constraints.md`: the owner's truth. Only words the owner typed go in. Agents never write it.
 - `context.md` and `verify.md`: agents write them, on the base branch only. An attempt never edits them; it proposes a change as a `context:` or `verify:` line in its report.
 - `questions.md` and `decisions.md`: agents write them, in the template formats.

@@ -31,6 +31,7 @@ footer.fd-sub { margin-top: 32px; }
 <section class="fd-section" id="builder">
 <h2>Prompt builder</h2>
 <p class="fd-sub">Turn a rough idea into a ready message for the pilot.</p>
+<p class="fd-sub">The pilot is the Claude session that leads your work; FlightDeck calls its role the Captain. A team plan is a ready-made way to split the work between helpers.</p>
 <label class="fd-field">Workshop<select id="b-workshop"></select></label>
 <label class="fd-field" id="b-name-field">Name for the new work<input type="text" id="b-name" autocomplete="off"></label>
 <label class="fd-field">Team plan<select id="b-plan"><option value="">Let the Captain pick</option></select></label>
@@ -136,7 +137,8 @@ footer.fd-sub { margin-top: 32px; }
       if (!items[ws]) { items[ws] = []; order.push(ws); }
       items[ws].push({ id: set.getAttribute('data-question'), option: option, note: note });
     }
-    var other = byId('other-notes').value;
+    var otherBox = byId('other-notes');
+    var other = otherBox ? otherBox.value : '';
     var blocks = [];
     for (var k = 0; k < order.length; k++) {
       if (!items[order[k]].length) continue;
@@ -145,11 +147,17 @@ footer.fd-sub { margin-top: 32px; }
     return blocks;
   }
 
-  byId('copy-answers').addEventListener('click', function () {
+  if (byId('copy-answers')) byId('copy-answers').addEventListener('click', function () {
     var out = byId('answers-out');
     var status = byId('answers-status');
     var blocks = collectBlocks();
     if (!blocks.length) {
+      var otherText = byId('other-notes').value.replace(/\s+/g, ' ').trim();
+      if (otherText) {
+        out.value = 'Other notes: ' + otherText;
+        copyText(out.value, status);
+        return;
+      }
       out.value = '';
       status.textContent = 'Nothing to copy yet: no question is waiting and none was answered.';
       return;

@@ -71,8 +71,8 @@ test('board: captured entries appear under waiting with a copy button', () => {
   assert.ok(waiting.includes('&amp;'));
   assert.ok(waiting.includes('&quot;quotes&quot;'));
   assert.ok(!waiting.includes('<b>'));
-  assert.ok(waiting.includes('Activation questions are waiting in <code>.flightdeck/cap-two.activate.md</code>.'));
-  assert.ok(!/Activation questions are waiting in <code>\.flightdeck\/cap-one/.test(waiting));
+  assert.ok(waiting.includes('Questions to answer before it starts are waiting in <code>.flightdeck/cap-two.activate.md</code>.'));
+  assert.ok(!/Questions to answer before it starts are waiting in <code>\.flightdeck\/cap-one/.test(waiting));
   assert.ok(!waiting.includes('ws-nested'));
   assert.ok(!waiting.includes('ws-settled'));
 });
@@ -283,4 +283,18 @@ test('board: importing the renderer prints nothing and writes nothing', () => {
   assert.equal(r.stderr, '');
   assert.deepEqual(fs.readdirSync(root, { recursive: true }).sort(), before);
   assert.ok(!fs.existsSync(path.join(root, '.flightdeck', 'board.html')));
+});
+
+test('board: with no questions the page has no answer boxes but still has the prompt builder', () => {
+  const root = tmpDir();
+  fs.mkdirSync(path.join(root, '.flightdeck'), { recursive: true });
+  fs.writeFileSync(path.join(root, '.flightdeck', 'workshops.md'), '# Workshops\n\n- cap-x: a captured idea (2026-10-11)\n');
+  const data = collectBoard(root, { gh: false, now: NOW });
+  assert.deepEqual(data.questions, []);
+  const page = renderBoard(data);
+  const questions = section(page, 'questions');
+  assert.ok(questions.includes('No questions are waiting on you.'));
+  assert.ok(!page.includes('id="other-notes"'));
+  assert.ok(!page.includes('id="copy-answers"'));
+  assert.ok(page.includes('id="copy-prompt"'));
 });

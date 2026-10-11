@@ -55,7 +55,7 @@ Start from this and fill it in. Keep the `<title>` to two to four words.
   </section>
   <section class="fd-copy-panel">
     <button type="button" class="fd-btn fd-btn-primary" id="copy-changes">Copy my changes</button>
-    <p id="copy-status" role="status">Nothing changed yet.</p>
+    <p id="copy-status" role="status"></p>
     <textarea id="copy-out" readonly aria-label="Text to copy"></textarea>
   </section>
 </main>

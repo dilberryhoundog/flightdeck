@@ -23,7 +23,7 @@ export const TEAM_PLANS = [
 ];
 
 const PLACEHOLDERS = ['THEME_CSS', 'HEADER', 'WORKSHOPS', 'WAITING', 'QUESTIONS', 'WARNINGS', 'DATA_JSON', 'FUNCTIONS'];
-const GH_NOTE = 'the gh command is missing, not signed in, or failed';
+const GH_NOTE = 'the GitHub tool (gh) is missing, not signed in, or could not reach GitHub';
 
 // The two functions below are run in the page, from their toString() source: each uses only its own body.
 export function answerBlock(name, items, otherNotes) {
@@ -235,12 +235,20 @@ function prLink(p) {
   return p.isDraft ? `${link} (draft)` : link;
 }
 
+function madeAt(generated) {
+  const m = /^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/.exec(String(generated ?? ''));
+  if (m) return `${m[1]} ${m[2]} UTC`;
+  const d = new Date(generated);
+  if (!Number.isNaN(d.getTime())) { const iso = d.toISOString(); return `${iso.slice(0, 10)} ${iso.slice(11, 16)} UTC`; }
+  return String(generated ?? '');
+}
+
 function renderHeader(data) {
   return [
     '<header class="fd-header">',
     '<h1>FlightDeck flight board</h1>',
     data.branch ? `<p class="fd-sub">Branch: ${esc(data.branch)}</p>` : '',
-    `<p class="fd-sub">Made ${esc(data.generated)}</p>`,
+    `<p class="fd-sub">Made ${esc(madeAt(data.generated))}</p>`,
     '<p class="fd-sub">To refresh: type /flight:board again, then reload this page.</p>',
     '</header>',
   ].filter(Boolean).join('\n');
@@ -248,7 +256,7 @@ function renderHeader(data) {
 
 function renderWorkshops(data) {
   const out = ['<section class="fd-section" id="workshops">', '<h2>Workshops</h2>',
-    '<p class="fd-sub">A workshop is a piece of work with its own folder of notes, checks and attempts.</p>'];
+    '<p class="fd-sub">A workshop is a piece of work with its own folder of notes, checks and attempts. An attempt is one try at part of the work; a label like pr-1/a2 means the second try at PR 1.</p>'];
   if (!data.workshops.length) out.push('<p class="fd-empty">No active workshops yet.</p>');
   for (const w of data.workshops) {
     const badge = w.state === 'settled' ? `<span class="fd-badge is-go">Settled ${esc(w.settled)}</span>` : '<span class="fd-badge is-info">In progress</span>';
@@ -273,7 +281,7 @@ function renderWorkshops(data) {
 
 function renderWaiting(data) {
   const out = ['<section class="fd-section" id="waiting">', '<h2>Waiting to start</h2>',
-    '<p class="fd-sub">Work that was written down and is waiting for you to start it. To start one, copy its line and paste it to the pilot.</p>'];
+    '<p class="fd-sub">Work that was written down and is waiting for you to start it. To start one, copy its line and paste it to the pilot (the Claude session that leads your work).</p>'];
   if (!data.waiting.length) out.push('<p class="fd-empty">Nothing is waiting to start.</p>');
   else {
     out.push('<ul class="fd-list">');
@@ -281,7 +289,7 @@ function renderWaiting(data) {
       out.push(`<li class="fd-row" data-workshop="${esc(c.name)}">`, `<h3>${esc(c.name)}</h3>`);
       out.push(`<p>${esc(c.ask)}${c.date ? ` <span class="fd-muted">(${esc(c.date)})</span>` : ''}</p>`);
       out.push(`<p><code>activate ${esc(c.name)}</code> <button type="button" class="fd-btn" data-copy="activate ${esc(c.name)}">Copy</button></p>`);
-      if (c.activateFile) out.push(`<p class="fd-muted">Activation questions are waiting in <code>${esc(c.activateFile)}</code>.</p>`);
+      if (c.activateFile) out.push(`<p class="fd-muted">Questions to answer before it starts are waiting in <code>${esc(c.activateFile)}</code>.</p>`);
       out.push('</li>');
     }
     out.push('</ul>');
@@ -311,9 +319,13 @@ function renderQuestion(q) {
 function renderQuestions(data) {
   const open = data.questions.filter((q) => !q.held);
   const held = data.questions.filter((q) => q.held);
-  const out = ['<section class="fd-section" id="questions">', '<h2>Questions waiting on you</h2>',
-    '<p class="fd-sub">Pick an answer or write a note, then press Copy my answers and paste the result into your Claude chat. Skipped questions stay open.</p>'];
-  if (!open.length) out.push('<p class="fd-empty">No questions are waiting on you.</p>');
+  const out = ['<section class="fd-section" id="questions">', '<h2>Questions waiting on you</h2>'];
+  if (!data.questions.length) {
+    out.push('<p class="fd-empty">No questions are waiting on you.</p>', '</section>');
+    return out.join('\n');
+  }
+  out.push('<p class="fd-sub">Pick an answer or write a note, then press Copy my answers and paste the result into your Claude chat. Skipped questions stay open.</p>');
+  if (!open.length) out.push(`<p class="fd-empty">No questions are waiting on you. You asked for ${held.length} to be asked later; they are in the folded list below.</p>`);
   for (const q of open) out.push(renderQuestion(q));
   if (held.length) {
     out.push(`<details id="held"><summary>Asked to ask later (${held.length})</summary>`,

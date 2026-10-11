@@ -15,9 +15,9 @@ flightdeck/skills/board/tests/fixtures/.flightdeck/ws-settled/questions.md
 flightdeck/skills/page/SKILL.md
 flightdeck/skills/page/theme.css
 .flightdeck/.gitignore
-lab/evals/pr2-board-shows-waiting/prompt.md
-lab/evals/pr2-board-shows-waiting/graders/waiting.md
-lab/evals/pr2-board-shows-waiting/graders/questions.md
+flightdeck/evals/pr2-board-shows-waiting/prompt.md
+flightdeck/evals/pr2-board-shows-waiting/graders/waiting.md
+flightdeck/evals/pr2-board-shows-waiting/graders/questions.md
 lab/owned/pr2.txt
 .flightdeck/build-1/attempts/pr-2/a1/brief.md
 .flightdeck/build-1/attempts/pr-2/a1/findings.md

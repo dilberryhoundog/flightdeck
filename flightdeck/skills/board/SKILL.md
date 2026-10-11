@@ -23,7 +23,7 @@ Do not open a browser. Do not read the page back into chat. The page is not kept
 The owner pastes a block whose first line is `FlightDeck answers for workshop <name>: file these into .flightdeck/<name>/questions.md`. File it like this.
 
 1. Open `.flightdeck/<name>/questions.md`. If the file or a named question is missing, say so and file nothing for that question.
-2. For each line `q<n>: <value>` whose value is not `(unanswered)`, set that question's `answer:` line to `answer: <value>`, copied exactly as pasted. Add nothing: no date, no words, no extra line (not even an `answered:` line). This replaces the "dated" rule in CLAUDE.md for pasted answers: the file changes by exactly one line per answer. Use the Edit tool and change no other line. Leave `ask-later:` as it is: an answered question is no longer open or held.
+2. For each line `q<n>: <value>` whose value is not `(unanswered)`, set that question's `answer:` line to `answer: <value>`, copied exactly as pasted. Add nothing: no date, no words, no extra line (not even an `answered:` line). `questions.md` is not one of the owner's own files, so the "file it dated" rule in CLAUDE.md does not apply here, and this skill is the more specific rule. The file changes by exactly one line per answer. Use the Edit tool and change no other line. Leave `ask-later:` as it is: an answered question is no longer open or held.
 3. If that `answer:` line already holds text, do not overwrite it. Show both answers and ask the owner which to keep.
 4. Skip `(unanswered)` lines. Those questions stay open. Never guess an answer.
 5. A line `Other notes:` that is not `(none)` is the owner's own message. Act on it like any message. Do not write it into any file unless it asks you to.

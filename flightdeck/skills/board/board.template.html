@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FlightDeck flight board</title>
+<style>{{THEME_CSS}}
+/* Board-only rules. They use the theme's tokens. */
+.fd-list { list-style: none; margin: 0; padding: 0; }
+.fd-question { margin-inline: 0; }
+.fd-question .fd-field { margin-top: 8px; }
+#answers-out, #prompt-out { min-height: 120px; margin-top: 8px; font-family: var(--font-mono); font-size: 14px; }
+.fd-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+footer.fd-sub { margin-top: 32px; }
+</style>
+</head>
+<body>
+<main class="fd-page">
+{{HEADER}}
+<nav class="fd-tabs" role="tablist" aria-label="Pages">
+<button type="button" class="fd-tab" role="tab" id="tab-board" data-tab="board" aria-controls="panel-board" aria-selected="true">Board</button>
+<button type="button" class="fd-tab" role="tab" id="tab-builder" data-tab="builder" aria-controls="panel-builder" aria-selected="false">Prompt builder</button>
+</nav>
+<div id="panel-board" role="tabpanel" aria-labelledby="tab-board">
+{{WORKSHOPS}}
+{{WAITING}}
+{{QUESTIONS}}
+{{WARNINGS}}
+</div>
+<div id="panel-builder" role="tabpanel" aria-labelledby="tab-builder">
+<section class="fd-section" id="builder">
+<h2>Prompt builder</h2>
+<p class="fd-sub">Turn a rough idea into a ready message for the pilot.</p>
+<label class="fd-field">Workshop<select id="b-workshop"></select></label>
+<label class="fd-field" id="b-name-field">Name for the new work<input type="text" id="b-name" autocomplete="off"></label>
+<label class="fd-field">Team plan<select id="b-plan"><option value="">Let the Captain pick</option></select></label>
+<label class="fd-field">Rough ask<textarea id="b-ask"></textarea></label>
+<label class="fd-field">Done when<textarea id="b-done"></textarea></label>
+<label class="fd-field">Check it by<textarea id="b-verify"></textarea></label>
+<div class="fd-copy-panel">
+<button type="button" id="copy-prompt" class="fd-btn fd-btn-primary">Copy prompt</button>
+<span class="fd-status" id="prompt-status" role="status"></span>
+<textarea id="prompt-out" readonly aria-label="The prompt that is copied"></textarea>
+</div>
+</section>
+</div>
+<footer class="fd-sub">Made by /flight:board from the files in .flightdeck/. Nothing on this page is sent anywhere.</footer>
+</main>
+<script type="application/json" id="board-data">{{DATA_JSON}}</script>
+<script>
+{{FUNCTIONS}}
+
+(function () {
+  var data = {};
+  try { data = JSON.parse(document.getElementById('board-data').textContent); } catch (e) { data = {}; }
+  data.workshops = data.workshops || [];
+  data.waiting = data.waiting || [];
+  data.questions = data.questions || [];
+  data.teamPlans = data.teamPlans || [];
+
+  function byId(id) { return document.getElementById(id); }
+
+  function fallbackCopy(text) {
+    var box = document.createElement('textarea');
+    box.value = text;
+    box.setAttribute('readonly', '');
+    box.style.position = 'fixed';
+    box.style.opacity = '0';
+    document.body.appendChild(box);
+    box.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(box);
+    return ok;
+  }
+
+  function copyText(text, statusEl) {
+    function say(ok) {
+      if (statusEl) statusEl.textContent = ok ? 'Copied' : 'Select the text below and copy it';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { say(true); }, function () { say(fallbackCopy(text)); });
+    } else {
+      say(fallbackCopy(text));
+    }
+  }
+
+  // Tabs
+  var tabs = document.querySelectorAll('.fd-tab');
+  function showTab(which) {
+    byId('panel-board').hidden = which !== 'board';
+    byId('panel-builder').hidden = which !== 'builder';
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].setAttribute('aria-selected', tabs[i].getAttribute('data-tab') === which ? 'true' : 'false');
+    }
+  }
+  for (var t = 0; t < tabs.length; t++) {
+    tabs[t].addEventListener('click', function (ev) { showTab(ev.currentTarget.getAttribute('data-tab')); });
+  }
+  showTab('board');
+
+  // Copy buttons for the "Waiting to start" lines
+  var copyButtons = document.querySelectorAll('[data-copy]');
+  for (var c = 0; c < copyButtons.length; c++) {
+    copyButtons[c].addEventListener('click', function (ev) {
+      var btn = ev.currentTarget;
+      var note = btn.nextElementSibling;
+      if (!note || !note.classList.contains('fd-status')) {
+        note = document.createElement('span');
+        note.className = 'fd-status fd-muted';
+        note.setAttribute('role', 'status');
+        btn.parentNode.insertBefore(note, btn.nextSibling);
+      }
+      copyText(btn.getAttribute('data-copy'), note);
+    });
+  }
+
+  // Copy my answers
+  function collectBlocks() {
+    var order = [];
+    var items = {};
+    for (var i = 0; i < data.questions.length; i++) {
+      var w = data.questions[i].workshop;
+      if (!items[w]) { items[w] = []; order.push(w); }
+    }
+    var sets = document.querySelectorAll('fieldset.fd-question');
+    for (var s = 0; s < sets.length; s++) {
+      var set = sets[s];
+      var ws = set.getAttribute('data-workshop');
+      var picked = set.querySelector('input[type="radio"]:checked');
+      var noteBox = set.querySelector('[data-note]');
+      var option = picked ? picked.value : '';
+      var note = noteBox ? noteBox.value : '';
+      var touched = option !== '' || note.replace(/\s+/g, '') !== '';
+      if (set.getAttribute('data-held') === 'true' && !touched) continue;
+      if (!items[ws]) { items[ws] = []; order.push(ws); }
+      items[ws].push({ id: set.getAttribute('data-question'), option: option, note: note });
+    }
+    var other = byId('other-notes').value;
+    var blocks = [];
+    for (var k = 0; k < order.length; k++) {
+      if (!items[order[k]].length) continue;
+      blocks.push(answerBlock(order[k], items[order[k]], blocks.length === 0 ? other : ''));
+    }
+    return blocks;
+  }
+
+  byId('copy-answers').addEventListener('click', function () {
+    var out = byId('answers-out');
+    var status = byId('answers-status');
+    var blocks = collectBlocks();
+    if (!blocks.length) {
+      out.value = '';
+      status.textContent = 'Nothing to copy yet: no question is waiting and none was answered.';
+      return;
+    }
+    out.value = blocks.join('\n\n');
+    copyText(out.value, status);
+  });
+
+  // Prompt builder
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function localDate() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+
+  function addOption(select, value, label) {
+    var o = document.createElement('option');
+    o.value = value;
+    o.textContent = label;
+    select.appendChild(o);
+  }
+
+  var wsSelect = byId('b-workshop');
+  var planSelect = byId('b-plan');
+  for (var a = 0; a < data.workshops.length; a++) {
+    var w = data.workshops[a];
+    addOption(wsSelect, 'active:' + w.name, w.name + (w.state === 'settled' ? ' (settled)' : ' (in progress)'));
+  }
+  for (var b = 0; b < data.waiting.length; b++) {
+    addOption(wsSelect, 'captured:' + data.waiting[b].name, data.waiting[b].name + ' (waiting to start)');
+  }
+  addOption(wsSelect, 'new:', 'A new piece of work');
+  for (var p = 0; p < data.teamPlans.length; p++) addOption(planSelect, data.teamPlans[p].title, data.teamPlans[p].title);
+
+  function updatePrompt() {
+    var chosen = wsSelect.value;
+    var state = chosen.split(':')[0];
+    var name = chosen.slice(chosen.indexOf(':') + 1);
+    byId('b-name-field').hidden = state !== 'new';
+    if (state === 'new') name = byId('b-name').value;
+    byId('prompt-out').value = buildPrompt({
+      name: name,
+      state: state,
+      ask: byId('b-ask').value,
+      done: byId('b-done').value,
+      verify: byId('b-verify').value,
+      plan: planSelect.value,
+      today: localDate()
+    });
+  }
+
+  var fields = ['b-workshop', 'b-name', 'b-plan', 'b-ask', 'b-done', 'b-verify'];
+  for (var f = 0; f < fields.length; f++) {
+    byId(fields[f]).addEventListener('input', updatePrompt);
+    byId(fields[f]).addEventListener('change', updatePrompt);
+  }
+  byId('copy-prompt').addEventListener('click', function () {
+    copyText(byId('prompt-out').value, byId('prompt-status'));
+  });
+  updatePrompt();
+})();
+</script>
+</body>
+</html>

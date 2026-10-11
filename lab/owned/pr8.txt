@@ -1,0 +1,15 @@
+# Files pull request 8 (Status band) adds, edits or deletes, one per line.
+mods/status-band/.claude-plugin/plugin.json
+mods/status-band/.claude-plugin/marketplace.json
+mods/status-band/hooks/hooks.json
+mods/status-band/register.js
+mods/status-band/lib/read.js
+mods/status-band/types/index.d.ts
+mods/status-band/tests/band.test.ts
+mods/status-band/tests/drift.test.mjs
+mods/status-band/.gitignore
+lab/owned/pr8.txt
+.flightdeck/build-1/attempts/pr-8/a1/brief.md
+.flightdeck/build-1/attempts/pr-8/a1/findings.md
+.flightdeck/build-1/attempts/pr-8/a1/report.md
+.flightdeck/build-1/attempts/pr-8/a1/log.md

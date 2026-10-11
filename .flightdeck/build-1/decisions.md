@@ -1,0 +1,17 @@
+# Decisions for workshop build-1
+
+The lead's decisions, each with a reason. Strike any by telling the pilot or adding a dated line to constraints.md.
+
+- 2026-10-11: D1: only the owner activates, settles or promotes a workshop (by telling the pilot or using the command); agents may capture one but never activate, settle or promote. Reason: capturing costs nothing and can be undone, while starting, closing or promoting work changes what every agent is told.
+- 2026-10-11: D2: the address rule is that agents speak up the chain by rank ("Commander", "Captain", "Officer") and down the chain by job or by rank, whichever is clearer ("scout", "builder", "Captain"), kept short, with no fixed report line, no seat numbers and no callsigns. Reason: you said ranks guide how ranks address each other, and a short rule written once in flightdeck/policies.md is enough.
+- 2026-10-11: Who decides what, and the escalation ladder Worker to Officer to Captain to Commander, are the lead's proposal beyond your words. Reason: you gave the four ranks and what they mean, not the rules of behaviour, and something has to say who escalates to whom.
+- 2026-10-11: Officer is used only for a team lead or a long-lived background session; single-shot workflow seats are Workers. Reason: this matches your description (an officer is a team lead or a long-lived background character; a worker is always in a team with a single responsibility).
+- 2026-10-11: Agents are named by function, so the old officer became runner and the old worker became builder. Reason: you said ranks do not live in agent names, and thirty agents would need thirty ranks.
+- 2026-10-11: No agent description names a rank. Reason: the same agent can hold different ranks in different teams, so the rank is given per seat in its opening text.
+- 2026-10-11: "Working" means four things: the hard-rule check, the part's own tests and the workshop's verify.md checks pass; the try works for the imposter; removing the part leaves the rest green; every finding is fixed or listed. Reason: one plain definition lets every reviewer say the same thing.
+- 2026-10-11: Only hard rules fail a check; everything else is a warning. Reason: a check that fails on taste stops work for the wrong reasons and wastes your attention.
+- 2026-10-11: The defaults in plan section 2(h) stand: the card is at most 10 lines and 800 characters; at most five questions per bundle; at most five build units for PR 1 and three for the others; the root CLAUDE.md is about 60 lines and .flightdeck/CLAUDE.md about 40; a workshop's context.md is about 40 lines and its three scoped files stay under 6,000 characters; skill descriptions are under 400 characters each and under 4,000 together; one fix round per pull request. Reason: small limits keep prompts lean and cheap, and each can be changed later.
+- 2026-10-11: demo-attempt-age in workshops.md is an example task the lead made up. Delete its line if you do not want it. Reason: the list needed one captured entry to show how a captured workshop looks.
+- 2026-10-11: There is no scope hook; scoped context reaches agents only through their opening text. Reason: a hook cannot tell which workshop an agent is working in, while the opening text can.
+- 2026-10-11: No files go in .claude/rules/. Reason: a plugin cannot ship them and dev-workspace owns that folder.
+- 2026-10-11: The ask-later mark on q1 names the build landing page. Reason: the build notes replaced the per-wave pages with one landing page, .flightdeck/build-1/attempts/build-a1.html.

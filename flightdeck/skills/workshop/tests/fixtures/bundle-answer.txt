@@ -1,0 +1,5 @@
+FlightDeck answers for workshop card-oldest-question: file these into .flightdeck/card-oldest-question/questions.md
+q1: c | note: one line is enough
+q2: (unanswered)
+q3: a
+Other notes: keep the card short

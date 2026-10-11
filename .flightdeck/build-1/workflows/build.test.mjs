@@ -101,3 +101,14 @@ test('a halted stage reaches the result instead of throwing', async () => {
 test('PR 5 is refused', async () => {
   await assert.rejects(runScript({ prs: [5], today: '2026-10-11' }, stubAgent), /PR 5/);
 });
+
+test('unit branches stay local: builders do not push, integrate merges local branches', async () => {
+  const { prompts } = await runScript({ prs: [2], run: 'B', base: 'build-1-pr1-basic-a1', today: '2026-10-11', scratch: '/tmp/s' }, stubAgent);
+  for (const { prompt, opts } of prompts) {
+    if (opts.label.startsWith('build:')) {
+      assert.match(prompt, /Do not push/, 'builder told not to push');
+      assert.doesNotMatch(prompt, /git push -u origin build-1-pr2-board-a1-u/, 'builder never pushes a unit branch');
+    }
+    if (opts.label.startsWith('integrate')) assert.doesNotMatch(prompt, /origin\/b-u1/, 'integrate merges the local unit branch');
+  }
+});

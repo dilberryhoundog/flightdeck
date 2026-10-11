@@ -176,17 +176,17 @@ Task: build unit ${u.id} of pull request ${n} (${TITLE[n]}). You are in your own
 Your files (write only these): ${JSON.stringify(u.files)}
 Unit spec: ${u.spec}
 Read the full brief at ${S}/brief.md and the plan sections it cites in ${PLAN}; adapt sources from ${S}/sources/ where the brief names them (remove rank words from copied agent names and descriptions; set model and effort from the plan, never from the source). Files in other units are being written in parallel by other builders: rely only on what the brief says about them.
-When done: run any check from the brief that works on your files alone (for example \`node --test\` on your test file, \`node lab/checks/hard-rules.mjs\` if it exists in your worktree); commit your files by name; push with \`git push -u origin ${BR}-u${i + 1}\`. Return the build-return schema; status is complete only if every file exists. Put any work you noticed outside your brief in captures, one line each.`,
+When done: run any check from the brief that works on your files alone (for example \`node --test\` on your test file, \`node lab/checks/hard-rules.mjs\` if it exists in your worktree); commit your files by name. Do not push: your branch ${BR}-u${i + 1} stays local (worktrees share the repository, so the integrate stage merges it from there) and only the pull request branch reaches GitHub. Return the build-return schema; status is complete only if every file exists. Put any work you noticed outside your brief in captures, one line each.`,
     { label: `build:pr${n}:u${i + 1}`, phase: 'Build', model: 'sonnet', effort: 'high', isolation: 'worktree', schema: BUILD_SCHEMA }))))
   const units = unitResults.map((r, i) => ({ id: brief.units[i].id, ...r }))
-  const pushedUnits = units.filter(u => !halted(u) && u.branch)
-  if (!pushedUnits.length) return { n, status: 'not built', halt: 'no unit was built', units }
+  const builtUnits = units.filter(u => !halted(u) && u.branch)
+  if (!builtUnits.length) return { n, status: 'not built', halt: 'no unit was built', units }
 
   const integrated = await stage('integrate', () => agent(`${CONTEXT}
 
 ${RANK_WORKER}
 
-Task: integrate pull request ${n}. You are in your own git worktree. Run \`git fetch origin && git switch -c ${BR} origin/${BASE}\`, then merge each unit branch: ${pushedUnits.map(u => `origin/${u.branch}`).join(', ')} (\`git merge --no-ff --no-edit <branch>\`; units own disjoint files, so a conflict means a unit wrote outside its list: resolve it toward the brief ${S}/brief.md and say so). Units that did not finish: ${JSON.stringify(units.filter(u => halted(u) || u.status !== 'complete').map(u => ({ id: u.id, status: u.status, halt: u.halt, notes: u.notes })))}.
+Task: integrate pull request ${n}. You are in your own git worktree. Run \`git fetch origin && git switch -c ${BR} origin/${BASE}\`, then merge each local unit branch (they are not on GitHub): ${builtUnits.map(u => u.branch).join(', ')} (\`git merge --no-ff --no-edit <branch>\`; units own disjoint files, so a conflict means a unit wrote outside its list: resolve it toward the brief ${S}/brief.md and say so). Units that did not finish: ${JSON.stringify(units.filter(u => halted(u) || u.status !== 'complete').map(u => ({ id: u.id, status: u.status, halt: u.halt, notes: u.notes })))}.
 Then copy ${S}/brief.md to ${AD}/brief.md and commit it. Run each check and record exit code and last 20 lines: ${JSON.stringify(brief.checks)}. Do not fix product files here (a later stage fixes); only fix a merge mistake. Push with \`git push -u origin ${BR}\`. Write \`git diff origin/${RUN === 'B' ? BASE : TARGET}...${BR}\` to ${S}/diff.patch and \`git diff --name-only origin/${RUN === 'B' ? BASE : TARGET}...${BR}\` to ${S}/changed.txt.`,
     { label: `integrate:pr${n}`, phase: 'Build', model: 'sonnet', effort: 'medium', isolation: 'worktree', schema: INTEGRATE_SCHEMA }))
   if (halted(integrated) || !integrated.pushed) return { n, status: 'not built', halt: integrated.halt || 'integrate did not push', units }

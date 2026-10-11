@@ -129,3 +129,7 @@ Nothing above Opus at high effort.
 ## Retry this pull request alone [stated]
 
 Add dated lines starting `PR 7:` to `.flightdeck/build-1/constraints.md`, then say "retry PR 7". The new branch is `build-1-pr7-manuals-a2`.
+
+## Captain's note after landing (2026-10-11)
+
+The red check above is fixed. The cause was PR 1's test, which required exactly seven agent files; the owner foresees 30 or more agents, so the test was wrong, not the librarian. PR 1's branch now requires the seven core agents and applies the rank, ceiling and fallback-line rules to every agent file (commit cd952d3 on build-1-pr1-basic-a1). PR 1's branch was merged into this branch, and on the result: `node --test 'flightdeck/tests/*.test.mjs'` 83 of 83, `node lab/checks/manuals.mjs` 14 of 14, `node --test 'lab/checks/*.test.mjs'` 52 of 52, `claude plugin validate flightdeck` passed, hard-rules with `lab/owned/pr7.txt` 9 of 9. [checked] The eval still did not run. This pull request stays a draft for the [stated] try step.

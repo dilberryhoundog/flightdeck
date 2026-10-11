@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "flight-band",
+  "description": "The FlightDeck status band, a separate optional plugin served from this folder.",
+  "owner": {
+    "name": "dilberryhoundog"
+  },
+  "plugins": [
+    {
+      "name": "flight-band",
+      "description": "One line above the prompt showing what FlightDeck is waiting on.",
+      "source": "./",
+      "category": "development"
+    }
+  ]
+}

@@ -1,0 +1,1451 @@
+<title>FlightDeck Build 1 Review</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #eef1f4;
+  --surface: #ffffff;
+  --surface-2: #f6f8fa;
+  --ink: #15212c;
+  --ink-2: #4a5866;
+  --ink-3: #5a6773;
+  --line: #d3dae1;
+  --line-strong: #9fadba;
+  --accent: #8f5300;
+  --accent-bg: #fff3df;
+  --accent-line: #e8b866;
+  --go: #1d6e47;
+  --go-bg: #e3f3ea;
+  --go-line: #8fcaa9;
+  --info: #0b627c;
+  --info-bg: #e2f1f6;
+  --stop: #a3322a;
+  --stop-bg: #fbe9e7;
+  --code-bg: #e9edf1;
+  --focus: #0b7fa3;
+  --shadow: 0 1px 2px rgba(15, 28, 40, .06), 0 2px 8px rgba(15, 28, 40, .04);
+  --font-body: 'Barlow', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-head: 'Barlow Semi Condensed', 'Barlow', 'Arial Narrow', 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1217;
+    --surface: #131b22;
+    --surface-2: #18222b;
+    --ink: #dfe7ee;
+    --ink-2: #a8b6c3;
+    --ink-3: #8595a4;
+    --line: #26323d;
+    --line-strong: #3d4c59;
+    --accent: #f2aa3c;
+    --accent-bg: #2a2011;
+    --accent-line: #7a5520;
+    --go: #5cc893;
+    --go-bg: #11261c;
+    --go-line: #2c6046;
+    --info: #67c7e2;
+    --info-bg: #0f2430;
+    --stop: #f08a80;
+    --stop-bg: #2c1513;
+    --code-bg: #1b2630;
+    --focus: #67c7e2;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1217;
+  --surface: #131b22;
+  --surface-2: #18222b;
+  --ink: #dfe7ee;
+  --ink-2: #a8b6c3;
+  --ink-3: #8595a4;
+  --line: #26323d;
+  --line-strong: #3d4c59;
+  --accent: #f2aa3c;
+  --accent-bg: #2a2011;
+  --accent-line: #7a5520;
+  --go: #5cc893;
+  --go-bg: #11261c;
+  --go-line: #2c6046;
+  --info: #67c7e2;
+  --info-bg: #0f2430;
+  --stop: #f08a80;
+  --stop-bg: #2c1513;
+  --code-bg: #1b2630;
+  --focus: #67c7e2;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 16px 64px; }
+p, li, dd, blockquote, .v, .tree .d { max-width: 65ch; }
+a { color: var(--info); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, label:focus-within {
+  outline: 2px solid var(--focus); outline-offset: 2px;
+}
+h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; margin: 0; letter-spacing: .01em; }
+code, kbd, .mono { font-family: var(--font-mono); font-size: .86em; }
+code { background: var(--code-bg); padding: .08em .35em; border-radius: 4px; overflow-wrap: anywhere; }
+strong { font-weight: 600; }
+.muted { color: var(--ink-2); }
+.small { font-size: .9rem; }
+
+/* Top strip */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 14px 0 10px; border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: .78rem; color: var(--ink-2); letter-spacing: .04em;
+}
+.theme-btn {
+  font: inherit; color: var(--ink-2); background: transparent; border: 1px solid var(--line-strong);
+  border-radius: 4px; padding: 4px 10px; cursor: pointer;
+}
+.theme-btn:hover { color: var(--ink); }
+
+/* Header: flight plan form */
+.hero { padding: 28px 0 8px; }
+.hero .eyebrow { font-family: var(--font-mono); font-size: .8rem; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; }
+.hero h1 { font-size: clamp(2rem, 6vw, 2.9rem); margin: 6px 0 10px; font-weight: 700; }
+.hero p { color: var(--ink-2); margin: 0 0 6px; }
+.plan-form {
+  margin: 22px 0 6px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface); overflow: hidden;
+}
+.plan-form div { padding: 10px 12px; border-right: 1px solid var(--line); min-width: 0; }
+.plan-form div:last-child { border-right: 0; }
+.plan-form .k { display: block; font-family: var(--font-mono); font-size: .68rem; color: var(--ink-3); letter-spacing: .1em; text-transform: uppercase; }
+.plan-form .v { display: block; font-family: var(--font-head); font-weight: 600; font-size: 1.05rem; overflow-wrap: anywhere; max-width: none; }
+.plan-form .v.hold { color: var(--accent); }
+@media (max-width: 640px) {
+  .plan-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plan-form div:nth-child(2) { border-right: 0; }
+  .plan-form div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}
+
+/* What I need from you */
+.need {
+  margin: 22px 0 8px; padding: 16px; background: var(--surface); border: 1px solid var(--line-strong);
+  border-left: 6px solid var(--accent); border-radius: 0 6px 6px 0; box-shadow: var(--shadow);
+}
+.need h2 { font-size: 1.45rem; font-weight: 700; margin-bottom: 6px; }
+.need > p { margin: 6px 0; }
+.need ol { margin: 10px 0; padding-left: 22px; }
+.need li { margin: 8px 0; }
+.btn-link {
+  display: inline-block; font-family: var(--font-head); font-weight: 600; font-size: 1.02rem;
+  background: var(--ink); color: var(--bg); text-decoration: none; border-radius: 5px; padding: 8px 16px; margin-top: 6px;
+}
+
+/* Checklist nav */
+.checklist {
+  margin: 22px 0 8px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 6px; box-shadow: var(--shadow);
+}
+.checklist h2 { font-size: .8rem; font-family: var(--font-mono); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+.checklist ol { list-style: none; margin: 0; padding: 0; }
+.checklist li { max-width: none; }
+.checklist a {
+  display: flex; align-items: baseline; gap: 10px; padding: 5px 0; text-decoration: none; color: var(--ink);
+  border-bottom: 1px dotted var(--line);
+}
+.checklist li:last-child a { border-bottom: 0; }
+.checklist .num { font-family: var(--font-mono); font-size: .8rem; color: var(--accent); min-width: 2ch; }
+.checklist .lbl { flex: 1; }
+.checklist .dots { flex: 0 0 auto; font-family: var(--font-mono); font-size: .72rem; color: var(--ink-3); letter-spacing: .08em; text-transform: uppercase; text-align: right; }
+
+/* Sections */
+section.part { margin-top: 48px; scroll-margin-top: 12px; }
+.part-head { display: flex; align-items: baseline; gap: 12px; border-bottom: 2px solid var(--ink); padding-bottom: 6px; margin-bottom: 16px; }
+.part-head .n { font-family: var(--font-mono); font-size: .9rem; color: var(--accent); }
+.part-head h2 { font-size: clamp(1.45rem, 4.5vw, 1.8rem); font-weight: 700; }
+.part-head .tag { margin-left: auto; font-family: var(--font-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+h3 { font-size: 1.2rem; font-weight: 600; margin: 26px 0 8px; }
+h4 { font-size: 1.02rem; font-weight: 600; margin: 14px 0 4px; }
+
+/* Cards */
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px;
+  box-shadow: var(--shadow); margin: 14px 0;
+}
+.card > :first-child { margin-top: 0; }
+.card > :last-child { margin-bottom: 0; }
+.callout { border-left: 4px solid var(--info); background: var(--info-bg); padding: 12px 14px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+.callout.amber { border-left-color: var(--accent); background: var(--accent-bg); }
+.callout.green { border-left-color: var(--go); background: var(--go-bg); }
+.callout > :first-child { margin-top: 0; }
+.callout > :last-child { margin-bottom: 0; }
+.qbox { border: 2px solid var(--accent); background: var(--accent-bg); border-radius: 6px; padding: 12px 14px; margin: 14px 0; }
+.qbox > :first-child { margin-top: 0; }
+.qbox > :last-child { margin-bottom: 0; }
+.qbox h4 { margin-top: 0; }
+
+/* Decision cards */
+.decision .tag { font-family: var(--font-mono); font-size: .75rem; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+.decision h3 { margin: 2px 0 10px; }
+.decision dl { margin: 0; }
+.decision dt { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 10px; }
+.decision dd { margin: 2px 0 0; }
+.decision ul { margin: 4px 0; padding-left: 20px; }
+
+/* Flight strips for PRs */
+.strip-row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; margin: 16px 0 6px; }
+.chip {
+  border: 1px solid var(--go-line); background: var(--go-bg); border-radius: 4px; padding: 6px 6px 7px; min-width: 0;
+  text-decoration: none; color: var(--ink);
+}
+.chip.off { border-style: dashed; border-color: var(--line-strong); background: transparent; }
+.chip .id { display: block; font-family: var(--font-mono); font-size: .72rem; color: var(--go); }
+.chip.off .id { color: var(--ink-3); }
+.chip .nm { display: block; font-family: var(--font-head); font-weight: 600; font-size: .92rem; line-height: 1.15; overflow-wrap: anywhere; }
+.strip-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .88rem; color: var(--ink-2); }
+.strip-legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.strip-legend .on::before { background: var(--go-bg); border: 1px solid var(--go-line); }
+.strip-legend .off::before { border: 1px dashed var(--line-strong); }
+@media (max-width: 640px) { .strip-row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.pr {
+  background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--go);
+  border-radius: 6px; margin: 18px 0; box-shadow: var(--shadow); scroll-margin-top: 12px;
+}
+.pr.base { border-left-color: var(--accent); }
+.pr-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 12px 16px;
+  border-bottom: 1px solid var(--line); background: var(--surface-2); border-radius: 0 6px 0 0;
+}
+.pr-head .id { font-family: var(--font-mono); font-size: .82rem; color: var(--ink-2); }
+.pr-head h3 { margin: 0; font-size: 1.25rem; flex: 1 1 14rem; }
+.badge {
+  font-family: var(--font-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 3px; border: 1px solid currentColor; white-space: nowrap;
+}
+.badge.go { color: var(--go); }
+.badge.off { color: var(--ink-3); }
+.badge.base { color: var(--accent); }
+.pr-body { padding: 12px 16px 14px; }
+.pr-body > p { margin: 0 0 6px; }
+.pr-body .row { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 4px 14px; padding: 8px 0; border-top: 1px dotted var(--line); }
+.pr-body .row > .k { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); padding-top: 4px; }
+.pr-body .row > .v > :first-child { margin-top: 0; }
+.pr-body .row > .v > :last-child { margin-bottom: 0; }
+.pr-body ol, .pr-body ul { padding-left: 20px; margin: 4px 0; }
+.pr-body details { margin: 8px 0 0; padding-top: 8px; border-top: 1px dotted var(--line); }
+.pr-body details > :not(summary):first-of-type { margin-top: 8px; }
+.pr-body h4 { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin: 14px 0 4px; }
+@media (max-width: 600px) { .pr-body .row { grid-template-columns: 1fr; } .pr-body .row > .k { padding-top: 0; } }
+
+/* Commands */
+.cmd {
+  display: flex; align-items: flex-start; gap: 8px; background: var(--code-bg); border: 1px solid var(--line);
+  border-radius: 5px; padding: 8px 8px 8px 12px; margin: 8px 0; max-width: 100%;
+}
+.cmd pre { margin: 0; flex: 1; min-width: 0; font-family: var(--font-mono); font-size: .82rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.copy-btn {
+  flex: 0 0 auto; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 4px; padding: 4px 9px; cursor: pointer;
+}
+.copy-btn:hover { border-color: var(--ink-2); }
+.copy-btn.done { color: var(--go); border-color: var(--go); }
+
+/* Tree picture */
+.tree { font-family: var(--font-mono); font-size: .82rem; line-height: 1.55; background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 12px; margin: 10px 0; }
+.tree > div { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 2px 12px; padding: 2px 0; }
+.tree .p { color: var(--ink); overflow-wrap: anywhere; }
+.tree .p.mine { color: var(--accent); font-weight: 500; }
+.tree .d { font-family: var(--font-body); font-size: .9rem; color: var(--ink-2); }
+@media (max-width: 600px) { .tree > div { grid-template-columns: 1fr; gap: 0; padding: 4px 0; border-bottom: 1px dotted var(--line); } .tree > div:last-child { border-bottom: 0; } }
+
+/* Timeline */
+.timeline { list-style: none; margin: 10px 0; padding: 0; border-left: 2px solid var(--line-strong); }
+.timeline li { position: relative; padding: 4px 0 10px 18px; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 11px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+.timeline .t { font-family: var(--font-mono); font-size: .8rem; color: var(--accent); margin-right: 6px; }
+
+/* Tables */
+.tbl-wrap { overflow-x: auto; margin: 10px 0; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; background: var(--surface-2); }
+tr:last-child td { border-bottom: 0; }
+td.m { font-family: var(--font-mono); font-size: .82rem; }
+
+details { margin: 10px 0; }
+summary { cursor: pointer; font-weight: 600; }
+blockquote { margin: 6px 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--line-strong); color: var(--ink-2); }
+blockquote .when { display: block; font-family: var(--font-mono); font-size: .72rem; color: var(--ink-3); }
+
+ol.cut { padding-left: 22px; }
+ol.cut li { margin: 4px 0; }
+ul.ranks { list-style: none; padding: 0; margin: 8px 0; }
+ul.ranks li { padding: 4px 0; border-bottom: 1px dotted var(--line); }
+ul.ranks li:last-child { border-bottom: 0; }
+
+/* Answer panel */
+.panel { background: var(--surface); border: 2px solid var(--ink); border-radius: 8px; padding: 16px; box-shadow: var(--shadow); }
+.panel fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.panel legend { font-family: var(--font-head); font-weight: 600; font-size: 1.15rem; padding: 0; margin-bottom: 6px; }
+.ans-row { padding: 12px 0; border-bottom: 1px dotted var(--line); }
+.ans-row:last-child { border-bottom: 0; }
+.ans-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.ans-name { flex: 1 1 14rem; font-weight: 600; }
+.ans-name .id { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-3); font-weight: 400; margin-right: 6px; }
+.ans-help { margin: 4px 0 0; font-size: .92rem; color: var(--ink-2); }
+.seg { display: inline-flex; flex-wrap: wrap; max-width: 100%; border: 1px solid var(--line-strong); border-radius: 5px; overflow: hidden; }
+.seg label { position: relative; cursor: pointer; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg span { display: block; padding: 5px 11px; font-size: .88rem; border-right: 1px solid var(--line-strong); color: var(--ink-2); }
+.seg label:last-child span { border-right: 0; }
+.seg input:checked + span { background: var(--ink); color: var(--bg); }
+.seg input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: -2px; }
+.seg input:disabled + span { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
+.seg.big span { padding: 9px 22px; font-size: 1.02rem; font-weight: 600; }
+.seg.big label.go input:checked + span { background: var(--go); color: var(--bg); }
+.seg.big label.wait input:checked + span { background: var(--accent); color: var(--bg); }
+.note-in, .panel textarea, .panel input[type="text"] {
+  width: 100%; margin-top: 8px; font: inherit; font-size: .95rem; color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: 5px; padding: 7px 9px;
+}
+.panel textarea { min-height: 5.5rem; resize: vertical; }
+.hint { display: block; margin-top: 4px; font-size: .85rem; color: var(--accent); }
+.panel-sub { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); }
+details.more { border: 1px solid var(--line); border-radius: 6px; background: var(--surface-2); padding: 10px 12px; margin-top: 22px; }
+details.more > summary { font-family: var(--font-head); font-size: 1.1rem; }
+details.more fieldset { margin-top: 14px; }
+.out-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-top: 22px; }
+.out-head h3 { margin: 0; }
+.btn-main {
+  font-family: var(--font-head); font-weight: 600; font-size: 1.05rem; letter-spacing: .02em;
+  background: var(--go); color: var(--bg); border: 0; border-radius: 5px; padding: 9px 18px; cursor: pointer;
+}
+.btn-main.done { background: var(--ink); }
+.btn-ghost { font: inherit; font-size: .9rem; background: transparent; color: var(--ink-2); border: 1px solid var(--line-strong); border-radius: 5px; padding: 7px 12px; cursor: pointer; }
+#reply-out { font-family: var(--font-mono); font-size: .82rem; min-height: 16rem; white-space: pre-wrap; }
+.status-line { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-3); min-height: 1.2em; margin-top: 6px; }
+
+.glossary dt { font-weight: 600; margin-top: 10px; }
+.glossary dd { margin: 0; color: var(--ink-2); }
+footer { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .88rem; color: var(--ink-3); }
+
+/* What changed after your notes */
+.changed {
+  margin: 22px 0 8px; padding: 16px; background: var(--info-bg); border: 1px solid var(--line);
+  border-left: 6px solid var(--info); border-radius: 0 6px 6px 0;
+}
+.changed h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; }
+.changed > p { margin: 4px 0; }
+.changed ul { margin: 8px 0 0; padding-left: 20px; }
+.changed li { margin: 6px 0; }
+.changed ul ul { margin: 4px 0 2px; }
+.changed ul ul li { margin: 3px 0; }
+
+/* Chain of command */
+.chain { list-style: none; margin: 14px 0; padding: 0; }
+.chain > li {
+  position: relative; max-width: none; background: var(--surface); border: 1px solid var(--line);
+  border-left: 6px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 14px; box-shadow: var(--shadow);
+}
+.chain > li + li { margin-top: 30px; }
+.chain > li + li::before {
+  content: "\2191  reports to"; position: absolute; top: -25px; left: 14px;
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; color: var(--ink-3);
+}
+.chain .rk { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; }
+.chain .who { font-family: var(--font-mono); font-size: .74rem; color: var(--ink-3); margin-left: 6px; }
+.chain .owner { display: block; margin: 2px 0 4px; }
+.chain .more { display: block; font-size: .92rem; color: var(--ink-2); }
+.proposal { border: 1px dashed var(--line-strong); border-radius: 6px; padding: 12px 14px; margin: 14px 0; background: var(--surface-2); }
+.proposal > :first-child { margin-top: 0; }
+.proposal > :last-child { margin-bottom: 0; }
+.proposal .tag { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* Workshop lifecycle */
+.flow { list-style: none; margin: 14px 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px; }
+.flow > li {
+  position: relative; max-width: none; background: var(--surface); border: 1px solid var(--line);
+  border-top: 4px solid var(--go); border-radius: 6px; padding: 10px 12px; box-shadow: var(--shadow); min-width: 0;
+}
+.flow > li.opt { border-top-style: dashed; border-top-color: var(--line-strong); }
+.flow .st { display: block; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.flow .nm { display: block; font-family: var(--font-head); font-weight: 700; font-size: 1.12rem; }
+.flow .d { display: block; font-size: .9rem; color: var(--ink-2); margin-top: 4px; overflow-wrap: anywhere; }
+.flow > li:not(:last-child)::after {
+  content: "\2192"; position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+  color: var(--ink-3); font-size: 1.1rem;
+}
+@media (max-width: 640px) {
+  .flow { grid-template-columns: 1fr; gap: 26px; }
+  .flow > li:not(:last-child)::after { content: "\2193"; right: auto; left: 50%; top: auto; bottom: -25px; transform: translateX(-50%); }
+}
+
+/* Strip additions */
+.chip .run { display: block; font-family: var(--font-mono); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-top: 2px; }
+.chip.skip { border-style: dashed; border-color: var(--line-strong); background: transparent; opacity: .7; }
+.chip.skip .id { color: var(--ink-3); }
+.chip.skip .nm { text-decoration: line-through; }
+.strip-legend .skip::before { border: 1px dashed var(--line-strong); }
+.fixed-list { margin: 6px 0 0; padding-left: 20px; font-size: .92rem; color: var(--ink-2); }
+.fixed-list li { margin: 2px 0; }
+</style>
+
+<div class="wrap">
+
+<div class="topbar">
+  <span>FLIGHTDECK / BUILD-1 / PRE-FLIGHT REVIEW / ATTEMPT 2</span>
+  <button type="button" class="theme-btn" id="theme-btn" aria-label="Switch between light and dark colours">Light / dark: auto</button>
+</div>
+
+<header class="hero">
+  <div class="eyebrow">Holding short of the runway</div>
+  <h1>Build 1: ready for your go</h1>
+  <p>This is planning attempt 2. It is the plan you read last time, changed where your notes of 2026-10-11 asked. Nothing has been built yet. I have stopped and I am waiting for you.</p>
+  <div class="plan-form" role="group" aria-label="Flight plan summary">
+    <div><span class="k">Branch</span><span class="v">build-1</span></div>
+    <div><span class="k">Pull requests</span><span class="v">7 to build, PR 5 skipped</span></div>
+    <div><span class="k">Planned on</span><span class="v">2026-10-11</span></div>
+    <div><span class="k">Status</span><span class="v hold">Waiting for your go</span></div>
+  </div>
+</header>
+
+<div class="changed" id="changed">
+  <h2>What changed after your notes</h2>
+  <ul>
+    <li><strong>Ranks.</strong> Four ranks: Commander (you), Captain, Officer, Worker. Attempt 1 had two agents named after ranks, "officer" and "worker". They are now named by their job: <strong>runner</strong> (runs one piece of work alone in a background session) and <strong>builder</strong> (builds). No agent's name holds a rank, so 30 agents still need only four ranks. Scout, reviewer, adversary and imposter are Workers too. A rank is given when work is handed out; it sets who decides, who reports to whom and how they address each other (<a href="#ranks">section 2</a>). The pilot is the lead agent; its rank is Captain.</li>
+    <li><strong>One thing in the ranks you may not want.</strong> Each agent's file also holds a single fallback line, used only when no rank was given: the pilot takes Captain, the runner takes Officer, every other agent takes Worker. It is never a name. It is in the box of things you can strike (<a href="#mine">section 5</a>); striking it means rank comes only from the team plan or from whoever sends the work.</li>
+    <li><strong>Workshops.</strong> A task is first captured as one line in a simple list, <code>.flightdeck/workshops.md</code>. Activating it makes its folder, with its own notes and its own checks. Only agents working in that workshop get them, on top of the global ones. Settling is one line. Promoting its content to the global files is a later step, only if you want (<a href="#workshops">section 3</a>).</li>
+    <li><strong>Team plans.</strong> New this time, the three you asked for: <strong>Spec first</strong> (write what done means as checks first, then build to them), <strong>Many hands</strong> (one builder per item, an Officer leading them, then join the results) and <strong>Root cause</strong> (guesses from separate evidence, agents try to disprove them, repeat until one survives). Attempt 1 already had Recon, Build and check, and Decide. All six are in PR 1.</li>
+    <li><strong>PR 1 is bigger than the one you okayed.</strong> About 48 files and 2,300 lines instead of about 40 and 1,900, only because of your notes: workshops add 5 files (the list, two templates, and build-1's own notes and checks), team plans add 3 files, and ranks add no new file (the text goes into files PR 1 already had). Together that is about 400 more lines; I did not count lines per note.</li>
+    <li><strong>One small helper script is in PR 1.</strong> It is about 20 lines added to a script PR 1 already has. It prints a workshop's notes and checks as one block, so that a workflow (which cannot read files itself) and the pilot hand out exactly the same text. It is for agents; you never type it, so it is not the local command you skipped. If you would rather have none, agents read the files directly, which is the fallback anyway.</li>
+    <li><strong>Your review reply.</strong>
+      <ul>
+        <li>PR 1 is okay as shown. PRs 2, 3, 4, 6, 7 and 8 are included. PR 5 is skipped. Run 2 builds PRs 2 to 4, Run 3 builds PRs 6 to 8.</li>
+        <li>Kept as you said: where everything goes, how a retry works, how big the build is, how you start a piece of work, where questions waiting on you are kept, beside dev-workspace, and the default sizes. The first five change only where your other notes force it (<a href="#choices">section 5</a>). "What working means" you left to me: kept, with one addition.</li>
+        <li><code>constraints.md</code> keeps its name. Branch isolation and the layout are used as written, so their choice boxes are gone. Workshop, launch and attempt: my reading is used, and I ask you again after you have tried workshops and launches (Run 2 results page). The theme question and the profile-of-you box are gone.</li>
+      </ul>
+    </li>
+    <li><strong>New questions: none.</strong> Two things I would have asked you are now my decisions. <strong>D1:</strong> only you activate and settle a workshop; agents may only capture. <strong>D2:</strong> ranks address each other up by rank ("Captain, ...") and down by job for Workers ("builder, ..."). You can strike either (<a href="#mine">section 5</a>).</li>
+  </ul>
+</div>
+
+<div class="need" id="need">
+  <h2>What I need from you</h2>
+  <p>One thing: <strong>Go</strong> or <strong>Not yet</strong>. There are no new questions. Your answers from last time are already filled in. If this page looks right, choose Go, press "Copy my answer" and paste the reply to me.</p>
+  <ul>
+    <li><strong>Go</strong> means: I file your reply, then there is about five minutes of setup with you there (you paste one restart line and click yes once), then I build PR 1 alone and stop so you can try it. The yes is for one edit to the project's existing agent file <code>.claude/agents/adversary.md</code>: it says <code>model: fable</code>, and your Opus-at-high limit needs it to say <code>opus</code>. Claude Code asks you for a yes on any edit under <code>.claude/</code>, so I cannot do it silently. It is the only file outside the build that I touch.</li>
+    <li><strong>Not yet</strong> means: I file your notes and change the plan again. Nothing is built.</li>
+  </ul>
+  <p class="small muted">Optional: change any answer or strike my decisions. Everything else on this page is detail: read it only if you want to. Unclear word? Open the <a href="#words">word list</a>.</p>
+  <a class="btn-link" href="#answer">Go to the answer box</a>
+</div>
+
+<nav class="checklist" aria-label="Sections">
+  <h2>Sections</h2>
+  <ol>
+    <li><a href="#get"><span class="num">1</span><span class="lbl">What you get, and how to try it</span><span class="dots">start here</span></a></li>
+    <li><a href="#ranks"><span class="num">2</span><span class="lbl">Ranks: who decides, who reports to whom</span><span class="dots">changed</span></a></li>
+    <li><a href="#workshops"><span class="num">3</span><span class="lbl">Workshops: from one line to a folder</span><span class="dots">changed</span></a></li>
+    <li><a href="#prs"><span class="num">4</span><span class="lbl">The pull requests</span><span class="dots">optional</span></a></li>
+    <li><a href="#choices"><span class="num">5</span><span class="lbl">Choices and decisions I made</span><span class="dots">optional</span></a></li>
+    <li><a href="#run"><span class="num">6</span><span class="lbl">How the build runs and is checked</span><span class="dots">optional</span></a></li>
+    <li><a href="#cut"><span class="num">7</span><span class="lbl">Risks, time, sizes, what I left out</span><span class="dots">optional</span></a></li>
+    <li><a href="#retry"><span class="num">8</span><span class="lbl">How to change things and retry</span><span class="dots">short</span></a></li>
+    <li><a href="#answer"><span class="num">9</span><span class="lbl">Your answer</span><span class="dots">needed</span></a></li>
+  </ol>
+</nav>
+
+<details id="words">
+  <summary>Word list (10 words, then the crew and run words)</summary>
+  <dl class="glossary">
+    <dt>Pull request (PR)</dt><dd>A bundle of changes sent to you to look at before it joins the branch. A draft PR is marked "not ready to merge" because something is still open.</dd>
+    <dt>Workshop</dt><dd>One piece of work. It starts as one line in <code>.flightdeck/workshops.md</code> and gets its own folder in <code>.flightdeck/</code> when you activate it.</dd>
+    <dt>Capture</dt><dd>Writing a task or goal down as one line in the workshop list, so it waits. Nothing happens to it until you activate it.</dd>
+    <dt>Activate</dt><dd>Turning a captured line into a workshop folder, with its own notes and checks. Only you activate.</dd>
+    <dt>Settle</dt><dd>Marking a workshop as done for now with one line, <code>settled: &lt;date&gt;</code>, in its card. Only you settle.</dd>
+    <dt>Launch</dt><dd>One run of many agents from a workshop, started when you say "go".</dd>
+    <dt>Attempt</dt><dd>What one launch leaves behind, in its own numbered folder. A retry is a new attempt.</dd>
+    <dt>Pre-flight card</dt><dd>The short summary you see when a pilot session starts: where things stand, what is waiting on you, and what work is waiting to start.</dd>
+    <dt>Team plan</dt><dd>A ready-made plan for a team of agents: who does what, with which rank and model.</dd>
+    <dt>Rank</dt><dd>How much say a role has: Commander, Captain, Officer or Worker. It is given when work is handed out, never part of an agent's name.</dd>
+  </dl>
+  <p class="small muted" style="margin:14px 0 0">Crew and run words</p>
+  <dl class="glossary">
+    <dt>Pilot</dt><dd>The lead agent in your session. It sends out the others and does not build. Its rank is Captain.</dd>
+    <dt>Runner</dt><dd>An agent that runs one piece of work alone, in a background session, and reports its branch back.</dd>
+    <dt>Builder</dt><dd>An agent that builds, inside its own list of files.</dd>
+    <dt>Scout</dt><dd>A cheap agent (Haiku) that only reads and reports.</dd>
+    <dt>Imposter</dt><dd>An agent that plays you, from a short profile made of your own words, and tries the work as you would.</dd>
+    <dt>Opening message</dt><dd>The first message an agent gets when work is handed to it: its rank, its job, and the workshop's own notes and checks if the work belongs to one.</dd>
+    <dt>Guard</dt><dd>An automatic check that Claude Code runs before an action and that can refuse it.</dd>
+    <dt>Run</dt><dd>One go of the build, after which it stops for you to try the result. Run 1 builds PR 1 alone. Run 2 builds PRs 2 to 4. Run 3 builds PRs 6 to 8. (My plan files call Run 2 "wave 1" and Run 3 "wave 2".)</dd>
+  </dl>
+</details>
+
+<!-- ============ 1 ============ -->
+<section class="part" id="get">
+  <div class="part-head"><span class="n">01</span><h2>What you get</h2><span class="tag">start here</span></div>
+
+  <p>FlightDeck becomes one Claude Code plugin called <code>flight</code>. A plugin is a bundle of add-ons you install in one go. It lives in one folder, <code>flightdeck/</code>, and you install it from this repository.</p>
+
+  <h3>PR 1 gives you</h3>
+  <ul>
+    <li><strong>A crew of 7 helper agents</strong>, named by their job and led by a pilot agent. The pilot is the lead agent; its rank is Captain. It decides and sends out the others, and does not do the work itself.</li>
+    <li><strong>Four ranks</strong> (Commander, Captain, Officer, Worker) that set who decides, who reports to whom and how they address each other.</li>
+    <li><strong>All six team plans</strong>, each with the opening message every role in the team gets.</li>
+    <li><strong>The workshop list</strong> (<code>.flightdeck/workshops.md</code>), where captured work waits, and one small helper script (about 20 lines in a file PR 1 already has) that prints a workshop's notes and checks, so they go into the opening message of the agents working in that workshop.</li>
+    <li><strong>A pre-flight card</strong> at the start of each pilot session, saying where things stand.</li>
+    <li><strong>Safety guards</strong> (automatic checks Claude Code runs before an action, which can refuse it) that stop helper agents pushing to <code>main</code>, starting a model or effort above your limit, or editing your own files.</li>
+    <li><strong>Short rule files</strong> (<code>CLAUDE.md</code>) that Claude Code reads on its own where the work happens.</li>
+    <li><strong>Extras:</strong> a one-command self-check (<code>/flight:preflight</code>), a one-page review checklist, and the optional "radio" way of talking (short replies, status first) that was already in the PR 1 you okayed. The radio voice is off unless you switch it on, and it is the first thing I would cut.</li>
+  </ul>
+  <p>Run 2 follows once you have tried PR 1: the board (PR 2), workshops you capture, activate, retry, settle and promote (PR 3), and one command that turns "go" into a reviewed draft PR (PR 4). Run 3 follows once you have tried Run 2: the laboratory (PR 6), manuals and a librarian (PR 7), and a status band above the prompt (PR 8).</p>
+
+  <div class="strip-row" aria-label="The pull requests in three runs">
+    <a class="chip" href="#pr1"><span class="id">PR 1</span><span class="nm">Basic crew</span><span class="run">Run 1</span></a>
+    <a class="chip" href="#pr2"><span class="id">PR 2</span><span class="nm">Board</span><span class="run">Run 2</span></a>
+    <a class="chip" href="#pr3"><span class="id">PR 3</span><span class="nm">Workshops</span><span class="run">Run 2</span></a>
+    <a class="chip" href="#pr4"><span class="id">PR 4</span><span class="nm">Launches</span><span class="run">Run 2</span></a>
+    <a class="chip skip" href="#pr5"><span class="id">PR 5</span><span class="nm">Command</span><span class="run">Skipped</span></a>
+    <a class="chip" href="#pr6"><span class="id">PR 6</span><span class="nm">Lab</span><span class="run">Run 3</span></a>
+    <a class="chip" href="#pr7"><span class="id">PR 7</span><span class="nm">Manuals</span><span class="run">Run 3</span></a>
+    <a class="chip" href="#pr8"><span class="id">PR 8</span><span class="nm">Status band</span><span class="run">Run 3</span></a>
+  </div>
+  <div class="strip-legend"><span class="on">Included, as you said</span><span class="skip">Skipped by you</span></div>
+  <p class="small muted">Run 1 builds PR 1 alone. Run 2 builds PRs 2 to 4. Run 3 builds PRs 6 to 8. Each is built only after you have tried the one before.</p>
+
+  <div class="callout amber">
+    <p><strong>Does FlightDeck build itself?</strong> Not at first. The build is done by plain Claude Code with the flight plugin switched off, so nothing half-built is used to build itself. Once it exists, FlightDeck does work on itself:</p>
+    <ul>
+      <li>The one exception in the build: from Run 2 on, the build uses PR 1's helper script that prints a workshop's notes and checks (a plain file read is the fallback).</li>
+      <li><code>build-1</code> is the first active workshop. Its notes and checks go to every build agent from Run 2 on.</li>
+      <li>The pre-flight card reports on this build, and the board's first real job is answering this build's questions.</li>
+      <li>Work the build finds outside a PR is captured into the workshop list.</li>
+      <li>PR 4's demo has FlightDeck improve its own pre-flight card.</li>
+    </ul>
+  </div>
+
+  <h3>Where things go</h3>
+  <div class="tree" aria-label="Repository layout">
+    <div><span class="p mine">flightdeck/</span><span class="d">The plugin: agents, commands, guards, team plans, templates, tests.</span></div>
+    <div><span class="p mine">.flightdeck/</span><span class="d">Your work and your words: the workshop list <code>workshops.md</code>, and one folder per active workshop. <code>build-1/</code> is the first.</span></div>
+    <div><span class="p">lab/</span><span class="d">Checks and practice tests. Not installed with the plugin.</span></div>
+    <div><span class="p">library/source/</span><span class="d">Downloaded sources, left untouched.</span></div>
+    <div><span class="p">CLAUDE.md, README.md</span><span class="d">This repository's rules and front page.</span></div>
+    <div><span class="p">mods/status-band/</span><span class="d">The status band (PR 8), a second, separate small plugin.</span></div>
+    <div><span class="p">dev/, .claude/</span><span class="d">dev-workspace and project settings. Untouched except one line (see <a href="#run">section 6</a>).</span></div>
+  </div>
+  <p class="small muted">Layout kept, as you said.</p>
+
+  <div class="card">
+    <h3>Who is on the crew</h3>
+    <p class="small">Names say the job. A rank is separate and is given when work is handed out (<a href="#ranks">section 2</a>). Each agent's model is chosen by its job, not by its rank. Opus, Sonnet and Haiku are Claude's models, from strongest and priciest to cheapest. Nothing runs above Opus at high effort (a setting for how hard a model thinks).</p>
+    <ul class="ranks">
+      <li><strong>pilot</strong> (Opus, high): the lead agent of your session. It sends out agents and does not build.</li>
+      <li><strong>runner</strong> (Sonnet): runs one piece of work alone in a background session and reports its branch back. Cannot write your own files.</li>
+      <li><strong>scout</strong> (Haiku): reads and reports.</li>
+      <li><strong>builder</strong> (Sonnet): builds, inside its own list of files.</li>
+      <li><strong>reviewer</strong> (Sonnet): judges the work against the brief and the review checklist.</li>
+      <li><strong>adversary</strong> (Opus, high): attacks the work to find what is wrong.</li>
+      <li><strong>imposter</strong> (Sonnet): plays you, from a short profile of your own words.</li>
+      <li><strong>librarian</strong> (Sonnet, PR 7 only): answers from the manuals and library.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Six team plans, all in PR 1</h3>
+    <ul>
+      <li><strong>Recon</strong>: scouts look from separate angles, then a summary and a check of its claims.</li>
+      <li><strong>Build and check</strong> (the default): a builder in its own copy of the repository, then reviewer, adversary and imposter check separately, one fix round, a PR.</li>
+      <li><strong>Decide</strong>: options from different angles, compared in pairs; you pick on a page.</li>
+      <li><strong>Spec first</strong> (new): write what done means as checks first, into the workshop's own checks, build to them, then review.</li>
+      <li><strong>Many hands</strong> (new): an Officer leads one builder per item, each in its own copy, a review per item, then the Officer joins them.</li>
+      <li><strong>Root cause</strong> (new): guesses from separate evidence, agents try to disprove them, repeat until one survives.</li>
+    </ul>
+    <p class="small muted">Each plan lists its roles with their rank and model. Only a team lead is an Officer (Many hands has one); in the other plans the Captain leads and every role is a Worker. There is also a "ways to fly" page: helper agents from chat, a workflow (a script that runs many agents in steps), an agent team, or runners in background sessions.</p>
+  </div>
+
+  <div class="callout green">
+    <p><strong>A normal chat stays normal.</strong> A plain <code>claude</code> chat gets no pre-flight card, no workshop notes, no ranks and no forced style. Your own edits and git commands are never checked. What does reach every chat:</p>
+    <ul>
+      <li>A helper agent launch that names <code>fable</code> or <code>best</code> is refused, and so is a workflow script that names <code>fable</code>, <code>best</code>, <code>xhigh</code> or <code>max</code>.</li>
+      <li>Any helper agent a normal chat starts cannot push to <code>main</code> or write your own files.</li>
+      <li>The card's check runs at every start and prints nothing outside a pilot session.</li>
+      <li>The plugin adds a few hundred tokens of descriptions to what Claude reads at the start (a token is a small chunk of text, the unit usage is counted in). <code>/flight:preflight</code> prints the exact size.</li>
+    </ul>
+  </div>
+
+  <h3>Try it once PR 1 is built</h3>
+  <p>This works only after PR 1 is built, so you cannot run it today. It takes about five minutes, in this repository.</p>
+  <div class="cmd"><pre id="c-try1">git fetch origin &amp;&amp; git switch build-1-pr1-basic-a1
+claude plugin marketplace add "$PWD" --scope local
+claude plugin install flight@DBHD-FlightDeck --scope local
+claude --agent flight:pilot --model opus --effort high</pre><button type="button" class="copy-btn" data-copy="c-try1">Copy</button></div>
+  <ul class="small">
+    <li>Line 1 gets PR 1's branch. The name ends in a1 now; if PR 1 is retried it ends in a2. If you have already merged PR 1, skip line 1.</li>
+    <li>Lines 2 and 3 tell Claude Code this folder holds an install list, then install the plugin for this folder only. That writes a personal settings file, <code>.claude/settings.local.json</code>, which is not committed.</li>
+    <li>Line 4 starts Claude as the pilot. PR 1's README suggests a shortcut called <code>fly</code> for it.</li>
+  </ul>
+  <ol class="timeline">
+    <li><span class="t">0:01</span>The pre-flight card appears: "FlightDeck 0.2.0 pre-flight: Captain on deck", your branch, the build-1 workshop, the questions it is waiting on, and one captured entry waiting to start. Type <code>/flight:preflight</code> and FlightDeck checks itself.</li>
+    <li><span class="t">0:05</span>Ask the pilot to "push this branch to main with --dry-run" (a test run that changes nothing) and watch the guard refuse. Open a second terminal and start plain <code>claude</code>: no card.</li>
+    <li><span class="t">next</span>Optional: "Captain, recon: what do the sources in library/source say about evals, five lines". "Captain, have the adversary attack README.md against .flightdeck/VISION.md". "Captain, we should make the board work offline": the pilot captures it into the workshop list and says so. Calling the pilot "Captain" is optional; plain words work the same.</li>
+    <li><span class="t">run 2</span><code>/flight:board</code> shows build-1 as a row and the captured work under "Waiting to start". <code>/flight:capture</code> then <code>/flight:workshop</code> captures and activates new work. <code>/flight:launch demo-attempt-age</code> returns a draft PR. The Run 2 results page also asks the one question you asked to be asked later.</li>
+    <li><span class="t">run 3</span><code>node lab/drills/sweep.mjs</code> (a free practice test, not the local command you skipped); "Librarian, how do I retry one pull request?"; the band above the prompt.</li>
+  </ol>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="part" id="ranks">
+  <div class="part-head"><span class="n">02</span><h2>Ranks: who decides, who reports to whom</h2><span class="tag">changed</span></div>
+  <p>Four ranks, as you foresaw. A rank is a responsibility, not a name: attempt 1 had agents called "officer" and "worker", and now no agent's name holds a rank. The bold line under each rank is what you said it is. The grey line is mine; you can strike any of it (it is written in build-1's <code>decisions.md</code>).</p>
+
+  <ol class="chain" aria-label="The four ranks, top to bottom">
+    <li><span class="rk">Commander</span><span class="who">you</span>
+      <strong class="owner">Responsible for everything.</strong>
+      <span class="more">Sets the truth, activates and settles workshops, says go, merges. May speak to any rank directly.</span></li>
+    <li><span class="rk">Captain</span><span class="who">the lead session, such as the pilot</span>
+      <strong class="owner">The decision maker, who hands out responsibility.</strong>
+      <span class="more">Picks the team plan, decides who gets which job, files captured work and questions. Normally the rank that talks with you. Does not build, and does not read or write in bulk (from your older ranks note).</span></li>
+    <li><span class="rk">Officer</span><span class="who">a team lead, or a runner in the background</span>
+      <strong class="owner">A team lead, or a long-lived character running as a background session.</strong>
+      <span class="more">Splits and orders the work inside its brief, may send out Workers, accepts or rejects their findings with a reason. Cannot change what done means. You can join its background session and talk to it directly.</span></li>
+    <li><span class="rk">Worker</span><span class="who">a scout, builder, reviewer and so on</span>
+      <strong class="owner">Always in a team, one responsibility.</strong>
+      <span class="more">Decides only how to do its own task. Cannot change the scope or what done means, and sends out no agents.</span></li>
+  </ol>
+
+  <div class="card">
+    <h3>Where each rank shows up, for example in Many hands</h3>
+    <ul>
+      <li><strong>Captain:</strong> the pilot picks the Many hands team plan and hands out the items.</li>
+      <li><strong>Officer:</strong> the team lead of Many hands splits the items and accepts or rejects what comes back.</li>
+      <li><strong>Workers:</strong> one builder per item, and a reviewer per item, each reporting to the Officer.</li>
+    </ul>
+    <p class="small muted">In Build and check, and in the other plans without a team lead, the Captain leads and every role is a Worker. Officers also appear as a runner working alone in a background session, and as the librarian when it runs as a standing session (PR 7). The same agent can be an Officer in one team and a Worker in another.</p>
+  </div>
+
+  <div class="proposal">
+    <div class="tag">My proposals, strike any</div>
+    <h4>1. How they address each other (decision D2)</h4>
+    <p>Up the chain by rank. Down the chain, Workers by job, Officers and the Captain by rank. Keep it short. For example:</p>
+    <ul>
+      <li>Worker to Officer: "Officer, the build failed because the test needs file X."</li>
+      <li>Officer to Captain: "Captain, item 3 needs a file outside its list. Your call."</li>
+      <li>Captain to Commander: "Commander, one question for you."</li>
+      <li>Captain to Worker: "Builder, build item 3 in these files."</li>
+    </ul>
+    <p>No fixed report line, no numbering, no call signs. Agents inside a workflow just return their results and need no address. A plain <code>claude</code> chat has no ranks.</p>
+    <h4>2. When stuck</h4>
+    <p>Worker to Officer to Captain to Commander. A Worker whose brief is unclear, clashes with your truth, or needs files outside its list stops and says so in one line. It never guesses and never asks you directly. Anything that needs you becomes a question in the workshop's <code>questions.md</code>. A step is skipped only when it is missing (a Worker in a team the Captain leads reports to the Captain).</p>
+    <h4>3. A fallback rank line in each agent's file</h4>
+    <p>Used only if no rank was handed out with the work: the pilot takes Captain, the runner takes Officer, every other agent takes Worker. It is not a name and not an identity. It is there because some agents (for example a pilot you start yourself) have no sender to give them a rank. If you strike it, rank comes only from the team plan or the sender.</p>
+  </div>
+
+  <h3>How a rank reaches an agent</h3>
+  <ul>
+    <li>Rank comes from the team plan and from whoever hands out the work. Each plan lists its roles with their rank, and the opening message starts with one line saying it, for example <code>Rank: Worker. Reports to: Captain. You decide: ... You do not decide: ...</code>. Then come the workshop's own notes and checks, if the work belongs to a workshop, then "Work outside your brief: report it as a capture line; do not do it."</li>
+    <li>In a build run, the lead is Captain and every other role is a Worker. When you say "go" on a launch (PR 4), your session is Captain and every role in that run is a Worker.</li>
+    <li>Ranks are guidance, not locks: no guard stops a Worker that oversteps. The reviewer checks scope, the file-list check fails a PR that touched files outside its list, and you merge.</li>
+  </ul>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="part" id="workshops">
+  <div class="part-head"><span class="n">03</span><h2>Workshops: from one line to a folder</h2><span class="tag">changed</span></div>
+
+  <ol class="flow" aria-label="Workshop lifecycle">
+    <li><span class="st">Step 1</span><span class="nm">Captured</span><span class="d">One line in <code>.flightdeck/workshops.md</code>. No folder. It waits.</span></li>
+    <li><span class="st">Step 2</span><span class="nm">Active</span><span class="d">You activate it. It gets a folder with its own notes and its own checks.</span></li>
+    <li><span class="st">Step 3</span><span class="nm">Settled</span><span class="d">You write one line, <code>settled: &lt;date&gt;</code>, in its card.</span></li>
+    <li class="opt"><span class="st">Step 4, if you want</span><span class="nm">Promoted</span><span class="d">A draft PR proposes which lines deserve to become global. You merge, edit or close it.</span></li>
+  </ol>
+
+  <div class="callout">
+    <p><strong>Its notes and checks reach only its own agents.</strong> Whoever sends an agent into a workshop hands it that workshop's own notes and checks in its opening message, after the global rules. An agent nobody sends into a workshop gets none. The launch workflows (PR 4) and the build do this in their code; the pilot and the runner do it because their instructions say so, and a live test checks it.</p>
+  </div>
+
+  <h3>Each step in plain words</h3>
+  <ul>
+    <li><strong>Capture.</strong> When you mention a task or goal bigger than the current sitting, the pilot adds one line to the list and tells you in one sentence. The line looks like <code>- &lt;name&gt;: &lt;the ask in your words&gt; (&lt;date&gt;)</code>. You can also type <code>/flight:capture &lt;goal&gt;</code> (PR 3). An agent that finds work outside its brief does not do it: it reports a capture line, and the Captain files it.</li>
+    <li><strong>Activate.</strong> Only you activate (decision D1, the safe default and an easy one to loosen: strike it and agents may activate clearly scoped work themselves, while you still settle): <code>/flight:workshop &lt;name&gt;</code> (PR 3), or tell the pilot "activate &lt;name&gt;". Cheap scout agents read first, so you are never asked what they could find. Then you get at most five plain questions about your own ideas; one always challenges your ask ("the weakest part of this ask is X: what should we do about it?"). With PR 1 alone, the pilot activates from the templates without the questions.</li>
+    <li><strong>Settle.</strong> Only you settle (decision D1): write <code>settled: &lt;date&gt;</code> in the card, or tell the pilot "settle &lt;name&gt;". Settling promotes nothing.</li>
+    <li><strong>Promote.</strong> Later, only if you want: <code>/flight:promote &lt;name&gt;</code> on a settled workshop. An agent proposes which decisions, notes and checks deserve global relevance and where each goes (<code>CLAUDE.md</code>, the review checklist, the lab checks, or the manuals once PR 7 is in). The adversary checks it against what is already there. You get a draft PR that you merge, edit or close.</li>
+  </ul>
+
+  <h3>What is in an active workshop's folder</h3>
+  <div class="tree" aria-label="Workshop folder">
+    <div><span class="p mine">workshop.md</span><span class="d">The card: title, the work, what done looks like, and later the <code>settled:</code> line.</span></div>
+    <div><span class="p mine">context.md</span><span class="d">New. Its own notes for agents: what the work is about, where its files are, facts found. About 40 lines at most.</span></div>
+    <div><span class="p mine">verify.md</span><span class="d">New. Its own checks: commands that must pass, and yes-or-no questions the checkers add to the global checklist.</span></div>
+    <div><span class="p">constraints.md</span><span class="d">Your own words for this work. Only you write here. Made when you add the first line.</span></div>
+    <div><span class="p">questions.md, decisions.md</span><span class="d">Questions waiting on you, and decisions with a reason. Made when the first one is written.</span></div>
+    <div><span class="p">attempts/a1/, a2/ ...</span><span class="d">One folder per try, each with its brief, report, findings and log.</span></div>
+  </div>
+  <p class="small muted">A workshop's state is read from the files, never stored: a line with no folder is captured, a folder is active, a <code>settled:</code> line is settled. The pre-flight card, the board and the status band all show the captured work waiting to start.</p>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="part" id="prs">
+  <div class="part-head"><span class="n">04</span><h2>The pull requests</h2><span class="tag">optional</span></div>
+  <p>Every PR goes into <code>build-1</code>, never into <code>main</code>. None is stacked on another. Each owns its own list of files and edits no file another one owns, so any of them can be rejected alone. Each PR description starts with its five-minute try and how long it took.</p>
+  <p><strong>To retry any one PR:</strong> tell me in chat what you want different and say "retry PR 3". I write your words down, dated, and build a new branch and a new PR (named like <code>build-1-pr3-workshops-a2</code>). The old ones stay until you close them. Rejecting a PR means closing it.</p>
+
+  <!-- PR 1 -->
+  <article class="pr base" id="pr1">
+    <div class="pr-head"><span class="id">PR 1</span><h3>Basic flight crew</h3><span class="badge base">Run 1, alone</span></div>
+    <div class="pr-body">
+      <p>The basic Claude Code content plus the core files and folders. After it lands you can fly with the pilot and crew, run recons and adversary attacks, have the pilot capture work and activate a bare workshop, start a runner on a workshop with its own notes, and see this build's state at the start of every pilot session.</p>
+      <div class="row"><div class="k">Try it</div><div class="v">Install, start the pilot, read the pre-flight card, type <code>/flight:preflight</code>, ask for a push to main and watch it refused, then open plain <code>claude</code>: no card. Steps are in <a href="#get">section 1</a>.</div></div>
+      <div class="row"><div class="k">Size</div><div class="v">About 48 files, about 2,300 lines, mostly agent and team plan text. That is bigger than the PR 1 you okayed (about 40 and 1,900), only by what your notes force: workshops add 5 files, team plans add 3, ranks add no new file, and together about 400 more lines (see the box at the top of the page).</div></div>
+      <details>
+        <summary>Details: what is in it, how we know it works, what it needs</summary>
+        <h4>What is in it</h4>
+        <ul>
+          <li>Seven agent definitions (a file that sets one helper's job, model and tools): pilot, runner, scout, builder, reviewer, adversary and imposter. No rank in any name; each holds one fallback rank line (<a href="#ranks">section 2</a>, proposal 3).</li>
+          <li>A rules page with the chain of command and the hard rules (<code>flightdeck/policies.md</code>).</li>
+          <li>The pre-flight card. It appears only in pilot sessions.</li>
+          <li>Three guards (automatic checks that can refuse an action). One stops helper agents pushing to <code>main</code>, force-pushing or deleting remote branches. One refuses a helper agent launch that names <code>fable</code> or <code>best</code>, and a workflow that names <code>fable</code>, <code>best</code>, <code>xhigh</code> or <code>max</code>. One stops helper agents editing your own files (any file marked "only the human writes here", any <code>constraints.md</code>, plus <code>VISION.md</code> and <code>build.txt</code>). You are never asked to approve anything for your own actions.</li>
+          <li>All six team plans, the opening message for each role (starting with its rank line), and the "ways to fly" page.</li>
+          <li>The workshop list, with build-1 as the first active workshop and one example entry waiting to start; six workshop templates; build-1's own card, notes, checks, questions and decisions.</li>
+          <li>One small helper script, <code>node flightdeck/lib/workshops.mjs scope &lt;name&gt;</code>: about 20 lines inside the file that reads the workshop list. It prints a workshop's own notes and checks. A plain file read cannot do this job for a workflow, because a workflow cannot read files, and one script gives every path the same text. It is for agents; you never type it.</li>
+          <li><code>/flight:preflight</code>, rule files, a one-page review checklist, a short profile of you for the imposter, the optional radio voice, and the script that checks the hard rules.</li>
+        </ul>
+        <h4>What the guards do not catch</h4>
+        <p class="small">They are safety nets, not locks. The git guard does not see git run from inside a script or an alias. The "your files" guard covers Claude's edit and write tools, not a shell command that writes a file. The model guard does not check the model or effort a session is started with (<code>--model</code>, <code>--effort</code>, <code>/effort</code>), the ultracode setting, agent files that set a higher model, or the <code>CLAUDE_CODE_SUBAGENT_MODEL</code> setting. The machine-wide ceiling is Claude Code's own managed settings. <code>/flight:preflight</code> prints the lines to add, and says whether GitHub's own protection on <code>main</code> (the real hard stop) is on.</p>
+        <h4>How we know it works</h4>
+        <ul>
+          <li>Claude Code's own plugin check passes, the hard-rule script passes, and the tests pass: the card, the workshop list reader, the guards, and that no agent's name holds a rank word.</li>
+          <li>A live test in a throwaway copy of the repository, with a fake local remote so nothing real can be pushed: the pilot names build-1 and answers "Captain" and "Commander"; a helper and a runner told to write <code>constraints.md</code> are refused; a dry-run push to main is refused; a scout sent without a rank line answers "Worker"; plain chat gets no card; the radio voice shows (or moves into the pilot's own instructions).</li>
+          <li>The workshop test: in a test workshop whose notes hold a secret word, a scout the pilot sends there, and a runner's scout, know the word and follow the workshop's rule; a scout sent into another workshop, and plain chat, do not.</li>
+          <li>The review, adversary and imposter checks (<a href="#run">section 6</a>). You confirm the card is visible on screen the first time, because the imposter cannot see a terminal.</li>
+        </ul>
+        <h4>Needs</h4>
+        <p class="small">Nothing. Later PRs read PR 1's files but never edit them. PR 1 can be trimmed but not removed.</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- PR 2 -->
+  <article class="pr" id="pr2">
+    <div class="pr-head"><span class="id">PR 2</span><h3>Flight board</h3><span class="badge go">Run 2</span></div>
+    <div class="pr-body">
+      <p>One page that shows each active workshop as a row, the captured work waiting to start, and every question waiting on you. You pick answers, press Copy, and paste them back to Claude.</p>
+      <div class="row"><div class="k">Try it</div><div class="v">Type <code>/flight:board</code> and open the file it names. See build-1 as a row with its questions, and <code>demo-attempt-age</code> under "Waiting to start". Pick answers, press "Copy my answers" and paste into chat; the pilot files them.</div></div>
+      <div class="row"><div class="k">Size</div><div class="v">About 16 files, about 850 lines.</div></div>
+      <details>
+        <summary>Details</summary>
+        <h4>What is in it</h4>
+        <ul>
+          <li>The board itself. It needs no server. Each row shows the title, the latest attempt and result, open PRs, and settled or not. Each waiting entry has a copy button for the line <code>activate &lt;name&gt;</code>, which the pilot understands with PR 1 alone. Questions you asked to be asked later sit in a folded list.</li>
+          <li>A prompt builder tab: pick a captured, active or new workshop and a team plan, write the rough ask, what done means and how to check it, and copy a ready prompt.</li>
+          <li>A shared page style so any page an agent makes looks and behaves the same: flight theme, light and dark, works on a phone, loads nothing from the web except fonts.</li>
+        </ul>
+        <p class="small muted">Left out on purpose: your vision mentions "other ai tools" for the page suite. Only the prompt builder is built now. PR 4's second-opinion run can review any page.</p>
+        <h4>How we know it works</h4>
+        <p class="small">Tests: every sample workshop appears, every captured entry appears under "Waiting to start", every open question appears, the copied block has the exact format, a broken file shows a warning instead of crashing, and the page has a dark mode. The imposter fills in the page as you and its pasted answers land correctly. A cheap Haiku agent given only the page text can say what is waiting on you and what work is waiting to start. Then the three checks in section 6.</p>
+        <h4>Needs</h4>
+        <p class="small">PR 1. It does not need PR 3.</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- PR 3 -->
+  <article class="pr" id="pr3">
+    <div class="pr-head"><span class="id">PR 3</span><h3>Workshops: capture, activate, retry, settle, promote</h3><span class="badge go">Run 2</span></div>
+    <div class="pr-body">
+      <p>Capture work in one line and leave it waiting. Activate it with a rough ask and a few questions, and get a folder with its own notes and checks. Retry after adding your words. Settle with one line. Later, if you want, promote what it learned to global files as a draft PR.</p>
+      <div class="row"><div class="k">Try it</div><div class="v">Type <code>/flight:capture the pre-flight card lists the oldest waiting question first</code> and see the new line in <code>.flightdeck/workshops.md</code> (no folder yet). Then <code>/flight:workshop &lt;that name&gt;</code>, answer the questions (at most five; skip any), and open its <code>workshop.md</code>, <code>context.md</code> and <code>verify.md</code>.</div></div>
+      <div class="row"><div class="k">Size</div><div class="v">About 14 files, about 800 lines.</div></div>
+      <details>
+        <summary>Details</summary>
+        <h4>What is in it</h4>
+        <ul>
+          <li><code>/flight:capture</code>: adds one line to the list, makes no folder.</li>
+          <li><code>/flight:workshop</code>: activates a captured entry, or captures and activates a new rough ask in one go. Scouts read first, then one batch of at most five questions about your ideas. It never asks you to approve text an agent wrote. Only words you typed go into <code>constraints.md</code>. It can ask live in chat, or write the questions to a file and wait for your pasted answers.</li>
+          <li><code>/flight:retry</code>: opens the next attempt folder with the one change named at the top and the last attempt's findings attached.</li>
+          <li>Settle: no command. Write the <code>settled:</code> line or tell the pilot.</li>
+          <li><code>/flight:promote</code>: works only on a settled workshop and returns a draft PR (section 3).</li>
+          <li>Claude cannot start any of these by itself; only you can.</li>
+        </ul>
+        <h4>How we know it works</h4>
+        <p class="small">Tests: capture adds exactly one line and no folder, and refuses a name already used; activation makes the card, notes and checks and nothing else; a second attempt is numbered right and attempt 1 is left unchanged; promote refuses an unsettled workshop. The imposter answers a question batch as you, and a Haiku checker confirms the rules (at most five, each with a reason and a recommendation, one challenges the ask, none asks you to approve agent text, skipped ones stay open). A practice promote must catch a planted clash with <code>CLAUDE.md</code>. Then the three checks in section 6.</p>
+        <h4>Needs</h4>
+        <p class="small">PR 1. It uses the board if present. PR 6's interview practice needs it.</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- PR 4 -->
+  <article class="pr" id="pr4">
+    <div class="pr-head"><span class="id">PR 4</span><h3>Launches: "go" returns a reviewed PR</h3><span class="badge go">Run 2</span></div>
+    <div class="pr-body">
+      <p><code>/flight:launch &lt;workshop&gt;</code> reads the workshop, picks the smallest team plan that fits and says why (or says plain chat is enough), shows a five-line card (team plan, roles and ranks, models, agent count, rough usage guess), waits for your "go", runs it with the workshop's own notes and checks given to every agent, and returns a draft PR with a report.</p>
+      <div class="row"><div class="k">Try it</div><div class="v">Activate the example with <code>/flight:workshop demo-attempt-age</code> (or tell the pilot "activate demo-attempt-age"). Then <code>/flight:launch demo-attempt-age</code>, read the card, say "go", and watch <code>/workflows</code>. The draft PR arrives later.</div></div>
+      <div class="row"><div class="k">Size</div><div class="v">About 14 files, about 1,050 lines.</div></div>
+      <details>
+        <summary>Details</summary>
+        <h4>What is in it</h4>
+        <ul>
+          <li>The launch command. Every line of its report says whether a script checked it, an agent judged it, or an agent only said so.</li>
+          <li>Three ready workflows: build and check (the default), recon, and second opinion (review, adversary and imposter on any file, change or branch you name).</li>
+          <li>The first agent of each launch prints the workshop's notes and checks; every later agent gets them. The workshop's own checks run after the global ones, and the checkers get the workshop's own questions with the global checklist.</li>
+          <li>Work found outside the brief is listed under "Captured for later", and the pilot files it in the workshop list.</li>
+          <li>Each builder works in its own separate copy of the repository, on a branch the script names, so it never touches your checkout. The adversary is handed the changes as files.</li>
+          <li>No workshop folder ships with it: the demo task <code>demo-attempt-age</code> ("the pre-flight card shows how long ago each workshop's latest attempt ran") is an example I made up, waiting in the list for you to activate. You can delete its line.</li>
+        </ul>
+        <h4>How we know it works</h4>
+        <p class="small">Tests: each workflow file loads, names a model and effort for every agent (all within your limit), and every step returns a result or stops with a reason. With a test workshop, every agent's message holds a rank line and that workshop's notes, never another workshop's, and its check runs after the global checks. A practice launch writes its brief, report, log and PR text without opening a PR. Whether the <code>/flight:&lt;name&gt;</code> workflow commands work is recorded. Your own try opens a real draft. Then the three checks in section 6.</p>
+        <h4>Needs</h4>
+        <p class="small">PR 1. It works with PR 3 but runs on any active workshop folder.</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- PR 5 -->
+  <p class="small muted" id="pr5"><strong>PR 5: skipped, as you said.</strong> The local command is not built in this build, so your vision's "Local CLI" part is not built now, and nothing from it was moved elsewhere. The PR numbers stay as they were so your reply lines up.</p>
+
+  <!-- PR 6 -->
+  <article class="pr" id="pr6">
+    <div class="pr-head"><span class="id">PR 6</span><h3>Laboratory</h3><span class="badge go">Run 3</span></div>
+    <div class="pr-body">
+      <p>A place that tests and improves FlightDeck: free practice tests, an interview practice, scored test cases, and an improvement run.</p>
+      <div class="row"><div class="k">Try it</div><div class="v"><code>node lab/drills/sweep.mjs</code> and <code>node lab/drills/remove-part.mjs</code>. They are free practice tests that take seconds and use no usage. They are not the local command you skipped.</div></div>
+      <div class="row"><div class="k">Size</div><div class="v">About 28 files, about 1,300 lines, plus a small copied sample project.</div></div>
+      <details>
+        <summary>Details</summary>
+        <ul>
+          <li>A tidiness check that only warns (lengths, sizes, settings plugins quietly ignore, and a workshop whose own files grow past the size default). This is where the warnings for my default sizes are reported.</li>
+          <li>Two free practice tests that use no AI: break one part at a time and confirm a check notices; delete each later part and confirm the rest still works.</li>
+          <li>An interview practice: the workshop interviewer against an imposter that holds back one fact. It must find it.</li>
+          <li>A team practice you run yourself, and test cases (including PR 1's) that Claude Code's plugin test runner can score. One checks that a workshop's notes reach only its own agents.</li>
+          <li>An improvement run that changes one document a round and keeps a change only if it beats the noise. It says "within noise, do not merge" when that is the truth.</li>
+        </ul>
+        <p class="small muted">Left out on purpose: your vision mentions "teams purpose built to improve the flightdeck". No standing team is built; the practice tests and improvement runs do that job for now, and a runner can be started on a lab workshop as a long-lived Officer when you want one.</p>
+        <h4>How we know it works</h4>
+        <p class="small">The lab's own tests pass; both free practice tests pass on <code>build-1</code>; one real interview practice runs and the reviewer reads its transcript; a practice improvement run correctly throws away a change that only looks better on the practice cases. If the plugin test runner is not available, it says so instead of failing.</p>
+        <h4>Needs</h4>
+        <p class="small">PR 1. The interview practice needs PR 3, built in Run 2.</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- PR 7 -->
+  <article class="pr" id="pr7">
+    <div class="pr-head"><span class="id">PR 7</span><h3>Manuals and library, with a librarian</h3><span class="badge go">Run 3</span></div>
+    <div class="pr-body">
+      <p>Manuals (how to fly it, how it works, how to change it), library pages carried over from earlier branches, and a librarian agent that answers from them with file and line references.</p>
+      <div class="row"><div class="k">Try it</div><div class="v">Ask "Librarian, how do I retry one pull request?" The answer should point at <code>flightdeck/manuals/operator/workshops-and-launches.md</code>.</div></div>
+      <div class="row"><div class="k">Size</div><div class="v">About 20 files, about 1,300 lines.</div></div>
+      <details>
+        <summary>Details</summary>
+        <ul>
+          <li>Three manual shelves: operator (starting with a first-hour guide, and a page on the workshop steps and the chain of command), technical (how the parts work, including how a workshop's notes reach agents, plus a list of Claude Code facts with source and date), maintenance (how to change and test a part, and how to add an agent without adding a rank).</li>
+          <li>Library pages carried over and edited: the adversary's mandate, the review checklist guide, plain-word terms, team design, the retry rule.</li>
+          <li>The librarian (Sonnet) is a Worker when called into a team, and an Officer when run as a standing background session.</li>
+          <li><code>/flight:manual</code> drafts a manual page when a workshop is settled. <code>/flight:library-check</code> finds out-of-date pages and has the librarian recheck them. A small workflow lets you run the librarian over any launch. Once PR 7 is in, manuals are one of the places <code>/flight:promote</code> can propose lines for.</li>
+        </ul>
+        <h4>How we know it works</h4>
+        <p class="small">A manuals check (every link and file exists, no hard line wrapping). The librarian answers five questions with known answers and points at the right file each time. The adversary spot-checks three Claude Code facts against the downloaded docs. The imposter reads the first-hour guide as you.</p>
+        <h4>Needs</h4>
+        <p class="small">PR 1.</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- PR 8 -->
+  <article class="pr" id="pr8">
+    <div class="pr-head"><span class="id">PR 8</span><h3>Status band above the prompt</h3><span class="badge go">Run 3</span></div>
+    <div class="pr-body">
+      <p>One read-only line above Claude Code's prompt: how many workshops are active and the latest attempt of the most recently changed one, how many questions are waiting, and how much captured work is waiting to start. It is an extra your vision does not ask for; you included it. The most experimental piece.</p>
+      <div class="row"><div class="k">Try it</div><div class="v">Install it with two lines (in the details below), restart Claude Code, and look above the prompt.</div></div>
+      <div class="row"><div class="k">Size</div><div class="v">8 files, about 450 lines.</div></div>
+      <details>
+        <summary>Details</summary>
+        <p class="small">It is a separate small plugin in <code>mods/status-band/</code>, because the feature it uses is new and may change. It keeps its own copy of the three reading rules it needs, tested on the same samples as PR 1's, so the two cannot drift apart unnoticed.</p>
+        <div class="cmd"><pre id="c-try8">claude plugin marketplace add "$PWD/mods/status-band" --scope local
+claude plugin install flight-band@flight-band --scope local</pre><button type="button" class="copy-btn" data-copy="c-try8">Copy</button></div>
+        <h4>How we know it works</h4>
+        <p class="small">The plugin check and its own tests pass; review and adversary. The imposter can only read the code and steps, not see the screen, so the PR stays a draft until you look.</p>
+        <h4>Needs</h4>
+        <p class="small">PR 1's file formats only. It edits no PR 1 file.</p>
+      </details>
+    </div>
+  </article>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Totals</th><th>Files</th><th>Lines</th></tr></thead>
+    <tbody>
+      <tr><td>Run 1 (PR 1)</td><td class="m">about 48</td><td class="m">about 2,300</td></tr>
+      <tr><td>Run 2 (PRs 2 to 4)</td><td class="m">about 44</td><td class="m">about 2,700</td></tr>
+      <tr><td>Run 3 (PRs 6 to 8)</td><td class="m">about 56</td><td class="m">about 3,050</td></tr>
+      <tr><td>All seven</td><td class="m">about 148</td><td class="m">about 8,050</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Where each part of your vision lives</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Your vision part</th><th>Where it is built</th></tr></thead>
+    <tbody>
+      <tr><td>Accelerate Claude Code</td><td>PR 1: agents, guards, rule files, pre-flight card</td></tr>
+      <tr><td>Roleplay</td><td>PR 1: four ranks, greeting, card title, the optional radio voice</td></tr>
+      <tr><td>Themed HTML page suite</td><td>PR 2: board, prompt builder, shared page style</td></tr>
+      <tr><td>Workshops</td><td>PR 1: the list, templates, build-1 with its own notes and checks. PR 3: capture, activate, retry, settle, promote</td></tr>
+      <tr><td>Launches</td><td>PR 1: six team plans and opening messages. PR 4: the launch command</td></tr>
+      <tr><td>Local CLI</td><td>Not built in this build (PR 5 skipped)</td></tr>
+      <tr><td>dev-workspace</td><td>PR 1: FlightDeck sits beside it, nothing is replaced</td></tr>
+      <tr><td>Cheap tokens, smart agents</td><td>PR 1: every agent names its model by its job; blind roles skip <code>CLAUDE.md</code>; an agent gets only its own workshop's notes. PR 4: the launch card shows a usage guess</td></tr>
+      <tr><td>Built with quality</td><td>PR 1: each PR owns a file list and a script checks it. PR 6: the lab</td></tr>
+      <tr><td>Human energy</td><td>PR 1: your-words file, one-line capture, question format, rules page, review checklist, profile of you. PR 3: interview, promote. PRs 6 and 7: more</td></tr>
+      <tr><td>Keep it simple</td><td>PR 1: a normal chat stays normal</td></tr>
+      <tr><td>Manuals and libraries</td><td>PR 7</td></tr>
+      <tr><td>Laboratory</td><td>PR 6</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">PR 8 (the status band) is an extra that is not in your vision.</p>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="part" id="choices">
+  <div class="part-head"><span class="n">05</span><h2>Choices and decisions I made</h2><span class="tag">optional</span></div>
+  <p>Last time you kept choices B to H and left A to me. None of this is your words unless quoted. Each can be overruled in the answer box.</p>
+
+  <article class="card decision" id="dec-a">
+    <div class="tag">Choice A, left to me: kept, with one addition</div>
+    <h3>What "working" means</h3>
+    <dl>
+      <dt>The choice</dt>
+      <dd>A part works if: its quick script checks pass, and <strong>(new)</strong> when it is built inside a workshop, that workshop's own checks pass too (for this build, build-1's checks from Run 2 on); the imposter can follow its try steps; removing it breaks nothing else; and every problem found is fixed or listed with a reason. If the imposter could only read a step and not run it, the step counts as not tried and the PR arrives as a draft that says so.</dd>
+      <dd>Only these hard rules can fail a check:
+        <ul>
+          <li>Nothing is pushed to <code>main</code>.</li>
+          <li>No model or effort above Opus at high.</li>
+          <li>Nothing changes under <code>dev/</code> or <code>.claude/rules/</code>.</li>
+          <li>No FlightDeck script calls dev-workspace.</li>
+          <li>No file changes outside the PR's own list.</li>
+        </ul>
+        Everything else is only ever a warning.</dd>
+      <dt>Why</dt>
+      <dd>You said "show me something that works great. and fits the goal." Scripts prove it works, the imposter checks it suits you, and the removal test proves you can "cut it down". The addition follows your note that a workshop's checks come "in addition to global ... verification".</dd>
+    </dl>
+  </article>
+
+  <div class="card" id="dec-bh">
+    <h3>Choices B to H: kept, as you said</h3>
+    <ul>
+      <li><strong>B. Where everything goes.</strong> Kept. Changed by your notes: adds the workshop list, each workshop's own notes and checks, and states read from the files; no folder for the skipped local command.</li>
+      <li><strong>C. How a retry works.</strong> Kept. Changed by your notes: a new line in a workshop's own notes or checks can also start a retry.</li>
+      <li><strong>D. How big the build is.</strong> Kept. Changed by your notes: seven PRs, all built, in three runs, and a new cut order (<a href="#cut">section 7</a>).</li>
+      <li><strong>E. How you start a piece of work.</strong> Kept: by talking, with no forms, IDs or approval flags. Changed by your notes: the capture step comes first, and settling is its own step.</li>
+      <li><strong>F. Where questions waiting on you are kept.</strong> Kept: in the workshop's <code>questions.md</code>. Changed by your notes: a question you asked to be asked later is marked "ask later" and asked at the moment it names.</li>
+      <li><strong>G. Beside dev-workspace.</strong> Unchanged.</li>
+      <li><strong>H. Default sizes.</strong> Unchanged, apart from one new size for a workshop's own files (in the box below).</li>
+    </ul>
+  </div>
+
+  <div class="qbox" id="mine">
+    <h4>Decisions and defaults I picked: strike or change any</h4>
+    <ul>
+      <li><strong>D1.</strong> Only you activate and settle a workshop (by <code>/flight:workshop &lt;name&gt;</code> or by telling the pilot, and by writing or asking for a <code>settled:</code> line). Agents may capture, but never activate, settle or promote. This is the safe default and easy to loosen.</li>
+      <li><strong>D2.</strong> How ranks address each other: up by rank, down by job for Workers and by rank for Officers and the Captain, short (<a href="#ranks">section 2</a>, proposal 1).</li>
+      <li><strong>When stuck</strong> (Worker to Officer to Captain to Commander) and <strong>the fallback rank line</strong> in each agent's file: my proposals 2 and 3 in <a href="#ranks">section 2</a>. To strike one, say so under "Anything else?" in the answer box.</li>
+      <li><strong><code>demo-attempt-age</code></strong> is an example task I made up for PR 4's try. You can delete its line.</li>
+    </ul>
+    <details>
+      <summary>My default sizes and limits (Choice H)</summary>
+      <p class="small">None can fail a check; going over one is only a warning, reported by PR 6.</p>
+      <ul class="small">
+        <li>Pre-flight card: at most 10 lines and 800 characters.</li>
+        <li>At most five questions per batch.</li>
+        <li>At most five builders for PR 1, three for the others.</li>
+        <li>Top <code>CLAUDE.md</code> about 60 lines; <code>.flightdeck/CLAUDE.md</code> about 40.</li>
+        <li>New: a workshop's notes about 40 lines; its notes, checks and your words together under 6,000 characters, so every opening message stays short.</li>
+        <li>Each command description under 400 characters, all together under 4,000.</li>
+        <li>Manual pages about 100 lines; a library page counts as out of date after 30 days.</li>
+        <li>Improvement rounds on a document: at most five (the first real one three).</li>
+        <li>Spending caps for test cases: $2 for your try, $3 per PR check, $10 for the first improvement run.</li>
+        <li>One fix round per PR; a second only when a script check is still failing.</li>
+      </ul>
+    </details>
+  </div>
+
+  <p class="small muted">The profile of you that the imposter plays (<code>.flightdeck/persona.md</code>, about ten of your own dated quotes) ships as drafted; you called it fine. If anything in it is wrong later, tell me and I file it as a dated <code>persona:</code> line.</p>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="part" id="run">
+  <div class="part-head"><span class="n">06</span><h2>How the build runs and is checked</h2><span class="tag">optional</span></div>
+
+  <h3>In runs, with you in between</h3>
+  <ol class="timeline">
+    <li><span class="t">now</span><strong>You choose Go in the answer box.</strong> Pasting the reply to me is what starts setup.</li>
+    <li><span class="t">setup</span><strong>About five minutes with you there.</strong> I write your changes into <code>constraints.md</code> and show you the lines. I write the build's settings files, then you paste one line to restart Claude Code with them (the line is under <a href="#answer">the answer box</a>). Claude asks once to edit the project's existing agent file <code>.claude/agents/adversary.md</code>, where <code>model: fable</code> becomes <code>model: opus</code> with <code>effort: high</code>, to meet your limit. It asks because any edit under <code>.claude/</code> asks. It is the only file outside the build that I touch: say yes. I then run a quick test of the risky bits with cheap Haiku agents before building anything.</li>
+    <li><span class="t">run 1</span><strong>Builds PR 1 only, then stops.</strong> You try it, then merge it, or ask for a retry.</li>
+    <li><span class="t">run 2</span><strong>Builds PRs 2 to 4</strong> from the updated <code>build-1</code>, then stops. You try them. Its results page asks the question you asked to be asked later.</li>
+    <li><span class="t">run 3</span><strong>Builds PRs 6 to 8</strong>, then stops. PR 5 is never built.</li>
+  </ol>
+  <p>Each run is a plain Claude Code workflow started from a plain session, not flown by the pilot, with the flight plugin switched off. That avoids the mistake you named: "using half built systems, to build out the half built system". The lead of each run is Captain and every other role is a Worker. From Run 2 on, every build agent gets build-1's own notes and checks, and every PR must pass build-1's own checks on top of the global ones. Agents never push to main, never force-push, never delete a branch and never merge. You merge.</p>
+
+  <details>
+    <summary>Who does what on each PR, and agent counts</summary>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Step</th><th>Who</th><th>Model</th></tr></thead>
+      <tbody>
+        <tr><td>Copy the source material from earlier branches; from Run 2 on, also print build-1's own notes and checks</td><td>1 reader</td><td class="m">Haiku</td></tr>
+        <tr><td>Write the exact brief: files, what done means, checks, try steps</td><td>1</td><td class="m">Opus, high</td></tr>
+        <tr><td>Build, each in its own copy of the repository</td><td>1 to 3 builders (5 for PR 1)</td><td class="m">Sonnet, high</td></tr>
+        <tr><td>Join the pieces, run the checks, push the branch</td><td>1</td><td class="m">Sonnet, medium</td></tr>
+        <tr><td>Check: review, adversary, imposter, script checks, live checks, all separately</td><td>5</td><td class="m">Sonnet / Opus / Haiku</td></tr>
+        <tr><td>Accept or reject every problem found, with a reason; turn questions for you into <code>questions.md</code> entries and outside work into capture lines</td><td>1</td><td class="m">Opus, high</td></tr>
+        <tr><td>Fix once, then rerun the checks</td><td>1</td><td class="m">Sonnet, high</td></tr>
+        <tr><td>Confirm each serious problem really is fixed</td><td>0 or 1</td><td class="m">Opus, high</td></tr>
+        <tr><td>Write the report and open the draft PR</td><td>1</td><td class="m">Sonnet, medium</td></tr>
+        <tr><td>Runs 2 and 3 only: merge every PR of the run together in a scratch branch and run all checks, to catch clashes</td><td>1</td><td class="m">Sonnet, medium</td></tr>
+        <tr><td>After each run: one real install rehearsal, then a results page like this one; the imposter reads it as you</td><td>3</td><td class="m">Sonnet, high</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">About 12 to 15 agents per PR (17 for PR 1). Run 1 is about 21 agents plus about 7 cheap test agents. Run 2 is up to about 51, and Run 3 up to about 51. These are my guesses. A small machine runs fewer agents at once, so a run takes longer. Nothing runs above Opus at high.</p>
+  </details>
+
+  <h3>The three checkers</h3>
+  <p>Each starts fresh and never sees the others' notes or the builders' working. Each gets the review checklist, plus build-1's own questions from Run 2 on.</p>
+  <ul>
+    <li><strong>Review</strong> (Sonnet): reads the changes against the brief. Is every promised file there and right? Did anything change outside its list?</li>
+    <li><strong>Adversary</strong> (Opus): attacks the changes against the brief, your vision and build.txt, your constraints, build-1's own checks (from Run 2 on), your known pet hates and your model limit. Every claim it makes must be checkable by reading files.</li>
+    <li><strong>Imposter</strong> (Sonnet): plays you. It installs the plugin in a throwaway copy of the repository under a renamed install list, so your real install is never touched. It follows the five-minute try word for word, answers any questions in your voice, and notes the time per step, where it got stuck, any jargon, and what it would cut. It checks your install list is unchanged at the end; if it changed, the run stops.</li>
+  </ul>
+
+  <details>
+    <summary>What the checkers found about this plan</summary>
+    <p>A review, a fact check, an adversary and an imposter went over attempt 2 and raised 55 findings. Every one, the decision on it and the reason are in <code>.flightdeck/build-1/attempts/plan/a2/verify/plan-resolution.md</code>.</p>
+    <ul>
+      <li>An automatic check that guessed the workshop from the branch name was dropped, because it could hand one workshop's notes to another workshop's agents. Notes and checks now travel one way: in the opening message, printed by one helper script.</li>
+      <li>PR 4 ships no workshop folder, so you activate the demo yourself. Settle and promote are two separate steps.</li>
+      <li>Officer is kept for team leads and long-lived background sessions.</li>
+    </ul>
+  </details>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="part" id="cut">
+  <div class="part-head"><span class="n">07</span><h2>Risks, time, sizes, what I left out</h2><span class="tag">optional</span></div>
+
+  <h3>What I would cut first, if it is still too big</h3>
+  <ol class="cut">
+    <li>The radio voice (PR 1).</li>
+    <li>PR 4's second-opinion and recon workflows (keep build and check).</li>
+    <li>PR 2's prompt builder tab.</li>
+    <li>PR 8, the status band (not in your vision).</li>
+    <li>PR 6's improvement run.</li>
+  </ol>
+  <p>The six team plans, the workshop steps and the chain of command are not on this list, because you asked for them. PR 1 can be trimmed but not removed.</p>
+
+  <details>
+    <summary>Time and usage: my rough guess, not measured</summary>
+    <ul>
+      <li>Run 1 (PR 1 only): about one to two hours. It has fewer Opus agents than a planning run, so it should use less of your weekly limit than planning did.</li>
+      <li>Runs 2 and 3: about two to four hours each, using roughly two to three times what Run 1 uses.</li>
+      <li>Every run's log records real usage per step, so the next guess is measured, and the results page shows the totals.</li>
+      <li>You can stop at the end of Run 1, of Run 2 and of Run 3.</li>
+      <li>If you hit a usage limit mid-run, the run pauses until it resets. A few nested checks cannot wait; they report "not tried" and their PR opens as a draft.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>What might not work, and what happens then</summary>
+    <p>A setup test checks the risky bits before anything is built. If one fails, I use a simpler version and tell you which.</p>
+    <ul>
+      <li>If the guards cannot tell your session from a helper agent's, the "your files" guard becomes a written rule in <code>CLAUDE.md</code> only, and I tell you.</li>
+      <li>A workshop's notes reach an agent only when whoever sends it hands them over. The pilot and the runner do this because their instructions say so; the live workshop test shows whether they do, and the results page says what was seen.</li>
+      <li>If a background session does not receive the workshop's notes in its first message, the runner is told to print them itself.</li>
+      <li>A workshop's own notes and checks are text that agents write and every agent in that workshop reads, so one wrong or stale line misleads them all. They are edited only on the base branch, kept short, and your vision and build.txt win on any conflict.</li>
+      <li>A workshop's own checks include commands that agents run. They run in a separate copy of the repository, under the same push and file rules as everything else, and the reviewer reads the checks like any other changed file.</li>
+      <li>If the build's allowed commands do not cover the checks run by nested sessions, they run through a two-line wrapper script instead. If a background session does not see the build's settings variable, the runner is still recognised by its agent type, and the README says so.</li>
+      <li>The guards fire in every session and helper agent where the plugin is on. They are narrow, the card only appears in pilot sessions, and an internal error lets the action through except for the push rule.</li>
+      <li>If the flight plugin cannot be switched off for the build, its guards stay on and the build's writes are made to pass them.</li>
+      <li>The plugin may not load from its own <code>flightdeck/</code> folder. Then it stays at the top of the repository.</li>
+      <li>Workflows may not run as <code>/flight:&lt;name&gt;</code> commands. Then they run by file path, and the launch command says how.</li>
+      <li>Some workflow options (effort per agent, naming the agent type, multi-step chains) may not behave. Then the script uses simpler forms that do the same job.</li>
+      <li>The plugin test runner may be unavailable here, or may not accept a test folder outside the plugin. Then test cases record "not available here" or move inside the plugin folder.</li>
+      <li>The GitHub command line may fail. Then branches are still pushed and the PR text is written to files for you.</li>
+      <li>The radio voice may not show in a pilot session. Then it moves into the pilot's own instructions.</li>
+      <li>On some providers the model names <code>sonnet</code> or <code>opus</code> may mean an older model. The PR 7 manual says how to pin exact model names.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Left out on purpose</summary>
+    <ul>
+      <li>The local command (PR 5), as you asked.</li>
+      <li>Page tools beyond the prompt builder (your vision says "other ai tools").</li>
+      <li>A standing team that improves FlightDeck. The lab's practice tests do this job for now.</li>
+      <li>The dropped automatic check that guessed a workshop from the branch name. If you want one later, it comes as its own PR.</li>
+      <li>Any files in <code>.claude/rules/</code>. A plugin cannot ship files there, and dev-workspace owns that folder. Rules go in short <code>CLAUDE.md</code> files where the work happens. By the way, <code>.claude/rules/context.md</code> points at a file that does not exist (<code>dev/workspace/context/tree.md</code>). I leave it alone.</li>
+      <li>No central runner, no state files beyond the one workshop list, no approval steps, and nothing that starts on its own: no automatic launches, activations, promotions or improvement runs.</li>
+    </ul>
+  </details>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="part" id="retry">
+  <div class="part-head"><span class="n">08</span><h2>How to change things and retry</h2><span class="tag">short</span></div>
+  <p>Tell me in chat, in plain words. I write your words into <code>.flightdeck/build-1/constraints.md</code>, dated and word for word, and show you the lines. Only your words go in that file. Helper agents are blocked from writing it, and you never need to edit it by hand.</p>
+  <p>You do not need any tags. If you like, you can start a line with <code>PR 3:</code> to be exact.</p>
+  <ul>
+    <li><strong>Before building:</strong> say "rerun the plan with my new lines". Attempt 2 is kept and you get a fresh review page.</li>
+    <li><strong>For small last-minute changes:</strong> put them in the answer box. I file them as dated lines before building.</li>
+    <li><strong>After building:</strong> say "retry PR 3". You get a new branch and a new PR. The old ones stay until you close them. If PR 1 is retried after Run 2 is built, the Run 2 PRs that use what changed are rerun too, and the report says which.</li>
+    <li><strong>Any workshop, from PR 3 on:</strong> add a line to its <code>constraints.md</code>, answer a question, or have a line added to its notes or checks, then run <code>/flight:retry &lt;workshop&gt;</code>.</li>
+  </ul>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="part" id="answer">
+  <div class="part-head"><span class="n">09</span><h2>Your answer</h2><span class="tag">needed</span></div>
+  <p>Your answers from last time are already filled in (open the folded list to see them or change any). Choose Go or Not yet, add anything else, press "Copy my answer" and paste it into Claude Code in this repository on <code>build-1</code>. Your choices stay in this page only (and a draft is kept in this browser if it allows).</p>
+
+  <form class="panel" id="answer-form" autocomplete="off" onsubmit="return false">
+    <fieldset>
+      <legend>Go, or not yet?</legend>
+      <div class="ans-top">
+        <span class="seg big" role="radiogroup" aria-label="Go or not yet">
+          <label class="wait"><input type="radio" name="go" value="no"><span>Not yet</span></label>
+          <label class="go"><input type="radio" name="go" value="go"><span>Go</span></label>
+        </span>
+      </div>
+      <span class="hint" id="go-hint">Choose Go or Not yet before you copy.</span>
+      <p class="ans-help"><strong>Go</strong> means: file this reply, do the setup with you, then build the PRs marked include, PR 1 alone first, and stop so you can try it. <strong>Not yet</strong> means: file my notes and change the plan, and build nothing. The second line of the reply says which one you chose.</p>
+    </fieldset>
+
+    <details class="more">
+      <summary>Your earlier answers, already filled in (open to see or change any)</summary>
+
+      <fieldset>
+        <legend>Pull requests</legend>
+        <p class="ans-help" style="margin-top:0">Include means build it, Skip means do not. Run 2 is PRs 2 to 4, Run 3 is PRs 6 to 8. PR 5 is skipped, as you said; the reply repeats "PR 5: skip".</p>
+
+        <div class="ans-row" data-group="q1" data-need="change">
+          <div class="ans-top">
+            <span class="ans-name"><span class="id">PR 1</span>Basic flight crew</span>
+            <span class="seg" role="radiogroup" aria-label="PR 1 choice">
+              <label><input type="radio" name="q1" value="okay" checked><span>Okay</span></label>
+              <label><input type="radio" name="q1" value="change"><span>Change</span></label>
+            </span>
+          </div>
+          <p class="ans-help">Now about 48 files, grown only by what your notes force.</p>
+          <input type="text" class="note-in" name="q1-note" placeholder="What to change (a few words)" aria-label="PR 1 note" hidden>
+          <span class="hint" hidden>Add a few words so I know what to change.</span>
+        </div>
+        <div id="pr-rows"></div>
+      </fieldset>
+
+      <fieldset class="panel-sub">
+        <legend>Choices A to H</legend>
+        <p class="ans-help" style="margin-top:0">Keep means as written. You decide means I decide. Change opens a box for your version.</p>
+        <div id="dec-rows"></div>
+      </fieldset>
+
+      <fieldset class="panel-sub">
+        <legend>My decisions D1 and D2</legend>
+        <p class="ans-help" style="margin-top:0">D1: only you activate and settle a workshop. D2: how ranks address each other. Strike or change either.</p>
+        <div id="d-rows"></div>
+      </fieldset>
+
+      <fieldset class="panel-sub">
+        <legend>Also answered, carried over</legend>
+        <p class="ans-help" style="margin-top:0">These go into the reply unchanged. To change one, write it under "Anything else?".</p>
+        <ul class="fixed-list" id="fixed-list"></ul>
+      </fieldset>
+    </details>
+
+    <fieldset class="panel-sub">
+      <legend>Anything else?</legend>
+      <textarea name="other" placeholder="Last-minute changes, in your own words. Each line is filed as you wrote it." aria-label="Anything else"></textarea>
+    </fieldset>
+
+    <div class="out-head">
+      <h3>Your reply</h3>
+      <span style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn-ghost" id="reset-btn">Reset to your last answers</button>
+        <button type="button" class="btn-main" id="copy-answer">Copy my answer</button>
+      </span>
+    </div>
+    <textarea id="reply-out" readonly aria-label="Your reply, ready to paste"></textarea>
+    <div class="status-line" id="copy-status" aria-live="polite"></div>
+  </form>
+
+  <h3>What happens right after you paste a Go</h3>
+  <ol>
+    <li>I write your changes into <code>constraints.md</code>, dated and word for word, and show you the lines.</li>
+    <li>I write the build's settings files (<code>.flightdeck/build-1/workflows/build-settings.json</code> and its partner) and tell you when they are ready. They do not exist yet, so do not use the restart line before I tell you.</li>
+    <li>You paste the restart line below. Claude asks once to edit the project's existing <code>.claude/agents/adversary.md</code> (its model line must meet your Opus-at-high limit; the only file outside the build I touch); say yes. I run the quick setup test with cheap Haiku agents.</li>
+    <li>I build PR 1 only, then stop for you to try it.</li>
+  </ol>
+  <div class="cmd"><pre id="c-restart">claude --settings .flightdeck/build-1/workflows/build-settings.json --permission-mode acceptEdits --model opus --effort high</pre><button type="button" class="copy-btn" data-copy="c-restart">Copy</button></div>
+  <p class="small muted">What the restart line does: it restarts Claude Code in this repository with the settings file above. The file allows only the commands the build needs (git, tests, plugin checks, draft PRs), switches your installed FlightDeck off for the build session, and the build's nested sessions block pushes to <code>main</code>, force-pushes, branch deletes and merges. File edits go ahead without asking, and the model is Opus at high effort.</p>
+</section>
+
+<footer>
+  Made from the plan <code>.flightdeck/build-1/attempts/plan/a2/plan.md</code> and its check results in <code>.flightdeck/build-1/attempts/plan/a2/verify/</code> (55 findings). Planning attempt 2, 2026-10-11, written after your notes on attempt 1. Nothing has been built.
+</footer>
+</div>
+
+<script>
+(function () {
+  var STORE_KEY = 'flightdeck-build1-a2-review-draft-v1';
+  var THEME_KEY = 'flightdeck-build1-review-theme';
+
+  function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) {} }
+  function lsDel(k) { try { window.localStorage.removeItem(k); } catch (e) {} }
+  function qsa(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  /* Theme toggle: auto, light, dark */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('theme-btn');
+  var modes = ['auto', 'light', 'dark'];
+  function applyTheme(m) {
+    if (m === 'light' || m === 'dark') root.setAttribute('data-theme', m); else root.removeAttribute('data-theme');
+    themeBtn.textContent = 'Light / dark: ' + m;
+  }
+  var savedTheme = lsGet(THEME_KEY);
+  applyTheme(modes.indexOf(savedTheme) >= 0 ? savedTheme : 'auto');
+  themeBtn.addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme') || 'auto';
+    var next = modes[(modes.indexOf(cur) + 1) % modes.length];
+    applyTheme(next); lsSet(THEME_KEY, next);
+  });
+
+  /* Copy helper: clipboard inside the click handler, select the text if it fails */
+  function selectEl(el) {
+    try {
+      if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') { el.focus(); el.select(); return; }
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    } catch (e) {}
+  }
+  function copyText(text, el, onOk, onFail) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(onOk, function () { selectEl(el); onFail(); });
+        return;
+      }
+    } catch (e) {}
+    selectEl(el); onFail();
+  }
+  function flash(btn, label) {
+    var old = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', old);
+    btn.textContent = label; btn.classList.add('done');
+    setTimeout(function () { btn.textContent = old; btn.classList.remove('done'); }, 1800);
+  }
+  qsa('.copy-btn[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      copyText(el.textContent, el, function () { flash(btn, 'Copied'); }, function () { flash(btn, 'Selected'); });
+    });
+  });
+
+  /* Answer panel. Defaults are the owner's answers to attempt 1. */
+  var PRS = [
+    { n: 2, name: 'Flight board', def: 'include' },
+    { n: 3, name: 'Workshops', def: 'include' },
+    { n: 4, name: 'Launches', def: 'include' },
+    { n: 6, name: 'Laboratory', def: 'include' },
+    { n: 7, name: 'Manuals and library', def: 'include' },
+    { n: 8, name: 'Status band', def: 'include' }
+  ];
+  var DECS = [
+    { l: 'A', name: 'What "working" means', def: 'care' },
+    { l: 'B', name: 'Where everything goes', def: 'keep' },
+    { l: 'C', name: 'How a retry works', def: 'keep' },
+    { l: 'D', name: 'How big the build is', def: 'keep' },
+    { l: 'E', name: 'How you start a piece of work', def: 'keep' },
+    { l: 'F', name: 'Where questions waiting on you are kept', def: 'keep' },
+    { l: 'G', name: 'Beside dev-workspace', def: 'keep' },
+    { l: 'H', name: 'Default sizes and limits', def: 'keep' }
+  ];
+  var DS = [
+    { id: 'D1', name: 'Only you activate and settle a workshop' },
+    { id: 'D2', name: 'How ranks address each other' }
+  ];
+  var CARRIED = [
+    'Name constraints.md: you choose (keep the name)',
+    'Workshop, launch, attempt reading: you choose (use your reading, ask me again later)',
+    'Branch isolation reading: you choose (use your reading)',
+    'Layout: keep',
+    'Theme: mentioned above',
+    'Profile of you: fine'
+  ];
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function seg(name, opts, def, label) {
+    return '<span class="seg" role="radiogroup" aria-label="' + esc(label) + '">' + opts.map(function (o) {
+      return '<label><input type="radio" name="' + name + '" value="' + o[0] + '"' + (o[0] === def ? ' checked' : '') + '><span>' + o[1] + '</span></label>';
+    }).join('') + '</span>';
+  }
+  function noteBox(name, label) {
+    return '<input type="text" class="note-in" name="' + name + '-note" placeholder="What to change" aria-label="' + esc(label) + ' note" hidden>' +
+      '<span class="hint" hidden>Add a few words so I know what to change.</span>';
+  }
+
+  document.getElementById('pr-rows').innerHTML = PRS.map(function (p) {
+    return '<div class="ans-row" data-group="pr' + p.n + '" data-need="change"><div class="ans-top"><span class="ans-name"><span class="id">PR ' + p.n + '</span>' + esc(p.name) + '</span>' +
+      seg('pr' + p.n, [['include', 'Include'], ['change', 'Change'], ['skip', 'Skip']], p.def, 'PR ' + p.n + ' choice') + '</div>' +
+      noteBox('pr' + p.n, 'PR ' + p.n) + '</div>';
+  }).join('');
+
+  document.getElementById('dec-rows').innerHTML = DECS.map(function (d) {
+    return '<div class="ans-row" data-group="dec' + d.l + '" data-need="change"><div class="ans-top"><span class="ans-name"><span class="id">' + d.l + '</span>' + esc(d.name) + '</span>' +
+      seg('dec' + d.l, [['keep', 'Keep'], ['care', 'You decide'], ['change', 'Change']], d.def, 'Choice ' + d.l) + '</div>' +
+      noteBox('dec' + d.l, 'Choice ' + d.l) + '</div>';
+  }).join('');
+
+  document.getElementById('d-rows').innerHTML = DS.map(function (d) {
+    return '<div class="ans-row" data-group="' + d.id + '" data-need="change"><div class="ans-top"><span class="ans-name"><span class="id">' + d.id + '</span>' + esc(d.name) + '</span>' +
+      seg(d.id, [['keep', 'Keep'], ['strike', 'Strike'], ['change', 'Change']], 'keep', 'Decision ' + d.id) + '</div>' +
+      noteBox(d.id, 'Decision ' + d.id) + '</div>';
+  }).join('');
+
+  document.getElementById('fixed-list').innerHTML = CARRIED.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('');
+
+  var form = document.getElementById('answer-form');
+  var out = document.getElementById('reply-out');
+  var status = document.getElementById('copy-status');
+
+  function val(name) {
+    var el = form.elements[name];
+    return el ? String(el.value || '').trim() : '';
+  }
+  function oneLine(s) { return s.replace(/\s*\n+\s*/g, ' / ').trim(); }
+  function note(name) { return oneLine(val(name)); }
+
+  /* Show a note box only when the chosen option needs one; show a hint if it is empty */
+  function syncRows() {
+    qsa('.ans-row[data-group]').forEach(function (r) {
+      var sel = val(r.getAttribute('data-group'));
+      var need = (r.getAttribute('data-need') || '').split(',');
+      var show = need.indexOf(sel) >= 0;
+      var inp = r.querySelector('.note-in');
+      var hint = r.querySelector('.hint');
+      if (inp) inp.hidden = !show;
+      if (hint) hint.hidden = !(show && inp && !inp.value.trim());
+    });
+  }
+
+  function withNote(label, n) { return n ? label + ': ' + n : label + ' (no details given, ask me)'; }
+
+  function build() {
+    var go = val('go') === 'go';
+    var L = [];
+    L.push('FlightDeck build-1 review reply (planning attempt 2)');
+    L.push(go
+      ? 'GO: start setup, then build the PRs marked include, PR 1 alone first, and stop so I can try it.'
+      : (val('go') === 'no'
+        ? 'NOT YET: file my notes below and change the plan. Build nothing.'
+        : '(Choose Go or Not yet above. Nothing is copied until you do.)'));
+
+    var q1 = val('q1');
+    L.push('PR 1: ' + (q1 === 'change' ? withNote('change', note('q1-note')) : 'okay as shown'));
+    PRS.forEach(function (p) {
+      if (p.n === 6) L.push('PR 5: skip');
+      var c = val('pr' + p.n) || p.def;
+      L.push('PR ' + p.n + ': ' + (c === 'change' ? withNote('change', note('pr' + p.n + '-note')) : c));
+    });
+
+    CARRIED.forEach(function (c) { L.push(c); });
+
+    var kept = [], care = [], changes = [];
+    DECS.forEach(function (d) {
+      var c = val('dec' + d.l) || d.def;
+      if (c === 'keep') kept.push(d.l);
+      else if (c === 'care') care.push(d.l);
+      else changes.push('Choice ' + d.l + ': ' + withNote('change', note('dec' + d.l + '-note')));
+    });
+    L.push('Choices kept: ' + (kept.length ? kept.join(', ') : 'none'));
+    if (care.length) L.push("Choices I don't care about (you decide): " + care.join(', '));
+    changes.forEach(function (c) { L.push(c); });
+
+    var dKept = [], dLines = [];
+    DS.forEach(function (d) {
+      var c = val(d.id) || 'keep';
+      if (c === 'keep') dKept.push(d.id);
+      else if (c === 'strike') dLines.push('Decision ' + d.id + ': strike' + (note(d.id + '-note') ? ': ' + note(d.id + '-note') : ''));
+      else dLines.push('Decision ' + d.id + ': ' + withNote('change', note(d.id + '-note')));
+    });
+    if (dKept.length) L.push('Decisions kept: ' + dKept.join(', '));
+    dLines.forEach(function (c) { L.push(c); });
+
+    var other = val('other');
+    if (other) {
+      other.split(/\n/).map(function (s) { return s.trim(); }).filter(Boolean).forEach(function (s) { L.push('Other: ' + s); });
+    } else {
+      L.push('Other: none');
+    }
+    return L.join('\n');
+  }
+
+  /* Draft saving. The Go choice is never saved, so a new visit always starts at Not yet. */
+  function snapshot(skipGo) {
+    var data = {};
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || (skipGo && el.name === 'go')) return;
+      if (el.type === 'radio') { if (el.checked) data[el.name] = el.value; }
+      else data[el.name] = el.value;
+    });
+    return data;
+  }
+  function restore(data) {
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || el.name === 'go') return;
+      if (el.type === 'radio') { if (data[el.name] !== undefined && !el.disabled) el.checked = (data[el.name] === el.value); }
+      else if (data[el.name] !== undefined) el.value = data[el.name];
+    });
+  }
+
+  var defaults = snapshot(true);
+  var restored = false;
+  try {
+    var saved = JSON.parse(lsGet(STORE_KEY) || 'null');
+    if (saved && typeof saved === 'object') { restore(saved); restored = true; }
+  } catch (e) {}
+
+  function refresh() { syncRows(); document.getElementById('go-hint').hidden = !!val('go'); out.value = build(); }
+  function onEdit() { refresh(); lsSet(STORE_KEY, JSON.stringify(snapshot(true))); }
+  form.addEventListener('input', onEdit);
+  form.addEventListener('change', onEdit);
+  refresh();
+  if (restored) status.textContent = 'Restored your earlier answers from this browser. Press "Reset to your last answers" to start over.';
+
+  document.getElementById('copy-answer').addEventListener('click', function () {
+    var btn = this; refresh();
+    if (!val('go')) {
+      status.textContent = 'Choose Go or Not yet first, then copy.';
+      document.getElementById('go-hint').hidden = false;
+      return;
+    }
+    copyText(out.value, out, function () {
+      flash(btn, 'Copied'); status.textContent = 'Copied. Paste it into Claude Code in this repository.';
+    }, function () {
+      flash(btn, 'Selected'); status.textContent = 'Could not copy automatically. The text is selected: press Ctrl+C or Cmd+C.';
+    });
+  });
+  document.getElementById('reset-btn').addEventListener('click', function () {
+    restore(defaults);
+    qsa('input[type="text"], textarea:not([readonly])', form).forEach(function (el) { el.value = ''; });
+    qsa('input[name="go"]', form).forEach(function (r) { r.checked = false; });
+    lsDel(STORE_KEY); refresh(); status.textContent = 'Reset to your last answers.';
+  });
+})();
+</script>

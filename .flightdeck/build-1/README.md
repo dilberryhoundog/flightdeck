@@ -2,7 +2,8 @@
 
 The planning residue for side build attempt 1 of FlightDeck. Written by the lead agent; the owner's documents are `../VISION.md`, `../build.txt` and `constraints.md` here.
 
-- `review.html`: the plain-language review page for the owner. Open it in a browser. Its "Your answer" box builds a reply to paste back to the agent.
+- `attempts/plan/a2/`: planning attempt 2, the current one, made after the owner's notes of 2026-10-11 by `workflows/revise.js`: `plan.md` (its section 0 says what changed), `verify/` and `review.html`. The files below are attempt 1, kept as they were.
+- `review.html`: the plain-language review page for the owner (attempt 1). Open it in a browser. Its "Your answer" box builds a reply to paste back to the agent.
 - `constraints.md`: the owner's file. Your own words for this build go here, dated, one per line.
 - `plan/plan.md`: the final plan the review page is built from. `plan/candidates/` holds the three competing plans it was merged from.
 - `research/`: the research reports the plans were built on.

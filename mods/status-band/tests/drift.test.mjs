@@ -342,7 +342,7 @@ test('drift: band text matches the pinned examples exactly', () => {
   );
   assert.equal(
     band.bandText({ active: 1, openQuestions: 0, captured: 3, latest: { workshop: 'build-1', label: 'pr-8/a1' } }, 60),
-    'FlightDeck: 1 active | 0 waiting on you | 3 captured',
+    'FlightDeck: 1 active | 0 questions for you | 3 waiting to start',
   );
   assert.equal(
     band.bandText({ active: 2, openQuestions: 1, captured: 0, latest: { workshop: 'alpha', label: null } }),

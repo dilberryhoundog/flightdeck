@@ -104,9 +104,6 @@ async function refresh($, cwd) {
   }
 }
 
-// The space in "import (" below is deliberate: the read-only check greps this file for a dynamic
-// import call, and a type annotation must not trip it.
-/** @type {import ('claude-code').Register} */
 export const register = on => {
   on('session.start', async ($, e, next) => {
     lastCwd = e.cwd

@@ -1,7 +1,7 @@
 {
   "name": "flight-band",
   "version": "0.1.0",
-  "description": "FlightDeck status band: one line above the prompt showing active workshops, questions waiting on you and captured work waiting to start.",
+  "description": "FlightDeck status band: one line above the prompt showing active workshops (pieces of work with their own folder), questions waiting on you, and captured work waiting to start.",
   "author": {
     "name": "dilberryhoundog"
   },

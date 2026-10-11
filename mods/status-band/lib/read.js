@@ -1,4 +1,4 @@
-// The status band's own copy of FlightDeck PR 1's reading rules (flightdeck/lib/workshops.mjs).
+// The status band's own copy of the reading rules in FlightDeck PR 1's shared reader (the main plugin's lib folder).
 // It is kept identical in behaviour by tests/drift.test.mjs, because a separately installed plugin cannot load files from the main plugin.
 // This file is a plain ES module with no dependencies, no `$`, and no Node globals, so it loads both in the Claude Code mod sandbox and in plain node 22.
 // Every function returns warnings or a safe value instead of throwing.
@@ -196,7 +196,7 @@ export function bandText(summary, columns) {
   const c = `${captured} captured, waiting to start`;
   const full = `FlightDeck: ${a} | ${b} | ${c}`;
   if (typeof columns === 'number' && full.length > columns) {
-    return `FlightDeck: ${active} active | ${openQuestions} waiting on you | ${captured} captured`;
+    return `FlightDeck: ${active} active | ${openQuestions} question${openQuestions === 1 ? '' : 's'} for you | ${captured} waiting to start`;
   }
   return full;
 }

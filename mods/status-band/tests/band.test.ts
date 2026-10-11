@@ -165,9 +165,11 @@ async function anyFlightDeckText($: any, surface: 'terminal' | 'desktop', overri
   let ui: any
   try {
     ui = await $.ui.mount({ plugin: 'flight-band', surface, component: 'AbovePrompt', props: propsFor(overrides) })
-  } catch {
-    // A mount that rejects because nothing is drawn is accepted as "nothing drawn".
-    return false
+  } catch (error) {
+    // When the band draws nothing, the test kit's mount rejects with "no implementation for ui.render" (nothing
+    // beneath the plugins answers it). That counts as nothing drawn; any other error is a real failure.
+    if (/no implementation for ui\.render/i.test(String((error as { message?: unknown })?.message ?? error))) return false
+    throw error
   }
   try {
     return (await ui.find({ text: /FlightDeck/ })) !== undefined
@@ -200,7 +202,7 @@ test('the band draws the short line when the room is narrow', async ($, on) => {
   for (const surface of SURFACES) {
     world.tree = fixtureTree()
     await start($)
-    expect(await drawnLine($, surface, { bodyColumns: 60 })).toBe('FlightDeck: 1 active | 2 waiting on you | 2 captured')
+    expect(await drawnLine($, surface, { bodyColumns: 60 })).toBe('FlightDeck: 1 active | 2 questions for you | 2 waiting to start')
   }
 })
 
@@ -243,11 +245,14 @@ test('a completed turn picks up a changed questions file', async ($, on) => {
 test('the 30 second timer picks up a changed questions file', async ($, on) => {
   const clock = mock.clock(on)
   const world = newWorld(on, fixtureTree())
-  await start($)
-  expect(await drawnLine($, 'terminal')).toBe(FULL)
-  world.tree.put('/proj/.flightdeck/alpha/questions.md', QUESTIONS + EXTRA_OPEN, 3000)
-  await clock.advance(30500)
-  expect(await drawnLine($, 'terminal')).toBe(FULL_THREE)
+  for (const surface of SURFACES) {
+    world.tree = fixtureTree()
+    await start($)
+    expect(await drawnLine($, surface)).toBe(FULL)
+    world.tree.put('/proj/.flightdeck/alpha/questions.md', QUESTIONS + EXTRA_OPEN, 3000)
+    await clock.advance(30500)
+    expect(await drawnLine($, surface)).toBe(FULL_THREE)
+  }
 })
 
 test('broken files still draw a line', async ($, on) => {
@@ -276,6 +281,8 @@ test('the band never writes a file', async ($, on) => {
   newWorld(on, fixtureTree())
   await start($)
   await $.turn.complete({ answer: '', durationMs: 10, isAborted: false, turnId: 't2', reason: 'answer' })
-  expect(await drawnLine($, 'terminal')).toBe(FULL)
+  for (const surface of SURFACES) {
+    expect(await drawnLine($, surface)).toBe(FULL)
+  }
   expect(writes.count).toBe(0)
 })

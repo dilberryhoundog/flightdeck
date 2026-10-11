@@ -1,0 +1,31 @@
+{
+  "env": { "FLIGHTDECK_UNATTENDED": "1" },
+  "permissions": {
+    "allow": [
+      "Bash(git status*)", "Bash(git diff *)", "Bash(git log *)", "Bash(git show *)", "Bash(git ls-tree *)", "Bash(git rev-parse *)",
+      "Bash(git fetch *)", "Bash(git switch *)", "Bash(git add *)", "Bash(git commit *)", "Bash(git push *)",
+      "Bash(node *)", "Bash(ls *)", "Bash(cat *)",
+      "Bash(claude plugin validate *)", "Bash(claude plugin details *)", "Bash(claude plugin list*)",
+      "Bash(claude plugin marketplace list*)", "Bash(claude plugin marketplace add *)",
+      "Bash(claude plugin install flight@DBHD-FlightDeck-try-*)", "Bash(claude plugin uninstall flight@DBHD-FlightDeck-try-*)",
+      "Bash(claude -p *)",
+      "Read", "Edit", "Write", "Glob", "Grep", "Agent", "Skill", "Workflow"
+    ],
+    "deny": [
+      "Bash(git push *:main*)", "Bash(git push *:refs/heads/main*)", "Bash(git push * main)", "Bash(git push *main:*)",
+      "Bash(git push * +*)", "Bash(git push * :*)", "Bash(git push *--force*)", "Bash(git push * -f*)",
+      "Bash(git push *--mirror*)", "Bash(git push *--delete*)", "Bash(git push * -d *)",
+      "Bash(git branch -d*)", "Bash(git branch -D*)", "Bash(gh pr merge*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "if": "Bash(git *)", "command": "node \"$CLAUDE_PROJECT_DIR/.flightdeck/build-1/workflows/push-check.mjs\"" }
+        ]
+      }
+    ]
+  }
+}

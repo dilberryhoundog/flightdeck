@@ -76,7 +76,7 @@ There is no hook for it, on purpose (`.flightdeck/build-1/decisions.md:15`). A h
 
 ## Team plans skill
 
-Files: `flightdeck/skills/team-plans/SKILL.md`, six plan pages, `entry-points.md` (the `Rank:` line and task per seat) and `ways-to-fly.md` (four ways to run a plan). The `${CLAUDE_PLUGIN_ROOT}` placeholder is filled in only inside skills ([H28](harness-facts.md)), so `SKILL.md` carries the real paths and every other page writes `<plugin root>`. Agent files never use the placeholder.
+Files: `flightdeck/skills/team-plans/SKILL.md`, six plan pages, `entry-points.md` (the `Rank:` line and task per seat) and `ways-to-fly.md` (four ways to run a plan). The `${CLAUDE_PLUGIN_ROOT}` placeholder is filled in inside skills and hook commands, not in agent files ([H28](harness-facts.md)), so `SKILL.md` carries the real paths and every other page writes `<plugin root>`. Agent files never use the placeholder.
 
 ## The pre-flight skill
 

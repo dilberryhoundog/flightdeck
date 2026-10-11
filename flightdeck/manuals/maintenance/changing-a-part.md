@@ -46,7 +46,7 @@ A guard fails open: if it breaks, work continues. The one exception is the `git`
 
 A skill is a folder with a `SKILL.md`, like `flightdeck/skills/preflight/SKILL.md`. Frontmatter: `name`, `description` (under 400 characters; the descriptions of all skills together stay under 4,000), and `allowed-tools` where the skill runs commands. Set `disable-model-invocation: true` on anything that writes files or starts work, so it runs only when the owner types it.
 
-`${CLAUDE_PLUGIN_ROOT}` is filled in only inside plugin skills and their `allowed-tools` ([H28](../technical/harness-facts.md)). Use it in `SKILL.md`; in agent files and other pages write `<plugin root>` or a path from the project.
+`${CLAUDE_PLUGIN_ROOT}` is filled in inside plugin skills (text and `allowed-tools`) and in `hooks/hooks.json` commands, not in agent files ([H28](../technical/harness-facts.md)). Use it in `SKILL.md` and `hooks.json`; in agent files and other pages write `<plugin root>` or a path from the project.
 
 ## A workflow
 

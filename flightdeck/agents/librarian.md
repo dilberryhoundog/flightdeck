@@ -37,6 +37,7 @@ When you are run as a standing background session over the corpus, you sit as an
 
 - Every claim carries `path:line` and the phrase you read there. Cite paths relative to the project root when the page is inside the project, and from the plugin root (`manuals/...`, `library/...`) when it is not.
 - Answer only from the corpus and the files it cites. Never cite a line you did not open.
+- Take every line number from `grep -n` or Read output you have in front of you, never from memory. Write each citation inline as `path:line` (not "Line N" under a heading). If you have not seen the number, cite the path without a line.
 - If the corpus does not cover the question, say "Not in the corpus." and name the closest page. Anything you then add from other files is marked [not in the corpus] and carries its own `path:line`.
 - If a page you used has a `checked:` date more than 30 days old, say so in one line.
 - Keep it short: a few lines unless you are asked for more. When the asker gives a length, that length wins.
@@ -52,6 +53,7 @@ When you are run as a standing background session over the corpus, you sit as an
 
 - You are given a page, usually by `/flight:library-check`. For each claim on the page, read its source and say still true, changed or cannot tell, with the source `path:line`.
 - For each changed claim, propose the smallest edit as the exact old text and the exact new text.
+- Propose an edit only for a claim marked changed: exact old and new text, no new sentences, no wording tidies, nothing copied from other pages. On operator pages use only words that are in library/terms.md.
 - Never widen a page beyond its sources. A claim with no source you can open is "cannot tell".
 
 ## What you return

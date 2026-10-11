@@ -39,9 +39,9 @@ To capture, mention work that is bigger than this sitting; the pilot adds the li
 ## The files of a workshop folder
 
 - `workshop.md`: the card, with a title, `work:`, `done:` and the optional `settled:` line. Agents write it.
-- `constraints.md`: your truth for this work, one dated line per item. Only you write it; agents never do.
-- `context.md`: what an agent working here needs to know, about 40 lines. Agents write it, on the main branch only.
-- `verify.md`: how to tell the work is right: `## checks` (commands a script can run) and `## questions` (yes means pass). Agents write it, on the main branch only.
+- `constraints.md`: your truth for this work, one dated line per item. Only your words go in it: you type them, or the pilot files words you typed in the session, word for word; no agent adds its own lines.
+- `context.md`: what an agent working here needs to know, about 40 lines. Agents write it, on the base branch only (for build-1, the branch `build-1`), never on an attempt's branch.
+- `verify.md`: how to tell the work is right: `## checks` (commands a script can run) and `## questions` (yes means pass). Agents write it, on the base branch only (for build-1, the branch `build-1`), never on an attempt's branch.
 - `questions.md` and `decisions.md`: agents write them. A decision always carries its reason, so you can strike it.
 - `attempts/`: one folder per try (`a1`, `a2`, ...). An attempt writes only in its own folder and proposes changes to `context.md` or `verify.md` in its report.
 
@@ -74,7 +74,7 @@ For work that should run while you do something else, the pilot starts a runner 
 
 To retry one pull request, add a dated line starting `PR <n>:` to `.flightdeck/build-1/constraints.md` saying what to change, then say "retry PR <n>" to Claude in this repository. The file is yours: you type the line, or tell the pilot your words and it files them as you said them.
 
-The build runs again on a new branch `build-1-pr<n>-<slug>-a<k+1>` with a new attempt folder `.flightdeck/build-1/attempts/pr-<n>/a<k+1>/`, and opens a fresh pull request. The earlier branch, pull request and folder stay until you close them; nothing is deleted. A late retry of PR 1 also reruns the pull requests that use what changed (source: `.flightdeck/build-1/README.md`).
+The build runs again on a new branch `build-1-pr<n>-<slug>-a<k+1>` with a new attempt folder `.flightdeck/build-1/attempts/pr-<n>/a<k+1>/`, and opens a fresh pull request. For example, PR 7's second try runs on `build-1-pr7-manuals-a2` with the folder `a2` inside `.flightdeck/build-1/attempts/pr-7/`: the short word is the pull request's name, and the number goes up by one each try. The earlier branch, pull request and folder stay until you close them; nothing is deleted. A late retry of PR 1 also reruns the pull requests that use what changed (source: `.flightdeck/build-1/README.md`).
 
 The general rule is "setup carries over, run output does not": your lines and the workshop's notes and checks are kept, the failed attempt's code is not. The rule and what to avoid are in [retry.md](../../library/retry.md).
 

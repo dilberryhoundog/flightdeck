@@ -25,7 +25,7 @@ The readings of workshop, launch and attempt are the lead's own, in use until yo
 - capture: one line in `.flightdeck/workshops.md` that records a piece of work bigger than the sitting, so it is not lost. Agents may capture; they never start the work. The captured work waits until you activate it.
 - card (pre-flight card): the short note the pilot shows when a session starts: the branch, the workshops and the open questions. It appears only in a pilot session. It is made by `flightdeck/hooks/preflight.mjs`.
 - Commander: the owner, which is you. Responsible for everything: you set the truth, activate and settle workshops, and merge.
-- constraints (truth): the file `constraints.md` in a workshop folder. It holds your own dated lines, which every agent treats as binding. Agents never write it.
+- constraints (truth): the file `constraints.md` in a workshop folder. It holds your own dated lines, which every agent treats as binding. Only your words go in it; no agent adds its own lines.
 - eval: a repeatable test of an agent's behaviour: one prompt, and a grader that answers yes-or-no questions about the reply. It is a rubric run on real output.
 - finding: one thing an agent reports as wrong, with where it is and the evidence. The team lead accepts or rejects it with a reason. The form is in `flightdeck/rubric.md`.
 - guard: a check that stops an agent from breaking a hard rule, such as pushing to main. It is a safety net with stated limits, not a promise. The code is `flightdeck/hooks/guard.mjs`.

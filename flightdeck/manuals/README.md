@@ -31,7 +31,7 @@ The shelves sit beside the [library](../library/README.md), which holds concepts
 
 ## Asking the librarian
 
-In a pilot session, start your message with "Librarian, ..." and the pilot sends the librarian. Or start it alone with `claude --agent flight:librarian`. It answers only from this corpus and the files the corpus cites, gives `path:line` for every claim, and says "Not in the corpus." when a page does not cover the question. It changes no files.
+Start the librarian with `claude --agent flight:librarian` and ask your question there. In a pilot session you can also start a message with "Librarian, ..."; the pilot usually sends the librarian, but it may answer from the manuals itself. It answers only from this corpus and the files the corpus cites, gives `path:line` for every claim, and says "Not in the corpus." when a page does not cover the question. It changes no files.
 
 ## Making and keeping pages
 

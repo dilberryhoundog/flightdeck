@@ -50,7 +50,7 @@ const CEILING_EXCLUDED = new Set([
   'lab/checks/hard-rules.test.mjs',
 ]);
 const ceilingExcluded = (f) => CEILING_EXCLUDED.has(f) || f.startsWith('flightdeck/tests/');
-const DW_CALL = /(^|[\s'"`(;&|])(dw|dev-workspace)(?=[\s'"`)]|$)/m;
+const DW_CALL = /(^|[\s'"`(;&|/])(dw|dev-workspace)(?=[\s'"`)]|$)/m;
 const OWNER_ONLY = ['capture', 'workshop', 'launch', 'retry', 'promote'];
 
 function run(opts) {
@@ -69,9 +69,11 @@ function run(opts) {
   // Changed files: the branch's own commits against --base, plus uncommitted and untracked files.
   const baseKnown = opts.base ? git(root, ['rev-parse', '--verify', '--quiet', `${opts.base}^{commit}`]).ok : false;
   const changed = new Set();
+  let diffProblem = '';
   if (baseKnown) {
     const d = git(root, ['diff', '--name-only', '--no-renames', '-z', `${opts.base}...HEAD`]);
     if (d.ok) splitZ(d.out).forEach((f) => changed.add(f));
+    else diffProblem = `cannot diff ${opts.base}...HEAD: ${d.err.trim().split(/\r?\n/)[0] || 'git diff failed'}`;
   }
   const st = git(root, ['status', '--porcelain', '--untracked-files=all', '--no-renames', '-z']);
   if (st.ok) for (const e of splitZ(st.out)) if (e.length > 3) changed.add(e.slice(3));
@@ -83,7 +85,8 @@ function run(opts) {
 
   // base
   if (!opts.base) add('base', [], ' (no --base given)');
-  else add('base', baseKnown ? [] : [`base ref ${opts.base} does not exist`]);
+  else if (!baseKnown) add('base', [`base ref ${opts.base} does not exist`]);
+  else add('base', diffProblem ? [diffProblem] : []);
 
   // ceiling
   {
@@ -116,7 +119,7 @@ function run(opts) {
 
   // no-dw-calls
   {
-    const bad = files.filter((f) => /\.(m?js|cjs|sh)$/.test(f) && (f.startsWith('flightdeck/') || f.startsWith('lab/'))
+    const bad = files.filter((f) => (/\.(m?js|cjs|sh)$/.test(f) && (f.startsWith('flightdeck/') || f.startsWith('lab/')) || /^flightdeck\/hooks\/.+\.json$/.test(f))
       && f !== 'lab/checks/hard-rules.mjs' && f !== 'lab/checks/hard-rules.test.mjs' && DW_CALL.test(read(f)));
     add('no-dw-calls', bad.map((f) => `${f} calls dw or dev-workspace`));
   }

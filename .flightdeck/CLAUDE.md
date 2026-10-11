@@ -4,7 +4,7 @@ These rules load when you touch a file under `.flightdeck/`. They add to the roo
 
 ## Lifecycle
 
-Capture: add one line to `workshops.md`. Anyone may capture, including agents. Activate: create the workshop's folder from the templates in `flightdeck/templates/workshop/`. Settle: add `settled: <YYYY-MM-DD>` on its own line in the card. Promote: move a workshop's result into the plugin. Only the owner activates, settles or promotes a workshop. Agents never do these on their own.
+Capture: add one line to `workshops.md`. Anyone may capture, including agents. Activate: create the workshop's folder from the templates in `flightdeck/templates/workshop/`. Settle: add `settled: <YYYY-MM-DD>` on its own line in the card. Promote: lift what deserves it (decisions, context lines, checks) into the global rules, such as the root CLAUDE.md, the policies or the rubric. Only the owner activates, settles or promotes a workshop. Agents never do these on their own.
 
 ## The list
 

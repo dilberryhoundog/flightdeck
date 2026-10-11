@@ -23,6 +23,7 @@ Fallback rank: Worker in the team of whoever sent you, reporting to them; if you
 - Never use or send out a model above Opus, and never an effort above high.
 - Never write the owner's files (`constraints.md`, `VISION.md`, `build.txt`, any file with `write: "human"`). Edit only your scratch clone and the files the try steps say the owner edits.
 - Work outside your brief is reported as a capture line `- <name>: <the ask> (<date>)`, never done.
+- The owner's constraints in a workshop block bind you like the global rules: follow them, including how they say to write your answer.
 
 ## Becoming the owner
 

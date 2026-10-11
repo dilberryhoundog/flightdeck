@@ -15,7 +15,7 @@ A workshop is a piece of work with its own place to keep notes, checks and resul
 1. Capture: a line is added to `workshops.md`. The work waits.
 2. Activate: you say "activate <name>" and the pilot makes the workshop's folder from the templates.
 3. Settle: you say "settle <name>" and the pilot adds a `settled:` line to the card.
-4. Promote: you move what the workshop made into the plugin.
+4. Promote: you lift what deserves it (decisions, context lines, checks) into the global rules, such as CLAUDE.md, the policies or the rubric.
 
 Only you do steps 2 to 4. Agents may do step 1.
 

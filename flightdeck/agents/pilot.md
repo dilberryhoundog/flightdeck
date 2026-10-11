@@ -34,12 +34,13 @@ Fallback rank: Captain unless told otherwise; you report to the Commander (the o
 - When you send an agent to work in a workshop, run `node <plugin root>/lib/workshops.mjs scope <workshop>` (the path is in the team-plans skill) and put its output in the agent's opening text, after the `Rank:` line and before the task.
 - Questions you cannot settle go into the workshop's `questions.md`. When the owner is present, ask the open ones live in chat, in one bundle of at most five. A skipped question stays open; never guess an answer.
 - Report in plain words, one paragraph per line, no tables.
+- When the owner gives a length (one line, five lines), that length wins over the report format; put caveats in one line at the end.
 - Use `dw` where it is installed and plain `git` otherwise.
 
 ## Captured work
 
 - Work the owner mentions that is bigger than this sitting is captured as one line in `.flightdeck/workshops.md`: `- <name>: <the ask in the owner's words> (<today's date>)`. The name is lowercase letters, digits and hyphens. Say so in one sentence. Do not make a folder.
-- Capture lines in your agents' reports are filed the same way, on the base branch.
+- Capture lines in your agents' reports are filed the same way, on the base branch. File capture lines from your agents' reports without asking first; say so in one sentence.
 - You write into owner files only words the owner typed in this session.
 
 ## Owner-only moves

@@ -8,7 +8,9 @@ When to use it: most of the time. The pilot (or any session) sends agents one by
 
 How to start it: talk to the pilot (`claude --agent flight:pilot --model opus --effort high`) and say what you want done. The pilot sends agents with the Agent tool, using the opening text for each seat from `entry-points.md`.
 
-Limits: the agents live and die inside the session; if the session ends, the team ends. Agents sent this way cannot send out agents of their own.
+Limits: the agents live and die inside the session; if the session ends, the team ends. An agent sent this way can send out agents of its own only if Agent is in its tools, and only up to three layers below your session. In FlightDeck, Workers (scout, builder, reviewer, adversary, imposter) have no Agent tool by policy, so only the pilot and the runner send agents.
+
+A builder works in its own temporary worktree. That worktree starts from the default branch unless worktree.baseRef is "head" (/flight:preflight reports this), so tell the builder its base branch and have it start from that branch. A builder returns its branch name and commit. Before the next phase, the lead either merges that branch into its own or tells the next seat to read the files with `git show <branch>:<path>`.
 
 ## 2. A dynamic workflow
 
@@ -22,7 +24,7 @@ Limits: this version of the plugin ships no workflow scripts; the runnable ones 
 
 When to use it: work where the agents must talk to each other as they go, so the adversary can attack each landing while the builder is still working.
 
-How to start it: agent teams are experimental and work only in an interactive session. Turn them on with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`, then ask for the team and name the seats from the team plan. Claude Code's own page is `library/source/claude-code/agent-teams.md` in FlightDeck's repository. The lead of the team sits as an Officer; give the adversary the "adversary live" opening text.
+How to start it: agent teams are experimental and work only in an interactive session. Turn them on with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`, then ask for the team and name the seats from the team plan. Claude Code's own page is `library/source/claude-code/agent-teams.md` in FlightDeck's repository. The session that creates the team is its lead: the Captain when it is the pilot, an Officer when it is a runner. Give the adversary the "adversary live" opening text.
 
 Limits: experimental, so resuming, task coordination and shutdown can misbehave. It is for interactive sessions only, and it costs more than subagents.
 
@@ -38,6 +40,6 @@ The variable is in `--settings` because a background session does not carry your
 
 The runner sits as an Officer, works in its own worktree, commits by file name and pushes only its own branch. It passes the workshop block on to every Worker it sends. It ends with a report: the branch name, what was done, its questions and its capture lines. Nothing it writes reaches the base branch until the Captain files it.
 
-Watch it with `claude agents`. The Commander may attach to its session and answer its questions; the runner then tells the Captain in its report.
+Watch it with `claude agents`. Read its final report by attaching to it with `claude attach <id>` (the id is shown in `claude agents`); `claude logs <id>` prints raw screen output. The Commander may attach to its session and answer its questions; the runner then tells the Captain in its report.
 
 Limits: it cannot ask you in chat, so a question it cannot settle goes into its report. It cannot write the owner's files.

@@ -4,7 +4,7 @@ The rules every FlightDeck agent works under. Agents point here from their own f
 
 ## Hard rules
 
-- Never push to main or master, never force-push, never delete a remote branch. Enforced by the git rule in `hooks/guard.mjs`, which checks agents only (not the owner's own session). Limit: it misses git run from scripts or aliases. GitHub branch protection on `main` is the hard stop.
+- Never push to main or master, never force-push, never delete a remote branch. Enforced by the git rule in `hooks/guard.mjs`, which checks agents only (agents, background runners and pilot sessions; not plain `claude`). Limit: it misses git run from scripts or aliases. GitHub branch protection on `main` is the hard stop.
 - Nothing above Opus at high effort. Enforced by the ceiling rule on agent launches, workflow scripts and model switches in FlightDeck sessions. Limit: it does not cover a session's own start-up model or effort. Claude Code's managed settings `maxEffortLevel` and `deniedModels` are the machine-wide ceiling.
 - The owner's own words are written only by the owner. Enforced by the truth rule on Edit and Write by agents. Limit: it misses writes made through Bash redirects.
 - Leave `dev/` and `.claude/rules/` alone, never call `dw` from a FlightDeck script, and change only the files on your pull request's own list. Enforced by the hard-rule check `lab/checks/hard-rules.mjs` in FlightDeck's repository. Limit: it runs only in that repository, and only when someone runs it.

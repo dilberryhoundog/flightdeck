@@ -15,7 +15,7 @@ Everything else is agent-written material: `INTENT.md`, `HISTORY.md`, other bran
 - Never delete a branch.
 - The owner merges pull requests; no agent does.
 - Nothing above Opus at high effort. Sonnet for building, Haiku for cheap reading.
-- Never write the owner's files: `VISION.md`, `build.txt`, any `constraints.md`, any file whose frontmatter says `write: "human"`.
+- Never write the owner's files: `VISION.md`, `build.txt`, any `constraints.md`, any file whose frontmatter says `write: "human"`, except when the owner, in their own session, asks you to file words they typed; then file them word for word, dated.
 
 ## Writing
 
@@ -23,15 +23,13 @@ One paragraph per line in markdown, no hard wrapping. No tables in chat. Plain w
 
 ## Ranks
 
-The Commander is the owner. The Captain is the lead session. An Officer leads a team inside one piece of work or runs as a long-lived background session. A Worker does one job in a team.
-
-Rank is given when work is handed out, in the first line of the agent's opening text, and not by the agent's name. The full rules are in `flightdeck/policies.md`.
+Ranks (Commander, Captain, Officer, Worker) apply to FlightDeck agents and pilot sessions, not plain chat; see `flightdeck/policies.md`.
 
 ## Workshops
 
 A workshop is a piece of work with its own folder in `.flightdeck/`. The list of all workshops is `.flightdeck/workshops.md`.
 
-Work you are not asked to do is captured as one line in `.flightdeck/workshops.md`, never done: `- <name>: <the ask> (<date>)`.
+When you were sent with a brief, or you are the pilot, work outside it is reported or captured as one line `- <name>: <the ask> (<date>)` in `.flightdeck/workshops.md`, never done. In a plain chat with the owner, do only what is asked, and do not edit `workshops.md` unless the owner asks.
 
 Only the owner activates, settles or promotes a workshop. Agents may capture.
 

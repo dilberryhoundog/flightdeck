@@ -14,6 +14,10 @@ import { pathToFileURL } from 'node:url';
 const TRUTH_REASON = "This file holds the owner's own words; write a question in questions.md instead.";
 const CEILING_REASON = "Owner's ceiling: Opus at high effort";
 const PROTECTED_BRANCHES = new Set(['main', 'master']);
+const FORCE_REASON = 'force push is not allowed (owner rule: never force-push)';
+const DELETE_REASON = 'deleting a remote branch is not allowed (owner rule: never delete a branch)';
+const PRUNE_REASON = 'pruning deletes remote branches (owner rule: never delete a branch)';
+const GLOB_REASON = 'a glob refspec can push main or every branch (owner rule: never push to main)';
 
 // ---------- shared ----------
 
@@ -89,11 +93,20 @@ export function checkPush(args, currentBranch) {
   for (let i = 0; i < args.length; i++) {
     const a = args[i];
     if (a === '--') { positional.push(...args.slice(i + 1)); break; }
-    if (a === '--force' || a === '-f' || a.startsWith('--force-with-lease') || a === '--force-if-includes') return 'force push is not allowed (owner rule: never force-push)';
-    if (a === '--mirror' || a === '--all') return `${a} would push every branch, including main (owner rule: never push to main)`;
-    if (a === '--delete' || a === '-d') return 'deleting a remote branch is not allowed (owner rule: never delete a branch)';
-    if (/^-[a-zA-Z]+$/.test(a) && a.includes('f')) return 'force push is not allowed (owner rule: never force-push)';
-    if (/^-[a-zA-Z]+$/.test(a) && a.includes('d')) return 'deleting a remote branch is not allowed (owner rule: never delete a branch)';
+    if (a.startsWith('--')) {
+      // git accepts any unambiguous prefix of a long option, so judge the name before any '='.
+      const name = a.split('=')[0];
+      if (name.length >= 3) {
+        if (['--force', '--force-with-lease', '--force-if-includes'].some(o => o.startsWith(name))) return FORCE_REASON;
+        if ('--delete'.startsWith(name)) return DELETE_REASON;
+        if (['--mirror', '--all'].some(o => o.startsWith(name))) return `${a} would push every branch, including main (owner rule: never push to main)`;
+        if ('--prune'.startsWith(name)) return PRUNE_REASON;
+      }
+    }
+    if (a === '-f') return FORCE_REASON;
+    if (a === '-d') return DELETE_REASON;
+    if (/^-[a-zA-Z]+$/.test(a) && a.includes('f')) return FORCE_REASON;
+    if (/^-[a-zA-Z]+$/.test(a) && a.includes('d')) return DELETE_REASON;
     if (a.startsWith('-')) {
       if (a === '--repo' || a.startsWith('--repo=')) hasRepoOption = true;
       if (PUSH_VALUE_OPTIONS.has(a)) i++;
@@ -110,6 +123,7 @@ export function checkPush(args, currentBranch) {
     if (spec.startsWith('+')) return 'a + refspec is a force push (owner rule: never force-push)';
     if (spec.startsWith(':')) return 'a :branch refspec deletes a remote branch (owner rule: never delete a branch)';
     const dst = spec.includes(':') ? spec.slice(spec.indexOf(':') + 1) : spec;
+    if (/[*?[]/.test(dst)) return GLOB_REASON;
     const name = branchName(dst === 'HEAD' && currentBranch ? currentBranch : dst);
     if (PROTECTED_BRANCHES.has(name)) return `pushing to ${name} is not allowed (owner rule: never push to main)`;
   }

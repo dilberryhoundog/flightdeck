@@ -15,8 +15,8 @@ Only the owner's taste can say. So the plan ends in a pick by the owner, with a 
 ## Phases
 
 1. Facts: two or three scouts gather what the options depend on (constraints, prior attempts, costs), each with path:line pointers.
-2. Options: two or three builders each write one option into its own file in the attempt folder, from a different angle (for example cheapest, most robust, simplest for the owner). They do not see each other's file.
-3. Compare: one reviewer compares the options in pairs against the question and the workshop's truth, and says which wins each pair and why.
+2. Options: two or three builders each write one option into its own file in the attempt folder, from a different angle (for example cheapest, most robust, simplest for the owner). They do not see each other's file. Each option writer commits its option on its own branch and returns the branch name.
+3. Compare: one reviewer reads each option with `git show <branch>:<path>` and compares the options in pairs against the question and the workshop's truth, and says which wins each pair and why.
 4. Attack: the adversary attacks the leading option and returns what would make it a bad choice.
 5. Pick: the lead puts the options, the comparison, the attack and a recommendation in front of the owner. Once the board (a later pull request) is merged this is a page; until then it is a short summary in chat and a question in the workshop's `questions.md` with the options and a recommended one.
 

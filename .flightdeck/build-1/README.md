@@ -20,7 +20,7 @@ The folder for side build 1 of FlightDeck: the planning residue and the pull req
 
 ## Retrying the plan
 
-Tell Claude what to change, or add dated lines to `constraints.md` yourself. Then ask Claude in this repository to run the Workflow at `.flightdeck/build-1/workflows/plan.js` with args `{"outDir": ".flightdeck/build-1/attempts/plan/a2", "attempt": 2}`. The workflow always reads `.flightdeck/build-1/constraints.md`. Attempt 1's files stay where they are, and the new attempt writes its own research, plan, checks and review page into its folder.
+Tell Claude what to change, or add dated lines to `constraints.md` yourself. Then ask Claude in this repository to run the Workflow at `.flightdeck/build-1/workflows/plan.js` with args `{"outDir": ".flightdeck/build-1/attempts/plan/a<k+1>", "attempt": <k+1>}`, where k is the highest existing plan/a<k> folder (today a2, so the next is a3). The workflow always reads `.flightdeck/build-1/constraints.md`. Earlier attempts' files stay where they are, and the new attempt writes its own research, plan, checks and review page into its folder.
 
 ## Retrying a pull request
 

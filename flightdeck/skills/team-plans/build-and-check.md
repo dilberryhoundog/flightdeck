@@ -15,7 +15,7 @@ The workshop's own checks pass (the commands in its `verify.md` under `## checks
 ## Phases
 
 1. Brief: the lead runs the scope command for the workshop, writes the brief (files, checks, done line) and names the base branch and the new branch.
-2. Build: one builder works in its own worktree on its own branch, writes only its files, runs its checks and commits by file name.
+2. Build: one builder works in its own worktree on its own branch, writes only its files, runs its checks and commits by file name. It returns its branch name and commit; the lead merges that branch into its own before the Check phase, or tells each reader to read the files with `git show <branch>:<path>`.
 3. Check: the reviewer, the adversary in cold mode and the imposter start together in fresh contexts with no shared notes. Each gets the work, the rubric (`<plugin root>/rubric.md`) and the workshop's `## questions`.
 4. Triage: the lead accepts or rejects each finding and writes a reason for each.
 5. Fix once: the builder fixes the accepted findings in one round and reruns the checks. What is still open after that is listed, not fixed again.

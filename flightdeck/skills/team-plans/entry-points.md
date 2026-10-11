@@ -56,6 +56,8 @@ The rubric: <plugin root>/rubric.md
 
 The workshop's questions: <the lines under `## questions` in its verify.md, or "none">
 
+If you are the claim checker in Recon: use Read, Grep and Glob only, never Bash. A pointer you cannot open is marked "could not check".
+
 Return: findings, each with severity (high, medium or low), where (path:line), finding, evidence and suggested fix; or "no findings" with what you checked. Never edit, never approve.
 
 ## adversary live

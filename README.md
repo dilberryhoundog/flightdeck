@@ -5,22 +5,24 @@ FlightDeck is a Claude Code plugin called `flight` that gives you a small crew o
 ## Try it in five minutes
 
 1. In this repository, on PR 1's branch, run `git fetch origin && git switch build-1-pr1-basic-a1`. Then run `claude plugin marketplace add "$PWD" --scope local` and `claude plugin install flight@DBHD-FlightDeck --scope local`.
-2. Start the pilot with `claude --agent flight:pilot --model opus --effort high`. If you like, save it as a shell alias: `alias fly='claude --agent flight:pilot --model opus --effort high'`. Read the pre-flight card on screen. It says "FlightDeck 0.2.0 pre-flight: Captain on deck", then the branch, the build-1 workshop with its latest attempts and open questions (one question is held to ask later), and "Captured, waiting to start: 1".
+2. Start the pilot with `claude --agent flight:pilot --model opus --effort high`. If you like, save it as a shell alias: `alias fly='claude --agent flight:pilot --model opus --effort high'`. Read the pre-flight card on screen. It says "FlightDeck 0.2.0 pre-flight: Captain on deck", then the branch, the build-1 workshop with its latest attempts and open questions (one question is held to ask later), and "Captured, waiting to start: 3".
 3. Type `/flight:preflight`. FlightDeck checks itself and ends with "systems green" or a list of what is not green.
-4. Say: "push this branch to main with --dry-run". The guard refuses and names the rule.
-5. In a second terminal in the same folder, start plain `claude`. There is no card and there are no ranks. Type `/exit`.
+4. Say: "Run exactly this command and tell me what happened: git push --dry-run origin HEAD:main". The guard refuses and quotes the owner rule "never push to main". Claude Code shows this as "PreToolUse:Bash hook error: ..."; that label is the guard working, not a crash.
+5. In a second terminal in the same folder, start plain `claude`. There is no card and there is no greeting. Type `/exit`.
 
 Next, if you want: say "Captain, recon: what do the sources in library/source say about evals, five lines", or "Captain, have the adversary attack README.md against .flightdeck/VISION.md", or "Captain, we should make the board work offline". For the last one the pilot adds one line to `.flightdeck/workshops.md` and tells you. Calling the pilot "Captain" is optional.
 
 ## The crew
 
-- pilot: leads your session, picks how to send agents out, checks what comes back and reports in plain words. It does not do the work itself.
-- runner: runs one piece of work on its own in a background session and reports the branch it made.
-- scout: reads and reports a short answer with a path and line for every claim. Cheap. Changes nothing.
-- builder: builds one unit inside its own files in its own worktree.
-- reviewer: judges work against the brief and the rubric from a fresh start. Never edits.
-- adversary: attacks the work against its criteria and returns ranked findings. Read-only.
-- imposter: plays you, following the steps literally from your own words in `.flightdeck/persona.md`, and says where it got stuck.
+- pilot (Opus): leads your session, picks how to send agents out, checks what comes back and reports in plain words. It does not do the work itself.
+- runner (Sonnet): runs one piece of work on its own in a background session and reports the branch it made.
+- scout (Haiku): reads and reports a short answer with a path and line for every claim. Cheap. Changes nothing.
+- builder (Sonnet): builds one piece of work inside its own files, in its own worktree (a separate copy of the repository on its own branch).
+- reviewer (Sonnet): judges work against its written task and FlightDeck's checklist of yes/no questions (`flightdeck/rubric.md`) with fresh eyes. Never edits.
+- adversary (Opus): attacks the work against its criteria and returns ranked findings. Read-only.
+- imposter (Sonnet): plays you, following the steps literally from your own words in `.flightdeck/persona.md`, and says where it got stuck.
+
+For a short radio voice, type /output-style flight:radio.
 
 Ranks are about responsibility, not names. You are the Commander. The pilot sits as Captain. A team lead is an Officer. Everyone else in a team is a Worker. Rank is given when work is handed out. The rules are in `flightdeck/policies.md`.
 
@@ -30,11 +32,11 @@ Talk to the pilot. Say what you want done and it picks the smallest team that fi
 
 ## Plain claude stays plain
 
-Starting `claude` without `--agent flight:pilot` gives you no card, no ranks and no workshop text. Your own actions are never guarded.
+Starting `claude` without `--agent flight:pilot` gives you no card and no greeting, and it does not act in rank or capture work unless you ask. It still reads this repository's CLAUDE.md, so it knows the rules if you ask. Your own commands are not guarded; agents it sends out are.
 
 ## The guards and their limits
 
-Three guards watch agents only, not you: no pushing to main, no force-push and no branch deletion; no writing your own words (`constraints.md`, `VISION.md`, `build.txt`); and no model above Opus at high effort. They are safety nets, not a permission system. They miss things such as git run from a script. The real stops are GitHub branch protection on `main` and Claude Code's managed settings. `/flight:preflight` tells you whether those are on.
+Three guards watch agents and pilot sessions, not plain `claude`: no pushing to main, no force-push and no branch deletion; no writing your own words (`constraints.md`, `VISION.md`, `build.txt`); and no model above Opus at high effort. They are safety nets, not a permission system. They miss things such as git run from a script. In a pilot session the ceiling also refuses your own /model switch above Opus. The real stops are GitHub branch protection on `main` and Claude Code's managed settings (Claude Code's machine-wide settings file that only an administrator can change). `/flight:preflight` tells you whether those are on.
 
 ## Where things live
 

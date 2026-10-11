@@ -597,6 +597,16 @@ test('git: denies every force, mirror, all, plus-refspec and delete form', () =>
   for (const c of del) assert.match(String(gd(c)), /never delete a branch/, c);
 });
 
+test('git: denies abbreviated long options, --prune and glob refspecs', () => {
+  assert.match(String(gd('git push --del origin old')), /never delete a branch/);
+  assert.match(String(gd('git push --dele origin old')), /never delete a branch/);
+  assert.match(String(gd('git push --force-w origin x')), /never force-push/);
+  assert.match(String(gd('git push --mir origin')), /never push to main/);
+  assert.match(String(gd('git push --al origin')), /never push to main/);
+  assert.match(String(gd('git push --prune origin x')), /pruning deletes remote branches/);
+  assert.match(String(gd('git push origin "refs/heads/*:refs/heads/*"')), /glob refspec/);
+});
+
 test('git: allows ordinary pushes of other branches and other git commands', () => {
   const allowed = [
     'git push -u origin build-1-pr1-basic-a1',
@@ -609,6 +619,9 @@ test('git: allows ordinary pushes of other branches and other git commands', () 
     'git log --oneline | head',
     'git push -o ci.skip origin feat',
     'git push origin tag v1',
+    'git push --dry-run origin HEAD:feat',
+    'git push --follow-tags origin feat',
+    'git push --set-upstream origin feat',
   ];
   for (const c of allowed) assert.equal(gd(c), null, c);
 });

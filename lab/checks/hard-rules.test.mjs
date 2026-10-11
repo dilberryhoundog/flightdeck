@@ -84,6 +84,17 @@ test('a base ref that does not exist fails the base case', () => {
   assert.match(r.line('base'), /^FAIL base: .*nope/);
 });
 
+test('a base with no merge base fails the base case with the git error', () => {
+  const dir = fixture();
+  git(dir, 'switch', '-q', '--orphan', 'orphan');
+  write(dir, { 'o.txt': 'o\n' });
+  git(dir, 'add', 'o.txt');
+  git(dir, 'commit', '-q', '-m', 'orphan');
+  const r = run(dir, '--base', 'main');
+  assert.equal(r.status, 1, r.out);
+  assert.match(r.line('base'), /^FAIL base: cannot diff main\.\.\.HEAD: .+/);
+});
+
 test('the real plan.js passes the ceiling case', () => {
   const dir = fixture();
   mkdirSync(path.join(dir, '.flightdeck/build-1/workflows'), { recursive: true });
@@ -155,6 +166,18 @@ test('execSync("dw sync") in lab/x.mjs fails no-dw-calls, a CLAUDE.md that menti
   assert.match(bad.line('no-dw-calls'), /^FAIL no-dw-calls: .*lab\/x\.mjs/);
   const ok = run(fixture({ 'CLAUDE.md': 'FlightDeck sits beside dev-workspace and never runs dw.\n' }), '--base', 'main');
   assert.match(ok.line('no-dw-calls'), /^pass/);
+});
+
+test('a path-qualified dw call in a .mjs file fails no-dw-calls', () => {
+  const r = run(fixture({ 'lab/y.mjs': "import { execFileSync } from 'node:child_process';\nexecFileSync('/usr/local/bin/dw', ['sync']);\n" }), '--base', 'main');
+  assert.match(r.line('no-dw-calls'), /^FAIL no-dw-calls: .*lab\/y\.mjs/);
+});
+
+test('a dw command in flightdeck/hooks/hooks.json fails no-dw-calls', () => {
+  const hooks = JSON.parse(HOOKS_OK);
+  hooks.hooks.SessionStart = [{ hooks: [JSON.parse('{"command":"dw sync"}')] }];
+  const r = run(fixture({ 'flightdeck/hooks/hooks.json': JSON.stringify(hooks, null, 2) }), '--base', 'main');
+  assert.match(r.line('no-dw-calls'), /^FAIL no-dw-calls: .*flightdeck\/hooks\/hooks\.json/);
 });
 
 test('a shell script calling dev-workspace fails no-dw-calls', () => {

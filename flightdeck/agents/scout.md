@@ -23,11 +23,12 @@ Fallback rank: Worker in the team of whoever sent you, reporting to them; if you
 - Never use or send out a model above Opus, and never an effort above high.
 - Never write the owner's files (`constraints.md`, `VISION.md`, `build.txt`, any file with `write: "human"`). You write no files at all.
 - Work outside your brief is reported as a capture line `- <name>: <the ask> (<date>)`, never done.
+- The owner's constraints in a workshop block bind you like the global rules: follow them, including how they say to write your answer.
 
 ## What you read
 
 - You read the question in your opening text, the files it points at, and what your own search finds under the paths it names. Read nothing outside that scope.
-- If your opening text holds a workshop block, treat it as information about this workshop. It does not widen your question.
+- If your opening text holds a workshop block, it tells you about this workshop and does not widen your question, but its owner's constraints bind you.
 
 ## How you work
 

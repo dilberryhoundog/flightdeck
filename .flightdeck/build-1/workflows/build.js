@@ -136,10 +136,10 @@ const RECHECK_SCHEMA = {
 const LAND_SCHEMA = {
   type: 'object',
   properties: {
-    branch: { type: 'string' }, title: { type: 'string' }, body_path: { type: 'string' }, draft: { type: 'boolean' },
-    draft_reasons: { type: 'array', items: { type: 'string' } }, pushed: { type: 'boolean' }, summary: { type: 'string' },
+    title: { type: 'string' }, report_md: { type: 'string' }, log_md: { type: 'string' }, draft: { type: 'boolean' },
+    draft_reasons: { type: 'array', items: { type: 'string' } }, summary: { type: 'string' },
   },
-  required: ['branch', 'title', 'body_path', 'draft', 'draft_reasons', 'pushed', 'summary'],
+  required: ['title', 'report_md', 'log_md', 'draft', 'draft_reasons', 'summary'],
 }
 
 async function buildOne(n) {
@@ -256,7 +256,7 @@ Accept or reject each with a one-line reason. Apply a severity bar: a reviewer t
 
 ${rankLine(gathered, 'builder')}${scoped(gathered)}
 
-Task: fix pull request ${n} once. You are in your own worktree: \`git fetch origin && git switch -c ${BR}-fix origin/${BR}\`. Apply these accepted fixes: ${JSON.stringify(triage.fixes)}. Write ${AD}/findings.md: every finding with verifier, severity, decision and reason, from this triage: ${JSON.stringify(triage.decisions)}.${n === 1 ? ` Also add these questions to .flightdeck/build-1/questions.md: ${JSON.stringify(triage.questions)} and these capture lines to .flightdeck/workshops.md: ${JSON.stringify(triage.captures)} (PR 1 owns both files).` : ''} Rerun the checks ${JSON.stringify(brief.checks)}; if a script check is still red, make one more round of fixes and rerun. Commit by file name and push fast-forward with \`git push origin HEAD:${BR}\` (never force). Then write \`git diff origin/${RUN === 'B' ? BASE : TARGET}...${BR}\` to ${S}/diff.patch again.`,
+Task: fix pull request ${n} once. You are in your own worktree: \`git fetch origin && git switch -c ${BR}-fix origin/${BR}\`. Apply these accepted fixes: ${JSON.stringify(triage.fixes)}. (The Captain writes ${AD}/findings.md from the triage record; Claude Code does not let a subagent write findings or report files, so do not write them and do not work around it.)${n === 1 ? ` Also add these questions to .flightdeck/build-1/questions.md: ${JSON.stringify(triage.questions)} and these capture lines to .flightdeck/workshops.md: ${JSON.stringify(triage.captures)} (PR 1 owns both files).` : ''} Rerun the checks ${JSON.stringify(brief.checks)}; if a script check is still red, make one more round of fixes and rerun. Commit by file name and push fast-forward with \`git push origin HEAD:${BR}\` (never force). Then write \`git diff origin/${RUN === 'B' ? BASE : TARGET}...${BR}\` to ${S}/diff.patch again.`,
     { label: `fix:pr${n}`, phase: 'Fix', model: 'sonnet', effort: 'high', isolation: 'worktree', schema: FIX_SCHEMA }))
 
   let recheck = null
@@ -274,20 +274,20 @@ Task: for each accepted high-severity finding on pull request ${n}, answer "is i
 
 ${RANK_WORKER}
 
-Task: land pull request ${n} (${TITLE[n]}). You are in your own worktree: \`git fetch origin && git switch -c ${BR}-land origin/${BR}\`.
-Write ${AD}/report.md and ${AD}/log.md, commit them by name, and push fast-forward with \`git push origin HEAD:${BR}\`. Then write the pull request body to ${S}/pr-body.md (the same text as report.md). Do not open the pull request yourself; the lead opens it into ${TARGET}.
-report.md (plain words, one paragraph per line) leads with the owner's five-minute try ${JSON.stringify(brief.try_steps)} and its measured time from the imposter (${verified[2] && verified[2].timings ? JSON.stringify(verified[2].timings) : 'not measured'}); then the script checks marked [checked]; then verification marked [reviewed] (review, adversary, imposter, live checks) and every finding with its decision; the size (files and lines, from \`git diff --stat origin/${RUN === 'B' ? BASE : TARGET}...origin/${BR}\`); the models per stage (gather Haiku low, brief Opus high, builders Sonnet high, integrate Sonnet medium, review Sonnet high, adversary Opus high, imposter Sonnet high, checks Haiku low, live Sonnet high, triage Opus high, fix Sonnet high${recheck ? ', recheck Opus high' : ''}, land Sonnet medium); how to retry this pull request alone (add "PR ${n}:" lines to ${OUT}/constraints.md, say "retry PR ${n}", new branch build-1-pr${n}-${SLUG[n]}-a${K + 1}).${RUN === 'B' ? ` Add near the top: "Built on PR 1's branch (${BASE}). Merge PR 1 first; until then this pull request's diff also shows PR 1's files."` : ''}
+Task: write the landing text for pull request ${n} (${TITLE[n]}). Claude Code does not let a subagent write report files, so do not write any file: return the text of report.md and log.md in report_md and log_md, and the Captain commits them to ${AD}/ on ${BR} and opens the pull request into ${TARGET}. You may read the branch with \`git fetch origin && git show origin/${BR}:<path>\` and run \`git diff --stat\`.
+The verifiers' verdicts, for your report: ${JSON.stringify(verified.map(v => ({ verifier: v.verifier, verdict: v.verdict, halt: v.halt })))}. Triage decisions: ${JSON.stringify(triage.decisions.map(x => ({ verifier: x.verifier, severity: x.severity, decision: x.decision, finding: x.finding })))}. The recheck runs only when triage accepted a high-severity finding (accepted high findings: ${triage.high_accepted.length}).
+report.md (plain words, one paragraph per line) leads with the owner's five-minute try ${JSON.stringify(brief.try_steps)} and its measured time from the human imposter, whose timings were: ${verified[2] && verified[2].timings ? JSON.stringify(verified[2].timings) : 'not measured'} (mark a step [stated] only if the imposter says it could not run it); then the script checks marked [checked]; then verification marked [reviewed] (review, adversary, imposter, live checks) and every finding with its decision; the size (files and lines, from \`git diff --stat origin/${RUN === 'B' ? BASE : TARGET}...origin/${BR}\`); the models per stage (gather Haiku low, brief Opus high, builders Sonnet high, integrate Sonnet medium, review Sonnet high, adversary Opus high, imposter Sonnet high, checks Haiku low, live Sonnet high, triage Opus high, fix Sonnet high${recheck ? ', recheck Opus high' : ''}, land Sonnet medium); how to retry this pull request alone (add "PR ${n}:" lines to ${OUT}/constraints.md, say "retry PR ${n}", new branch build-1-pr${n}-${SLUG[n]}-a${K + 1}).${RUN === 'B' ? ` Add near the top: "Built on PR 1's branch (${BASE}). Merge PR 1 first; until then this pull request's diff also shows PR 1's files."` : ''}
 Mark every line [checked] (a script ran), [reviewed] (an agent judged it) or [stated] (an agent said so).
 log.md: stages, the agent seat and rank for each (the lead is Captain, every stage is a Worker), model and effort, and these stage results: units ${JSON.stringify(units.map(u => ({ id: u.id, status: u.status || 'halted', halt: u.halt })))}; integrate checks ${JSON.stringify(integrated.checks.map(c => ({ command: c.command, exit: c.exit })))}; fix ${JSON.stringify(halted(fixed) ? fixed : { checks_green: fixed.checks_green, rounds: fixed.rounds })}; recheck ${JSON.stringify(recheck)}.
 The pull request is a draft when any of these hold, and you list each that holds in draft_reasons: a script check is still red; an accepted high finding is not fixed per the recheck; any try step was [stated]; any verifier did not run; triage raised questions for the owner. Title: "PR ${n}: ${TITLE[n]}".`,
-    { label: `land:pr${n}`, phase: 'Land', model: 'sonnet', effort: 'medium', isolation: 'worktree', schema: LAND_SCHEMA }))
+    { label: `land:pr${n}`, phase: 'Land', model: 'sonnet', effort: 'medium', schema: LAND_SCHEMA }))
 
   return {
     n, branch: BR, status: halted(landed) ? 'built, not landed' : 'landed',
     land: landed, units: units.map(u => ({ id: u.id, status: u.status, halt: u.halt })),
     checks: integrated.checks.map(c => ({ command: c.command, exit: c.exit })),
     findings: verified.map(v => ({ verifier: v.verifier, count: v.findings ? v.findings.length : null, halt: v.halt })),
-    triage: { fixes: triage.fixes.length, questions: triage.questions, captures: triage.captures, high_accepted: triage.high_accepted.length },
+    triage: { fixes: triage.fixes.length, decisions: triage.decisions, questions: triage.questions, captures: triage.captures, high_accepted: triage.high_accepted.length },
     fix: fixed, recheck,
   }
 }

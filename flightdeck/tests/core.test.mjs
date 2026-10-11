@@ -762,7 +762,8 @@ function frontmatter(text) {
 const tools = fm => (Array.isArray(fm.tools) ? fm.tools : String(fm.tools ?? '').split(/[\s,[\]]+/)).filter(Boolean);
 const read = rel => fs.readFileSync(path.join(pluginRoot, rel), 'utf8');
 const AGENTS = ['pilot', 'runner', 'scout', 'builder', 'reviewer', 'adversary', 'imposter'];
-const agentFiles = () => AGENTS.map(n => ({ n, text: read(`agents/${n}.md`) }));
+// Every agent file in the folder: the roster grows (the owner foresees 30 or more agents with the same four ranks), so rules apply to all of them.
+const agentFiles = () => fs.readdirSync(path.join(pluginRoot, 'agents')).filter(f => f.endsWith('.md')).sort().map(f => ({ n: f.slice(0, -3), text: read(`agents/${f}`) }));
 
 function ranksFromPolicies() {
   const text = read('policies.md');
@@ -772,9 +773,9 @@ function ranksFromPolicies() {
 }
 const sections = text => text.split(/^## /m).slice(1).map(s => ({ title: s.split('\n')[0].trim(), body: s.split('\n').slice(1).join('\n') }));
 
-test('content: exactly seven agent files, named pilot, runner, scout, builder, reviewer, adversary, imposter', () => {
-  const files = fs.readdirSync(path.join(pluginRoot, 'agents')).filter(f => f.endsWith('.md')).sort();
-  assert.deepEqual(files, AGENTS.map(n => `${n}.md`).sort());
+test('content: the seven core agents exist (pilot, runner, scout, builder, reviewer, adversary, imposter); later pull requests may add more', () => {
+  const files = fs.readdirSync(path.join(pluginRoot, 'agents')).filter(f => f.endsWith('.md'));
+  for (const n of AGENTS) assert.ok(files.includes(`${n}.md`), `${n}.md`);
 });
 
 test('content: no agent file name, name: or description: holds commander, captain, officer or worker', () => {
@@ -814,6 +815,7 @@ test('content: every opus agent sets effort high, and no model is fable or best 
 test('content: models and efforts match the plan, by function', () => {
   const want = { pilot: ['opus', 'high'], runner: ['sonnet', 'high'], scout: ['haiku', undefined], builder: ['sonnet', 'high'], reviewer: ['sonnet', 'high'], adversary: ['opus', 'high'], imposter: ['sonnet', 'high'] };
   for (const { n, text } of agentFiles()) {
+    if (!(n in want)) continue;
     const fm = frontmatter(text);
     assert.deepEqual([fm.model, fm.effort], want[n], n);
   }

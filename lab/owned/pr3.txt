@@ -9,8 +9,8 @@ flightdeck/skills/workshop/SKILL.md
 flightdeck/skills/workshop/interview.md
 flightdeck/skills/workshop/examples/card.md
 flightdeck/skills/workshop/flightdeck-CLAUDE.md
-lab/evals/pr3-no-approval-questions/prompt.md
-lab/evals/pr3-no-approval-questions/graders/bundle.md
+flightdeck/evals/pr3-no-approval-questions/prompt.md
+flightdeck/evals/pr3-no-approval-questions/graders/bundle.md
 flightdeck/skills/retry/SKILL.md
 flightdeck/skills/promote/SKILL.md
 flightdeck/skills/promote/targets.md

@@ -32,7 +32,7 @@ const SETUP_SCHEMA = {
 }
 const ASK_SCHEMA = {
   type: 'object',
-  properties: { session_id: { type: 'string' }, bundle_path: { type: 'string' }, bundle_text: { type: 'string' }, ok: { type: 'boolean' } },
+  properties: { session_id: { type: 'string' }, bundle_path: { type: 'string' }, bundle_text: { type: 'string' }, ok: { type: 'boolean' }, nested_reply: { type: 'string' } },
   required: ['session_id', 'bundle_path', 'bundle_text', 'ok'],
 }
 const OWNER_SCHEMA = {
@@ -42,7 +42,7 @@ const OWNER_SCHEMA = {
 }
 const ANSWER_SCHEMA = {
   type: 'object',
-  properties: { ok: { type: 'boolean' }, workshop: { type: 'string' }, files: { type: 'array', items: { type: 'string' } } },
+  properties: { ok: { type: 'boolean' }, workshop: { type: 'string' }, files: { type: 'array', items: { type: 'string' } }, nested_reply: { type: 'string' } },
   required: ['ok', 'workshop', 'files'],
 }
 const SCORE_SCHEMA = {
@@ -70,7 +70,9 @@ const PERSONA = A.persona || 'lab/personas/commander-withholds.md'
 const DIR = `${SCRATCH}/interview-${TODAY}`
 const CLONE = `${DIR}/clone`
 const RESULT = `${REPO}/lab/results/${TODAY}-interview`
-const NESTED = `claude -p --plugin-dir "${CLONE}/flightdeck" --model sonnet --settings '{"env":{"FLIGHTDECK_UNATTENDED":"1"}}' --permission-mode acceptEdits --output-format json`
+// Claude Code keeps a session's transcripts in a folder named after the working folder, with every / and . turned into -.
+const TRANSCRIPT_DIR = `$HOME/.claude/projects/${CLONE.replace(/[/.]/g, '-')}/`
+const NESTED = `claude -p --plugin-dir "${CLONE}/flightdeck" --model sonnet --settings '{"env":{"FLIGHTDECK_UNATTENDED":"1"}}' --permission-mode acceptEdits --allowedTools 'Bash(node *)' --output-format json`
 
 // ---- Setup
 phase('Setup')
@@ -78,11 +80,11 @@ const setup = await stage('setup', () => agent(`${RANK_WORKER}
 ${RULES}
 
 Task: set up a scratch copy of the project for the interview drill.
-1. Run \`git clone ${REPO} ${CLONE}\`.
+1. Run \`git clone ${REPO} ${CLONE}\`. git clone creates the folders; run no mkdir and no other command before it.
 2. Run \`git init --bare ${DIR}/origin.git\`.
 3. In the clone ${CLONE} (a separate clone under the scratch folder, where this is allowed) run \`git remote set-url origin ${DIR}/origin.git\`, so nothing the drill does can reach a real remote.
-4. Report whether the file ${CLONE}/flightdeck/skills/workshop/SKILL.md exists, and list the folder ${CLONE}/.flightdeck/ (names only, one line).
-Return ok (true only when steps 1 to 3 worked), workshop_skill (true only when the file exists), listing and notes (what went wrong, or an empty string).`,
+4. Find out whether the file ${CLONE}/flightdeck/skills/workshop/SKILL.md exists by reading it with the file-read tool, not with a shell command; a read that says the file does not exist means false. Then list the folder ${CLONE}/.flightdeck/ (names only, one line); if that listing is refused, leave listing empty.
+Return ok (true only when steps 1 to 3 worked; step 4 never changes it), workshop_skill (true only when the file exists), listing and notes (what went wrong, or an empty string).`,
   { label: 'interview:setup', phase: 'Setup', model: 'haiku', effort: 'low', schema: SETUP_SCHEMA }))
 if (halted(setup)) return { halt: setup.halt }
 if (setup.ok !== true) return { halt: `setup failed: ${setup.notes || 'the clone could not be made'}` }
@@ -98,7 +100,7 @@ Task: run the first half of an interview and collect what the interviewer wrote.
 ${NESTED} "/flight:workshop ${ASK} (file mode: write the question bundle to the file beside workshops.md and stop)"
 The command prints one JSON object; its session_id field is the session to remember. The plugin is loaded from the clone's own folder for this one command; do not install anything and do not change any plugin settings.
 Then find the new file matching ${CLONE}/.flightdeck/*.activate.md (the question bundle) and read it.
-Return session_id (from the JSON), bundle_path (the path of the bundle file), bundle_text (its full text) and ok (true only when you got a session id and a bundle). If the command failed or no bundle appeared, return ok false with empty strings.`,
+Return session_id (from the JSON), bundle_path (the path of the bundle file), bundle_text (its full text) and ok (true only when you got a session id and a bundle). Also return nested_reply: the JSON's result text, then its permission_denials (the commands it was refused, if any), filled in even when everything worked. If the command failed or no bundle appeared, return ok false with empty strings for the other fields and still fill nested_reply.`,
   { label: 'interview:ask', phase: 'Interview', model: 'sonnet', effort: 'high', schema: ASK_SCHEMA }))
 if (halted(asked)) return { halt: asked.halt }
 if (asked.ok !== true || !asked.session_id || !asked.bundle_text) return { halt: 'the interviewer did not write a question bundle', ask: asked }
@@ -123,17 +125,17 @@ if (!owner.block) return { halt: 'the owner persona returned no answers' }
 const answered = await stage('answer', () => agent(`${RANK_WORKER}
 ${RULES}
 
-Task: finish the interview. In the clone ${CLONE}, run the same command prefix as before, resuming the interviewer's own session, with the block below as the prompt:
-${NESTED.replace('claude -p', `claude -p --resume ${asked.session_id}`)} "<the block>"
-Put the block in a file inside the scratch folder first and pass its text with command substitution, so quotes and line breaks survive. The block:
+Task: finish the interview. Write the block below, exactly as it is, to the file ${DIR}/block.txt. Then run this one command, which resumes the interviewer's own session and passes the block on standard input, with no prompt argument:
+cd ${CLONE} && ${NESTED.replace('claude -p', `claude -p --resume ${asked.session_id}`)} < ${DIR}/block.txt
+The block:
 === block ===
 ${owner.block}
 === end of block ===
 Then list the new workshop folder the interviewer made under ${CLONE}/.flightdeck/ (a folder that holds workshop.md) and the files in it.
-Return ok (true only when the command finished and a workshop folder exists), workshop (the folder's name) and files (the file names in it).`,
+Return ok (true only when the command finished and a workshop folder exists), workshop (the folder's name), files (the file names in it) and nested_reply (the command's JSON result text, then its permission_denials, filled in even when everything worked).`,
   { label: 'interview:answer', phase: 'Interview', model: 'sonnet', effort: 'high', schema: ANSWER_SCHEMA }))
 if (halted(answered)) return { halt: answered.halt }
-if (answered.ok !== true || !answered.workshop) return { halt: 'the interviewer did not create a workshop folder', answer: answered }
+if (answered.ok !== true || !answered.workshop) return { halt: 'the interviewer did not create a workshop folder', answer: answered, nested_reply: answered.nested_reply || '' }
 
 // ---- Score
 phase('Score')
@@ -174,7 +176,7 @@ ${RULES}
 
 Task: write two result files in ${RESULT} (create the folder). Write nothing else and commit nothing.
 1. ${RESULT}/index.html: one self-contained page. Title "Interview drill ${TODAY}". It shows the score (${passes} of 8), the 8 checks with pass or fail and their quotes, whether the held-back fact was found (${withheld ? 'yes' : 'no'}), and a link to transcripts.md. It loads nothing from the network (no fonts, scripts or images from outside). Colours are tokens defined on :root, with a dark set under a prefers-color-scheme: dark media query. It reads well at phone width (a 16px side gutter, no sideways scrolling). Plain words, no jargon.
-2. ${RESULT}/transcripts.md: the two session ids (the interviewer's ${asked.session_id}; if you can find the second session's id in ${CLONE}, give it too) and, for each, the transcript file paths found with \`ls ~/.claude/projects/*/<session id>.jsonl\`.
+2. ${RESULT}/transcripts.md: the clone path (${CLONE}), the interviewer's session id (${asked.session_id}) and the expected transcript folder ${TRANSCRIPT_DIR} (write it exactly like that, with $HOME as is). Do not search for transcript files. Try to list that folder; if it cannot be listed, write 'not checked' beside it.
 The facts: ${JSON.stringify({ workshop: answered.workshop, passes, checks })}
 Return page (the path of index.html), transcripts (the path of transcripts.md) and ok.`,
   { label: 'interview:page', phase: 'Page', model: 'sonnet', effort: 'medium', schema: PAGE_SCHEMA }))

@@ -228,8 +228,35 @@ describe('sweep engine', () => {
 
   test('the scope-leak case is noticed by the core tests on the real tree', () => {
     const r = runSweep({ root: REPO, noClaude: true, only: 'scope-leak' });
-    assert.deepEqual(r.lines, ['pass baseline', 'pass scope-leak', '2/2 passed']);
+    assert.deepEqual(r.lines, ['pass baseline', "pass scope-leak (one workshop's notes were let into another workshop)", '2/2 passed']);
     assert.equal(r.ok, true);
+  });
+
+  test('a case with a say sentence prints it in brackets, and a case without prints the bare name', () => {
+    const root = fixture();
+    const cases = [
+      { name: 'flip', say: 'a flag was turned bad', file: 'flag.txt', find: 'good', replace: 'bad', checks: ['fx'] },
+      { name: 'quiet', say: 'a stray file was added', file: 'other.txt', write: 'x\n', checks: ['fx'] },
+      { name: 'bare', file: 'flag.txt', find: 'good', replace: 'bad', checks: ['fx'] },
+    ];
+    assert.deepEqual(runSweep({ root, cases, checks, noClaude: true }).lines, [
+      'pass baseline',
+      'pass flip (a flag was turned bad)',
+      'FAIL quiet (a stray file was added): no check noticed (ran fx)',
+      'pass bare',
+      '3/4 passed',
+    ]);
+  });
+
+  test('a selected case that was left out is a bad argument: no pass baseline, exit 2', () => {
+    const r = runSweep({ root: REPO, noClaude: true, only: 'plugin-manifest-broken' });
+    assert.equal(r.badArg, true);
+    assert.equal(r.ok, false);
+    assert.deepEqual(r.lines, []);
+    assert.ok(r.notes.some((n) => /^case plugin-manifest-broken not run: --no-claude was given$/.test(n)), r.notes.join('|'));
+    const cli = node(['lab/drills/sweep.mjs', '--no-claude', '--case', 'plugin-manifest-broken']);
+    assert.equal(cli.status, 2);
+    assert.ok(!/pass baseline|passed/.test(cli.stdout), cli.stdout);
   });
 });
 
@@ -245,6 +272,11 @@ describe('sweep table', () => {
       assert.ok(Array.isArray(c.checks) && c.checks.length > 0, `${c.name} lists checks`);
       for (const id of c.checks) assert.ok(['core', 'hard', 'hard-owned', 'validate'].includes(id), `${c.name} uses check ${id}`);
     }
+  });
+
+  test('every case has a non-empty say sentence', () => {
+    assert.equal(CASES.length, 20);
+    for (const c of CASES) assert.ok(typeof c.say === 'string' && c.say.trim().length > 0, `${c.name} has a say`);
   });
 
   test('the table holds the 19 cases plus the manifest case, with the scope leak in it', () => {
@@ -516,10 +548,35 @@ describe('interview drill', () => {
     assert.match(ask, /--plugin-dir "\/s\/interview-2026-10-11\/clone\/flightdeck"/);
     assert.match(ask, /FLIGHTDECK_UNATTENDED/);
     assert.match(ask, /--permission-mode acceptEdits/);
+    assert.ok(ask.includes("--allowedTools 'Bash(node *)' --output-format json"), 'the tool list sits right before --output-format json');
     assert.match(ask, /\/flight:workshop a short page that lists every open question across all my workshops, oldest first \(file mode:/);
     for (const { prompt } of prompts) assert.ok(!/plugin install/.test(prompt));
     const answer = prompts.find((p) => p.opts.label === 'interview:answer').prompt;
     assert.match(answer, /--resume sess-1/);
+    assert.ok(answer.includes("--allowedTools 'Bash(node *)' --output-format json < /s/interview-2026-10-11/block.txt"), 'the block goes in on standard input');
+    assert.ok(!/command substitution/.test(answer));
+  });
+
+  test('a missing question bundle halts with the nested session reply', async () => {
+    const lost = { 'interview:ask': { session_id: '', bundle_path: '', bundle_text: '', ok: false, nested_reply: 'refused: Bash(ls)' } };
+    const { result } = await runScript(FILE, ARGS, stub({ extra: lost }));
+    assert.equal(result.halt, 'the interviewer did not write a question bundle');
+    assert.equal(result.ask.nested_reply, 'refused: Bash(ls)');
+  });
+
+  test('the setup prompt creates the folders by cloning and reads the skill file without a shell command', async () => {
+    const { prompts } = await runScript(FILE, ARGS, stub());
+    const setup = prompts.find((p) => p.opts.label === 'interview:setup').prompt;
+    assert.match(setup, /git clone creates the folders; run no mkdir and no other command before it/);
+    assert.match(setup, /file-read tool, not with a shell command/);
+  });
+
+  test('the page prompt names the expected transcript folder and searches nothing', async () => {
+    const { prompts } = await runScript(FILE, ARGS, stub());
+    const page = prompts.find((p) => p.opts.label === 'interview:page').prompt;
+    assert.ok(page.includes('$HOME/.claude/projects/-s-interview-2026-10-11-clone/'));
+    assert.match(page, /not checked/);
+    assert.ok(!/ls ~\/\.claude\/projects/.test(page));
   });
 
   test('a score with fewer than eight checks halts', async () => {

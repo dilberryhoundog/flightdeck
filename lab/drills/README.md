@@ -9,10 +9,10 @@ Free drills print one line per case: `pass <case>` or `FAIL <case>: <reason>`, t
 
 Shows that FlightDeck's checks notice breakage: it breaks one part at a time in a temporary copy and proves a check complains each time.
 Command: `node lab/drills/sweep.mjs`.
-Options: `--case <name>` runs one case; `--no-claude` leaves out the plugin-manifest case.
-Time: about a minute. Cost: no tokens.
-Needs: Node and the version-control tool; the plugin-manifest case also needs `claude` on your path.
-Passing: `pass baseline`, then a `pass` line for every case, then `n/n passed`.
+Options: `--case <name>` runs one case; `--no-claude` leaves out the broken-plugin-file case (plugin-manifest-broken).
+Time: about half a minute. Cost: no tokens.
+Needs: Node and the version-control tool; the broken-plugin-file case (plugin-manifest-broken) also needs `claude` on your path.
+Passing: `pass baseline` (the unbroken copy passed every check first), then a `pass` line for every case with a plain sentence saying what was broken, then `n/n passed`.
 
 ## Remove-part
 
@@ -37,6 +37,8 @@ Command: say "Captain, run the interview drill".
 That runs `lab/drills/interview.js` with the Workflow tool and the arguments `repo` (this folder's full path), `scratch` (a scratch folder's full path) and `today` (the date).
 Time: several minutes. Cost: a few dollars of Sonnet.
 Needs: pull request 3 (workshops) merged. The drill uses your last commit, and says so plainly when pull request 3 is missing.
+The scratch folder must be one the session may work in. In a pilot session, add it first with `/add-dir <scratch folder>`, or start Claude with `--add-dir <scratch folder>`.
+The drill lets its nested sessions run node commands and nothing else.
 Passing: it writes `lab/results/<date>-interview/index.html` with the score, the 8 checks and whether the held-back fact was found.
 
 ## Team drill and teammate types

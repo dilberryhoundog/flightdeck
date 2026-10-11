@@ -22,6 +22,7 @@ const OLD_TOOL = ['d', 'w'].join('');
 export const CASES = [
   {
     name: 'git-main-allowed',
+    say: 'the guard that stops pushes to main was switched off',
     file: 'flightdeck/hooks/guard.mjs',
     find: "const PROTECTED_BRANCHES = new Set(['main', 'master']);",
     replace: 'const PROTECTED_BRANCHES = new Set([]);',
@@ -29,6 +30,7 @@ export const CASES = [
   },
   {
     name: 'truth-open',
+    say: "agents were let write the owner's own words",
     file: 'flightdeck/hooks/guard.mjs',
     find: '  if (!caller) return null;',
     replace: '  return null;',
@@ -36,6 +38,7 @@ export const CASES = [
   },
   {
     name: 'ceiling-open',
+    say: 'the guard that refuses models above the ceiling was switched off',
     file: 'flightdeck/hooks/guard.mjs',
     find: "if (model === 'best' || model.includes('fable')) return CEILING_REASON;",
     replace: 'if (false) return CEILING_REASON;',
@@ -43,6 +46,7 @@ export const CASES = [
   },
   {
     name: 'card-loud',
+    say: 'the quiet start-up card was made to show for every agent, not only the pilot',
     file: 'flightdeck/hooks/preflight.mjs',
     find: "if (!input || input.agent_type !== 'flight:pilot') return;",
     replace: 'if (!input) return;',
@@ -50,6 +54,7 @@ export const CASES = [
   },
   {
     name: 'scope-leak',
+    say: "one workshop's notes were let into another workshop",
     file: 'flightdeck/lib/workshops.mjs',
     find: 'for (const f of SCOPE_FILES) files[f] = readText(path.join(dir, f));',
     replace: 'for (const f of SCOPE_FILES) files[f] = readText(path.join(dir, f));\n'
@@ -58,6 +63,7 @@ export const CASES = [
   },
   {
     name: 'ask-later-counted',
+    say: 'a question held for later was counted as still open',
     file: 'flightdeck/lib/workshops.mjs',
     find: "const held = unanswered && b.askLater !== '';",
     replace: 'const held = false;',
@@ -65,6 +71,7 @@ export const CASES = [
   },
   {
     name: 'manifest-parse',
+    say: 'a workshop entry containing a colon was read wrongly',
     file: 'flightdeck/lib/workshops.mjs',
     find: "const i = rest.indexOf(': ');",
     replace: "const i = rest.lastIndexOf(': ');",
@@ -72,6 +79,7 @@ export const CASES = [
   },
   {
     name: 'rank-in-agent-name',
+    say: "a rank was put in an agent's name",
     file: 'flightdeck/agents/captain.md',
     write: '---\nname: captain\ndescription: "Sweep test agent."\nmodel: sonnet\n---\n\n'
       + 'Fallback rank: Worker in the team of whoever sent you, reporting to them; if you do not know who sent you, you report to the Captain.\n',
@@ -79,6 +87,7 @@ export const CASES = [
   },
   {
     name: 'seat-without-rank',
+    say: 'a crew seat was written without a rank',
     file: 'flightdeck/skills/team-plans/entry-points.md',
     find: '## scout\n\nRank: Worker.',
     replace: '## scout\n\nWorker.',
@@ -86,6 +95,7 @@ export const CASES = [
   },
   {
     name: 'policies-rank-renamed',
+    say: 'a rank was renamed in the policies page',
     file: 'flightdeck/policies.md',
     find: '\n- Officer: a team lead',
     replace: '\n- Lieutenant: a team lead',
@@ -93,42 +103,49 @@ export const CASES = [
   },
   {
     name: 'agent-above-ceiling',
+    say: 'an agent was added that asks for a model above the ceiling',
     file: 'flightdeck/agents/zz-sweep.md',
     write: `---\nname: zz-sweep\ndescription: "Sweep test agent."\nmodel: ${BAD_MODEL}\n---\n\nSweep test agent.\n`,
     checks: ['hard'],
   },
   {
     name: 'workflow-above-ceiling',
+    say: 'a script was added that asks for an effort above the ceiling',
     file: 'lab/zz-sweep.mjs',
     write: `export const x = { ${EFFORT_KEY}: '${BAD_EFFORT}' };\n`,
     checks: ['hard'],
   },
   {
     name: 'dev-touched',
+    say: 'a file was added in the dev folder, which agents must not touch',
     file: 'dev/zz-sweep.txt',
     write: 'sweep\n',
     checks: ['hard'],
   },
   {
     name: 'claude-rules-touched',
+    say: "a file was added in the project's rules folder, which agents must not touch",
     file: '.claude/rules/zz-sweep.md',
     write: 'sweep\n',
     checks: ['hard'],
   },
   {
     name: 'old-tool-call',
+    say: 'a script was added that calls the old workspace tool',
     file: 'lab/zz-sweep.sh',
     write: `#!/bin/sh\n${OLD_TOOL} status\n`,
     checks: ['hard'],
   },
   {
     name: 'owner-only-skill-open',
+    say: 'a skill that only the owner may run was left open to agents',
     file: 'flightdeck/skills/promote/SKILL.md',
     write: '---\nname: promote\ndescription: "Sweep test skill."\n---\n\nSweep test skill.\n',
     checks: ['hard'],
   },
   {
     name: 'git-guard-unregistered',
+    say: 'the git guard was taken out of the hook list',
     file: 'flightdeck/hooks/hooks.json',
     find: '"args": ["${CLAUDE_PLUGIN_ROOT}/hooks/guard.mjs", "git"]',
     replace: '"args": ["${CLAUDE_PLUGIN_ROOT}/hooks/guard.mjs", "truth"]',
@@ -136,18 +153,21 @@ export const CASES = [
   },
   {
     name: 'plugin-settings',
+    say: 'a settings file was added inside the plugin',
     file: 'flightdeck/settings.json',
     write: '{}\n',
     checks: ['hard'],
   },
   {
     name: 'outside-owned',
+    say: "a file was added that is not on the pull request's own list",
     file: 'zz-sweep-outside.txt',
     write: 'sweep\n',
     checks: ['hard-owned'],
   },
   {
     name: 'plugin-manifest-broken',
+    say: "the plugin's main file was broken",
     file: 'flightdeck/.claude-plugin/plugin.json',
     find: '"name": "flight",',
     replace: '"name": "flight"',
@@ -294,6 +314,11 @@ export function applyBreak(tmp, c) {
 
 // ---------------------------------------------------------------- the sweep
 
+// A case's name, followed by its plain sentence in brackets when it has one.
+function label(c) {
+  return typeof c.say === 'string' && c.say ? `${c.name} (${c.say})` : c.name;
+}
+
 export function runSweep({ root, cases = CASES, checks = null, noClaude = false, only = null } = {}) {
   const lines = [];
   const notes = [];
@@ -315,6 +340,10 @@ export function runSweep({ root, cases = CASES, checks = null, noClaude = false,
       }
       runnable.push(c);
     }
+    if (only && !runnable.length) {
+      const why = notes.length ? notes[notes.length - 1].replace(/^case \S+ left out: /, '') : 'no check could run it';
+      return { lines, ok: false, notes: [...notes, `case ${only} not run: ${why}`], badArg: true };
+    }
     const used = [...new Set(runnable.flatMap((c) => c.checks))];
 
     for (const id of used) {
@@ -330,11 +359,11 @@ export function runSweep({ root, cases = CASES, checks = null, noClaude = false,
     for (const c of runnable) {
       const problem = applyBreak(tmp, c);
       if (problem) {
-        lines.push(`FAIL ${c.name}: ${problem}`);
+        lines.push(`FAIL ${label(c)}: ${problem}`);
       } else {
         const noticed = c.checks.some((id) => runCmd(table[id], tmp).code !== 0);
-        if (noticed) { lines.push(`pass ${c.name}`); passed++; }
-        else lines.push(`FAIL ${c.name}: no check noticed (ran ${c.checks.join(', ')})`);
+        if (noticed) { lines.push(`pass ${label(c)}`); passed++; }
+        else lines.push(`FAIL ${label(c)}: no check noticed (ran ${c.checks.join(', ')})`);
       }
       restoreCopy(tmp);
     }

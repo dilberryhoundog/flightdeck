@@ -6,17 +6,23 @@ The cases live in `flightdeck/evals/`, not here, because Claude Code only reads 
 
 Name each case `pr<n>-<what>` so one part's cases can be picked with `--case 'pr3-*'`. The three cases so far are `pr1-plain-chat-quiet` (plain chat stays plain), `pr1-adversary-planted-defect` (the adversary finds a planted bug) and `pr1-workshop-scope` (a workshop's notes reach only the agents sent into that workshop).
 
-Run the two plain cases (about $1):
+Run the plain-chat case and the adversary case, one command each (about $1 each):
 
-`claude plugin eval flightdeck --eval-dir evals --case 'pr1-[ap]*' --runs 1 --no-publish --trust-plugin --ablation none --max-cost-usd 1 --output-dir lab/evals/results`
+`claude plugin eval flightdeck --eval-dir evals --case 'pr1-p*' --runs 1 --no-publish --trust-plugin --ablation none --max-cost-usd 1 --output-dir lab/evals/results/chat`
+
+`claude plugin eval flightdeck --eval-dir evals --case 'pr1-a*' --runs 1 --no-publish --trust-plugin --ablation none --max-cost-usd 1 --output-dir lab/evals/results/adversary`
+
+`--case` understands only `*` in a name pattern; square brackets and braces match nothing.
 
 Run the workshop case (about $1):
 
 `claude plugin eval flightdeck --eval-dir evals --case 'pr1-workshop-scope' --runs 1 --no-publish --trust-plugin --ablation none --max-cost-usd 1 --scaffold --allow-tools 'Bash(node *)' --output-dir lab/evals/results/scope`
 
-`--ablation none` runs only the with-FlightDeck side, which halves the cost. `--max-cost-usd` stops the run at the cap. `--scaffold` and `--allow-tools 'Bash(node *)'` are added only for cases tagged `scaffold`, because a scaffold runs a script on your machine before the case starts.
+Granting Bash makes Claude Code run every command in its own sandbox, and on Linux the sandbox needs bubblewrap and socat installed first (for example `sudo apt install bubblewrap socat`). Without them the run is refused and still prints a score (0.25, 'Sandbox required but unavailable'); that is the machine, not FlightDeck.
 
-When a run finishes, open `lab/evals/results/report.html` (the other run writes its own report under `lab/evals/results/scope/`). The raw numbers are in `aggregate-result.json` beside it. An exit code of 1 means a case scored below full marks, which is a finding and not a failure. An exit code of 2 means the cost cap was reached.
+`--ablation none` runs only the with-FlightDeck side, which halves the cost. With `--ablation none` the plain-chat case runs only with FlightDeck, so a 1.00 shows that no loud greeting or card appeared; it does not compare against Claude without FlightDeck. `--max-cost-usd` stops the run at the cap. `--scaffold` and `--allow-tools 'Bash(node *)'` are added only for cases tagged `scaffold`, because a scaffold runs a script on your machine before the case starts.
+
+When a run finishes, open the report page: `lab/evals/results/chat/report.html`, `lab/evals/results/adversary/report.html` and `lab/evals/results/scope/report.html`. The raw numbers are in `aggregate-result.json` beside each one. An exit code of 1 means a case scored below full marks, or no case matched the name, or a case did not load, or the run was refused; read the printed message to tell which. A scored-below-full-marks case is a finding and not a failure. An exit code of 2 means the cost cap was reached.
 
 If `claude plugin eval` is unknown on your Claude Code, evals are "not available here". Nothing else in the lab needs them.
 

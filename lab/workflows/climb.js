@@ -151,9 +151,9 @@ ${RULES}
 Task: round ${k} of a climb. In the clone ${CLONE} (branch ${BRANCH}) make exactly one change to the file ${TARGET}, and to no other file, that you expect to raise its eval score.
 Read ${TARGET}, the training case folders under ${CLONE}/flightdeck/evals/ that match the glob '${TRAIN}' (cases are folders there), and the numbers below. Other case folders are held back on purpose: do not open or list any case folder that does not match '${TRAIN}'.
 Latest training score: ${show(baseline.train)} (noise ${show(noise.train)}, so a gain smaller than that is not real). Earlier rounds: ${prior}.
-Keep the change small and in plain words; do not change what the document is for. Commit it by file name with the message \`climb round ${k}: <one-line summary>\` and end the message with these two lines:
+Keep the change small and in plain words; do not change what the document is for. Commit it by file name with the message \`climb round ${k}: <one-line summary>\` and end the message with this line:
 Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_0191zZ3K2XqnZwPQqF6LFH2x
+(That line is all this script asks for; the session running the climb adds its own session line if its rules ask for one.)
 Do not push. Return commit (the new commit's hash), summary (the one-line summary) and ok.`,
   { label: `climb:propose:r${k}`, phase: 'Rounds', model: 'sonnet', effort: 'high', schema: PROPOSE_SCHEMA }))
   if (halted(proposal) || proposal.ok !== true || !proposal.commit) {
@@ -205,9 +205,9 @@ ${RULES}
 Task: write the report of a climb and, only if allowed below, open a draft pull request.
 Write ${CLONE}/${RESULT_DIR}/report.md (create the folder). One paragraph per line, no hard wrapping, plain words. The first line is exactly the verdict: ${verdict}
 Then say: the target (${TARGET}); the noise (training ${show(noise.train)}, test ${show(noise.test)}) and what it means (a score must rise by more than this to count); then one paragraph per round with its change, its training and test scores, and the decision with the reason. If no round was kept, say plainly that the document is unchanged in effect and nothing should be merged. Use only these facts: ${summaryJson}
-Commit the report by file name with the message \`climb report: ${TARGET}\` and end the message with these two lines:
+Commit the report by file name with the message \`climb report: ${TARGET}\` and end the message with this line:
 Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_0191zZ3K2XqnZwPQqF6LFH2x
+(That line is all this script asks for; the session running the climb adds its own session line if its rules ask for one.)
 ${keptAny && !DRY
     ? `Because a change was kept and this is not a dry run: run \`git push -u origin ${BRANCH}\` in the clone, then \`gh pr create --draft --base ${BASE} --head ${BRANCH} --title "Climb: ${TARGET}" --body-file ${RESULT_DIR}/report.md\` and return its URL as pr_url.`
     : 'Push nothing and open no pull request; return pr_url as an empty string.'}

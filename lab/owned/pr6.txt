@@ -35,3 +35,4 @@ lab/owned/pr6.txt
 .flightdeck/build-1/attempts/pr-6/a1/findings.md
 .flightdeck/build-1/attempts/pr-6/a1/report.md
 .flightdeck/build-1/attempts/pr-6/a1/log.md
+lab/results/.gitignore

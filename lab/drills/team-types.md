@@ -1,6 +1,6 @@
 # Teammate types check (you run this one, by hand)
 
-The question: can an agent team use a FlightDeck agent, such as `flight:scout`, as a teammate? Claude Code's agent-teams page says a teammate can use a subagent type from the project, user or managed scope. It does not say whether agents that come from a plugin count. Until you run this, the answer is [stated] as unknown.
+The question: can an agent team use a FlightDeck agent, such as `flight:scout`, as a teammate? Claude Code's agent-teams page says a teammate can use a subagent type from the project's or your own settings. It does not say whether agents that come from a plugin count. Until you run this, the answer is not tried yet.
 
 Steps:
 

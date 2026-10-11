@@ -1,0 +1,18 @@
+# Files pull request 4 (Launches) adds or edits, one per line.
+flightdeck/workflows/build-and-check.js
+flightdeck/workflows/recon.js
+flightdeck/workflows/second-opinion.js
+flightdeck/skills/launch/tests/workflows.test.mjs
+flightdeck/skills/launch/tests/fixtures/.flightdeck/ws-a/context.md
+flightdeck/skills/launch/tests/fixtures/.flightdeck/ws-a/verify.md
+flightdeck/skills/launch/tests/fixtures/.flightdeck/ws-b/context.md
+flightdeck/skills/launch/tests/fixtures/.flightdeck/ws-b/verify.md
+flightdeck/skills/launch/SKILL.md
+flightdeck/skills/launch/report-template.md
+flightdeck/evals/pr4-smallest-team-plan/prompt.md
+flightdeck/evals/pr4-smallest-team-plan/graders/smallest.md
+lab/owned/pr4.txt
+.flightdeck/build-1/attempts/pr-4/a1/brief.md
+.flightdeck/build-1/attempts/pr-4/a1/findings.md
+.flightdeck/build-1/attempts/pr-4/a1/report.md
+.flightdeck/build-1/attempts/pr-4/a1/log.md

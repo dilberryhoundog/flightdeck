@@ -1,0 +1,337 @@
+<title>FlightDeck Build 1 Landing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+/* Layout: one reading column; a status strip, then one card per pull request in merge order, then questions and the answer box. */
+:root {
+  --bg: #eef1f4; --surface: #ffffff; --surface-2: #f6f8fa;
+  --ink: #15212c; --ink-2: #4a5866; --ink-3: #5a6773;
+  --line: #d3dae1; --line-strong: #9fadba;
+  --accent: #8f5300; --accent-bg: #fff3df; --accent-line: #e8b866;
+  --go: #1d6e47; --go-bg: #e3f3ea; --go-line: #8fcaa9;
+  --info: #0b627c; --info-bg: #e2f1f6;
+  --stop: #a3322a; --stop-bg: #fbe9e7;
+  --code-bg: #e9edf1; --focus: #0b7fa3;
+  --font-body: 'Barlow', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-head: 'Barlow Semi Condensed', 'Barlow', 'Arial Narrow', 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1217; --surface: #131b22; --surface-2: #18222b;
+    --ink: #dfe7ee; --ink-2: #a8b6c3; --ink-3: #8595a4;
+    --line: #26323d; --line-strong: #3d4c59;
+    --accent: #f2aa3c; --accent-bg: #2a2011; --accent-line: #7a5520;
+    --go: #5cc893; --go-bg: #11261c; --go-line: #2c6046;
+    --info: #67c7e2; --info-bg: #0f2430;
+    --stop: #f08a80; --stop-bg: #2c1513;
+    --code-bg: #1b2630; --focus: #67c7e2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1217; --surface: #131b22; --surface-2: #18222b;
+  --ink: #dfe7ee; --ink-2: #a8b6c3; --ink-3: #8595a4;
+  --line: #26323d; --line-strong: #3d4c59;
+  --accent: #f2aa3c; --accent-bg: #2a2011; --accent-line: #7a5520;
+  --go: #5cc893; --go-bg: #11261c; --go-line: #2c6046;
+  --info: #67c7e2; --info-bg: #0f2430;
+  --stop: #f08a80; --stop-bg: #2c1513;
+  --code-bg: #1b2630; --focus: #67c7e2;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.55; margin: 0; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; }
+.crumb { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 28px 0 4px; }
+h1 { font-family: var(--font-head); font-weight: 700; font-size: clamp(30px, 6vw, 44px); line-height: 1.1; margin: 0 0 10px; text-wrap: balance; }
+h2 { font-family: var(--font-head); font-weight: 700; font-size: 26px; margin: 40px 0 10px; text-wrap: balance; }
+h3 { font-family: var(--font-head); font-weight: 600; font-size: 21px; margin: 0; }
+p, li { max-width: 68ch; }
+.lede { color: var(--ink-2); }
+code { font-family: var(--font-mono); font-size: .86em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+a { color: var(--info); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface); margin: 20px 0; }
+.strip div { padding: 10px 14px; border-right: 1px solid var(--line); min-width: 0; }
+.strip div:last-child { border-right: 0; }
+.strip span { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.strip b { font-family: var(--font-head); font-size: 18px; font-variant-numeric: tabular-nums; }
+.need { background: var(--surface); border: 1px solid var(--line-strong); border-left: 6px solid var(--accent); border-radius: 6px; padding: 16px 20px; }
+.need h2 { margin-top: 0; font-size: 22px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; display: grid; gap: 10px; }
+.cards { display: grid; gap: 14px; }
+.cards > *, .card > * { min-width: 0; }
+.card header { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; justify-content: space-between; }
+.num { font-family: var(--font-mono); color: var(--accent); margin-right: 6px; }
+.pill { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--accent-line); background: var(--accent-bg); color: var(--accent); white-space: nowrap; }
+.pill.first { border-color: var(--go-line); background: var(--go-bg); color: var(--go); }
+.card p { margin: 0; }
+.label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); display: block; margin-bottom: 2px; }
+.try { display: flex; gap: 8px; align-items: stretch; }
+.try pre { flex: 1; min-width: 0; margin: 0; background: var(--code-bg); border-radius: 4px; padding: 8px 10px; font-family: var(--font-mono); font-size: 13px; overflow-x: auto; white-space: pre; }
+button { font-family: var(--font-head); font-weight: 600; font-size: 15px; border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.know li { margin-bottom: 8px; }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px 20px; margin-bottom: 12px; }
+.q h3 { font-size: 19px; margin-bottom: 6px; }
+.q .why { color: var(--ink-2); font-size: 15px; margin: 0 0 8px; }
+.opts { display: grid; gap: 6px; margin: 8px 0; }
+.opts label { display: flex; gap: 8px; align-items: flex-start; min-width: 0; }
+.opts label span { min-width: 0; overflow-wrap: anywhere; }
+.rec { font-family: var(--font-mono); font-size: 11px; color: var(--go); border: 1px solid var(--go-line); background: var(--go-bg); border-radius: 99px; padding: 0 6px; margin-left: 4px; white-space: nowrap; }
+.prrow { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.prrow strong { min-width: 9.5em; font-family: var(--font-head); }
+textarea, input[type=text] { width: 100%; font-family: var(--font-body); font-size: 15px; padding: 6px 8px; border: 1px solid var(--line-strong); border-radius: 4px; background: var(--surface-2); color: var(--ink); }
+#reply { font-family: var(--font-mono); font-size: 13px; min-height: 220px; margin-top: 10px; }
+.toast { color: var(--go); font-weight: 600; margin-left: 10px; }
+.foot { color: var(--ink-3); font-size: 14px; margin-top: 40px; border-top: 1px solid var(--line); padding-top: 12px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <div class="crumb">FlightDeck / build-1 / landing / attempt 1</div>
+
+  <p class="eyebrow">On the ramp</p>
+  <h1>Build 1: seven pull requests waiting for you</h1>
+  <p class="lede">Everything you said go to is built, checked and open as a draft pull request into <code>build-1</code>. Nothing has been merged. You merge.</p>
+
+  <div class="strip">
+    <div><span>Pull requests</span><b>7 open, all drafts</b></div>
+    <div><span>Into</span><b>build-1</b></div>
+    <div><span>All seven together</span><b>every check green</b></div>
+    <div><span>Questions for you</span><b>4, none urgent</b></div>
+  </div>
+
+  <section class="need">
+    <h2>What I need from you</h2>
+    <ol>
+      <li><strong>Merge PR 1 first</strong> (<a href="https://github.com/dilberryhoundog/flightdeck/pull/3">#3</a>). The other six are built on top of it, so until PR 1 is merged their diffs also show PR 1's files.</li>
+      <li><strong>Try the others in any order</strong>, one at a time. Each card below has its own five-minute try. Merge what you like; close what you don't, or say "retry PR n" with what you want different.</li>
+      <li><strong>Answer the four questions</strong> at the bottom whenever you have tried the parts they are about. The answer box makes a reply to paste back to me.</li>
+    </ol>
+    <p>Why every pull request is a draft: no agent could look at a real terminal or browser, and the human imposter drove the pilot on Haiku, not Opus. Seeing it on your screen is the one check left, and it is yours.</p>
+  </section>
+
+  <h2>The pull requests, in merge order</h2>
+  <div class="cards">
+
+    <article class="card">
+      <header><h3><span class="num">PR 1</span>Basic flight crew</h3><a class="pill first" href="https://github.com/dilberryhoundog/flightdeck/pull/3">#3 · merge first</a></header>
+      <p>The plugin itself: seven agents named by job (pilot, runner, scout, builder, reviewer, adversary, imposter), your four ranks as a chain of command, all six team plans, the pre-flight card, the guards (no push to main, nothing above Opus high, agents never write your own files), the workshop list and templates with build-1 as the first workshop, and the rule files.</p>
+      <div><span class="label">Try it</span><div class="try"><pre>git fetch origin &amp;&amp; git switch build-1-pr1-basic-a1
+claude plugin marketplace add "$PWD" --scope local
+claude plugin install flight@DBHD-FlightDeck --scope local
+claude --agent flight:pilot --model opus --effort high</pre><button type="button" data-copy>Copy</button></div></div>
+      <p>Then type <code>/flight:preflight</code>, ask the pilot to push to main with <code>--dry-run</code> and watch the guard refuse, and start plain <code>claude</code> in another terminal: no card.</p>
+      <p><span class="label">How it went</span>The imposter ran all five steps in a scratch copy: under 2 minutes of machine time, nothing broke. 26 findings fixed, 6 rejected with reasons. 49 files. Since then I fixed its agent test to allow more agents (the librarian is an eighth) and filed the build's questions, captured work and lessons into it.</p>
+    </article>
+
+    <article class="card">
+      <header><h3><span class="num">PR 2</span>Flight board</h3><a class="pill" href="https://github.com/dilberryhoundog/flightdeck/pull/5">#5</a></header>
+      <p>One local page showing every workshop, the work waiting to start and the questions waiting on you, with a "Copy my answers" button you paste back to the pilot. A prompt builder tab, and a shared page style for every page an agent makes.</p>
+      <div><span class="label">Try it</span><div class="try"><pre>git switch build-1-pr2-board-a1
+# in the pilot session:
+/flight:board</pre><button type="button" data-copy>Copy</button></div></div>
+      <p><span class="label">How it went</span>The imposter ran it end to end; the page was tested in a simulated browser, not seen. 20 findings fixed. 21 files.</p>
+    </article>
+
+    <article class="card">
+      <header><h3><span class="num">PR 3</span>Workshops</h3><a class="pill" href="https://github.com/dilberryhoundog/flightdeck/pull/9">#9</a></header>
+      <p>Your workshop lifecycle as four commands only you start: <code>/flight:capture</code> (one line, no folder), <code>/flight:workshop</code> (at most five plain questions, then the folder with its own notes and checks), <code>/flight:retry</code>, and <code>/flight:promote</code> (proposes what deserves global relevance, as a draft pull request).</p>
+      <div><span class="label">Try it</span><div class="try"><pre>git switch build-1-pr3-workshops-a1
+# in the pilot session:
+/flight:capture the pre-flight card lists the oldest waiting question first
+/flight:workshop &lt;the name it chose&gt;</pre><button type="button" data-copy>Copy</button></div></div>
+      <p><span class="label">How it went</span>Capture, the interview (in file mode), retry and a dry-run promote all worked in a scratch copy. Claude Code's real question box was not exercised. 28 findings fixed. 20 files. Steps took about 8 minutes, not 5.</p>
+    </article>
+
+    <article class="card">
+      <header><h3><span class="num">PR 4</span>Launches</h3><a class="pill" href="https://github.com/dilberryhoundog/flightdeck/pull/6">#6</a></header>
+      <p><code>/flight:launch &lt;workshop&gt;</code> picks the smallest team plan, shows a five-line card, waits for your "go", runs it and returns a draft pull request whose every line says whether a script checked it, an agent judged it, or an agent only said so. Ships build-and-check, recon and second-opinion.</p>
+      <div><span class="label">Try it</span><div class="try"><pre>git switch build-1-pr4-launches-a1
+# in the pilot session:
+activate demo-attempt-age
+/flight:launch demo-attempt-age</pre><button type="button" data-copy>Copy</button></div></div>
+      <p><span class="label">How it went</span>The imposter ran a real launch: 11 agents built the demo feature in about 11 minutes and 69 of 69 tests passed. Two serious faults were found and fixed. 17 files.</p>
+    </article>
+
+    <article class="card">
+      <header><h3><span class="num">PR 6</span>Laboratory</h3><a class="pill" href="https://github.com/dilberryhoundog/flightdeck/pull/8">#8</a></header>
+      <p>Free drills that break FlightDeck on purpose and check a test notices, a drill that removes each pull request and checks the rest still works, a tidiness check, scored test cases, an interview drill, and an improvement workflow that keeps a change only if it beats the noise.</p>
+      <div><span class="label">Try it</span><div class="try"><pre>git switch build-1-pr6-lab-a1
+node lab/drills/sweep.mjs
+node lab/drills/remove-part.mjs</pre><button type="button" data-copy>Copy</button></div></div>
+      <p><span class="label">How it went</span>Sweep 21 of 21 in 33 seconds. Two scored test cases scored 1.00. 26 findings fixed. 37 files.</p>
+    </article>
+
+    <article class="card">
+      <header><h3><span class="num">PR 7</span>Manuals and library</h3><a class="pill" href="https://github.com/dilberryhoundog/flightdeck/pull/7">#7</a></header>
+      <p>Manuals on three shelves (how to fly it, how it works, how to change it), library pages carried over from earlier branches, and the librarian, who answers from them with a file and line for every claim.</p>
+      <div><span class="label">Try it</span><div class="try"><pre>git switch build-1-pr7-manuals-a1
+# in the pilot session:
+Librarian, how do I retry one pull request?</pre><button type="button" data-copy>Copy</button></div></div>
+      <p><span class="label">How it went</span>The librarian answered correctly with a citation. The pilot does not always send the question to the librarian yet (captured to fix). 23 findings fixed. About 25 files.</p>
+    </article>
+
+    <article class="card">
+      <header><h3><span class="num">PR 8</span>Status band</h3><a class="pill" href="https://github.com/dilberryhoundog/flightdeck/pull/4">#4</a></header>
+      <p>A separate small plugin that draws one read-only line above the prompt: the active workshops, the questions waiting on you, and the captured work waiting to start.</p>
+      <div><span class="label">Try it</span><div class="try"><pre>git switch build-1-pr8-band-a1
+claude plugin marketplace add "$PWD/mods/status-band" --scope local
+claude plugin install flight-band@flight-band --scope local
+# restart Claude Code and look above the prompt</pre><button type="button" data-copy>Copy</button></div></div>
+      <p><span class="label">How it went</span>A live check saw the band draw in a terminal capture and count a new question within 40 seconds. 14 findings fixed. 11 files.</p>
+    </article>
+  </div>
+
+  <h2>Things you should know</h2>
+  <ul class="know">
+    <li><strong>All seven together.</strong> I merged every branch into one scratch copy and ran everything: all tests, both plugin checks, the hard rules, the drills. All green, and each pull request can be removed with the rest still green.</li>
+    <li><strong>One scare, no damage.</strong> A review agent pointed the git remote of my checkout at a throwaway local repository (it made a git worktree, which shares settings with the main checkout, instead of a separate copy). For a few minutes some pushes went there instead of GitHub. GitHub was never touched; I restored the remote and pushed what was missing. The rule against it is now in the build script and in build-1's lessons.</li>
+    <li><strong>Report files.</strong> Claude Code does not let a subagent write files called report or findings, so I wrote each pull request's report and findings from the stage records.</li>
+    <li><strong>Scored test cases.</strong> Claude Code only reads them from inside the plugin, so they live in <code>flightdeck/evals/</code> (the plan's own fallback). PR 6's two cases scored 1.00. PR 3's and PR 7's load but scored 0 in about 15 seconds, which is captured to look at. Two cases need a sandbox this machine does not have.</li>
+    <li><strong>Captured work.</strong> The agents captured 23 follow-ups in <code>.flightdeck/workshops.md</code> (on PR 1's branch) under their own heading, each one plain sentence; with the made-up demo task, the card shows 24 waiting to start. They are waiting for you to activate, fold into other work, or delete. The build's lessons for next time are in build-1's <code>context.md</code>.</li>
+    <li><strong>Usage.</strong> Building took about 13.4 million subagent tokens across about 103 agents (planning took about 7.4 million more). Nothing ran above Opus at high effort.</li>
+  </ul>
+
+  <h2>Four questions for you</h2>
+  <p>None blocks anything. Each has my recommended answer marked; answer when you have tried the part it is about.</p>
+
+  <div class="q" data-q="q1">
+    <h3>q1. Is this reading right: a workshop is the place, a launch is one run of agents from it, an attempt is what a launch leaves behind?</h3>
+    <p class="why">You asked to be asked again after trying PR 3 (workshops) and PR 4 (launches).</p>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a) yes, keep this reading"><span>a) Yes, keep this reading <span class="rec">recommended</span></span></label>
+      <label><input type="radio" name="q1" value="b) change it"><span>b) Change it (say how in the note)</span></label>
+    </div>
+    <input type="text" id="q1-note" aria-label="Note for q1" placeholder="Note (optional)">
+  </div>
+
+  <div class="q" data-q="q2">
+    <h3>q2. Should the status band show only the questions waiting on you, or keep all three parts?</h3>
+    <p class="why">The imposter found "questions waiting on you" the only useful number; the captured count read as a nagging backlog. Answer after trying PR 8.</p>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a) keep all three parts"><span>a) Keep all three parts as built <span class="rec">recommended for now</span></span></label>
+      <label><input type="radio" name="q2" value="b) active count and questions only"><span>b) Keep the active count and questions; drop the captured count and the "latest" label</span></label>
+      <label><input type="radio" name="q2" value="c) only questions, hidden at 0"><span>c) Show only "N questions waiting on you", and hide the band when it is 0</span></label>
+    </div>
+    <input type="text" id="q2-note" aria-label="Note for q2" placeholder="Note (optional)">
+  </div>
+
+  <div class="q" data-q="q3">
+    <h3>q3. When you say "launch X" in a plain chat and X is only captured, should Claude make its folder for you?</h3>
+    <p class="why">In a live check, a plain chat told "launch demo-attempt-age" made the folder and five files instead of starting a launch.</p>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a) no, only 'activate X' makes a folder"><span>a) No: only "activate X" makes a folder; "launch X" says to activate it first <span class="rec">recommended</span></span></label>
+      <label><input type="radio" name="q3" value="b) yes, 'launch X' also activates it"><span>b) Yes: "launch X" counts as activating it, and nothing more starts until you say go</span></label>
+    </div>
+    <input type="text" id="q3-note" aria-label="Note for q3" placeholder="Note (optional)">
+  </div>
+
+  <div class="q" data-q="q4">
+    <h3>q4. When you skip an interview question, should the agent take its recommended answer or keep it open?</h3>
+    <p class="why">The plan says a skipped question stays open and is never guessed, so you would be asked again.</p>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a) a skip stays open; 'you decide' takes the recommendation"><span>a) Keep as planned: a skip stays open; typing "you decide" takes the recommendation</span></label>
+      <label><input type="radio" name="q4" value="b) a skip means 'you decide'"><span>b) A skip means "you decide": take the recommendation and mark it as decided by the agent</span></label>
+      <label><input type="radio" name="q4" value="c) a one-click 'you decide' option, and a skip stays open"><span>c) Every question gets a one-click "you decide" option, and a skip stays open <span class="rec">recommended</span></span></label>
+    </div>
+    <input type="text" id="q4-note" aria-label="Note for q4" placeholder="Note (optional)">
+  </div>
+
+  <h2 id="answer">Your answer</h2>
+  <p>Mark what you did with each pull request and anything you want changed. Unmarked items are left out of the reply. Press "Copy my answer" and paste it to me.</p>
+  <div id="prs"></div>
+  <label class="label" for="other" style="margin-top:14px">Anything else</label>
+  <textarea id="other" rows="3"></textarea>
+  <p style="margin-top:12px"><button type="button" class="primary" id="copy-reply">Copy my answer</button><span class="toast" id="toast" hidden>Copied</span></p>
+  <textarea id="reply" readonly aria-label="Your reply"></textarea>
+
+  <p class="foot">Made by the Captain of build-1 on 2026-10-11 from the build records in <code>.flightdeck/build-1/attempts/</code>. The questions are also filed in <code>.flightdeck/build-1/questions.md</code> on PR 1's branch.</p>
+</div>
+
+<script>
+(function () {
+  var PRS = [[1, 'Basic flight crew'], [2, 'Flight board'], [3, 'Workshops'], [4, 'Launches'], [6, 'Laboratory'], [7, 'Manuals and library'], [8, 'Status band']];
+  var CHOICES = ['merged', 'liked, not merged yet', 'retry', 'closed'];
+  var box = document.getElementById('prs');
+  PRS.forEach(function (p) {
+    var row = document.createElement('div');
+    row.className = 'prrow';
+    var html = '<strong>PR ' + p[0] + ': ' + p[1] + '</strong>';
+    CHOICES.forEach(function (c, i) {
+      html += '<label><input type="radio" name="pr' + p[0] + '" value="' + c + '" id="pr' + p[0] + '-' + i + '"> ' + c + '</label>';
+    });
+    html += '<input type="text" id="pr' + p[0] + '-note" aria-label="Note for PR ' + p[0] + '" placeholder="What to change (optional)">';
+    row.innerHTML = html;
+    box.appendChild(row);
+  });
+
+  function picked(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+  function build() {
+    var lines = ['FlightDeck build-1 landing reply (build attempt 1)'];
+    PRS.forEach(function (p) {
+      var c = picked('pr' + p[0]), n = val('pr' + p[0] + '-note');
+      if (c || n) lines.push('PR ' + p[0] + ': ' + (c || 'no choice') + (n ? ' | note: ' + n : ''));
+    });
+    ['q1', 'q2', 'q3', 'q4'].forEach(function (q) {
+      var c = picked(q), n = val(q + '-note');
+      if (c || n) lines.push(q + ': ' + (c || '(unanswered)') + (n ? ' | note: ' + n : ''));
+    });
+    var o = val('other');
+    lines.push('Other: ' + (o || 'none'));
+    return lines.join('\n');
+  }
+  function refresh() {
+    var text = build();
+    document.getElementById('reply').value = text;
+    try { localStorage.setItem('fd-build1-landing', JSON.stringify(snapshot())); } catch (e) {}
+  }
+  function snapshot() {
+    var s = {};
+    document.querySelectorAll('input[type=radio]:checked').forEach(function (el) { s[el.name] = el.value; });
+    document.querySelectorAll('input[type=text], #other').forEach(function (el) { s['#' + el.id] = el.value; });
+    return s;
+  }
+  function restore() {
+    var s;
+    try { s = JSON.parse(localStorage.getItem('fd-build1-landing') || 'null'); } catch (e) { s = null; }
+    if (!s) return;
+    Object.keys(s).forEach(function (k) {
+      if (k.charAt(0) === '#') { var el = document.getElementById(k.slice(1)); if (el) el.value = s[k]; }
+      else document.querySelectorAll('input[name="' + k + '"]').forEach(function (el) { if (el.value === s[k]) el.checked = true; });
+    });
+  }
+  document.addEventListener('input', refresh);
+  document.addEventListener('change', refresh);
+  restore();
+  refresh();
+
+  function copyText(text, el, done) {
+    function fallback() {
+      if (el && el.select) { el.focus(); el.select(); }
+      else if (el) { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else fallback();
+  }
+  document.getElementById('copy-reply').addEventListener('click', function () {
+    var t = document.getElementById('toast');
+    copyText(build(), document.getElementById('reply'), function () { t.hidden = false; setTimeout(function () { t.hidden = true; }, 1600); });
+  });
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var pre = b.parentNode.querySelector('pre');
+      copyText(pre.textContent, pre, function () { var old = b.textContent; b.textContent = 'Copied'; setTimeout(function () { b.textContent = old; }, 1400); });
+    });
+  });
+})();
+</script>

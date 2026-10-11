@@ -25,3 +25,14 @@ Written by the lead (Captain of the build run) on 2026-10-11, after the owner's 
 ## Landing
 
 - After all pull requests are built, one landing page `.flightdeck/build-1/attempts/build-a1.html` covers them all: one card per pull request with what it adds, its try steps, results, open findings and how to retry it alone. Questions and capture lines that triage raised on later pull requests are added to PR 1's branch, which owns `.flightdeck/build-1/questions.md` and `.flightdeck/workshops.md`.
+
+## What happened during the build
+
+- PR 1 was built first (16 agents), then PRs 2, 3, 4, 6, 7 and 8 were built as six workflows side by side (13 to 15 agents each), about 103 agents and 13.4 million subagent tokens in all. All seven pull requests are open as drafts into `build-1` (#3 to #9); the landing page is `attempts/build-a1.html`.
+- Claude Code refused to let stage agents write `report.md` and `findings.md` ("Subagents should return findings as text, not write report files"). The agents did not work around it. `build.js` now returns that text, and the Captain wrote the files and opened each pull request.
+- A review agent set the main checkout's git remote to a throwaway local repository by working in a git worktree (worktrees share the main checkout's config) instead of a separate clone. For a short time some pushes went there. GitHub was never changed. The lead restored the remote and pushed the missing commits as fast-forwards; `build.js` and build-1's lessons now forbid it.
+- PR 7's librarian broke PR 1's "exactly seven agents" test. The test was wrong (the owner expects 30 or more agents); the lead fixed it on PR 1's branch and merged PR 1's branch into PR 7's.
+- Eval cases: PRs 4 and 6 put them in `flightdeck/evals/`, the plan's named fallback, because `claude plugin eval` reads cases only inside the plugin. The lead moved PRs 2, 3 and 7's cases there too, fixed PR 7's case format and PR 3's test path, and ran the cases once: PR 6's two scored 1.00, PR 3's and PR 7's scored 0.00 (captured to look at), and two need the operating-system sandbox.
+- Combined check: all seven branches merged together pass every test, both plugin checks, the hard rules, the sweep drill (21/21) and the remove-part drill (7/7).
+- Triage questions (q2 to q4), 21 capture lines and the build's lessons were filed on PR 1's branch, which owns those files.
+- The two deny rules in `nested-settings.json` that mixed `*` with `:*` were removed; `push-check.mjs` covers those cases.

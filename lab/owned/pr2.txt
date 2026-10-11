@@ -1,0 +1,25 @@
+# Files pull request 2 (Flight board) adds, edits or deletes, one per line.
+flightdeck/skills/board/SKILL.md
+flightdeck/skills/board/render.mjs
+flightdeck/skills/board/board.template.html
+flightdeck/skills/board/tests/render.test.mjs
+flightdeck/skills/board/tests/fixtures/.flightdeck/workshops.md
+flightdeck/skills/board/tests/fixtures/.flightdeck/cap-two.activate.md
+flightdeck/skills/board/tests/fixtures/.flightdeck/ws-nested/workshop.md
+flightdeck/skills/board/tests/fixtures/.flightdeck/ws-nested/questions.md
+flightdeck/skills/board/tests/fixtures/.flightdeck/ws-nested/attempts/pr-1/a1/report.md
+flightdeck/skills/board/tests/fixtures/.flightdeck/ws-nested/attempts/pr-1/a2/report.md
+flightdeck/skills/board/tests/fixtures/.flightdeck/ws-nested/attempts/plan/a3/brief.md
+flightdeck/skills/board/tests/fixtures/.flightdeck/ws-settled/workshop.md
+flightdeck/skills/board/tests/fixtures/.flightdeck/ws-settled/questions.md
+flightdeck/skills/page/SKILL.md
+flightdeck/skills/page/theme.css
+.flightdeck/.gitignore
+lab/evals/pr2-board-shows-waiting/prompt.md
+lab/evals/pr2-board-shows-waiting/graders/waiting.md
+lab/evals/pr2-board-shows-waiting/graders/questions.md
+lab/owned/pr2.txt
+.flightdeck/build-1/attempts/pr-2/a1/brief.md
+.flightdeck/build-1/attempts/pr-2/a1/findings.md
+.flightdeck/build-1/attempts/pr-2/a1/report.md
+.flightdeck/build-1/attempts/pr-2/a1/log.md

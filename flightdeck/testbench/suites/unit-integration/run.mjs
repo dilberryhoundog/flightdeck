@@ -1,9 +1,9 @@
-// testbench/suites/unit-integration/run.mjs — the integration unit's own suite (spec I13, B38, B9): MANIFEST.txt covers every file the system ships rather than only the paths the manifest suite names, it lists no run output, and the gate modules the stop-gate hook loads carry the interface the hook calls.
-// Usage: node flightdeck/testbench/suites/unit-integration/run.mjs; exit 0 when every case passes, 2 otherwise. The repository is only read.
+// testbench/suites/unit-integration/run.mjs — the integration unit's own suite (spec I13, B38, B9): MANIFEST.txt covers every file the system ships rather than only the paths the manifest suite names, it lists no run output, and the gate modules the stop-gate hook loads carry the interface the hook calls; each of the three gates, run from the command line against a temporary sample launch, exits as its usage line states.
+// Usage: node flightdeck/testbench/suites/unit-integration/run.mjs; exit 0 when every case passes, 2 otherwise. The repository is only read; the gates run in temporary repositories.
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { suite, REPO, FD, readText, exists, assert, assertEq } from '../../lib/suite-lib.mjs';
+import { suite, mkActiveLaunch, sh, REPO, FD, readJson, writeJson, readText, writeText, exists, assert, assertEq, assertExit, assertMatch } from '../../lib/suite-lib.mjs';
 
 const MANIFEST = path.join(FD, 'flightcrew', 'MANIFEST.txt');
 const SHIPPED_DIRS = ['flightcrew', 'launch', 'manuals', 'testbench'];
@@ -56,7 +56,105 @@ function entries() {
     .filter((line) => line !== '' && !line.startsWith('#'));
 }
 
-await suite('unit-integration', [
+// ── the gates from the command line ──────────────────────────────────────────
+const GATES_DIR = path.join(FD, 'flightcrew', 'checks', 'gates');
+const MAP_REL = path.join('specs', 'export-html', 'tests-map.v1.json');
+const q = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
+
+/** The sample launch in the given phase, its base and lock commits pinned to the temporary repository's HEAD so fc boundary has a real base. */
+function gateLaunch(phase) {
+  const L = mkActiveLaunch();
+  const head = sh('git rev-parse HEAD', { cwd: L.root });
+  assertExit(head, 0, 'git rev-parse HEAD in the temporary repository');
+  const file = path.join(L.launchDir, 'launch.json');
+  const launch = readJson(file);
+  launch.phase = phase;
+  launch.base_commit = head.stdout.trim();
+  launch.lock_commit = head.stdout.trim();
+  writeJson(file, launch);
+  return L;
+}
+
+/** Rewrites one check's command in the launch's pinned tests map. */
+function setCheck(L, id, command) {
+  const file = path.join(L.launchDir, MAP_REL);
+  const map = readJson(file);
+  const check = map.checks.find((c) => c.id === id);
+  assert(check, `the pinned sample map carries ${id}`);
+  check.command = command;
+  writeJson(file, map);
+}
+
+/** Runs one gate script as a child process in the launch's root, the launch selected through FLIGHTCREW_LAUNCH. */
+function runGate(L, name, args = []) {
+  const script = path.join(GATES_DIR, `${name}.mjs`);
+  const r = sh([process.execPath, script, ...args].map(q).join(' '), { cwd: L.root, env: { ...L.env, FLIGHTCREW_LAUNCH: L.launch } });
+  return { ...r, out: `${r.stdout}${r.stderr}` };
+}
+
+const gateCases = [
+  {
+    id: 'flightdeck/flightcrew/checks/gates/acceptance-gate.mjs exits 0 when the acceptance check passes',
+    fn: () => {
+      const r = runGate(gateLaunch('verify'), 'acceptance-gate');
+      assertExit(r, 0, 'acceptance gate on the shipped sample launch, whose T1 passes');
+      assertMatch(r.stdout, /^acceptance gate: T1 pass$/m, 'the gate reports T1 pass');
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/gates/acceptance-gate.mjs exits 2 when the acceptance check fails',
+    fn: () => {
+      const L = gateLaunch('verify');
+      setCheck(L, 'T1', 'sh -c "echo smoke broken; exit 3"');
+      const r = runGate(L, 'acceptance-gate');
+      assertExit(r, 2, 'acceptance gate with a red T1');
+      assertMatch(r.stderr, /^T1 exit 3$/m, 'the gate names the check and its exit code');
+      assertMatch(r.stderr, /smoke broken/, 'the gate carries the check output');
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/gates/contracts-gate.mjs exits 0 when the contracts unit check passes and the boundary is clean',
+    fn: () => {
+      const r = runGate(gateLaunch('contracts'), 'contracts-gate');
+      assertExit(r, 0, 'contracts gate on the shipped sample launch, whose contracts unit checks T3');
+      assertMatch(r.stdout, /^contracts gate: T3 pass$/m, 'the gate reports T3 pass');
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/gates/contracts-gate.mjs exits 2 when the contracts unit check fails while its baseline expects a pass',
+    fn: () => {
+      const L = gateLaunch('contracts');
+      setCheck(L, 'T3', 'sh -c "echo contract broken; exit 4"');
+      const r = runGate(L, 'contracts-gate');
+      assertExit(r, 2, 'contracts gate with a red T3 whose baseline expects pass');
+      assertMatch(r.stderr, /^T3 exit 4$/m, 'the gate names the check and its exit code');
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/gates/structural-gate.mjs exits 0 on a JSON file that parses',
+    fn: () => {
+      const L = gateLaunch('implement');
+      const file = path.join(L.root, 'data', 'sound.json');
+      writeText(file, '{ "pages": 3 }\n');
+      const r = runGate(L, 'structural-gate', [file]);
+      assertExit(r, 0, 'structural gate on a JSON file that parses');
+      assertMatch(r.stdout, /^structural gate: sound\.json parses$/m, 'the gate reports the file parses');
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/gates/structural-gate.mjs exits 2 on a JSON file that does not parse',
+    fn: () => {
+      const L = gateLaunch('implement');
+      const file = path.join(L.root, 'data', 'broken.json');
+      writeText(file, '{ "pages": 3,\n');
+      const r = runGate(L, 'structural-gate', [file]);
+      assertExit(r, 2, 'structural gate on a JSON file that does not parse');
+      assertMatch(r.stderr, /JSON/, 'the gate carries the parse error of the launch structural command');
+    },
+  },
+];
+
+await suite({ name: 'unit-integration', covers: ['B1', 'B2'] }, [
   {
     id: 'every-shipped-file-is-listed-in-the-manifest',
     covers: ['I13'],
@@ -106,4 +204,5 @@ await suite('unit-integration', [
       assertEq(problems, [], 'MANIFEST.txt lines escaping the repository root');
     },
   },
+  ...gateCases,
 ]);

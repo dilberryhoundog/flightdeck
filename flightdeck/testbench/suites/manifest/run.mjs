@@ -78,7 +78,7 @@ function entries() {
     .map((l) => l.trim());
 }
 
-await suite('manifest', [
+await suite({ name: 'manifest', covers: ['B1', 'B2'] }, [
   {
     id: 'manifest-exists-with-path-lines',
     covers: ['I13'],

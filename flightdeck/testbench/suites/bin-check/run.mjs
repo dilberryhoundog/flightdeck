@@ -102,7 +102,7 @@ function schemaProblems(schema, doc) {
 }
 
 // ── cases ────────────────────────────────────────────────────────────────────
-await suite('bin-check', [
+await suite({ name: 'bin-check', covers: ['B1', 'B2'] }, [
   {
     id: 'check-all-runs-every-live-check-and-exits-0',
     covers: ['B12', 'I6'],

@@ -45,7 +45,7 @@ function firstHook(settings) {
   return { event, command, name: path.basename(command.split(/\s+/).pop().replace(/["']/g, ''), '.mjs') };
 }
 
-await suite('bin-doctor', [
+await suite({ name: 'bin-doctor', covers: ['B1', 'B2'] }, [
   {
     id: 'doctor-passes-on-the-repository',
     covers: ['B30'],

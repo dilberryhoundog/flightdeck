@@ -36,7 +36,7 @@ function section(text, heading) {
   return rest.slice(0, end === -1 ? rest.length : end);
 }
 
-await suite('bin-plan', [
+await suite({ name: 'bin-plan', covers: ['B1', 'B2'] }, [
   {
     id: 'render-writes-headings-in-order',
     covers: ['B21'],

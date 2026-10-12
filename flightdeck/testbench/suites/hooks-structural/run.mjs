@@ -245,4 +245,4 @@ cases.push({
   },
 });
 
-await suite('hooks-structural', cases);
+await suite({ name: 'hooks-structural', covers: ['B1', 'B2'] }, cases);

@@ -133,6 +133,7 @@ flightdeck/launch/specs/flightcrew-v1/tests-map.v1.json
 flightdeck/launch/specs/flightcrew-v1/tests-map.v2.json
 flightdeck/launch/specs/flightcrew-v1/design.md
 flightdeck/launch/specs/flightcrew-characterization/tests-map.v1.json
+flightdeck/launch/specs/flightcrew-characterization/spec.v1.json
 
 # ── launch: this system's own first run; its evidence and events are not listed
 # because they are rewritten every time a command runs.
@@ -149,6 +150,7 @@ flightdeck/testbench/README.md
 flightdeck/testbench/run-all.mjs
 flightdeck/testbench/runs/.gitignore
 flightdeck/testbench/lib/suite-lib.mjs
+flightdeck/testbench/case-map.json
 flightdeck/testbench/fixtures/sample-project/README.md
 flightdeck/testbench/fixtures/sample-project/scripts/export-invariants.mjs
 flightdeck/testbench/fixtures/sample-project/scripts/export-smoke.mjs
@@ -195,12 +197,14 @@ flightdeck/testbench/suites/hooks-eventlog/run.mjs
 flightdeck/testbench/suites/hooks-guards/run.mjs
 flightdeck/testbench/suites/hooks-structural/run.mjs
 flightdeck/testbench/suites/hooks-stopgate/run.mjs
+flightdeck/testbench/suites/hooks-decisions/run.mjs
 flightdeck/testbench/suites/bin-check/run.mjs
 flightdeck/testbench/suites/bin-boundary/run.mjs
 flightdeck/testbench/suites/bin-report/run.mjs
 flightdeck/testbench/suites/bin-evidence/run.mjs
 flightdeck/testbench/suites/bin-runlog/run.mjs
 flightdeck/testbench/suites/bin-plan/run.mjs
+flightdeck/testbench/suites/sub-commands/run.mjs
 flightdeck/testbench/suites/validate-spec/run.mjs
 flightdeck/testbench/suites/validate-spec/cases.mjs
 flightdeck/testbench/suites/validate-spec/README.md
@@ -223,6 +227,7 @@ flightdeck/testbench/suites/hook-timing/run.mjs
 flightdeck/testbench/suites/schemas/run.mjs
 flightdeck/testbench/suites/schemas/mini-schema.mjs
 flightdeck/testbench/suites/templates/run.mjs
+flightdeck/testbench/suites/templates-slots/run.mjs
 flightdeck/testbench/suites/manifest/run.mjs
 flightdeck/testbench/suites/workflows/run.mjs
 flightdeck/testbench/suites/workflows/extract.mjs
@@ -360,5 +365,6 @@ flightdeck/manuals/spec/spec-conventions.md
 flightdeck/manuals/spec/verification-addendum.md
 flightdeck/manuals/testing/testing-description.md
 flightdeck/manuals/testing/testing-conventions.md
+flightdeck/manuals/testing/rubric-guide.md
 flightdeck/manuals/versioning/spec-versioning.md
 flightdeck/manuals/versioning/tests-map-versioning.md

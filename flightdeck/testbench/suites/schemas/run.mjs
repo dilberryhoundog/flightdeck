@@ -4,7 +4,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { suite, mkActiveLaunch, fc, FIXTURES, SCHEMAS, HOOKS, CREW, readJson, writeJson, readText, exists, assert, assertExit, assertEq } from '../../lib/suite-lib.mjs';
+import { suite, mkActiveLaunch, fc, sh, tmp, copyDir, FD, FIXTURES, SCHEMAS, HOOKS, CREW, readJson, writeJson, readText, exists, assert, assertExit, assertEq } from '../../lib/suite-lib.mjs';
 import { validate } from './mini-schema.mjs';
 
 const SAMPLE_LAUNCH = path.join(FIXTURES, 'sample-launch');
@@ -105,7 +105,67 @@ function validateReturn(L, rel, kind) {
   return fc(['validate', 'return', path.join(L.launchDir, rel), '--kind', kind], { cwd: L.root, env: { ...L.env, FLIGHTCREW_LAUNCH: L.launch } });
 }
 
-await suite('schemas', [
+
+// ── each schema's top-level required, as the flightcrew validator that reads the schema enforces it ──────────
+const VALIDATORS = path.join(FD, 'flightcrew', 'checks', 'validators');
+const VALIDATE_RETURN = path.join(VALIDATORS, 'validate-return.mjs');
+const q = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
+
+/** Runs a flightcrew validator script as a child process. Returns { code, stdout, stderr, out }. */
+function runScript(script, args, cwd) {
+  const r = sh([process.execPath, script, ...args].map(q).join(' '), { cwd });
+  return { ...r, out: `${r.stdout}${r.stderr}` };
+}
+
+function lastLines(text, n = 5) {
+  return String(text ?? '').split('\n').filter((l) => l.trim() !== '').slice(-n).join(' / ') || '(no output)';
+}
+
+/** A private copy of the sample launch folder, so a document can be rewritten beside the files its validator resolves. */
+function launchCopy() {
+  return copyDir(SAMPLE_LAUNCH, path.join(tmp('schemas-required'), 'flightdeck', 'launch', 'export-html-1'));
+}
+
+/**
+ * One row per schema: the schema, a top-level field it lists under required, the document of the sample launch that
+ * carries the field, and the validator run that reads the schema. event.schema.json and check-result.schema.json are
+ * read by no validator of their own, so validate-return.mjs reads them through its documented --schema flag.
+ */
+const REQUIRED_ROWS = [
+  { schema: 'launch.schema.json', field: 'ended', doc: 'launch.json', script: 'validate-launch.mjs', args: () => [] },
+  { schema: 'plan.schema.json', field: 'risks', doc: 'plan.json', script: 'validate-plan.mjs', args: () => [] },
+  { schema: 'spec.schema.json', field: 'open_questions', doc: 'specs/export-html/spec.v1.json', script: 'validate-spec.mjs', args: () => [] },
+  { schema: 'tests-map.schema.json', field: 'fixture', doc: 'specs/export-html/tests-map.v1.json', script: 'validate-tests-map.mjs', args: () => [] },
+  { schema: 'worker-return.schema.json', field: 'notes', doc: 'returns/U1.json', script: 'validate-return.mjs', args: () => ['--kind', 'worker'] },
+  { schema: 'explorer-return.schema.json', field: 'candidates', doc: 'returns/explore-X1.json', script: 'validate-return.mjs', args: () => ['--kind', 'explorer'] },
+  { schema: 'verifier-verdict.schema.json', field: 'unverified', doc: 'returns/verify-1.json', script: 'validate-return.mjs', args: () => ['--kind', 'verifier'] },
+  { schema: 'critic-findings.schema.json', field: 'findings', doc: 'review/pass-1.json', script: 'validate-return.mjs', args: () => ['--kind', 'critic'] },
+  { schema: 'event.schema.json', field: 'source', doc: 'event-line.json', script: 'validate-return.mjs', args: () => ['--kind', 'worker', '--schema', path.join(SCHEMAS, 'event.schema.json')] },
+  { schema: 'check-result.schema.json', field: 'covers', doc: 'evidence/T1.json', script: 'validate-return.mjs', args: () => ['--kind', 'worker', '--schema', path.join(SCHEMAS, 'check-result.schema.json')] },
+];
+
+function requiredCase(row) {
+  return {
+    id: `flightdeck/flightcrew/schemas/${row.schema} lists ${row.field} as required and ${row.script} refuses a document without it`,
+    fn: async () => {
+      const dir = launchCopy();
+      const file = path.join(dir, row.doc);
+      if (row.doc === 'event-line.json') writeJson(file, firstEvent());
+      const doc = readJson(file);
+      assert(Object.prototype.hasOwnProperty.call(doc, row.field), `the sample ${row.doc} carries no ${row.field}`);
+      const missing = new RegExp(`^error: \\$ lacks required ${row.field} — \\[required\\]\\s*$`, 'm');
+      const whole = runScript(path.join(VALIDATORS, row.script), [file, ...row.args()], dir);
+      assert(!missing.test(whole.out), `${row.script} reports ${row.field} missing on the whole document: ${lastLines(whole.out)}`);
+      delete doc[row.field];
+      writeJson(file, doc);
+      const without = runScript(path.join(VALIDATORS, row.script), [file, ...row.args()], dir);
+      assertExit(without, 2, `${row.script} on ${row.doc} without ${row.field}`);
+      assert(missing.test(without.out), `${row.script} exited 2 but printed no 'error: $ lacks required ${row.field} — [required]' line: ${lastLines(without.out)}`);
+    },
+  };
+}
+
+await suite({ name: 'schemas', covers: ['B1', 'B2'] }, [
   ...SCHEMA_FILES.map(([name, node]) => ({
     id: `${name.replace('.schema.json', '')}-schema-parses`,
     covers: [node],
@@ -512,6 +572,29 @@ await suite('schemas', [
       for (const literal of DENY_LITERALS) assert(deny.includes(literal), `permissions.deny lacks ${literal}`);
       const sandboxDeny = frag._sandbox_example?.filesystem?.deny;
       assert(Array.isArray(sandboxDeny) && sandboxDeny.length > 0, '_sandbox_example.filesystem.deny is absent or empty');
+    },
+  },
+  ...REQUIRED_ROWS.map(requiredCase),
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-return.mjs exits 0 on the sample worker return',
+    fn: async () => {
+      const dir = launchCopy();
+      const result = runScript(VALIDATE_RETURN, [path.join(dir, 'returns', 'U1.json')], dir);
+      assertExit(result, 0, 'validate-return.mjs on returns/U1.json, its kind implied by the stored path');
+      assert(/^ok: U1\.json is a valid worker return$/m.test(result.out), `no ok line naming the worker kind: ${lastLines(result.out)}`);
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-return.mjs exits 2 on a worker return whose status is outside the enumeration',
+    fn: async () => {
+      const dir = launchCopy();
+      const file = path.join(dir, 'returns', 'U1.json');
+      const doc = readJson(file);
+      doc.status = 'amber';
+      writeJson(file, doc);
+      const result = runScript(VALIDATE_RETURN, [file], dir);
+      assertExit(result, 2, 'validate-return.mjs on a worker return with status amber');
+      assert(/^error: .*status.* — \[enum\]\s*$/m.test(result.out), `no enum error line naming status: ${lastLines(result.out)}`);
     },
   },
 ]);

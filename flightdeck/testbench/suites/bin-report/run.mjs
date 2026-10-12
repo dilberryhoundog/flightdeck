@@ -74,7 +74,7 @@ function firstRow(lines) {
 }
 
 // ── cases ────────────────────────────────────────────────────────────────────
-await suite('bin-report', [
+await suite({ name: 'bin-report', covers: ['B1', 'B2'] }, [
   {
     id: 'report-has-the-eight-headings-in-order',
     covers: ['B17', 'I12'],

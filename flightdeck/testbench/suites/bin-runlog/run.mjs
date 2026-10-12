@@ -107,7 +107,7 @@ function assertDiagnosisFields(lines) {
   for (const name of ['seen on', 'cause', 'fixed on', 'change', 'watch']) assertFill(lines, name);
 }
 
-await suite('bin-runlog', [
+await suite({ name: 'bin-runlog', covers: ['B1', 'B2'] }, [
   {
     id: 'stub-creates-run-log-with-accepted-entry',
     covers: ['B20'],

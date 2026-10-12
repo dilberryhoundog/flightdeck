@@ -54,7 +54,7 @@ function expectClean(result, what) {
   assert(errors.length === 0, `unexpected error lines on ${what}: ${tail(out)}`);
 }
 
-await suite('validate-launch', [
+await suite({ name: 'validate-launch', covers: ['B1', 'B2'] }, [
   {
     id: 'positive-sample-launch',
     covers: ['B25'],
@@ -168,6 +168,24 @@ await suite('validate-launch', [
       assertExit(result, 2, 'the sample launch\'s commits do not exist in a fresh repository, so --resolve-commits must exit 2');
       const { out, errors } = parse(result);
       assert(errors.length > 0, `no 'error: <message> — [<rule>]' line under --resolve-commits; output: ${tail(out)}`);
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-launch.mjs exits 0 on the sample launch',
+    fn: async () => {
+      const L = launchWith();
+      const result = validateScript(L);
+      expectClean(result, 'the sample launch, running the validator script as a child process');
+      assert(/^ok: launch\.json is a valid launch$/m.test(result.stdout), `no ok line on stdout: ${tail(result.stdout)}`);
+    },
+  },
+  {
+    id: 'flightdeck/flightcrew/checks/validators/validate-launch.mjs exits 2 on a launch past targets that enforces the boundary without a lock_commit',
+    fn: async () => {
+      const L = launchWith((lj) => { lj.lock_commit = null; });
+      const result = validateScript(L);
+      expectRefused(result, /lock_commit/, 'phase review with enforce_boundary true and no lock_commit, run through the validator script');
+      assert(/— \[launch-rule-3\]\s*$/m.test(result.stderr), `no launch-rule-3 error line on stderr: ${tail(result.stderr)}`);
     },
   },
 ]);
